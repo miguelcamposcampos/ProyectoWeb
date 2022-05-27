@@ -1,0 +1,139 @@
+
+ 
+// .login-body2{ 
+
+
+//     height: 100vh;
+//     justify-content: center;
+//     background-image: url("/src/assets/layout/images/fondo-login.jpg");  
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-size: cover;
+//     display: flex;
+//     align-items: center;
+
+
+   // height: 100vh;
+    
+    // .login-wrapper2{ 
+    //     height: 100vh;
+     
+
+    //     .login-panel2{
+    //         width: 30%; 
+    //         text-align: center;
+    //         padding: 40px 20px;
+    //         display: -ms-flexbox;
+    //         display: flex;
+    //         -ms-flex-align: center;
+    //         align-items: center;
+    //         -ms-flex-pack: justify;
+    //         justify-content: space-between;
+    //         -ms-flex-direction: column;
+    //         flex-direction: column;
+    //     } 
+    // } 
+//}
+
+// @media(max-width:992px) {
+//     .login-body2 {
+//         .login-wrapper {
+//             .login-panel2 {
+//                 width: 100%;
+//             }
+//         }
+//     }
+// }
+
+
+ 
+
+// .modalRecuperacion{
+//     margin: 3%;
+//     display: grid;
+//     text-align: center; 
+//     input {
+//         margin: 0;
+//         font-weight: bold;
+//         text-align: center;
+//     }
+// }
+ 
+ 
+
+.login{  
+    height: 100vh;
+    justify-content: center; 
+    display: flex;
+    align-items: center;
+} 
+
+
+.imgFondo{
+    z-index: -1; 
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover; /* Usamos cover para que nuestra imagen no se deforme al adaptarse a cada pantalla */
+    background-position: center; /* Para centrar la imagen horizontal y verticalmente en el contenedor */
+    background-repeat: no-repeat; /* Para que no repita la imagen */
+}
+
+
+
+.Formlogin{  
+
+    .textoRegistrar{
+        text-align: center;
+        color: white !important;  
+    }
+
+}
+
+.card{
+    box-shadow: 0 0 2px black !important;
+    border-radius: 5%;
+    text-align: center;
+    span{
+        color: #147DBA; 
+    } 
+
+    img{
+        padding: 6%;
+        width: 25%;
+    }
+}
+ 
+.tituloLogin{ 
+    padding-top: 4%;
+    padding-bottom: 40%;
+    text-align: center;
+    display: block;
+    margin-left: 5%;
+    margin-right: 5%;
+
+
+    h2{
+        font-weight: bold;
+        font-family: inherit;
+        font-size: 1.5em;
+        color: #D72250;
+    } 
+}
+ 
+.formulario{ 
+    input {
+        margin: 0; 
+        border-color: #147DBA;
+        border-radius: 10px; 
+        width: 100%;
+        margin: 2%;
+    }
+ 
+    .botonIngresar{
+        color: white;
+        background-color: orange;
+        height: 25px;
+    }
+}
+

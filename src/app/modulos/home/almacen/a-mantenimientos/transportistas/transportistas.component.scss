@@ -1,0 +1,23 @@
+
+.exception-body.access-page { 
+  background: gainsboro;
+}
+  
+.ramasTable{
+  box-shadow: 0 0 5px black !important;
+  margin: 1%;
+  display: flex;
+}
+
+.titulorama{
+  margin: 2%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: baseline;
+
+  @media (max-width: 700px){
+    display: grid;
+    justify-content: center;
+  }
+}

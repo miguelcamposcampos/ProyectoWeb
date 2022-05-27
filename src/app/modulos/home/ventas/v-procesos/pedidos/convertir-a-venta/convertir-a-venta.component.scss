@@ -1,0 +1,153 @@
+
+ 
+  
+  .formulario{
+      display: grid;
+      grid-gap: 1rem;
+      gap: 1rem;
+      grid-auto-rows: auto;
+      grid-template-columns: 10rem 1fr;   
+      align-items: center;
+      @media (max-width: 800px) {  
+         grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      }
+   }
+  
+   
+   .totalesResumen{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+  }
+  
+  
+  .formImprimir{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+  }
+  
+  
+  
+  .totalaMostrar{ 
+    font-size: 15px;
+    text-align: center;
+  }
+   
+   
+   .InputCombinadoBuscar{
+      display: grid;
+      grid-template-columns:  1fr 60px 25px; 
+   }
+   
+   .InputCombinado{
+     display: grid;
+     gap: 1%;
+     grid-template-columns:  1fr 150px 150px;
+  
+     @media (max-width: 700px) {  
+        display: block
+     }
+  }
+   
+   
+  .InputCombinado2{
+    display: grid;
+    gap: 1%;
+    grid-template-columns: 150px 1fr 30px 30px;
+    @media (max-width: 700px) {  
+     display: flex;
+   } 
+  }
+  
+ 
+  
+  .formulario ::ng-deep input:required > strong::after{
+    content:" *";   
+    color: black;
+  }
+  
+  .pintarOver{
+    display: flex;
+    justify-content: center;
+    background-color: #1B74C5;
+    color: white;
+  }
+  
+ 
+ 
+  
+  .importes{  
+    display: grid;
+    grid-gap: 1%;
+    gap: 1%;
+    grid-template-columns: 120px 80px 30px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+  
+   
+   
+  .BotonCondiciondePago{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    margin: 3%;
+  }
+  
+   
+  .TablaDetalleCondicionPago ::ng-deep .p-calendar  {
+    justify-content: left;
+    width: 130px;
+  }
+  
+  .TablaDetalleCondicionPago ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+    flex: none;
+  }
+  
+  .TablaDetalleCondicionPago ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+    flex: 0 !important;
+  }
+  
+    tr > th{
+      justify-content: center;
+    }
+  
+    .TablaDetalleCondicionPago ::ng-deep .p-dropdown  {
+      justify-content: left;
+      width: 140px;
+    }
+    
+    
+    
+    .TablaDetalleCondicionPago ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+      padding-right: 1rem;
+      text-align: left !important;
+    }
+    
+    
+  
+    .formTabs{
+      display: grid;
+      grid-gap: 1rem;
+      gap: 1rem;
+      grid-auto-rows: auto;
+      grid-template-columns: 1fr 1fr 1fr;   
+      align-items: center;
+      @media (max-width: 800px) {  
+         grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      }
+   }

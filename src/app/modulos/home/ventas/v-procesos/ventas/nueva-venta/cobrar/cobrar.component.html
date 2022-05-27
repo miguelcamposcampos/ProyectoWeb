@@ -1,0 +1,136 @@
+<div class="Margintabla card">
+    <div [ngClass]="{'contenidoTable': !esModal, 'card': esModal }"> 
+        <div [ngClass]="{'reporteMovimiento' : !esModal, 'OcultarTitulo' : esModal }">  
+            <h3> <i class="fas fa-circle-dollar-to-slot"></i> COBRAR </h3> 
+        </div> 
+        <p-toast key="ToastExitoso"  position="top-right"></p-toast>
+            <form [formGroup]="Form">
+                <div class="p-col-12">  
+                    <div class="p-fluid p-formgrid p-grid"  formArrayName="arraycobranza">  
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>Forma Pago:</strong>
+                            <p-dropdown class="DropExtenso" [disabled]="bloquearComboFormaPago" (onChange)="onObtenerFormPago($event.value)" [options]="arrayFormasPago" formControlName="formapago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div> 
+
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>Nro Referencia:</strong>
+                            <input  type="text" pInputText formControlName="nroReferencia" class="p-inputtext-sm" placeholder="ingresar una referencia">     
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>Importe a Cobrar: {{  SaldoTotalaCobrar | currency:'s/. '}}</strong> 
+                            <div class="InputCombinado">  
+                                <input type="text" disabled formControlName="moneda" pInputText  class="p-inputtext-sm" placeholder="">   
+                                <input type="number" [min]="1" formControlName="importe" pInputText  class="p-inputtext-sm" placeholder="0.00">     
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>Fec.Cobranza:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechacobranza"
+                            ></p-calendar> 
+                        </div> 
+    
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>T. Cambio:</strong>
+                            <input type="number" pInputText  formControlName="tipoCambio" class="p-inputtext-sm" placeholder="0.00">     
+                        </div>
+    
+                        <div class="p-field p-col-12 p-md-3 p-sm-3 botonBuscar"> 
+                            <button type="button" pTooltip="Buscar" label="Agregar Cobranza"  [disabled]="bloquearBotonAgregarCobro" class="p-button-sm" tooltipPosition="left" (click)="onAgregarCobro()" pButton icon="fas fa-circle-dollar-to-slot"></button>      
+                        </div>
+                    </div>
+                </div> 
+               
+            </form>
+
+            <div> 
+                <div style="margin: 3%;">
+                    <p-table   
+                        class="TablaDetalleCondicionPago"
+                        [value]="arrayCobro"
+                        [scrollable]="true" 
+                        responsiveLayout="stack" >  
+                        <ng-template pTemplate="header">
+                            <tr> 
+                                <th style="width: 50px;" >N°</th>
+                                <th style="width: 150px;" >FormaPago</th>
+                                <th style="width: 160px;" >NroDocReferencia</th>
+                                <th style="width: 80px;" >Moneda</th> 
+                                <th style="width: 70px;" >Importe</th> 
+                                <th style="width: 70px;" >Accion</th>
+                            </tr>
+                        </ng-template> 
+            
+                        <ng-template pTemplate="body" let-detalles let-rowIndex="rowIndex" > 
+                            <tr>  
+                                <td>
+                                    <strong class="p-column-title">N°</strong> 
+                                    <span style="width: 40px;">{{rowIndex + 1 }} </span>
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">FormaPago</strong> 
+                                    <span style="width: 120px;">  {{detalles.formaPago}} </span> 
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">NroDocReferencia</strong>  
+                                    <span style="width: 150px;" > {{detalles.nroDocRef}}</span>
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">Moneda</strong> 
+                                    <span style="width: 70px;"> {{detalles.Moneda}} </span> 
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">Importe</strong> 
+                                    <span style="width: 70px;"> {{detalles.importe}} </span>
+                                </td> 
+                                <td>
+                                    <button  
+                                        class="p-button-sm p-button-rounded mx-2"
+                                        pButton 
+                                        type="button"
+                                        (click)="onEliminarCobranza(rowIndex)"
+                                        icon="pi pi-trash">  
+                                    </button>
+                                </td> 
+                            </tr>
+                        </ng-template>  
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <span>  No existen registros </span> 
+                            </tr>
+                        </ng-template> 
+                
+                    </p-table>  
+                </div> 
+            </div> 
+ 
+            <div class="botones">   
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-save"
+                    label="Grabar" 
+                    style="margin-right: 1%"
+                    (click)="onGrabar()">  
+                </button>  
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-arrow-circle-left"
+                    label="Regresar" 
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+        
+    </div>
+</div>

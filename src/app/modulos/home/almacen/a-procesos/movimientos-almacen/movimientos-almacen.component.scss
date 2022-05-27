@@ -1,0 +1,7 @@
+::ng-deep .BorrarLabel {
+    .p-button-label{
+      @media (max-width:900px) {
+        display: none !important;
+      }
+    }
+  }

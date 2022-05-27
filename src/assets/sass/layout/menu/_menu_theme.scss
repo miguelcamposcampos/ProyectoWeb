@@ -1,0 +1,105 @@
+.menu-wrapper {
+    background-color: #147DBA //$menuBgColor;
+    box-shadow: $menuShadow;
+ 
+    .layout-menu-container {
+
+        .layout-menu {
+            > li {
+                > div {
+                    .layout-menuitem-text {
+                        color: white //$rootMenuTextColor;
+                    }
+                }
+
+                 a {
+                    color: white //$rootMenuItemTextColor;
+
+                    i {
+                        color: $menuItemIconColor;
+                    }
+
+                    &:hover {
+                        background-color:   #147DBA  //$rootMenuItemHoverBgColor;
+                    }
+                }
+
+                &.active-menuitem {
+                    > a {
+                        color: white // $activeRootMenuItemTextColor;
+                    }
+                }
+
+                > ul {
+                    li {
+                        a {
+                            color: white; // $submenuItemTextColor;
+
+                            i {
+                                color: white; // $menuItemIconColor;
+                            }
+        
+                            &:hover {
+                                background-color:  #147DBA // $submenuItemHoverBgColor;
+                            }
+                        }
+
+                        &.active-menuitem {
+                            > a {
+                                background-color:  #147DBA;  //$submenuItemHoverBgColor;
+                                color: white; // $activeSubmenuItemTextColor;
+                            }
+                        }
+                    }
+
+                    > li {
+                        &.layout-root-menuitem {
+                            &.active-menuitem {
+                                background-color:  #147DBA; //$rootMenuItemHoverBgColor;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 993px) {
+    
+    @mixin extrenalSubmenuitem {
+        li {
+            > a {
+                color: white; //$rootMenuItemTextColor;
+
+                &:hover {
+                    background-color:  #147DBA; //$submenuItemHoverBgColor;
+                }
+            }
+
+            &.active-menuitem {
+                background-color: #147DBA; //$externalSubmenuBgColor;
+                > a {
+                    color: white; //$activeRootMenuItemTextColor;
+                }
+            }
+        }
+    }
+
+    &.layout-horizontal {
+        .menu-wrapper {
+            .layout-menu-container {
+                .layout-menu {
+                    > li {
+                        > ul {
+                            background-color: #147DBA //$externalSubmenuBgColor;
+                            box-shadow: $menuShadow;
+                            
+                            @include extrenalSubmenuitem;
+                        }
+                    }
+                } 
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+.formulario{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 10rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+ }
+ 
+ .InputCombinadoBuscar{
+    display: grid;
+    grid-template-columns:  1fr 70px 30px; 
+ }
+ 
+ .InputCombinado{
+   display: grid;
+   grid-template-columns:  1fr 150px 150px;
+   @media (max-width: 700px) {  
+      display: block
+   }
+}
+
+.InputArea{
+   height: 20px;
+}
+
+ 
+
+/*TablaDetalles*/
+
+
+.TablaDetalles ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+   justify-content: center;
+   border: 1px solid rgba(232, 241, 248, 0.7);
+   border-width: 0 0 1px 0;
+   padding: 0.3rem 0.3rem;
+ }
+  
+ .TablaDetalles ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+   flex: none;
+ }
+  
+   tr > th{
+     justify-content: center;
+   }
+ 
+ .TablaDetalles ::ng-deep .p-dropdown  {
+   justify-content: left;
+   width: 140px;
+ }
+ 
+ 
+ 
+ .TablaDetalles ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+   padding-right: 1rem;
+   text-align: left !important;
+ }
+ 
+ 
+ 

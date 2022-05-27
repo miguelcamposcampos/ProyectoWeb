@@ -1,0 +1,94 @@
+  
+.TablaDetalle ::ng-deep .p-calendar  {
+    justify-content: left;
+    width: 200px;
+}
+
+.TablaDetalle ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+    flex: none;
+}
+
+.TablaDetalle ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+    flex: 0 !important;
+}
+
+tr > th{
+    justify-content: center;
+    text-align: center;
+}
+
+.TablaDetalle ::ng-deep .p-dropdown  {
+    justify-content: left;
+    width: 120px;
+}
+
+ 
+.BotonesDetalle{
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  align-items: center;
+  gap: 5%;
+  margin: 1%;
+  @media (max-width: 800px) {  
+    display: block;  
+ }
+}
+
+.BotonAddDetalle{
+  display: grid;
+  grid-template-columns: 1fr 150px; 
+  align-items: center;
+  margin: 1%;
+  @media (max-width: 800px) {  
+    display: grid;
+    text-align: center;
+ }
+}
+
+.TotalesDetalle{
+  text-align: center;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  margin: 1%;
+  @media (max-width: 800px) {  
+    display: block;  
+    .Saldo{
+      text-align: center;
+    }
+ }
+}
+
+.IngSalDiv{
+  text-align: center;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  margin: 1%;
+  @media (max-width: 800px) {  
+    display: grid;
+    grid-template-columns: 50% 50%; 
+    margin-top: 5%;
+  }
+
+}
+
+.IngSal{
+  display: grid;
+  grid-auto-rows: auto;
+  align-items: center;
+  @media (max-width: 800px) {  
+    justify-content: center;
+  }
+}
+
+.TablaDetalle ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+    padding-right: 1rem;
+    text-align: left !important;
+}
+    
+.totalaMostrar{ 
+  font-size: 15px;
+  text-align: center;
+  border: dotted;
+}

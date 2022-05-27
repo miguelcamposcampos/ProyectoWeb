@@ -1,0 +1,37 @@
+<div class="MarginModal">
+    <div class="contenido card">
+        <form [formGroup]="Form">
+            <div class="stepsdemo-content">   
+                <div class="formulario">         
+                    <strong>Nombre *:</strong>
+                    <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombreMarca" class="p-inputtext-sm" placeholder="ingresar una marca">     
+                </div> 
+            </div>
+
+
+            <div class="botones">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style="margin-right: 1%;"
+                    [disabled]="Form.invalid"
+                    label="{{ (idMarcaEdit) ? 'Actualizar' : 'Guardar' }}"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+    
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style=" background-color: #D72250;"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+
+        </form>
+    </div>
+</div>

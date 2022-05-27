@@ -1,0 +1,183 @@
+<div *ngIf="!VistaNuevaVenta && !VistaNuevoPedido">
+    <div class="Margintabla"> 
+        <div class="contenidoTable card"> 
+            <form [formGroup]="FormBusqueda">
+                <!-- <div class="tituloVista">  
+                    <h3> <i class="fas fa-clipboard-list"></i> PEDIDOS </h3> 
+                    <p-splitButton  icon="pi pi-cog" appendTo="body" [model]="opcionesPedidos"></p-splitButton>     
+                </div> -->
+    
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <h3> <i class="fas fa-clipboard-list"></i> PEDIDOS </h3> 
+                    </div>
+                    
+                    <div class="p-toolbar-group-right"> 
+                        <button 
+                            class="BorrarLabel p-button-sm" 
+                            type="button" pTooltip="Agregar Nuevo Pedido" 
+                            tooltipPosition="top" (click)="onNuevo()"
+                            style="margin-right: 1%;"
+                            pButton
+                            label="Agregar" icon="pi pi-plus">
+                        </button> 
+                        <button class="BorrarLabel2 p-button-sm"
+                            type="button" pTooltip="Convertir a Venta" 
+                            pButton
+                            tooltipPosition="top" (click)="onConvertirVenta()"
+                            label="Convertir a Venta" icon="pi pi-plus">
+                        </button> 
+                    </div>
+                </p-toolbar>
+
+          
+
+
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicio"
+                            ></p-calendar> 
+                        </div> 
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFin"
+                            ></p-calendar> 
+                        </div> 
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <strong>Serie:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <strong>Correlativo:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                        </div>
+    
+                
+                        <div class="p-field p-col-12 p-md-10">
+                            <strong>Cliente</strong>  
+                            <div class="p-inputgroup">  
+                                <input type="text" readonly  formControlName="cliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
+                                <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBuscarCliente();" pButton pRipple icon="pi pi-search"></button>      
+                                <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton pRipple icon="pi pi-trash"></button>    
+                            </div>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-2 botonBuscar"> 
+                            <button pButton label="Buscar"  class="p-button-sm"  icon="pi pi-search" (click)="onLoadPedidos(null)"></button>
+                        </div>  
+                    </div> 
+                </div>  
+            </form>
+              
+            <p-table  
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="scroll"
+            selectionMode="single"
+            [rowHover]="true"
+            [paginator]="true" 
+            [rows]="10" 
+            (onRowSelect)="onSeleccionarFilaParaConvertiraVenta($event)"  
+            (onRowUnselect)="onQuitarFilaParaConvertiraVenta($event)" 
+            [value]="listadoPedidos">  
+
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-pedido let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="pedido" [pSelectableRowIndex]="rowIndex">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+    
+                            <div [ngSwitch]="col.field">    
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ pedido[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaEmision'">
+                                    {{ pedido[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaVencimiento'">
+                                    {{ pedido[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaEnvioSunat'">
+                                    {{ pedido[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchDefault>
+                                    {{ pedido[col.field]  }}
+                                </div>
+                            </div>  
+
+
+                            <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                <div style="display: flex;">
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        (click)="onEditar(pedido)"
+                                        style="margin-right :2%;" 
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        style=" background-color: #D72250;"
+                                        (click)="onEliminar(pedido)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template>
+
+                            
+
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">No existen registros</td>
+                    </tr>
+                    </ng-template> 
+            </p-table> 
+             
+        </div> 
+    </div>  
+</div>
+ 
+<app-convertir-a-venta *ngIf="VistaNuevaVenta" [dataVenta]="dataVenta" (cerrar)="onRetornar($event)"  ></app-convertir-a-venta> 
+<app-nuevo-pedido *ngIf="VistaNuevoPedido" [dataPedido]="dataPedido" (cerrar)="onRetornar($event)"  ></app-nuevo-pedido> 
+
+
+<div *ngIf="modalBuscarPersona">
+    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
+        <app-buscar-persona [dataPersona]="'Cliente'"  (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
+    </p-dialog> 
+</div>  

@@ -1,0 +1,167 @@
+<div *ngIf="!VistaNuevaGuiaRemision">
+    <div class="Margintabla">
+        <div class="contenidoTable card"> 
+            <!-- <div class="tituloVista">  
+                <h3> <i class="fas fa-file-signature"></i> GUIAS DE REMISION </h3>  
+                <div class="botonesTitulosVista">
+                    <button 
+                        pButton 
+                        type="button"
+                        tooltipPosition="top" 
+                        (click)="onNuevaGuiasRemision()"
+                        pTooltip="Agregar"  
+                        label="Agregar"
+                        class="p-button-sm"
+                        icon="pi pi-plus">
+                    </button>  
+                </div>
+            </div> -->
+
+
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fas fa-file-signature"></i> GUIAS DE REMISION </h3>    
+                </div>
+                
+                <div class="p-toolbar-group-right">
+                    <button 
+                        pButton 
+                        type="button"
+                        tooltipPosition="top" 
+                        (click)="onNuevaGuiasRemision()"
+                        pTooltip="Agregar Nueva Guia de Remision"  
+                        label="Agregar"
+                        class="p-button-sm"
+                        icon="pi pi-plus">
+                    </button>      
+                </div>
+            </p-toolbar>
+
+
+            <form [formGroup]="FormBusqueda">
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">  
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicioBusqueda"
+                            ></p-calendar> 
+                        </div>
+                        
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFinBusqueda"
+                            ></p-calendar> 
+                        </div>
+
+                        <div class="p-field p-col-12 p-sm-6 p-md-4 ">
+                            <strong >Secuencial:</strong>
+                            <input type="text"  formControlName="secuencial" placeholder="ingresa una secuencia..." class="p-inputtext-sm" pInputText>  
+                        </div>
+
+                        <div   class="p-field p-col-12 p-sm-6 p-md-2 botonBuscar">
+                            <button pButton   type="button" label="Buscar"  class="p-button-sm"  icon="pi pi-search" (click)="onLoadGuiasRemision(null)"></button>
+                        </div>
+
+                    </div>
+                </div> 
+            </form>
+
+
+            <p-table 
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="scroll"
+            selectionMode="single"
+            [rowHover]="true" 
+            [value]="listaGuiasRemision">  
+
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-guiaRemision let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="guiaRemision" [pSelectableRowIndex]="rowIndex">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+
+                            <div [ngSwitch]="col.field">    
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ guiaRemision[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaEmision'">
+                                    {{ guiaRemision[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaTraslado'">
+                                    {{ guiaRemision[col.field] | date: col.formatoFecha }}
+                                </div>
+                                
+                                <div *ngSwitchDefault>
+                                    {{ guiaRemision[col.field]  }}
+                                </div>
+                            </div>  
+
+                            <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                <div style="display: flex;">
+                                    <button  
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        (click)="onEditar(guiaRemision)"
+                                        style="margin-right :2%;" 
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        style=" background-color: #D72250;"
+                                        (click)="onModalEliminar(guiaRemision)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template>  
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                    <td colspan="6">No existen registros</td>
+                    </tr>
+                </ng-template> 
+                
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadGuiasRemision($event)"></p-paginator>
+
+
+            </p-table> 
+        
+
+        </div> 
+    </div>  
+</div>
+ 
+
+<app-nueva-guia-remision *ngIf="VistaNuevaGuiaRemision" [dataGuia]="dataGuia" (cerrar)="onRetornar($event)"></app-nueva-guia-remision>
+ 
+  
+ 

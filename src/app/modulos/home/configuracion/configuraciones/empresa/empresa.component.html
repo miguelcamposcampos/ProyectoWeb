@@ -1,0 +1,125 @@
+ 
+    <div class="Margintabla">
+        <div class="contenidoTable card"> 
+            <!-- <div class="titulonuevoingreso">  
+                <h3> <i class="fas fa-dolly-flatbed"></i> CONFIGURACION DE EMPRESA - ({{ titulo }})  </h3>    
+            </div> -->
+ 
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fas fa-dolly-flatbed"></i> CONFIGURACION DE EMPRESA - ({{ titulo }})  </h3>    
+                </div>
+                
+                <div class="p-toolbar-group-right"> 
+                    <button  
+                        class="p-button-sm"
+                        pButton 
+                        type="button"
+                        label="Grabar"
+                        (click)="onGrabar()"
+                        icon="pi pi-check-circle">  
+                    </button> 
+                </div>
+            </p-toolbar>
+
+
+            <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu> 
+                <form [formGroup]="Form"> 
+                    <br>
+
+                    <p-fieldset>
+                        <ng-template pTemplate="header">Valores por Defecto</ng-template>
+                            <div *ngIf="datosVentas" >
+                                <div class="p-col-12"> 
+                                    <div class="p-fluid p-formgrid p-grid"> 
+                                        <div class="p-field p-col-12">  
+                                            <strong>Moneda</strong>  
+                                            <p-dropdown class="extender"  [options]="arrayMonedasVenta"   formControlName="ventamonedadefaultid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div> 
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Condicion Pago:</strong>  
+                                            <p-dropdown class="extender"   [options]="arrayCondicionPagoVenta" formControlName="ventacondicionpagodefaultid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Tipo Operación:</strong>  
+                                            <p-dropdown class="extender"   [options]="arrayTipoOperacion" formControlName="ventatipooperaciondefault"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Glosa:</strong>  
+                                            <input type="text" pInputText  class="p-inputtext-sm" formControlName="ventaglosadefault"  placeholder="glosa">   
+                                        </div>  
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Impuesto Icbper:</strong>  
+                                            <input type="number" pInputText  class="p-inputtext-sm" formControlName="porcentajebolsaplastica"  placeholder="impuestoIcbper">   
+                                        </div>  
+                                    </div> 
+                                </div>
+                            </div>
+                            <div *ngIf="datosCompras"> 
+                                <div class="p-col-12"> 
+                                    <div class="p-fluid p-formgrid p-grid">   
+                                        <div class="p-field p-col-12">  
+                                            <strong>Moneda</strong>  
+                                            <p-dropdown class="extender"  [options]="arrayMonedasCompra"   formControlName="compramonedadefault"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div> 
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Condicion Pago:</strong>  
+                                            <p-dropdown class="extender"   [options]="arrayCondicionPagoCompra" formControlName="compracondicionpagodefault"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Glosa:</strong>  
+                                            <input type="text" pInputText readonly formControlName="compraglosadefault" class="p-inputtext-sm" placeholder="ingresar ">    
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="datosIntegracion"> 
+                                <div class="p-col-12"> 
+                                    <div class="p-fluid p-formgrid p-grid">   
+                                    
+                                        <div class="p-field p-col-12">
+                                            <strong>TOKEN:</strong>  
+                                            <textarea type="text" pInputText formControlName="tokenintegracion" class="p-inputtext-sm" placeholder="ingresar "></textarea> 
+                                        </div>  
+
+                                        <div class="p-field p-col-12">
+                                            <strong>RUC:</strong>  
+                                            <input type="text" pInputText formControlName="rucempresa" class="p-inputtext-sm" placeholder="ingresar ">    
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="datosEmpresa"> 
+                                <div class="p-col-12"> 
+                                    <div class="p-fluid p-formgrid p-grid">   
+                                        <div class="p-field p-col-12">
+                                            <strong>Régimen:</strong>  
+                                            <p-dropdown class="extender"  [options]="arrayRegimenEmpresa" formControlName="regimenempresarialid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                    </p-fieldset> 
+                </form>
+<!-- 
+                <div class="botones">
+                    <button  
+                        class="p-button-sm p-button-rounded mx-2"
+                        pButton 
+                        type="button"
+                        label="Grabar"
+                        (click)="onGrabar()"
+                        icon="pi pi-check-circle">  
+                    </button>   
+                </div> -->
+ 
+        </div> 
+    </div>   
+
+ 

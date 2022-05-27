@@ -1,0 +1,46 @@
+<div class="Margintabla">
+    <div class="contenidoTable card"> 
+        <div class="tituloMarca">  
+            <h3> <i class="fas fa-file-pdf"></i> REPORTE DETRACCION </h3>  
+        </div>
+        <form [formGroup]="Form">
+            <div class="p-col-12"> 
+                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6 p-lg-4">
+                        <strong>Fec. Inicio </strong> 
+                        <p-calendar
+                            readonlyInput="true"
+                            [readonlyInput]="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaInicio"
+                        ></p-calendar> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-6 p-lg-4">
+                        <strong>Fec. Fin</strong> 
+                        <p-calendar
+                            readonlyInput="true"
+                            [readonlyInput]="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaFin"
+                        ></p-calendar> 
+                    </div>
+                    
+                    <div class="p-field p-col-12 p-md-4 p-lg-3">       
+                        <button pButton label="Generar" type="button" class="p-button-sm" icon="pi pi-file" (click)="onGenerarReporte()"></button>
+                    </div>
+                </div>
+            </div>
+    
+        </form>
+    
+        <div *ngIf="contenidoReporte" style="height: 80vh;"> 
+            <br> 
+            <iframe  [src]="Pdf" height="95%" width="100%"></iframe> 
+       </div>
+ 
+    </div> 
+</div>  
+
+ 

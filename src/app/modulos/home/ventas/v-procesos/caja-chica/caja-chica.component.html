@@ -1,0 +1,158 @@
+<div *ngIf="!VistaNuevoCajaChica">
+    <div class="Margintabla">
+        <div class="contenidoTable card">  
+            <!-- <div class="tituloVista">  
+                <h3> <i class="fas fa-cash-register"></i> CAJA CHICA </h3> 
+                <div class="botonesTitulosVista">
+                    <button 
+                        pButton  
+                        type="button"
+                        label="Agregar" 
+                        class="p-button-sm"
+                        (click)="onNuevo()" 
+                        icon="pi pi-plus">
+                    </button>       
+                </div>  
+            </div> -->
+
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fas fa-cash-register"></i> CAJA CHICA </h3> 
+                </div>
+                
+                <div class="p-toolbar-group-right">
+                    <button 
+                        pButton  
+                        type="button"
+                        pTooltip="Agregar Nueva Caja Chica" tooltipPosition="top"
+                        label="Agregar" 
+                        class="p-button-sm"
+                        (click)="onNuevo()" 
+                        icon="pi pi-plus">
+                    </button>   
+                </div>
+            </p-toolbar>
+
+
+         
+            <form [formGroup]="FormBusqueda">
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">  
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicio"
+                            ></p-calendar> 
+                        </div>
+                        
+                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFin"
+                            ></p-calendar> 
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-4 p-sm-4 botonBuscar"> 
+                            <button 
+                            pButton
+                            type="button"
+                            label="Buscar" 
+                            icon="pi pi-search"
+                            class="p-button-sm"
+                            (click)="onLoadCajachica(null)">
+                        </button>
+                        </div>
+
+                    </div> 
+                </div> 
+            </form>
+        
+            <hr>
+  
+            <p-table   
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="scroll"
+            selectionMode="single"
+            [rowHover]="true"  
+            [value]="listaCajaChica">  
+
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-cajachica let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="cajachica" [pSelectableRowIndex]="rowIndex">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+
+                            <div [ngSwitch]="col.field">  
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                {{ cajachica[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaEmision'">
+                                {{ cajachica[col.field] | date: col.formatoFecha }}
+                                </div> 
+                                <div *ngSwitchDefault>
+                                {{ cajachica[col.field]  }}
+                                </div>
+                            </div>
+
+                            <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                <div style="display: flex;">
+                                <button 
+                                    style="margin-right: 2% ;"
+                                    pButton
+                                    type="button" 
+                                    class="p-button-sm"
+                                    (click)="onEditar(cajachica.idCajaChica)"
+                                    tooltipPosition="top" 
+                                    pTooltip="Editar Und Medida"  
+                                    icon="pi pi-pencil">
+                                </button> 
+                                <button  
+                                    pButton
+                                    type="button" 
+                                    class="p-button-sm"
+                                    style="background-color: #D72250;"
+                                    (click)="onEliminar(cajachica)"
+                                    tooltipPosition="top" 
+                                    pTooltip="Eliminar Und. Medida"  
+                                    icon="pi pi-trash">
+                                </button>    
+                                </div>
+                                
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+                
+                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadCajachica($event)"></p-paginator>
+
+            </p-table>
+        </div> 
+    
+    </div>
+</div>
+
+
+<app-nueva-caja-chica *ngIf="VistaNuevoCajaChica" [dataCajaChica]="dataCajaChica" (cerrar)="onRetornar($event)">  </app-nueva-caja-chica>
+
+
+  

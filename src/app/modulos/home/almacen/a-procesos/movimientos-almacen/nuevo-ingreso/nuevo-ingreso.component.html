@@ -1,0 +1,271 @@
+<div *ngIf="!VistaReporte"> 
+    <div class="Margintabla">
+        <div class="contenidoTable card"> 
+            <!-- <div class="tituloVista">  
+                <h3> <i class="fas fa-dolly-flatbed"></i>  {{ tituloNuevoMovimiento }} </h3>   
+                <div class="botonesTitulosVista">
+                    <button 
+                        *ngIf="mostrarBotonReportes"
+                        pButton  
+                        type="button"
+                        label="Reporte" 
+                        class="p-button-sm"
+                        (click)="onReporte()" 
+                        icon="pi pi-file">
+                    </button>       
+                </div>  
+            </div> -->
+
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fas fa-dolly-flatbed"></i>  {{ tituloNuevoMovimiento }} </h3>  
+                </div>
+                <div class="p-toolbar-group-right">
+                    <button 
+                        *ngIf="mostrarBotonReportes"
+                        pButton  
+                        type="button"
+                        label="Reporte" 
+                        class="p-button-sm"
+                        style="margin-right: 1%;"
+                        (click)="onReporte()" 
+                        icon="pi pi-file">
+                    </button>   
+                    <button  
+                        class="p-button-sm"
+                        pButton
+                        type="button"
+                        [disabled]="Form.invalid" 
+                        label="Guardar"
+                        style="margin-right: 1%;"
+                        (click)="onGrabar()"
+                        icon="pi pi-check-circle">  
+                    </button>  
+                    <button   
+                        class="p-button-sm"
+                        pButton
+                        type="button"
+                        icon="pi pi-times-circle"
+                        label="Cancelar" 
+                        style=" background-color: #D72250;"
+                        (click)="onRegresar()">  
+                    </button>      
+                </div>
+            </p-toolbar>
+
+
+            
+            <div *ngIf="existenroRegsitro"  class="centrar">   
+                <h3> N° REGISTRO:  <strong> {{MovimientoEditar.nroRegistro}} </strong></h3>   
+            </div>
+            <form [formGroup]="Form">
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">  
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Fecha Inicio *:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fecha"
+                            ></p-calendar> 
+                        </div>
+                        
+                        <div *ngIf="!mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-9">
+                            <strong>Almacen Origen *:</strong>
+                            <p-dropdown class="extender" [options]="arrayAlmacen" formControlName="almacenOrigen"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div>
+    
+                        <div *ngIf="mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-5">
+                            <strong>Almacen Origen *:</strong>
+                            <p-dropdown class="extender p-dropdown-sm" [options]="arrayAlmacen" formControlName="almacenOrigen"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div>
+    
+                        <div *ngIf="mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-4">
+                            <strong>Almacen Destino *:</strong>
+                            <p-dropdown class="extender p-dropdown-sm" [options]="arrayAlmacen" formControlName="almacenDestino"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div>
+    
+                        <div class="p-field p-col-12 p-sm-6 p-md-6">
+                            <strong>Motivo *:</strong>
+                            <p-dropdown class="extender p-dropdown-sm" [options]="arrayMotivoIngreso" formControlName="motivo"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div>
+    
+                        <div class="p-field p-col-12 p-sm-6 p-md-6">
+                            <strong>Glosa:</strong>
+                            <input type="text" pInputText formControlName="glosa" class="p-inputtext-sm" placeholder="ingresar una glosa">
+                        </div>
+    
+                         
+                        <div class="p-field p-col-12 p-sm-6 p-md-6">
+                            <strong>Anexo *</strong>  
+                            <div class="p-inputgroup">  
+                                <input type="text" readonly pInputText formControlName="anexo" class="p-inputtext-sm" placeholder="Busca un anexo">   
+                                <button type="button" pTooltip="Buscar" (click)="onModalBuscarPersona()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                            </div>
+                        </div>
+    
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Moneda *:</strong>
+                            <p-dropdown class="extender" [options]="arrayMonedas" formControlName="moneda"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div>
+    
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Tipo Cambio *:</strong>
+                            <input type="number" pInputText formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">  
+                        </div> 
+                    </div>
+                </div> 
+    
+                <div class="p-col-12"> 
+                    <button pButton pRipple type="button" label="Agregar detalle" class="p-button-rounded"  icon="pi pi-plus"  (click)="onAgregarDetalle()"></button>
+                </div>
+                
+                <p-table  
+                class="TablaMovimientos"
+                [value]="detallesForm"
+                [scrollable]="true" 
+                responsiveLayout="stack" >  
+    
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 130px;">Cod.Producto</th>
+                        <th style="width: 180px;">Descripcion</th>
+                        <th style="width: 70px;">Cantidad</th>
+                        <th style="width: 160px;">Und Medida</th>
+                        <th style="width: 85px;">Val.Unitario</th>
+                        <th style="width: 80px;">Val.Total</th>
+                        <th style="width: 140px;">Guia Remision</th>
+                        <th style="width: 150px;">T.Doc.Ref</th>
+                        <th style="width: 140px;">Num.Doc.Ref</th>
+                        <th style="width: 85px;">N.Serie</th>
+                        <th style="width: 90px;">N.Lote</th>
+                        <th style="width: 160px;">Fec.Vencimiento</th>
+                        <th style="width: 50px;">Accion</th>
+                    </tr>
+                </ng-template>
+    
+    
+                <ng-template pTemplate="body" let-detalles  let-rowIndex="rowIndex" formArrayName="arrayDetalles">
+                        
+                    <tr   [formGroupName]="rowIndex">
+                        
+                        <td >
+                            <strong class="p-column-title">Cod.Producto</strong> 
+                            <input type="text" style="width: 90px;" class="p-inputtext-sm"  (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"  pInputText formControlName="codigoProducto">   
+                            <button type="button" (click)="onModalBuscarProducto(rowIndex)" pTooltip="Buscar" tooltipPosition="left" pButton icon="pi pi-search" class="p-button-sm"></button>      
+                            
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Descripcion</strong>
+                            <input type="text" pInputText class="p-inputtext-sm"  formControlName="descripcion">  
+                        </td>
+                        <td style="text-align: center">
+                            <strong class="p-column-title">Cantidad</strong>
+                            <input type="number"  style="width: 60px; text-align: right;" (keyup)="onCalcularValorTotal(rowIndex, detalles.value)" (onChange)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                        </td>
+                        <td style="text-align: center">
+                            <strong class="p-column-title">Und Medida</strong>
+                            <p-dropdown  [options]="arrayUnidadesMedida"  appendTo="body"  formControlName="unidadMedida"  placeholder="Selecciona..."  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Val.Unitario</strong>
+                            <input type="number"  style="width: 70px; text-align: right;" (keyup)="onCalcularValorTotal(rowIndex, detalles.value)" (onchange)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" [min]="0" pInputText formControlName="valorUnitario">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Val.Total</strong>
+                            <input type="number"  readonly style="width: 70px; text-align: right;"  class="p-inputtext-sm" pInputText formControlName="valorTotal">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Guia Remision</strong>
+                            <input type="text"   style="width: 120px;"  class="p-inputtext-sm" pInputText formControlName="nroGuiaRemision">  
+                        </td>
+                        <td style="text-align: center">
+                            <strong class="p-column-title">T.Doc.Ref</strong>
+                            <p-dropdown class="extender"  appendTo="body"  [options]="arrayDocumentos" formControlName="tipodocumentoRef"  placeholder="Selecciona..."  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Num.Doc.Ref</strong>
+                            <input type="number" [min]="0"  class="p-inputtext-sm"  style="width: 120px;" pInputText formControlName="nrodocumentoref">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">N.Serie</strong>
+                            <input type="number" [min]="0"  class="p-inputtext-sm"  style="width: 80px;" pInputText formControlName="nroSerie">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">N.Lote</strong>
+                            <input type="number"[min]="0"   class="p-inputtext-sm"  style="width: 80px;" pInputText formControlName="nroLote">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">F.Vencimiento</strong>
+                            <p-calendar      
+                                readonlyInput="true"
+                                appendTo="body"  
+                                [showIcon]="true" 
+                                dateFormat="dd/mm/yy"
+                                formControlName="fecVencimiento" 
+                            ></p-calendar> 
+                        </td>
+    
+                        <td>
+                            <button 
+                                *ngIf="mostrarbotoneliiminarDetalle"
+                                class="p-button-sm p-button-rounded mx-2"
+                                pButton 
+                                type="button"
+                                (click)="onEliminarDetalle(rowIndex, detalles.value.movimientodetalleid)"
+                                icon="pi pi-trash">  
+                            </button>
+                        </td>
+                    
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">No existen registros</td>
+                    </tr>
+                </ng-template> 
+                 
+                </p-table>  
+    
+            </form> 
+    
+            
+            <!-- <div class="botones">
+                <button  
+                    class="p-button-sm p-button-rounded mx-2"
+                    pButton
+                    type="button"
+                    [disabled]="Form.invalid" 
+                    label="Grabar"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+    
+                <button   
+                    class="p-button-sm p-button-rounded mx-2"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+     -->
+        </div> 
+    </div>   
+</div>
+  
+<div *ngIf="modalBuscarPersona">
+    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
+        <app-buscar-persona  [dataPersona]="'Cliente'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
+    </p-dialog> 
+</div>  
+ 
+<div *ngIf="modalBuscarProducto">
+    <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarProducto" [modal]="true" [style]="{width: '80vw'}">
+        <app-buscar-producto [dataProductos]="dataProductos"  (productoSelect)="onPintarProductoSeleccionado($event)"> </app-buscar-producto>
+    </p-dialog> 
+</div>  
+
+<app-movimiento-reporte *ngIf="VistaReporte" [dataReporte]="dataReporte" (cerrar)="onRetornar()"  ></app-movimiento-reporte> 

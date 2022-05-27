@@ -1,0 +1,149 @@
+ 
+
+<div class="contenidoTable card"> 
+    <!-- <div class="tituloVista">  
+        <h3> LISTA DE MATERIALES</h3> 
+        <div class="botonesTitulosVista">
+            <button 
+                pButton
+                type="button"  
+                label="Agregar" 
+                class="p-button-sm"
+                (click)="onNuevo()" 
+                icon="pi pi-plus">
+            </button>       
+        </div>  
+    </div> -->
+
+      <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <h3> LISTA DE MATERIALES</h3> 
+        </div>
+        
+        <div class="p-toolbar-group-right">
+            <button 
+                pButton
+                type="button"  
+                label="Agregar" 
+                class="p-button-sm"
+                (click)="onNuevo()" 
+                icon="pi pi-plus">
+            </button> 
+        </div>
+    </p-toolbar>
+
+    <p-table 
+    [responsive]="true"
+    [columns]="cols" 
+    responsiveLayout="stack"
+    selectionMode="single"
+    [rowHover]="true"
+    [paginator]="true" 
+    [rows]="10"
+    [showCurrentPageReport]="true" 
+    [rowsPerPageOptions]="[5,10,50,100]" 
+    [value]="listaMateriales">  
+
+        <ng-template pTemplate="header" let-columns >
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{ col.header }} 
+                    <p-sortIcon *ngIf="col.field != 'acciones'"
+                        [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon> 
+                </th>
+            </tr> 
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-material let-columns="columns"  let-rowIndex="rowIndex"> 
+            <tr [pSelectableRow]="material" [pSelectableRowIndex]="rowIndex">
+                <td  *ngFor="let col of columns" >
+                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>   
+                        {{ material[col.field]  }}
+                        
+                    <ng-template #botones [ngIf]="col.field === 'acciones'">
+                        <div style="display: flex;">
+                            <button 
+                                pButton
+                                type="button" 
+                                tooltipPosition="top" 
+                                pTooltip="Editar" 
+                                (click)="onEditar(material)"
+                                style="margin-right :2%;" 
+                                icon="pi pi-pencil">
+                            </button>     
+                            <button 
+                                pButton
+                                type="button" 
+                                tooltipPosition="top" 
+                                style=" background-color: #D72250;"
+                                (click)="onEliminar(material)"
+                                pTooltip="Eliminar"  
+                                icon="pi pi-trash">
+                            </button>        
+                        </div>  
+                    </ng-template>  
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">No existen registros</td>
+            </tr>
+            </ng-template> 
+    </p-table> 
+    
+</div> 
+
+
+<div *ngIf="VistaNuevoMaterial">
+    <p-dialog header="{{ (!dataMaterial) ? 'NUEVA TEMPORADA' : 'EDITAR TEMPORADA'}}" [(visible)]="VistaNuevoMaterial" [modal]="true" [style]="{width: '50vw'}">
+        <div class="MarginModal">
+            <div class="contenido card">
+                <form [formGroup]="Form">
+                    <div class="stepsdemo-content">   
+                        <div class="formulario">   
+                            <strong *ngIf="mostrarCodigo">Codigo:</strong>
+                            <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">   
+                           
+                            <strong>Nombre *:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+                        </div> 
+                    </div>
+        
+        
+                    <div class="botones">
+                        <button  
+                            class="p-button-sm"
+                            pButton
+                            type="button"
+                            style="margin-right: 1%;"
+                            [disabled]="Form.invalid"
+                            label="{{ (dataMaterial) ? 'Actualizar' : 'Guardar' }}"
+                            (click)="onGrabar()"
+                            icon="pi pi-check-circle">  
+                        </button>  
+            
+                        <button   
+                            class="p-button-sm"
+                            pButton
+                            type="button"
+                            icon="pi pi-times-circle"
+                            label="Cancelar" 
+                            style=" background-color: #D72250;"
+                            (click)="VistaNuevoMaterial = false">  
+                        </button>  
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+    </p-dialog> 
+</div>  
+
+  
+ 

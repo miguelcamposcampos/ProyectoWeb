@@ -1,0 +1,87 @@
+ 
+
+ .contenido{
+    height: auto;
+ }
+ 
+ 
+ .formulario{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 10rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+ }
+ 
+ 
+ /*ESTILOS FORZADOS*/
+ 
+ ::ng-deep .contenido .p-fieldset {
+    border: 1px solid ;
+    background: #FDFEFF;
+    color: #515C66;
+    height: 100%;
+    border-radius: 3px;
+  }
+  
+ 
+ .precioForm{
+   display: grid;
+   grid-gap: 1rem;
+   gap: 1rem;
+   grid-auto-rows: auto;
+   grid-template-columns: 10rem 2fr 0.5fr;
+   align-items: center;
+   @media (max-width: 700px) {  
+      display: grid;
+      grid-template-columns: 1fr;
+   }
+}
+ 
+ 
+ .extenderDrop{
+    display: contents; 
+}
+
+.switches{
+  display: grid;
+  grid-gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 15rem 1fr;   
+  align-items: center;
+  @media (max-width: 800px) {   
+     grid-template-columns: 12rem 1fr;  
+  }
+}  
+
+ /*ESTILOS CABECERA FIELDSET*/
+ .p-fieldset .p-fieldset-legend {
+    padding: 0;
+    border: none;
+ }
+
+
+ tr > th{
+   justify-content: center;
+ }
+ .ProductosTabla ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+   flex: none;
+ }
+ 
+ .ProductosTabla ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+   padding-right: 1rem;
+   text-align: left !important;
+ }
+ .ProductosTabla ::ng-deep .p-dropdown  {
+   justify-content: left;
+   width: 140px;
+ }
+ 
+ .elegirOpciones{
+   display: flex;
+   justify-content: space-evenly;
+ }

@@ -1,0 +1,33 @@
+.formulario{
+    display: grid; 
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+ }  
+
+
+ .switches{
+   display: grid;
+   grid-gap: 1rem;
+   grid-auto-rows: auto;
+   grid-template-columns: 10rem 1fr;   
+   align-items: center;
+   @media (max-width: 800px) {   
+      grid-template-columns: 10rem 1fr;  
+   }
+}  
+
+ ::ng-deep .p-fieldset .p-fieldset-content{ 
+   @media (max-width: 800px) {    
+      padding: 0 !important;
+   }
+} 
+ 
+ 
+ input{
+   text-transform: uppercase;
+}

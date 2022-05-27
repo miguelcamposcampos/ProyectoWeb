@@ -1,0 +1,128 @@
+
+<div class="Margintabla"> 
+    <div class="contenidoTable card">  
+        <!-- <div class="tituloVista">  
+            <h3>  <i class="far fa-credit-card"></i>FORMAS DE PAGO</h3> 
+            <div class="botonesTitulosVista">
+                <button 
+                    pButton  
+                    type="button"
+                    label="Agregar" 
+                    class="p-button-sm"
+                    (click)="onNuevo()" 
+                    icon="pi pi-plus">
+                </button>       
+            </div>  
+        </div> -->
+
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3>  <i class="far fa-credit-card"></i>FORMAS DE PAGO</h3> 
+            </div>
+            
+            <div class="p-toolbar-group-right">
+                <button 
+                    pButton  
+                    pTooltip="Agregar Nueva Forma de Pago"
+                    tooltipPosition="top"
+                    type="button"
+                    label="Agregar" 
+                    class="p-button-sm"
+                    (click)="onNuevo()" 
+                    icon="pi pi-plus">
+                </button>    
+            </div>
+        </p-toolbar>
+  
+        <div class="p-col-12"> 
+            <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-8">
+                    <strong for="firstname6">Criterio</strong>
+                    <input [formControl]="criterio"  class="p-inputtext-sm" placeholder="buscar..." type="text" pInputText>        
+                </div>
+                <div class="p-field p-col-12 p-md-4">       
+                    <button pButton label="Buscar" type="button"  class="p-button-sm" icon="pi pi-search" (click)="onLoadFormasPago()"></button>
+                </div>
+            </div>
+        </div>
+
+        <p-table 
+        [responsive]="true"
+        [columns]="cols" 
+        responsiveLayout="stack"
+        selectionMode="single"
+        [rowHover]="true"
+        [paginator]="true" 
+        [rows]="10" 
+        [value]="listaFormaPago">  
+
+            <ng-template pTemplate="header" let-columns >
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{ col.header }} 
+                        <p-sortIcon *ngIf="col.field != 'acciones'"
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon> 
+                    </th>
+                </tr> 
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-formaPago let-columns="columns"  let-rowIndex="rowIndex"> 
+                <tr [pSelectableRow]="formaPago" [pSelectableRowIndex]="rowIndex">
+                    <td  *ngFor="let col of columns" >
+                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>   
+                              
+                        <div [ngSwitch]="col.field">    
+                            <div *ngSwitchCase="'fechaRegistro'">
+                                {{ formaPago[col.field] | date: col.formatoFecha }}
+                            </div>
+                            <div *ngSwitchDefault>
+                                {{ formaPago[col.field]  }}
+                            </div>
+                        </div>  
+ 
+                        <ng-template #botones [ngIf]="col.field === 'acciones'">
+                            <div style="display: flex;">
+                                <button 
+                                    pButton
+                                    type="button" 
+                                    tooltipPosition="top" 
+                                    pTooltip="Editar" 
+                                    (click)="onEditar(formaPago)"
+                                    style="margin-right :2%;" 
+                                    icon="pi pi-pencil">
+                                </button>     
+                                <button 
+                                    pButton
+                                    type="button" 
+                                    tooltipPosition="top" 
+                                    style=" background-color: #D72250;"
+                                    (click)="onEliminar(formaPago)"
+                                    pTooltip="Eliminar"  
+                                    icon="pi pi-trash">
+                                </button>        
+                            </div>  
+                        </ng-template>  
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">No existen registros</td>
+                </tr>
+                </ng-template> 
+        </p-table> 
+        
+    </div> 
+</div>  
+ 
+ 
+ <div *ngIf="modalNuevaFormaPago">
+    <p-dialog header="{{ (!dataFormaPago) ? 'NUEVA FORMA DE PAGO' : 'EDITAR FORMA DE PAGO' }}" [(visible)]="modalNuevaFormaPago" [modal]="true" [style]="{width: '80vw'}">
+        <app-nueva-forma-pago [dataFormaPago]="dataFormaPago" (cerrar)="onRetornar($event)"> </app-nueva-forma-pago>
+    </p-dialog> 
+</div>  

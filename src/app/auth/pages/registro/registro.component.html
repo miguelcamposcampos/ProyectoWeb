@@ -1,0 +1,133 @@
+<!-- 
+<div class="primerdiv">
+    <div class="contenteleft"> 
+        <img id="app-logo"
+            style="width: 35px; padding-right: 2%;"
+            src="assets/layout/images/logo_ti.png"
+            alt="poseidon-layout"> 
+            <p> <strong> Registrar Usuario </strong> </p> 
+    </div>
+    <div class="contentrigth"> 
+        <div>
+            <button  
+                tooltipPosition="left"
+                pTooltip="Volver"
+                class="mx-2 p-button-sm" 
+                pButton 
+                type="button"
+                routerLink='/auth/login'
+                icon="pi pi-arrow-circle-left">
+            </button> 
+         </div>
+    </div>
+   
+</div> -->
+
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <img id="app-logo"
+        style="width: 30px; padding-right: 2%;"
+        src="assets/layout/images/logo_ti.png"
+        alt="poseidon-layout"> 
+        <h3> <strong> Registrar Usuario </strong>  </h3>  
+    </div>
+    
+    <div class="p-toolbar-group-right">
+        <button  
+            tooltipPosition="left"
+            pTooltip="Volver"
+            class="mx-2 p-button-sm" 
+            pButton 
+            type="button"
+            routerLink='/auth/login'
+            icon="pi pi-arrow-circle-left">
+        </button> 
+    </div>
+</p-toolbar>
+
+ 
+    <div class="tituloPage">
+        <h2> <strong> Completa el formulario </strong></h2> 
+    </div> 
+
+    <div class="Margintabla">
+        <div class="centrar card"> 
+                <form [formGroup]="registroForm" > 
+                    <div  class="p-grid p-fluid" style="margin:5%;">
+                        <div class="p-inputgroup my-2 ">
+                            <i class="pi pi-google"></i> 
+                            <input type="email" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="Ingrese un Email">
+                        </div>
+                        <span *ngIf="onValidateForm('Email')">El campo es requerido </span>
+        
+                        <div class="p-inputgroup my-2 ">
+                            <i class="pi pi-user"></i> 
+                            <input type="text" pInputText formControlName="NombreApellidos" class="p-inputtext-sm" placeholder="Ingrese su nombre Completo">
+                        </div>
+                        <span *ngIf="onValidateForm('NombreApellidos')">El campo es requerido </span>
+        
+                        <div class="p-inputgroup my-2 ">
+                            <i class="pi pi-user-plus"></i> 
+                            <input type="text" pInputText formControlName="NombreUsuario" class="p-inputtext-sm" placeholder="Ingrese un Alias">
+                        </div>
+                        <span *ngIf="onValidateForm('NombreUsuario')">El campo es requerido </span>
+        
+                        <div class="p-inputgroup my-2">
+                            <i class="pi pi-lock"></i> 
+                            <input type="password" pInputText formControlName="Password" class="p-inputtext-sm" #passwordField placeholder="Ingrese una contraseña">
+                            <button
+                                pButton
+                                class="p-button-sm"
+                                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                matSuffix>
+                            <i *ngIf="passwordField.type === 'password'" class="pi pi-eye">  </i>
+                            <i *ngIf="passwordField.type === 'text'" class="pi pi-eye-slash">   </i>
+                        </button>
+                    </div>
+                    <span *ngIf="onValidateForm('Password')">El campo es requerido </span>
+        
+                        <div class="p-inputgroup my-2">
+                            <i class="pi pi-lock"></i> 
+                            <input type="password" pInputText formControlName="RepetirPassword" class="p-inputtext-sm"  #passwordRepit placeholder="Ingrese una contraseña">
+                            <button
+                                pButton
+                                class="p-button-sm"
+                                (click)="passwordRepit.type === 'password' ? passwordRepit.type = 'text' : passwordRepit.type = 'password'"
+                                matSuffix>
+                            <i *ngIf="passwordRepit.type === 'password'" class="pi pi-eye">  </i>
+                            <i *ngIf="passwordRepit.type === 'text'" class="pi pi-eye-slash">   </i>
+                            </button>
+        
+                        </div>
+                    </div>
+        
+                    <div >
+                        <button
+                            class="p-button-sm"
+                            pButton
+                            style="margin-right: 1%;"
+                            icon="pi pi-check-circle"
+                            label="Registrarme"
+                            type="button"
+                            [disabled]="registroForm.invalid"
+                            (click)="onRegistrar()">
+                        </button>
+                        <button
+                            class="p-button-sm"
+                            pButton
+                            style="background-color: #D72250;"
+                            icon="pi pi-arrow-circle-left"
+                            label="Cancelar"
+                            type="button"
+                            routerLink="/auth/login">
+                        </button>
+        
+                    </div>
+        
+        
+                </form>
+
+            
+        </div>
+    </div>
+    

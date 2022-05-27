@@ -1,0 +1,20 @@
+<div class="Margintabla">
+    <div class="contenidoTable card">   
+        <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>             
+            <div *ngIf="tabColor" >
+                <app-colores></app-colores>
+            </div> 
+            <div *ngIf="tabTalla" >
+                <app-tallas></app-tallas>
+            </div> 
+            <div *ngIf="tabTemporada" >
+                <app-temporadas></app-temporadas>
+            </div> 
+            <div *ngIf="tabMateriales" >
+                <app-materiales></app-materiales>
+            </div> 
+            <div *ngIf="tabColeccion" >
+                <app-coleccion></app-coleccion>
+            </div> 
+    </div>
+</div>

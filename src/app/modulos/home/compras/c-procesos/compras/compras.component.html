@@ -1,0 +1,197 @@
+<div *ngIf="!VistaNuevaCompra">
+ 
+    <div class="Margintabla"> 
+        <div class="contenidoTable card"> 
+            <form [formGroup]="FormBusqueda">
+                <!-- <div class="tituloVista">  
+                    <h3> <i class="fas fa-cart-plus"></i> COMPRAS</h3> 
+                    <div class="botonesTitulosVista">
+                        <button 
+                            pButton  
+                            type="button"
+                            label="Agregar" 
+                            class="p-button-sm"
+                            (click)="onNuevo()" 
+                            icon="pi pi-plus">
+                        </button>       
+                    </div>     
+                </div> -->
+
+   
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <h3> <i class="fas fa-cart-plus"></i> COMPRAS</h3> 
+                    </div>
+                    
+                    <div class="p-toolbar-group-right">
+                        <button 
+                            pButton  
+                            pTooltip="Agregar Nueva Compra" tooltipPosition="top"
+                            type="button"
+                            label="Agregar" 
+                            class="p-button-sm"
+                            (click)="onNuevo()" 
+                            icon="pi pi-plus">
+                        </button>  
+                    </div>
+                </p-toolbar>
+                
+     
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3 p-sm-6">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicio"
+                            ></p-calendar> 
+                        </div> 
+    
+                        <div class="p-field p-col-12 p-md-3  p-sm-6">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFin"
+                            ></p-calendar> 
+                        </div> 
+  
+                        <div class="p-field p-col-12 p-md-4 p-sm-8">
+                            <strong>Documento:</strong>
+                            <p-dropdown class="DropExtenso" [options]="arrayDocumentos" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor2"></p-dropdown>     
+                        </div>
+    
+                        <div class="p-field p-col-12 p-md-2 p-sm-4 botonBuscar"> 
+                            <button pButton label="Buscar" type="button" class="p-button-sm"  icon="pi pi-search" (click)="onLoadCompras(null)"></button>
+                        </div> 
+    
+    
+                        <div class="p-field p-col-12 p-md-3  p-sm-6">
+                            <strong>Serie:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                        </div>
+    
+                        <div class="p-field p-col-12 p-md-3  p-sm-6">
+                            <strong>Correlativo:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                        </div>
+                        
+                        <div class="p-field p-col-12 p-md-6">
+                            <strong>Proveedor</strong>  
+                            <div class="p-inputgroup">  
+                                <input type="text" readonly  formControlName="cliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
+                                <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBuscarCliente();" pButton icon="pi pi-search"></button>      
+                                <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
+                            </div>
+                        </div>
+    
+          
+                    </div> 
+                </div> 
+                
+            </form>
+            <br>
+    
+        
+            <p-table  
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="scroll"
+            selectionMode="single"
+            [rowHover]="true" 
+            [value]="listadoCompras">  
+    
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-compras let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="compras" [pSelectableRowIndex]="rowIndex">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+     
+                            <div [ngSwitch]="col.field">    
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ compras[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaEmision'">
+                                    {{ compras[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaVencimiento'">
+                                    {{ compras[col.field] | date: col.formatoFecha }}
+                                </div> 
+                                <div *ngSwitchDefault>
+                                    {{ compras[col.field]  }}
+                                </div>
+                            </div>  
+    
+    
+                            <ng-template #botones [ngIf]="col.field === 'acciones'"  >
+                                <div style="display: flex;">
+                                    <button 
+                                        pButton 
+                                        type="button"
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        (click)="onEditar(compras)"
+                                        style="margin-right :2%;" 
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton 
+                                        type="button"
+                                        tooltipPosition="top"
+                                        style=" background-color: #D72250;" 
+                                        (click)="onEliminar(compras)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template>
+    
+                            
+    
+                        </td>
+                    </tr>
+                </ng-template>
+    
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">No existen registros</td>
+                    </tr>
+                    </ng-template> 
+
+
+                    <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadCompras($event)"></p-paginator>
+
+            </p-table> 
+             
+            
+            
+        </div> 
+    </div>  
+     
+    </div>
+    
+     
+    <app-nueva-compra *ngIf="VistaNuevaCompra" [dataCompra]="dataCompra" (cerrar)="onRetornar($event)"  ></app-nueva-compra> 
+ 
+    <div *ngIf="modalBuscarPersona">
+        <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
+            <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
+        </p-dialog> 
+    </div>  
+      

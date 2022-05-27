@@ -1,0 +1,43 @@
+<div class="MarginModal">
+    <div class="contenido card">
+        <form [formGroup]="Form">
+            <div class="stepsdemo-content">   
+                <div class="formulario">  
+                    <strong *ngIf="mostrarCodigo">Codigo:</strong>
+                    <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">     
+                    
+                    <strong>Nombre *:</strong>
+                    <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+
+                    <!-- <strong>Predeterminado:</strong>
+                    <p-colorPicker appendTo="body"  formControlName="color"></p-colorPicker> -->
+                </div> 
+            </div>
+
+
+            <div class="botones">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style="margin-right: 1%;"
+                    [disabled]="Form.invalid"
+                    label="{{ (idColorEdit) ? 'Actualizar' : 'Guardar' }}"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+    
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+
+        </form>
+    </div>
+</div>

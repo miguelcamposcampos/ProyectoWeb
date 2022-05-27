@@ -1,0 +1,218 @@
+<div class="Margintabla"> 
+    <div class="contenidoTable card">  
+        <!-- <div class="tituloVista">  
+            <h3> <i class="fas fa-cart-plus"></i>  {{ tituloCajaChica }} </h3>  
+        </div> -->
+
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-cart-plus"></i>  {{ tituloCajaChica }} </h3> 
+            </div>
+            
+            <div class="p-toolbar-group-right">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style="margin-right: 1%;"
+                    [disabled]="Form.invalid" 
+                    [label]=" (!CajaChicaEditar) ? 'Guardar' : 'Actualizar'"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle" 
+                    [label]=" (!CajaChicaEditar) ? 'Cancelar' : 'Regresar'"
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+        </p-toolbar>
+
+        <div *ngIf="existenroRegsitro"  class="centrar">   
+            <h3> N° REGISTRO:  <strong> {{CajaChicaEditar.nroRegistro}} </strong></h3>    
+        </div>
+
+       <!-- CABECERA FORMULARIO -->
+        <form [formGroup]="Form">  
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid">
+
+                    <div class="p-field p-col-12 p-md-3 p-sm-6">
+                        <strong>Establecimiento *:</strong>
+                        <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event)" [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                    </div> 
+
+                    <div class="p-field p-col-12 p-md-3 p-sm-6">
+                        <strong>Documento *:</strong>
+                        <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event)" [options]="arrayDocumento" formControlName="documentoTcid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                    </div>  
+
+                    <div class="p-field p-col-12 p-md-3  p-sm-6">
+                        <strong>Fecha Emisión *:</strong>
+                        <p-calendar  
+                            readonlyInput="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaemision"
+                        ></p-calendar> 
+                    </div> 
+
+                    <div class="p-field p-col-12 p-md-3  p-sm-6">
+                        <strong>Fecha Cierre:</strong>
+                        <p-calendar  
+                            readonlyInput="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechacierre"
+                        ></p-calendar> 
+                    </div> 
+
+                    <div class="p-field p-col-12 p-md-4  p-sm-6">
+                        <strong>Moneda *:</strong>
+                        <p-dropdown class="DropExtenso" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                    </div>
+    
+                    <div class="p-field p-col-12 p-md-4 p-sm-6">
+                        <strong>Tipo Cambio *:</strong>
+                        <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                    </div>
+    
+                    <div class="p-field p-col-12 p-md-4  p-sm-6">
+                        <strong>Estado *:</strong>
+                        <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="nombre"></p-dropdown>     
+                    </div>
+                </div> 
+            </div> 
+
+            <div>
+                <div class="BotonesDetalle">  
+                    <div  class="BotonAddDetalle">
+                        <button pButton pRipple type="button" label="Agregar detalle" class="p-button-rounded"  icon="pi pi-plus"  (click)="onAgregarDetalleVenta()"></button>
+ 
+                    </div> 
+                    <div class="TotalesDetalle">
+                        <div class="IngSalDiv">
+                            <div class="IngSal">
+                                <strong>INGRESOS</strong> 
+                                <strong> {{ Tingresos | currency: 's/.'}} </strong>
+                            </div>
+                            <div class="IngSal">
+                                <strong>SALIDAS</strong>
+                                <strong> {{ TSalidas | currency: 's/.'}} </strong>
+                            </div>
+                        </div>
+                        <div class="IngSal">
+                            <strong>SALDO EN CAJA:</strong>
+                            <span  class="totalaMostrar"> <strong>  {{ TCajaSaldo | currency: 's/.'}}   </strong> </span> 
+                        </div>
+                    </div>
+                </div> 
+                <div style="margin: 3%;">
+                    <p-table   
+                        class="TablaDetalle"
+                        [value]="detalleCajaChica"
+                        [scrollable]="true" 
+                        responsiveLayout="stack" >  
+                        <ng-template pTemplate="header">
+                            <tr class="centrar"> 
+                                <th style="width: 50px;">Accion</th>
+                                <th style="width: 130px;">Motivo</th>
+                                <th style="width: 80px;">Importe</th> 
+                                <th style="width: 175px;">Descripcion</th> 
+                                <th style="width: 120px;">Usu. Nombre</th> 
+                                <th style="width: 170px;">Observación</th> 
+                                <th style="width: 130px;">Tip.Documento</th> 
+                                <th style="width: 150px;">Nro Documento</th> 
+                                <th style="width: 150px;">Fec. Hora</th>  
+                            </tr>
+                        </ng-template> 
+            
+                        <ng-template pTemplate="body" let-detallecajachica  let-rowIndex="rowIndex" formArrayName="arrayDetalleCajaChica"> 
+                            <tr [formGroupName]="rowIndex"> 
+                                <td>
+                                    <button  
+                                        class="p-button-sm p-button-rounded mx-2"
+                                        pButton 
+                                        type="button"
+                                        (click)="onEliminarDetalle(rowIndex)"
+                                        icon="pi pi-trash">  
+                                    </button>
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">Motivo</strong>
+                                    <p-dropdown class="extender" appendTo="body" [options]="arrayMotivo" formControlName="motivoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown> 
+                                </td>   
+                                <td>
+                                    <strong class="p-column-title">Importe</strong>
+                                    <input type="text"  style="width: 70px;text-align: right;" (blur)="onCalcularImportes($event.target.value, rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="importe">  
+                                </td>  
+                                <td>
+                                    <strong class="p-column-title">Descripcion</strong>
+                                    <input type="text" style="width: 160px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="descripcion">  
+                                </td> 
+                                <td>
+                                    <strong class="p-column-title">Usu. Nombre</strong>
+                                    <input type="text" style="width: 100px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="usuarionombre">  
+                                </td>   
+                                <td>
+                                    <strong class="p-column-title">Observación</strong>
+                                    <input type="text" style="width: 160px;" class="p-inputtext-sm" pInputText formControlName="observacion">  
+                                </td>  
+                                <td>
+                                    <strong class="p-column-title">Tip Documento</strong>
+                                    <p-dropdown class="extender"  appendTo="body" [options]="arrayDocumentoTC" formControlName="documentoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown> 
+                                </td>   
+                                <td>
+                                    <strong class="p-column-title">Nro documento</strong>
+                                    <input type="text" style="width: 130px;" class="p-inputtext-sm" pInputText formControlName="nrodocumento">  
+                                </td>   
+                                <td>
+                                    <strong class="p-column-title">Fec. Hora<</strong>
+                                    <p-calendar appendTo="body" [hourFormat]="12"  formControlName="fechaHora" [showIcon]="true" readonlyInput="true"  [showTime]="true" inputId="time"></p-calendar>
+                                     
+                                </td> 
+                               
+                            
+                            </tr>
+                        </ng-template> 
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <span>  No existen registros </span> 
+                            </tr>
+                        </ng-template> 
+                
+                    </p-table>  
+                </div>
+            </div> 
+        </form>
+
+        <br>
+
+        <!-- <div class="botones">
+            <button  
+                class="p-button-sm p-button-rounded mx-2"
+                pButton
+                type="button"
+                [disabled]="Form.invalid" 
+                [label]=" (!CajaChicaEditar) ? 'Grabar' : 'Actualizar'"
+                (click)="onGrabar()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm p-button-rounded mx-2"
+                pButton
+                type="button"
+                icon="pi pi-times-circle" 
+                [label]=" (!CajaChicaEditar) ? 'Cancelar' : 'Regresar'"
+                (click)="onRegresar()">  
+            </button>  
+        </div> -->
+
+
+    </div>
+</div>

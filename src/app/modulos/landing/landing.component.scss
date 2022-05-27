@@ -1,0 +1,199 @@
+
+$hover-color: black;
+
+
+.divRibbon {
+    justify-content: center;
+    margin: 1em auto 2em;
+    display: flex; 
+    font-weight: bold;
+
+    @media (max-width : 600px){
+        display: block; 
+        text-align: center;
+        font-size: 16px;
+    }
+}
+
+.divRibbon a {
+  text-decoration:none; 
+  overflow:hidden;
+  display:block;
+  margin: 1.5em;
+  color: black;
+}
+
+a {
+  text-decoration:none; 
+  overflow:hidden;
+  display:block; 
+  color: black;
+}
+
+
+
+.buttonRibbon {
+  letter-spacing:.5em;
+  text-decoration:center;
+  padding:0.75em 1.25em 0.75em 1.75em; 
+  border-width:2px;
+  border-style:solid;
+  white-space: nowrap; 
+  transition: border-color 500ms ease, color 250ms ease;;
+}
+
+
+
+
+.buttonRibbon:hover {
+  color: white;
+  background-color: #147DBA;
+  border-color:$hover-color;
+}
+
+.buttonRibbon:before,
+.buttonRibbon:after {
+  border-style:solid;
+  border-color:white;
+  border-width:0; 
+  transition: border-color 500ms ease;;
+}
+
+a:hover .buttonRibbon:before,
+a:hover .buttonRibbon:after {
+  border-color:$hover-color;
+  background : #147DBA;
+  color: black;
+  font-weight: bold;
+}
+
+
+
+// Battlestar Button
+
+.battlestar {
+  border-width:2px 0;
+  position:relative;
+  display:block;
+  margin-left:1.0em;
+  margin-right:1.0em; 
+}
+
+.battlestar:before {
+  content: "";
+  border-width:2px;
+  border-right:0;
+  border-left-width:16px;
+  position:absolute;
+  width:200px; 
+  transform: perspective(300px) rotateY(-87deg);
+  top:10%;
+  bottom:10%;
+  left:-8.3em;
+  right:0;
+}
+
+.battlestar:after {
+    content: "";
+    border-width: 2px;
+    border-left: 0;
+    border-right-width: 15px;
+    position: absolute;
+    width: 200px;
+    transform: perspective(250px) rotateY(87deg);
+    top: 10%;
+    bottom: 10%;
+    right: -8.3em;
+}
+
+
+
+
+
+
+.Modulos{
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(15rem, auto)); 
+  grid-gap: 10px;
+  text-align: center;
+  padding: 2%;
+  grid-auto-rows: auto; 
+
+  @media (max-width : 700px){
+    grid-template-columns: repeat(auto-fit, minmax(15rem, auto)); 
+  }
+ 
+  strong{
+    font-size: 18px; 
+  }
+  .siZeIcon{ 
+    font-size: 50px;
+    padding-top: 5%;
+    color: #147DBA;
+  }
+
+
+}
+
+.SombraCard ::ng-deep .p-card{ 
+  box-shadow: 1px 2px 5px 3px !important; 
+  height: 100%;
+
+  a {
+    text-decoration:none; 
+    overflow:hidden;
+    display:block; 
+  }
+
+}
+
+
+.SombraCard ::ng-deep .p-card .p-card-body {
+   padding: 0 !important; 
+}
+
+
+
+.bannerPrincipal{
+  // background: linear-gradient(50deg, #D72250  10%, #ff00 5%);
+  background: linear-gradient(130deg, #D72250 08%, #ff00 12%);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+  /* padding: 120px 120px 180px; */
+  padding: 30px 100px 5px;
+
+  @media (max-width : 700px){
+    padding: 0;
+  }
+
+}
+
+
+
+
+/* ETIQURETA CARD RIBBON*/
+
+ 
+// Ribbon Box Styling
+$white: #fff;  
+$ribbon-bg-clr: #147DBA;  
+ 
+
+	.tituloTibbon { 
+    background: linear-gradient(09deg, #D72250, 70%, #147DBA 80%);
+    color: #fff;
+    font-size: 24px;
+    text-align: left; 
+    border-radius: 15px;
+    padding: 5px 0px 5px 20px;
+	}
+ 
+
+ .HrDivider{
+   height: 2px;
+  background: linear-gradient(09deg, #D72250, 70%, #147DBA 80%);
+  }

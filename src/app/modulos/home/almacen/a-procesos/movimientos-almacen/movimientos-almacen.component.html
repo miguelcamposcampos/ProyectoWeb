@@ -1,0 +1,174 @@
+<div *ngIf="!VistaNuevoMovimientos">
+    <div class="Margintabla">
+        <div class="contenidoTable card"> 
+
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fas fa-box"></i> MOVIMIENTOS DE ALMACEN </h3>  
+                </div>
+                
+                <div class="p-toolbar-group-right">
+                    <button class="BorrarLabel p-button-sm" 
+                        type="button" (click)="onNuevoIngreso()" 
+                        pTooltip="Nuevo Ingreso" tooltipPosition="top" 
+                        label="Ingreso" 
+                        pButton
+                        style="margin-right: 1%;"
+                        icon="fas fa-arrow-alt-circle-down">
+                    </button> 
+                    <button class="BorrarLabel p-button-sm" 
+                        type="button" (click)="onNuevaSalida()" 
+                        pTooltip="Nueva Salida" tooltipPosition="top" 
+                        style="margin-right: 1%;"
+                        pButton
+                        label="Salida" icon="fas fa-arrow-alt-circle-up">
+                    </button> 
+                    <button class="BorrarLabel p-button-sm" 
+                        type="button" (click)="onNuevaTransferencia()" 
+                        pButton
+                        pTooltip="Nueva Transferencia" tooltipPosition="top"
+                        label="Transferencia" icon="fas fa-sync-alt">
+                    </button> 
+                </div>
+            </p-toolbar>
+
+
+            <!-- <div class="tituloVista">  
+                <h3> <i class="fas fa-dolly-flatbed"></i> MOVIMIENTOS DE ALMACEN </h3>  
+                <div class="botonesTitulosVista">
+                    <p-splitButton  icon="pi pi-cog" appendTo="body" [model]="opcioneSplitMovimientos"></p-splitButton>     
+                </div>
+            </div> -->
+            <form [formGroup]="FormBusqueda">
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">  
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicioBusqueda"
+                            ></p-calendar> 
+                        </div>
+                        
+                        <div class="p-field p-col-12 p-sm-6 p-md-3">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFinBusqueda"
+                            ></p-calendar> 
+                        </div>
+
+                        <div class="p-field p-col-12 p-sm-6 p-md-4 ">
+                            <strong >Anexo:</strong>
+                            <input type="text" placeholder="ingresa un anexo... "  class="p-inputtext-sm" formControlName="anexo" pInputText>  
+                        </div>
+
+                        <div class="p-field p-col-12 p-sm-6 p-md-2 botonBuscar">
+                            <button pButton label="Buscar"   type="button" icon="pi pi-search"   class="p-button-sm" (click)="onLoadMovimientos()"></button>
+                        </div>
+
+                    </div>
+                </div> 
+            </form>
+
+            <p-table 
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="stack"
+            selectionMode="single"
+            [rowHover]="true"
+            [paginator]="true" 
+            [rows]="size"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="textoPaginado" 
+            [rowsPerPageOptions]="[5,10,50,100]" 
+            [value]="listaMovimientos">  
+
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-movAlmacen let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="movAlmacen" [pSelectableRowIndex]="rowIndex">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+ 
+                            <div [ngSwitch]="col.field">    
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ movAlmacen[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fecha'">
+                                    {{ movAlmacen[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'tipoMovimientoId'">
+                                    <div *ngIf="movAlmacen.tipoMovimientoId === 1">
+                                        <span>INGR.</span>
+                                    </div>
+                      
+                                    <div *ngIf="movAlmacen.tipoMovimientoId === 2">
+                                       <span>SAL.</span>  
+                                    </div>
+                                    <div *ngIf="movAlmacen.tipoMovimientoId === 3">
+                                        <span>TRANS.</span>   
+                                    </div>
+                                </div>  
+                                <div *ngSwitchDefault>
+                                    {{ movAlmacen[col.field]  }}
+                                </div>
+                            </div>  
+ 
+                            <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                <div style="display: flex;">
+                                    <button 
+                                        *ngIf="!listaMovimientos.registroRef"
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        (click)="onEditar(movAlmacen)"
+                                        style="margin-right :2%;" 
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        style=" background-color: #D72250;"
+                                        (click)="onModalEliminar(movAlmacen)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template>  
+                        </td>
+                    </tr>
+                </ng-template>
+ 
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="6">No existen registros</td>
+                    </tr>
+                  </ng-template> 
+            </p-table> 
+           
+
+        </div> 
+    </div>  
+</div>
+ 
+  
+<app-nuevo-ingreso *ngIf="VistaNuevoMovimientos" [dataMovimientoEdit]="dataMovimientoEdit" (cerrar)="onRetornar($event)"  ></app-nuevo-ingreso> 

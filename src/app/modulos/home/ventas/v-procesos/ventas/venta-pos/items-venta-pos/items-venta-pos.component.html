@@ -1,0 +1,268 @@
+<div *ngIf="isSqueletonDiv"  class="classSqueleton">  
+    <div>
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+    </div> 
+    <div>
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+        <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+    </div> 
+</div>
+
+<div *ngIf="!isSqueletonDiv">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-4 p-sm-4">
+            <button 
+                class="p-button-sm p-button-rounded"
+                pButton 
+                type="button"
+                label="Agregar Venta"
+                (click)="onAgregarNuevaVentaPos()"
+                icon="pi pi-plus">  
+            </button>     
+        </div>
+     
+        <div class="p-field p-col-6 p-md-4 p-sm-4 p-lg-4">
+            <div *ngIf="Tabs[idIndexTab].mostrarBotonCliente" class="centrar">   
+                <button  
+                    pButton  
+                    type="button"
+                    class="p-button-sm p-button-rounded"
+                    tooltipPosition="top" 
+                    pTooltip="Cliente"    
+                    label="CLIENTE"
+                    (click)="onCliente(idIndexTab)"
+                    style="margin-right :2%;" 
+                    icon="pi pi-user">
+                </button>     
+            </div> 
+        </div>
+    
+        <div class="p-field p-col-6 p-md-4 p-sm-4 p-lg-4">
+            <div>   
+                <button 
+                    pButton  
+                    type="button"
+                    class="p-button-sm p-button-rounded"
+                    tooltipPosition="top" 
+                    [pTooltip]="!Tabs[idIndexTab].mostrarBotonCobrar? 'GUARDAR' : 'COBRAR' "   
+                    [label]="!Tabs[idIndexTab].mostrarBotonCobrar ? 'GUARDAR' : 'COBRAR' " 
+                    (click)="!Tabs[idIndexTab].mostrarBotonCobrar ? onGrabar(idIndexTab) : onCobrar(Tabs[idIndexTab].idVenta)"
+                    style="margin-right :2%;" 
+                    [icon]="!Tabs[idIndexTab].mostrarBotonCobrar ? 'pi pi-save' : 'fas fa-circle-dollar-to-slot'">
+                </button>  
+            </div> 
+        </div>
+    
+    </div>
+    
+    <p-tabView [controlClose]="true" (onClose)="onEliminarTab($event.index)" (onChange)="onChangeTab($event.index)"  >
+        <p-tabPanel [header]="item.label" *ngFor=" let item of Tabs; let indexTab = index"  [closable]="true">
+            <ng-template pTemplate="content">
+                <div class="grillaNuevaVentaPos">   
+                    <div [ngClass]="{ 'ItemsListMobile' : !item.iProducto && !item.iServicio, 'ItemsList' : item.iProducto || item.iServicio }"  >  
+    
+                            <div *ngIf="isSqueleton"  class="classSqueleton">  
+                                <div>
+                                    <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+                                    <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+                                </div> 
+                                <div>
+                                    <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+                                    <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+                                </div> 
+                            </div>
+                            
+                          <div *ngIf="!Tabs[indexTab].iProducto && !Tabs[indexTab].iServicio">  
+                              <div class="p-fluid p-formgrid p-grid">
+                                  <div class="p-field p-col-12 p-md-12 ">
+                                      <div class="p-inputgroup">     
+                                          <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar linea" [(ngModel)]="searchText">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="grillaItems">  
+                                  <div *ngFor="let linea of arrayLineasMostrar | filter: searchText " (click)="onObtenerLinea(linea.nombreProducto, indexTab)">
+                                      <p-card class="SombraCard" >
+                                          <strong>  {{ linea.nombreProducto }} </strong>
+                                      </p-card> 
+                                  </div>   
+                              </div> 
+                          </div>
+        
+                          <div *ngIf="Tabs[indexTab].iProducto"  >
+                              <div class="p-fluid p-formgrid p-grid">
+                                  <div class="p-field p-col-12 p-md-12 ">
+                                      <div class="p-inputgroup">  
+                                          <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar producto" [(ngModel)]="searchText">
+                                          <button class="p-button-sm p-button-rounded" type="button" pButton (click)="onCerrarItems(indexTab)" icon="pi pi-arrow-left"></button> 
+                                      </div>
+                                  </div>
+                              </div> 
+                              <div class="grillaItems">  
+                                  <div *ngFor="let producto of arrayProductos  | filter: searchText" (click)="onSeleccionarItems(producto, indexTab)">
+                                      <p-card class="SombraCard" >
+                                          <strong>  {{ producto.nombreProducto }} / {{ producto.precioDefault | currency : 'S/.' }} </strong>
+                                      </p-card> 
+                                  </div>   
+                              </div> 
+                          </div>
+        
+                          <div  *ngIf="Tabs[indexTab].iServicio">
+                              <div class="p-fluid p-formgrid p-grid">
+                                  <div class="p-field p-col-12 p-md-12 ">
+                                      <div class="p-inputgroup">  
+                                          <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar servicio" [(ngModel)]="searchText">
+                                          <button class="p-button-sm p-button-rounded" pButton type="button" (click)="onCerrarItems(indexTab)" icon="pi pi-arrow-left"> </button> 
+                                      </div>
+                                  </div>
+                              </div> 
+                              <div class="grillaItems">   
+                                  <div *ngFor="let servicio of arrayServicios  | filter: searchText"  class="grillaItems" (click)="onSeleccionarItems(servicio,indexTab)">
+                                      <p-card class="SombraCard" >
+                                          <strong>  {{ servicio.nombreProducto }} </strong>
+                                      </p-card> 
+                                  </div>  
+                              </div>  
+                          </div>
+                    </div> 
+                          
+                    <div>   
+                        <div class="ItemsList2" >
+                            <p-table class="TablaDetalle" [value]="Tabs[indexTab].items" responsiveLayout="scroll" >  
+    
+                                <ng-template pTemplate="header">
+                                    <tr>    
+                                        <th>Producto</th> 
+                                        <th>Precio</th>  
+                                    </tr>
+                                </ng-template> 
+                        
+                                <ng-template pTemplate="body" let-detalles let-rowIndex="rowIndex"  > 
+                                    <tr>   
+                                        <td>
+                                            <strong class="p-column-title"> Producto :</strong>
+                                            <strong > {{ detalles.producto }} </strong>    
+                                        </td> 
+                                        <td>  
+                                            <div class="p-inputgroup"> 
+                                                <input type="number" (keyup)="CalcularTotal($event, rowIndex , indexTab)" [value]="detalles.precioProducto" style="width: 100%;text-align: right;" [min]="0" class="p-inputtext-sm" pInputText >   
+                                                <button  
+                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    pButton 
+                                                    type="button"
+                                                    (click)="onEliminarItem(rowIndex, indexTab)"
+                                                    icon="pi pi-trash">  
+                                                </button>
+                                            </div>
+                                        </td> 
+                                    </tr>
+                                </ng-template>   
+                            </p-table>  
+                        </div>
+                       
+                        <hr>
+        
+                        <div class="p-fluid p-formgrid p-grid"> 
+                            <div class="p-field p-col-12 p-md-12">
+                                <div>
+                                    <strong class="totalaMostrar"> TOTAL : {{ Tabs[indexTab].valorTotal  | currency: 's/.'}} </strong>
+                                </div>  
+                            </div>
+                        </div>
+                    
+                        <div class="p-fluid p-formgrid p-grid"> 
+                            <div class="p-field p-col-12 p-md-6">
+                                <button 
+                                    pButton
+                                    type="button"  
+                                    tooltipPosition="top" 
+                                    pTooltip="boleta"    
+                                    label="BOLETA" 
+                                    [style.background-color]="Tabs[indexTab].seleccionarBoleta ? 'red' : ''"
+                                    (click)="onSeleccionarBF('B', indexTab)"
+                                    class="BotonActivo"
+                                    style="margin-right :2%;" 
+                                    icon="pi pi-file">
+                                </button>     
+                            </div>
+                            <div class="p-field p-col-12 p-md-6">
+                                <button 
+                                    pButton
+                                    type="button"  
+                                    class="BotonActivo"
+                                    tooltipPosition="top" 
+                                    pTooltip="factura"    
+                                    [style.background-color]="Tabs[indexTab].seleccionarFactura ? 'red' : ''" 
+                                    (click)="onSeleccionarBF('F', indexTab)"
+                                    label="FACTURA"
+                                    style="margin-right :2%;" 
+                                    icon="pi pi-file">
+                                </button>     
+                            </div> 
+                        </div>
+                        <span *ngIf="Tabs[indexTab].documentoSeleccionado"> Documento seleccionado:  <strong> {{ Tabs[indexTab].documentoSeleccionado }} </strong></span>
+           
+                    </div>
+                </div> 
+            </ng-template>
+            
+        </p-tabPanel>
+    </p-tabView>
+    
+    
+    <div *ngIf="modalBuscarPersona">
+        <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [idIndexTab]="idIndexTab" [modal]="true" [style]="{width: '60vw'}">
+            <div class="MarginModal">
+                <div class="contenido card">
+                    <!-- <form [formGroup]="FormCliente">  -->
+                        <div class="stepsdemo-content">   
+                            <div class="p-fluid p-formgrid p-grid"> 
+                                <div class="p-field p-col-12 p-md-12">
+                                    <strong>Número documento</strong>
+                                    <div class="InputCombinado">  
+                                        <input  type="text" [minLength]="minlen" [maxLength]="maxlen"  (keydown.enter)="onBuscarNuevoCliente($event.target)" pInputText [value]="Tabs[idIndexTab].nrodocumentocliente" class="p-inputtext-sm">     
+                                        <button [disabled]="!mostrarBotonPublicGeneral" class="p-button-sm" type="button" pButton label="General" icon="pi pi-replay" (click)="onCargarPublicoGeneral(idIndexTab)"> </button>    
+                                    </div> 
+                                </div>
+    
+                                <div class="p-field p-col-12 p-md-12">
+                                    <strong>Nombres:</strong>
+                                    <input  type="text" pInputText [minLength]="1"  [value]="Tabs[idIndexTab].nombreCliente" placeholder="nombre del cliente" class="p-inputtext-sm">     
+                                </div> 
+                            </div> 
+                        </div> 
+                    <!-- </form> -->
+                    <div class="botones">  
+                        <button   
+                            class="p-button-sm p-button-rounded"
+                            pButton
+                            type="button"
+                            icon="pi pi-times-circle"
+                            label="Asignar" 
+                            (click)="modalBuscarPersona = false">  
+                        </button>  
+                    </div>  
+                </div>
+            </div>
+        </p-dialog> 
+    </div>  
+    
+    <div *ngIf="modalCobrar">
+        <p-dialog header="COBRAR" [(visible)]="modalCobrar" [modal]="true" [style]="{width: '80vw'}">
+            <app-cobrar class="ModalCobrarCss" [dataCobrar]="dataCobrar" (cerrar)="onRetornar()" > </app-cobrar>
+        </p-dialog> 
+    </div>  
+    
+     
+     
+</div>
+
+
+ 

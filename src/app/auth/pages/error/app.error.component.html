@@ -1,0 +1,17 @@
+<div class="exception-body error-page">
+    <div class="exception-top">
+        <img src="assets/layout/images/icon-error.png" alt="poseidon-layout" />
+    </div>
+
+    <div class="exception-bottom">
+        <div class="exception-wrapper">
+            <span class="exception-summary">Ocurrió un error</span>
+            <span class="exception-detail">Porfavor inicie sesión, si el problema persiste comunicarse con el administrador de sistemas</span>
+            <button pButton pRipple [routerLink]="['/auth/login']" label="Iniciar sesión" icon="pi pi-home"></button>
+            <a [routerLink]="['/auth/login']" class="logo">
+                <img src="assets/layout/images/logo_ti.png" alt="poseidon-layout" class="logo-icon"  />
+            </a>
+            <span class="exception-footer">TI SOLUCIONES</span>
+        </div>
+    </div>
+</div>
