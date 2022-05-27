@@ -1,0 +1,73 @@
+.formulario{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 10rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+ }
+
+   
+ .formImprimir{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+       grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+  }
+  
+
+// ::ng-deep .p-megamenu-grid {
+//    display: flex;
+//    position: fixed;
+//    background: white;
+// }
+// ::ng-deep .layout-menu-dim .menu-wrapper {
+//    background-color: #147dba;
+//    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 6%);
+//    width: 15%;
+// }
+
+ 
+// ::ng-deep  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+//    color: white;
+// }
+
+// ::ng-deep  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link {
+//    background: #147dba;
+// }
+
+
+// ::ng-deep  .menu-wrapper .layout-menu-container .layout-menu {
+//    list-style-type: none;
+//    margin: 0;
+//    padding: 0;
+//    background: #147dba;
+//    padding-bottom: 36px;
+// }
+
+
+// ::ng-deep .p-megamenu .p-megamenu-submenu-header {
+//    margin: 0;
+//    padding: 0.75rem 1rem;
+//    color: white; 
+//    font-weight: 600;
+//    text-align: center;
+//    border-radius: 10px;
+//    border-top-left-radius: 3px;
+//    background: #147dba;
+// }
+
+// ::ng-deep .p-megamenu {
+//    padding: 0.5rem; 
+//    color: #515C66; 
+//    border-radius: 3px;
+// }
+ 

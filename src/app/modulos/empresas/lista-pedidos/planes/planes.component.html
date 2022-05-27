@@ -1,0 +1,94 @@
+<div *ngIf="mostrarHeader">
+   <app-titulos [titulo]="'Pedidos & Planes de Empresa'"  (cerrar)="onRegresar()" ></app-titulos>
+</div>
+
+<div>
+ 
+    <div class="tituloPage">
+        <h2> <strong> Detalles</strong></h2> 
+    </div>
+
+    <div class="formPlanes">
+        <p-tabView (onChange)="onInfoPlan($event)" >
+            <p-tabPanel [header]="item.nombreplan" *ngFor="let item of listaPlanes; let i = index" [selected]="i == 0">
+                <div class="card">  
+                    <hr>
+                    <div class="m-4">
+                        <div *ngIf="datosPlan && !pintarforeach" >
+                            <div class="card my-4">
+                                <div class="m-4">
+                                    <div class="">
+                                        <strong> Nombre: </strong> {{ datosPlan.nombre }}
+                                    </div>
+            
+                                    <div>
+                                        <strong> Comprobantes : </strong> {{ datosPlan.cantidadcomprobantes }}
+                                    </div>
+                                    
+                                    <div>
+                                        <strong> Importe Comprobante : </strong> {{ datosPlan.importecomprobanteadicional }}
+                                    </div>
+                            
+                                    <div>
+                                        <strong> Ingresa una cantidad : </strong>
+                                        <input type="number" [formControl]="cantidadIngresada" pInputText class="p-inputtext-sm w-100" [minlength]="0" [maxLength]="100" placeholder="ingresar una cantidad">
+                                    </div> 
+    
+                                    <div class="centrar">
+                                        <button
+                                            style="margin: 3%;"
+                                            class="p-button-sm"
+                                            pButton
+                                            type="button"
+                                            icon="pi pi-check-circle"
+                                            label="Elegir"
+                                            (click)="onPlanElegido(datosPlan)">
+                                        </button>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+
+                        <div *ngIf="datosPlanArray && pintarforeach">
+                            <div class="card my-4"  *ngFor="let dato of datosPlanArray">  
+                                <div class="m-4">
+                                    <div>
+                                        <strong> Nombre: </strong> {{ dato.nombre }}
+                                    </div>
+                                    <div>
+                                        <strong> Nombre: </strong> {{ dato.cantidadcomprobantes }}
+                                    </div>
+
+                                    <div>
+                                        <strong> Precio Sin IGV: </strong> {{ dato.preciosinigv }}
+                                    </div> 
+                                    <div>
+                                        <strong> Importe Comprobante Adicional: </strong> {{ dato.importecomprobanteadicional }}
+                                    </div> 
+                                    <div>
+                                        <strong> Ingresa una cantidad : </strong>
+                                        <input type="number" [formControl]="cantidadIngresada" pInputText class="p-inputtext-sm w-100" minlength="0" maxlength="100" placeholder="ingresar una cantidad">
+                                    </div> 
+
+                                </div>
+                                
+                                <div class="centrar">
+                                    <button
+                                        style="margin: 3%;"
+                                        class="p-button-sm p-button-rounded"
+                                        pButton
+                                        type="button"
+                                        icon="pi pi-check-circle"
+                                        label="Elegir"
+                                        (click)="onPlanElegido(dato)" >
+                                    </button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

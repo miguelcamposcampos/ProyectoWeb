@@ -1,0 +1,35 @@
+
+<div class="Margintabla">
+    <div class="contenidoTable card"> 
+        <div class="tituloMarca">  
+            <h3> <i class="fas fa-file-pdf"></i> REPORTE TRANSPORTISTA </h3>  
+        </div>  
+        <div class="p-col-12"> 
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3 CampoSwicth">
+                    <strong style="margin-right: 1.5%;">Con Chofer</strong>  
+                    <p-inputSwitch [formControl]="busConChofer" ></p-inputSwitch> 
+                </div>
+                <div class="p-field p-col-12 p-md-3 CampoSwicth">
+                    <strong style="margin-right: 1.5%;">Con Und.Transporte</strong>  
+                    <p-inputSwitch [formControl]="busConUnidadTransporte" ></p-inputSwitch> 
+                </div>
+                <div class="p-field p-col-12 p-md-3 CampoSwicth">
+                    <strong style="margin-right: 1.5%;">Fec.Hora de Impresión</strong>  
+                    <p-inputSwitch [formControl]="fechayhoraImpresion" ></p-inputSwitch> 
+                </div>
+                <div class="p-field p-col-12 p-md-2">       
+                    <button pButton label="Generar"  type="button" class="p-button-sm" icon="pi pi-file" (click)="onGenerarReporte()"></button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="contenidoReporte" style="height: 80vh;"> 
+            <br> 
+            <iframe  [src]="Pdf" height="95%" width="100%"></iframe> 
+        </div>
+ 
+    </div> 
+</div>  
+
+ 

@@ -1,0 +1,45 @@
+<!--  
+  <div class="landing-wrapper" >
+    <div class="titulo-topbar">  
+      <h3>  <strong> {{ titulo }}</strong>   </h3>
+      <button  
+          tooltipPosition="left"
+          pTooltip="Volver"
+          class="mx-2 p-button-sm" 
+          pButton 
+          [icon]="icon">
+      </button>  
+    </div>
+  </div> -->
+
+
+  
+
+ 
+
+  <div class="primerdiv">
+    <div class="contenteleft"> 
+      <img id="app-logo"
+          style="padding-right: 2%;"
+          src="assets/layout/images/logo_color.png"
+          alt="poseidon-layout"> 
+          <p> <strong> {{ titulo }} </strong> </p> 
+    </div>
+    <div class="contentrigth"> 
+
+      <div class="contentUser">  
+        <img (click)="menu.toggle($event)"
+        class="Imgtoolbar"
+        src="assets/layout/images/avatar-profile.png" 
+        alt="demo">
+        <div class="InfoUsuario" >
+          <strong>{{usuariologeado}}</strong>
+          <span>{{rolUsuario}}</span>
+        </div>
+      </div>
+
+      <p-menu #menu [popup]="true" [model]="itemsTopBar" appendTo="body"></p-menu>
+  
+                    
+    </div>
+  </div>

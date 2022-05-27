@@ -1,0 +1,125 @@
+
+<div class="Margintabla"> 
+    <div class="contenidoTable card">  
+        <!-- <div class="tituloVista">  
+            <h3>  <i class="fas fa-comments-dollar"></i>CONDICION DE PAGO</h3> 
+            <div class="botonesTitulosVista">
+                <button 
+                    pButton  
+                    type="button"
+                    label="Agregar" 
+                    class="p-button-sm"
+                    (click)="onNuevo()" 
+                    icon="pi pi-plus">
+                </button>       
+            </div>  
+        </div> -->
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3>  <i class="fas fa-comments-dollar"></i>CONDICION DE PAGO</h3> 
+            </div>
+            
+            <div class="p-toolbar-group-right">
+                <button 
+                    pButton  
+                    pTooltip="Agregar Nueva Condicion de Pago"
+                    tooltipPosition="top"
+                    type="button"
+                    label="Agregar" 
+                    class="p-button-sm"
+                    (click)="onNuevo()" 
+                    icon="pi pi-plus">
+                </button>   
+            </div>
+        </p-toolbar>
+
+        <p-table 
+        [responsive]="true"
+        [columns]="cols" 
+        responsiveLayout="stack"
+        selectionMode="single"
+        [rowHover]="true"
+        [paginator]="true" 
+        [rows]="10" 
+        [value]="listaCondicionPago">  
+
+            <ng-template pTemplate="header" let-columns >
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{ col.header }} 
+                        <p-sortIcon *ngIf="col.field != 'acciones'"
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon> 
+                    </th>
+                </tr> 
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-condicionPago let-columns="columns"  let-rowIndex="rowIndex"> 
+                <tr [pSelectableRow]="condicionPago" [pSelectableRowIndex]="rowIndex">
+                    <td  *ngFor="let col of columns" >
+                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>   
+                            
+                      
+                      
+                        <div [ngSwitch]="col.tipoFlag">    
+                            <div  *ngSwitchCase="'boolean'">
+                                <div *ngIf="condicionPago[col.escredito] === false">
+                                    <p-inputSwitch disabled [(ngModel)]="col.escredito"></p-inputSwitch> 
+                                </div>
+                  
+                                <div *ngIf="condicionPago[col.escredito] != false">
+                                    <!-- <p-inputSwitch disabled   > </p-inputSwitch> -->
+                                    <p-inputSwitch disabled [(ngModel)]="condicionPago.escredito"></p-inputSwitch> 
+                                </div>
+                            </div>  
+                            <div *ngSwitchDefault>
+                                {{ condicionPago[col.field]  }}
+                            </div>
+                        </div>  
+
+                            
+                        <ng-template #botones [ngIf]="col.field === 'acciones'">
+                            <div style="display: flex;">
+                                <button 
+                                    pButton
+                                    type="button" 
+                                    tooltipPosition="top" 
+                                    pTooltip="Editar" 
+                                    (click)="onEditar(condicionPago)"
+                                    style="margin-right :2%;" 
+                                    icon="pi pi-pencil">
+                                </button>     
+                                <button 
+                                    pButton
+                                    type="button" 
+                                    tooltipPosition="top" 
+                                    style=" background-color: #D72250;"
+                                    (click)="onEliminar(condicionPago)"
+                                    pTooltip="Eliminar"  
+                                    icon="pi pi-trash">
+                                </button>        
+                            </div>  
+                        </ng-template>  
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">No existen registros</td>
+                </tr>
+                </ng-template> 
+        </p-table> 
+        
+    </div> 
+</div>  
+ 
+ 
+ <div *ngIf="modalNuevaCondicionPago">
+    <p-dialog header="{{ (!dataCondicion) ? 'NUEVA CONDICION DE PAGO' : 'EDITAR CONDICION DE PAGO' }}" [(visible)]="modalNuevaCondicionPago" [modal]="true" [style]="{width: '50vw'}">
+        <app-nueva-condicion-pago [dataCondicion]="dataCondicion" (cerrar)="onRetornar($event)"> </app-nueva-condicion-pago>
+    </p-dialog> 
+</div>  

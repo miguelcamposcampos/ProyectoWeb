@@ -1,0 +1,34 @@
+ 
+  .TablaDetalle ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+    flex: none;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .TablaDetalle ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+    flex: 0 !important;
+    text-align: center;
+  }
+
+  .TablaDetalle ::ng-deep .p-dropdown  {
+    justify-content: left;
+    width: 140px;
+  }
+  
+  .TablaDetalle ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+    padding-right: 1rem;
+    text-align: left !important;
+  }
+
+  .ClassSwicth{
+    width: 60px;
+  }
+
+  
+::ng-deep .BorrarLabel {
+  .p-button-label{
+    @media (max-width:900px) {
+      display: none !important;
+    }
+  }
+}

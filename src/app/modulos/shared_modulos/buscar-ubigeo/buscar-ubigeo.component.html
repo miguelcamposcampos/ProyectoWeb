@@ -1,0 +1,37 @@
+<div class="Margintabla">
+    <div class="contenido card">  
+        <div class="stepsdemo-content nuevoTransportista"> 
+            <br>
+            <div class="formulario">  
+                <strong>Departamento</strong>    
+                <p-dropdown class="extender" (onChange)="onObtenerDepartamentoSeleccionado($event.value)" placeholder="Selecciona un departamento"  [formControl]="departamento" [options]="arrayDepartamentos" optionLabel="nombre" appendTo="body"></p-dropdown>
+                    
+                <strong>Provincia</strong>  
+                <p-dropdown class="extender" [disabled]="bloqueardropdownProvincias" (onChange)="onObtenerProvinciaSeleccionado($event.value)"  [placeholder]="(bloqueardropdownProvincias)  ? 'Cargando Provincias ...' : 'Selecciona una provincia'"  [formControl]="provincia" [options]="arrayProvincias" optionLabel="nombre" appendTo="body"></p-dropdown>
+                    
+                <strong>Distrito</strong>
+                <p-dropdown class="extender" [disabled]="bloqueardropdownDistritos" (onChange)="onObtenerDistritoSeleccionado($event.value)" [placeholder]="(bloqueardropdownDistritos) ? 'Cargando Distritos ...' : 'Selecciona un distrito'" [formControl]="distrito" [options]="arrayDistritos" optionLabel="nombre" appendTo="body"></p-dropdown>
+            </div>  
+        </div> 
+        <div class="botones">
+            <button  
+                class="p-button-sm"
+                pButton 
+                style="margin-right: 1%;"
+                label="Grabar"
+                (click)="onGrabar()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm"
+                pButton
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                style=" background-color: #D72250;"
+                (click)="onRegresar()">  
+            </button>  
+        </div>
+    </div>  
+  
+</div>

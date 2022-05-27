@@ -1,0 +1,83 @@
+<div class="Margintabla">
+    <div class="card">  
+      
+        <div class="p-col-12"> 
+            <div class="p-fluid p-formgrid p-grid">  
+                <div class="p-field p-col-12 p-md-3">
+                    <strong>Tipo de Persona:</strong>
+                    <p-dropdown
+                        [options]="ArraytipoPersona" 
+                        [formControl]="tipopersonaBuscar"
+                        placeholder="selecciona"
+                        optionLabel="nombre"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
+                    
+                <div class="p-field p-col-12 p-md-6">
+                    <strong >Buscar por Nombre o Nro Documento:</strong>
+                    <input type="text" placeholder="ingresa un anexo... "  class="p-inputtext-sm" [formControl]="criterio" pInputText>  
+                </div>
+
+                <div class="p-field p-col-12 p-md-3 botonBuscar">
+                    <button pButton label="Buscar" icon="pi pi-search" class="p-button-sm" (click)="onLoadPersonas(null)"></button>
+                </div>
+
+            </div>
+        </div> 
+        
+        
+        <p-table  
+        [responsive]="true"
+        [columns]="cols" 
+        responsiveLayout="stack"
+        selectionMode="single"
+        [rowHover]="true"
+        [paginator]="true" 
+        [rows]="size"
+        (onRowSelect)="onSeleccionarPersona($event)"
+        [showCurrentPageReport]="true"
+        [currentPageReportTemplate]="textoPaginado" 
+        [rowsPerPageOptions]="[5,10,50,100]" 
+        paginatorDropdownAppendTo="body"
+        [value]="listaAnexos">  
+
+            <ng-template pTemplate="header" let-columns >
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{ col.header }} 
+                        <p-sortIcon *ngIf="col.field != 'acciones'"
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon> 
+                    </th>
+                </tr> 
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-anexos let-columns="columns"  let-rowIndex="rowIndex"> 
+                <tr [pSelectableRow]="anexos" [pSelectableRowIndex]="rowIndex">
+                    <td  *ngFor="let col of columns" >
+                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>  
+                        {{ anexos[col.field]  }} 
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">No existen registros</td>
+                </tr>
+            </ng-template> 
+
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadPersonas($event)"></p-paginator>
+
+        </p-table> 
+    
+    
+       
+
+    </div> 
+</div>  
+ 

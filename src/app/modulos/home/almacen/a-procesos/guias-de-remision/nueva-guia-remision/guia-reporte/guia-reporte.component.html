@@ -1,0 +1,32 @@
+<div class="Margintabla">
+    <div class="contenidoTablecard"> 
+        <div class="reporteMovimiento">  
+            <h3> <i class="fas fa-file-pdf"></i> REPORTE </h3> 
+            <div class="botonesCabecera">   
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-file"
+                    label="Generar" 
+                    style="margin-right: 1%"
+                    (click)="onGenerarReporte()">  
+                </button>  
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-arrow-circle-left"
+                    label="Regresar" 
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+        </div>
+
+        <div *ngIf="contenidoReporte" style="height: 80vh;"> 
+             <br> 
+             <iframe  [src]="Pdf" height="95%" width="100%"></iframe> 
+        </div>
+ 
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="Margintabla"> 
+    <div class="contenidoTable card">  
+        <!-- <div class="tituloCobranza">  
+            <h3> <i class="fas fa-cart-plus"></i>  VENTA POS </h3>  
+            <div class="botonesCabecera">
+                <button   
+                    class="p-button-sm p-button-rounded mx-2"
+                    pButton
+                    type="button"
+                    icon="pi pi-arrow-circle-left"
+                    label="Regresar" 
+                    (click)="onRegresar()">  
+                </button>       
+            </div>       
+        </div> -->
+
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-cart-plus"></i>  VENTA POS </h3>  
+            </div>
+            
+            <div class="p-toolbar-group-right">
+                <button   
+                    class="p-button-sm p-button-rounded mx-2"
+                    pButton
+                    type="button"
+                    icon="pi pi-arrow-circle-left"
+                    label="Regresar" 
+                    (click)="onRegresar()">  
+                </button>       
+            </div>
+        </p-toolbar>
+
+        <form [formGroup]="Form">
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12 p-md-6 p-sm-6"> 
+                        <div class="p-inputgroup">  
+                            <i class="fas fa-city"></i>
+                            <p-dropdown class="extender" 
+                                [options]="arrayEstablecimientos" 
+                                (onChange)="onObtenerEstablecimiento($event)" 
+                                placeholder="Seleccionar " 
+                                [showClear]="true"  
+                                formControlName="establecimientoid"
+                                optionLabel="valor1"></p-dropdown>     
+                        </div>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6 p-sm-6"> 
+                        <div class="p-inputgroup">  
+                            <i class="fas fa-warehouse"></i> 
+                            <p-dropdown class="extender"
+                                [options]="arrayAlmacenes"  
+                                (onChange)="onObtenerAlmacen($event.value.id)" 
+                                placeholder="Seleccionar "  
+                                [showClear]="true" 
+                                formControlName="almacenid"
+                                optionLabel="valor1"></p-dropdown>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr> 
+        <div *ngIf="mostrarItemsVentaPos">
+            <app-items-venta-pos #newVentaPos [dataVentaPos]="dataVentaPos"> </app-items-venta-pos>
+        </div>
+        <div *ngIf="!mostrarItemsVentaPos"  class="classSqueleton">  
+            <div>
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+            </div> 
+            <div>
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton> 
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+                <p-skeleton  height="4rem" borderRadius="10px"></p-skeleton>
+            </div> 
+        </div>
+    </div>
+</div>

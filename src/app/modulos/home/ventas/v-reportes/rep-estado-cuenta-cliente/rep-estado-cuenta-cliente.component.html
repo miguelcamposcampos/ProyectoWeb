@@ -1,0 +1,62 @@
+<div class="Margintabla">
+    <div class="contenidoTable card"> 
+        <div class="tituloMarca">  
+            <h3> <i class="fas fa-file-pdf"></i> REPORTE ESTADO CUENTA CLIENTE </h3>  
+        </div>
+        <form [formGroup]="Form">
+            <div class="p-col-12"> 
+                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-2 p-sm-6">
+                        <strong>DESDE: </strong> 
+                        <p-calendar
+                            readonlyInput="true"
+                            [readonlyInput]="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaInicio"
+                        ></p-calendar> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-2 p-sm-6">
+                        <strong>HASTA:</strong> 
+                        <p-calendar
+                            readonlyInput="true"
+                            [readonlyInput]="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaFin"
+                        ></p-calendar> 
+                    </div> 
+                    <div class="p-field p-col-12 p-md-5 p-sm-6">
+                        <strong class="p-column-title">CLIENTE:</strong> 
+                        <div class="p-inputgroup">  
+                            <input type="text" readonly  formControlName="nombreCliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
+                            <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onModalBuscarCliente();" pButton icon="pi pi-search"></button>      
+                            <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
+                        </div> 
+                    </div>
+                    <div class="p-field p-col-12 p-md-2 p-sm-3">     
+                        <button pButton class="p-button-sm" label="Generar" type="button" pTooltip="PDF" icon="pi pi-file-pdf" (click)="onGenerarReporte()"></button>
+                    </div>
+                    <div class="p-field p-col-12 p-md-1 p-sm-3">     
+                        <button pButton class="p-button-sm" pTooltip="EXCEL" type="button" icon="pi pi-file-excel" (click)="onGenerarExcel()"></button>
+                    </div>
+                </div>
+            </div>
+    
+        </form>
+    
+        <div *ngIf="contenidoReporte" style="height: 80vh;"> 
+            <br> 
+            <iframe  [src]="Pdf" height="95%" width="100%"></iframe> 
+        </div>
+ 
+ 
+    </div> 
+</div>  
+
+ 
+<div *ngIf="modalBuscarPersona">
+    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
+        <app-buscar-persona  [dataPersona]="'Cliente'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
+    </p-dialog> 
+</div>  

@@ -1,0 +1,40 @@
+<div class="MarginModal">
+    <div class="contenido card">
+        <form [formGroup]="Form">
+            <div class="stepsdemo-content">   
+                <div class="formulario">   
+                    <strong>Nombre:</strong>
+                    <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar el nombre de la condicion de pago">     
+
+                    <strong>Es credito *:</strong>
+                    <p-inputSwitch formControlName="escredito"> </p-inputSwitch> 
+                </div> 
+            </div>
+
+
+            <div class="botones">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style="margin-right: 1%;"
+                    [disabled]="Form.invalid"
+                    label="{{ (dataCondicion) ? 'Actualizar' : 'Guardar' }}"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+    
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+
+        </form>
+    </div>
+</div>

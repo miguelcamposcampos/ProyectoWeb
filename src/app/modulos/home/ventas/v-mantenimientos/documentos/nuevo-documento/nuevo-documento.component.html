@@ -1,0 +1,136 @@
+<div class="MarginModal">
+    <div class="contenido card"> 
+        <form [formGroup]="Form">
+            <div class="stepsdemo-content">  
+                <p-fieldset>
+                <ng-template pTemplate="header">Datos Principales</ng-template>
+                <div class="p-col-12"> 
+                    <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid"> 
+
+                        <div class="p-field p-col-12  p-lg-6 p-md-12">
+                            <div class="formulario">    
+                                <strong>Codigo *:</strong>
+                                <input type="text" pInputText [minlength]="1" [maxLength]="3" placeholder="maximo 3 números"  formControlName="codigo" class="p-inputtext-sm">   
+                            </div>  
+                        </div>
+
+                        <div class="p-field p-col-12 p-lg-6 p-md-12">
+                            <div class="formulario">    
+                                <strong>Sigas Documento *:</strong>
+                                <input type="text" pInputText [minlength]="1" [maxlength]="3" placeholder="maximo 3 caracteres"  formControlName="siglas" class="p-inputtext-sm">   
+                            </div>  
+                        </div>
+
+                        <div class="p-field p-col-12  p-lg-12 p-md-12">
+                            <div class="formulario">   
+                                <strong>Nombre Documento *:</strong>
+                                <input type="text" pInputText formControlName="nombre" placeholder="ingres nombre de documento" class="p-inputtext-sm">  
+                            </div>  
+                        </div>
+
+                    </div>
+                </div>
+                </p-fieldset>
+
+                <br>
+
+                <p-fieldset>
+                    <ng-template pTemplate="header">Seleccionar el tipo de documento</ng-template>
+ 
+
+                    <div class="p-col-12"> 
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-lg-4 p-md-6">
+                                <div class="switches">   
+                                    <strong>Documento Contable:</strong>
+                                    <p-inputSwitch formControlName="contable"></p-inputSwitch>
+
+                                    <strong>Nota de Credito:</strong>
+                                    <p-inputSwitch formControlName="notacredito"></p-inputSwitch>
+            
+                                    <strong>Compra:</strong>
+                                    <p-inputSwitch formControlName="compra"></p-inputSwitch>
+            
+                                    <strong>Venta:</strong>
+                                    <p-inputSwitch formControlName="venta"></p-inputSwitch>
+            
+                                    <strong>Pedido:</strong>
+                                    <p-inputSwitch formControlName="pedido"></p-inputSwitch>
+            
+                                    <strong>Recibo Honorario:</strong>
+                                    <p-inputSwitch formControlName="recibohonorario"></p-inputSwitch>
+                                </div>
+             
+                            </div>
+
+                            <div class="p-field p-col-12 p-lg-4 p-md-6">
+                                <div class="switches">   
+                                    <strong>Cotización:</strong>
+                                    <p-inputSwitch formControlName="cotizacion"></p-inputSwitch>
+        
+                                    <strong>Orden de Compra:</strong>
+                                    <p-inputSwitch formControlName="ordencompra"></p-inputSwitch>
+        
+                                    <strong>Guia de Remisión:</strong>
+                                    <p-inputSwitch formControlName="guiaremision"></p-inputSwitch>
+        
+                                    <strong>Anticipo:</strong>
+                                    <p-inputSwitch formControlName="anticipo"></p-inputSwitch>
+        
+                                    <strong>Mueve Stock:</strong>
+                                    <p-inputSwitch formControlName="muevestock"></p-inputSwitch>
+                                </div>
+                            </div>
+
+                            <div class="p-field p-col-12 p-lg-4 p-md-6">
+                                <div class="switches">   
+                                    <strong>Requerido:</strong>
+                                    <p-inputSwitch formControlName="requerido"></p-inputSwitch>
+        
+                                    <strong>Sunat:</strong>
+                                    <p-inputSwitch formControlName="sunat"></p-inputSwitch>
+        
+                                    <strong>Nota de Ingreso Almacen:</strong>
+                                    <p-inputSwitch formControlName="notaingalmacen"></p-inputSwitch>
+        
+                                    <strong>Nota de Salida Almacen:</strong>
+                                    <p-inputSwitch formControlName="notasalalmacen"></p-inputSwitch>
+        
+                                    <strong>Caja Banco:</strong>
+                                    <p-inputSwitch formControlName="cajabanco"></p-inputSwitch>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+ 
+                </p-fieldset>
+
+               
+            </div>
+        </form> 
+
+        <div class="botones">
+            <button  
+                class="p-button-sm"
+                pButton
+                type="button"
+                style="margin-right: 1%;"
+                label="{{ (dataDocumento) ? 'Actualizar' : 'Guardar' }}"
+                (click)="onGrabar()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm"
+                pButton
+                type="button"
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                style=" background-color: #D72250;"
+                (click)="onRegresar()">  
+            </button>  
+        </div> 
+    </div>
+</div>

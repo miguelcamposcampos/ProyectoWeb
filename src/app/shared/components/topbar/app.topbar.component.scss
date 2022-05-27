@@ -1,0 +1,16 @@
+.topBarHome ::ng-deep .buttonBashboard  {
+    @media (min-width: 801px) and  (max-width: 1200px)  {
+        margin-left: 4% !important; 
+    }
+    @media (min-width: 550px) and  (max-width: 800px)  {
+        margin-left: 7% !important; 
+    }
+
+    @media (min-width: 401px) and  (max-width: 550px)  {
+        margin-left: 10% !important; 
+    }
+
+    @media (min-width: 300px) and  (max-width: 400px)  {
+        margin-left: 10% !important; 
+    }
+}

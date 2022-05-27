@@ -1,0 +1,20 @@
+
+.tituloCobranza{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+ .p-inputgroup i{
+  align-items: center;
+  font-size: 25px; 
+ }
+ 
+.classSqueleton{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 5%;
+  column-gap: 2%;
+  .p-skeleton{
+    margin: 5% !important;
+  }
+}

@@ -1,0 +1,89 @@
+<div class="Margintabla">
+    <div class="contenidoTable card"> 
+        <!-- <h3> <i class="fas fa-truck"></i>   {{ tituloVistaUnidadTransporte }}</h3>  -->
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-truck"></i>   {{ tituloVistaUnidadTransporte }}</h3> 
+            </div>
+            
+            <div class="p-toolbar-group-right">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    style="margin-right: 1%;"
+                    type="button"
+                    [disabled]="Form.invalid" 
+                    label="{{ (dataUnidadTransporte.idUnidaTransporte) ? 'Actualizar' : 'Guardar' }}"
+                    (click)="onGrabarUnidadTransporte()"
+                    icon="pi pi-check-circle">  
+                </button>  
+
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+        </p-toolbar>
+
+        <hr>   
+            <div class="stepsdemo-content nuevoTransportista">
+                <div>
+                    <form [formGroup]="Form" class="form" >   
+                        <p-fieldset>
+                            <ng-template pTemplate="header">Datos Personales</ng-template>
+                            <div class="formulario">   
+                                <strong>Placa*</strong>
+                                <input type="text" pInputText formControlName="placa" class="p-inputtext-sm" placeholder="ingresar placa">   
+                             
+                                <strong>Marca*</strong>
+                                <input type="text" pInputText formControlName="marca" class="p-inputtext-sm" placeholder="ingresar Marca">   
+                            
+                                <strong>Modelo</strong>
+                                <input  type="text" pInputText formControlName="modelo" class="p-inputtext-sm" placeholder="ingresar modelo">     
+
+                                <strong>Certificado</strong>
+                                <input type="text" pInputText formControlName="certificado" class="p-inputtext-sm" placeholder="ingresar certificado">   
+                            
+                                <strong>Carreta Placa *</strong>
+                                <input  type="text" pInputText formControlName="carretaPlaca" class="p-inputtext-sm" placeholder="ingresar carretaPlaca">     
+
+                                <strong>Carreta Marca</strong>
+                                <input type="text" pInputText formControlName="carretaMarca" class="p-inputtext-sm" placeholder="ingresar tus carretaMarca">   
+                            
+                                <strong>Carreta Certificado</strong>
+                                <input  type="text" pInputText formControlName="carretaCertificado" class="p-inputtext-sm" placeholder="ingresar tus carretaCertificado">     
+                            </div> 
+                        </p-fieldset>
+                    </form>   
+                  
+                </div> 
+            </div>
+   
+        <!-- <div class="botones">
+            <button  
+                class="p-button-sm p-button-rounded mx-2"
+                pButton
+                type="button"
+                [disabled]="Form.invalid" 
+                label="{{ (dataUnidadTransporte.idUnidaTransporte) ? 'Actualizar' : 'Grabar' }}"
+                (click)="onGrabarUnidadTransporte()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm p-button-rounded mx-2"
+                pButton
+                type="button"
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                (click)="onRegresar()">  
+            </button>  
+        </div> -->
+    </div>  
+  
+</div>

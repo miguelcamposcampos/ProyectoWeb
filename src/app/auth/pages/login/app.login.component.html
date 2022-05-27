@@ -1,0 +1,128 @@
+
+
+<body>
+    <img class="imgFondo" src="assets/demo/images/fondo-login2.jpg" alt="poseidon-layout" /> 
+    <div class="login">
+        <div class="Formlogin">
+           
+            <div class="card">  
+                <img src="assets/layout/images/logo_ti.png" alt="poseidon-layout" /> 
+                <br>  
+                <div class="tituloLogin"> 
+                    <h2>¡Bienvenido!</h2> 
+                    <form [formGroup]="loginForm">   
+                        <div class="formulario">  
+                            <input type="email" pInputText formControlName="email" placeholder="ingrese email" class="p-inputtext-sm">   
+                           
+                            <span class="p-input-icon-right" style="width: 100%;">
+                                <i toggle="#password-field"
+                                [class]="cambiarIconEye"
+                                (click)="viewPassword(clave)"> </i>
+                                <input type="password"  #passwordField pInputText placeholder="ingrese contraseña" formControlName="password"  #clave class="p-inputtext-sm">    
+                            </span>
+ 
+                            <div style="text-align: left; margin: 2%;">  
+                                    <p-checkbox   
+                                        [(ngModel)]="checkRecordarLogin" 
+                                        [binary]="true"
+                                        label="Recordar contraseña"
+                                        formControlName="rememberMe" >
+                                    </p-checkbox>   
+                            </div>  
+                            <div style="text-align: right;"> 
+                                <button    
+                                    class="p-button-sm botonIngresar"
+                                    pButton
+                                    icon="pi pi-arrow-right"
+                                    iconPos="right"
+                                    label="INGRESAR" 
+                                    [disabled]="loginForm.invalid"
+                                    (click)="onLogin()">  
+                                </button>    
+                            </div>  
+                        </div>
+                    </form>  
+                </div>
+                 
+                 
+                <div style="text-align: center;"> 
+                    <span (click)="onRecuperar()" > ¿olvidó su contraseña? </span>  
+                </div>  
+                
+            </div>
+    
+            <div class="textoRegistrar">
+                <p>¿No tienes cuenta? <a href="#" routerLink="/auth/registro"> <b class="textoRegistrar">Registrate aquí. </b> </a></p>
+            </div>
+    
+        </div> 
+    </div>
+</body>
+
+
+
+
+ 
+ 
+
+<!-- <div class="login-body">
+    <div class="login-wrapper">
+        <div class="login-panel">
+            <a [routerLink]="['/']" class="logo">
+                <img src="assets/layout/images/logo_ti.png" alt="poseidon-layout" />
+               
+                <h1>
+                    <strong> TI SOLUCIONES</strong>
+                </h1>
+            </a>
+            <form [formGroup]="loginForm"> 
+
+                <div class="login-form">
+                    <h2>Bienvenido!.</h2> 
+                    <input 
+                        type="email" 
+                        autocomplete="off" 
+                        pInputText 
+                        formControlName="email"
+                        placeholder="Email">
+
+                    <input 
+                        type="password" 
+                        autocomplete="off" 
+                        pInputText 
+                        formControlName="password"
+                        placeholder="contraseña"> 
+
+                        
+                    <div>
+                        <p-checkbox   
+                            [(ngModel)]="checkRecordarLogin" 
+                            [binary]="true"
+                            label="Recordar contraseña"
+                            [formControlName]="'rememberMe'" >
+                        </p-checkbox>   
+                    </div>
+                    
+                    
+                    <button 
+                        style="margin:4%;"  
+                        icon="pi pi-arrow-circle-right" 
+                        pButton [disabled]="loginForm.invalid"  
+                        label="INGRESAR" 
+                        type="button"
+                        (click)="onLogin()">
+                    </button> 
+                    
+                    <div>
+                        <span (click)="onRecuperar()" > ¿olvidó su contraseña? </span>  
+                    </div>
+               
+                  
+
+                </div>
+            </form>
+            <p>¿No tienes cuenta? <a href="#" routerLink="/auth/registro"> Registrate</a></p>
+            
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,125 @@
+<!-- <app-titulos [titulo]="(empresasSelect) ? 'Editar Empresa' :'Registrar Empresa'" (cerrar)="onRegresar()"> </app-titulos> 
+  -->
+  <div>
+
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <img id="app-logo"
+              style="padding-right: 2%;"
+              src="assets/layout/images/logo_color.png"
+              alt="poseidon-layout"> 
+              <!-- <h3> <strong> {{ ( !EmpresaEdit  ) ? 'Registrar Empresa' : 'Actualizar Empresa'}} </strong> </h3>  -->
+        </div>
+        
+        <div class="p-toolbar-group-right">
+            <button    
+            class="p-button-sm mx-2"
+            pButton
+            type="button"
+            icon="pi pi-arrow-left"
+            label="Regresar"
+            tooltipPosition="left"
+            pTooltip="Regresar"
+            (click)="onRegresar()">  
+        </button>   
+        </div>
+    </p-toolbar>
+
+ 
+        <div class="tituloPage">
+            <h2> <strong>{{ ( !EmpresaEdit  ) ? ' Registrar Empresa' : 'Actualizar Empresa'}}</strong></h2> 
+        </div>
+            
+        <div class="Margintabla">
+            <div class="centrar card"> 
+              
+                <form [formGroup]="EmpresaForm">    
+                    <div class="p-grid p-fluid" style="margin:4%;"> 
+                        <div class="p-inputgroup">
+                            <i class="pi pi-globe"></i> 
+                            <input type="text" pInputText required (keydown.enter)="onBuscarPorRuc()" formControlName="Ruc" class="p-inputtext-sm" [minlength]="11" [maxlength]="11" placeholder="ingresar el ruc">      
+                        </div>
+                        <span *ngIf="onValidateForm('Ruc')">El campo es requerido </span>
+        
+                        <div class="p-inputgroup my-2">
+                            <i class="pi pi-user"></i> 
+                            <input type="text" pInputText readonly formControlName="RazonSocial" class="p-inputtext-sm" placeholder="este campo se carga automaticamente al ingresar el ruc.">    
+                        </div>
+                        <span *ngIf="onValidateForm('RazonSocial')">El campo es requerido </span>
+    
+                        <div class="p-inputgroup">
+                            <i class="pi pi-home"></i> 
+                            <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-sm" placeholder="ingresar el nombre comercial">   
+                        </div> 
+    
+                        <div class="p-inputgroup my-2">
+                            <i class="pi pi-map-marker"></i> 
+                            <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-sm" placeholder="ingresar la direccion fiscal">   
+                        </div>
+                        <span *ngIf="onValidateForm('DireccionFiscal')">El campo es requerido </span>
+    
+                        <div class="p-inputgroup  ">
+                            <i class="pi pi-external-link"></i> 
+                            <input type="email" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="ingresar el email corporativo">     
+                        </div> 
+    
+                        <div class="p-inputgroup my-2">
+                            <i class="pi pi-google"></i>
+                            <input type="url" pInputText formControlName="WebSite" class="p-inputtext-sm" placeholder="ingresar la url de su website">     
+                        </div> 
+    
+                        <div class="p-inputgroup mb-2">
+                            <i class="pi pi-phone"></i> 
+                            <input type="number" pInputText formControlName="Telefono" class="p-inputtext-sm" [minLength]="9" [maxLength]="9" placeholder="ingresar el telefono">  
+                        </div>  
+                    </div>
+    
+                    <div *ngIf="!EmpresaEdit" class="centrar"> 
+                        <button pButton *ngIf="!agregPlanElegido" label="{{ (!agregPlanElegido)? 'Elige un Plan:' : 'Plan elegido:' }}"(click)="onEscogerPlan()" icon="pi pi-check-square" class="p-button-sm" > </button>    
+                        <div class="d-flex">
+                            <button pButton *ngIf="agregPlanElegido" [label]="agregPlanElegido" class="botonPlan p-button-sm  mx-2"   type="button"> </button> 
+                            <button pButton *ngIf="agregPlanElegido" pTooltip="quitar plan elegido" tooltipPosition="left"    type="button" (click)="onQuitarPlan()" icon="pi pi-trash" class="botonPlan p-button-sm" > </button>    
+                        </div>
+                    </div> 
+    
+                    
+                </form>   
+             
+            
+                <hr>  
+                <div class="botones">
+                    <button  
+                        class="p-button-sm"
+                        pButton
+                        style="margin-right: 1%;"
+                        type="button"
+                        icon="pi pi-check-circle"
+                        label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}"  
+                        [disabled]="!EmpresaForm.valid"
+                        (click)="onAgregarEmpresa()">  
+                    </button>  
+                
+                    <button   
+                        class="p-button-sm"
+                        pButton
+                        style=" background-color: #D72250;"
+                        type="button"
+                        icon="pi pi-times-circle"
+                        label="Cancelar" 
+                        (click)="onRegresar()">  
+                    </button>  
+                </div>  
+            </div>
+        </div>
+     
+  </div>
+
+ 
+
+<div *ngIf="modalPlanes" class="card RegistroPlanes">  
+    <p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false" [resizable]="false"> 
+            <app-planes  (onChange)="onPlanelegido($event)"  ></app-planes>
+    </p-dialog>  
+</div> 
+
+

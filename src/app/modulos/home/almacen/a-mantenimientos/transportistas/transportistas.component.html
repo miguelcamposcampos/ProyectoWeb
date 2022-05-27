@@ -1,0 +1,292 @@
+ 
+ <div *ngIf="!VistaNuevoTransportista && !VistaNuevoChofer && !VistaNuevoUnidadTransporte">
+    <div class="Margintabla">
+        <div class="contenidoTable card"> 
+         
+
+          <p-toolbar>
+            <div class="p-toolbar-group-left">
+              <h3> <i class="fas fa-address-card"></i> LISTA DE TRANSPORTISTA</h3> 
+            </div>
+            
+            <div class="p-toolbar-group-right">
+              <button    
+                class="p-button-sm mx-2"
+                pButton
+                type="button"
+                icon="pi pi-plus"
+                label="Agregar"
+                tooltipPosition="left"
+                pTooltip="Agregar nuevo Transportista"
+                (click)="onNuevoTransportista()">  
+              </button> 
+            </div>
+        </p-toolbar>
+
+
+            <div class="titulo d-flex flex-wrap">
+                <div class="px-2">
+                  <strong> Buscar :</strong>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                        pInputText
+                        type="text"
+                        [formControl]="criterioBusqueda"
+                        class="p-inputtext-sm"
+                        placeholder="Buscar"
+                        size="25"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
+                    </span> 
+                </div>
+                <!-- <div class="d-block">
+                   
+                </div> -->
+            </div>
+            
+            <div class="card" [responsive]="true"> 
+     
+            <p-table 
+            [value]="listTransportistas" 
+            dataKey="id" 
+            [paginator]="true" 
+            [rows]="10"
+            [columns]="cols" 
+            selectionMode="single" 
+            [responsive]="true"
+            responsiveLayout="stack" >
+
+                <ng-template pTemplate="header"  let-columns >
+                  <tr>
+                    <th style="width: 3rem"></th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                      {{ col.header }} 
+                      <p-sortIcon *ngIf="col.field != 'acciones'"
+                          [field]="col.field"
+                          ariaLabel="Activate to sort"
+                          ariaLabelDesc="Activate to sort in descending order"
+                          ariaLabelAsc="Activate to sort in ascending order">
+                      </p-sortIcon> 
+                  </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-transportistas let-columns="columns"  let-rowIndex="rowIndex" let-expanded="expanded">
+                  <tr [pSelectableRow]="transportistas" [pSelectableRowIndex]="rowIndex">
+                    <td>
+                      <button  type="button" pButton pRipple [pRowToggler]="transportistas"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                      ></button>
+                    </td>
+                    <td  *ngFor="let col of columns" >
+                      <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+                      
+                      <div [ngSwitch]="col.field">    
+                          <div *ngSwitchCase="'fechaRegistro'">
+                            {{ transportistas[col.field] | date: col.formatoFecha }}
+                          </div>
+                          <div *ngSwitchDefault>
+                            {{ transportistas[col.field]  }}
+                          </div>
+                      </div>  
+           
+                      <ng-template #botones [ngIf]="col.field === 'acciones'">
+                        <div style="display: flex;">
+                          <button 
+                            style="margin-right: 2% ;"
+                            pButton
+                            type="button" 
+                            class="p-button-sm"
+                            tooltipPosition="top" 
+                            pTooltip="Editar Transportista"  
+                            (click)="onEditarTransportista(transportistas.id)"
+                            icon="pi pi-pencil">
+                          </button> 
+                          <button 
+                            pButton
+                            type="button" 
+                            class="p-button-sm"
+                            (click)="onModalEliminarTransportista(transportistas)"
+                            tooltipPosition="top" 
+                            style="background-color: #D72250;"
+                            pTooltip="Eliminar Transportista"  
+                            icon="pi pi-trash">
+                          </button>   
+                        </div>
+                        
+                    </ng-template>
+                  </td>
+                  </tr>
+                </ng-template>
+
+                <div style="margin-top: 2%;"></div>
+                <hr style="width: 5%;"desc>
+                
+                <!-- LISTA DE CHOFERES -->
+                <ng-template pTemplate="rowexpansion" let-transportistas>
+                  <tr>
+                    <td colspan="7" >
+                      <div class="p-3" >
+                        <div class="ramasTable">   
+                          <div class="titulorama">
+                            <h3> LISTA DE CHOFERES</h3> 
+                            <button 
+                              pButton 
+                              type="button"
+                              (click)="onNuevoChofer(transportistas.id)"  
+                              class="p-button-sm"
+                              style="margin-right: 2%;"
+                              label="Agregar"
+                              tooltipPosition="top" 
+                              pTooltip="Agregar Nuevo Chofer"  
+                              icon="pi pi-plus">
+                            </button> 
+                          </div> 
+                        </div>
+                  
+                        <p-table   [value]="transportistas.choferes" dataKey="id"  [columns]="colschoferes" selectionMode="single" [responsive]="true" responsiveLayout="stack">
+                          <ng-template pTemplate="header"  let-columns>
+                            <tr>
+                              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{ col.header }} 
+                                <p-sortIcon *ngIf="col.field != 'acciones'"
+                                    [field]="col.field"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order">
+                                </p-sortIcon> 
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-choferes let-columns="columns"  let-rowIndex="rowIndex">
+                            <tr [pSelectableRow]="choferes" [pSelectableRowIndex]="rowIndex">
+                              <td  *ngFor="let col of columns" >
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{choferes[col.field]}}  
+                                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                  <div style="display: flex;">
+                                    <button 
+                                      style="margin-right: 2% ;"
+                                      pButton
+                                      type="button" 
+                                      (click)="onEditarChofer(transportistas.id,choferes.id )" 
+                                      class="p-button-sm"
+                                      tooltipPosition="top" 
+                                      pTooltip="Editar Chofer"  
+                                      icon="pi pi-pencil">
+                                    </button> 
+                                    <button  
+                                      pButton
+                                      type="button" 
+                                      (click)="onModalEliminarChofer(choferes)" 
+                                      class="p-button-sm"
+                                      tooltipPosition="top" 
+                                      style="background-color: #D72250;"
+                                      pTooltip="Eliminar Chofer"  
+                                      icon="pi pi-trash">
+                                    </button>  
+                                  </div>
+                                  
+                              </ng-template>
+                            </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage">
+                            <tr>
+                              <td colspan="6">No existen Choferes registrados</td>
+                            </tr>
+                          </ng-template> 
+                        </p-table>
+                      
+                        <div style="margin-top: 2%;"></div>
+                        <hr style="width: 5%;">
+
+                        <div class="ramasTable">  
+                          <div class="titulorama">
+                            <h3> LISTA DE UNIDADES DE TRANSPORTE</h3> 
+                            <button 
+                              pButton
+                              type="button"
+                              style="margin-right: 2%;"
+                              label="Agregar"
+                              class="p-button-sm"
+                              (click)="onNuevoUnidadTransportista(transportistas.id)"  
+                              tooltipPosition="top" 
+                              pTooltip="Agregar Unidad de Transporte"  
+                              icon="pi pi-pencil">
+                            </button> 
+                          </div>
+                        </div>
+                           
+                        <p-table [value]="transportistas.unidades" dataKey="id" [columns]="colsunidades" [responsive]="true" selectionMode="single">
+                          <ng-template pTemplate="header" let-columns>
+                            <tr>
+                              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{ col.header }} 
+                                <p-sortIcon *ngIf="col.field != 'acciones'"
+                                    [field]="col.field"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order">
+                                </p-sortIcon> 
+                            </th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-unidades let-columns="columns"  let-rowIndex="rowIndex" >
+                            <tr [pSelectableRow]="unidades" [pSelectableRowIndex]="rowIndex">
+                              <td  *ngFor="let col of columns" >
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{unidades[col.field]}}  
+                                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                  <div style="display: flex;">
+                                    <button 
+                                      style="margin-right: 2% ;"
+                                      pButton
+                                      type="button" 
+                                      class="p-button-sm"
+                                      (click)="onEditarUnidadTransportista(transportistas.id, unidades.id)"
+                                      tooltipPosition="top" 
+                                      pTooltip="Editar Und. Transporte"  
+                                      icon="pi pi-pencil">
+                                    </button> 
+                                    <button  
+                                      pButton
+                                      type="button" 
+                                      class="p-button-sm"
+                                      style="background-color: #D72250;"
+                                      (click)="onModalEliminarUnidadTransporte(unidades)"
+                                      tooltipPosition="top" 
+                                      pTooltip="Eliminar Und. Transporte"  
+                                      icon="pi pi-trash">
+                                    </button>    
+                                  </div>
+                                  
+                              </ng-template>
+                            </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage">
+                            <tr>
+                              <td colspan="6">No existen Unidades de Transporte registrados</td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+            </p-table>
+              
+            </div>     
+        </div> 
+    </div>  
+     
+ </div>
+
+ 
+<!-- VISTAS -->
+ <app-nuevo-transportista *ngIf="VistaNuevoTransportista" [idTransportistaEdit]="idTransportistaEdit" (cerrar)="onRetornar($event)"  ></app-nuevo-transportista>
+ <app-nuevo-chofer *ngIf="VistaNuevoChofer" [dataChofer]="dataChofer" (cerrar)="onRetornar($event)"   ></app-nuevo-chofer>
+ <app-nuevo-unidad-transporte *ngIf="VistaNuevoUnidadTransporte"  [dataUnidadTransporte]="dataUnidadTransporte" (cerrar)="onRetornar($event)"  ></app-nuevo-unidad-transporte>
+ 
+
+
+    
+ 

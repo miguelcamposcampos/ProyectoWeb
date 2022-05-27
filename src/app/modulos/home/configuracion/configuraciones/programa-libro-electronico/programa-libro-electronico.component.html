@@ -1,0 +1,58 @@
+<div class="Margintabla">
+    <div class="contenidoTable card"> 
+        <!-- <div class="titulonuevoingreso">  
+            <h3> <i class="fas fa-folder-open"></i>  GENERAR ARCHIVOS PLE </h3>    
+        </div>  
+ -->
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-folder-open"></i>  GENERAR ARCHIVOS PLE </h3>     
+            </div>
+            
+            <div class="p-toolbar-group-right"> 
+                <button    
+                    class="p-button-sm"
+                    pButton 
+                    icon="pi pi-cloud-dowload"
+                    label="Descargar" 
+                    style="margin-right: 1%"
+                    (click)="onDescargar()">  
+                </button>   
+            </div>
+        </p-toolbar>
+
+            <form [formGroup]="Form">  
+                <br>
+                <p-fieldset>
+                    <ng-template pTemplate="header">Datos Generales:</ng-template>
+                    <div class="p-col-12"> 
+                        <div class="p-fluid p-formgrid p-grid"> 
+                            <div class="p-field p-col-12">  
+                                <strong>Periodo</strong>  
+                                <div class="InputCombinado"> 
+                                    <input type="number" pInputText  class="p-inputtext-sm" formControlName="periodo"  placeholder="periodo">   
+                                    <p-dropdown class="extender" [options]="arrayMeses" formControlName="mes"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown>
+                                </div>
+                            </div> 
+
+                            <div class="p-field p-col-12">
+                                <strong>T. Archivo PLE:</strong>  
+                                <p-dropdown class="extender"  [options]="arrayTipoArchivo" formControlName="tipoArchivo"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown>
+                            </div>
+  
+                            <!-- <div class="p-field p-col-12">   
+                                <button    
+                                    class="p-button-sm p-button-rounded mx-2"
+                                    pButton 
+                                    icon="pi pi-cloud-dowload"
+                                    label="Descargar" 
+                                    style="margin-right: 1%"
+                                    (click)="onDescargar()">  
+                                </button>   
+                            </div>  -->
+                        </div>
+                    </div>
+                </p-fieldset> 
+            </form>  
+    </div>
+</div>

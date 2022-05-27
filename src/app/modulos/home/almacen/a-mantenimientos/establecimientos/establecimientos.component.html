@@ -1,0 +1,228 @@
+ 
+ <div *ngIf="!VistaNuevoEstablecimiento && !VistaSeries">
+    <div class="Margintabla">
+        <div class="contenidoTable card"> 
+          <!-- <div class="tituloVista">  
+            <h3>  <i class="fas fa-city"></i>  LISTA DE ESTABLECIMIENTOS </h3> 
+            <div class="botonesTitulosVista">
+              <button    
+                class="p-button-sm mx-2"
+                pButton
+                type="button"
+                icon="pi pi-plus"
+                label="Agregar"
+                tooltipPosition="left"
+                pTooltip="Registrar un establecimiento"
+                (click)="onNuevoEstablecimiento()">  
+            </button>                    
+            </div>
+        </div> -->
+
+
+            
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <h3>  <i class="fas fa-city"></i>  LISTA DE ESTABLECIMIENTOS </h3> 
+          </div>
+          
+          <div class="p-toolbar-group-right">
+            <button    
+              class="p-button-sm mx-2"
+              pButton
+              type="button"
+              icon="pi pi-plus"
+              label="Agregar"
+              tooltipPosition="left"
+              pTooltip="Agregar nuevo Establecimiento"
+              (click)="onNuevoEstablecimiento()">  
+            </button>     
+          </div>
+      </p-toolbar>
+
+
+   
+        <div [responsive]="true"> 
+            <p-table 
+            [value]="listaEstablecimiento" 
+            dataKey="id"  
+            [columns]="cols"
+            selectionMode="single" 
+            [responsive]="true" 
+            responsiveLayout="stack" >
+
+                <ng-template pTemplate="header"  let-columns >
+                  <tr>
+                    <th style="width: 3rem"></th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                      {{ col.header }} 
+                      <p-sortIcon *ngIf="col.field != 'acciones'"
+                          [field]="col.field"
+                          ariaLabel="Activate to sort"
+                          ariaLabelDesc="Activate to sort in descending order"
+                          ariaLabelAsc="Activate to sort in ascending order">
+                      </p-sortIcon> 
+                  </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-establecimiento let-columns="columns"  let-rowIndex="rowIndex" let-expanded="expanded">
+                  <tr [pSelectableRow]="establecimiento" [pSelectableRowIndex]="rowIndex">
+                    <td>
+                      <button  type="button" pButton pRipple [pRowToggler]="establecimiento"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                      ></button>
+                    </td>
+                    <td  *ngFor="let col of columns" >
+                      <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+                      
+                      <div [ngSwitch]="col.field">    
+                          <div *ngSwitchCase="'fechaRegistro'">
+                            {{ establecimiento[col.field] | date: col.formatoFecha }}
+                          </div>
+                          <div *ngSwitchDefault>
+                            {{ establecimiento[col.field]  }}
+                          </div>
+                      </div>  
+           
+                      <ng-template #botones [ngIf]="col.field === 'acciones'">
+                        <div style="display: flex;">
+                          <button 
+                            style="margin-right: 2%;"
+                            pButton 
+                            class="p-button-sm"
+                            type="button"
+                            tooltipPosition="top" 
+                            pTooltip="Editar establecimiento"  
+                            (click)="onEditarEstablecimiento(establecimiento.id)"
+                            icon="pi pi-pencil">
+                          </button> 
+                          <button 
+                            pButton 
+                            type="button"
+                            class="p-button-sm"
+                            (click)="onVerSeries(establecimiento.id)"
+                            tooltipPosition="top" 
+                            pTooltip="Ver Series"  
+                            icon="pi pi-eye">
+                          </button>   
+                        </div>
+                        
+                    </ng-template>
+                  </td>
+                  </tr>
+                </ng-template>
+
+                <div style="margin-top: 2%;"></div>
+                <hr style="width: 5%;"desc>
+                
+                <!-- LISTA DE CHOFERES -->
+                <ng-template pTemplate="rowexpansion" let-establecimiento>
+                  <tr>
+                    <td colspan="7" >
+                      <div class="p-3" >
+                        <div class="ramasTable">   
+                          <div class="titulorama">
+                            <h3> LISTA DE ALMACENES</h3> 
+                            <button 
+                              pButton 
+                              (click)="onNuevoAlmacen(establecimiento.id)"  
+                              class="p-button-sm"
+                              style="margin-right: 2%;"
+                              label="Agregar"
+                              type="button"
+                              tooltipPosition="top" 
+                              pTooltip="Agregar Nuevo Almacen"  
+                              icon="pi pi-plus">
+                            </button> 
+                          </div> 
+                        </div>
+                  
+                        <p-table   [value]="establecimiento.almacenes" dataKey="id"  [columns]="colsAlmacen" selectionMode="single" [responsive]="true" responsiveLayout="stack">
+                          <ng-template pTemplate="header"  let-columns>
+                            <tr>
+                              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{ col.header }} 
+                                <p-sortIcon *ngIf="col.field != 'acciones'"
+                                    [field]="col.field"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order">
+                                </p-sortIcon> 
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-almacen let-columns="columns"  let-rowIndex="rowIndex">
+                            <tr [pSelectableRow]="almacen" [pSelectableRowIndex]="rowIndex">
+                              <td  *ngFor="let col of columns" >
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>   
+
+                                <div [ngSwitch]="col.field">    
+                                  <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ almacen[col.field] | date: col.formatoFecha }}
+                                  </div>
+                                  <div *ngSwitchDefault>
+                                    {{ almacen[col.field]  }}
+                                  </div>
+                              </div>  
+
+                              
+                                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                  <div style="display: flex;">
+                                    <button 
+                                      style="margin-right: 2% ;"
+                                      pButton 
+                                      type="button"
+                                      (click)="onEditarAlmacen(almacen.idAlmacen, establecimiento.id)" 
+                                      class="p-button-sm"
+                                      tooltipPosition="top" 
+                                      pTooltip="Editar Almacen"  
+                                      icon="pi pi-pencil">
+                                    </button> 
+                                    <button  
+                                      pButton 
+                                      (click)="onModalEliminar(almacen)" 
+                                      class="p-button-sm"
+                                      tooltipPosition="top" 
+                                      style=" background-color: #D72250;"
+                                      type="button"
+                                      pTooltip="Eliminar Almacen"  
+                                      icon="pi pi-trash">
+                                    </button>  
+                                  </div>
+                                  
+                              </ng-template>
+                            </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage">
+                            <tr>
+                              <td colspan="6">No existen almacenes registrados</td>
+                            </tr>
+                          </ng-template> 
+                        </p-table> 
+                        
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+            </p-table>
+
+            <p-paginator [rows]="10"   [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadEstablecimientos($event)"></p-paginator>
+ 
+        </div>
+      </div>     
+    </div> 
+  </div>  
+      
+
+<div *ngIf="VistaNuevoEstablecimiento">
+  <app-nuevo-establecimiento [idEstablecimientoEdit]="idEstablecimientoEdit" (cerrar)="onRetornar($event)"> </app-nuevo-establecimiento>
+</div>
+
+<div *ngIf="modalNuevoAlmacen">
+  <p-dialog header="{{ (!dataAlmacenEdit.idAlmacenEdit) ?  'NUEVO ALMACEN' : 'EDITAR ALMACEN'}}" [(visible)]="modalNuevoAlmacen" [modal]="true" [draggable]="false" [resizable]="true" [style]="{width: '50vw'}">
+    <app-nuevo-almacen [dataAlmacenEdit]="dataAlmacenEdit" (cerrar)="onRetornar($event)">   </app-nuevo-almacen>
+  </p-dialog> 
+</div>
+
+<app-series-establecimientos *ngIf="VistaSeries" [idEstablecimientoEdit]="idEstablecimientoEdit"(cerrar)="onRetornar($event)"> </app-series-establecimientos>
+ 

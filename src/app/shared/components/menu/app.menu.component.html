@@ -1,0 +1,78 @@
+
+
+<div class="custom-skeleton p-4"  *ngIf="CargandoMenu"> 
+    <ul class="m-0 o-0">
+        <li class="mb-3">
+            <div class="flex">
+            <div style="flex: 1"> 
+                <strong style="color:white;"> Cargando ....</strong>
+            </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <div style="flex: 1"> 
+                    <br>
+                    <p-skeleton width="95%" styleClass="mb-2"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <div style="flex: 1">
+                    <br>
+                    <p-skeleton width="95%" styleClass="mb-2"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <div style="flex: 1">
+                    <br>
+                    <p-skeleton width="95%" styleClass="mb-2"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="flex">
+                <div style="flex: 1">
+                    <br>
+                    <p-skeleton width="95%" styleClass="mb-2"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                    <br>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+    
+
+
+<ul class="layout-menu">
+    <li app-menuitem *ngFor="let item of menuSelect let i = index;" [item]="item" [index]="i" [root]="true"></li>
+</ul>
+
+
+

@@ -1,0 +1,140 @@
+ 
+ <div *ngIf="!VistaNuevoProveedor">
+
+    <div class="Margintabla"> 
+        <div class="contenidoTable card">  
+            <!-- <div class="tituloVista">  
+                <h3>  <i class="fas fa-users"></i>  LISTA DE PROVEEDORES</h3> 
+                <div class="botonesTitulosVista">
+                    <button 
+                        pButton  
+                        type="button"
+                        label="Agregar" 
+                        class="p-button-sm"
+                        (click)="onNuevo()" 
+                        icon="pi pi-plus">
+                    </button>       
+                </div>  
+            </div> -->
+
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3>  <i class="fas fa-users"></i>  LISTA DE PROVEEDORES</h3> 
+                </div>
+                
+                <div class="p-toolbar-group-right"> 
+                    <button 
+                        pTooltip="Agregar Nuevo Proveedor" tooltipPosition="top"
+                        pButton  
+                        type="button"
+                        label="Agregar" 
+                        class="p-button-sm"
+                        (click)="onNuevo()" 
+                        icon="pi pi-plus">
+                    </button>           
+                </div>
+            </p-toolbar>
+
+
+            <div class="p-col-12"> 
+               <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-5">
+                        <strong>Nro. Documento</strong>
+                        <input class="p-inputtext-sm" placeholder="ingresa nro documento" [formControl]="nrodocumento" type="text" pInputText>        
+                    </div>
+                    <div class="p-field p-col-12 p-md-5">
+                       <strong>Razon. Social:</strong>
+                       <input class="p-inputtext-sm" placeholder="ingresa razon social" [formControl]="razonsocial" type="text" pInputText>        
+                   </div>
+                   <div class="p-field p-col-12 p-md-2">       
+                       <button pButton label="Buscar" type="button" class="p-button-sm" icon="pi pi-search" (click)="onLoadProveedores(null)"></button>
+                   </div>
+               </div>
+           </div>
+
+    
+            <p-table 
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="stack"
+            selectionMode="single"
+            [rowHover]="true" 
+            class="wrap" 
+            [value]="listaProveedores">  
+    
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-proveedor let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="proveedor" [pSelectableRowIndex]="rowIndex">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+    
+                            <div [ngSwitch]="col.field">    
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ proveedor[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchDefault>
+                                    {{ proveedor[col.field]  }}
+                                </div>
+                            </div>  
+    
+                            <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                <div style="display: flex;">
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        (click)="onEditar(proveedor)"
+                                        style="margin-right :2%;" 
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        style=" background-color: #D72250;"
+                                        (click)="onEliminar(proveedor)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template>  
+                        </td>
+                    </tr>
+                </ng-template>
+    
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">No existen registros</td>
+                    </tr>
+                </ng-template> 
+
+
+                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadProveedores($event)"></p-paginator>
+
+            </p-table> 
+            
+        </div> 
+    </div>  
+         
+</div>
+
+
+<app-nuevo-proveedor  *ngIf="VistaNuevoProveedor" [dataProveedor]="dataProveedor" (cerrar)="onRetornar($event)"> </app-nuevo-proveedor>
+   
+
+
+ 

@@ -1,0 +1,73 @@
+<div class="MarginModal">
+    <div class="contenido card"> 
+        <form [formGroup]="Form">
+            <div class="stepsdemo-content">  
+                <p-fieldset>
+                <ng-template pTemplate="header">Datos Principales</ng-template>
+    
+                    <div class="formulario">   
+                        <strong>Forma de Pago *:</strong>
+                        <input type="text" pInputText formControlName="titulo" placeholder="ingresa el nombre de la forma de pago" class="p-inputtext-sm">  
+
+                        <strong>Medio de Pago *:</strong>
+                        <p-dropdown class="DropExtenso" [options]="arrayMedioPago" formControlName="mediodePago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                    
+                        <strong>Establecimiento *:</strong>
+                        <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayEstablecimiento" formControlName="establecimiento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+
+                        <strong>Moneda *:</strong>
+                        <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayMoneda" formControlName="moneda"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                    
+                    </div>  
+                </p-fieldset>
+
+                <br>
+
+                <p-fieldset>
+                    <ng-template pTemplate="header">Datos Personales</ng-template>
+                        <div class="formulario">   
+                            <strong>Documento *:</strong>
+                            <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayDocumento" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        
+                        </div>  
+                </p-fieldset>
+
+                <br>
+
+                <p-fieldset>
+                    <ng-template pTemplate="header">Datos Personales</ng-template> 
+                        <div class="formulario">   
+                            <strong>Requiere Ref::</strong>
+                            <p-inputSwitch formControlName="docrequierereferencia"> </p-inputSwitch>
+
+                            <strong>Documento Ref:</strong>
+                            <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayDocumentoRef" formControlName="documentoref"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </div>  
+                </p-fieldset>
+            </div>
+        </form> 
+
+        <div class="botones">
+            <button  
+                class="p-button-sm"
+                pButton
+                type="button"
+                style="margin-right: 1%;"
+                [disabled]="Form.invalid"
+                label="{{ (dataFormaPago) ? 'Actualizar' : 'Guardar' }}"
+                (click)="onGrabar()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm"
+                pButton
+                type="button"
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                style=" background-color: #D72250;"
+                (click)="onRegresar()">  
+            </button>  
+        </div> 
+    </div>
+</div>

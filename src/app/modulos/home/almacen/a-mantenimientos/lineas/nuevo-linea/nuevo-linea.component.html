@@ -1,0 +1,68 @@
+<div class="MarginModal">
+    <div class="contenido card">
+        <form [formGroup]="Form">
+            <div class="stepsdemo-content">  
+                <div class="formulario"> 
+                    <strong>Nombre *</strong>
+                    <input  type="text" pInputText formControlName="nombreLinea" class="p-inputtext-sm" placeholder="ingresar un nombre de linea">     
+
+                    <strong>Producto</strong>  
+                    <div class="p-inputgroup">  
+                        <input type="text" [value]="codigoProductoUnesco" pInputText (input)="onObtenerCriterioBuscarUnesco($event)" class="p-inputtext-sm"   placeholder="ingresar el numero de documento">   
+                        <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
+                    </div>
+
+                    <strong *ngIf="mostrarcomboUnesco" >Lista Producto</strong>  
+                    <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData" formControlName="codigoUnesco"  placeholder="Selecciona un producto"  [showClear]="true"  optionLabel="DescriptionES"></p-dropdown>
+                    
+                    <strong *ngIf="!imgParaEditar" >Logo</strong>
+                    <p-fileUpload 
+                        *ngIf="!imgParaEditar" 
+                        name="myfiles[]"
+                        chooseLabel="Adjuntar" 
+                        chooseIcon="pi pi-paperclip" 
+                        accept="image/*" 
+                        [auto]="true" 
+                        (onRemove)="onEliminarArchivo($event)"
+                        [customUpload]="true"
+                        (uploadHandler)="onUpload($event)"> 
+                    </p-fileUpload>
+          
+                    <button  
+                        *ngIf="imgParaEditar"
+                        class="p-button-sm"
+                        pButton 
+                        label="Cambiar Logo"  
+                        (click)="onCambiarLogo()"
+                        icon="pi pi-check-circle">  
+                    </button>  
+                    <div  *ngIf="imgParaEditar">  
+                        <img width="50%" [src]="imgParaEditar" />
+                    </div>
+                </div>  
+            </div> 
+        </form>
+
+        <div class="botones">
+            <button  
+                class="p-button-sm"
+                pButton
+                style="margin-right: 1%;"
+                [disabled]="Form.invalid"
+                label="{{(!LineaEdit) ? 'Guardar' : 'Actualizar'}}"
+                (click)="onGrabar()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm"
+                pButton
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                style=" background-color: #D72250;"
+                (click)="onRegresar()">  
+            </button>  
+        </div>
+    </div>  
+  
+</div>
