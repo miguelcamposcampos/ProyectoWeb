@@ -130,13 +130,15 @@ export class NuevoChoferComponent implements OnInit {
         direccionesAnexos: [],
         nrodocumentoidentidad : data.nroDocumento,
         personaid:  this.EditarChofer ? this.EditarChofer.personaData.personaid : 0,
-        tipodocumentoid :1,
-        tipopersonaid: 1, 
+        tipodocumentoid : this.EditarChofer ? this.EditarChofer.personaData.tipodocumentoid : 1,
+        tipopersonaid: this.EditarChofer ? this.EditarChofer.personaData.tipopersonaid : 1,
         razonsocial : '',
         ubigeoprincipal : this.ubigeoSeleccionado,
         direccionprincipal: data.direccionprincipal
       },
+      idauditoria :  this.EditarChofer ? this.EditarChofer.idauditoria : 0,
       personaid : this.EditarChofer ? this.EditarChofer.personaData.personaid : 0,
+      transportistachoferid : this.EditarChofer ? this.EditarChofer.transportistachoferid : 0,
       transportistaid : this.dataChofer.idTransportista,
    
     } 

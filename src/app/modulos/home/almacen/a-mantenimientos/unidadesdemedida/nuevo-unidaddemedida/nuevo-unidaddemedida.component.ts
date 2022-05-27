@@ -64,7 +64,8 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
       nombreunidadmedida : dataForm.codigosunat,
       siglasum : dataForm.siglasum,
       valorconversion : dataForm.valorconversion,
-      unidadmedidaid: this.idUnidadMedida ? this.idUnidadMedida : 0,
+      unidadmedidaid: this.UnidadMedidaEditar ? this.UnidadMedidaEditar.unidadmedidaid : 0,
+      idauditoria: this.UnidadMedidaEditar ? this.UnidadMedidaEditar.idauditoria : 0,
     } 
     if(this.UnidadMedidaEditar){
      this.unidadMedidadService.updateUnidadMedida(newUnidadMedidad).subscribe((resp) => {

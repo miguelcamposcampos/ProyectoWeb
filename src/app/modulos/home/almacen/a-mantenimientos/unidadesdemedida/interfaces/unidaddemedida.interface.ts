@@ -1,6 +1,6 @@
 export interface IListaUnidadMedida{
     codigosunat : string,
-    idauditoria? : string,
+    idauditoria? : number,
     nombreunidadmedida : string,
     siglasum : string,
     unidadmedidaid: number,

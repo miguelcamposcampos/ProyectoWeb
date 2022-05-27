@@ -57,10 +57,10 @@ export class NuevoUnidadTransporteComponent implements OnInit {
           placa:  this.EditarUnidadTransporte.tractonroplaca, 
           marca:  this.EditarUnidadTransporte.tractomarca, 
           modelo:  this.EditarUnidadTransporte.tractomodelo, 
-          certificado:  this.EditarUnidadTransporte ? this.EditarUnidadTransporte.tractocertificadomtc : '', 
-          carretaPlaca :  this.EditarUnidadTransporte ? this.EditarUnidadTransporte.carretaplaca : '', 
-          carretaMarca:   this.EditarUnidadTransporte ?  this.EditarUnidadTransporte.carretamarca : '', 
-          carretaCertificado:  this.EditarUnidadTransporte ? this.EditarUnidadTransporte.carretacertificadomtc: '', 
+          certificado:  this.EditarUnidadTransporte.tractocertificadomtc,
+          carretaPlaca :  this.EditarUnidadTransporte.carretaplaca,
+          carretaMarca:   this.EditarUnidadTransporte.carretamarca,
+          carretaCertificado:  this.EditarUnidadTransporte.carretacertificadomtc, 
         })
       }
     },error => { 
@@ -79,7 +79,7 @@ export class NuevoUnidadTransporteComponent implements OnInit {
       carretaplaca :  data.carretaPlaca ? data.carretaPlaca : '',
       carretamarca :  data.carretaMarca ?  data.carretaMarca : '',
       carretacertificadomtc: data.carretaCertificado ? data.carretaCertificado : '', 
-      transportistaid:  this.dataUnidadTransporte.idTransportista,
+      transportistaid:  this.dataUnidadTransporte ? this.dataUnidadTransporte.idTransportista : 0,
       transportistaunidadid : this.dataUnidadTransporte ? this.dataUnidadTransporte.idUnidaTransporte : 0
     }
  

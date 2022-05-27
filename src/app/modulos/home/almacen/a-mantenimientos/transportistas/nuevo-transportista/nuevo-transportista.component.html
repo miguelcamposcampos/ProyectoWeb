@@ -3,7 +3,7 @@
 
         <p-toolbar>
             <div class="p-toolbar-group-left">
-                <h3><i class="fas fa-address-card"></i>{{tituloVistaTransportista}}</h3>  
+                <h3><i class="fas fa-address-card"></i> {{ tituloVistaTransportista}}</h3>  
             </div>
             
             <div class="p-toolbar-group-right">
@@ -48,7 +48,7 @@
                             
                             <strong>Nro Documento *</strong>  
                             <div class="p-inputgroup">  
-                                <input type="text" pInputText [minlength]="minimoRequerido" [maxlength]="maximoRequerido" (keydow.enter)="onBuscarPorNumeroDocumento()"  formControlName="nroDocumento" class="p-inputtext-sm" placeholder="Busca un anexo">   
+                                <input type="text" pInputText [minlength]="minimoRequerido" [maxlength]="maximoRequerido" (keydow.enter)="onBuscarPorNumeroDocumento()"  formControlName="nroDocumento" class="p-inputtext-sm" placeholder="Busca nro documento">   
                                 <button type="button" pTooltip="Buscar" (click)="onBuscarPorNumeroDocumento()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                             </div>
 
@@ -62,7 +62,7 @@
                             <input  *ngIf="mostrarRazonSocial" type="text" pInputText readonly formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
                           
                             <strong>Telefono</strong>
-                            <input type="text" pInputText  minlength="8" maxlength="8" (keypress)="validateNumber($event)" formControlName="telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">  
+                            <input type="text" pInputText  minlength="9" maxlength="9" (keypress)="validateNumber($event)" formControlName="telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">  
                         
                             <strong >Fax</strong>
                             <input type="number" pInputText formControlName="fax" class="p-inputtext-sm" placeholder="ingresar el fax">  
@@ -72,7 +72,7 @@
                            
                             <strong>Direccion:</strong>  
                             <div class="p-inputgroup">  
-                                <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca un anexo">   
+                                <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca una direccion">   
                                 <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                             </div>
 

@@ -32,6 +32,10 @@ export interface ICrearTransportista {
     tipotransportistaid : number,
     email : string,
     fax : string,
+    codtransportista: string
+    idauditoria : number,
+    personaid : number,
+    transportistaid : number,
 }
 
 

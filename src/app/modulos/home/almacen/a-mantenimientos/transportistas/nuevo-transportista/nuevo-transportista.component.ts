@@ -62,7 +62,7 @@ export class NuevoTransportistaComponent implements OnInit {
     this.onCargarDropDown();  
     if(this.idTransportistaEdit){ 
       this.Avisar();
-      this.tituloVistaTransportista = "EDTIAR TRANSPORTISTA"
+      this.tituloVistaTransportista = "EDITAR TRANSPORTISTA"
     } 
   }
    
@@ -117,7 +117,8 @@ export class NuevoTransportistaComponent implements OnInit {
             telefono: this.EditarTransportista.telefono,
             fax: this.EditarTransportista.fax,   
             email: this.EditarTransportista.email,
-            direccionprincipal: this.EditarTransportista.personaData.direccionprincipal
+            direccionprincipal: this.EditarTransportista.personaData.direccionprincipal,
+            tipotransportistaid : this.EditarTransportista.tipotransportistaid
           })
         }
         this.swal.mensajePreloader(false);
@@ -264,13 +265,23 @@ export class NuevoTransportistaComponent implements OnInit {
         tipodocumentoid : data.tipoDocumento.id,
         tipopersonaid: data.tipoPersona.id, 
         ubigeoprincipal : this.ubigeoSeleccionado,
-        direccionprincipal : data.direccionprincipal
+        direccionprincipal : data.direccionprincipal,
+        categoriapersona : this.EditarTransportista ? this.EditarTransportista.personaData.categoriapersona : 0, 
       },
+      codtransportista: this.EditarTransportista ? this.EditarTransportista.codtransportista : null, 
       email : data.email,
       fax : data.fax,
       telefono : data.telefono,
-      tipotransportistaid : this.EditarTransportista ? this.EditarTransportista.tipotransportistaid : 0
+      tipotransportistaid : this.EditarTransportista ? this.EditarTransportista.tipotransportistaid : 0,
+      idauditoria: this.EditarTransportista ? this.EditarTransportista.idauditoria : 0, 
+      personaid : this.EditarTransportista ? this.EditarTransportista.personaid : 0, 
+      transportistaid : this.EditarTransportista ? this.EditarTransportista.transportistaid : 0, 
     } 
+
+ 
+ 
+ 
+
     //SI LLEGA DATA PARA EDITAR ENTONCES SE INSERTA UN NUEVO REGISTRO DE LO CONTRARIO SE ACTUALIZA
     if (!this.idTransportistaEdit) {
         this.transpService.grabarTransportista(newTransportista).subscribe((resp) => {
