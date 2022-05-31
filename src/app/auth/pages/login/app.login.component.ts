@@ -57,7 +57,7 @@ export class AppLoginComponent {
     }
     this.swal.mensajePreloader(true)
     
-    this.authService.login(data).subscribe((resp) => {  
+    this.authService.login(data).subscribe((resp) => {   
       localStorage.setItem('rememberMe', logindata.rememberMe ? logindata.rememberMe : null); 
       if(!(localStorage.getItem('estado') === 'Activo')){
         this.swal.mensajeActivacionUsuario(logindata.email);

@@ -54,7 +54,8 @@ export class RolesComponent implements OnInit {
     if (!this.tokenLS) {
       return;
     }else{
-      this.onMostrarRolesPorEmpresa();
+      this.onNewToken();  
+     // 
     } 
 
     this.cols = [
@@ -65,6 +66,22 @@ export class RolesComponent implements OnInit {
 
   onRegresar() {
     this.cerrar.emit(false);
+  }
+
+  
+  onNewToken(){
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
+    
+    const newtoken : IAuth = {
+      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
+    }
+    this.authService.login(newtoken).subscribe((resp)=>{
+      if(resp){
+       this.onMostrarRolesPorEmpresa();
+      }
+    }) 
   }
 
   onMostrarRolesPorEmpresa() {

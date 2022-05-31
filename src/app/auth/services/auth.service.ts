@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+ 
   private baseUrl : string = environment.apiUrl; 
 
   set accessToken(data: any) { 

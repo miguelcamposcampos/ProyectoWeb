@@ -65,15 +65,9 @@ export class ListaUsuariosComponent implements OnInit {
     if(!this.tokenLS){
       return;
     }else{
-      this.onListarUsuarios();
-      this.onListaRoles(); 
-      // let gruiEncryptado = this.authService.cifrarData(this.empresasSelect.empresaGuid)
-      // localStorage.setItem('guidEmpresa', gruiEncryptado ) 
+      this.onNewToken();  
     }  
-
-    // this.onGenerarNuevoToken();
-    // this.Avisar();
-
+ 
     this.cols = [ 
       { field: 'emailUsuario', header: 'Email', visibility: true}, 
       { field: 'nombreUsuario', header: 'Nombres', visibility: true}, 
@@ -81,10 +75,26 @@ export class ListaUsuariosComponent implements OnInit {
       { field: 'estado', header: 'Estado', visibility: true}, 
       { field: 'ultimaInteraccion', header: 'Fecha Interaccion', visibility: true, formatoFecha: ConstantesGenerales._FORMATO_FECHA_VISTA }, 
       { field: 'acciones', header: 'Ajustes', visibility: true  },
-    ];
-
-   
+    ]; 
   }
+
+
+  onNewToken(){
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
+    
+    const newtoken : IAuth = {
+      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
+    }
+    this.authService.login(newtoken).subscribe((resp)=>{
+      if(resp){
+        this.onListarUsuarios();
+        this.onListaRoles(); 
+      }
+    }) 
+  }
+
 
   onItemsOperario(){
     this.itemsOperario = [ 

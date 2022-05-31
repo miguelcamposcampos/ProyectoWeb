@@ -5,6 +5,7 @@ export interface InterfaceColumnasGrilla {
     formatoFecha?: string; 
     tipoFlag?: string;
     img? : string;   
+    width? : string;
 }
 
 

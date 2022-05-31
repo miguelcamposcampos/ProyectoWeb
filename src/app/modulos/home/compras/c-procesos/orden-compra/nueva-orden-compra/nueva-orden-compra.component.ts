@@ -581,6 +581,10 @@ export class NuevaOrdenCompraComponent implements OnInit {
       unidadmedidaid: this.arrayUnidadMedida.find(
         (x) => x.id ===   event.data.unidadMedidaId
       ),
+      tipoafectacionid: this.arrayDestino.find(
+        (x) => x.id ===   event.data.tipoAfectacionId
+      ),
+      preciounitario : event.data.precioDefault,
       productoid : event.data.productoId,
       esafectoicbper :event.data.esAfectoICBPER,
       nroSerie: event.data.serie === "0" ? null : event.data.serie, 

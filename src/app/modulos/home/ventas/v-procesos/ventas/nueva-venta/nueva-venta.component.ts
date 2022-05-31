@@ -94,7 +94,7 @@ export class NuevaVentaComponent implements OnInit {
   nroCuotaPintar: string = "";
   dataCobrar : any;
   dataProductos :any;
-  bloquearBotonInvluyeIgvDetalle: boolean = false;
+  bloquearBotonInvluyeIgvDetalle: boolean;
   totalaPagar : number = 0;
   impresoraPordefecto : string = "";
   hostPordefecto : string = "";
@@ -833,12 +833,17 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   onPintarProductoSeleccionado(event: any){
+    console.log('event.dat',event.data);
     this.detallesVentaForm[event.posicion].patchValue({
       codproductofinal:  event.data.codProducto,
       descripcionproducto: event.data.nombreProducto,
       unidadmedidaid: this.arrayUnidadMedida.find(
         (x) => x.id ===   event.data.unidadMedidaId
       ),
+      tipoafectacionid: this.arrayTipoAfectacion.find(
+        (x) => x.id ===   event.data.tipoAfectacionId
+      ),
+      preciounitario : event.data.precioDefault,
       productoid : event.data.productoId,
       esafectoicbper :event.data.esAfectoICBPER,
       nroSerie: event.data.serie === "0" ? null : event.data.serie, 
@@ -1489,22 +1494,22 @@ export class NuevaVentaComponent implements OnInit {
     let idAfectacion = event.id.toString().slice(0,-1)
 
     if(idAfectacion === '1'){
-      this.bloquearBotonInvluyeIgvDetalle = true;
+   //   this.bloquearBotonInvluyeIgvDetalle = true;
       this.detallesVentaForm[posicion].patchValue({
         esGravada : true
       });
     }else if(idAfectacion === '2'){
-      this.bloquearBotonInvluyeIgvDetalle = false;
+   //   this.bloquearBotonInvluyeIgvDetalle = false;
       this.detallesVentaForm[posicion].patchValue({
         esExonerado : true,
       });
     }else if(idAfectacion === '3' || idAfectacion === '4'){
-      this.bloquearBotonInvluyeIgvDetalle = false;
+   //   this.bloquearBotonInvluyeIgvDetalle = false;
       this.detallesVentaForm[posicion].patchValue({
         esInafecto : true,
       });
     }else{
-      this.bloquearBotonInvluyeIgvDetalle = false;
+    //  this.bloquearBotonInvluyeIgvDetalle = false;
       this.detallesVentaForm[posicion].patchValue({
         esGratuito : true,
         precioincluyeigv : false
@@ -1739,7 +1744,7 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   onSetearFalse(posicion){
-    this.bloquearBotonInvluyeIgvDetalle = false;
+   // this.bloquearBotonInvluyeIgvDetalle = false;
     this.detallesVentaForm[posicion].patchValue({
       esGratuito : false,
       esGravada : false,

@@ -96,8 +96,8 @@
                             <!-- <p-splitButton  label="Ajustes" icon="pi pi-cog" (click)="onSelectItems(empresa)" appendTo="body" [model]="itemsEmpresa"></p-splitButton> -->
                            <!-- PARA MEJORAR SIN SPLIT -->
                            
-                            <p-tieredMenu   #menu [model]="itemsEmpresa" appendTo="body" (onChange)="onSelectItems(empresa)" [popup]="true"></p-tieredMenu>
-                            <button #btn type="button" pButton label="Ajustes" icon="pi pi-cog" (click)="menu.toggle($event)" ></button>
+                            <p-tieredMenu   #menu [model]="itemsEmpresa" appendTo="body" [popup]="true"></p-tieredMenu>
+                            <button #btn type="button" pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(empresa)" ></button>
                             </ng-template>
                         </td>
                     </tr>

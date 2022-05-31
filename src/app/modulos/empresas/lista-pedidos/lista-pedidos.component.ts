@@ -26,6 +26,7 @@ export class ListaPedidosComponent implements OnInit {
   modalPlanes: boolean = false;   
   VistaNotificarPago : boolean = false;
   guidDesencriptado :any; 
+  dataDesencryptada :any;
 
   constructor(
     private planesService : PlanesService,
@@ -38,18 +39,14 @@ export class ListaPedidosComponent implements OnInit {
 
   ngOnInit(): void {
     let guidEmpresaLS = localStorage.getItem('guidEmpresa');
-    this.guidDesencriptado = this.authService.desCifrarData(guidEmpresaLS)
-    console.log('this.guidDesencriptado', this.guidDesencriptado);
+    this.guidDesencriptado = this.authService.desCifrarData(guidEmpresaLS) 
     if(!this.tokenLS){
       return;
     }else{
-      this.onLoadPedidos();
-      
-      // localStorage.setItem('guidEmpresa', gruiEncryptado )
-    //  localStorage.setItem('guidEmpresa', this.empresasSelect.empresaGuid);   
+      this.onNewToken();
+       
     }  
-
-
+ 
     this.cols = [ 
       { field: 'plan', header: 'Plan', visibility: true }, 
       { field: 'planServicio', header: 'Servicio', visibility: true }, 
@@ -61,11 +58,25 @@ export class ListaPedidosComponent implements OnInit {
       { field: 'cantidad', header: 'Cantidad', visibility: true },  
       // { field: 'acciones', header: 'Ajustes', visibility: true  }, 
  
-    ];
-    // this.onGenerarNuevoToken();
-    // this.Avisar(); 
+    ]; 
   }
 
+
+  
+  onNewToken(){
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
+    
+    const newtoken : IAuth = {
+      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
+    }
+    this.authService.login(newtoken).subscribe((resp)=>{
+      if(resp){
+       this.onLoadPedidos();
+      }
+    }) 
+  }
 
   onLoadPedidos(){  
     this.planesService.pedidosporEmpresa(this.guidDesencriptado).subscribe((resp) => {

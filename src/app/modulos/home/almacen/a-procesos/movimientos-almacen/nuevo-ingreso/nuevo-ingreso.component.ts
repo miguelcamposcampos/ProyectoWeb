@@ -319,6 +319,7 @@ export class NuevoIngresoComponent implements OnInit {
       unidadMedida: this.arrayUnidadesMedida.find(
         (x) => x.id ===   event.data.unidadMedidaId
       ),  
+      valorUnitario : event.data.precioDefault,
       idProducto : event.data.productoId, 
     });
   }

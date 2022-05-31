@@ -613,6 +613,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       unidadMedida: this.arrayUnidadesMedida.find(
         (x) => x.id ===   event.data.unidadMedidaId
       ),  
+      preciounitario : event.data.precioDefault,
       productoid : event.data.productoId, 
     });
 

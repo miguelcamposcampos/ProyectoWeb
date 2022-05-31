@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';   
+import { IAuth } from 'src/app/auth/interface/auth.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { LoginService } from 'src/app/auth/services/login.service';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';  
@@ -29,8 +30,10 @@ export class ListaEmpresasComponent implements OnInit {
   tokenLS : any = ""; 
   empresasAcceder! : DataEmpresa; 
   mostrarHeader : boolean = true;
+  
+  dataDesencryptada :any;
  
-
+  
   constructor(
     private router : Router,
     private loginService : LoginService, 
@@ -61,8 +64,8 @@ export class ListaEmpresasComponent implements OnInit {
       {
         label:'Roles',
         icon:'pi pi-fw pi-key', 
-        command:()=>{
-          this.onVistaRoles();
+        command:()=>{ 
+          this.onVistaRoles(); 
         }
       },
       {
@@ -89,13 +92,16 @@ export class ListaEmpresasComponent implements OnInit {
     ];
   }
 
-  onSelectItems(data: DataEmpresa){   
+  onSelectItems(data: DataEmpresa){    
    const DatoUsuarioEncryptado : any = {
     usuariologin: this.authService.cifrarData(data.razonSocial),
     rolUsuario : this.authService.cifrarData(data.rol)
-  }
+   }
+    sessionStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
 
-  sessionStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
+    let gruiEncryptado = this.authService.cifrarData(data.empresaGuid)
+    localStorage.setItem('guidEmpresa', gruiEncryptado )
+   
   }
 
   onLoadEmpresas(){
@@ -206,5 +212,6 @@ export class ListaEmpresasComponent implements OnInit {
       })
     }
   }
+
 
 }

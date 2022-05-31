@@ -18,16 +18,14 @@ const routes : Routes = [
     path: 'error-inesperado',
     component : AppErrorComponent
   },
- 
   {
     path: '', 
-    redirectTo: 'login', 
-    pathMatch: 'full'
-  },
- 
+    redirectTo: 'login',  
+  }, 
   {
     path: '**',
-    redirectTo: 'error-inesperado'
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
 ]
 
