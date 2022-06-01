@@ -4,32 +4,32 @@
             <h3> <i class="fas fa-circle-dollar-to-slot"></i> COBRAR </h3> 
         </div> 
         <p-toast key="ToastExitoso"  position="top-right"></p-toast>
-            <form [formGroup]="Form">
-                <div class="p-col-12">  
-                    <div class="p-fluid p-formgrid p-grid"  formArrayName="arraycobranza">  
+            <form [formGroup]="Form" >
+                <div class="p-col-12" >  
+                    <div class="p-fluid p-formgrid p-grid">  
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>Forma Pago:</strong>
-                            <p-dropdown class="DropExtenso" [disabled]="bloquearComboFormaPago" (onChange)="onObtenerFormPago($event.value)" [options]="arrayFormasPago" formControlName="formapago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                            <strong>Forma Pago *:</strong>
+                            <p-dropdown class="DropExtenso" [disabled]="bloquearComboFormaPago" (onChange)="onObtenerFormPago($event.value)" [options]="arrayFormasPago" formControlName="FormadePago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div> 
 
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
                             <strong>Nro Referencia:</strong>
-                            <input  type="text" pInputText formControlName="nroReferencia" class="p-inputtext-sm" placeholder="ingresar una referencia">     
+                            <input  type="text" pInputText formControlName="NroReferencia" class="p-inputtext-sm" placeholder="ingresar una referencia">     
                         </div>
 
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>Importe a Cobrar: {{  SaldoTotalaCobrar | currency:'s/. '}}</strong> 
+                            <strong>Importe a Cobrar : {{  SaldoTotalaCobrar }}</strong> 
                             <div class="InputCombinado">  
-                                <input type="text" disabled formControlName="moneda" pInputText  class="p-inputtext-sm" placeholder="">   
-                                <input type="number" [min]="1" formControlName="importe" pInputText  class="p-inputtext-sm" placeholder="0.00">     
+                                <input type="text" disabled formControlName="MonedaaCobrar" pInputText  class="p-inputtext-sm" placeholder="">   
+                                <input type="number" [min]="1" formControlName="ImporteACobrar" pInputText  class="p-inputtext-sm" placeholder="0.00">     
                             </div>
                         </div>
                     </div> 
                 </div>
-                <div class="p-col-12"> 
+                <div class="p-col-12"  > 
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>Fec.Cobranza:</strong>
+                            <strong>Fec.Cobranza *:</strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
@@ -39,8 +39,8 @@
                         </div> 
     
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>T. Cambio:</strong>
-                            <input type="number" pInputText  formControlName="tipoCambio" class="p-inputtext-sm" placeholder="0.00">     
+                            <strong>T. Cambio *:</strong>
+                            <input type="number" pInputText (keyup)="onValidarTipoCambioExiste($event)"  formControlName="TipoCambio" class="p-inputtext-sm" placeholder="0.00">     
                         </div>
     
                         <div class="p-field p-col-12 p-md-3 p-sm-3 botonBuscar"> 
@@ -51,7 +51,7 @@
                
             </form>
 
-            <div> 
+            <div > 
                 <div style="margin: 3%;">
                     <p-table   
                         class="TablaDetalleCondicionPago"

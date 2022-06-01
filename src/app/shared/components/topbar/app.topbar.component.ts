@@ -30,7 +30,7 @@ export class AppTopBarComponent {
   } 
 
   onPintarDatos(){ 
-    this.dataDesencryptada = JSON.parse(sessionStorage.getItem('DatosUsuario')) 
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosUsuario')) 
     this.usuariologeado = this.authService.desCifrarData(this.dataDesencryptada.usuariologin) 
     if(this.usuariologeado.length > 20){
         this.usuariologeado = this.usuariologeado.slice(0,-10) + '...';

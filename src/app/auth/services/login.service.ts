@@ -36,8 +36,7 @@ export class LoginService {
 
   
   logout(){   
-    localStorage.clear(); 
-    sessionStorage.clear();
+    localStorage.clear();  
     this.router.navigate(['/auth/login']);
   }
 

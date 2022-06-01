@@ -118,7 +118,7 @@ export class ConvertirAVentaComponent implements OnInit {
       { id: false, nombre: 'ANULADA'},
     ]
 
-    this.dataDesencryptada = JSON.parse(sessionStorage.getItem('DatosImpresion')) 
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
     if(this.dataDesencryptada){
         this.impresoraPordefecto = this.authService.desCifrarData(this.dataDesencryptada.impresoraDefault);  
         this.hostPordefecto = this.authService.desCifrarData(this.dataDesencryptada.hostDefault); 

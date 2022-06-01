@@ -97,7 +97,7 @@ export class ListaEmpresasComponent implements OnInit {
     usuariologin: this.authService.cifrarData(data.razonSocial),
     rolUsuario : this.authService.cifrarData(data.rol)
    }
-    sessionStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
+   localStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
 
     let gruiEncryptado = this.authService.cifrarData(data.empresaGuid)
     localStorage.setItem('guidEmpresa', gruiEncryptado )
@@ -135,7 +135,7 @@ export class ListaEmpresasComponent implements OnInit {
           rolUsuario : this.authService.cifrarData(empresa.rol)
         }
 
-        sessionStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
+        localStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
         this.router.navigate(["/modulos/home/landing"]) 
       }else{ 
         this.swal.mensajeElegirunPlan().then((response) => { 

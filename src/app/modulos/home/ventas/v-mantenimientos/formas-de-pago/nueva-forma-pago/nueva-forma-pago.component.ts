@@ -51,7 +51,7 @@ public builform(){
 ngOnInit(): void {
   this.onCargarDropdown();
   if(this.dataFormaPago){
-    this.onObtenerFormPagoPorId();
+    this.Avisar();  
   }
 }
 
@@ -72,8 +72,7 @@ onCargarDropdown(){
     this.generalService.listadoDocumentoPortipoParacombo(data), 
     this.generalService.listadoDocumentoPortipoParacombo(data2), 
   );
-
-  
+ 
   obsDatos.subscribe((response) => { 
     this.arrayMedioPago = response[0];   
     this.arrayEstablecimiento = response[1];  
@@ -96,8 +95,8 @@ onObtenerFormPagoPorId(){
   this.swal.mensajePreloader(true);
   this.formpagoService.formaPagoPorId(this.dataFormaPago.idFormaPago).subscribe((resp)=> {
     if(resp){ 
-      this.FormPagoEditar = resp; 
-  
+      console.log('tipo de forma de pago',resp)
+      this.FormPagoEditar = resp;  
       this.Form.patchValue({
           documento: this.arrayDocumento.find(
           (x) => x.id === this.FormPagoEditar.documentoid

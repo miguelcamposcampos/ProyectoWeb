@@ -169,8 +169,8 @@
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th  pSortableColumn="codProducto" style="width: 100px" >Codigo <p-sortIcon field="codProducto"></p-sortIcon></th>
-                        <th  pSortableColumn="nombreProducto" style="width: 250px" >Nombre <p-sortIcon field="nombreProducto"></p-sortIcon></th>
+                        <th  pSortableColumn="codProducto" style="width: 200px" >Codigo <p-sortIcon field="codProducto"></p-sortIcon></th>
+                        <th  pSortableColumn="nombreProducto" style="width: 400px" >Nombre <p-sortIcon field="nombreProducto"></p-sortIcon></th>
                         <th  pSortableColumn="stockUnidades" style="width: 80px" >Stock <p-sortIcon field="stockUnidades"></p-sortIcon></th>
                         <th  style="width: 80px" >Stock Final</th>
                         <th  pSortableColumn="lote" style="width: 80px" >Lote <p-sortIcon field="lote"></p-sortIcon></th>
@@ -185,8 +185,8 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
                     <tr [pSelectableRow]="product">
-                        <td style="width: 100px" >{{product.codProducto}}</td>
-                        <td style="width: 250px" >{{product.nombreProducto}}</td>
+                        <td style="width: 200px" >{{product.codProducto}}</td>
+                        <td style="width: 400px" >{{product.nombreProducto}}</td>
                         <td style="width: 80px; justify-content: center;" >{{product.stockUnidades}}</td>
                         <td style="width: 80px; justify-content: center;" >{{product.stockFinal}}</td>
                         <td style="width: 80px; justify-content: center;" >{{product.lote}}</td>

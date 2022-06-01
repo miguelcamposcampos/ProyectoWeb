@@ -22,7 +22,7 @@ export class FomrasDePagoService {
  
  
   formaPagoPorId(id : number){
-    return this.http.get<ICrearFormasPago>(`${this.api987}/v1/Cobranza/ObtenerFormaPagoPorId?idformapago=/${id}`);
+    return this.http.get<ICrearFormasPago>(`${this.api987}/v1/Cobranza/ObtenerFormaPagoPorId?idformapago=${id}`);
   }
  
   crearFormaPago(data: ICrearFormasPago): Observable<ICrearFormasPago[]>{

@@ -36,7 +36,7 @@ export class TitulosComponent implements OnInit {
   }
 
   onPintarDatos(){ 
-    this.dataDesencryptada = JSON.parse(sessionStorage.getItem('DatosUsuario')) 
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosUsuario')) 
  
     this.usuariologeado = this.authService.desCifrarData(this.dataDesencryptada.usuariologin),
     this.rolUsuario =  this.authService.desCifrarData(this.dataDesencryptada.rolUsuario) 

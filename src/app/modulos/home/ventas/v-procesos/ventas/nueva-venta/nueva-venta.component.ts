@@ -121,7 +121,7 @@ export class NuevaVentaComponent implements OnInit {
 
     this.dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')); 
  
-    this.dataDesencryptada = JSON.parse(sessionStorage.getItem('DatosImpresion')) 
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
     if(this.dataDesencryptada){
         this.impresoraPordefecto = this.dataDesencryptada.impresoraDefault;
         this.hostPordefecto = this.dataDesencryptada.hostDefault; 
@@ -1084,8 +1084,15 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   onRetornar(){
-    this.VistaCobrar = false;
+ //   this.VistaCobrar = false;
     this.VistaReporte = false;
+  }
+
+  onCobradoExitoso(event){
+    if(event === 'exito'){
+      this.cerrar.emit('exito');
+    }
+    this.VistaCobrar = false; 
   }
 
   Avisar() {

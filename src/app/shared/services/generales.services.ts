@@ -31,6 +31,12 @@ export class GeneralService {
             this.router.navigate(['/auth/login']);
         }
       });
+    }else if(error.error.status === 404){ 
+      this.swal.mensajeError(error.error.status);
+      return;
+    }else if(error.error.status === 400){ 
+      this.swal.mensajeError(error.error.detail);
+      return; 
     }else{
       this.swal.mensajeError(error.error);
       return;

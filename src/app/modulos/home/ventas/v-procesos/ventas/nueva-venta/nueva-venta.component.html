@@ -679,7 +679,7 @@
     
 <!-- VISTA Y DIALOG -->
 <app-venta-reporte *ngIf="VistaReporte" [dataReporte]="dataReporte" (cerrar)="onRetornar()"  ></app-venta-reporte> 
-<app-cobrar *ngIf="VistaCobrar" [dataCobrar]="dataCobrar" (cerrar)="onRetornar()" ></app-cobrar> 
+<app-cobrar *ngIf="VistaCobrar" [dataCobrar]="dataCobrar" (cerrar)="onCobradoExitoso($event)" ></app-cobrar> 
 
 <div *ngIf="modalBuscarPersona">
     <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">

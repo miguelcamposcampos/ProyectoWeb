@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.onCargarEstablecimientos();   
             this.builform();  
             this.dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')) 
-            this.dataDesencryptada = JSON.parse(sessionStorage.getItem('DatosImpresion')) 
+            this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
             if(this.dataDesencryptada){
                 this.impresoraPordefecto = this.dataDesencryptada.impresoraDefault;  // localStorage.getItem('impresoraDefault')
                 this.hostPordefecto = this.dataDesencryptada.hostDefault; // localStorage.getItem('hostDefault')
@@ -90,10 +90,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     
       }
 
-    ngOnInit(): void {
-        console.log('llegamos al home');
-        this.router.navigate(["/modulos/home/landing"])
-     
+    ngOnInit(): void { 
+       // this.router.navigate(["/modulos/home/landing"]) 
     }
  
     onCargarEstablecimientos(){
