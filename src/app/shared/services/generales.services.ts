@@ -30,6 +30,8 @@ export class GeneralService {
             this.router.navigate(['/auth/login']);
         }
       });
+    }else if(error.error.status === 404){ 
+        this.swal.mensajeError('No se encontraron datos...');
     }else{
       let Errores 
       console.log(' ERROR',error); 
