@@ -1395,7 +1395,7 @@ export class NuevaCompraComponent implements OnInit {
             })   
           } 
         }, error => {
-            this.swal.mensajeError(error.error.detail);
+          this.generalService.onValidarOtraSesion(error);  
         });
       }else{
         this.comprasService.updateCompra(newCompra).subscribe((resp) => {
@@ -1409,7 +1409,7 @@ export class NuevaCompraComponent implements OnInit {
           })   
           
         }, error => {
-            this.swal.mensajeError(error.error.detail);
+          this.generalService.onValidarOtraSesion(error);  
         });
       } 
     }

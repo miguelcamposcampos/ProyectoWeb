@@ -184,7 +184,7 @@ export class VentasElectronicasComponent implements OnInit  {
       }
       this.swal.mensajeExito('Se creó el resumen correctamente!.');
     }, error => {
-      this.swal.mensajeError(error.error.errors);
+      this.generalService.onValidarOtraSesion(error);  
     });
  
   }

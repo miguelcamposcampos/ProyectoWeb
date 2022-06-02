@@ -250,7 +250,7 @@ export class CobrarComponent implements OnInit {
       }
       this.swal.mensajeExito('Se grabaron los datos correctamente!.')
     }, error => { 
-      this.swal.mensajeError(error.error.errors)
+      this.generalService.onValidarOtraSesion(error);  
     })
   }
  

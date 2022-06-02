@@ -23,24 +23,28 @@ export class GeneralService {
   ) { }
 
   /* VALIDAR OTRO INICIO DE SESION */
-  onValidarOtraSesion(error : any){
-    console.log('que error de otro sesion', error);
+  onValidarOtraSesion(error : any){ 
     if(error.error.status === 403){ 
       this.swal.mensajeCaducoSesion().then((response) => { 
         if (response.isConfirmed) { 
             this.router.navigate(['/auth/login']);
         }
       });
-    }else if(error.error.status === 404){ 
-      this.swal.mensajeError(error.error.status);
-      return;
-    }else if(error.error.status === 400){ 
-      this.swal.mensajeError(error.error.detail);
-      return; 
     }else{
-      this.swal.mensajeError(error.error);
+      let Errores 
+      console.log(' ERROR',error); 
+      if(error.errors){ 
+        Errores = JSON.stringify(error.errors) 
+      }else if(error.error.errors){ 
+        Errores = JSON.stringify(error.error.errors) 
+      }else { 
+        Errores = JSON.stringify(error.error) 
+      }
+
+      this.swal.mensajeError(Errores);
       return;
     }
+ 
   }
  
   /* GENERAL */

@@ -210,7 +210,7 @@ export class NuevoTransportistaComponent implements OnInit {
             this.limpiarForm(); 
           }
         },error => {  
-          this.swal.mensajeError(error.error.errors.dni[0]);  
+          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
@@ -230,7 +230,7 @@ export class NuevoTransportistaComponent implements OnInit {
             this.swal.mensajePreloader(false)
           }  
         },error => {
-          this.swal.mensajeError(error.error.errors.ruc);
+          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de ruc valido');

@@ -290,7 +290,7 @@ export class ItemsVentaPosComponent implements OnInit {
       }
       this.swal.mensajeExito('Se grabaron los datos correctamente!.');
     }, error => {
-        this.swal.mensajeError(error.error.detail);
+      this.generalService.onValidarOtraSesion(error);  
     });
     
   }

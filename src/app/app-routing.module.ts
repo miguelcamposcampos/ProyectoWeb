@@ -20,10 +20,10 @@ const routes : Routes = [
       path: 'pagina-no-encontrada',
       component : AppNotfoundComponent
     }, 
-    {
-      path: 'acceso-denegado',
-      component : AppAccessdeniedComponent
-    },  
+    // {
+    //   path: 'acceso-denegado',
+    //   component : AppAccessdeniedComponent
+    // },  
     {
       path: '', 
       redirectTo: 'auth', 

@@ -902,7 +902,7 @@ export class NuevaVentaComponent implements OnInit {
       this.ventaservice.imprimir(data, host).subscribe((resp) => {
         this.swal.mensajeExito('Se envió a imprimir correctamente!.') 
       }, error => {
-        this.swal.mensajeError(error.error)
+        this.generalService.onValidarOtraSesion(error);  
       })
     }
   
@@ -969,7 +969,7 @@ export class NuevaVentaComponent implements OnInit {
       this.swal.mensajeExito('Se envió a imprimir correctamente!.')
       this.modalImprimirTicket = false;
     }, error => {
-      this.swal.mensajeError(error.error)
+      this.generalService.onValidarOtraSesion(error);  
     })
   }
 
@@ -1054,7 +1054,7 @@ export class NuevaVentaComponent implements OnInit {
             }
           })   
         }    
-      },error => { 
+      },error => {  
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{ 

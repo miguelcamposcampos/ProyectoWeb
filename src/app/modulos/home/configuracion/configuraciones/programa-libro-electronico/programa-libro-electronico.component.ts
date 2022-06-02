@@ -83,7 +83,7 @@ export class ProgramaLibroElectronicoComponent implements OnInit {
         saveAs(blob, "AchivoPLE.txt");
       }
     }, error => { 
-      this.swal.mensajeAdvertencia(error.error.detail) 
+      this.generalService.onValidarOtraSesion(error);  
     })
   }
 

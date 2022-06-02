@@ -205,7 +205,7 @@ ngOnInit(): void {
             return;
           }
         },error => {
-          this.swal.mensajeError(error.error.errors.dni[0]); 
+          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
@@ -222,10 +222,9 @@ ngOnInit(): void {
             this.ubigeoParaMostrar =  resp.Data.UbigeoDescripcion,
             this.ubigeoSeleccionado = resp.Data.ubigeo
             this.swal.mensajePreloader(false)
-          } 
-         
+          }  
         },error => {
-          this.swal.mensajeError(error.error.errors.ruc);
+          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de ruc valido');

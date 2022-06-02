@@ -100,7 +100,7 @@ export class RepPlanillaCobranzaComponent implements OnInit {
         saveAs(blob, "Reporte-Planilla-Cobranza.xlsx");  
       }
     }, error => {
-      this.swal.mensajeError(error.error);
+      this.generalService.onValidarOtraSesion(error);  
     }); 
   }
 

@@ -158,7 +158,8 @@ export class NuevoLineaComponent implements OnInit {
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       }, error => { 
-        this.swal.mensajeError(error.error.errors.imagenlinea[0]);
+        this.generalService.onValidarOtraSesion(error);  
+       // this.swal.mensajeError(error.error.errors.imagenlinea[0]);
       })
     }else{
       this.lineaService.updateLinea(newLinea).subscribe((resp) => {
@@ -167,7 +168,8 @@ export class NuevoLineaComponent implements OnInit {
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       }, error => {
-        this.swal.mensajeError(error.error.errors.imagenlinea[0]);
+        this.generalService.onValidarOtraSesion(error);  
+      //  this.swal.mensajeError(error.error.errors.imagenlinea[0]);
       })
     }
   

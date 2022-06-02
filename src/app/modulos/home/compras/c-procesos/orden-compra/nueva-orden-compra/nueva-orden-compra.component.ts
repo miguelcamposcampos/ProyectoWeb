@@ -990,7 +990,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
             }) 
           } 
         }, error => {
-            this.swal.mensajeError(error.error.detail);
+          this.generalService.onValidarOtraSesion(error);  
         });
       }else{
         this.ocService.updateOrdenCompra(newOrdenCompra).subscribe((resp) => {
@@ -1001,10 +1001,9 @@ export class NuevaOrdenCompraComponent implements OnInit {
               this.onVolver();
               this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
             }
-          })   
-    
+          })    
         }, error => {
-            this.swal.mensajeError(error.error.detail);
+          this.generalService.onValidarOtraSesion(error);  
         });
       } 
     }

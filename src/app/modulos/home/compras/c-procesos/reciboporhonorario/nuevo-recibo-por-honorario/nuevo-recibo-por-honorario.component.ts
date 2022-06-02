@@ -515,7 +515,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       }, error => {
-          this.swal.mensajeError(error.error.detail);
+        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.rxhService.updateRxh(newVenta).subscribe((resp) => {
@@ -524,7 +524,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       }, error => {
-          this.swal.mensajeError(error.error.detail);
+        this.generalService.onValidarOtraSesion(error);  
       });
     } 
   }

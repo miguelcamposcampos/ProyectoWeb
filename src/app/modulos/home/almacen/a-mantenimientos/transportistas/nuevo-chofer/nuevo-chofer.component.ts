@@ -71,7 +71,9 @@ export class NuevoChoferComponent implements OnInit {
           this.limpiarForm(); 
         }
       },error => {  
-        this.swal.mensajeError(error.error.errors.dni[0]);  
+        console.log(error);
+        this.generalService.onValidarOtraSesion(error);
+       // this.swal.mensajeError(error.error.errors.dni[0]);  
       })
     }else{
       this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');

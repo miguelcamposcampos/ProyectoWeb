@@ -248,7 +248,7 @@ export class VentasComponent implements OnInit {
           saveAs(blob, "Plantilla Subir Productos.xlsx");
         }
     }, error => { 
-      this.swal.mensajeAdvertencia(error.error.detail)
+      this.generalService.onValidarOtraSesion(error);  
     })
 
 

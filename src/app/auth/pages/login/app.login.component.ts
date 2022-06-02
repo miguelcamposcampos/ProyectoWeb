@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IAuth } from '../../interface/auth.interface';
 import { AuthService } from '../../services/auth.service';
@@ -24,7 +25,8 @@ export class AppLoginComponent {
      private authService : AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private swal: MensajesSwalService
+    private swal: MensajesSwalService,
+    private generalService : GeneralService
   ) { 
     this.builform();
     this.RecordarLogin = localStorage.getItem('rememberMe');  
@@ -66,7 +68,7 @@ export class AppLoginComponent {
       }
       this.swal.mensajePreloader(false)
     },error => {
-      this.swal.mensajeAdvertencia(error.error)
+      this.generalService.onValidarOtraSesion(error);  
     });
   }
  

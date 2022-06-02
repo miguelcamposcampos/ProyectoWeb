@@ -921,7 +921,7 @@ export class ConvertirAVentaComponent implements OnInit {
       this.swal.mensajeExito('Se envió a imprimir correctamente!.')
       this.modalImprimirTicket = false;
     }, error => {
-      this.swal.mensajeError(error.error)
+      this.generalService.onValidarOtraSesion(error);  
     })
   }
 
@@ -997,7 +997,7 @@ export class ConvertirAVentaComponent implements OnInit {
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       }, error => {
-          this.swal.mensajeError(error.error.detail);
+        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.ventaservice.updateVenta(newVenta).subscribe((resp) => {
@@ -1006,7 +1006,7 @@ export class ConvertirAVentaComponent implements OnInit {
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       }, error => {
-          this.swal.mensajeError(error.error.detail);
+        this.generalService.onValidarOtraSesion(error);  
       });
     }
 

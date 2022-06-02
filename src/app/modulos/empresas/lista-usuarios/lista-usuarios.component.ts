@@ -210,7 +210,7 @@ export class ListaUsuariosComponent implements OnInit {
       }
     },error=>{
       this.generalService.onValidarOtraSesion(error);
-      this.swal.mensajeError(error.error)
+     // this.swal.mensajeError(error.error)
     })
  
   }
