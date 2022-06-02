@@ -209,8 +209,7 @@ export class ListaUsuariosComponent implements OnInit {
         this.swal.mensajeExito('Se realizó el registro corerctamente!,')
       }
     },error=>{
-      this.generalService.onValidarOtraSesion(error);
-     // this.swal.mensajeError(error.error)
+      this.generalService.onValidarOtraSesion(error); 
     })
  
   }

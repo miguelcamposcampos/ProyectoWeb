@@ -20,6 +20,7 @@ export class AppLoginComponent {
   emailRecuperar : string = ""; 
   checkRecordarLogin :boolean;
   cambiarIconEye: string = "fa fa-eye";
+
   constructor(  
      private loginService : LoginService,
      private authService : AuthService,
@@ -97,7 +98,7 @@ export class AppLoginComponent {
           this.loginService.recuperarCredenciales(this.emailRecuperar).subscribe((resp) => { 
           this.swal.mensajeExito('Se envió un correo a su bandeja de entrada.');
         },error =>{
-          this.swal.mensajeError(error.error);
+          this.generalService.onValidarOtraSesion(error);  
         }) 
       }
     });
