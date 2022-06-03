@@ -1,23 +1,19 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';   
 import { AuthGuard } from './auth/guards/auth.guard';
-import { AppNotfoundComponent } from './auth/pages/not-found/app.notfound.component';
-import { AppAccessdeniedComponent } from './auth/pages/acceso-denegado/app.accessdenied.component';
+import { AppNotfoundComponent } from './auth/pages/not-found/app.notfound.component'; 
 
  
 const routes : Routes = [
-    {
-      path: 'auth',
+    { path: 'auth',
       loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule), 
     }, 
-    {
-      path: 'modulos',
+    { path: 'modulos',
       loadChildren: ()=> import('./modulos/modulos.module').then(m=> m.ModulosModule),
       canLoad : [AuthGuard],
       canActivate : [AuthGuard]
     },
-    {
-      path: 'pagina-no-encontrada',
+    { path: 'pagina-no-encontrada',
       component : AppNotfoundComponent
     }, 
     // {
@@ -38,7 +34,7 @@ const routes : Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, { useHash: true })
     ],
     exports: [RouterModule]
 })

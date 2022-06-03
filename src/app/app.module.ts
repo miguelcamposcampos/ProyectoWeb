@@ -33,10 +33,10 @@ registerLocaleData(localePy, 'es');
     
     providers: [
         DatePipe,
-        // {
-        //     provide: LocationStrategy,  
-        //     useClass: HashLocationStrategy
-        // }, 
+        {
+            provide: LocationStrategy,  
+            useClass: HashLocationStrategy
+        }, 
         { provide: LOCALE_ID, useValue: 'es' },
         MenuService,
         AppBreadcrumbService,
