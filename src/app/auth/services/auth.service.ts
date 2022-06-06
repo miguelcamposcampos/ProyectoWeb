@@ -5,8 +5,7 @@ import { environment } from 'src/environments/environment';
 import { IAuth } from '../interface/auth.interface'; 
 import * as CryptoJS from 'crypto-js'; 
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-
+import { switchMap } from 'rxjs/operators'; 
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +26,7 @@ export class AuthService {
   private claveCifrar = ''; 
   
   constructor(
-    private http : HttpClient, 
-    private router : Router
+    private http : HttpClient,  
   ) { }
  
   cifrarData(data: any): any {
@@ -68,9 +66,9 @@ export class AuthService {
   }
  
 
-  verificarAutenticacion(): Observable<boolean>{
-    if(!localStorage.getItem('token')){  
-      return of(false);
+  verificarAutenticacion(): Observable<any>{
+    if(!localStorage.getItem('token')){   
+      return of(false); 
     }else{
       return of(true);
     }
@@ -94,3 +92,4 @@ export class AuthService {
  
 
 }
+ 

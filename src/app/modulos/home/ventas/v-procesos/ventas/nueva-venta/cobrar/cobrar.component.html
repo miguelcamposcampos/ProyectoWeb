@@ -21,7 +21,7 @@
                             <strong>Importe a Cobrar : {{  SaldoTotalaCobrar }}</strong> 
                             <div class="InputCombinado">  
                                 <input type="text" disabled formControlName="MonedaaCobrar" pInputText  class="p-inputtext-sm" placeholder="">   
-                                <input type="number" [min]="1" formControlName="ImporteACobrar" pInputText  class="p-inputtext-sm" placeholder="0.00">     
+                                <input type="number" [min]="1" (keydown.enter)="onAgregarCobro()" formControlName="ImporteACobrar" pInputText  class="p-inputtext-sm" placeholder="0.00">     
                             </div>
                         </div>
                     </div> 
@@ -40,11 +40,11 @@
     
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
                             <strong>T. Cambio *:</strong>
-                            <input type="number" pInputText (keyup)="onValidarTipoCambioExiste($event)"  formControlName="TipoCambio" class="p-inputtext-sm" placeholder="0.00">     
+                            <input type="number" pInputText disabled formControlName="TipoCambio" class="p-inputtext-sm" placeholder="0.00">     
                         </div>
     
                         <div class="p-field p-col-12 p-md-3 p-sm-3 botonBuscar"> 
-                            <button type="button" pTooltip="Buscar" label="Agregar Cobranza"  [disabled]="bloquearBotonAgregarCobro" class="p-button-sm" tooltipPosition="left" (click)="onAgregarCobro()" pButton icon="fas fa-circle-dollar-to-slot"></button>      
+                            <button type="button" pTooltip="Agregar" label="Agregar Cobranza"  [disabled]="bloquearBotonAgregarCobro" class="p-button-sm" tooltipPosition="left" (click)="onAgregarCobro()" pButton icon="fas fa-circle-dollar-to-slot"></button>      
                         </div>
                     </div>
                 </div> 
@@ -96,6 +96,7 @@
                                         class="p-button-sm p-button-rounded mx-2"
                                         pButton 
                                         type="button"
+                                        style=" background-color: #D72250;"
                                         (click)="onEliminarCobranza(rowIndex)"
                                         icon="pi pi-trash">  
                                     </button>

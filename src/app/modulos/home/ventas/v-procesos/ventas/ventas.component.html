@@ -117,14 +117,23 @@
                             <div *ngSwitchCase="'fechaEmision'">
                                 {{ ventas[col.field] | date: col.formatoFecha }}
                             </div>
+                            <div *ngSwitchCase="'fechaEmision'">
+                                {{ ventas[col.field] | date: col.formatoFecha }}
+                            </div>
                             <div *ngSwitchCase="'fechaVencimiento'">
                                 {{ ventas[col.field] | date: col.formatoFecha }}
+                            </div> 
+                            <div *ngSwitchCase="'importe'">
+                                {{ ventas[col.field]  | number:'0.2-2'}}
+                            </div> 
+                            <div *ngSwitchCase="'saldo'">
+                                {{ ventas[col.field]  | number:'0.2-2' }}
                             </div> 
                             <div *ngSwitchDefault>
                                 {{ ventas[col.field]  }}
                             </div>
                         </div>  
-
+                       
 
                         <ng-template #botones [ngIf]="col.field === 'acciones'"  >
                             <div style="display: flex;">

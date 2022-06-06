@@ -27,11 +27,17 @@ export class GeneralService {
     if(error.error.status === 403){ 
       this.swal.mensajeCaducoSesion().then((response) => { 
         if (response.isConfirmed) { 
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/auth']);
         }
       });
     }else if(error.error.status === 404){ 
-        this.swal.mensajeError('No se encontraron datos...');
+      this.swal.mensajeError('No se encontraron datos...');
+    }else if(error.error.status === 401){ 
+      this.swal.mensajeCaducoSesion().then((response) => { 
+        if (response.isConfirmed) { 
+            this.router.navigate(['/auth']);
+        }
+      });
     }else{
       let Errores 
       console.log(' ERROR',error); 

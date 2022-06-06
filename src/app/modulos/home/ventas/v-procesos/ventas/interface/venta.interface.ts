@@ -250,7 +250,7 @@ export  interface IPropiedadesAdicionales{
 }
  
 export interface ICobrarSaldoPendiente{
-    importededuda : number,
+    importedeuda : number,
     importesaldo : number,
     monedaId : number,
     pendientecobranzaid : number,

@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: true, 
   apiUrl : 'http://srv2.marketsol.pe:988/api', // 'http://198.50.230.132:988/api', 
   apiUrl987 : 'http://srv2.marketsol.pe:987/api', //'http://198.50.230.132:987/api',  
   apiunesco :  'http://198.50.230.132:903/api' ,

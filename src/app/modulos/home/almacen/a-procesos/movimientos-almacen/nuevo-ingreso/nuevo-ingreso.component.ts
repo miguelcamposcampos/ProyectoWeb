@@ -162,7 +162,7 @@ export class NuevoIngresoComponent implements OnInit {
       idProducto: new FormControl(null),   
       codigoProducto : new  FormControl(null),   
       descripcion : new FormControl(null),   
-      cantidad: new FormControl(null),  
+      cantidad: new FormControl(0),  
       unidadMedida: new FormControl(null),
       valorUnitario: new FormControl(null),   
       valorTotal: new FormControl(null),   
@@ -270,16 +270,21 @@ export class NuevoIngresoComponent implements OnInit {
       criteriodescripcion : codProductoaBuscar
     }
     this.generalService.BuscarProductoPorCodigo(data).subscribe((resp) => {
+      if(resp){
       this.detallesForm[posicion].patchValue({
         codigoProducto:  resp[0].codProducto,
         descripcion: resp[0].nombreProducto,
         unidadMedida: this.arrayUnidadesMedida.find(
           (x) => x.id ===   resp[0].unidadMedidaId
         ),
+        valorUnitario : resp[0].precioDefault,
         idProducto : resp[0].productoId, 
         nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
         nroLote: resp[0].lote === "0" ? null : resp[0].lote,  
-      });
+      }); 
+    }else{
+      this.swal.mensajeAdvertencia('no se encontraron datos');
+    }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
     });
@@ -307,10 +312,8 @@ export class NuevoIngresoComponent implements OnInit {
     this.Form.controls['anexo'].setValue(event.nombreRazSocial); 
   }
 
-  onPintarProductoSeleccionado(event : any){ 
-    console.log(event.data);
-    this.modalBuscarProducto= false; 
- 
+  onPintarProductoSeleccionado(event : any){  
+    this.modalBuscarProducto= false;  
     this.detallesForm[event.posicion].patchValue({
       codigoProducto:  event.data.codProducto,
       descripcion: event.data.nombreProducto, 

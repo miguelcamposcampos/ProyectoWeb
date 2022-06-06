@@ -215,7 +215,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
           nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
           nroLote: resp[0].lote === "0" ? null : resp[0].lote,  
         });
-      } 
+      }else{
+        this.swal.mensajeAdvertencia('no se encontraron datos');
+      }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
     });
@@ -477,7 +479,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       codigoProducto : new FormControl(null, Validators.required), 
       descripcion: new FormControl(null),  
       unidadMedida: new FormControl(null, Validators.required),
-      cantidad: new FormControl(null),   
+      cantidad: new FormControl(0),   
       bultos: new FormControl(null, Validators.required),   
       pesoUnitario: new FormControl(null),  
       precioUnitario: new FormControl(null),

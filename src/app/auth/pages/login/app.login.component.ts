@@ -61,12 +61,15 @@ export class AppLoginComponent {
     this.swal.mensajePreloader(true)
     
     this.authService.login(data).subscribe((resp) => {   
-      localStorage.setItem('rememberMe', logindata.rememberMe ? logindata.rememberMe : null); 
-      if(!(localStorage.getItem('estado') === 'Activo')){
-        this.swal.mensajeActivacionUsuario(logindata.email);
-      }else{
-        this.router.navigate(['/modulos/empresas'])
+      if(resp){
+        localStorage.setItem('rememberMe', logindata.rememberMe ? logindata.rememberMe : null); 
+        if(!(localStorage.getItem('estado') === 'Activo')){
+          this.swal.mensajeActivacionUsuario(logindata.email);
+        }else{
+          this.router.navigate(['/modulos/empresas'])
+        }
       }
+    
       this.swal.mensajePreloader(false)
     },error => {
       this.generalService.onValidarOtraSesion(error);  

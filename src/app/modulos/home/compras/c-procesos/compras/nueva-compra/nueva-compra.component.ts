@@ -715,23 +715,32 @@ export class NuevaCompraComponent implements OnInit {
       criteriodescripcion : codProductoaBuscar
     }
     this.generalService.BuscarProductoPorCodigo(data).subscribe((resp) => {
-      this.detallesCompraForm[posicion].patchValue({
-        codproductofinal:  resp[0].codProducto,
-        descripcionproducto: resp[0].nombreProducto,
-        unidadmedidaid: this.arrayUnidadMedida.find(
-          (x) => x.id ===   resp[0].unidadMedidaId
-        ),
-        tipoafectacionid : this.arrayDestino.find(
-          (x) => x.id ===   resp[0].tipoAfectacionId
-        ),
-        precioincluyeigv : resp[0].precioIncluyeIgv,
-        productoid : resp[0].productoId,
-        esafectoicbper :resp[0].esAfectoICBPER,
-        nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
-        nroLote: resp[0].lote === "0" ? null : resp[0].lote, 
-        esGravada : resp[0].precioIncluyeIgv
-      });
+      if(resp){
+        this.detallesCompraForm[posicion].patchValue({
+          codproductofinal:  resp[0].codProducto,
+          descripcionproducto: resp[0].nombreProducto,
+          unidadmedidaid: this.arrayUnidadMedida.find(
+            (x) => x.id ===   resp[0].unidadMedidaId
+          ),
+          tipoafectacionid : this.arrayDestino.find(
+            (x) => x.id ===   resp[0].tipoAfectacionId
+          ),
+          preciounitario : resp[0].precioDefault,
+          productoid : resp[0].productoId,
+          precioincluyeigv : resp[0].precioIncluyeIgv,
+          esafectoicbper :resp[0].esAfectoICBPER,
+          nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
+          nroLote: resp[0].lote === "0" ? null : resp[0].lote, 
+          esGravada : resp[0].precioIncluyeIgv
+        });
+        this.onCalcularPrecioCompra(posicion)
+      }else{
+        this.swal.mensajeAdvertencia('no se encontraron datos');
+      }
+    },error => { 
+      this.generalService.onValidarOtraSesion(error);  
     });
+  
   }
 
 
@@ -770,7 +779,7 @@ export class NuevaCompraComponent implements OnInit {
       esGravada : event.data.precioIncluyeIgv
     });
 
-
+    this.onCalcularPrecioCompra(event.posicion)
     this.modalBuscarProducto = false;
   }
 
@@ -880,7 +889,7 @@ export class NuevaCompraComponent implements OnInit {
         unidadmedidaid: new FormControl(null),
         codproductofinal : new  FormControl(null),
         descripcionproducto : new  FormControl(null),
-        cantidad: new  FormControl(0),
+        cantidad: new  FormControl(1),
         preciounitario: new  FormControl(0),
         precioincluyeigv : new  FormControl(false),
         baseimponible: new  FormControl(0),
@@ -1062,16 +1071,16 @@ export class NuevaCompraComponent implements OnInit {
     }
 
 
-    let biActualizar  = Cantidad * preciosinigv;
+    let biActualizar  = Cantidad *   +parseFloat(preciosinigv.toFixed(3));
     this.detallesCompraForm[posicion].patchValue({
       baseimponible :  +parseFloat(biActualizar.toFixed(2))
     });
 
-    let Baseimponible : number  = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.baseimponible;
+    //let Baseimponible : number  = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.baseimponible;
 
     if( Porcentajedescuento > 0){
       let dsctoFactor =  ( Porcentajedescuento / 100);
-      let impd : number = (Baseimponible * dsctoFactor);
+      let impd : number = (biActualizar * dsctoFactor);
 
       this.detallesCompraForm[posicion].patchValue({
         importedescuento : +parseFloat(impd.toFixed(2))
@@ -1084,18 +1093,19 @@ export class NuevaCompraComponent implements OnInit {
 
     let Importedescuento : number = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.importedescuento;
 
-    let vVenta = (Baseimponible - Importedescuento);
+    let vVenta = (biActualizar - Importedescuento);
     this.detallesCompraForm[posicion].patchValue({
       valorventa :  +parseFloat(vVenta.toFixed(2))
     });
 
 
-    let Valorventa : number  = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.valorventa;
+    //let Valorventa : number  = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.valorventa;
 
     if(isOperacionGravada){
-      let igvAct = (Valorventa * this.valorIGV);
+      let igvAct = (vVenta * this.valorIGV);
+      let newigcAtc = Math.round((igvAct + Number.EPSILON) * 100) / 100;
       this.detallesCompraForm[posicion].patchValue({
-        igv : +parseFloat(igvAct.toFixed(2))
+        igv : newigcAtc
       });
     }else{
       this.detallesCompraForm[posicion].patchValue({
@@ -1106,7 +1116,7 @@ export class NuevaCompraComponent implements OnInit {
     let Importeotroscargos : number = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.importeotroscargos;
     let Igv : number = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.igv;
 
-    let precioventaAct : number =  (Valorventa +  Igv + Importeotroscargos);
+    let precioventaAct : number =  (vVenta +  Igv + Importeotroscargos);
 
     this.detallesCompraForm[posicion].patchValue({ 
       precioventa : +parseFloat(precioventaAct.toFixed(2))
