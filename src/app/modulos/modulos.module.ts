@@ -6,6 +6,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { PrimeNGModule } from '../utilities/PrimeNG/primeng.module';  
 import { SharedModule } from '../shared/shared.module';
 import { LandingComponent } from './landing/landing.component';
+import { NgChartsModule } from 'ng2-charts';
  
 @NgModule({
   declarations: [  
@@ -17,6 +18,7 @@ import { LandingComponent } from './landing/landing.component';
     PrimeNGModule, 
     ReactiveFormsModule,   
     SharedModule, 
+    NgChartsModule
   ],
 
   providers: [

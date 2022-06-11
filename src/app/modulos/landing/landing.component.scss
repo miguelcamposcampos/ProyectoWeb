@@ -197,3 +197,49 @@ $ribbon-bg-clr: #147DBA;
    height: 2px;
   background: linear-gradient(09deg, #D72250, 70%, #147DBA 80%);
   }
+
+
+
+  /** GRAFICOS CHART*/
+  .graficosChart{
+    text-align: center;
+    grid-template-columns:  1fr 1fr;
+    align-items: center; 
+ 
+  }
+
+  .graficos{
+    display: grid;
+    text-align: center;
+    grid-template-columns:  1fr 1fr;
+
+    @media (max-width:700px) {
+      display:  contents;
+    }
+  }
+
+
+  .formulario{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 10rem 1fr;   
+    align-items: center;
+    @media (max-width: 800px) {  
+      grid-template-columns: 1fr; 
+    }
+ }
+ 
+ .sizeGrafico{
+    width: 400px;
+    @media (max-width: 800px) {  
+      width: 280px;
+    }
+ }
+ .sizeGraficoLinea{
+    width: 500px;
+    @media (max-width: 800px) {  
+      width: 280px;
+    }
+ }

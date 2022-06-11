@@ -1,23 +1,44 @@
  
-     
-  <!-- NUEVO MENU LANDING -->
-  
-  <body>
-    <div class="landing-wrapper" id="wrapper">
-        
-        <!-- <div id="Inicio"  class="bannerPrincipal">
-            <div class="landing-banner-content">
-                <img src="assets/layout/images/logo_color.png"/>
-            </div> 
+   <!-- DASHBIARD -->
+   <div class="Margintabla"> 
+        <div class="contenidoTable card">     
+            <div class="graficos"> 
+                <div>  
+                    <h3> HISTORICO VENTAS </h3>   
+                    <div class="formulario">
+                        <strong>Elegir Rango de Información:</strong>
+                        <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event)" [options]="arrayRango1" [formControl]="rangoBusqueda1"  optionLabel="nombre"></p-dropdown>     
+                    </div>   
+                    <div class="graficosChart"> 
+                        <div class="sizeGraficoLinea">
+                            <p-chart type="line" [data]="DataLineal1" ></p-chart> 
+                        </div>
+                        <div class="sizeGrafico">
+                            <p-chart type="doughnut"[data]="DataGraficoDunat"></p-chart> 
+                        </div>
+                    </div> 
+                </div>
+ 
+                <div>  
+                    <h3> HISTORICO COBRANZAS Y POR COBRAR </h3>  
+                    <div class="formulario">
+                        <strong>Elegir Rango de Información:</strong>
+                        <p-dropdown class="DropExtenso" (onChange)="onObtenerRango2($event)" [options]="arrayRango2" [formControl]="rangoBusqueda2"  optionLabel="nombre"></p-dropdown>     
+                    </div>  
+                    <div class="sizeGraficoLinea">
+                        <p-chart type="line" [data]="DataLineal2" ></p-chart> 
+                    </div>
+                  
+                </div>
+            </div>
         </div>
+   </div>
 
-        <div class="divRibbon">  
-            <a (mouseenter)="onMostrarMenu('A');"> <span [ngClass]="{ 'buttonRibbon battlestar' : mostrarAlmacen }" >ALMACEN </span></a>
-            <a (mouseenter)="onMostrarMenu('V');">  <span [ngClass]="{ 'buttonRibbon battlestar' : mostrarVentas }"> VENTAS</span></a>
-            <a (mouseenter)="onMostrarMenu('C');">  <span [ngClass]="{ 'buttonRibbon battlestar' : mostrarCompras }"> COMPRAS</span></a>
-            <a (mouseenter)="onMostrarMenu('CF');">  <span [ngClass]="{ 'buttonRibbon battlestar' : mostrarConfiguracion }">CONFIGURACION </span></a> 
-        </div>  -->
 
+
+  <!-- NUEVO MENU LANDING -->
+  <!-- <body>
+    <div class="landing-wrapper" id="wrapper"> 
         <div id="Inicio"  class="bannerPrincipal">
             <div class="divRibbon">  
                 <a (mouseenter)="onMostrarMenu('A');"> <span [ngClass]="{ 'buttonRibbon battlestar' : mostrarAlmacen }" >ALMACEN </span></a>
@@ -26,8 +47,7 @@
                 <a (mouseenter)="onMostrarMenu('CF');">  <span [ngClass]="{ 'buttonRibbon battlestar' : mostrarConfiguracion }">CONFIGURACION </span></a> 
             </div> 
         </div>
-
-      
+ 
         <hr class="HrDivider">
         
         <div *ngIf="mostrarAlmacen">
@@ -498,14 +518,13 @@
                 })
             });
         </script>
-    </body> 
-    
-   
+    </body>  -->
   <!-- FIN NUEVO MENU LANDING -->
 
 
  
- 
+
+ <!-- LANDING DE LA PLANTILLA  -->
   <!-- <body class="landing-body">
   <div class="landing-wrapper" id="wrapper">
       <div class="landing-topbar">

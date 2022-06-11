@@ -83,6 +83,8 @@ import {BlockUIModule} from 'primeng/blockui';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {AccordionModule} from 'primeng/accordion';
+
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -176,7 +178,7 @@ FullCalendarModule.registerPlugins([
         TreeSelectModule,
         BlockUIModule,
         SpeedDialModule,
-        
+        AccordionModule
     ]
     })
   export class PrimeNGModule { }

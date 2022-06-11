@@ -14,7 +14,7 @@
                     style="margin-right: 1%;"
                     type="button"
                     [disabled]="Form.invalid" 
-                    label="idProductoEdit) ? 'Actualizar' : 'Guardar' }}"
+                    label="{{ (idProductoEdit) ? 'Actualizar' : 'Guardar' }}"
                     (click)="onGrabarProducto()"
                     icon="pi pi-check-circle">  
                 </button>  

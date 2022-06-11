@@ -85,6 +85,14 @@ export class ConstantesGenerales {
       {mes : 12, nombre : "DICIEMBRE"},
     ]
 
+    public static  arrayRangos = [
+      {id : 'Ultimasemana', nombre : "Última semana"},
+      {id : 'Ultimomes', nombre : "Último mes"},
+      {id : 'Hace3meses', nombre : "Hace 3 Meses "},
+      {id : 'Hace6meses', nombre : "Hace 6 Meses"},
+      {id : 'UltimoAnio', nombre : "Último Año"},
+    
+    ]
 
 
   

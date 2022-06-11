@@ -18,7 +18,7 @@
                                 <i toggle="#password-field"
                                 [class]="cambiarIconEye"
                                 (click)="viewPassword(clave)"> </i>
-                                <input type="password"  #passwordField pInputText placeholder="ingrese contraseña" formControlName="password"  #clave class="p-inputtext-sm">    
+                                <input type="password"  (keydown.enter)="onLogin()" #passwordField pInputText placeholder="ingrese contraseña" formControlName="password"  #clave class="p-inputtext-sm">    
                             </span>
  
                             <div style="text-align: left; margin: 2%;">  

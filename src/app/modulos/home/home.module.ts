@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PrimeNGModule, 
     ReactiveFormsModule,
     SharedModule, 
+    
   ], 
   providers: [
     SignalRService,

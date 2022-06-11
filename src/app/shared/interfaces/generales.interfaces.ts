@@ -75,3 +75,23 @@ export interface IEnvioMasivo{
     success : boolean,
     error : string
 }
+
+
+
+
+
+
+export interface IDataGraficos{
+    fechaEmision : string,
+    importeDolares : IDataGraficoMoneda,
+    importeSoles : IDataGraficoMoneda,
+    index: number,
+    periodo : string
+}
+
+export interface IDataGraficoMoneda{
+    importeCobrado: number,
+    importeConImpuestos: number,
+    importeSinCobrar: number,
+    importeSinImpuestos: number
+}

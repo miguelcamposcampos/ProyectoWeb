@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http'; 
 import { Observable } from 'rxjs';  
-import { ICombo, IPorDni, IPorRuc, IUbicaciones } from '../interfaces/generales.interfaces';
+import { ICombo, IDataGraficos, IPorDni, IPorRuc, IUbicaciones } from '../interfaces/generales.interfaces';
 import { IListadoStock } from 'src/app/modulos/home/almacen/a-procesos/consulta-stock/interface/consultastock.interface';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class GeneralService {
  
   private apiIP: string = environment.apiUrl;
   private api987: string = environment.apiUrl987;
+  private api991: string = environment.apireporte991;
   
   constructor(
     private http : HttpClient,
@@ -191,6 +192,17 @@ listarubigeo(ubigeo : number){
 
 BuscarProductoPorCodigo(data: any): Observable<IListadoStock>{  
   return this.http.post<IListadoStock>(`${this.api987}/v1/Producto/ObtenerProductoStockConsulta?periodo=${data.periodo}&criteriodescripcion=${data.criteriodescripcion}`, [-1] )
+}
+
+
+
+  graficoLineaDonut(rango : string){
+    return this.http.get<IDataGraficos[]>(`${this.api991}/v1/Dashboard/ObtnerConsultaVentasPorMes?rango=${rango}`) 
+  }
+
+
+  graficoLine(rango : string){
+    return this.http.get<IDataGraficos[]>(`${this.api991}/v1/Dashboard/ObtnerConsultaVentasPorMes?rango=${rango}`) 
 }
 
 }
