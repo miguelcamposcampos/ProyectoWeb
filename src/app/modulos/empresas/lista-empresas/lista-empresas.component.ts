@@ -135,14 +135,30 @@ export class ListaEmpresasComponent implements OnInit {
           rolUsuario : this.authService.cifrarData(empresa.rol)
         }
 
-        localStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));   
-        this.router.navigate(["/modulos/home/landing"]) 
+        localStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));  
+        this.onNewToken(); 
+     
       }else{ 
         this.swal.mensajeElegirunPlan().then((response) => { 
           if (response.isConfirmed) { 
             this.onVistaPlanes();
           }
         });
+      }
+    }) 
+  }
+
+  onNewToken(){
+    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
+    
+    const newtoken : IAuth = {
+      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
+    }
+    this.authService.login(newtoken).subscribe((resp)=>{
+      if(resp){
+        this.router.navigate(["/modulos/home/landing"]) 
       }
     }) 
   }

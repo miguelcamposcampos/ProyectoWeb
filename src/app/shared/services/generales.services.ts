@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http'; 
 import { Observable } from 'rxjs';  
-import { ICombo, IDataGraficos, IPorDni, IPorRuc, IUbicaciones } from '../interfaces/generales.interfaces';
+import { ICombo, IDataGraficos, IGraficoProductosMasVendidos, IPorDni, IPorRuc, IUbicaciones } from '../interfaces/generales.interfaces';
 import { IListadoStock } from 'src/app/modulos/home/almacen/a-procesos/consulta-stock/interface/consultastock.interface';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { Router } from '@angular/router';
@@ -195,15 +195,33 @@ BuscarProductoPorCodigo(data: any): Observable<IListadoStock>{
 }
 
 
-
-  graficoLineaDonut(rango : string){
+/* GRAFICOS LDEL DAHBORAD */
+  graficoHistoriVentaLineaDonut(rango : string){
     return this.http.get<IDataGraficos[]>(`${this.api991}/v1/Dashboard/ObtnerConsultaVentasPorMes?rango=${rango}`) 
   }
 
 
-  graficoLine(rango : string){
+  graficoLineal(rango : string){
     return this.http.get<IDataGraficos[]>(`${this.api991}/v1/Dashboard/ObtnerConsultaVentasPorMes?rango=${rango}`) 
-}
+  }
+
+  graficoLineal2(rango : string){
+    return this.http.get<IDataGraficos[]>(`${this.api991}/v1/Dashboard/ObtnerConsultaVentasPorMes?rango=${rango}`) 
+  }
+
+
+
+
+  graficobarrasProductomasVendido(rango : string){
+    return this.http.get<IGraficoProductosMasVendidos[]>(`${this.api991}/v1/Dashboard/ObtenerProductosMasVendidos?rango=${rango}`) 
+  }
+
+
+  graficoNoEnviadosASunat(){
+    return this.http.get<IDataGraficos[]>(`${this.api991}/v1/Dashboard/ObtenerDocumentosNoEnviadosSUNAT`) 
+  }
+
+
 
 }
  

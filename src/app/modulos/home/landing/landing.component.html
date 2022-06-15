@@ -1,36 +1,63 @@
  
    <!-- DASHBIARD -->
    <div class="Margintabla"> 
-        <div class="contenidoTable card">     
-            <div class="graficos"> 
-                <div>  
-                    <h3> HISTORICO VENTAS </h3>   
-                    <div class="formulario">
-                        <strong>Elegir Rango de Información:</strong>
-                        <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event)" [options]="arrayRango1" [formControl]="rangoBusqueda1"  optionLabel="nombre"></p-dropdown>     
-                    </div>   
-                    <div class="graficosChart"> 
-                        <div class="sizeGraficoLinea">
-                            <p-chart type="line" [data]="DataLineal1" ></p-chart> 
-                        </div>
-                        <div class="sizeGrafico">
-                            <p-chart type="doughnut"[data]="DataGraficoDunat"></p-chart> 
-                        </div>
-                    </div> 
-                </div>
- 
-                <div>  
-                    <h3> HISTORICO COBRANZAS Y POR COBRAR </h3>  
-                    <div class="formulario">
-                        <strong>Elegir Rango de Información:</strong>
-                        <p-dropdown class="DropExtenso" (onChange)="onObtenerRango2($event)" [options]="arrayRango2" [formControl]="rangoBusqueda2"  optionLabel="nombre"></p-dropdown>     
-                    </div>  
+        <div class="contenido card">     
+            <div> 
+                <h3> HISTORICO VENTAS </h3>  
+                <strong>Rango de Información: </strong>
+                <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'HVenta')" [options]="arrayRango1" [formControl]="rangoBusqueda1"  optionLabel="nombre"></p-dropdown>     
+                      
+                <div class="graficos">   
                     <div class="sizeGraficoLinea">
-                        <p-chart type="line" [data]="DataLineal2" ></p-chart> 
+                        <p-chart type="line" [data]="DataLineal1" ></p-chart> 
+                    </div> 
+                    
+                    <div class="sizeGrafico">
+                        <p-chart type="doughnut"[data]="DataGraficoDunat"  ></p-chart> 
                     </div>
-                  
                 </div>
             </div>
+            <br>
+            <div class="graficos">   
+                <div>
+                    <h3> COBRANZAS Y POR COBRAR </h3>  
+                    <strong>Rango de Información: </strong>
+                    <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'HCobranza')" [options]="arrayRango2" [formControl]="rangoBusqueda2"  optionLabel="nombre"></p-dropdown>     
+                    <p-chart type="line" [data]="DataLineal2" ></p-chart> 
+                </div>
+                <div>
+                    <h3> PRODUCTO MÁS VENDIDO</h3>   
+                    <strong>Rango de Información: </strong>
+                    <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'ProductoMasVendido')" [options]="arrayRango3" [formControl]="rangoBusqueda3"  optionLabel="nombre"></p-dropdown>     
+                    <p-chart type="bar" [data]="DataLineal3" [options]="horizontalOptions"></p-chart>
+                </div>
+            </div>
+
+            <br>
+  
+            <div>   
+                <h3> DOCUMENTOS NO REGULARIZADOS EN SUNAT</h3>   
+                <div class="graficos">   
+
+                    <div>
+                        <i class="fa-solid fa-triangle-exclamation sizeIcon"></i>
+                        <br>
+                        <div class="textIcon">
+                            Tiene {{ (DataEnviadosASunat) ? DataEnviadosASunat.noEnviados : 0}} documentos SIN enviar a Sunat
+                        </div>
+                    </div> 
+                    
+                    <div> 
+                        <i class="fa-regular fa-circle-check sizeIcon2"></i>
+                        <div class="textIcon">
+                            No tiene documento anulados sin dar de baja
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        
+
         </div>
    </div>
 

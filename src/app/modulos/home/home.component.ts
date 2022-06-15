@@ -46,9 +46,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     arrayEstablecimiento : ICombo[];
     arrayAlmacen : ICombo[];
     arrayByte: any;
-
-    dataDesencryptada : any;
-    dataPredeterminadosDesencryptada : any;
+    dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')) 
+    dataDesencryptada : any; 
     impresoraPordefecto : string = "";
     hostPordefecto : string = "";
     anchoPapelPordefecto : string = "";
@@ -62,11 +61,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         private ventaservice : VentasService,
         private generalService : GeneralService,
         private swal : MensajesSwalService, 
-        private router : Router
-        ) {   
-            this.onCargarEstablecimientos();   
+        ) {    
             this.builform();  
-            this.dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')) 
             this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
             if(this.dataDesencryptada){
                 this.impresoraPordefecto = this.dataDesencryptada.impresoraDefault;  // localStorage.getItem('impresoraDefault')
@@ -91,7 +87,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
     ngOnInit(): void { 
-       // this.router.navigate(["/modulos/home/landing"]) 
+        this.onCargarEstablecimientos();
     }
  
     onCargarEstablecimientos(){
@@ -330,7 +326,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.modalTiketera = true;
         }else if(event === 'U'){
             this.modalUbicacion = true;
-            this.onCargarEstablecimientos();
+           // this.onCargarEstablecimientos();
         }else{
             return;
         } 

@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './home.component';
 import { SignalRService } from '../shared_modulos/signalR/signalr.service';
 import { ReactiveFormsModule } from '@angular/forms'; 
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [ 
@@ -18,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PrimeNGModule, 
     ReactiveFormsModule,
     SharedModule, 
-    
+    NgChartsModule
   ], 
   providers: [
     SignalRService,

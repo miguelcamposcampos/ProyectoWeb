@@ -211,6 +211,7 @@ $ribbon-bg-clr: #147DBA;
   .graficos{
     display: grid;
     text-align: center;
+    align-items: center;
     grid-template-columns:  1fr 1fr;
 
     @media (max-width:700px) {
@@ -219,12 +220,16 @@ $ribbon-bg-clr: #147DBA;
   }
 
 
+  .contenido{
+    min-height: 85vh;
+    text-align: center;
+  }
+
   .formulario{
     display: grid;
-    grid-gap: 1rem;
     gap: 1rem;
     grid-auto-rows: auto;
-    grid-template-columns: 10rem 1fr;   
+    grid-template-columns: 1fr 1fr;   
     align-items: center;
     @media (max-width: 800px) {  
       grid-template-columns: 1fr; 
@@ -232,7 +237,7 @@ $ribbon-bg-clr: #147DBA;
  }
  
  .sizeGrafico{
-    width: 400px;
+    width: 300px;
     @media (max-width: 800px) {  
       width: 280px;
     }
@@ -243,3 +248,20 @@ $ribbon-bg-clr: #147DBA;
       width: 280px;
     }
  }
+
+ .sizeIcon{ 
+  font-size: 100px;
+  color: #14ba1a;
+ }
+
+ .sizeIcon2{
+  font-size: 100px;
+  color: #8cacec;
+}
+
+.textIcon{
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin: 0% 15% 0% 15%;
+}

@@ -95,3 +95,30 @@ export interface IDataGraficoMoneda{
     importeSinCobrar: number,
     importeSinImpuestos: number
 }
+
+export interface IGraficoProductosMasVendidos{
+    codigo: string,
+    nombreProducto: string,
+    cantidad : number
+}
+
+
+/* GRAFICOS DE ENVIO A SUNAT */
+export interface IGraficoEnviosASunat{
+    anuladosSinBaja : number,
+    detalleAnuladosSinBaja : IGraficoDetalleAnulados,
+    detalleNoEnviados : IGraficoDetalleNoEnviados,
+    noEnviados : number
+}
+export interface IGraficoDetalleNoEnviados{
+    siglaDoc: string,
+    serie: string,
+    secuencial: number,
+    nroDoc: string,
+    fechaEmision: string
+    
+}
+export interface IGraficoDetalleAnulados{
+    
+}
+ 
