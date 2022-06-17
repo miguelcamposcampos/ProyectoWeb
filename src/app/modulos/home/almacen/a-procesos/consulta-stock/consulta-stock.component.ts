@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -19,14 +20,14 @@ export class ConsultaStockComponent implements OnInit {
   arrayAlmacenes : any[]=[];
   fechaActual = new Date();
   periodo = this.fechaActual.getFullYear();
-  listaStockPivot : any[]=[];
- // columnas :any []=[]; 
-columnas: any[] =  ['CodProducto','Descripcion','Marca','Modelo','Color' ];
+  listaStockPivot : any[]=[]; 
+  columnas: any[] =  ['CodProducto','Descripcion','Marca','Modelo','Color' ];
 
   constructor(
     private consultastockService: ConsultaStockService,
     private generalService : GeneralService,
-    private swal : MensajesSwalService
+    private swal : MensajesSwalService,
+    private spinner : NgxSpinnerService
   ) {
     this.onCargarComboEstablecimiento();
    }
@@ -77,7 +78,7 @@ columnas: any[] =  ['CodProducto','Descripcion','Marca','Modelo','Color' ];
       soloservicios: false
     }
     
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.consultastockService.listadoStock(data).subscribe((resp)=> { 
       if(resp){
         // this.listaStock = resp; 
@@ -88,9 +89,10 @@ columnas: any[] =  ['CodProducto','Descripcion','Marca','Modelo','Color' ];
           //   } 
           //this.listaStockPivot =  this.PivotearData(this.listaStock);   
           this.listaStockPivot =  this.PivotearData(resp);  
-        }
-        this.swal.mensajePreloader(false);
+          this.spinner.hide();
+        } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

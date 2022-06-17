@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { SignalRService } from 'src/app/modulos/shared_modulos/signalR/signalr.service';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -37,6 +38,7 @@ export class ComprasComponent implements OnInit , OnDestroy{
     private generalService : GeneralService,
     private formatFecha : DatePipe,
     public signalService : SignalRService, 
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -97,14 +99,15 @@ export class ComprasComponent implements OnInit , OnDestroy{
       correlativo : dataform.correlativo,
       clienteId : this.idClienteSeleccionado,
     }
-    //this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.comprasService.listadoCompras(data).subscribe((resp)=> {
       if(resp){  
         this.textoPaginado = resp.label;
         this.listadoCompras = resp.items;  
-      }
-     // this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
 

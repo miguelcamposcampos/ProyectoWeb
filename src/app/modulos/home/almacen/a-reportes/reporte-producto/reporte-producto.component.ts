@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { IReporte } from '../../a-mantenimientos/productos/interface/producto.interface'; 
 import { ReportesAlmacenService } from '../services/reporte.service';
 
@@ -24,8 +24,9 @@ export class ReporteProductoComponent   {
   constructor(
     private reporteService : ReportesAlmacenService,
     public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private spinner : NgxSpinnerService,
+    private generalService : GeneralService,
+    
   ) { }
 
  
@@ -59,7 +60,7 @@ export class ReporteProductoComponent   {
       byLine : false, 
       productoCodigo : this.codProductoSearch
     } 
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.reporteService.generarReporteProductos(data).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp    
@@ -67,9 +68,10 @@ export class ReporteProductoComponent   {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

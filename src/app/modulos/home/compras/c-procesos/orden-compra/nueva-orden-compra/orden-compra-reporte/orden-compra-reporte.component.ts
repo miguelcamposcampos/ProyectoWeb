@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 import { OrdenCompraService } from '../../service/ordencompraService';
 import { IModuloReporte } from 'src/app/modulos/home/almacen/a-mantenimientos/productos/interface/producto.interface';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-orden-compra-reporte',
@@ -23,17 +24,19 @@ export class OrdenCompraReporteComponent   {
     private ocService : OrdenCompraService,
     public sanitizer: DomSanitizer,
     private swal : MensajesSwalService,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
  
   
   onGenerarReporte(){
-    this.swal.mensajePreloader(true);
+    
     const data = {
      tipo : 'PDF',
      idOrdenCompra : this.dataReporte.compraid
     }
+    this.spinner.show();
     this.ocService.generarReporte(data).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp    
@@ -41,9 +44,10 @@ export class OrdenCompraReporteComponent   {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-        this.swal.mensajePreloader(false);
+        this.spinner.hide();
       }   
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { IReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
 import { ReportesVentasService } from '../service/reportesventas.service';
 
@@ -19,10 +19,10 @@ export class RepCondicionDePagoComponent  {
   contenidoReporte : IReporte;
  
   constructor(
-    private reporteService : ReportesVentasService,
-    private swal : MensajesSwalService,
+    private reporteService : ReportesVentasService, 
     public sanitizer: DomSanitizer, 
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
  
@@ -31,7 +31,7 @@ export class RepCondicionDePagoComponent  {
     const Params = {
       fechayhora : this.fechayhoraImpresion.value
     }
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteCondicionPago(Params).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp 
@@ -39,9 +39,10 @@ export class RepCondicionDePagoComponent  {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

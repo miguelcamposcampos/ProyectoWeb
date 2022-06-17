@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ICrearUnidadTransporte } from '../interface/transportista.interface';
@@ -24,6 +25,7 @@ export class NuevoUnidadTransporteComponent implements OnInit {
     private transpService: TransportistaService, 
     private swal : MensajesSwalService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
@@ -41,17 +43,16 @@ export class NuevoUnidadTransporteComponent implements OnInit {
   }
   ngOnInit(): void {
     if(this.dataUnidadTransporte.idUnidaTransporte){
+      this.spinner.show();
       this.tituloVistaUnidadTransporte = "EDITAR UNIDAD TRANSPORTE";
       this.onObtenerDataUnidadEditar();
     }
   }
 
 
-  onObtenerDataUnidadEditar(){
-    this.swal.mensajePreloader(true);
+  onObtenerDataUnidadEditar(){ 
     this.transpService.unidadTransporteporId(this.dataUnidadTransporte.idUnidaTransporte).subscribe((resp) => {
-      if(resp){
-        this.swal.mensajePreloader(false);
+      if(resp){ 
         this.EditarUnidadTransporte = resp; 
         this.Form.patchValue({
           placa:  this.EditarUnidadTransporte.tractonroplaca, 
@@ -61,9 +62,11 @@ export class NuevoUnidadTransporteComponent implements OnInit {
           carretaPlaca :  this.EditarUnidadTransporte.carretaplaca,
           carretaMarca:   this.EditarUnidadTransporte.carretamarca,
           carretaCertificado:  this.EditarUnidadTransporte.carretacertificadomtc, 
-        })
+        });
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -87,18 +90,18 @@ export class NuevoUnidadTransporteComponent implements OnInit {
     if (!this.EditarUnidadTransporte) {
       this.transpService.grabarUnidadTransporte(newUnidadTransporte).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver(); 
          }
-         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
         },error => { 
           this.generalService.onValidarOtraSesion(error);  
         });
     }else { 
       this.transpService.updateUnidadTransporte(newUnidadTransporte).subscribe((resp) =>{
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

@@ -38,11 +38,11 @@ export class RolesService {
     return this.http.post(`${this.apiIP}/v1/Empresa/EliminarRolEmpresa`, {idRol : idRol})
   }
 
-  activarRolMenu(data :any){
+  activarRolMenu(data :any):Observable<any>{
     return this.http.post(`${this.apiIP}/v1/Planes/ActivarRolMenu`, {maestromenuid: data.maestromenuid, rolid: data.rolid })
   }
 
-  desactivarRolMenu(data :any){
+  desactivarRolMenu(data :any):Observable<any>{
     return this.http.post(`${this.apiIP}/v1/Planes/DesactivarRolMenu`,{maestroMenuId: data.maestromenuid, rolId: data.rolid })
   }
 

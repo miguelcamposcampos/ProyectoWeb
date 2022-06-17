@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'; 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -19,7 +20,8 @@ export class UnidadesdemedidaComponent implements OnInit {
   constructor(
     private unidadMedidaService : UnidaddeMedidaService,
     private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(){
@@ -35,13 +37,14 @@ export class UnidadesdemedidaComponent implements OnInit {
   }
 
   onLoadUnidadMedida(){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.unidadMedidaService.listadoUnidadMedida().subscribe((resp) => {
       if(resp){
         this.listUnidadMedida = resp;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

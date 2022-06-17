@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -26,7 +27,8 @@ export class LineasComponent implements OnInit {
   constructor(
     private swal  : MensajesSwalService,
     private lineaService : LineaService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(): void { 
@@ -54,7 +56,7 @@ export class LineasComponent implements OnInit {
       paginaIndex : event ? event.first : this.pagina,
       itemsPorPagina:event ? event.rows : this.size
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.lineaService.listadodeLineas(data).subscribe((resp)=> {
       if(resp){
         this.treeTable = resp.items;  
@@ -74,9 +76,10 @@ export class LineasComponent implements OnInit {
         })
         this.listaLineas = finall;   
         this.textoPaginado = resp.label; 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -105,7 +108,7 @@ export class LineasComponent implements OnInit {
   onModalEliminar(data:any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar la linea " + data.nombreLinea + " ?").then((response) => {
       if (response.isConfirmed) {
-        this.lineaService.deleteLinea(data.idLinea).subscribe((resp) => { 
+        this.lineaService.deleteLinea(data.id).subscribe((resp) => { 
           this.onLoadLineas(null); 
           this.swal.mensajeExito('La linea ha sido eliminado correctamente!.'); 
         },error => { 
@@ -142,7 +145,7 @@ export class LineasComponent implements OnInit {
   onEliminarSubLinea(data:any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar la Sub linea " + data.nombreLinea + " ?").then((response) => {
       if (response.isConfirmed) {
-        this.lineaService.deleteSubLinea(data.idLineaPadre).subscribe((resp) => { 
+        this.lineaService.deleteSubLinea(data.idLinea).subscribe((resp) => { 
           this.onLoadLineas(null); 
           this.swal.mensajeExito('La Sub linea ha sido eliminado correctamente!.'); 
         },error => { 

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api'; 
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -31,7 +32,8 @@ export class GuiasDeRemisionComponent implements OnInit {
     private swal : MensajesSwalService,
     private readonly formatoFecha: DatePipe,
     private primengConfig : PrimeNGConfig,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform(); 
   }
@@ -77,14 +79,15 @@ export class GuiasDeRemisionComponent implements OnInit {
       ffin: fechaFinBusqueda,
     }
     
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.guiaRemisionService.listadodeGuiasRemision(data).subscribe((resp) => {
       if(resp){
         this.textoPaginado = resp.label;
         this.listaGuiasRemision = resp.items;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

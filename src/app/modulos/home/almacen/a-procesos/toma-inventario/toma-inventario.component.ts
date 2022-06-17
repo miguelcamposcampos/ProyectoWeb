@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -30,7 +31,8 @@ export class TomaInventarioComponent implements OnInit {
     private messageService: MessageService,
     private swal : MensajesSwalService,
     private config : PrimeNGConfig,
-    private dataFormat : DatePipe
+    private dataFormat : DatePipe,
+    private spinner : NgxSpinnerService
     
   ) {
     this.builform();
@@ -121,11 +123,14 @@ export class TomaInventarioComponent implements OnInit {
       ffin : this.dataFormat.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       idAlmacen :  dataform.almacenid ? dataform.almacenid.id : 0
     }
-
+    this.spinner.show();
     this.tomainventarioService.listadoTomaInventario(data).subscribe((resp) => {
-      this.listadoTomaInventario = resp
-      this.swal.mensajePreloader(false)
+      if(resp){
+        this.listadoTomaInventario = resp;
+        this.spinner.hide();
+      }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

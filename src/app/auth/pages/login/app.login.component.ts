@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IAuth } from '../../interface/auth.interface';
@@ -12,7 +13,7 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './app.login.component.html',
   styleUrls : ['./app.login.component.scss']
 })
-export class AppLoginComponent {
+export class AppLoginComponent  {
   
   loginForm!: FormGroup; 
   RecordarLogin: any; 
@@ -20,14 +21,15 @@ export class AppLoginComponent {
   emailRecuperar : string = ""; 
   checkRecordarLogin :boolean;
   cambiarIconEye: string = "fa fa-eye";
-
+   
   constructor(  
-     private loginService : LoginService,
-     private authService : AuthService,
+    private loginService : LoginService,
+    private authService : AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
     private swal: MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
     this.RecordarLogin = localStorage.getItem('rememberMe');  
@@ -36,7 +38,7 @@ export class AppLoginComponent {
       this.onAutoLlenarLogin();
     }
   }
-
+  
 
   private builform(): void {
     this.loginForm = this.formBuilder.group({
@@ -58,20 +60,19 @@ export class AppLoginComponent {
       email : logindata.email,
       passwordDesencriptado :  logindata.password 
     }
-    this.swal.mensajePreloader(true)
-    
-    this.authService.login(data).subscribe((resp) => {   
+   this.spinner.show();
+    this.authService.login(data).subscribe((resp) => { 
       if(resp){
         localStorage.setItem('rememberMe', logindata.rememberMe ? logindata.rememberMe : null); 
         if(!(localStorage.getItem('estado') === 'Activo')){
+          this.spinner.hide();
           this.swal.mensajeActivacionUsuario(logindata.email);
-        }else{
-          this.router.navigate(['/modulos/empresas'])
-        }
-      }
-    
-      this.swal.mensajePreloader(false)
-    },error => {
+        }else{ 
+          this.router.navigate(['/modulos/empresas']);
+        }  
+      } 
+    },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

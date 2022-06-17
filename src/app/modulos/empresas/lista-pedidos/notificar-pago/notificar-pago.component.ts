@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'; 
-import { forkJoin, Subject } from 'rxjs';
-import { IAuth } from 'src/app/auth/interface/auth.interface';
+import { Component, EventEmitter,OnInit, Output } from '@angular/core'; 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { DataEmpresa, IPedidoPorEmpresa, IEnviarNotificarPago, IModalConfirmar } from '../../interface/empresa.interface';
+import { IPedidoPorEmpresa, IEnviarNotificarPago, IModalConfirmar } from '../../interface/empresa.interface';
 import { PlanesService } from '../../services/planes.services';
 @Component({
   selector: 'app-notificar-pago',
@@ -15,8 +14,6 @@ import { PlanesService } from '../../services/planes.services';
 export class NotificarPagoComponent implements OnInit {
  
   @Output() cerrar : any = new EventEmitter<boolean>();
-  @Input() tokenLS: any; 
-  public FlgRetornaNuevoToken: Subject<boolean> = new Subject<boolean>();
   public PedidosSeleccionados :any[] = [];
 
   cols: InterfaceColumnasGrilla[] = []; 
@@ -38,6 +35,7 @@ export class NotificarPagoComponent implements OnInit {
     private planesService : PlanesService,
     private authService : AuthService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {  
       
   }
@@ -45,38 +43,29 @@ export class NotificarPagoComponent implements OnInit {
   ngOnInit(): void {
     let guidEmpresaLS = localStorage.getItem('guidEmpresa');
     this.guidDesencriptado = this.authService.desCifrarData(guidEmpresaLS) 
-    
-    if(!this.tokenLS){
-      return;
-    }else{
-     
-    //  localStorage.setItem('guidEmpresa', gruiEncryptado )
-     // localStorage.setItem('guidEmpresa', this.empresasSelect.empresaGuid);   
-    }  
-
-
+    this.onLoadPedidos();
     this.cols = [ 
       { field: 'plan', header: 'Plan', visibility: true  }, 
       { field: 'planServicio', header: 'Servicio', visibility: true}, 
       { field: 'importe', header: 'Importe', visibility: true},  
       { field: 'cantidad', header: 'Cantidad', visibility: true},   
-    ];
-   // this.onGenerarNuevoToken();
-   // this.Avisar();  
+    ];  
   }
 
   
   onLoadPedidos(){  
+    this.spinner.show();
     this.planesService.pedidosporEmpresa(this.guidDesencriptado).subscribe((resp) => {
-      if(resp){ 
-        this.swal.mensajePreloader(false);
+      if(resp){  
         resp.forEach(x => {         
             if( x.importe > 0){
             this.listPedidos.push(x)
           } 
-        })  
+        });
+        this.spinner.hide();
       } 
     },error => {
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
    })
   }
@@ -141,7 +130,7 @@ export class NotificarPagoComponent implements OnInit {
   }
 
  
-  onModalEliminar(){ 
+  onModalEnviarNotificacion(){ 
     this.swal.mensajePregunta("¿Seguro que desea enviar la notificación de pago ?").then((response) => {
       if (response.isConfirmed) {
         const NewNotificar : IEnviarNotificarPago = {

@@ -1,13 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { TreeNode } from 'primeng/api'; 
-import { forkJoin, Subject } from 'rxjs';
-import { IAuth } from 'src/app/auth/interface/auth.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { DataEmpresa, IRolPorEmpresa } from '../interface/empresa.interface'; 
+import { IRolPorEmpresa } from '../interface/empresa.interface'; 
 import { RolesService } from '../services/roles.services';
 
 @Component({
@@ -15,11 +14,10 @@ import { RolesService } from '../services/roles.services';
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss'],
 })
-export class RolesComponent implements OnInit {
-  public FlgRetornaNuevoToken: Subject<boolean> = new Subject<boolean>();
-  @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan
+export class RolesComponent implements OnInit { 
+ // @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan
   @Output() cerrar: any = new EventEmitter<boolean>();
-  @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
+ // @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
   cols: InterfaceColumnasGrilla[] = [];  
   opcionesSeleccionadas: TreeNode[] = [];  
@@ -30,14 +28,15 @@ export class RolesComponent implements OnInit {
   listRespMarcado : any[] = [];
   dataTreeSelect!: TreeNode[]; 
   modalAgregarRol: boolean = false;  
-  dataDesencryptada :any;
+
   
   constructor( 
     private swal: MensajesSwalService,
     private authService: AuthService,
     private rolesServices: RolesService,
     private form: FormBuilder,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) {
 
     this.authService.verificarAutenticacion();
@@ -51,13 +50,12 @@ export class RolesComponent implements OnInit {
   }
 
   ngOnInit(): void {   
-    if (!this.tokenLS) {
-      return;
-    }else{
-      this.onNewToken();  
-     // 
-    } 
-
+    // if (!this.tokenLS) {
+    //   return;
+    // }else{
+    //   this.onNewToken();   
+    // } 
+    this.onMostrarRolesPorEmpresa();
     this.cols = [
       { field: 'name', header: 'Marcar para asignar permiso, Desmarcar para quitar permiso.', visibility: true }, 
     ]; 
@@ -69,29 +67,30 @@ export class RolesComponent implements OnInit {
   }
 
   
-  onNewToken(){
-    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
+  // onNewToken(){
+  //   this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
     
-    const newtoken : IAuth = {
-      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
-      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
-    }
-    this.authService.login(newtoken).subscribe((resp)=>{
-      if(resp){
-       this.onMostrarRolesPorEmpresa();
-      }
-    }) 
-  }
+  //   const newtoken : IAuth = {
+  //     email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
+  //     passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+  //     guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
+  //   }
+  //   this.authService.login(newtoken).subscribe((resp)=>{
+  //     if(resp){
+  //      this.onMostrarRolesPorEmpresa();
+  //     }
+  //   }) 
+  // }
 
   onMostrarRolesPorEmpresa() {
-    this.rolesServices.rolesPorEmpresa().subscribe((resp) => {
-      console.log('roles por empresa',resp);
+    this.spinner.show();
+    this.rolesServices.rolesPorEmpresa().subscribe((resp) => { 
       if(resp) {
         this.ListadeRoles = resp; 
-        this.swal.mensajePreloader(false);
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -103,17 +102,20 @@ export class RolesComponent implements OnInit {
   onGrabarNuevorol() {
     this.modalAgregarRol = false;
     let nombre = this.Rolform.value;   
+
+    this.spinner.show(); 
     this.rolesServices.createRol(nombre.Rol).subscribe((resp) => { 
+        this.spinner.hide();
         this.swal.mensajeExito('El Rol ah sido registrado correctamente!.');
-        this.onMostrarRolesPorEmpresa()  
+        this.onMostrarRolesPorEmpresa();
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
 
 
-  onModaleliminarRol(data:any){ 
-    console.log('data eliminar', data);
+  onModaleliminarRol(data:any){  
     this.swal.mensajePregunta("¿Seguro que desea eliminar el rol " + data.nombre + " ?").then((response) => {
       if (response.isConfirmed) {
         this.rolesServices.deleteRol(data.rolid).subscribe((resp) => { 
@@ -134,7 +136,7 @@ export class RolesComponent implements OnInit {
     this.opcionesSeleccionadas = [];
 
     this.idRolSelect = rol;   
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.rolesServices.menuPorIdRol(this.idRolSelect).subscribe((resp) => {
       if (resp) {  
         this.listRespData = resp.data;
@@ -214,10 +216,7 @@ export class RolesComponent implements OnInit {
 
          /* Asignamos todo la estructura al componente */
           this.dataTreeSelect = finall  
-          if(this.dataTreeSelect){
-            this.swal.mensajePreloader(false); 
-          }  
-
+           
           //FUNCION PARA ORDENAR DE FORMA ALFABETICA EL OBJETO
           this.dataTreeSelect.sort(function (a, b) {
             if (a.data.name > b.data.name) {
@@ -230,8 +229,9 @@ export class RolesComponent implements OnInit {
             return 0;
           }); 
       } 
-      this.swal.mensajePreloader(false); 
+      this.spinner.hide();
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -310,14 +310,13 @@ export class RolesComponent implements OnInit {
       rolid :  this.idRolSelect,
       maestromenuid : event.node.data.maestromenuid
     }
-    this.swal.mensajePreloader(true); 
-    this.rolesServices.activarRolMenu(dataParaActivar).subscribe((resp) => {   
-      if(resp){
-        this.onVerMenuRol(this.idRolSelect); 
-        this.swal.mensajePreloader(false); 
-      } 
-      this.swal.mensajeExito('Se activó el Permiso: ' + event.node.data.name + ' correctamente!');
+    this.spinner.show();
+    this.rolesServices.activarRolMenu(dataParaActivar).subscribe((resp) => {     
+        this.spinner.hide();
+        this.swal.mensajeExito('Se activó el Permiso: ' + event.node.data.name + ' correctamente!');
+        this.onVerMenuRol(this.idRolSelect);  
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   } 
@@ -327,14 +326,13 @@ export class RolesComponent implements OnInit {
       rolid :  this.idRolSelect,
       maestromenuid : event.node.data.maestromenuid
     }
-    this.swal.mensajePreloader(true); 
-    this.rolesServices.desactivarRolMenu(dataParaDesactivar).subscribe((resp) => {  
-      if(resp){
-        this.onVerMenuRol(this.idRolSelect); 
-        this.swal.mensajePreloader(false); 
-      } 
-      this.swal.mensajeExito('Se desactivó el Permiso: ' + event.node.data.name + ' correctamente!');
+    this.spinner.show();
+    this.rolesServices.desactivarRolMenu(dataParaDesactivar).subscribe((resp) => {   
+        this.spinner.hide();
+        this.swal.mensajeExito('Se desactivó el Permiso: ' + event.node.data.name + ' correctamente!');
+        this.onVerMenuRol(this.idRolSelect);  
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   } 

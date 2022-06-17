@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';  
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
@@ -112,6 +113,7 @@ export class NuevaVentaComponent implements OnInit {
     private config : PrimeNGConfig,
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
     this.arrayEstado = [
@@ -1044,11 +1046,9 @@ export class NuevaVentaComponent implements OnInit {
       documentoReferenciaDtos: DetallesDocumentoRefGrabar,
       idsCondicionPagoToDelet: this.arrayDetallesCondicionPagoEliminados,
       idsToDelete: this.arrayDetallesEliminados,
-      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0,
-    
+      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0, 
     } 
-    console.log('newVenta', newVenta);   
-    this.swal.mensajePreloader(true);
+ 
 
     if(!this.dataVenta){
       this.ventaservice.createVenta(newVenta).subscribe((resp)=>{
@@ -1106,7 +1106,7 @@ export class NuevaVentaComponent implements OnInit {
 
   Avisar() {
     this.FlgLlenaronCombo.subscribe((x) => {
-      this.swal.mensajePreloader(true);
+      this.spinner.show(); 
       this.onObtenerVentaPorId(this.dataVenta.idVenta,'editar');
     });
   }
@@ -1338,8 +1338,8 @@ export class NuevaVentaComponent implements OnInit {
       }
     }
     } 
+    this.spinner.hide(); 
     this.onCalcularTotalVenta();
-    this.swal.mensajePreloader(false);  
 
   }
  

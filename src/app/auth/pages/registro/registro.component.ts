@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';   
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -26,6 +27,7 @@ export class RegistroComponent implements OnInit {
       private swal : MensajesSwalService,
       private loginService: LoginService,
       private generalService: GeneralService,
+      private spinner : NgxSpinnerService
   ) {
   }
 
@@ -67,13 +69,14 @@ export class RegistroComponent implements OnInit {
         nombreapellidos: dato.NombreApellidos,
         nombreorganizacion: ''
       }
-
+      this.spinner.show();
       this.loginService.nuevoUsuarioCreate(newUsuario).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se registro al usuario con conrrectamente!.');
           this.router.navigate(['/auth/login']);
         }
       },error => { 
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);
       });
  

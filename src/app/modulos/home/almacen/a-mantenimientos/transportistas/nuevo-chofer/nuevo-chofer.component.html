@@ -1,7 +1,10 @@
 <div class="Margintabla">
     <div class="contenidoTable card"> 
-        <!-- <h3> <i class="far fa-id-badge"></i> {{ tituloVistaChofer }}</h3>   -->
 
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+        </ngx-spinner>
+           
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3> <i class="far fa-id-badge"></i> {{ tituloVistaChofer }}</h3>  
@@ -44,7 +47,7 @@
                             
                                 <strong>Nro Documento *</strong>  
                                 <div class="p-inputgroup">  
-                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="8" (keypress)="validateNumber($event)" placeholder="ingresar el numero de documento">   
+                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="8" (keypress)="validateNumber($event)" (keydown.enter)="onBuscarPorNumeroDocumento()" placeholder="ingresar el numero de documento">   
                                     <button type="button" pTooltip="Buscar" tooltipPosition="left" pButton pRipple icon="pi pi-search" (click)="onBuscarPorNumeroDocumento()"styleClass="p-button-warn"></button>      
                                 </div>
 

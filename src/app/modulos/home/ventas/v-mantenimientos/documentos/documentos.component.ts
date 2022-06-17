@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -23,7 +24,8 @@ export class DocumentosComponent implements OnInit {
   constructor(
     private documentosServices: DocumentosService,
     private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
  
@@ -66,19 +68,20 @@ export class DocumentosComponent implements OnInit {
     })  
   }
  
-  onLoadDocumentos(){
-    this.swal.mensajePreloader(true);
+  onLoadDocumentos(){ 
    const data = {
      nombre : this.nombre.value,
      siglas : this.siglas.value
    }
  
+   this.spinner.show();
     this.documentosServices.listadoDocumentos(data).subscribe((resp) => {
       if(resp){
-        this.listaDocumentos = resp;
-        this.swal.mensajePreloader(false);
+        this.listaDocumentos = resp; 
+        this.spinner.hide();
       }
-    },error => { 
+    },error => {  
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

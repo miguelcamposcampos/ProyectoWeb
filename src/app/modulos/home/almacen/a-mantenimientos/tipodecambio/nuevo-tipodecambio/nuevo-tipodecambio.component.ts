@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -29,6 +30,7 @@ export class NuevoTipodecambioComponent implements OnInit {
     private readonly formatoFecha: DatePipe,
     private primengConfig : PrimeNGConfig,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -44,13 +46,13 @@ export class NuevoTipodecambioComponent implements OnInit {
   ngOnInit(): void { 
     this.primengConfig.setTranslation(this.es);
     if(this.idTipoCambio){ 
+      this.spinner.show();
       this.onBuscarTipoCambioPorId();
     }
   }
 
 
-  onBuscarTipoCambioPorId(){ 
-    this.swal.mensajePreloader(true);
+  onBuscarTipoCambioPorId(){  
     this.tipocambioService.TipoCambioPorId(this.idTipoCambio).subscribe((resp) => {
       if(resp){
         this.TipoCambioEditar = resp; 
@@ -59,10 +61,11 @@ export class NuevoTipodecambioComponent implements OnInit {
           valorCompra : this.TipoCambioEditar.valorcompra,
           valorVenta : this.TipoCambioEditar.valorventa,
           fechatipoCambio : fechaActual
-        })
-      }
-      this.swal.mensajePreloader(false);
+        });
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -79,18 +82,18 @@ export class NuevoTipodecambioComponent implements OnInit {
     if(!this.TipoCambioEditar){
       this.tipocambioService.createTipoCambio(newTipoCambio).subscribe((resp)=> {
        if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.tipocambioService.updateTipoCambio(newTipoCambio).subscribe((resp)=> {
         if(resp){
-           this.onVolver();
+          this.swal.mensajeExito('Se actualizarion los datos correctamente!.');
+          this.onVolver();
          }
-         this.swal.mensajeExito('Se actualizarion los datos correctamente!.');
         },error => { 
           this.generalService.onValidarOtraSesion(error);  
         });

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService, PrimeNGConfig } from 'primeng/api'; 
 import { Subject } from 'rxjs'; 
 import { ITipoCambioPorId } from 'src/app/modulos/home/almacen/a-mantenimientos/tipodecambio/interfaces/tipocambio.interface';
@@ -42,7 +43,9 @@ export class CobrarComponent implements OnInit {
     private swal : MensajesSwalService,
     private messageService: MessageService,
     private config : PrimeNGConfig, 
-    private dataFormat : DatePipe
+    private dataFormat : DatePipe,
+    private spinner : NgxSpinnerService
+
   ) {
     this.builform();
    }
@@ -104,14 +107,15 @@ export class CobrarComponent implements OnInit {
  }
 
  onCargarSaldoPendiente(){
-  this.swal.mensajePreloader(true);
+  this.spinner.show(); 
   this.ventaservice.obtenerSaldoPendiente(this.dataCobrar.ventaid).subscribe((resp)=> {
     if(resp){
       this.saldoPendiente = resp;  
       this.SaldoTotalaCobrar = parseFloat(this.saldoPendiente.importesaldo.toString()).toFixed(2);  
-    }
-    this.swal.mensajePreloader(false);
+      this.spinner.hide();
+    } 
   },error => { 
+    this.spinner.hide();
     this.generalService.onValidarOtraSesion(error);  
   });
  }

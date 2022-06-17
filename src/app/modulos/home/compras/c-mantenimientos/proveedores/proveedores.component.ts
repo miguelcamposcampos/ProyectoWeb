@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -27,6 +28,7 @@ export class ProveedoresComponent implements OnInit {
     private swal : MensajesSwalService, 
     private proveedorService : ProveedorService, 
     private generalService : GeneralService, 
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -50,14 +52,15 @@ export class ProveedoresComponent implements OnInit {
       razonsocial : this.razonsocial.value,
       nrodocumento : this.nrodocumento.value,
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.proveedorService.listadoProveedor(data).subscribe((resp) => {
       if(resp){ 
         this.textoPaginado = resp.label;
         this.listaProveedores = resp.items;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

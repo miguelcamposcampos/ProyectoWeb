@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
@@ -39,6 +40,8 @@ export class BuscarPendienteComponent implements OnInit {
     private swal : MensajesSwalService,
     private readonly dataFormat : DatePipe,
     private config : PrimeNGConfig,
+    private spinner : NgxSpinnerService
+
   ) { 
     this.builform();
   }
@@ -95,12 +98,12 @@ export class BuscarPendienteComponent implements OnInit {
       idPersona : this.idClienteSeleccionado
     } 
     
-    this.swal.mensajePreloader(true);
+    this.spinner.show(); 
     this.cobranzaService.listadoPendiente(data).subscribe((resp) => {
       if(resp){
         this.listaPendientes = resp;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     })
   }
   

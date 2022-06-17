@@ -9,8 +9,8 @@ import { AppAccessdeniedComponent } from './pages/acceso-denegado/app.accessdeni
 import { AppErrorComponent } from './pages/error/app.error.component';
 import { AppNotfoundComponent } from './pages/not-found/app.notfound.component'; 
 import { SharedModulosModule } from '../modulos/shared_modulos/shared_modulos.module'; 
-
-
+ 
+ 
 @NgModule({
   declarations: [
     AppLoginComponent,
@@ -20,11 +20,11 @@ import { SharedModulosModule } from '../modulos/shared_modulos/shared_modulos.mo
     AppNotfoundComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule, 
     ReactiveFormsModule, 
     AuthRoutingModule, 
     PrimeNGModule,
-    SharedModulosModule
+    SharedModulosModule, 
   ]
 })
 export class AuthModule { }

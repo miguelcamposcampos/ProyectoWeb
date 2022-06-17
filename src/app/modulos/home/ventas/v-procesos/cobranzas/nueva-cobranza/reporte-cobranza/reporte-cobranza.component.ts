@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IReporte } from 'src/app/modulos/home/almacen/a-mantenimientos/productos/interface/producto.interface';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { IReporte } from 'src/app/modulos/home/almacen/a-mantenimientos/productos/interface/producto.interface'; 
 import { CobranzaService } from '../../service/cobranza.service';
 import { saveAs } from 'file-saver';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -23,9 +23,9 @@ export class ReporteCobranzaComponent  {
 
   constructor(
     private cobranzaService : CobranzaService,
-    public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
-    private generalService : GeneralService
+    public sanitizer: DomSanitizer, 
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService 
   ) { }
  
   
@@ -35,7 +35,7 @@ export class ReporteCobranzaComponent  {
       cobranzaID : this.dataReporte.cobranzaid,
       correlativo : this.dataReporte.nroRegistro
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.cobranzaService.generarReporte(data).subscribe((resp) => { 
       if(resp){
         this.contenidoReporte = resp    
@@ -43,9 +43,10 @@ export class ReporteCobranzaComponent  {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

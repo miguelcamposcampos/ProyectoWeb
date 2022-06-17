@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces'; 
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IListadoStock } from '../../home/almacen/a-procesos/consulta-stock/interface/consultastock.interface';
@@ -25,7 +26,9 @@ export class BuscarProductoComponent implements OnInit {
 
   constructor(
     private consultastockService : ConsultaStockService, 
-    private swal : MensajesSwalService
+    private swal : MensajesSwalService,
+    private spinner : NgxSpinnerService
+
   ) {
    
    }
@@ -80,13 +83,12 @@ export class BuscarProductoComponent implements OnInit {
       arrayAlmacenes : this.arrayAlmacenes,
       soloservicios: this.soloServicio.value
     }
-
-    this.swal.mensajePreloader(true);
+    this.spinner.show(); 
     this.consultastockService.listadoStock(data).subscribe((resp)=> {
-    if(resp){ 
-      this.listaProductos = resp;
-    } 
-    this.swal.mensajePreloader(false);
+      if(resp){ 
+        this.listaProductos = resp;
+        this.spinner.hide();
+      }  
     })
    
   }

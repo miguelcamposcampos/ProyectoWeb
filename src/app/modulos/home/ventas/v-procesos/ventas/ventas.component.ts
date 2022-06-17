@@ -12,6 +12,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';   
 import { SignalRService } from 'src/app/modulos/shared_modulos/signalR/signalr.service';
 import { IModuloReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-ventas',
@@ -47,7 +48,9 @@ export class VentasComponent implements OnInit {
     private ventasService: VentasService,
     private generalService : GeneralService,
     private formatFecha : DatePipe,
-    public signalService : SignalRService 
+    public signalService : SignalRService, 
+    private spinner : NgxSpinnerService
+
   ) {
     this.builform();
    }
@@ -140,14 +143,15 @@ export class VentasComponent implements OnInit {
       correlativo : dataform.correlativo,
       clienteId : this.idClienteSeleccionado,
     }
-  //  this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.ventasService.listadoVentas(data).subscribe((resp)=> {
       if(resp){  
         this.textoPaginado = resp.label;
-        this.listadoVentas = resp.items;  
-      }
-    //  this.swal.mensajePreloader(false);
+        this.listadoVentas = resp.items;   
+        this.spinner.hide(); 
+      } 
     },error => { 
+      this.spinner.hide(); 
       this.generalService.onValidarOtraSesion(error);  
     });
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -28,7 +29,8 @@ export class NuevoVendedorComponent implements OnInit {
   constructor(    
     private swal : MensajesSwalService, 
     private vendedorService : VendedoresService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
@@ -46,6 +48,7 @@ export class NuevoVendedorComponent implements OnInit {
     this.onCargarDropdown();
 
     if(this.dataVendedor){
+      this.spinner.show();
       this.Avisar();
       this.tituloNuevoVendedor ="EDITAR VENDEDOR";
     }
@@ -71,8 +74,7 @@ export class NuevoVendedorComponent implements OnInit {
   }
 
  
-  onObtenerVendedorPorId(id){ 
-    this.swal.mensajePreloader(true); 
+  onObtenerVendedorPorId(id){  
     this.vendedorService.VendedorPorId(id).subscribe((resp) => {
       if(resp){ 
         this.VendedorEdit = resp; 
@@ -91,28 +93,29 @@ export class NuevoVendedorComponent implements OnInit {
             apellidos: this.VendedorEdit.personaData.apellidos,
             nombres: this.VendedorEdit .personaData.nombres,
             direccionprincipal: this.VendedorEdit.personaData.direccionprincipal
-          })
-        }
-        this.swal.mensajePreloader(false);
+          });
+          this.spinner.hide();
+        } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
 
   onBuscarPorDni(){
-    let dniSearch = this.Form.controls['nroDocumento'].value;
-
+    let dniSearch = this.Form.controls['nroDocumento'].value; 
     if(dniSearch.toString().length === 8){
-      this.swal.mensajePreloader(true)
+      this.spinner.show();
       this.generalService.consultaPorDni(dniSearch).subscribe((resp) => {
         if(resp){  
           this.Form.patchValue({
             apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
             nombres : resp.nombres
           });
-        } 
-        this.swal.mensajePreloader(false)
+          this.spinner.hide();
+        }  
       },error => { 
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{
@@ -132,8 +135,7 @@ export class NuevoVendedorComponent implements OnInit {
     }
     this.modalBuscarUbigeo = false;
   }
-
-
+ 
 
   onGrabar(){
     const data = this.Form.value;
@@ -157,18 +159,18 @@ export class NuevoVendedorComponent implements OnInit {
     if(!this.VendedorEdit){
       this.vendedorService.crearVendedor(newVendedor).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.vendedorService.updateVendedor(newVendedor).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

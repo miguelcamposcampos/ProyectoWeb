@@ -4,12 +4,12 @@ import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces
 import { IReporte, IReporteExcel } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
 import * as XLSX from 'xlsx';   
 import { saveAs } from 'file-saver';
-import { ReportesVentasService } from '../service/reportesventas.service';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { ReportesVentasService } from '../service/reportesventas.service'; 
 import { PrimeNGConfig } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rep-planilla-cobranza',
@@ -27,12 +27,13 @@ export class RepPlanillaCobranzaComponent implements OnInit {
   contenidoReporte : IReporte;
 
   constructor(
-    private reporteService : ReportesVentasService, 
-    private swal : MensajesSwalService,
+    private reporteService : ReportesVentasService,  
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
+    
   ) {
     this.builform();
     }
@@ -56,8 +57,8 @@ export class RepPlanillaCobranzaComponent implements OnInit {
       f2 :  this.dataformat.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       documento: -1,
       order : -1
-    } 
-    this.swal.mensajePreloader(true); 
+    }  
+    this.spinner.show();
     this.reporteService.generarReportePlanillaCobranza(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -65,9 +66,10 @@ export class RepPlanillaCobranzaComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
-    },error => { 
+        this.spinner.hide();
+      } 
+    },error => {  
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

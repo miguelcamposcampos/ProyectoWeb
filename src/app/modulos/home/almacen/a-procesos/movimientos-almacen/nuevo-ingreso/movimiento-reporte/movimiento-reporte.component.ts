@@ -5,6 +5,7 @@ import { IReporte } from '../../../../a-mantenimientos/productos/interface/produ
 import { MovimientosAlmacenService } from '../../service/movimientosalmacen.service';
 import { saveAs } from 'file-saver';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-movimiento-reporte',
@@ -21,13 +22,13 @@ export class MovimientoReporteComponent {
 
   constructor(
     private movialmacenService : MovimientosAlmacenService,
-    public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
-    private generalService : GeneralService
+    public sanitizer: DomSanitizer, 
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService, 
   ) { }
  
-  onGenerarReporte(){
-    this.swal.mensajePreloader(true);
+  onGenerarReporte(){ 
+    this.spinner.show();
     const data = {
      fechaHora : true,
      idMovimiento : this.dataReporte.movimientoid,
@@ -40,9 +41,10 @@ export class MovimientoReporteComponent {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-        this.swal.mensajePreloader(false);
+        this.spinner.hide();
       }   
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -17,7 +18,8 @@ export class PropiedadesAdicionalesComponent implements OnInit {
   activeItem: MenuItem;
   titulo : string = "COLORES"
 
-  constructor() { }
+  constructor( 
+  ) { }
 
   ngOnInit(): void {
     this.onTabsForm();
@@ -80,14 +82,19 @@ export class PropiedadesAdicionalesComponent implements OnInit {
 
     if(event.item.id ===  "2" ){
       this.tabTalla = true; 
+      this.activeItem = this.items[1];
     }else if(event.item.id ===  "3" ){
       this.tabTemporada = true; 
+       this.activeItem = this.items[2];
     }else if(event.item.id ===  "4" ){
       this.tabMateriales = true; 
+       this.activeItem = this.items[3];
     }else if(event.item.id ===  "5" ){
       this.tabColeccion = true; 
+       this.activeItem = this.items[4];
     }else{
       this.tabColor = true;
+       this.activeItem = this.items[0];
     } 
   }
  

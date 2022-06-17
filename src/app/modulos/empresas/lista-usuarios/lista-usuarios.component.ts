@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
-import { forkJoin, Subject } from 'rxjs';
-import { IAuth } from 'src/app/auth/interface/auth.interface';
 import { AuthService } from 'src/app/auth/services/auth.service'; 
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { DataEmpresa, ICambiarRol, IModalConfirmar, IRolPorEmpresa, IUsuarioInvitado, IUsuarios } from '../interface/empresa.interface'; 
+import { ICambiarRol, IModalConfirmar, IRolPorEmpresa, IUsuarioInvitado, IUsuarios } from '../interface/empresa.interface'; 
 import { RolesService } from '../services/roles.services';
 import { UsuariosService } from '../services/usuarios.services';
 
@@ -17,9 +16,8 @@ import { UsuariosService } from '../services/usuarios.services';
   styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent implements OnInit {
-
-  public FlgRetornaNuevoToken: Subject<boolean> = new Subject<boolean>();   
-  @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan 
+   
+ // @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan 
   @Output() cerrar : any  = new EventEmitter<boolean>();
 
   usuariosporEmpresa : IUsuarios[] = [];
@@ -47,6 +45,7 @@ export class ListaUsuariosComponent implements OnInit {
     private authService : AuthService,
     private formBuilder: FormBuilder,
     private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.authService.verificarAutenticacion();
     this.builform();
@@ -60,13 +59,9 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-    
-    if(!this.tokenLS){
-      return;
-    }else{
-      this.onNewToken();  
-    }  
+  ngOnInit(): void { 
+    this.onListarUsuarios();
+    this.onListaRoles(); 
  
     this.cols = [ 
       { field: 'emailUsuario', header: 'Email', visibility: true}, 
@@ -76,23 +71,6 @@ export class ListaUsuariosComponent implements OnInit {
       { field: 'ultimaInteraccion', header: 'Fecha Interaccion', visibility: true, formatoFecha: ConstantesGenerales._FORMATO_FECHA_VISTA }, 
       { field: 'acciones', header: 'Ajustes', visibility: true  },
     ]; 
-  }
-
-
-  onNewToken(){
-    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
-    
-    const newtoken : IAuth = {
-      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
-      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
-    }
-    this.authService.login(newtoken).subscribe((resp)=>{
-      if(resp){
-        this.onListarUsuarios();
-        this.onListaRoles(); 
-      }
-    }) 
   }
 
 
@@ -127,9 +105,9 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   onListarUsuarios(){  
+    this.spinner.show();
     this.usuarioService.usuariosPorEmpresa().subscribe((resp) => { 
-      if(resp){
-        this.swal.mensajePreloader(false)
+      if(resp){ 
         this.usuariosporEmpresa = resp;     
         this.usuariosporEmpresa.forEach(x => {
           if(x.estado === 'Denegado' ){
@@ -139,11 +117,12 @@ export class ListaUsuariosComponent implements OnInit {
             this.iconPorEstadoUsuario = 'pi pi-fw pi-ban',
             this.labelPorEstdoUsuario = 'Suspender Invitación'
           }
-        })
-
-        this.onItemsOperario()
+        }) 
+        this.onItemsOperario();
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.show();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -187,8 +166,7 @@ export class ListaUsuariosComponent implements OnInit {
         this.modalChangeRol = false;
         this.swal.mensajeExito('Se cambió el rol del usuario!.')
       },error =>{
-        this.generalService.onValidarOtraSesion(error);
-        this.swal.mensajeError(error)
+        this.generalService.onValidarOtraSesion(error); 
       })
   
   }
@@ -204,55 +182,33 @@ export class ListaUsuariosComponent implements OnInit {
       emailUsuarioInvitado : data.Email,
       rolId :  data.Rol.rolid
     }
+    this.spinner.show();
     this.usuarioService.registrarUsuarioInvitado(newUserInvitado).subscribe((resp) => {
       if(resp){
+        this.spinner.hide();
         this.swal.mensajeExito('Se realizó el registro corerctamente!,')
       }
     },error=>{
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error); 
     })
  
   }
-
-  // onGenerarNuevoToken(){ 
-  //   this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
-
-  //   const newtoken : IAuth = {
-  //     email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-  //     passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
-  //     guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
-  //   }
  
-  //   const obsDatos = forkJoin( 
-  //     this.authService.login(newtoken),    
-  //   );
-  //   this.swal.mensajePreloader(true)
-  //   obsDatos.subscribe((response) => { 
-  //     if(response){
-  //       this.FlgRetornaNuevoToken.next(true);
-  //     }
-  //   }); 
-  // }
-
-  // Avisar() {
-  //   this.FlgRetornaNuevoToken.subscribe((x) => {
-  //     this.onListarUsuarios();
-  //     this.onListaRoles(); 
-  //   });
-  // }
-  
  
   onModalSuspenderActivarInvitacion(){
     let condicion  = this.selectUsuarioSplit.estado === 'Denegado';
     let texto = condicion ? 'ACTIVAR' : 'SUSPENDER';
     let textoExito = condicion ? 'activada' : 'suspendida';
- 
+    this.spinner.show();
     this.swal.mensajePregunta('Seguro de ' +texto+ ' la invitación?.').then((response) => {
       if (response.isConfirmed) {
         this.usuarioService.suspenderActivarUsuarioEmpresa(this.selectUsuarioSplit.usuarioEmpresaId).subscribe((resp) => { 
           this.onListarUsuarios(); 
           this.swal.mensajeExito('La invitación ha sido ' +textoExito+ ' correctamente!.'); 
+          this.spinner.hide();
         },error => { 
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);
         });
       }

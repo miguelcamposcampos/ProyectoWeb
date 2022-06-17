@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -22,7 +23,8 @@ export class FormasDePagoComponent implements OnInit {
   constructor(
     private formaspagoService: FomrasDePagoService,
     private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
  
@@ -65,13 +67,14 @@ export class FormasDePagoComponent implements OnInit {
   }
  
   onLoadFormasPago(){
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.formaspagoService.listadoFormaPago(this.criterio.value).subscribe((resp) => {
       if(resp){
         this.listaFormaPago = resp;
-        this.swal.mensajePreloader(false);
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.show();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

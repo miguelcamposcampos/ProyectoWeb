@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { DomSanitizer } from '@angular/platform-browser'; 
 import { VentasService } from '../../service/venta.service';
 import { saveAs } from 'file-saver';
 import { IModuloReporte } from 'src/app/modulos/home/almacen/a-mantenimientos/productos/interface/producto.interface';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-venta-reporte',
@@ -23,14 +23,15 @@ export class VentaReporteComponent  {
   constructor(
     private ventasService : VentasService,
     public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
-    private generalService: GeneralService
+    private spinner : NgxSpinnerService,
+    private generalService: GeneralService,
+    
   ) { }
 
  
   
   onGenerarReporte(){
-    this.swal.mensajePreloader(true); 
+    this.spinner.show(); 
     this.ventasService.generarReporte(this.dataReporte.ventaid).subscribe((resp) => { 
       if(resp){
         this.contenidoReporte = resp    
@@ -38,9 +39,10 @@ export class VentaReporteComponent  {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

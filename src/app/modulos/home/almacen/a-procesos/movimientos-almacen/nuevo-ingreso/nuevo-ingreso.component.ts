@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { VentasService } from 'src/app/modulos/home/ventas/v-procesos/ventas/service/venta.service';
@@ -45,8 +46,7 @@ export class NuevoIngresoComponent implements OnInit {
   mostrarbotoneliiminarDetalle : boolean = false;
   existenroRegsitro : boolean = false;
 
-  idPersonaSeleccionada : number = 0; 
-  idMovimientoQueRetorna : number = 0;
+  idPersonaSeleccionada : number = 0;  
 
   dataPredeterminadosDesencryptada :any;
   
@@ -58,7 +58,8 @@ export class NuevoIngresoComponent implements OnInit {
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
     private primengConfig : PrimeNGConfig, 
-    private formatoFecha : DatePipe
+    private formatoFecha : DatePipe,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
    }
@@ -85,6 +86,7 @@ export class NuevoIngresoComponent implements OnInit {
     this.onValidarRequeridos(); 
 
     if(this.dataMovimientoEdit.idMovimiento){   
+      this.spinner.show();
       this.Avisar();
     }
   }
@@ -197,8 +199,7 @@ export class NuevoIngresoComponent implements OnInit {
   
   }
  
-  onObtenerMovimientoPorId(idMovimiento: number, estado : string){   
-    this.swal.mensajePreloader(true);  
+  onObtenerMovimientoPorId(idMovimiento: number, estado : string){    
     this.moviAlmacenService.movimientoAlmacenPorId(idMovimiento).subscribe((resp) => {
       if(resp){ 
         this.existenroRegsitro = true;
@@ -251,9 +252,12 @@ export class NuevoIngresoComponent implements OnInit {
            });
            
          }
+
+         this.spinner.hide();
       }
-      this.swal.mensajePreloader(false);
+      
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   } 
@@ -397,8 +401,7 @@ export class NuevoIngresoComponent implements OnInit {
         if(resp){
           this.swal.mensajePregunta("¿Desea editar el Movimiento?.").then((response) => {
             if (response.isConfirmed) { 
-              this.idMovimientoQueRetorna = resp 
-              this.onObtenerMovimientoPorId(this.idMovimientoQueRetorna, 'nuevo')
+              this.onObtenerMovimientoPorId(+resp, 'nuevo')
             }else{
               this.swal.mensajeExito('los datos de grabaron correctamente!.');
               this.onVolver();
@@ -412,7 +415,6 @@ export class NuevoIngresoComponent implements OnInit {
       this.moviAlmacenService.updatemovimientoAlmacen(newMovimiento).subscribe((resp)=>{ 
           this.swal.mensajePregunta("¿Desea seguir editando el Movimiento?.").then((response) => {
             if (response.isConfirmed) { 
-              this.idMovimientoQueRetorna = resp 
               this.onObtenerMovimientoPorId(newMovimiento.movimientoid, 'nuevo')
             }else{
               this.swal.mensajeExito('los datos de actualizaron correctamente!.');

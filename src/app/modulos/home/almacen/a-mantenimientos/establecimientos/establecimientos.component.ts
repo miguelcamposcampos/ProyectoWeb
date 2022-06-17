@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { TreeNode } from 'primeng/api'; 
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -30,10 +31,14 @@ export class EstablecimientosComponent implements OnInit {
   size: number = 50;
   textoPaginado : string="";
 
+
+  isLoading : boolean;
+
   constructor(
     private swal : MensajesSwalService, 
     private establecimientoService : EstablecimientoService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +68,7 @@ export class EstablecimientosComponent implements OnInit {
       pagIndex : event ? event.first :  this.pagina,
       itemsporpagina : event ? event.rows : this.size
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.establecimientoService.listadoEstablecimientos(Params).subscribe((resp) =>{
       if(resp){
         this.textoPaginado = resp.label; 
@@ -82,9 +87,10 @@ export class EstablecimientosComponent implements OnInit {
           })
         })
         this.listaEstablecimiento = finall;
+        this.spinner.hide();
       }
-      this.swal.mensajePreloader(false);
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }

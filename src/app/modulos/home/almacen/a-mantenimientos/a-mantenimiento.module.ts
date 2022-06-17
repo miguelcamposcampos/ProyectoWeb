@@ -35,6 +35,7 @@ import { MaterialesComponent } from './propiedades-adicionales/materiales/materi
 import { ColeccionComponent } from './propiedades-adicionales/coleccion/coleccion.component';
  
  
+ 
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import { ColeccionComponent } from './propiedades-adicionales/coleccion/coleccio
     ReactiveFormsModule,
     PrimeNGModule, 
     FormsModule,
-    SharedModulosModule, 
+    SharedModulosModule
   ],
 
   exports: [ 

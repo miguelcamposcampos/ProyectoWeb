@@ -3,19 +3,10 @@
     <div class="Margintabla"> 
         <div class="contenidoTable card"> 
             <form [formGroup]="FormBusqueda">
-                <!-- <div class="tituloVista">  
-                    <h3> <i class="fas fa-cart-plus"></i> COMPRAS</h3> 
-                    <div class="botonesTitulosVista">
-                        <button 
-                            pButton  
-                            type="button"
-                            label="Agregar" 
-                            class="p-button-sm"
-                            (click)="onNuevo()" 
-                            icon="pi pi-plus">
-                        </button>       
-                    </div>     
-                </div> -->
+              
+                <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+                    <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+                </ngx-spinner>
 
    
                 <p-toolbar>

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -39,7 +40,8 @@ export class PedidosComponent implements OnInit {
     private swal : MensajesSwalService,
     private config : PrimeNGConfig,
     private formatFecha : DatePipe,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
@@ -109,14 +111,15 @@ export class PedidosComponent implements OnInit {
       correlativo : dataform.correlativo,
       clienteId :  this.idClienteSeleccionado,
     } 
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.pedidoService.listadoPedidos(data).subscribe((resp)=> {
       if(resp){  
         this.textoPaginado = resp.label;
         this.listadoPedidos = resp.items;  
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
 

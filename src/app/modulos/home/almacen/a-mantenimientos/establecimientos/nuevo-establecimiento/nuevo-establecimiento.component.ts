@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { switchMap, tap } from 'rxjs/operators';
 import { IPorRuc } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
@@ -19,7 +20,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   Form : FormGroup;
   tituloEstablecimiento : string ="NUEVO ESTABLECIMIENTO"
-  ImgBase64 : string = ""; 
+  ImgBase64 : string = null; 
  
  
   direccionUbigeo: FormControl = new FormControl('');
@@ -28,18 +29,18 @@ export class NuevoEstablecimientoComponent implements OnInit {
   arrayDepartamentos: any[] = [];
   arrayProvincias: any[] = [];
   arrayDistritos: any[] = [];
-  ubigeoSelect : number = 0;
-
-  RucaBuscar : number = 0;
+  ubigeoSelect : number = 0; 
   datosPorRuc : IPorRuc;
 
   dataEstablecimientoEdit : IEstablecimientoPorId;
   imgParaEditar: string = "";
  
+ 
   constructor(
     private generalService: GeneralService,
     private establecimientoService: EstablecimientoService,
     private swal : MensajesSwalService,
+    private spinner: NgxSpinnerService
   ) { 
     this.builform();
     this.onCargarDepartamentos();
@@ -51,14 +52,16 @@ export class NuevoEstablecimientoComponent implements OnInit {
       razonSocial: new FormControl(null, Validators.required), 
       nombreComercial: new FormControl(null, Validators.required),  
       direccion:  new FormControl(null, Validators.required),  
-      departamento:  new FormControl('', Validators.required),
-      provincia:  new FormControl('', Validators.required),
-      distrito:  new FormControl('', Validators.required),
+      departamento:  new FormControl(''),
+      provincia:  new FormControl(''),
+      distrito:  new FormControl(''),
+      logoestablecimiento : new FormControl(null)
     });
   }
 
   ngOnInit(): void {   
     if(this.idEstablecimientoEdit){
+      this.spinner.show();
       this.tituloEstablecimiento = "EDITAR ESTEBLECIMIENTO";
       this.onBuscarEstablecimientoPorId();
     }
@@ -76,32 +79,29 @@ export class NuevoEstablecimientoComponent implements OnInit {
     });
   }
 
-  onObtenerRucIngresado(event : any){
-    let newruc = event.target.value;
-    if(newruc.length === 11){
-      this.RucaBuscar = newruc;
-      this.onBuscarRuc();
-    }
-  } 
-
   onBuscarRuc(){ 
-    this.swal.mensajePreloader(true);
-    this.generalService.consultarPorRuc(this.RucaBuscar).subscribe((resp) => {
+  let RucaBuscar = this.Form.controls['razonSocial'].value;
+  if(!RucaBuscar){
+    this.swal.mensajeAdvertencia('Ingrese un numero de Ruc porfavor!.');
+    return;
+  }  
+   this.spinner.show();
+    this.generalService.consultarPorRuc(RucaBuscar).subscribe((resp) => {
       if(resp){ 
         this.datosPorRuc = resp;  
         this.Form.patchValue({  
           nombreComercial : this.datosPorRuc.Data.razonsocial,
           direccion:  this.datosPorRuc.Data.DireccionCompleta  
         })
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
 
-  onBuscarEstablecimientoPorId(){
-    this.swal.mensajePreloader(true);
+  onBuscarEstablecimientoPorId(){  
     this.establecimientoService.establecimeintoPorId(this.idEstablecimientoEdit).subscribe((resp) => { 
       if(resp){ 
         this.dataEstablecimientoEdit = resp;  
@@ -112,10 +112,12 @@ export class NuevoEstablecimientoComponent implements OnInit {
           razonSocial : this.dataEstablecimientoEdit.nombreestablecimiento,
           nombreComercial : this.dataEstablecimientoEdit.nombrecomercial,
           direccion: this.dataEstablecimientoEdit.direccion,  
+          logoestablecimiento : this.dataEstablecimientoEdit.logoestablecimiento
         });
+        this.spinner.hide(); 
       }
-      this.swal.mensajePreloader(false);
     },error => { 
+      this.spinner.show();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -191,11 +193,13 @@ export class NuevoEstablecimientoComponent implements OnInit {
  
   handleReaderLoaded(event : any) {  
     this.ImgBase64 = btoa(event.target.result);
+    this.Form.controls['logoestablecimiento'].setValue(this.ImgBase64)
   }  
 
   onEliminarArchivo(event :any): void{
     if(event){ 
-        this.ImgBase64 = "";    
+      this.ImgBase64 = "";    
+      this.Form.controls['logoestablecimiento'].setValue(null);
     }
   }
 
@@ -207,25 +211,25 @@ export class NuevoEstablecimientoComponent implements OnInit {
       direccion : data.direccion,
       establecimientoid: this.idEstablecimientoEdit ? this.idEstablecimientoEdit : 0,
       nombrecomercial: data.nombreComercial,
-      logoestablecimiento : this.ImgBase64 ? this.ImgBase64 : this.dataEstablecimientoEdit.logoestablecimiento, 
+      logoestablecimiento : data.logoestablecimiento, 
       nombreestablecimiento : data.razonSocial, //raazon social
       ubigeo: this.ubigeoSelect,
     }
     if(!this.idEstablecimientoEdit){
       this.establecimientoService.crearEstablecimiento(NewEstablecimiento).subscribe((resp)=>{
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.establecimientoService.updateEstablecimiento(NewEstablecimiento).subscribe((resp)=>{
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
@@ -241,5 +245,26 @@ export class NuevoEstablecimientoComponent implements OnInit {
   onVolver() {   
     this.cerrar.emit('exito'); 
   }
+
+
+
+  validateFormat(event) {
+  //  console.log(event.target.value);
+    let key;
+    if (event.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+    } else {
+      key = event.keyCode;
+      key = String.fromCharCode(key);
+    }
+    const regex = /[0-9]|\./;
+     if (!regex.test(key)) {
+      event.returnValue = false;
+       if (event.preventDefault) {
+        event.preventDefault();
+       }
+     }
+    }
+    
 
 }

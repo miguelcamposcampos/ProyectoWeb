@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'; 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { SignalRService } from 'src/app/modulos/shared_modulos/signalR/signalr.service';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
@@ -41,7 +42,9 @@ export class VentasElectronicasComponent implements OnInit  {
     private ventaselectronicasService : VentaElectronciaService,
     private readonly formatoFecha : DatePipe, 
     public signalService : SignalRService, 
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
+
     ) {
       this.builform();
       this.onListarJobs();
@@ -115,13 +118,14 @@ export class VentasElectronicasComponent implements OnInit  {
       fechaFin:   this.formatoFecha.transform(dataform.fechaFin , ConstantesGenerales._FORMATO_FECHA_BUSQUEDA)
     } 
  
-    this.swal.mensajePreloader(true);
+    this.spinner.show(); 
     this.ventaselectronicasService.listadoVentasElectronicas(data).subscribe((resp) => {
       if(resp){
         this.listadoVentasEletronicas = resp; 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

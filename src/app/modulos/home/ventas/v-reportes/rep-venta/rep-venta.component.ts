@@ -12,6 +12,7 @@ import { IReporte, IReporteExcel } from '../../../almacen/a-mantenimientos/produ
 import { ReportesVentasService } from '../service/reportesventas.service';
 import * as XLSX from 'xlsx';   
 import { saveAs } from 'file-saver';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rep-venta',
@@ -43,6 +44,7 @@ export class RepVentaComponent implements OnInit {
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
   }
@@ -111,7 +113,7 @@ export class RepVentaComponent implements OnInit {
       documento : -1
     } 
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteVenta(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -119,9 +121,10 @@ export class RepVentaComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

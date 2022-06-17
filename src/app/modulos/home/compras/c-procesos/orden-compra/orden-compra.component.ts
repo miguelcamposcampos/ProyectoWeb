@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
@@ -40,6 +41,7 @@ export class OrdenCompraComponent implements OnInit {
     private ocService : OrdenCompraService,
     private generalService : GeneralService,
     private swal : MensajesSwalService, 
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -95,7 +97,7 @@ export class OrdenCompraComponent implements OnInit {
  
 
   onLoadOrdenCompra(event :any){ 
-    this.swal.mensajePreloader(true);
+    
     const dataform = this.Form.value;
     const data = { 
       paginaIndex  : event ? event.first : this.pagina,
@@ -108,14 +110,15 @@ export class OrdenCompraComponent implements OnInit {
       proveedorid : this.idProveedorSeleccionado,
     }
 
-
+    this.spinner.show();
     this.ocService.listadoOrdenCompra(data).subscribe((resp) => {
-      if(resp){
-        this.swal.mensajePreloader(false);
+      if(resp){ 
         this.listaOrdenCompra = resp.items;
         this.textoPaginado = resp.label;
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

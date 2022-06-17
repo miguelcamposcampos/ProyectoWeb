@@ -2,10 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IModuloReporte } from '../../a-mantenimientos/productos/interface/producto.interface';
 import { IReporteModalidad } from '../interface/reporte.interface'; 
 import { ReportesAlmacenService } from '../services/reporte.service';
@@ -27,10 +27,11 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
   constructor(
     private reporteService : ReportesAlmacenService, 
     public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
     private config : PrimeNGConfig,
     private dataform : DatePipe,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
+    
   ) {
     this.builform();
    }
@@ -68,7 +69,7 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
       agrupador : agrupador
     }
   
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteIngresosySalidasAlmacen(params).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp    
@@ -76,9 +77,10 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

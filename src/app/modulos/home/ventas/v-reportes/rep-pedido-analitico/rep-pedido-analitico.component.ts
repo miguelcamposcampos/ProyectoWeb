@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core'; 
 import { FormControl, FormGroup } from '@angular/forms';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
-import { IModuloReporte, IReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
+import { IModuloReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
 import { ReportesVentasService } from '../service/reportesventas.service';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rep-pedido-analitico',
@@ -23,12 +23,13 @@ export class RepPedidoAnaliticoComponent implements OnInit {
   contenidoReporte : IModuloReporte;
 
   constructor(
-    private reporteService : ReportesVentasService, 
-    private swal : MensajesSwalService,
+    private reporteService : ReportesVentasService,  
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
+    
   ) { 
     this.builform();
   }
@@ -56,7 +57,7 @@ export class RepPedidoAnaliticoComponent implements OnInit {
       presentacion : 'PDF'  
     } 
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReportePedidosAnalitico(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -64,9 +65,10 @@ export class RepPedidoAnaliticoComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

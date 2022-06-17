@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
@@ -89,7 +90,9 @@ export class NuevaOrdenCompraComponent implements OnInit {
     private config : PrimeNGConfig,
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
+    private spinner : NgxSpinnerService
   ) { 
+
     this.builform();
     this.arrayEstado = [
       { id: 1, nombre: 'PENDIENTE'},
@@ -179,6 +182,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
     this.onCargarDropdown();  
     this.onTabsForm();
     if(this.dataOrdenCompra){ 
+      this.spinner.show();
       this.tituloNuevaOrdenCompra = "EDITAR ORDEN COMPRA"  
       this.Avisar();
     } 
@@ -309,8 +313,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
   }
  
 
-  onObtenerVentaPorId(idcompra : number, estado: string){
-    this.swal.mensajePreloader(true);
+  onObtenerVentaPorId(idcompra : number, estado: string){ 
     this.ocService.ordenCompraPorId(idcompra).subscribe((resp)=>{ 
       if(resp){    
         this.OrdenCompraEditar = resp;
@@ -322,9 +325,10 @@ export class NuevaOrdenCompraComponent implements OnInit {
         this.existenroRegsitro = true;  
         this.AvisarParaActualizar();
         this.mostrarBotonReportes = true;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -445,7 +449,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
       });
     }
   
-    this.swal.mensajePreloader(false); 
+    this.spinner.hide();
     this.onCalcularTotalCompra(); 
   }
 

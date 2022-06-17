@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IListaUnidadMedida } from '../interfaces/unidaddemedida.interface';
@@ -21,7 +22,8 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
   constructor(
     private unidadMedidadService : UnidaddeMedidaService,
     private swal : MensajesSwalService, 
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -37,6 +39,7 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
 
   ngOnInit(): void {  
     if(this.idUnidadMedida){
+      this.spinner.show();
       this.onBuscarUnidadMedidadPorId();
     }
   }
@@ -50,9 +53,11 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
           nombreunidadmedida : this.UnidadMedidaEditar.codigosunat,
           siglasum : this.UnidadMedidaEditar.siglasum,
           valorconversion : this.UnidadMedidaEditar.valorconversion, 
-        })
+        });
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -70,18 +75,18 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
     if(this.UnidadMedidaEditar){
      this.unidadMedidadService.updateUnidadMedida(newUnidadMedidad).subscribe((resp) => {
       if(resp){
+        this.swal.mensajeExito("Se actualizaron los datos correctamente!.");
         this.onVolver();
       }
-      this.swal.mensajeExito("Se actualizaron los datos correctamente!.");
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.unidadMedidadService.createUnidadMedida(newUnidadMedidad).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito("Se grabaron los datos correctamente!.");
           this.onVolver();
         }
-        this.swal.mensajeExito("Se grabaron los datos correctamente!.");
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

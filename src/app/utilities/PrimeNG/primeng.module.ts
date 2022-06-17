@@ -84,6 +84,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {AccordionModule} from 'primeng/accordion';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 FullCalendarModule.registerPlugins([
@@ -178,7 +179,8 @@ FullCalendarModule.registerPlugins([
         TreeSelectModule,
         BlockUIModule,
         SpeedDialModule,
-        AccordionModule
+        AccordionModule,
+        NgxSpinnerModule
     ]
     })
   export class PrimeNGModule { }

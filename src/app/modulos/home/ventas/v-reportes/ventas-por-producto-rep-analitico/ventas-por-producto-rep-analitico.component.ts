@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
@@ -36,6 +37,7 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
   }
@@ -78,7 +80,7 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
       establecimiento: data.establecimientoid.id,  
     } 
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show(); 
     this.reporteService.generarReporteVentaProdcutoAnalitico(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -86,9 +88,10 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

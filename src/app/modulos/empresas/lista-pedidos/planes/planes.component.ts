@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';  
 import { FormControl, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -27,7 +28,8 @@ export class PlanesComponent implements OnInit {
     private planesService: PlanesService,  
     private swal : MensajesSwalService,
     private authService : AuthService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner: NgxSpinnerService
   ) {  
     this.authService.verificarAutenticacion(); 
   }
@@ -38,13 +40,14 @@ export class PlanesComponent implements OnInit {
   }
 
   onCargarPlanes(){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.planesService.planesGet().subscribe((resp)=>{ 
       if(resp){
         this.listaPlanes = resp;  
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => {
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
    })
   }
@@ -53,7 +56,7 @@ export class PlanesComponent implements OnInit {
     this.cantidadIngresada.setValue(0); 
     let id = (plan.index + 1)
     const idplan = id ? id : 1;
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.planesService.datosPlanPorId(idplan).subscribe((resp) => { 
       if(resp.length > 1){
         let ArrayDatos: IDatosPlan[] = Object.values(resp) 
@@ -64,14 +67,14 @@ export class PlanesComponent implements OnInit {
         let Datos : IDatosPlan[] = Object.values(resp) 
         this.datosPlan = Datos[0];   
       }
-      this.swal.mensajePreloader(false);
+      this.spinner.hide();
     },error => {
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
    })
   }
 
-  onPlanElegido(plan : any){  
-    console.log('plan elegido',plan);
+  onPlanElegido(plan : any){   
     if(!this.cantidadIngresada.value){
       this.swal.mensajeAdvertencia('Debe ingresar una cantidad');
       return;

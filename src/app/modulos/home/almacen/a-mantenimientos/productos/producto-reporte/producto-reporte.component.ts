@@ -5,6 +5,7 @@ import { ProductosService } from '../service/productos.service';
 import { saveAs } from 'file-saver';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-producto-reporte',
@@ -22,13 +23,14 @@ export class ProductoReporteComponent   {
     private productoService : ProductosService,
     public sanitizer:DomSanitizer,
     private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
  
 
   onGenerarReporte(){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.productoService.generarReporte().subscribe((resp) => { 
       if(resp){
         this.contenidoReporte = resp    
@@ -36,9 +38,10 @@ export class ProductoReporteComponent   {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }

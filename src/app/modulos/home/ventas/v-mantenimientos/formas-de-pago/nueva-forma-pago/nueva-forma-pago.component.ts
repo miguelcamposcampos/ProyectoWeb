@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -31,7 +32,8 @@ arrayDocumentoRef: ICombo[];
 constructor(
   private swal : MensajesSwalService, 
   private formpagoService : FomrasDePagoService,
-  private generalService : GeneralService
+  private generalService : GeneralService,
+  private spinner : NgxSpinnerService 
 ) { 
   this.builform();
 }
@@ -51,6 +53,7 @@ public builform(){
 ngOnInit(): void {
   this.onCargarDropdown();
   if(this.dataFormaPago){
+    this.spinner.show();
     this.Avisar();  
   }
 }
@@ -91,11 +94,9 @@ Avisar(){
   });
 }
 
-onObtenerFormPagoPorId(){ 
-  this.swal.mensajePreloader(true);
+onObtenerFormPagoPorId(){  
   this.formpagoService.formaPagoPorId(this.dataFormaPago.idFormaPago).subscribe((resp)=> {
     if(resp){ 
-      console.log('tipo de forma de pago',resp)
       this.FormPagoEditar = resp;  
       this.Form.patchValue({
           documento: this.arrayDocumento.find(
@@ -115,9 +116,9 @@ onObtenerFormPagoPorId(){
           ), 
           titulo: this.FormPagoEditar.titulo,
           docrequierereferencia: this.FormPagoEditar.requieredocref,
-        })
-      }
-      this.swal.mensajePreloader(false);
+      });
+      this.spinner.hide();
+    } 
   })
 }
 
@@ -141,18 +142,18 @@ onGrabar(){
   if(!this.dataFormaPago){
     this.formpagoService.crearFormaPago(newCondicionPago).subscribe((resp) => {
       if(resp){
+        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
         this.onVolver();
       }
-      this.swal.mensajeExito('Se grabaron los datos correctamente!.');
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
     });
   }else{
     this.formpagoService.updateFormaPago(newCondicionPago).subscribe((resp) => {
       if(resp){
+        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
         this.onVolver();
       }
-      this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
     });

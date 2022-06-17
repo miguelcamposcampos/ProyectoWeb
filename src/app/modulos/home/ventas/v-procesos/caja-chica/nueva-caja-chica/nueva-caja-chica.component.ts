@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -54,6 +55,7 @@ export class NuevaCajaChicaComponent implements OnInit {
     private formatoFecha : DatePipe,
     private config : PrimeNGConfig,
     private fb : FormBuilder, 
+    private spinner : NgxSpinnerService
   ) { 
    
     this.builform();
@@ -86,6 +88,7 @@ export class NuevaCajaChicaComponent implements OnInit {
     this.onCargarDropdown();
 
     if(this.dataCajaChica){ 
+      this.spinner.show();
       this.tituloCajaChica = "EDITAR CAJA CHICA"  
       this.Avisar();
     } 
@@ -198,17 +201,17 @@ export class NuevaCajaChicaComponent implements OnInit {
     this.onCalcularTotales();
   }
  
-  onObtenerCajaChicaPorId(idCajachica: number, estado: string){ 
-    this.swal.mensajePreloader(true);
+  onObtenerCajaChicaPorId(idCajachica: number, estado: string){  
     this.cajachicaService.cajaChicaPorId(idCajachica).subscribe((resp)=>{ 
       if(resp){  
         this.CajaChicaEditar = resp;
         this.estadoForm = estado; 
         this.existenroRegsitro = true;   
         this.onPintarDatosParaEditar(resp);
-      }
-      this.swal.mensajePreloader(true);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -256,7 +259,7 @@ export class NuevaCajaChicaComponent implements OnInit {
         personaid : this.CajaChicaEditar.detalle[i].personaid
       })
     }
-    this.swal.mensajePreloader(false);
+    this.spinner.hide();
     this.onCalcularTotales();
   }
 

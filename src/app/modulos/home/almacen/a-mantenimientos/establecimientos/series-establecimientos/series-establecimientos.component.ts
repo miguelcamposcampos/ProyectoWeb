@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IModalConfirmar } from 'src/app/modulos/empresas/interface/empresa.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IEstablecimientoCrearSerie, IEstablecimientoSeries } from '../interface/establecimiento.interface';
+import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service'; 
 import { EstablecimientoService } from '../service/establecimiento.service';
 
 @Component({
@@ -29,7 +27,8 @@ export class SeriesEstablecimientosComponent implements OnInit {
   constructor(
     private establecimientoService : EstablecimientoService,
     private swal : MensajesSwalService, 
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner: NgxSpinnerService
   ) {
     
   }
@@ -46,13 +45,14 @@ export class SeriesEstablecimientosComponent implements OnInit {
   }
   
   onLoadSeries(){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.establecimientoService.listarSeries(this.idEstablecimientoEdit).subscribe((resp)=> {
       if(resp){ 
         this.listaSeries = resp;
-      } 
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }  
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }

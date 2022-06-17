@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'; 
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service'; 
@@ -30,7 +31,8 @@ export class BuscarAnticipoComponent implements OnInit {
   constructor(
     private comprasService : ComprasService,
     private swal: MensajesSwalService,
-    private config : PrimeNGConfig
+    private config : PrimeNGConfig,
+    private spinner : NgxSpinnerService
   ) {
      
    }
@@ -53,12 +55,12 @@ export class BuscarAnticipoComponent implements OnInit {
       idcompra : this.dataAnticipo.idcompra,
       fecha : this.fecha.value
     } 
-    this.swal.mensajePreloader(true);  
+    this.spinner.show(); 
     this.comprasService.buscarAnticipos(data).subscribe((resp) =>{
       if(resp){
         this.listaAncicipos = resp;
-      }
-      this.swal.mensajePreloader(false);  
+        this.spinner.hide();
+      }  
     })
   }
 

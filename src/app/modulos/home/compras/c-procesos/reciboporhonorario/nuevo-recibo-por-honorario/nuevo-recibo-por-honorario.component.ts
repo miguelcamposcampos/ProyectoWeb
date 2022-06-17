@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
@@ -66,6 +67,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
     private configService: ConfiguracionService,
+    private spinner : NgxSpinnerService
   ) {  
     this.builform();
     this.arrayEstado = [
@@ -110,6 +112,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     this.onCargarDropdown();
     this.config.setTranslation(this.es)
     if(this.dataRxH){
+      this.spinner.show();
       this.tituloReciboPorHonorario = "EDITAR RECIBO POR HONORARIO"  
       this.Avisar();
     } 
@@ -178,16 +181,15 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     });
   }
 
-  onObtenerRxHPorId(idVentaPorid : number, estado: string){
-    this.swal.mensajePreloader(true);
+  onObtenerRxHPorId(idVentaPorid : number, estado: string){ 
     this.ventaservice.ventasPorId(idVentaPorid).subscribe((resp)=>{ 
       if(resp){ 
         this.RxhEditar = resp;
         this.estadoForm = estado;
         this.idClienteSeleccionado = resp.idcliente;    
         this.existenroRegsitro = true;  
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     })
   }
 

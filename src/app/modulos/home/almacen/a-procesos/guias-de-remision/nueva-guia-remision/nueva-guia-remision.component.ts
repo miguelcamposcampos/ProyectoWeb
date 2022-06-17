@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { VentasService } from 'src/app/modulos/home/ventas/v-procesos/ventas/service/venta.service';
@@ -84,7 +85,8 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     private fb : FormBuilder,
     private primengConfig : PrimeNGConfig,
     private cdr: ChangeDetectorRef,
-     private formatoFecha : DatePipe
+    private formatoFecha : DatePipe,
+    private spinner : NgxSpinnerService
   ) {  
     this.builform();
   }
@@ -140,6 +142,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     this.primengConfig.setTranslation(this.es);
     this.onCargarDropdown();  
     if(this.dataGuia){
+      this.spinner.show();
       this.Avisar();
       this.tituloNuevoguiaRemision ="EDITAR GUIA REMISION";  
     } 
@@ -202,6 +205,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       periodo : this.fechaActual.getFullYear(),
       criteriodescripcion : codProductoaBuscar
     }
+    this.spinner.show();
     this.generalService.BuscarProductoPorCodigo(data).subscribe((resp) => { 
       if(resp){
         this.detallesForm[posicion].patchValue({
@@ -218,7 +222,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos');
       }
+      this.spinner.hide();
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -305,17 +311,18 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   onObtenerguiaRemisionPorId(guiaremisionid: number, estado : string){    
     this.estadoForm = estado;
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.guiaRemisionService.guiaRemisionPorId(guiaremisionid).subscribe((resp) => {
       this.onCargarDropdownParaEditar(resp)
       if(resp){   
         this.AvisarParaActualizar();
         this.existenroGuiaRemision = true;
         this.mostrarBotonReportes = true;
-        this.GuiaRemisionEditar = resp;    
-      }
-      this.swal.mensajePreloader(false);
+        this.GuiaRemisionEditar = resp;  
+        this.spinner.hide();  
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -413,8 +420,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
             (x) => x.id ===  this.GuiaRemisionEditar.detalles[i].unidadmedidaid
           ),   
         }); 
-      }
-  
+      } 
   }
 
 
@@ -553,14 +559,15 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
 
   onCargarTransportePorId(event: number){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.transportistaService.unidadTransporteporId(event).subscribe((resp)=>{
       if(resp){
         this.Form.controls['certificado'].setValue(resp.tractocertificadomtc);
         this.Form.controls['marca'].setValue(resp.tractomarca); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -582,13 +589,14 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
 
   onCargarChoferPorId(event: number){ 
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.transportistaService.choferporId(event).subscribe((resp)=>{
       if(resp){ 
         this.Form.controls['brevete'].setValue(resp.brevete); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -622,9 +630,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     this.modalBuscarProducto= false;  
 
   }
-
-  
-  
+ 
   /* BUSCAR UBIGEO */
   onModalBuscarUbigeo(event : string){ 
     this.dataUbigeo = event
@@ -639,9 +645,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     } 
     this.modalBuscarUbigeo = false;
   }
-
-
-
+ 
   onCalcularValorTotal(posicion : number, data:any){
     this.detallesForm[posicion].patchValue({
       pesoTotal : data.cantidad * data.pesoUnitario
@@ -723,8 +727,8 @@ export class NuevaGuiaRemisionComponent implements OnInit {
             if (response.isConfirmed) {
               this.onObtenerguiaRemisionPorId(resp, 'nuevo')
             }else{
-              this.onVolver();
               this.swal.mensajeExito('los datos de grabaron correctamente!.');
+              this.onVolver();
             }
           })   
         }

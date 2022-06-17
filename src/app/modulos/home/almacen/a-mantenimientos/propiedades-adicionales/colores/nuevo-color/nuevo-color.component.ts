@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service'; 
 import { IColorPorId, ICrearColor } from '../../interface/propiedadesadicionales.interface';
@@ -22,12 +23,14 @@ export class NuevoColorComponent implements OnInit {
     private swal : MensajesSwalService, 
     private colorService : PropiedadesAdicionalesServices,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
 
   public builform(): void {
     this.Form = new FormGroup({ 
+      colorid: new FormControl(0),  
       nombre: new FormControl(null, Validators.required),
       codigo: new FormControl(null),  
       rgb: new FormControl( '-' ),  
@@ -37,22 +40,24 @@ export class NuevoColorComponent implements OnInit {
   ngOnInit(): void {
     if(this.idColorEdit){
       this.mostrarCodigo = true; 
+      this.spinner.show();
       this.onObtenerColorPorId();
     }
   }
 
-  onObtenerColorPorId(){
-    this.swal.mensajePreloader(true);
+  onObtenerColorPorId(){ 
     this.colorService.colorPorId(this.idColorEdit).subscribe((resp)=> {
-      if(resp){
+      if(resp){  
         this.dataColorEdit = resp;
         this.Form.patchValue({
           nombre : this.dataColorEdit.nombrecolor,
-          codigo : this.dataColorEdit.codigocolor
-        });
-      }
-      this.swal.mensajePreloader(false);
-    },error => { 
+          codigo : this.dataColorEdit.codigocolor,
+          colorid : this.dataColorEdit.colorid
+        }); 
+        this.spinner.hide();
+      } 
+    },error => {  
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -64,26 +69,26 @@ export class NuevoColorComponent implements OnInit {
     const newColor : ICrearColor = {
       nombrecolor : data.nombre,
       rgb : data.rgb,
-      colorid : this.idColorEdit ? this.idColorEdit : 0,
-      codigocolor : this.dataColorEdit ? this.dataColorEdit.codigocolor : null
+      colorid : data.colorid,
+      codigocolor : data.codigo
     }
 
 
     if(!this.idColorEdit){
       this.colorService.crearColor(newColor).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.colorService.updateColor(newColor).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });

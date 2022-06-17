@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -25,6 +26,7 @@ export class MaterialesComponent implements OnInit {
     private swal  : MensajesSwalService,
     private materialService : PropiedadesAdicionalesServices,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
@@ -32,6 +34,7 @@ export class MaterialesComponent implements OnInit {
 
    public builform(): void {
     this.Form = new FormGroup({ 
+      materialid: new FormControl(0),
       codigo: new FormControl(null),
       nombre: new FormControl(null, Validators.required),  
     })
@@ -49,26 +52,29 @@ export class MaterialesComponent implements OnInit {
   
 
   onLoadMaterial(){
-    this.swal.mensajePreloader(true); 
+    this.spinner.show(); 
     this.materialService.listadoMaterial().subscribe((resp)=> {
-      if(resp){
-        this.swal.mensajePreloader(false); 
+      if(resp){ 
         this.listaMateriales = resp;  
+        this.spinner.hide();
       }
     })
   }
  
 
   onNuevo(){
+    this.Form.reset();
+    this.mostrarCodigo = false;
     this.dataMaterial = null,
     this.VistaNuevoMaterial = true;
   }
 
-  onEditar( data : any){   
+  onEditar( data : any){    
     this.dataMaterial = data
     this.Form.patchValue({
       codigo: data.codigo,
-      nombre: data.nombre
+      nombre: data.nombre,
+      materialid : data.id
     })
     this.mostrarCodigo = true;
     this.VistaNuevoMaterial = true;
@@ -93,33 +99,29 @@ export class MaterialesComponent implements OnInit {
     const dataForm = this.Form.value;
     const newTemporada : ICrearMateriales = {
       descripcion : dataForm.nombre, 
-      materialid : this.dataMaterial ? this.dataMaterial.materialid : 0,  
-      codigo: this.dataMaterial ? this.dataMaterial.codigo : '', 
+      materialid :  dataForm.materialid,  
+      codigo: dataForm.codigo, 
       idauditoria : this.dataMaterial ? this.dataMaterial.idauditoria : 0,  
-    }
-    console.log(newTemporada);
-
+    } 
     if(!this.dataMaterial){
       this.materialService.crearMaterial(newTemporada).subscribe((resp)=> {
         if(resp){
+          this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-        this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.materialService.updateMaterial(newTemporada).subscribe((resp)=> {
         if(resp){
+          this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-        this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
-    }
-
-
+    } 
   }
 
 

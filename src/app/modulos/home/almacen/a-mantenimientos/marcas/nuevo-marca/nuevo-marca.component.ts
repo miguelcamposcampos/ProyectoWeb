@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ICrearMarca } from '../interface/marca.interface';
@@ -21,6 +22,7 @@ export class NuevoMarcaComponent implements OnInit {
     private swal : MensajesSwalService, 
     private marcaService : MarcaService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
@@ -33,21 +35,22 @@ export class NuevoMarcaComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.idMarcaEdit){ 
+      this.spinner.show();
       this.onObtenerMarcaPorId();
     }
   }
 
-  onObtenerMarcaPorId(){
-    this.swal.mensajePreloader(true);
+  onObtenerMarcaPorId(){ 
     this.marcaService.marcaPorId(this.idMarcaEdit).subscribe((resp) => {
       if(resp){
         this.dataMarcaEdit = resp;
         this.Form.patchValue({
           nombreMarca : this.dataMarcaEdit.nombre
         })
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -62,23 +65,23 @@ export class NuevoMarcaComponent implements OnInit {
       marcaid: this.idMarcaEdit ? this.idMarcaEdit : 0,
       codigo : this.dataMarcaEdit ? this.dataMarcaEdit.codigo : null 
     }
- 
+  
     if(!this.idMarcaEdit){
       this.marcaService.createMarca(newMarca).subscribe((resp) => {
-        if(resp){
+        if(resp){ 
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.marcaService.updateMarca(newMarca).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      },error => { 
+      },error => {  
         this.generalService.onValidarOtraSesion(error);
       });
     }  

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -40,8 +41,8 @@ export class ProductosComponent implements OnInit {
   constructor(
     private swal : MensajesSwalService,
     private productoService : ProductosService,
-    private generalService: GeneralService
-
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -74,7 +75,7 @@ export class ProductosComponent implements OnInit {
       { field: 'estado', header: 'Estado', visibility: true , tipoFlag: 'estado', }, 
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
     ];
-   
+   // this.onLoadProductos(null)
     this.onOpcionesProducto();  
     this.onCargarDropDown();  
   }
@@ -143,14 +144,17 @@ export class ProductosComponent implements OnInit {
       pagIndex : event ? event.first :  this.pagina,
       itemsporpagina : event ? event.rows : this.row
     } 
+
+    this.spinner.show();
     this.productoService.listadoProductos(datapaginado).subscribe((resp) =>{
       if(resp){    
         this.totalItems = resp.total; 
         this.textoPaginado = resp.label;
         this.listaProductos = resp.items;  
-        this.swal.mensajePreloader(false);  
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -175,9 +179,9 @@ export class ProductosComponent implements OnInit {
  
   
   onModalEliminar(data:any){ 
-    this.swal.mensajePregunta("¿Seguro que desea eliminar el producot " + data.descripcion + " ?").then((response) => {
+    this.swal.mensajePregunta("¿Seguro que desea eliminar el producto " + data.descripcion + " ?").then((response) => {
       if (response.isConfirmed) {
-        this.productoService.deletePrecio(data.id).subscribe((resp) => { 
+        this.productoService.deleteProducto(data.id).subscribe((resp) => { 
           this.onLoadProductos(null); 
           this.swal.mensajeExito('El producto ha sido eliminado correctamente!.'); 
         },error => { 

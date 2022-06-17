@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -24,7 +25,8 @@ export class NuevoSerieComponent implements OnInit {
   constructor(
     private swal : MensajesSwalService, 
     private establecimientoService : EstablecimientoService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner: NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -39,10 +41,9 @@ export class NuevoSerieComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-    this.onCargarDropDown(); 
-
+    this.onCargarDropDown();  
     if(this.dataEdit.idSerieEditar){ 
-      this.swal.mensajePreloader(true);
+      this.spinner.show();
       this.Avisar(); 
     }
 
@@ -68,8 +69,7 @@ export class NuevoSerieComponent implements OnInit {
         this.onObtenerSeriePorId();  
     });
   }
-
-
+ 
   onObtenerSeriePorId(){ 
     this.establecimientoService.seriesPorid(this.dataEdit.idSerieEditar).subscribe((resp)=>{
       if(resp){ 
@@ -81,14 +81,14 @@ export class NuevoSerieComponent implements OnInit {
             serie: this.dataEditarSerie.serie,
             predeterminado: this.dataEditarSerie.espredeterminada
           }) 
-        } 
-        this.swal.mensajePreloader(false);
+          this.spinner.hide();
+        }  
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
-
-
+ 
   onGrabar(){
     const data = this.Form.value;
     const newSerie : IEstablecimientoCrearSerie = {
@@ -98,22 +98,21 @@ export class NuevoSerieComponent implements OnInit {
       establecimientoserieid : this.dataEdit ? this.dataEdit.idSerieEditar :  0,
       serie : data.serie, 
     }
-
     if(!this.dataEdit.idSerieEditar){
       this.establecimientoService.crearSerie(newSerie).subscribe((resp)=>{
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.')
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.')
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.establecimientoService.updateSerie(newSerie).subscribe((resp)=>{
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.')
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.')
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });

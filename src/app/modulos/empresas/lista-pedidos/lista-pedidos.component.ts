@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { IAuth } from 'src/app/auth/interface/auth.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -15,9 +16,7 @@ import { PlanesService } from '../services/planes.services';
 })
 export class ListaPedidosComponent implements OnInit {
 
-  public FlgRetornaNuevoToken: Subject<boolean> = new Subject<boolean>();
- 
-  @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan  
+  public FlgRetornaNuevoToken: Subject<boolean> = new Subject<boolean>(); 
   @Output() cerrar : any  = new EventEmitter<boolean>();
 
   listPedidos : IPedidoPorEmpresa[] = [];
@@ -32,7 +31,8 @@ export class ListaPedidosComponent implements OnInit {
     private planesService : PlanesService,
     private swal: MensajesSwalService, 
     private authService : AuthService,
-    private generalService : GeneralService,
+    private generalService : GeneralService, 
+    private spinner : NgxSpinnerService
   ) { 
     this.authService.verificarAutenticacion();
   }
@@ -40,13 +40,8 @@ export class ListaPedidosComponent implements OnInit {
   ngOnInit(): void {
     let guidEmpresaLS = localStorage.getItem('guidEmpresa');
     this.guidDesencriptado = this.authService.desCifrarData(guidEmpresaLS) 
-    if(!this.tokenLS){
-      return;
-    }else{
-      this.onNewToken();
-       
-    }  
- 
+
+    this.onLoadPedidos();
     this.cols = [ 
       { field: 'plan', header: 'Plan', visibility: true }, 
       { field: 'planServicio', header: 'Servicio', visibility: true }, 
@@ -62,30 +57,16 @@ export class ListaPedidosComponent implements OnInit {
   }
 
 
-  
-  onNewToken(){
-    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
-    
-    const newtoken : IAuth = {
-      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
-      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
-    }
-    this.authService.login(newtoken).subscribe((resp)=>{
-      if(resp){
-       this.onLoadPedidos();
-      }
-    }) 
-  }
-
   onLoadPedidos(){  
+    this.spinner.show();
     this.planesService.pedidosporEmpresa(this.guidDesencriptado).subscribe((resp) => {
       if(resp){
         this.listPedidos = resp;
-        this.swal.mensajePreloader(false);
+        this.spinner.hide();
       }
     },error => {
-        this.generalService.onValidarOtraSesion(error);
+      this.spinner.hide();
+      this.generalService.onValidarOtraSesion(error);
     })
   }
 

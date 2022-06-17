@@ -25,7 +25,7 @@ registerLocaleData(localePy, 'es');
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
-        SharedModule, 
+        SharedModule,  
     ],
     declarations: [
         AppComponent, 

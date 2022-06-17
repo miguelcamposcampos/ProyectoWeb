@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -31,7 +32,8 @@ export class CajaChicaComponent implements OnInit {
     private swal: MensajesSwalService,
     private formatFecha : DatePipe,
     private config : PrimeNGConfig,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) {  
     this.builform();
   }
@@ -73,14 +75,15 @@ export class CajaChicaComponent implements OnInit {
       finicio : this.formatFecha.transform(dataform.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       ffin : this.formatFecha.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.cajachicaService.listadoCajaChica(data).subscribe((resp)=>{
       if(resp){ 
         this.listaCajaChica = resp.items;
         this.textoPaginado = resp.label;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

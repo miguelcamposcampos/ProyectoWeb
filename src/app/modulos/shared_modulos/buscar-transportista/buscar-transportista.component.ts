@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { TreeNode } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -23,7 +24,8 @@ export class BuscarTransportistaComponent implements OnInit {
 
   constructor(
     private swal : MensajesSwalService, 
-    private transportistaService : TransportistaService
+    private transportistaService : TransportistaService,
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class BuscarTransportistaComponent implements OnInit {
   }
 
   onLoadTransportistas(){
-    this.swal.mensajePreloader(true);  
+    this.spinner.show(); 
     this.transportistaService.listadoTransportistas(this.criterioBusqueda.value).subscribe((resp) => { 
       if(resp){ 
         this.treeTable = resp;  
@@ -69,8 +71,8 @@ export class BuscarTransportistaComponent implements OnInit {
           })  
         })
         this.listTransportistas = finall;  
-      }
-      this.swal.mensajePreloader(false);  
+        this.spinner.hide();
+      }  
     })
     
   }

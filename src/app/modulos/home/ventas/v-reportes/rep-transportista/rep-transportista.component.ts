@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
 import { ReportesVentasService } from '../service/reportesventas.service';
 
@@ -22,10 +22,10 @@ export class RepTransportistaComponent  {
   contenidoReporte : IReporte;
 
   constructor(
-    private reporteService : ReportesVentasService,
-    private swal : MensajesSwalService,
+    private reporteService : ReportesVentasService, 
     public sanitizer: DomSanitizer, 
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
  
@@ -36,7 +36,7 @@ export class RepTransportistaComponent  {
       ut : this.busConUnidadTransporte.value,
       
     }
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteTransportista(Params).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp 
@@ -44,9 +44,10 @@ export class RepTransportistaComponent  {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
-    },error => { 
+        this.spinner.hide(); 
+      } 
+    },error => {  
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

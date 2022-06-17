@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -34,7 +35,8 @@ export class NuevoProveedorComponent implements OnInit {
   constructor(
     private swal : MensajesSwalService, 
     private proveedorService : ProveedorService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {  
     this.builform();
     }
@@ -59,6 +61,7 @@ export class NuevoProveedorComponent implements OnInit {
     this.onCargarDropdown();
   
     if(this.dataProveedor){
+      this.spinner.show();
       this.Avisar();
       this.tituloNuevoProveedor ="EDITAR PROVEEDOR"; 
     }
@@ -85,8 +88,7 @@ export class NuevoProveedorComponent implements OnInit {
   }
 
   
-  onObtenerProveedorPorId(id : number){
-    this.swal.mensajePreloader(true); 
+  onObtenerProveedorPorId(id : number){ 
     this.proveedorService.proveedorPorId(id).subscribe((resp) => {
       if(resp){  
         this.ProveedorEdit = resp;
@@ -113,10 +115,11 @@ export class NuevoProveedorComponent implements OnInit {
             website: this.ProveedorEdit.website,
             contacto: this.ProveedorEdit.nombrecontacto, 
             direccionprincipal: this.ProveedorEdit.personaData.direccionprincipal
-          })
-        }
-        this.swal.mensajePreloader(false);
+        })
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -188,20 +191,21 @@ export class NuevoProveedorComponent implements OnInit {
 
     if(tipoDocumento.valor1 === 'DNI'){ 
       if(nroDocumento.toString().length === 8){
-        this.swal.mensajePreloader(true)
+       this.spinner.show();
         this.generalService.consultaPorDni(nroDocumento).subscribe((resp) => {
           if(resp.dni){
             this.Form.patchValue({
               apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
               nombres : resp.nombres
-            });
-            this.swal.mensajePreloader(false)
+            }); 
           }else{
             this.swal.mensajeError('No se encontraron datos.');
             this.limpiarForm();
             return;
           }
+          this.spinner.hide();
         },error => {
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);  
         })
       }else{
@@ -209,7 +213,7 @@ export class NuevoProveedorComponent implements OnInit {
       }
     }else if(tipoDocumento.valor1 === 'RUC'){
       if(nroDocumento.toString().length === 11){
-        this.swal.mensajePreloader(true)
+       this.spinner.show();
         this.generalService.consultarPorRuc(nroDocumento).subscribe((resp) => {
           if(resp){  
             console.log(resp);
@@ -218,11 +222,11 @@ export class NuevoProveedorComponent implements OnInit {
               direccionprincipal : resp.Data.DireccionCompleta, 
             });
             this.ubigeoParaMostrar =  resp.Data.UbigeoDescripcion,
-            this.ubigeoSeleccionado = resp.Data.ubigeo
-            this.swal.mensajePreloader(false)
+            this.ubigeoSeleccionado = resp.Data.ubigeo 
           } 
-         
+          this.spinner.hide();
         },error => {
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);  
         })
       }else{
@@ -282,11 +286,11 @@ export class NuevoProveedorComponent implements OnInit {
             if (response.isConfirmed) {
               this.onObtenerProveedorPorId(+resp);
             }else{
+              this.swal.mensajeExito('Se grabaron los datos correctamente!.');
               this.onVolver();
             }
           })   
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

@@ -11,7 +11,9 @@ import { ListaPedidosComponent } from './lista-pedidos/lista-pedidos.component';
 import { NotificarPagoComponent } from './lista-pedidos/notificar-pago/notificar-pago.component'; 
 import { PrimeNGModule } from 'src/app/utilities/PrimeNG/primeng.module';
 import { ListaEmpresasComponent } from './lista-empresas/lista-empresas.component';
-import { SharedModulosModule } from '../shared_modulos/shared_modulos.module';   
+import { SharedModulosModule } from '../shared_modulos/shared_modulos.module';    
+
+
 @NgModule({
   declarations: [
     ListaEmpresasComponent, 
@@ -28,7 +30,7 @@ import { SharedModulosModule } from '../shared_modulos/shared_modulos.module';
     FormsModule,
     PrimeNGModule, 
     ReactiveFormsModule,  
-    SharedModulosModule
+    SharedModulosModule, 
   ],
   
 })

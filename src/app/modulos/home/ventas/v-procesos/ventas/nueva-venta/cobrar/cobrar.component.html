@@ -3,6 +3,11 @@
         <div [ngClass]="{'reporteMovimiento' : !esModal, 'OcultarTitulo' : esModal }">  
             <h3> <i class="fas fa-circle-dollar-to-slot"></i> COBRAR </h3> 
         </div> 
+
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+        </ngx-spinner>
+
         <p-toast key="ToastExitoso"  position="top-right"></p-toast>
             <form [formGroup]="Form" >
                 <div class="p-col-12" >  

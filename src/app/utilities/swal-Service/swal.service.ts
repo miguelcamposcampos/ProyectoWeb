@@ -16,23 +16,23 @@ export class MensajesSwalService {
 
     }
 
-    mensajePreloader(condicion : boolean){
-        if(condicion){
-            Swal.fire({
-               // title: 'Cargando',
-                html: 'Cargando <br> Espere un momento por favor', 
-                timerProgressBar: true,
-                didOpen: () => {
-                  Swal.showLoading()  
-                }, 
-              }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {}
-         }) 
-        }else{
-            Swal.close();
-        }
-    }
+    // mensajePreloader(condicion : boolean){
+    //     if(condicion){
+    //         Swal.fire({
+    //            // title: 'Cargando',
+    //             html: 'Cargando <br> Espere un momento por favor', 
+    //             timerProgressBar: true,
+    //             didOpen: () => {
+    //               Swal.showLoading()  
+    //             }, 
+    //           }).then((result) => {
+    //             /* Read more about handling dismissals below */
+    //             if (result.dismiss === Swal.DismissReason.timer) {}
+    //      }) 
+    //     }else{
+    //         Swal.close();
+    //     }
+    // }
  
     mensajeCaducoSesion(): Promise<SweetAlertResult<any>> {
         const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) =>

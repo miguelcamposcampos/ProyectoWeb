@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';  
 import { AuthGuard } from 'src/app/auth/guards/auth.guard';
-import { AppAccessdeniedComponent } from 'src/app/auth/pages/acceso-denegado/app.accessdenied.component';
 import { AppNotfoundComponent } from 'src/app/auth/pages/not-found/app.notfound.component';
 import { LandingComponent } from './landing/landing.component';
 import { HomeComponent } from './home.component'; 

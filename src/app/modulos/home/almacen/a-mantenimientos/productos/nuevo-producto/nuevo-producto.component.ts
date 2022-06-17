@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo, Unesco } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -48,7 +49,8 @@ export class NuevoProductoComponent implements OnInit {
     private productoService : ProductosService,
     private fb : FormBuilder,
     private swal : MensajesSwalService, 
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
      
@@ -87,7 +89,7 @@ export class NuevoProductoComponent implements OnInit {
   ngOnInit(): void { 
     this.onCargarDropDown();   
     if(this.idProductoEdit){
-      this.swal.mensajePreloader(true);
+      this.spinner.show();
       this.Avisar();
       this.tituloVistaNuevoProdcuto = "EDITAR PRODUCTO";
     }  
@@ -127,7 +129,7 @@ export class NuevoProductoComponent implements OnInit {
  
   onBuscarUnesco(){ 
     this.stringBuscarenUnesco = this.Form.controls['codigoParaBuscarUnesco'].value;
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.productoService.listadoUnesco(this.stringBuscarenUnesco).subscribe((resp)=>{ 
       if(resp.Data.length > 0){ 
         this.mostrarcomboUnesco = true;
@@ -136,8 +138,9 @@ export class NuevoProductoComponent implements OnInit {
         this.swal.mensajeInformacion('No se encontraron registros, intenta con otro producto');
         this.stringBuscarenUnesco = "";
       }
-      this.swal.mensajePreloader(false);
+      this.spinner.hide();
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -191,9 +194,6 @@ export class NuevoProductoComponent implements OnInit {
     } 
     this.cdr.detectChanges();
   }
-
-  
- 
  
  onObtenerDataProducto(){ 
     this.productoService.productoPorId(this.idProductoEdit).subscribe((resp)=> { 
@@ -233,10 +233,11 @@ export class NuevoProductoComponent implements OnInit {
         }); 
       
         this.onPintarFormArray();
-        this.swal.mensajePreloader(false);
+        this.spinner.hide();
       }
  
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
  }
@@ -333,18 +334,18 @@ export class NuevoProductoComponent implements OnInit {
     if(!this.dataProductoEditar){
       this.productoService.crearProducto(newProducto).subscribe((resp) =>{
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.'); 
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.'); 
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.productoService.updateProducto(newProducto).subscribe((resp) =>{
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.'); 
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.'); 
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });

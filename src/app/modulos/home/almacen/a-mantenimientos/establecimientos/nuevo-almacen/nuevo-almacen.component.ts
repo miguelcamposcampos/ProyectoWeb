@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -27,7 +28,8 @@ export class NuevoAlmacenComponent implements OnInit {
   constructor(
     private establecimientoService : EstablecimientoService,
     private swal : MensajesSwalService, 
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -43,7 +45,7 @@ export class NuevoAlmacenComponent implements OnInit {
   ngOnInit(): void { 
     this.onCargarCombos(); 
     if(this.dataAlmacenEdit.idAlmacenEdit){
-      this.swal.mensajePreloader(true);
+      this.spinner.show();
       this.Avisar();  
     }
   }
@@ -84,9 +86,10 @@ export class NuevoAlmacenComponent implements OnInit {
             x.id === this.AlmacenEdit.tipoproductosid
           )
         })
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -104,18 +107,18 @@ export class NuevoAlmacenComponent implements OnInit {
     if(!this.dataAlmacenEdit.idAlmacenEdit){
       this.establecimientoService.crearAlmacen(newAlmacen).subscribe((resp)=> {
         if(resp){
+          this.swal.mensajeExito('Los datos se grabaron correctamente!.')
           this.onVolver();
         }
-        this.swal.mensajeExito('Los datos se grabaron correctamente!.')
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.establecimientoService.updateAlmacen(newAlmacen).subscribe((resp)=> {
         if(resp){
+          this.swal.mensajeExito('Los datos se actualizaron correctamente!.')
           this.onVolver();
         }
-        this.swal.mensajeExito('Los datos se actualizaron correctamente!.')
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });

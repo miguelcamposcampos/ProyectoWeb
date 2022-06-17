@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { SignalRService } from 'src/app/modulos/shared_modulos/signalR/signalr.service';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
@@ -34,7 +35,9 @@ export class CobranzasComponent implements OnInit , OnDestroy{
     private swal : MensajesSwalService,
     private dataFormat : DatePipe, 
     public signalService : SignalRService,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private spinner : NgxSpinnerService
+
   ) {
     this.builform();
    }
@@ -81,7 +84,7 @@ export class CobranzasComponent implements OnInit , OnDestroy{
 
 
   onLoadCobranzas(event : any){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     const dataform = this.FormBusqueda.value;
       const data = {
         finicio : this.dataFormat.transform(dataform.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
@@ -94,9 +97,10 @@ export class CobranzasComponent implements OnInit , OnDestroy{
         if(resp){
           this.listadoCobranzas = resp.items,
           this.textoPaginado = resp.label,
-          this.swal.mensajePreloader(false);
+          this.spinner.hide();
         }
       },error => { 
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);  
       });
   }

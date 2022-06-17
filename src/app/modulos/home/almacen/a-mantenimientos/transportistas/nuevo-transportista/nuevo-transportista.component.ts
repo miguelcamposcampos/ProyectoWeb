@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -37,7 +38,8 @@ export class NuevoTransportistaComponent implements OnInit {
     private transpService: TransportistaService,
     private generalService: GeneralService,
     private swal : MensajesSwalService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private spinner : NgxSpinnerService
   ) {
     this.builform(); 
    }
@@ -61,6 +63,7 @@ export class NuevoTransportistaComponent implements OnInit {
   ngOnInit(): void {  
     this.onCargarDropDown();  
     if(this.idTransportistaEdit){ 
+      this.spinner.show();
       this.Avisar();
       this.tituloVistaTransportista = "EDITAR TRANSPORTISTA"
     } 
@@ -91,8 +94,7 @@ export class NuevoTransportistaComponent implements OnInit {
   }
  
   /* TRAER DATA PARA EDITAR */
-  onObtenerDataTransportistaEditar(){ 
-    this.swal.mensajePreloader(true);
+  onObtenerDataTransportistaEditar(){  
     this.transpService.transportistaporId(this.idTransportistaEdit).subscribe((resp) => { 
       if(resp){
         this.EditarTransportista = resp;
@@ -119,10 +121,11 @@ export class NuevoTransportistaComponent implements OnInit {
             email: this.EditarTransportista.email,
             direccionprincipal: this.EditarTransportista.personaData.direccionprincipal,
             tipotransportistaid : this.EditarTransportista.tipotransportistaid
-          })
-        }
-        this.swal.mensajePreloader(false);
+        });
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -197,19 +200,20 @@ export class NuevoTransportistaComponent implements OnInit {
     
     if(tipoDocumento.valor1 === 'DNI'){ 
       if(nroDocumento.toString().length === 8){
-        this.swal.mensajePreloader(true)
+        this.spinner.show();
         this.generalService.consultaPorDni(nroDocumento).subscribe((resp) => {
           if(resp){ 
             this.Form.patchValue({
               apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
               nombres : resp.nombres
-            });
-            this.swal.mensajePreloader(false)
+            }); 
           }else{
             this.swal.mensajeError('No se encontraron datos.');
             this.limpiarForm(); 
           }
+          this.spinner.hide();
         },error => {  
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);  
         })
       }else{
@@ -217,7 +221,7 @@ export class NuevoTransportistaComponent implements OnInit {
       }
     }else if(tipoDocumento.valor1 === 'RUC'){
       if(nroDocumento.toString().length === 11){
-        this.swal.mensajePreloader(true)
+        this.spinner.show();
         this.generalService.consultarPorRuc(nroDocumento).subscribe((resp) => {
           if(resp){
             this.cd.markForCheck();
@@ -226,10 +230,11 @@ export class NuevoTransportistaComponent implements OnInit {
               direccionprincipal : resp.Data.DireccionCompleta, 
             })
             this.ubigeoParaMostrar =  resp.Data.UbigeoDescripcion,
-            this.ubigeoSeleccionado = resp.Data.ubigeo.toString()
-            this.swal.mensajePreloader(false)
+            this.ubigeoSeleccionado = resp.Data.ubigeo.toString();             
           }  
+          this.spinner.hide();
         },error => {
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);  
         })
       }else{
@@ -286,18 +291,18 @@ export class NuevoTransportistaComponent implements OnInit {
     if (!this.idTransportistaEdit) {
         this.transpService.grabarTransportista(newTransportista).subscribe((resp) => {
           if(resp){
+            this.swal.mensajeExito('Se grabaron los datos correctamente!.');
             this.onVolver();
           }
-          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
         },error => { 
           this.generalService.onValidarOtraSesion(error);  
         });
     } else { 
       this.transpService.updateTransportista(newTransportista).subscribe((resp) =>{
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

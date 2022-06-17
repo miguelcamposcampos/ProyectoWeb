@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -25,7 +26,8 @@ export class ResumenBoletasComponent implements OnInit {
     private config : PrimeNGConfig,
     private swal : MensajesSwalService,
     private ventasElectronicasService: VentaElectronciaService,
-    private readonly formatoFecha : DatePipe
+    private readonly formatoFecha : DatePipe,
+    private spinner : NgxSpinnerService
     ) {
       this.builform();
      }
@@ -58,12 +60,12 @@ export class ResumenBoletasComponent implements OnInit {
       fechaFin:   this.formatoFecha.transform(dataform.fechaFin , ConstantesGenerales._FORMATO_FECHA_BUSQUEDA)
     } 
 
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.ventasElectronicasService.listarResumen(data).subscribe((resp)=>{
       if(resp){
         this.listadoResumen = resp;
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     });
   }
 

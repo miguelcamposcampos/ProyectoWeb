@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';   
 import { IAuth } from 'src/app/auth/interface/auth.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -25,14 +26,11 @@ export class ListaEmpresasComponent implements OnInit {
  
   empresasAsociadas : IEmpresa[] = [];
   ColsEmpresa: InterfaceColumnasGrilla[] = [];
-  itemsEmpresa! : MenuItem[];  
- // empresasSelect! : DataEmpresa; 
+  itemsEmpresa! : MenuItem[];   
   tokenLS : any = ""; 
   empresasAcceder! : DataEmpresa; 
   mostrarHeader : boolean = true;
-  
-  dataDesencryptada :any;
- 
+  dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
   
   constructor(
     private router : Router,
@@ -42,6 +40,7 @@ export class ListaEmpresasComponent implements OnInit {
     private planesService : PlanesService,
     private authService : AuthService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
 
    }
@@ -65,28 +64,28 @@ export class ListaEmpresasComponent implements OnInit {
         label:'Roles',
         icon:'pi pi-fw pi-key', 
         command:()=>{ 
-          this.onVistaRoles(); 
+          this.onNuevoTokenItems('rol'); 
         }
       },
       {
         label:'Usuarios',
         icon:'pi pi-fw pi-users',
         command:()=>{
-          this.onVistaUsuarios();
+          this.onNuevoTokenItems('usuario');
         }
       },
       {
         label:'Editar Empresa',
         icon:'pi pi-fw pi-pencil',
         command:()=>{
-          this.onVistaEditar();
+          this.onNuevoTokenItems('editarempresa');
         }
       }, 
       {
         label:'Planes',
         icon:'pi pi-fw pi-clone',
         command:()=>{
-          this.onVistaListaPlanes();
+          this.onNuevoTokenItems('planes');
         }
     },
     ];
@@ -105,7 +104,7 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   onLoadEmpresas(){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.empresaService.empresasGet().subscribe((resp) =>{ 
       if(resp.length > 0){ 
         this.empresasAsociadas = resp;   
@@ -117,24 +116,25 @@ export class ListaEmpresasComponent implements OnInit {
           }
         });  
       } 
-      this.swal.mensajePreloader(false);
+      this.spinner.hide();
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
  
   onAcceder(empresa : DataEmpresa){  
     this.empresasAcceder = empresa  
+
+    const DatoUsuarioEncryptado : any = {
+      usuariologin: this.authService.cifrarData(empresa.razonSocial),
+      rolUsuario : this.authService.cifrarData(empresa.rol)
+    }
+
     this.planesService.planesPorEmpresaGet(empresa.empresaGuid).subscribe((resp) => {
       if(resp.planId){   
         let gruiEncryptado = this.authService.cifrarData(empresa.empresaGuid)
-        localStorage.setItem('guidEmpresa', gruiEncryptado )
-
-        const DatoUsuarioEncryptado : any = {
-          usuariologin: this.authService.cifrarData(empresa.razonSocial),
-          rolUsuario : this.authService.cifrarData(empresa.rol)
-        }
-
+        localStorage.setItem('guidEmpresa', gruiEncryptado ) 
         localStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));  
         this.onNewToken(); 
      
@@ -148,9 +148,7 @@ export class ListaEmpresasComponent implements OnInit {
     }) 
   }
 
-  onNewToken(){
-    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
-    
+  onNewToken(){ 
     const newtoken : IAuth = {
       email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
       passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
@@ -162,16 +160,36 @@ export class ListaEmpresasComponent implements OnInit {
       }
     }) 
   }
+  onNuevoTokenItems(vista :string){
+    
+    const newtoken : IAuth = {
+      email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
+    }
+    this.authService.login(newtoken).subscribe((resp)=>{
+      if(resp){
+        if(vista === 'rol'){
+          this.VistaRoles = true;
+        }else if (vista === 'usuario'){
+          this.VistaUsuarios = true;
+        }else if(vista === 'editarempresa'){
+          this.VistaEditarEmpresa = true;
+        }else if(vista === 'planes'){
+          this.VistaListaPlanes = true;
+        }
+      }
+    }) 
+  }
 
-  onRegistrarEmpresa(){ 
-    this.tokenLS  = null
+  onRegistrarEmpresa(){  
     this.VistaEditarEmpresa = true;
   }
 
-  onVistaListaPlanes(){
-    this.tokenLS = localStorage.getItem('token');
-    this.VistaListaPlanes = true;
-  }
+  // onVistaListaPlanes(){
+  //   this.tokenLS = localStorage.getItem('token');
+  //   this.VistaListaPlanes = true;
+  // }
 
   //Vistas
   onVistaPlanes(){
@@ -179,20 +197,22 @@ export class ListaEmpresasComponent implements OnInit {
     this.VistaPlanes = true;
   }
 
-  onVistaEditar(){  
-    this.tokenLS =  localStorage.getItem('token');
-    this.VistaEditarEmpresa = true;
-  }
+  // onVistaEditar(){  
+  //   this.tokenLS =  localStorage.getItem('token');
+  //   this.VistaEditarEmpresa = true;
+  // }
 
-  onVistaRoles(){ 
-    this.tokenLS =  localStorage.getItem('token');
-    this.VistaRoles = true;
-  }
+  // onVistaRoles(){ 
+  //   this.tokenLS =  localStorage.getItem('token');
+  //   this.VistaRoles = true;
+  // }
 
-  onVistaUsuarios(){  
-    this.tokenLS =  localStorage.getItem('token');
-    this.VistaUsuarios = true;
-  }
+  // onVistaUsuarios(){  
+  //   this.tokenLS =  localStorage.getItem('token');
+  //   this.VistaUsuarios = true;
+  // }
+
+  
   //CerrarVistas
   onRetornar(event :any){
     if(event === 'exito'){
@@ -208,8 +228,12 @@ export class ListaEmpresasComponent implements OnInit {
   
 
   onLogout(){
-    this.loginService.logout();
-    this.router.navigate(['/auth/login']);
+    this.swal.mensajePregunta("¿Seguro que desea cerrar la sesión?").then((response) => {
+      if (response.isConfirmed) {
+        this.loginService.logout();
+        this.router.navigate(['/auth/login']);
+      }
+    })
   }
   
  

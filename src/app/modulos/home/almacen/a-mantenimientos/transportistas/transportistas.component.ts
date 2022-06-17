@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'; 
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { TreeNode } from 'primeng/api'; 
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -34,6 +35,7 @@ export class TransportistasComponent implements OnInit {
     private swal : MensajesSwalService, 
     private transportistaService : TransportistaService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(): void { 
@@ -64,10 +66,9 @@ export class TransportistasComponent implements OnInit {
   }
 
   onLoadTransportistas(){
-    this.swal.mensajePreloader(true);  
+    this.spinner.show();
     this.transportistaService.listadoTransportistas(this.criterioBusqueda.value).subscribe((resp) => { 
-      if(resp){ 
-        this.swal.mensajePreloader(false);  
+      if(resp){  
         this.treeTable = resp;  
         let finall : any[] = [];
         
@@ -83,8 +84,10 @@ export class TransportistasComponent implements OnInit {
           })   
         })
         this.listTransportistas = finall;  
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
     

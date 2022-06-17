@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
@@ -100,6 +101,7 @@ export class NuevoPedidoComponent implements OnInit {
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
     private configService: ConfiguracionService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform(); 
    }
@@ -152,6 +154,7 @@ export class NuevoPedidoComponent implements OnInit {
     this.onCargarDropdown();  
     this.config.setTranslation(this.es) 
     if(this.dataPedido){
+      this.spinner.show();
       this.tituloNuevoPedido = "EDITAR PEDIDO"
       this.mostrarOpcionesEditar = true; 
       this.Avisar();
@@ -726,8 +729,7 @@ export class NuevoPedidoComponent implements OnInit {
   }
 
   /* EDITAR LA VENTA */
-  onObtenerVentaPorId(idVentaPorid : number, estado: string){
-    this.swal.mensajePreloader(true);
+  onObtenerVentaPorId(idVentaPorid : number, estado: string){ 
     this.ventaservice.ventasPorId(idVentaPorid).subscribe((resp)=>{  
       if(resp){ 
         this.idClienteSeleccionado = resp.idcliente;
@@ -745,9 +747,10 @@ export class NuevoPedidoComponent implements OnInit {
         
         this.totalaPagar = resp.importetotalventa
         this.existenroRegsitro = true;  
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -906,7 +909,7 @@ export class NuevoPedidoComponent implements OnInit {
     }
  
     } 
-    this.swal.mensajePreloader(false); 
+    this.spinner.hide();
     this.onCalcularTotalVenta();
   }
 

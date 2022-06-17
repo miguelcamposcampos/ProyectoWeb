@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'; 
 import { FormControl } from '@angular/forms'; 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -10,11 +11,7 @@ import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent  implements OnInit {
-  // mostrarAlmacen: boolean = true;
-  // mostrarVentas: boolean = false;
-  // mostrarCompras: boolean = false;
-  // mostrarConfiguracion: boolean = false;
+export class LandingComponent  implements OnInit { 
   rangoBusqueda1 = new FormControl({id : 'Ultimasemana', nombre : "Última semana"})
   DataLineal1: any;
   DataGraficoDunat: any;
@@ -51,7 +48,8 @@ export class LandingComponent  implements OnInit {
   
 constructor(
   private apiService : GeneralService,
-  private swal : MensajesSwalService
+  private swal : MensajesSwalService,
+  private spinner : NgxSpinnerService
 ){}
  
 
@@ -75,12 +73,12 @@ ngOnInit() {
  
   onDatosDelGrafico(){ 
     this.onLimpiarGraficos();
+    this.spinner.show();
     this.apiService.graficoHistoriVentaLineaDonut(this.rangoBusqueda1.value.id).subscribe((resp) => {  
       if(resp){
         this.onArmarDataParaElGrafico(resp); 
-      }else{
-
-      }
+        this.spinner.hide();
+      } 
     })
   }
 

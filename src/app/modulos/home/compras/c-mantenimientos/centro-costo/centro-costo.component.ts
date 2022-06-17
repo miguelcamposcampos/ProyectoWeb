@@ -5,6 +5,7 @@ import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service
 import { CentroCostoService } from './service/centrocosto.service';
 import { IListarCentroCosto,ICrearCentroCosto } from './interface/centrocosto.interface';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-centro-costo',
@@ -25,6 +26,7 @@ export class CentroCostoComponent implements OnInit {
     private swal  : MensajesSwalService,
     private centrocostoService : CentroCostoService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
    }
@@ -46,13 +48,14 @@ export class CentroCostoComponent implements OnInit {
   }
 
   onLoadCentroCosto(){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.centrocostoService.listadoCentroCosto(this.criterio.value).subscribe((resp)=> {
       if(resp){
-        this.listaCentroCosto = resp
-      }
-      this.swal.mensajePreloader(false);
+        this.listaCentroCosto = resp;
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -67,7 +70,7 @@ export class CentroCostoComponent implements OnInit {
   }
 
   onObtenerCentroCostoPorId(id : number){
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.centrocostoService.centroCostoPorId(id).subscribe((resp) => {
       if(resp){ 
         this.VistaNuevoCentroCosto = true;
@@ -75,10 +78,11 @@ export class CentroCostoComponent implements OnInit {
         this.Form.patchValue({
           codigo : this.CentroCostoEditar.codigocc,
           descripcion : this.CentroCostoEditar.nombrecc
-        })
-      }
-      this.swal.mensajePreloader(false);
+        });
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

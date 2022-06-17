@@ -2,6 +2,11 @@
  <div *ngIf="!VistaNuevoProducto && !VistaReporte && !VistaSubirProductos">
     <div class="Margintabla">
  
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+        </ngx-spinner>
+
+
         <div class="contenidoTable card"> 
             <form [formGroup]="FormBusqueda">
                 

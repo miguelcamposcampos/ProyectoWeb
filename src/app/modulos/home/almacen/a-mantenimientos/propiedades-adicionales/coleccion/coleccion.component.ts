@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -26,6 +27,7 @@ export class ColeccionComponent implements OnInit {
     private swal  : MensajesSwalService,
     private coleccionService : PropiedadesAdicionalesServices,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
    }
@@ -35,6 +37,7 @@ export class ColeccionComponent implements OnInit {
     this.Form = new FormGroup({ 
       codigo: new FormControl(null),
       nombre: new FormControl(null, Validators.required),  
+      coleccionid: new FormControl(0)
     })
   }
 
@@ -51,34 +54,38 @@ export class ColeccionComponent implements OnInit {
   
 
   onLoadMaterial(){
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.coleccionService.listadoColeccion().subscribe((resp)=> {
       if(resp){
         this.listaColecciones = resp;  
-      }
-      this.swal.mensajePreloader(false); 
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
  
 
   onNuevo(){
+    this.Form.reset();
+    this.mostrarCodigo = false;
     this.dataColeccion = null,
     this.VistaNuevaColeccion = true;
   }
 
-  onEditar( data : any){   
-    this.dataColeccion = data
+  onEditar( data : any){    
+    this.dataColeccion = data; 
     this.Form.patchValue({
       codigo: data.cod,
-      nombre: data.nombre
-    })
+      nombre: data.nombre,
+      coleccionid : data.id
+    });
     this.mostrarCodigo = true;
-    this.VistaNuevaColeccion = true;
+    this.VistaNuevaColeccion = true;  
   }
+ 
 
-  
   onEliminar(data:any){
     this.swal.mensajePregunta("¿Seguro que desea eliminar la coleccion " + data.nombre + " ?").then((response) => {
       if (response.isConfirmed) {
@@ -97,39 +104,33 @@ export class ColeccionComponent implements OnInit {
     const dataForm = this.Form.value;
     const newColeccion : ICrearColeccion = {
       descripcion : dataForm.nombre, 
-      coleccionid : this.dataColeccion ? this.dataColeccion.coleccionid : 0,     
-    }
-    console.log(newColeccion);
-
+      coleccionid : dataForm.coleccionid,     
+    } 
     if(!this.dataColeccion){
       this.coleccionService.crearColeccion(newColeccion).subscribe((resp)=> {
         if(resp){
+          this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-        this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.coleccionService.updateColeccion(newColeccion).subscribe((resp)=> {
         if(resp){
+          this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-        this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);
       });
-    }
-
-
+    } 
   }
-
-
+ 
   onRetornar(event: any){ 
     if(event === 'exito'){
       this.onLoadMaterial();
-    }
-    
+    } 
     this.VistaNuevaColeccion = false; 
   }
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IListarDocumentos } from '../interface/documentos.interface';
@@ -15,12 +16,13 @@ export class NuevoDocumentoComponent implements OnInit {
   @Input() dataDocumento : any;
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   Form : FormGroup;
-  DocumentoEditar : IListarDocumentos
-  Solonumeros = "^((\\+91-?)|0)?[0-9]{1,3}$";  
+  DocumentoEditar : IListarDocumentos 
+
   constructor(
     private documentoService : DocumentosService,
     private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -51,12 +53,12 @@ export class NuevoDocumentoComponent implements OnInit {
  
   ngOnInit(): void { 
     if(this.dataDocumento){
+      this.spinner.show();
       this.onObtnerDocumentoPorId();
     }
   }
 
-  onObtnerDocumentoPorId(){ 
-    this.swal.mensajePreloader(true);
+  onObtnerDocumentoPorId(){  
     this.documentoService.DocumentoPorId(this.dataDocumento.documentoid).subscribe((resp)=> {
       if(resp){
         this.DocumentoEditar = resp;
@@ -80,10 +82,11 @@ export class NuevoDocumentoComponent implements OnInit {
           ordencompra : this.DocumentoEditar.esordencompra,
           recibohonorario: this.DocumentoEditar.usadorecibohonorario,
           venta: this.DocumentoEditar.usadoventas,
-        })
-      }
-      this.swal.mensajePreloader(false);
+        });
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -117,18 +120,18 @@ export class NuevoDocumentoComponent implements OnInit {
     if(!this.dataDocumento){
       this.documentoService.crearDocumento(newDocumento).subscribe((resp)=>{
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.documentoService.updateDocumento(newDocumento).subscribe((resp)=>{
         if(resp){
+          this.swal.mensajeExito('Se actualziaron los datos correctamente!');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualziaron los datos correctamente!');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

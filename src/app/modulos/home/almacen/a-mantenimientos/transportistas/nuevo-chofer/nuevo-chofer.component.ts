@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';  
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ICrearChofer } from '../interface/transportista.interface';
@@ -26,13 +27,15 @@ export class NuevoChoferComponent implements OnInit {
   constructor(
     private transpService: TransportistaService,
     private generalService : GeneralService,
-    private swal : MensajesSwalService
+    private swal : MensajesSwalService,
+    private spinner : NgxSpinnerService
   ) { 
     this.builform();
   }
 
   ngOnInit(): void { 
     if(this.dataChofer.idChofer){
+      this.spinner.show();
       this.tituloVistaChofer = "EDITAR CHOFER";
       this.onObtenerDataChoferEditar();
     }
@@ -56,27 +59,26 @@ export class NuevoChoferComponent implements OnInit {
       this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento');
       return;
     } 
- 
-    if(nroDocumento.toString().length === 8){
-      this.swal.mensajePreloader(true)
+    this.spinner.show();
+   // if(nroDocumento.toString().length === 8){ 
       this.generalService.consultaPorDni(nroDocumento).subscribe((resp) => {
         if(resp.dni){
           this.Form.patchValue({
             apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
             nombres : resp.nombres
-          });
-          this.swal.mensajePreloader(false)
+          }); 
         }else{
           this.swal.mensajeError('No se encontraron datos.');
           this.limpiarForm(); 
         }
+        this.spinner.hide();
       },error => {  
-        console.log(error);
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error); 
       })
-    }else{
-      this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
-    }
+  //  }else{
+  //    this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
+  //  }
   }
 
 
@@ -89,10 +91,9 @@ export class NuevoChoferComponent implements OnInit {
   
  
   onObtenerDataChoferEditar(){ 
-    this.swal.mensajePreloader(true)
+    this.spinner.show();
     this.transpService.choferporId(this.dataChofer.idChofer).subscribe((resp) => { 
-      if(resp){
-        this.swal.mensajePreloader(false)
+      if(resp){ 
         this.EditarChofer = resp; 
         this.Form.patchValue({ 
           nroDocumento: this.EditarChofer.personaData.nrodocumentoidentidad, 
@@ -100,9 +101,11 @@ export class NuevoChoferComponent implements OnInit {
           nombres: this.EditarChofer.personaData.nombres, 
           brevete: this.EditarChofer.brevete, 
           direccionprincipal: this.EditarChofer.personaData.direccionprincipal
-        })
+        });
+        this.spinner.hide();
       }
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -148,18 +151,18 @@ export class NuevoChoferComponent implements OnInit {
     if (!this.EditarChofer) {
       this.transpService.grabarChofer(newChofer).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });
     }else { 
       this.transpService.updateChofer(newChofer).subscribe((resp) =>{
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Unesco } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -32,6 +33,7 @@ export class NuevoLineaComponent implements OnInit {
     private swal : MensajesSwalService,
     private productoService : ProductosService,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {   
      this.builform();
   }
@@ -40,11 +42,11 @@ export class NuevoLineaComponent implements OnInit {
     this.Form = new FormGroup({
       nombreLinea: new FormControl(null, Validators.required),
       codigoUnesco: new FormControl(null),  
+      imgLinea: new FormControl(null),  
     });
   }
 
-  ngOnInit(): void {  
-    console.log('datalinea que kkega al modal', this.datalinea); 
+  ngOnInit(): void {   
     if(this.datalinea.idLinea){  
       this.onBuscarLineaPorId(this.datalinea.idLinea);
     }else if(this.datalinea.idSubLinea){  
@@ -52,14 +54,13 @@ export class NuevoLineaComponent implements OnInit {
     }
   }
 
-  onBuscarLineaPorId(id : number){
-    this.swal.mensajePreloader(true);
+  onBuscarLineaPorId(id : number){ 
+    this.spinner.show(); 
 
     this.lineaService.lineaPorId(id).subscribe((resp) => {
       if(resp){
         this.LineaEdit  = resp;
         if(this.LineaEdit.imagenlinea){
-          this.ImgBase64 = this.LineaEdit.imagenlinea;
           this.imgParaEditar  = ConstantesGenerales._FORMATO_IMAGEN_PNG_DESDE_BASE_64 + this.LineaEdit.imagenlinea
         }
         if(this.LineaEdit.codigounesco){
@@ -68,18 +69,20 @@ export class NuevoLineaComponent implements OnInit {
 
         this.Form.patchValue({
           nombreLinea: this.LineaEdit.nombrelinea,  
-          codigoUnesco : this.LineaEdit.codigounesco
+          codigoUnesco : this.LineaEdit.codigounesco,
+          imgLinea :  this.LineaEdit.imagenlinea
         })
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
 
   onCambiarLogo(){
     this.imgParaEditar = "";
-    this.ImgBase64 = "";  
+  //  this.ImgBase64 = "";  
   }
 
   onObtenerCriterioBuscarUnesco(event : any){  
@@ -93,7 +96,7 @@ export class NuevoLineaComponent implements OnInit {
       this.swal.mensajeInformacion('Ingrese el nombre de un producto para hacer la busqueda.');
       return;
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.productoService.listadoUnesco(this.stringBuscarenUnesco).subscribe((resp)=>{ 
       if(resp.Data.length > 0){ 
         this.mostrarcomboUnesco = true;
@@ -102,8 +105,9 @@ export class NuevoLineaComponent implements OnInit {
         this.swal.mensajeInformacion('No se encontraron registros, intenta con otro producto');
         this.stringBuscarenUnesco = "";
       }
-      this.swal.mensajePreloader(false);
+      this.spinner.hide();
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }
@@ -119,6 +123,7 @@ export class NuevoLineaComponent implements OnInit {
   onEliminarArchivo(event :any): void{
     if(event){  
       this.ImgBase64 = "";  
+      this.Form.controls['imgLinea'].setValue(null);
     } 
   }
 
@@ -136,6 +141,7 @@ export class NuevoLineaComponent implements OnInit {
  
   handleReaderLoaded(event : any) {  
     this.ImgBase64 = btoa(event.target.result);
+    this.Form.controls['imgLinea'].setValue(this.ImgBase64);
   }  
 
   
@@ -144,28 +150,27 @@ export class NuevoLineaComponent implements OnInit {
     const newLinea : ICrearLinea = {
       codigolinea : this.LineaEdit ? this.LineaEdit.codigolinea : null,
       codigounesco : this.LineaEdit ? this.LineaEdit.codigounesco :  ( data.codigoUnesco ? data.codigoUnesco.Code : null ),
-      imagenlinea : this.ImgBase64,
+      imagenlinea : data.imgLinea,
       nombrelinea: data.nombreLinea,
       parentid: this.datalinea.idLineaPadre ? this.datalinea.idLineaPadre : 0,
       lineaid: this.LineaEdit ? this.LineaEdit.lineaid : 0,
       esagrupador : this.LineaEdit ? this.LineaEdit.esagrupador : false
     }
-
     if(!this.LineaEdit){
       this.lineaService.createLinea(newLinea).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       }, error => { 
         this.generalService.onValidarOtraSesion(error);   
       })
     }else{
       this.lineaService.updateLinea(newLinea).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       }, error => {
         this.generalService.onValidarOtraSesion(error);   
       })

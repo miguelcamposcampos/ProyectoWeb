@@ -9,6 +9,7 @@ import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service
 import { ReportesVentasService } from '../service/reportesventas.service'; 
 import { DomSanitizer } from '@angular/platform-browser';    
 import { IReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-ventas-por-vendedor-rep-resumen',
@@ -30,6 +31,7 @@ export class VentasPorVendedorRepResumenComponent implements OnInit {
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
     }
@@ -62,7 +64,7 @@ export class VentasPorVendedorRepResumenComponent implements OnInit {
       f2 :  this.dataformat.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       moneda: data.Moneda.id,  
     } 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteVendedorResumen(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -70,9 +72,10 @@ export class VentasPorVendedorRepResumenComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

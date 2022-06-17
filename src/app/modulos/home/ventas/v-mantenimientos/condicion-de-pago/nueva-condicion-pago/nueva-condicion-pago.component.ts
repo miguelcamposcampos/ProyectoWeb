@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IListaCondicionesPago } from '../interface/condicionespago.interface';
@@ -20,7 +21,8 @@ export class NuevaCondicionPagoComponent implements OnInit {
   constructor(
     private swal : MensajesSwalService, 
     private condicionPagoService : CondicionPagoService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner: NgxSpinnerService
   ) { 
     this.builform();
   }
@@ -34,22 +36,23 @@ export class NuevaCondicionPagoComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.dataCondicion){ 
+      this.spinner.show();
       this.onObtenerCondicionPorId();
     }
   }
 
-  onObtenerCondicionPorId(){
-    this.swal.mensajePreloader(true);
+  onObtenerCondicionPorId(){  
     this.condicionPagoService.condicionPagoPorId(this.dataCondicion.condicionpagoid).subscribe((resp)=> {
       if(resp){
         this.CondicionPagoEditar = resp;
         this.Form.patchValue({
           nombre : this.CondicionPagoEditar.nombre,
           escredito : this.CondicionPagoEditar.escredito
-        });
-      }
-      this.swal.mensajePreloader(false);
-    },error => { 
+        }); 
+      this.spinner.hide();
+      } 
+    },error => {  
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -68,18 +71,18 @@ export class NuevaCondicionPagoComponent implements OnInit {
     if(!this.dataCondicion){
       this.condicionPagoService.crearCondicionPago(newCondicionPago).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.condicionPagoService.updateCondicionPago(newCondicionPago).subscribe((resp) => {
         if(resp){
+          this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-        this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       },error => { 
         this.generalService.onValidarOtraSesion(error);  
       });

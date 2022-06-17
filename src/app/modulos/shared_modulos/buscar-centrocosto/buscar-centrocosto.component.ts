@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'; 
-import { FormControl } from '@angular/forms';
-import { PrimeNGConfig } from 'primeng/api';
-import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';  
 import { ComprasService } from '../../home/compras/c-procesos/compras/service/compras.service';
 
@@ -21,6 +20,7 @@ export class BuscarCentrocostoComponent implements OnInit {
   constructor(
     private comprasService : ComprasService,
     private swal: MensajesSwalService, 
+    private spinner : NgxSpinnerService
   ) {
      
    }
@@ -34,12 +34,12 @@ export class BuscarCentrocostoComponent implements OnInit {
   }
  
   onLoadCentroCosto(){
-    this.swal.mensajePreloader(true);  
+    this.spinner.show();
     this.comprasService.buscarCentroCosto().subscribe((resp) =>{
       if(resp){
         this.listaCentroCosto = resp;
-      }
-      this.swal.mensajePreloader(false);  
+        this.spinner.hide();
+      }  
     })
   }
 

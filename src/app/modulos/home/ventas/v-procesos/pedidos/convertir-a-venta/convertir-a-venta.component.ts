@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -110,7 +111,9 @@ export class ConvertirAVentaComponent implements OnInit {
     private config : PrimeNGConfig,
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
-    private authService: AuthService,
+    private authService: AuthService, 
+    private spinner : NgxSpinnerService
+
   ) { 
     this.builform();
     this.arrayEstado = [
@@ -181,6 +184,7 @@ export class ConvertirAVentaComponent implements OnInit {
     this.onCargarDropdown();
    
     if(this.dataVenta){
+      this.spinner.show();
       this.tituloNuevaVenta = "EDITAR VENTA"
       this.mostrarOpcionesEditar = true; 
       this.Avisar();
@@ -1038,8 +1042,7 @@ export class ConvertirAVentaComponent implements OnInit {
   }
 
   /* EDITAR LA VENTA */
-  onObtenerVentaPorId(idVentaPorid : number, estado: string){
-    this.swal.mensajePreloader(true);
+  onObtenerVentaPorId(idVentaPorid : number, estado: string){ 
     this.ventaservice.ventasPorId(idVentaPorid).subscribe((resp)=>{ 
       if(resp){ 
         this.VentaEditar = resp;
@@ -1052,8 +1055,8 @@ export class ConvertirAVentaComponent implements OnInit {
         
         this.totalaPagar = resp.importetotalventa
         this.existenroRegsitro = true;  
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      } 
     })
   }
 
@@ -1231,7 +1234,7 @@ export class ConvertirAVentaComponent implements OnInit {
       }
     }
     } 
-    this.swal.mensajePreloader(false); 
+    this.spinner.hide();
     this.onCalcularTotalVenta();
   }
 

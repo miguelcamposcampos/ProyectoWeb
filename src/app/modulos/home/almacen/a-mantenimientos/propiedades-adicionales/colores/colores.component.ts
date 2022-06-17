@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -20,6 +21,7 @@ export class ColoresComponent implements OnInit {
     private swal  : MensajesSwalService,
     private colorService : PropiedadesAdicionalesServices,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -45,13 +47,14 @@ export class ColoresComponent implements OnInit {
   }
 
   onLoadColores(){
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.colorService.listadoColores().subscribe((resp)=> {
       if(resp){
-        this.listaColores = resp;  
-      }
-      this.swal.mensajePreloader(false); 
+        this.listaColores = resp;   
+        this.spinner.hide();
+      }  
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     });
   }

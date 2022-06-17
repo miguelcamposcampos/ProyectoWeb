@@ -10,6 +10,7 @@ import { ReportesVentasService } from '../service/reportesventas.service';
 import * as XLSX from 'xlsx';   
 import { saveAs } from 'file-saver';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rep-estado-cuenta-cliente',
@@ -28,13 +29,16 @@ export class RepEstadoCuentaClienteComponent implements OnInit {
   contenidoReporte : IReporte;
   idClienteSeleccionado : number = 0;
   dataExel :IReporteExcel
+
+  
   constructor(
     private reporteService : ReportesVentasService, 
     private swal : MensajesSwalService,
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
   }
@@ -67,7 +71,7 @@ export class RepEstadoCuentaClienteComponent implements OnInit {
       cliente: this.idClienteSeleccionado  
     } 
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteEstadoCuentaCliente(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -75,9 +79,10 @@ export class RepEstadoCuentaClienteComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
-    },error => { 
+        this.spinner.hide();
+      } 
+    },error => {  
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
@@ -35,6 +36,7 @@ export class VentasPorProductoRepResumenComponent implements OnInit {
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
   }
@@ -77,17 +79,18 @@ export class VentasPorProductoRepResumenComponent implements OnInit {
       establecimiento: data.establecimientoid.id,  
     } 
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteVentaProdcutoResumen(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
         var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.contentBytes)], {type: "application/pdf"});
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
-        this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
+        this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate);   
+        this.spinner.hide();
       }
-      this.swal.mensajePreloader(false);
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

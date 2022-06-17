@@ -23,7 +23,7 @@ export interface ICrearColor {
 
 export interface IColorPorId{
     codigocolor : string,
-    colodid: number,
+    colorid: number,
     idauditoria : number,
     nombrecolor : string,
     rgb : string,

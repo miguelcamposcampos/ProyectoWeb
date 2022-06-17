@@ -1,12 +1,10 @@
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { forkJoin, Subject } from 'rxjs';
-import { IAuth } from 'src/app/auth/interface/auth.interface';
+import { NgxSpinnerService } from 'ngx-spinner'; 
 import { AuthService } from 'src/app/auth/services/auth.service'; 
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { DataEmpresa, IEmpresa, IPlanes, } from '../../interface/empresa.interface';
+import { IEmpresa, IPlanes, } from '../../interface/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
   
 @Component({
@@ -15,12 +13,10 @@ import { EmpresaService } from '../../services/empresa.service';
   styleUrls: ['./agregar-empresa.component.scss'], 
 })
 export class AgregarEmpresaComponent implements OnInit { 
-
-  public FlgRetornaNuevoToken: Subject<boolean> = new Subject<boolean>();
+ 
 
   @Output() cerrar: any = new EventEmitter<any>();
-
-  @Input() tokenLS : any;
+ 
   EmpresaForm! : FormGroup;
   Empresa! : IEmpresa;  
   EmpresaEdit! : IEmpresa;  
@@ -37,19 +33,16 @@ export class AgregarEmpresaComponent implements OnInit {
     private authService : AuthService,
     private formBuilder: FormBuilder,
     private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
 
   ) { 
     this.authService.verificarAutenticacion(); 
     this.builform();
   }
 
-  ngOnInit(): void {   
-    if(!this.tokenLS){
-      return;
-    }else{
-      this.onTraerDatosParEditarEmpresa();
-    } 
+  ngOnInit(): void {    
+    this.onTraerDatosParEditarEmpresa(); 
   }
 
   
@@ -66,10 +59,10 @@ export class AgregarEmpresaComponent implements OnInit {
   }
 
   onTraerDatosParEditarEmpresa(){   
-    this.empresaService.empresaPorGuid().subscribe((resp) => { 
-      this.EmpresaEdit = resp;
-      if(this.EmpresaEdit){
-        this.swal.mensajePreloader(false);
+    this.spinner.show();
+    this.empresaService.empresaPorGuid().subscribe((resp) => {  
+      if(resp){ 
+        this.EmpresaEdit = resp;
         this.EmpresaForm.patchValue({
           Ruc: this.EmpresaEdit.ruc,
           RazonSocial: this.EmpresaEdit.razonsocial, 
@@ -79,8 +72,10 @@ export class AgregarEmpresaComponent implements OnInit {
           WebSite: this.EmpresaEdit.website, 
           Telefono: this.EmpresaEdit.telefonos
         })
+        this.spinner.hide();
       }
     },error => {
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);
     })
   }
@@ -105,24 +100,22 @@ export class AgregarEmpresaComponent implements OnInit {
     if(!RucDigitado ){
       this.EmpresaForm.reset(); 
       return;
-    }
-  
-      this.swal.mensajePreloader(true)
-      this.empresaService.datosporRucGet(RucDigitado).subscribe((resp)=> {  
-        this.Empresa = resp.Data
-          if(this.Empresa){ 
-            /*Si hay data asigna valor a los campos del formulario*/
-            this.EmpresaForm.patchValue({
-              RazonSocial : this.Empresa.razonsocial, 
-              DireccionFiscal : this.Empresa.DireccionCompleta
-            });
-          }else{
-            /* si no hay data limpia el campos y emite un mensaje*/
-            this.onLimpiarFormulario();
-            this.swal.mensajeAdvertencia('no se encontraron datos... intenta con otra ruc!.')
-          }
-          this.swal.mensajePreloader(false)
+    } 
+    this.spinner.show();
+      this.empresaService.datosporRucGet(RucDigitado).subscribe((resp)=> {    
+        if(resp){ 
+          this.Empresa = resp.Data            /****Si hay data asigna valor a los campos del formulario****/
+          this.EmpresaForm.patchValue({
+            RazonSocial : this.Empresa.razonsocial, 
+            DireccionFiscal : this.Empresa.DireccionCompleta
+          });
+        }else{ 
+          this.onLimpiarFormulario();          /***si no hay data limpia el campos y emite un mensaje****/
+          this.swal.mensajeAdvertencia('no se encontraron datos... intenta con otra ruc!.')
+        }
+        this.spinner.hide();
       },error => { 
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);
       });
    
@@ -132,22 +125,26 @@ export class AgregarEmpresaComponent implements OnInit {
     /* newEmpresa recibe todos los valores del form, se le asigna al campo idplan el id seleciconado en el modal */
     const newEmpresa : IEmpresa = this.EmpresaForm.value; 
     newEmpresa.planid = this.PlanesArray ? +this.idPlanElegido : 0;
-
+    this.spinner.show();
     if(this.EmpresaEdit){ 
       newEmpresa.empresaid = this.EmpresaEdit.empresaid;
       this.empresaService.empresaUpdate(newEmpresa).subscribe((resp)=>{
         if(resp){
+          this.spinner.hide();
           this.swal.mensajeExito('Se actualizaron los datos de la empresa!.'); 
         }
       },error => {
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);
       })
     }else{
       this.empresaService.empresaCreate(newEmpresa).subscribe((resp)=>{
         if(resp){
+          this.spinner.hide();
           this.swal.mensajeExito('La empresa ha sido registrada'); 
         }
       },error => {
+        this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);
     })
     }

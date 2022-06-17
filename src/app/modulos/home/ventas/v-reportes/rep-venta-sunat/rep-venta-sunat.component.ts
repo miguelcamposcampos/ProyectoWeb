@@ -4,13 +4,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PrimeNGConfig } from 'primeng/api'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
-import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { ReportesVentasService } from '../service/reportesventas.service';
 import * as XLSX from 'xlsx';   
 import { saveAs } from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';    
 import { IReporte, IReporteExcel } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rep-venta-sunat',
@@ -30,11 +30,12 @@ export class RepVentaSunatComponent implements OnInit {
 
   constructor(
     private reporteService : ReportesVentasService,
-    private generalService : GeneralService,
-    private swal : MensajesSwalService,
+    private generalService : GeneralService, 
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
+    private spinner : NgxSpinnerService
+    
   ) {
     this.builform();
     }
@@ -68,7 +69,7 @@ export class RepVentaSunatComponent implements OnInit {
       moneda: data.Moneda.id, 
       order : -1
     } 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show(); 
     this.reporteService.generarReporteVentaSunat(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
@@ -76,9 +77,10 @@ export class RepVentaSunatComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }
-      this.swal.mensajePreloader(false);
+        this.spinner.hide(); 
+      } 
     },error => { 
+      this.spinner.hide(); 
       this.generalService.onValidarOtraSesion(error);  
     });
   }

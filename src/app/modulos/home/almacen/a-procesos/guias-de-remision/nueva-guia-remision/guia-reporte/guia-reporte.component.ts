@@ -5,6 +5,7 @@ import { IReporte } from '../../../../a-mantenimientos/productos/interface/produ
 import { GuiaRemisionService } from '../../service/guiaremision.service';
 import { saveAs } from 'file-saver';
 import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -23,19 +24,17 @@ export class GuiaReporteComponent   {
 
   constructor(
     private guiasremisionService : GuiaRemisionService,
-    public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
-    private generalService : GeneralService
+    public sanitizer: DomSanitizer, 
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService 
   ) { }
- 
-
   
   onGenerarReporte(){
     const data = {
       guiaremisionid : this.dataReporte.guiaremisionid,
       nroregistro : this.dataReporte.nroRegistro
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.guiasremisionService.generarReporte(data).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp    
@@ -43,9 +42,10 @@ export class GuiaReporteComponent   {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

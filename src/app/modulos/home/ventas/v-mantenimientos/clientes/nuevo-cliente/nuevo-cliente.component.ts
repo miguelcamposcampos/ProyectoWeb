@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -34,7 +35,8 @@ export class NuevoClienteComponent implements OnInit {
   constructor(
     private swal : MensajesSwalService, 
     private clienteService : ClienteService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private spinner : NgxSpinnerService
   ) {  
      this.builform();
     }
@@ -61,6 +63,7 @@ ngOnInit(): void {
 
   if(this.dataCliente){
     this.Avisar();
+    this.spinner.show();
     this.tituloNuevoCliente ="EDITAR CLIENTE"; 
   }
 }
@@ -85,8 +88,7 @@ ngOnInit(): void {
     });
   }
 
-  onObtenerClientePorId(){
-    this.swal.mensajePreloader(true); 
+  onObtenerClientePorId(){ 
     this.clienteService.clientePorId(this.dataCliente.idCliente).subscribe((resp) => {
       if(resp){ 
         this.ClienteEdit = resp;
@@ -114,10 +116,11 @@ ngOnInit(): void {
             contacto: this.ClienteEdit.nombrecontacto,
             autorizadoparalinea: this.ClienteEdit.autorizadoparalineacredito,
             direccionprincipal: this.ClienteEdit.personaData.direccionprincipal
-          })
-        }
-        this.swal.mensajePreloader(false);
+          });
+          this.spinner.hide();
+        } 
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -191,20 +194,21 @@ ngOnInit(): void {
 
     if(tipoDocumento.valor1 === 'DNI'){ 
       if(nroDocumento.toString().length === 8){
-        this.swal.mensajePreloader(true)
+       this.spinner.show();
         this.generalService.consultaPorDni(nroDocumento).subscribe((resp) => {
           if(resp.dni){
             this.Form.patchValue({
               apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
               nombres : resp.nombres
-            });
-            this.swal.mensajePreloader(false)
+            }); 
           }else{
             this.swal.mensajeError('No se encontraron datos.');
             this.limpiarForm();
             return;
           }
+          this.spinner.hide();
         },error => {
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);  
         })
       }else{
@@ -212,7 +216,7 @@ ngOnInit(): void {
       }
     }else if(tipoDocumento.valor1 === 'RUC'){
       if(nroDocumento.toString().length === 11){
-        this.swal.mensajePreloader(true)
+       this.spinner.show();
         this.generalService.consultarPorRuc(nroDocumento).subscribe((resp) => {
           if(resp){  
             this.Form.patchValue({
@@ -221,9 +225,10 @@ ngOnInit(): void {
             });
             this.ubigeoParaMostrar =  resp.Data.UbigeoDescripcion,
             this.ubigeoSeleccionado = resp.Data.ubigeo
-            this.swal.mensajePreloader(false)
+            this.spinner.hide();
           }  
         },error => {
+          this.spinner.hide();
           this.generalService.onValidarOtraSesion(error);  
         })
       }else{

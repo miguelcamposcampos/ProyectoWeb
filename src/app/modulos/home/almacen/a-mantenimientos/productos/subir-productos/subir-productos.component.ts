@@ -104,9 +104,9 @@ export class SubirProductosComponent implements OnInit {
   onGrabarListaProductos(){
     this.productoService.createSubirProductos(this.arrayProductos).subscribe((resp) =>{
       if(resp){
+        this.swal.mensajeExito('Se cargo la lista de productos correctamente!.');
         this.onVolver();
       }
-      this.swal.mensajeExito('Se cargo la lista de productos correctamente!.');
     },error => { 
       this.generalService.onValidarOtraSesion(error);
     });

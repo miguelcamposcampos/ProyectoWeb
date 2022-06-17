@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'; 
 import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service'; 
 import { IAnexosMA } from '../../home/almacen/a-procesos/movimientos-almacen/interface/movimientosalmacen.interface';
@@ -31,7 +32,8 @@ export class BuscarPersonaComponent implements OnInit {
 
   constructor(
     private moviAlmacenService : MovimientosAlmacenService,
-    private swal: MensajesSwalService
+    private swal: MensajesSwalService,  
+    private spinner : NgxSpinnerService
   ) {
     this.ArraytipoPersona = [
       {nombre : 'Proveedor'},
@@ -57,13 +59,13 @@ export class BuscarPersonaComponent implements OnInit {
       categoria : this.tipopersonaBuscar.value.nombre,
       criterio : this.criterio.value
     } 
-    this.swal.mensajePreloader(true);  
+    this.spinner.show(); 
     this.moviAlmacenService.listadoAnexosMA(data).subscribe((resp) =>{
       if(resp){
         this.textoPaginado = resp.label;
         this.listaAnexos = resp.items;
-      }
-      this.swal.mensajePreloader(false);  
+        this.spinner.hide();
+      }  
     })
   }
 

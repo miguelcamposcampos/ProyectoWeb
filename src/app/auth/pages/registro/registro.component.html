@@ -1,27 +1,4 @@
-<!-- 
-<div class="primerdiv">
-    <div class="contenteleft"> 
-        <img id="app-logo"
-            style="width: 35px; padding-right: 2%;"
-            src="assets/layout/images/logo_ti.png"
-            alt="poseidon-layout"> 
-            <p> <strong> Registrar Usuario </strong> </p> 
-    </div>
-    <div class="contentrigth"> 
-        <div>
-            <button  
-                tooltipPosition="left"
-                pTooltip="Volver"
-                class="mx-2 p-button-sm" 
-                pButton 
-                type="button"
-                routerLink='/auth/login'
-                icon="pi pi-arrow-circle-left">
-            </button> 
-         </div>
-    </div>
-   
-</div> -->
+ 
 
 <p-toolbar>
     <div class="p-toolbar-group-left">
@@ -45,12 +22,17 @@
     </div>
 </p-toolbar>
 
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+</ngx-spinner>
  
     <div class="tituloPage">
         <h2> <strong> Completa el formulario </strong></h2> 
     </div> 
 
     <div class="Margintabla">
+
+        
         <div class="centrar card"> 
                 <form [formGroup]="registroForm" > 
                     <div  class="p-grid p-fluid" style="margin:5%;">

@@ -2,11 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
-import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { IModuloReporte } from '../../a-mantenimientos/productos/interface/producto.interface';
 import { ReportesAlmacenService } from '../services/reporte.service';
 
@@ -28,10 +28,10 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
   constructor(
     private reporteService : ReportesAlmacenService, 
     private generalService : GeneralService,
-    public sanitizer: DomSanitizer,
-    private swal : MensajesSwalService,
+    public sanitizer: DomSanitizer, 
     private config : PrimeNGConfig,
-    private dataform : DatePipe
+    private dataform : DatePipe,
+    private spinner : NgxSpinnerService
   ) {
     this.builform();
   }
@@ -67,7 +67,7 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
       almacen: data.Almacen ? data.Almacen.id : -1,
     } 
 
-    this.swal.mensajePreloader(true); 
+    this.spinner.show();
     this.reporteService.generarReporteReposicionMercaderia(params).subscribe((resp) => { 
       if(resp){ 
         this.contenidoReporte = resp    
@@ -75,9 +75,10 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
         const url = URL.createObjectURL(blob);    
         this.urlGenerate = url;
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
-      }   
-      this.swal.mensajePreloader(false);
+        this.spinner.hide();
+      }    
     },error => { 
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }

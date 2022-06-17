@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -41,6 +42,7 @@ export class TipodecambioComponent implements OnInit {
     private readonly formatoFecha: DatePipe,
     private primengConfig : PrimeNGConfig,
     private generalService : GeneralService,
+    private spinner : NgxSpinnerService
 
   ) {
     this.arrayMeses = this.meses;
@@ -95,13 +97,14 @@ export class TipodecambioComponent implements OnInit {
       f1 :  this.formatoFecha.transform(data.fechaInicioBusqueda, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2:   this.formatoFecha.transform(data.fechaFinBusqueda , ConstantesGenerales._FORMATO_FECHA_BUSQUEDA)
     }
-    this.swal.mensajePreloader(true);
+    this.spinner.show();
     this.tipocambioService.listadoTipoCambio(fechas).subscribe((resp) => {
       if(resp){
-        this.listaTipoCambio = resp;
-      }
-      this.swal.mensajePreloader(false);
-    },error => { 
+        this.listaTipoCambio = resp; 
+        this.spinner.hide();
+      } 
+    },error => {   
+      this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);  
     });
   }
@@ -112,13 +115,11 @@ export class TipodecambioComponent implements OnInit {
   }
 
  
-  onBuscarPorMesSeleccionado(){
-    console.log(this.mesSeleccionado.value.mes); 
+  onBuscarPorMesSeleccionado(){ 
     const dataPorMes = {
       periodo: this.fechaActual.getFullYear(),
       mes: this.mesSeleccionado.value.mes
-    }
-    this.swal.mensajePreloader(true)
+    }  
     this.tipocambioService.listadoTipoCambioPorMes(dataPorMes).subscribe((resp)=> {
       if(resp){
         let fechaInicioPorMesObtenido= new Date(dataPorMes.periodo, (dataPorMes.mes -1), 1);
@@ -133,8 +134,7 @@ export class TipodecambioComponent implements OnInit {
       }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
-    });
-
+    }); 
     this.modalBuscarPorMes = false;
 
   }
@@ -144,14 +144,12 @@ export class TipodecambioComponent implements OnInit {
     this.idTipoCambio = null
     this.modalNuevoTipoCambio = true;
   }
-
-
+ 
   onEditar( idTipoCambio : number){
     this.idTipoCambio = idTipoCambio
     this.modalNuevoTipoCambio = true;
   }
-
-
+   
   onModalEliminar(data:any){
     this.swal.mensajePregunta("¿Seguro que desea eliminar el tipo de canbio con fecha: " + data.fecha + " ?").then((response) => {
       if (response.isConfirmed) {

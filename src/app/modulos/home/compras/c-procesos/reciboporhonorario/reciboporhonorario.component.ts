@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -31,7 +32,8 @@ export class ReciboporhonorarioComponent implements OnInit {
     private swal : MensajesSwalService,
     private config : PrimeNGConfig,
     private rxhservice: ReciboPorHonorarioService, 
-    private formatFecha : DatePipe
+    private formatFecha : DatePipe,
+    private spinner : NgxSpinnerService
     ) {
       this.builform();
     }
@@ -77,13 +79,14 @@ export class ReciboporhonorarioComponent implements OnInit {
         ffin : this.formatFecha.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA), 
         proveedorid : this.idProveedorSeleccionado,
       }
-      this.swal.mensajePreloader(true);
+   
+      this.spinner.show();
       this.rxhservice.listadoReciboPorHonorario(data).subscribe((resp)=> {
         if(resp){  
           this.textoPaginado = resp.label;
           this.listadoReciboPorHonorario = resp.items;  
-        }
-        this.swal.mensajePreloader(false);
+          this.spinner.hide();
+        } 
       })
   
     }
