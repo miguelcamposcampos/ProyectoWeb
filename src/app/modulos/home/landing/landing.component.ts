@@ -4,7 +4,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 
 @Component({
   selector: 'app-landing',
@@ -48,12 +47,12 @@ export class LandingComponent  implements OnInit {
   
 constructor(
   private apiService : GeneralService,
-  private swal : MensajesSwalService,
-  private spinner : NgxSpinnerService
+  private spinner : NgxSpinnerService,
+  private spinner2 : NgxSpinnerService
 ){}
  
 
-ngOnInit() { 
+ngOnInit() {  
   this.onDatosDelGrafico();
   this.onDatosDelGrafico2();
   this.onDatosDelGraficoBarrasHorizontal();
@@ -72,12 +71,12 @@ ngOnInit() {
   }
  
   onDatosDelGrafico(){ 
-    this.onLimpiarGraficos();
+    this.onLimpiarGraficos(); 
     this.spinner.show();
     this.apiService.graficoHistoriVentaLineaDonut(this.rangoBusqueda1.value.id).subscribe((resp) => {  
       if(resp){
-        this.onArmarDataParaElGrafico(resp); 
         this.spinner.hide();
+        this.onArmarDataParaElGrafico(resp); 
       } 
     })
   }
@@ -104,14 +103,16 @@ ngOnInit() {
   }
 
   onGrafico(){ 
+    const color = "#xxxxxx".replace(/x/g, y => (Math.random()*16|0).toString(16));
     this.DataLineal1 = {
       labels: this.LabelGrafico1.length ? this.LabelGrafico1 :  'No se encontró data',
       datasets: [{
-        label: this.DataGrafico1.length ? 'Venta' :  'No se encontró data',
+        label: this.DataGrafico1.length ? 'Total de Venta: ' + Math.max(this.DataGrafico1[0]) :  'No se encontró data',
         data: this.DataGrafico1,
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        color: 'rgb(75, 192, 192)',
+        borderColor: color,
+        color: color,
+        backgroundColor : color,
         tension: 0, 
      }] 
     }    
@@ -120,6 +121,8 @@ ngOnInit() {
   onGraficoDonut(){  
     let ProcentTotalCobroado = +parseFloat(this.TotalCobrado.toFixed(2));
     let ProcentTotalPorCobrar = +parseFloat(this.totalPorCobrar.toFixed(2));
+    const color1 = "#xxxxxx".replace(/x/g, y => (Math.random()*16|0).toString(16));
+    const color2 = "#xxxxxx".replace(/x/g, y => (Math.random()*16|0).toString(16));
     this.DataGraficoDunat = {
       labels: [ProcentTotalCobroado ? 'COBRADO' : 'No se encontró data', ProcentTotalPorCobrar ? 'POR COBRAR'  : 'No se encontró data'],
       datasets: [{ 
@@ -129,7 +132,7 @@ ngOnInit() {
         borderColor: 'rgb(75, 192, 192)',
         color: 'rgb(75, 192, 192)',
         tension: 0.5, 
-        backgroundColor: ['#14ba1a', '#b000b5']
+        backgroundColor: [ color1 , color2  ]
     }] 
     }   
   }
@@ -145,8 +148,10 @@ ngOnInit() {
  
   onDatosDelGrafico2(){ 
     this.onLimpiarGraficos2();
+    this.spinner.show();
     this.apiService.graficoLineal2(this.rangoBusqueda2.value.id).subscribe((resp) => {  
       if(resp){
+        this.spinner.hide();
         this.onArmarDataParaElGrafico2(resp); 
       }
     })
@@ -165,6 +170,10 @@ ngOnInit() {
       this.DatatotalPorCobrar2.push(element.importeSoles.importeSinCobrar); 
     }) 
     //* DATOS PARA EL GRAFICO */
+
+    const color1 = "#xxxxxx".replace(/x/g, y => (Math.random()*16|0).toString(16));
+    const color2 = "#xxxxxx".replace(/x/g, y => (Math.random()*16|0).toString(16));
+
     this.DataLineal2 = {
       labels: this.LabelGrafico2,
       datasets: [
@@ -172,14 +181,16 @@ ngOnInit() {
           label: this.DataGrafico2 ? 'Cobrado' : 'No se encontro data',
           data: this.DataTotalCobrado2,
           fill: false,
-          borderColor: 'red',
+          borderColor: color1,
+          backgroundColor: color1,
           tension: 0,  
         },
         {
           label:  this.DataGrafico2 ? 'Por Cobrar' : 'No se encontro data',  
           data: this.DatatotalPorCobrar2,
           fill: false,
-          borderColor: 'blue',
+          borderColor: color2,
+          backgroundColor: color2,
           tension: 0,   
         }
      ] 
@@ -196,9 +207,11 @@ ngOnInit() {
 
 
   onDatosDelGraficoBarrasHorizontal(){
+    this.spinner.show();
     this.onLimpiarGraficos3();
     this.apiService.graficobarrasProductomasVendido(this.rangoBusqueda3.value.id).subscribe((resp) => {  
       if(resp){
+        this.spinner.hide();
         this.onArmarDataParaElGrafico3(resp); 
       }
     })
@@ -215,8 +228,8 @@ ngOnInit() {
     DataOrdenada3.forEach(element => {
       this.LabelGrafico3.push(element.nombreProducto); 
       this.DataGrafico3.push(element.cantidad); 
-      let newColor = this.onColorHEX();
-      this.colorAleatorio.push(newColor)
+      const newcolor2 = "#xxxxxx".replace(/x/g, y => (Math.random()*16|0).toString(16));
+      this.colorAleatorio.push(newcolor2)
     }) 
   
     this.DataLineal3 = {
@@ -278,22 +291,7 @@ ngOnInit() {
     })
     
   }
-
-  /** COLORES ALEATORIOS */
-  onGenerarLetra(){
-    var letras = ["a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"];
-    var numero = (Math.random()*15).toFixed(0);
-    return letras[numero];
-  }
-    
-  onColorHEX(){
-    var coolor = "";
-    for(var i=0;i<6;i++){
-      coolor = coolor + this.onGenerarLetra() ;
-    }
-    return "#" + coolor;
-  }
-
+ 
 
 
 }
