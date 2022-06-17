@@ -14,17 +14,18 @@
                 <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'HVenta')" [options]="arrayRango1" [formControl]="rangoBusqueda1"  optionLabel="nombre"></p-dropdown>     
                       
                 <div class="graficos">   
-                    <div class="sizeGraficoLinea">
+                    <div>
                         <p-chart type="line" [data]="DataLineal1" ></p-chart> 
                     </div> 
                     
-                    <div class="sizeGrafico">
+                    <div>
                         <p-chart type="doughnut"[data]="DataGraficoDunat"  ></p-chart> 
                     </div>
                 </div>
             </div>
             <br>
-            <div class="graficos">   
+            
+            <div class="graficos2">   
                 <div>
                     <h3> COBRANZAS Y POR COBRAR </h3>  
                     <strong>Rango de Información: </strong>
@@ -43,7 +44,7 @@
   
             <div>   
                 <h3> DOCUMENTOS NO REGULARIZADOS EN SUNAT</h3>   
-                <div class="graficos">   
+                <div class="graficos2">   
 
                     <div>
                         <i class="fa-solid fa-triangle-exclamation sizeIcon"></i>
