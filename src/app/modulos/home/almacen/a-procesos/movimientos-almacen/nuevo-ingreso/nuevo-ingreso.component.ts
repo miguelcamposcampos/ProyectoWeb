@@ -274,20 +274,20 @@ export class NuevoIngresoComponent implements OnInit {
       criteriodescripcion : codProductoaBuscar
     }
     this.generalService.BuscarProductoPorCodigo(data).subscribe((resp) => {
-      if(resp){
+      if(resp[0]){
       this.detallesForm[posicion].patchValue({
         codigoProducto:  resp[0].codProducto,
         descripcion: resp[0].nombreProducto,
         unidadMedida: this.arrayUnidadesMedida.find(
           (x) => x.id ===   resp[0].unidadMedidaId
         ),
-        valorUnitario : resp[0].precioDefault,
+        valorUnitario : resp[0].precioDefault.toFixed(2),
         idProducto : resp[0].productoId, 
         nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
         nroLote: resp[0].lote === "0" ? null : resp[0].lote,  
       }); 
     }else{
-      this.swal.mensajeAdvertencia('no se encontraron datos');
+      this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
     }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
@@ -326,7 +326,7 @@ export class NuevoIngresoComponent implements OnInit {
       unidadMedida: this.arrayUnidadesMedida.find(
         (x) => x.id ===   event.data.unidadMedidaId
       ),  
-      valorUnitario : event.data.precioDefault,
+      valorUnitario : event.data.precioDefault.toFixed(2),
       idProducto : event.data.productoId, 
     });
   }

@@ -12,6 +12,35 @@
 
   <div class="Margintabla">
     <div class="card ">
+
+      <p-toolbar>
+        <div class="p-toolbar-group-left">
+          <h4> Agregar nuevo rol: </h4> 
+        </div>
+        
+        <div class="p-toolbar-group-right"> 
+              <button    
+                class="p-button-sm"
+                pButton
+                icon="pi pi-arrow-left"
+                label="Regresar"
+                tooltipPosition="left"
+                style="margin-right: 1%;"
+                pTooltip="Regresar"
+                (click)="onRegresar()">  
+            </button> 
+            <button 
+              (click)="onModalAgregarRol()"
+              pButton icon="pi pi-plus"
+              pTooltip="Agregar Rol"
+              label="Agregar"
+              type="button"
+              tooltipPosition="right"
+              class="p-button-sm mx-1">
+            </button>  
+        </div>
+    </p-toolbar>
+<!-- 
       <div class="titulo d-flex flex-wrap">
         <div class="px-2">
             <span class="p-input-icon-left">
@@ -29,7 +58,7 @@
             class="p-button-sm mx-1">
           </button>  
         </div>
-      </div>
+      </div> -->
    <hr>
       <div class="contenidoRoles">
         <div class="centrar"> 

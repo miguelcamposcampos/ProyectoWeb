@@ -44,19 +44,22 @@
                
                 <div class="formulario"> 
                     <strong>Cod. Sunat *</strong>
-                    <input type="text" pInputText   [maxLength]="4" [minlength]="4"  formControlName="codigosunat" class="p-inputtext-sm" placeholder="ingresar codigo de sunat">   
+                    <input type="text" pInputText  readonly  [maxLength]="4" [minlength]="4"  formControlName="codigosunat" class="p-inputtext-sm" placeholder="ingresar codigo de sunat">   
                         
-                    <strong>Razon Social *</strong>  
+                    <strong>Razón Social *</strong>   
+                    <input type="text"  pInputText minlength="11" formControlName="razonSocial" class="p-inputtext-sm"   placeholder="ingresar la razon social">   
+
+                    <!-- <strong>Razón Social *</strong>  
                     <div class="p-inputgroup">  
-                        <input type="text"  pInputText maxLength="11" minlength="11" (keyup)="validateFormat($event)"  formControlName="razonSocial" class="p-inputtext-sm"   placeholder="ingresar la razon social">   
+                        <input type="text"  pInputText maxLength="11" minlength="11" (keypress)="validateFormat($event)"  formControlName="razonSocial" class="p-inputtext-sm"   placeholder="ingresar la razon social">   
                         <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarRuc();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
-                    </div> 
+                    </div>  -->
 
                     <strong>Nombre Comercial *</strong>
-                    <input  type="text" pInputText readonly formControlName="nombreComercial" class="p-inputtext-sm" placeholder="ingresar nombre comercial">     
+                    <input  type="text" pInputText formControlName="nombreComercial" class="p-inputtext-sm" placeholder="ingresar nombre comercial">     
 
                     <strong>Departamento</strong>    
-                    <p-dropdown class="extender"   placeholder="Selecciona un departamento" formControlName="departamento" [options]="arrayDepartamentos" optionLabel="nombre"></p-dropdown>
+                    <p-dropdown class="extender" placeholder="Selecciona un departamento" formControlName="departamento" [options]="arrayDepartamentos" optionLabel="nombre"></p-dropdown>
                         
                     <strong>Provincia</strong>  
                     <p-dropdown class="extender" [disabled]="bloqueardropdownProvincias" [placeholder]="(bloqueardropdownProvincias)  ? 'Cargando Provincias ...' : 'Selecciona una provincia'"  formControlName="provincia" [options]="arrayProvincias" optionLabel="nombre"></p-dropdown>

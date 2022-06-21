@@ -33,7 +33,9 @@ export class NuevoTransportistaComponent implements OnInit {
  
   modalBuscarUbigeo : boolean = false;
   mostrarRazonSocial: boolean = false;
- 
+  IngresoManual: boolean = false;
+
+  
   constructor(
     private transpService: TransportistaService,
     private generalService: GeneralService,
@@ -208,6 +210,7 @@ export class NuevoTransportistaComponent implements OnInit {
               nombres : resp.nombres
             }); 
           }else{
+            this.IngresoManual = true;
             this.swal.mensajeError('No se encontraron datos.');
             this.limpiarForm(); 
           }

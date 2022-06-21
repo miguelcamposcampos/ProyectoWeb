@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces'; 
+import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IListadoStock } from '../../home/almacen/a-procesos/consulta-stock/interface/consultastock.interface';
 import { ConsultaStockService } from '../../home/almacen/a-procesos/consulta-stock/service/consultastock.service';
@@ -27,8 +28,8 @@ export class BuscarProductoComponent implements OnInit {
   constructor(
     private consultastockService : ConsultaStockService, 
     private swal : MensajesSwalService,
-    private spinner : NgxSpinnerService
-
+    private spinner : NgxSpinnerService,
+    private generalService : GeneralService
   ) {
    
    }
@@ -89,6 +90,9 @@ export class BuscarProductoComponent implements OnInit {
         this.listaProductos = resp;
         this.spinner.hide();
       }  
+    }, error => {
+      this.spinner.hide();
+      this.generalService.onValidarOtraSesion(error);
     })
    
   }

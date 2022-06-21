@@ -26,8 +26,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   tituloNuevoguiaRemision : string = "NUEVO GUIA REMISION";
   mostrarBotonReportes : boolean = false;
-  existenroGuiaRemision : boolean = false;
-  mostrarbotoneliiminarDetalle : boolean = false;
+  existenroGuiaRemision : boolean = false; 
   bloquearComboEstablecimiento : boolean = false;
   VistaReporte : boolean = false;  
   /* MODALES */
@@ -73,7 +72,8 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   fechaActual = new Date; 
 
 
-
+  ubigeoParaMostrar : string ="";
+  ubigeoParaMostrarLlegada : string ="";
   dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')); 
 
   constructor(
@@ -99,7 +99,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       tipoguia: new FormControl(null, Validators.required), 
       serieguia : new FormControl(null),
       sencuencialguia : new FormControl(null),
-      docReferencia: new FormControl(null, Validators.required),
+      docReferencia: new FormControl(null),
       seriedocref : new FormControl(null),
       secuencialref : new FormControl(null),
 
@@ -132,7 +132,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       certificado: new FormControl(null),
 
       chofer: new FormControl(null), 
-      brevete: new FormControl(null, Validators.required),  
+      brevete: new FormControl(null),  
 
       arrayDetalles: this.fb.array([])
     })
@@ -207,7 +207,8 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     }
     this.spinner.show();
     this.generalService.BuscarProductoPorCodigo(data).subscribe((resp) => { 
-      if(resp){
+      console.log(resp);
+      if(resp[0]){
         this.detallesForm[posicion].patchValue({
           codigoProducto:  resp[0].codProducto,
           descripcion: resp[0].nombreProducto,
@@ -220,7 +221,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
           nroLote: resp[0].lote === "0" ? null : resp[0].lote,  
         });
       }else{
-        this.swal.mensajeAdvertencia('no se encontraron datos');
+        this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
       this.spinner.hide();
     },error => { 
@@ -382,7 +383,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
 
         rucTransportista: this.GuiaRemisionEditar.rucTransportista,
         codigoTransportista: this.GuiaRemisionEditar.codigoTransportista,
-        razonSocialTransportista: this.GuiaRemisionEditar.nombreTransportista,
+        razonSocialTransportista: this.GuiaRemisionEditar.nombreTransportista, 
         
         chofer: this.arrayChofercombo.find(
         (x) => x.id === this.GuiaRemisionEditar.transportistachoferid
@@ -466,10 +467,8 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     if(!data.establecimiento){
       this.swal.mensajeAdvertencia('Debes Seleccionar un Establecimeinto para continuar');
       return;
-    }
-
-    if(this.detallesForm.length > 0){
-      this.mostrarbotoneliiminarDetalle = true;
+    } 
+    if(this.detallesForm.length > 0){ 
       this.bloquearComboEstablecimiento = true;
     }
     this.detallesForm.push(this.AddDetalle());    
@@ -496,14 +495,14 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
 
   onEliminarDetalle(index : any, idDetalleArray: any){   
-    if(idDetalleArray === 0){  
+    
+    if(!idDetalleArray){  
       this.fa.removeAt(index);  
       this.cdr.detectChanges();  
-      if(this.detallesForm.length === 1){
-        this.mostrarbotoneliiminarDetalle = false;
+      if(this.detallesForm.length === 0){ 
         this.bloquearComboEstablecimiento = false;
       }  
-    }else if(idDetalleArray != 0){
+    }else{
       this.swal.mensajePregunta("¿Seguro que desea eliminar el detalle.?").then((response) => {
         if (response.isConfirmed) { 
           this.arrayDetallesEliminados.push(idDetalleArray);
@@ -552,10 +551,14 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
 
   onPintarDatosDeUndTransporteSeleccionado(event :any){ 
-    if(event){
+    if(event.value){
       this.idUndTransporteSeleccionado = event.value.id 
+      this.Form.controls['placa'].setValue(event.value.id);
       this.onCargarTransportePorId(this.idUndTransporteSeleccionado);
-    } 
+    }else{
+      this.Form.controls['certificado'].setValue(null);
+      this.Form.controls['marca'].setValue(null); 
+    }
   }
 
   onCargarTransportePorId(event: number){
@@ -582,10 +585,13 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
 
   onPintarDatosDeChoferSeleccionado(event : any){
-    if(event){
+    if(event.value){
       this.idChoferSeleccionado = event.value.id
+      this.Form.controls['chofer'].setValue(event.value.id);
       this.onCargarChoferPorId(this.idChoferSeleccionado);
-    } 
+    }else{
+      this.Form.controls['brevete'].setValue(null); 
+    }
   }
 
   onCargarChoferPorId(event: number){ 
@@ -622,7 +628,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       descripcion: event.data.nombreProducto, 
       unidadMedida: this.arrayUnidadesMedida.find(
         (x) => x.id ===   event.data.unidadMedidaId
-      ),  
+      ),   
       preciounitario : event.data.precioDefault,
       productoid : event.data.productoId, 
     });
@@ -631,6 +637,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
 
   }
  
+ 
   /* BUSCAR UBIGEO */
   onModalBuscarUbigeo(event : string){ 
     this.dataUbigeo = event
@@ -638,10 +645,12 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
        
   onPintarUbigeoSeleccionado(event :any){ 
-    if(event.punto === 'partida'){
+    if(event.punto === 'partida'){ 
       this.Form.controls['ubigeoPartida'].setValue(event.ubigeo);
-    }else{
+      this.Form.controls['puntoPartida'].setValue(event.nombreubigeo);
+    }else{ 
       this.Form.controls['ubigeoLlegada'].setValue(event.ubigeo);
+      this.Form.controls['puntoLlegada'].setValue(event.nombreubigeo);
     } 
     this.modalBuscarUbigeo = false;
   }
@@ -713,11 +722,11 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       serieguia : dataform.serieguia ? dataform.serieguia.valor1 : dataform.serieguia,
       tipocambio: dataform.tipoCambio,
       tipodocumentoid: this.GuiaRemisionEditar ? this.GuiaRemisionEditar.tipodocumentoid :  dataform.tipoguia.id,
-      tipodocumentoidref:  this.GuiaRemisionEditar ? this.GuiaRemisionEditar.tipodocumentoidref : dataform.docReferencia.id,
+      tipodocumentoidref:  dataform.docReferencia ? dataform.docReferencia.id : null,
       totalbultos: this.GuiaRemisionEditar ? this.GuiaRemisionEditar.totalbultos : 0 ,
       transportistaid: this.GuiaRemisionEditar ? this.GuiaRemisionEditar.transportistaid : this.idTransportistaSeleccionado,
-      transportistachoferid: this.GuiaRemisionEditar ? this.GuiaRemisionEditar.transportistachoferid : this.idChoferSeleccionado,
-      transportistaunidadid: this.GuiaRemisionEditar ? this.GuiaRemisionEditar.transportistaunidadid : this.idUndTransporteSeleccionado,
+      transportistachoferid: dataform.chofer ? dataform.chofer.id : null,
+      transportistaunidadid: dataform.placa ? dataform.placa.id : null,
     }
   
     if(!this.GuiaRemisionEditar){
@@ -768,5 +777,40 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   onRegresar(){
     this.cerrar.emit(false);
   }
+
+  onObtnerModaldidad(event: any){   
+    const PLACA = this.Form.get("placa");
+    const CHOFER = this.Form.get("chofer"); 
+    
+    if (event.value.id === 2) { 
+      PLACA.setValidators([Validators.required]);
+      CHOFER.setValidators([Validators.required]);    
+    } else{ 
+      PLACA.setValidators(null);
+      CHOFER.setValidators(null);  
+    }
+
+    PLACA.updateValueAndValidity();
+    CHOFER.updateValueAndValidity(); 
+  }
+
+  validateFormat(event) { 
+    let key;
+    if (event.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+    } else {
+      key = event.keyCode;
+      key = String.fromCharCode(key);
+    }
+    const regex = /[0-9]|\./;
+     if (!regex.test(key)) {
+      event.returnValue = false;
+       if (event.preventDefault) {
+        event.preventDefault();
+       }
+     }
+    }
+    
+
 
 }

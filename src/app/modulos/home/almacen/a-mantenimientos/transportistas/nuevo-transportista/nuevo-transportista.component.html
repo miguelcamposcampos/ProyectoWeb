@@ -64,7 +64,7 @@
                             <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
                         
                             <strong *ngIf="mostrarRazonSocial">Razon Social *</strong>
-                            <input  *ngIf="mostrarRazonSocial" type="text" pInputText readonly formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
+                            <input  *ngIf="mostrarRazonSocial" type="text" pInputText [readonly]="IngresoManual" formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
                           
                             <strong>Telefono</strong>
                             <input type="text" pInputText  minlength="9" maxlength="9" (keypress)="validateNumber($event)" formControlName="telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">  

@@ -32,6 +32,7 @@ export class DocumentosComponent implements OnInit {
   ngOnInit(): void {
     this.onLoadDocumentos();
     this.cols = [ 
+      { field: 'documentoid', header: 'N°', visibility: true }, 
       { field: 'siglasdocumento', header: 'Siglas', visibility: true }, 
       { field: 'nombre', header: 'Nombre', visibility: true},   
       { field: 'esadelanto', header: '¿Adelanto?', visibility: true, tipoFlag: 'boolean'},     

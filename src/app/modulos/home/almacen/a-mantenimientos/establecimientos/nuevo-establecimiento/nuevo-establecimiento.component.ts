@@ -79,27 +79,27 @@ export class NuevoEstablecimientoComponent implements OnInit {
     });
   }
 
-  onBuscarRuc(){ 
-  let RucaBuscar = this.Form.controls['razonSocial'].value;
-  if(!RucaBuscar){
-    this.swal.mensajeAdvertencia('Ingrese un numero de Ruc porfavor!.');
-    return;
-  }  
-   this.spinner.show();
-    this.generalService.consultarPorRuc(RucaBuscar).subscribe((resp) => {
-      if(resp){ 
-        this.datosPorRuc = resp;  
-        this.Form.patchValue({  
-          nombreComercial : this.datosPorRuc.Data.razonsocial,
-          direccion:  this.datosPorRuc.Data.DireccionCompleta  
-        })
-        this.spinner.hide();
-      } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
-    });
-  }
+  // onBuscarRuc(){ 
+  // let RucaBuscar = this.Form.controls['razonSocial'].value;
+  // if(!RucaBuscar){
+  //   this.swal.mensajeAdvertencia('Ingrese un numero de Ruc porfavor!.');
+  //   return;
+  // }  
+  //  this.spinner.show();
+  //   this.generalService.consultarPorRuc(RucaBuscar).subscribe((resp) => {
+  //     if(resp){ 
+  //       this.datosPorRuc = resp;  
+  //       this.Form.patchValue({  
+  //         nombreComercial : this.datosPorRuc.Data.razonsocial,
+  //         direccion:  this.datosPorRuc.Data.DireccionCompleta  
+  //       })
+  //       this.spinner.hide();
+  //     } 
+  //   },error => { 
+  //     this.spinner.hide();
+  //     this.generalService.onValidarOtraSesion(error);
+  //   });
+  // }
 
   onBuscarEstablecimientoPorId(){  
     this.establecimientoService.establecimeintoPorId(this.idEstablecimientoEdit).subscribe((resp) => { 
@@ -124,6 +124,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
 
   onCambiarLogo(){
     this.imgParaEditar = "";
+    this.Form.controls['logoestablecimiento'].setValue(null);
   }
  
  
@@ -248,8 +249,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
 
 
 
-  validateFormat(event) {
-  //  console.log(event.target.value);
+  validateFormat(event) { 
     let key;
     if (event.type === 'paste') {
       key = event.clipboardData.getData('text/plain');

@@ -107,13 +107,17 @@ export class NuevoVendedorComponent implements OnInit {
     if(dniSearch.toString().length === 8){
       this.spinner.show();
       this.generalService.consultaPorDni(dniSearch).subscribe((resp) => {
-        if(resp){  
+        if(resp.nombre != "No encontrado"){  
           this.Form.patchValue({
             apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
             nombres : resp.nombres
           });
           this.spinner.hide();
-        }  
+        } else {
+          this.spinner.hide();
+          this.swal.mensajeAdvertencia('Datos no encontrados.');
+          return;
+        }
       },error => { 
         this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);  

@@ -8,7 +8,56 @@
 
     <div class="Margintabla">  
       <div class="card"> 
-          <div class="titulo d-flex flex-wrap">
+
+         <p-toolbar>
+            <div class="p-toolbar-group-left">
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  class="p-inputtext-sm"
+                  placeholder="Buscar"
+                  size="25"
+                  (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
+              </span> 
+            </div>
+            
+            <div class="p-toolbar-group-right"> 
+                <button    
+                  class="p-button-sm"
+                  pButton
+                  icon="pi pi-plus"
+                  label="Agregar"
+                  type="button"
+                  tooltipPosition="left"
+                  pTooltip="Registrar Pedido"
+                  (click)="onRegistrarPedido()">  
+                </button> 
+                <button 
+                  pButton (click)="onInformarPago()" 
+                  tooltipPosition="top" 
+                  type="button"
+                  pTooltip="Informar Pago" 
+                  style="margin-left: 1%;"
+                  class="p-button-sm" 
+                  label="Notificar"
+                  icon="pi pi-dollar">
+                </button>   
+                <button    
+                  class="p-button-sm"
+                  pButton
+                  icon="pi pi-arrow-left"
+                  label="Regresar"
+                  tooltipPosition="left"
+                  style="margin-left: 1%;"
+                  pTooltip="Regresar"
+                  (click)="onRegresar()">  
+              </button> 
+            </div>
+        </p-toolbar>
+        
+          <!-- <div class="titulo d-flex flex-wrap">
               <div class="px-2">
                   <span class="p-input-icon-left">
                       <i class="pi pi-search"></i>
@@ -23,7 +72,7 @@
               </div>
               <div class="d-block">
                   <button    
-                    class="p-button-sm mx-2"
+                    class="p-button-sm"
                     pButton
                     icon="pi pi-plus"
                     label="Agregar"
@@ -37,13 +86,24 @@
                     tooltipPosition="top" 
                     type="button"
                     pTooltip="Informar Pago" 
-                    class="p-button-sm mx-2" 
+                    style="margin-left: 1%;"
+                    class="p-button-sm" 
                     label="Notificar Pago"
                     icon="pi pi-dollar">
-                </button>   
+                  </button>   
+                  <button    
+                    class="p-button-sm"
+                    pButton
+                    icon="pi pi-arrow-left"
+                    label="Regresar"
+                    tooltipPosition="left"
+                    style="margin-left: 1%;"
+                    pTooltip="Regresar"
+                    (click)="onRegresar()">  
+                </button> 
               </div>
           </div>
-    
+     -->
         
           <div class="card">
               <p-table #dt 

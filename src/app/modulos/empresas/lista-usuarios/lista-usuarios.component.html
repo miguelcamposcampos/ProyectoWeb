@@ -12,31 +12,46 @@
 
   <div class="Margintabla">
     <div class="card">    
-      <div class="titulo d-flex flex-wrap">
-        <div class="px-2">
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                pInputText
-                type="text"
-                class="p-inputtext-sm"
-                placeholder="Buscar"
-                size="25"
-                (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-            </span> 
+
+      <p-toolbar>
+        <div class="p-toolbar-group-left">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              class="p-inputtext-sm"
+              placeholder="Buscar"
+              size="25"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
+          </span> 
         </div>
-        <div class="d-block">
+        
+        <div class="p-toolbar-group-right"> 
+              <button    
+                class="p-button-sm"
+                pButton
+                icon="pi pi-arrow-left"
+                label="Regresar"
+                tooltipPosition="left"
+                style="margin-right: 1%;"
+                pTooltip="Regresar"
+                (click)="onRegresar()">  
+            </button> 
             <button    
-                class="p-button-sm mx-2"
+                class="p-button-sm"
                 pButton
                 icon="pi pi-plus"
-                label="Invitar usuario"
+                label="Invitar"
                 tooltipPosition="left"
                 pTooltip="Invitar Usuario"
                 (click)="onModalInvitarUsuario()">  
             </button> 
         </div>
-      </div>
+    </p-toolbar>
+
+
+  
 
         <p-table #dt 
           [columns]="cols"

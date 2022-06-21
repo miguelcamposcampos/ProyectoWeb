@@ -25,6 +25,18 @@
                     />
                     </span> 
                 </div>
+                <div class="d-block">   
+                    <button    
+                      class="p-button-sm"
+                      pButton
+                      icon="pi pi-arrow-left"
+                      label="Regresar"
+                      tooltipPosition="left"
+                      style="margin-left: 1%;"
+                      pTooltip="Regresar"
+                      (click)="onRegresar()">  
+                  </button> 
+                </div>
             </div>  
 
             <p-table #dt [columns]="cols" 

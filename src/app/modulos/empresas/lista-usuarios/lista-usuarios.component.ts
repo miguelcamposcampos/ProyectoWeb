@@ -234,6 +234,7 @@ export class ListaUsuariosComponent implements OnInit {
     this.cerrar.emit(false); 
   }
 
+ 
 
   onValidateForm(campo: string) {
     return ( this.InvitarForm.controls[campo].errors && this.InvitarForm.controls[campo].touched );

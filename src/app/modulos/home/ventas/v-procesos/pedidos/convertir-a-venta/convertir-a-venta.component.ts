@@ -798,7 +798,7 @@ export class ConvertirAVentaComponent implements OnInit {
       criteriodescripcion : codProductoaBuscar
     }
     this.generalService.BuscarProductoPorCodigo(data).subscribe((resp) => {
-      if(resp){
+      if(resp[0]){
         this.detallesVentaForm[posicion].patchValue({
           codproductofinal:  resp[0].codProducto,
           descripcionproducto: resp[0].nombreProducto,
@@ -808,7 +808,7 @@ export class ConvertirAVentaComponent implements OnInit {
           tipoafectacionid: this.arrayTipoAfectacion.find(
             (x) => x.id ===   resp[0].unidadMedidaId
           ),
-          preciounitario : resp[0].precioDefault,
+          preciounitario : resp[0].precioDefault.toFixed(2),
           precioincluyeigv :  resp[0].precioIncluyeIgv,
           productoid : resp[0].productoId,
           esafectoicbper :resp[0].esAfectoICBPER,
@@ -818,7 +818,7 @@ export class ConvertirAVentaComponent implements OnInit {
         });
         this.onCalcularPrecioVenta(posicion)
       }else{
-        this.swal.mensajeAdvertencia('no se encontraron datos');
+        this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
@@ -851,7 +851,7 @@ export class ConvertirAVentaComponent implements OnInit {
       tipoafectacionid: this.arrayTipoAfectacion.find(
         (x) => x.id ===   event.data.tipoAfectacionId
       ),
-      preciounitario : event.data.precioDefault,
+      preciounitario : event.data.precioDefault.toFixed(2),
       productoid : event.data.productoId,
       esafectoicbper :event.data.esAfectoICBPER,
       nroSerie: event.data.serie === "0" ? null : event.data.serie, 
