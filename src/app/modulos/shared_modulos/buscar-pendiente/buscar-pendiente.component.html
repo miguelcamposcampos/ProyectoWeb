@@ -34,7 +34,7 @@
                         <div class="InputCombinado2">   
                             <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
                             <button type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton  icon="pi pi-search"></button>      
-                            <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
+                            <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm" pTooltip="Borrar"  style=" background-color: #D72250;" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@
             pButton
             style="margin-right: 1%;"
             [disabled]="!PendientesSeleccionados.length" 
-            label="Grabar"
+            label="Seleccionar"
             (click)="onGrabar()"
             icon="pi pi-check-circle">  
         </button>  

@@ -139,7 +139,7 @@ onGrabar(){
   }
  ;
 
-  if(!this.dataFormaPago){
+  if(!this.FormPagoEditar){
     this.formpagoService.crearFormaPago(newCondicionPago).subscribe((resp) => {
       if(resp){
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');

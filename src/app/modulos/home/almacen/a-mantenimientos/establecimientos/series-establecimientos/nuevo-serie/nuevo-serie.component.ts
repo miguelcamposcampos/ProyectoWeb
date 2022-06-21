@@ -98,7 +98,7 @@ export class NuevoSerieComponent implements OnInit {
       establecimientoserieid : this.dataEdit ? this.dataEdit.idSerieEditar :  0,
       serie : data.serie, 
     }
-    if(!this.dataEdit.idSerieEditar){
+    if(!this.dataEditarSerie){
       this.establecimientoService.crearSerie(newSerie).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.')

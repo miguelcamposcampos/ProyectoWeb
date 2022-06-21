@@ -117,7 +117,7 @@ export class NuevoDocumentoComponent implements OnInit {
       usadoventas : data.venta,
 
     } 
-    if(!this.dataDocumento){
+    if(!this.DocumentoEditar){
       this.documentoService.crearDocumento(newDocumento).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!');

@@ -156,8 +156,7 @@ export class BuscarPendienteComponent implements OnInit {
   }
 
 
-  onGrabar(){ 
-    
+  onGrabar(){  
     console.log(this.PendientesSeleccionados);
     this.swal.mensajePregunta("¿Seguro que desea enviar los pendientes seleccionados?").then((response) => {
       if (response.isConfirmed) {

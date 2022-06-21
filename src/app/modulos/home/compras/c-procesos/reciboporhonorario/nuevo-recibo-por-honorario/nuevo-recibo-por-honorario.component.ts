@@ -478,8 +478,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     const dataform = this.Form.value; 
     let DetallesGrabar :any[] = this.onGrabarDetallesVenta(); 
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
- 
-
+  
     const newVenta : ICrearRxh = {
       idproveedor: this.RxhEditar ? +this.RxhEditar.ordencompra : 0,
       correlativomensual:this.RxhEditar ? +this.RxhEditar.ordencompra : 0,
@@ -510,7 +509,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     
     } 
 
-    if(!this.dataRxH){
+    if(!this.RxhEditar){
       this.rxhService.createRxh(newVenta).subscribe((resp) => {
         if(resp){
           this.onVolver();

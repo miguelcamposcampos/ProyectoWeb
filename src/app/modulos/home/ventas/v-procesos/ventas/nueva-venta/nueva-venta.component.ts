@@ -887,10 +887,7 @@ export class NuevaVentaComponent implements OnInit {
       }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
-    });
-  
-
-    
+    }); 
   }
  
   /* IMPRIMIR TICKET */
@@ -1034,13 +1031,13 @@ export class NuevaVentaComponent implements OnInit {
       fechaordencompra: this.formatoFecha.transform(dataform.fechaordencompra,ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),  
       esrecargoconsumo :this.VentaEditar ? this.VentaEditar.esrecargoconsumo :  false,
       cantidadtotal : this.VentaEditar ? this.VentaEditar.cantidadtotal : 0,
-      importeanticipo : +dataform.importeanticipo.toFixed(2),
-      importedescuento : -dataform.importedescuento.toFixed(2), 
-      importevalorventa : +dataform.importevalorventa.toFixed(2), 
-      importeigv :  +dataform.importeigv.toFixed(2), 
-      importeicbper : +dataform.importeicbper.toFixed(2), 
-      importeotrostributos: +dataform.importeotrostributos.toFixed(2),  
-      importetotalventa : +dataform.importetotalventa.toFixed(2),   
+      importeanticipo : +dataform.importeanticipo,
+      importedescuento : -dataform.importedescuento, 
+      importevalorventa : +dataform.importevalorventa, 
+      importeigv :  +dataform.importeigv, 
+      importeicbper : +dataform.importeicbper, 
+      importeotrostributos: +dataform.importeotrostributos,  
+      importetotalventa : +dataform.importetotalventa,   
       condicionesPagoSunat : DetallesCondicionPagoGrabar,
       detalles : DetallesVentaGrabar,
       documentoReferenciaDtos: DetallesDocumentoRefGrabar,
@@ -1050,13 +1047,12 @@ export class NuevaVentaComponent implements OnInit {
     } 
  
 
-    if(!this.dataVenta){
+    if(!this.VentaEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp)=>{
         if(resp){
           this.swal.mensajePregunta("¿Quiere editar la venta ?").then((response) => {
             if (response.isConfirmed) { 
               this.onObtenerVentaPorId(resp, 'nuevo');
-              return;
             }else{
               this.swal.mensajeExito('Los cambios se grabaron correctamente!.')    
               this.onVolver();
@@ -1092,8 +1088,7 @@ export class NuevaVentaComponent implements OnInit {
     this.cerrar.emit(false);
   }
 
-  onRetornar(){
- //   this.VistaCobrar = false;
+  onRetornar(){ 
     this.VistaReporte = false;
   }
 
@@ -1125,7 +1120,7 @@ export class NuevaVentaComponent implements OnInit {
         this.onObtenerTipoDocumento(tipoDocumento);  
         this.onCargarDropdownParaEditar(resp);
         this.onObtenerCondicionPago(resp.nombreCondicionPago)
-        
+        this.mostrarOpcionesEditar = true; 
         this.totalaPagar = resp.importetotalventa
         this.existenroRegsitro = true; 
         this.AvisarParaActualizar();  
@@ -1350,8 +1345,8 @@ export class NuevaVentaComponent implements OnInit {
     let arrayVentaDetalleDetraccionTransporte :any = this.onGrabarDetalleVentaDetraccionTransporte();
 
     this.detallesVentaForm.forEach(element => {
-      if(!element.value){
-        this.swal.mensajeInformacion('Aquellos registros vacios no se insertaran en al registro.');
+      if(!element.value.almacenid){
+        this.swal.mensajeInformacion('Falta seleccionar un almacen en el detalle de la venta.');
         return;
       }else{
  
@@ -1533,68 +1528,44 @@ export class NuevaVentaComponent implements OnInit {
     }
 
   }
-
-  onDosDecimales(n) {
-    let t=n.toString();
-    let regex=/(\d*.\d{0,3})/;
-    return t.match(regex)[0]; 
-  }
-
+ 
   
   onCalcularPrecioVenta(posicion : number){ 
-    let isOperacionGravada = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esGravada;
-    let Preciounitario = +(this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.preciounitario;
-    let Porcentajedescuento = +(this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.porcentajedescuento;
-    let Cantidad  = +(this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.cantidad;
-    let isAfectoICBPER = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esafectoicbper;
-    let Importeotroscargos : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importesotroscargos;
+    const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
 
-    if (!isOperacionGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
+    if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
+    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+    let biActualizar  = DataForm.cantidad * preciosinigv;
+    this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
 
-    let Precioincluyeigv = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.precioincluyeigv;
-    let preciosinigv = Precioincluyeigv ? (Preciounitario / (1 +this.valorIGV)) : Preciounitario; 
-    let biActualizar  = Cantidad * preciosinigv;
-    let biActualizar2 = this.onValidarIgv2Digitos(biActualizar);
-    this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar2)
-
-    let impd = (Porcentajedescuento > 0) ?  (biActualizar *  ( Porcentajedescuento / 100)) : 0
+    let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
     this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd);
 
-    let Importedescuento : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importedescuento;
- 
-    let vVenta = (biActualizar - Importedescuento);
+    let vVenta = (biActualizar - DataForm.importedescuento);
     this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
-     
-    let igvAct =  isOperacionGravada ? ( vVenta * this.valorIGV) : 0
-    igvAct = this.onValidarIgv2Digitos(igvAct);
+  
+    let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
     this.detallesVentaForm[posicion].controls['igv'].setValue(igvAct);
  
-    let precioventaAct = (+vVenta + igvAct + Importeotroscargos);
-    let importeicbperAct = Cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
+    let precioventaAct = (+vVenta + igvAct + DataForm.importesotroscargos);
+    let importeicbperAct = DataForm.cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
 
-    if(isAfectoICBPER){ 
+    if(DataForm.esafectoicbper){ 
       this.detallesVentaForm[posicion].patchValue({
         importeicbper : importeicbperAct,
-        precioventa :   (Math.round((+precioventaAct + Number.EPSILON) * 100) / 100 ) // +(precioventaAct.toFixed(2))
+        precioventa : precioventaAct
       });
     }else{ 
       this.detallesVentaForm[posicion].patchValue({
         importeicbper : 0,
-        precioventa :  (Math.round((+precioventaAct + Number.EPSILON) * 100) / 100 )  // +(precioventaAct.toFixed(2))
+        precioventa : precioventaAct
       });
     }
   
     this.onCalcularTotalVenta();
 
   }
-
-
-  onValidarIgv2Digitos(x) {
-    var s = x.toString()
-    var decimalLength = s.indexOf('.') + 1
-    var numStr = s.substr(0, decimalLength + 2)
-    return Number(numStr)
-  }
+ 
 
   // onCalcularPrecioVenta(posicion : number){
   //   this.valorIGV = 0.18   
@@ -1695,16 +1666,11 @@ export class NuevaVentaComponent implements OnInit {
   // }
 
   onCalcularTotalVenta(){
-
-    let Dsctoglobalporcentaje : number  = this.Form.controls['dsctoglobalrporcentaje'].value;
-    //* validamos el total de porcentaje descuento
-  
-    let Importeicbper : number  =   this.Form.controls['importeicbper'].value;  
+    const DataForm = this.Form.value;
     let detallesNoGratuitos : any[]=[];
     let NoAnticipos : any[]=[];
     let Anticipos : any[]=[];
 
- 
     //* RECORREMOS LOS NO GRATUITOS
     this.detallesVentaForm.forEach(det => {
       if(!det.value.esGratuito){
@@ -1722,47 +1688,39 @@ export class NuevaVentaComponent implements OnInit {
     });
     //* SUMAMOS LOS IMPORTES ICBPER
     let icbper = detallesNoGratuitos.reduce((sum, value)=> (sum + value.importeicbper ?? 0 ), 0);
-
     let importeanticipoAct = Anticipos.reduce((sum, value)=> (sum + value.precioventa), 0)
     this.Form.controls['importeanticipo'].setValue(importeanticipoAct)
 
     let dsctosunitarios = NoAnticipos.reduce((sum, value)=> (sum + value.importedescuento ?? 0), 0);
-
     let importeigvAct = NoAnticipos.reduce((sum, value)=> (sum + value.igv ?? 0), 0) -  Anticipos.reduce((sum, value)=> (sum + value.igv ?? 0 ), 0)
     this.Form.controls['importeigv'].setValue(importeigvAct)
 
-    let ImpIGV =  this.Form.controls['importeigv'].value;
-    if (Dsctoglobalporcentaje > 0){
-      
+    let ImpIGV = importeigvAct;
+    if (DataForm.dsctoglobalrporcentaje > 0){
         let valdetalles = this.detallesVentaForm.reduce((sum, data)=> (sum + data.value.valorVenta), 0);
-        let dsctoglobalimporteActualizar = valdetalles * (Dsctoglobalporcentaje / 100);
-        ImpIGV -= (ImpIGV) * ((Dsctoglobalporcentaje ?? 1) / 100);
+        let dsctoglobalimporteActualizar = valdetalles * (DataForm.dsctoglobalrporcentaje / 100);
+        ImpIGV -= (importeigvAct) * ((DataForm.dsctoglobalrporcentaje ?? 1) / 100);
         this.Form.controls['dsctoglobalimporte'].setValue(dsctoglobalimporteActualizar)
         this.Form.controls['importeigv'].setValue(ImpIGV)
     }else{
       this.Form.controls['dsctoglobalimporte'].setValue(0);
     }
-
-    let Importeigvv =  this.Form.controls['importeigv'].value;
-    let Dsctoglobalimporte = this.Form.controls['dsctoglobalimporte'].value;
-
-    let importedescuentoActualizar = (Dsctoglobalimporte ?? 0 ) + dsctosunitarios;
+ 
+    let importedescuentoActualizar = (DataForm.dsctoglobalimporte ?? 0 ) + dsctosunitarios;
     this.Form.controls['importedescuento'].setValue(importedescuentoActualizar);
-
-    let Importedescuento = this.Form.controls['importedescuento'].value;
-
-    let importevalorventaActualizar = NoAnticipos.reduce((sum, value)=> (sum + value.baseimponible), 0) - Anticipos.reduce((sum, value) => (sum + value.baseimponible), 0) - Importedescuento
+  
+    let importevalorventaActualizar = NoAnticipos.reduce((sum, value)=> (sum + value.baseimponible), 0) - Anticipos.reduce((sum, value) => (sum + value.baseimponible), 0) - importedescuentoActualizar;
     this.Form.controls['importevalorventa'].setValue(importevalorventaActualizar)
     this.Form.controls['importeicbper'].setValue(icbper);
 
     let importeotrostributosActualizar = (NoAnticipos.reduce((sum, value)=> (sum + value.importesotroscargos), 0) -  Anticipos.reduce((sum, value)=> (sum + value.importesotroscargos), 0))
-    let importetotalventaActualizar  = importevalorventaActualizar + Importeigvv + (importeotrostributosActualizar ?? 0) + Importeicbper
+    let importetotalventaActualizar  = importevalorventaActualizar + ImpIGV + (importeotrostributosActualizar ?? 0) + icbper
 
     this.Form.controls['importeotrostributos'].setValue(importeotrostributosActualizar);
     this.Form.controls['importetotalventa'].setValue(importetotalventaActualizar);
 
     //MOSTRAR TOTAL
-    this.totalaPagar = this.Form.controls['importetotalventa'].value;
+    this.totalaPagar = importetotalventaActualizar;
 
     this.onSumarioDetallado();
   }
@@ -1824,7 +1782,7 @@ export class NuevaVentaComponent implements OnInit {
     }else if(dsctoglobalporcentaje === 0){
       this.Form.controls['dsctoglobalrporcentaje'].setValue(0.00);
     }
-    let convertirNumero =  this.onDosDecimales(dsctoglobalporcentaje)  //Number.parseFloat(dsctoglobalporcentaje).toFixed(2);
+    let convertirNumero =  dsctoglobalporcentaje //Number.parseFloat(dsctoglobalporcentaje).toFixed(2);
     this.Form.controls['dsctoglobalrporcentaje'].setValue(+convertirNumero);
     
     this.onCalcularTotalVenta();

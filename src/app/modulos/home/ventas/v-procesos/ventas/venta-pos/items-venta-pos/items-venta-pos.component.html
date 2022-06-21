@@ -154,9 +154,10 @@
                                             <div class="p-inputgroup"> 
                                                 <input type="number" (keyup)="CalcularTotal($event, rowIndex , indexTab)" [value]="detalles.precioProducto" style="width: 100%;text-align: right;" [min]="0" class="p-inputtext-sm" pInputText >   
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarItem(rowIndex, indexTab)"
                                                     icon="pi pi-trash">  
                                                 </button>

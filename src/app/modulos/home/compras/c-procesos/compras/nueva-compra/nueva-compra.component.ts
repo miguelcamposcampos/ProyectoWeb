@@ -1396,7 +1396,7 @@ export class NuevaCompraComponent implements OnInit {
 
        console.log(newCompra);
 
-      if(!this.dataCompra){
+      if(!this.CompraEditar){
         this.comprasService.createCompra(newCompra).subscribe((resp) => {
           if(resp){
             this.swal.mensajePregunta("¿Quiere continuar con el registro?").then((response) => {

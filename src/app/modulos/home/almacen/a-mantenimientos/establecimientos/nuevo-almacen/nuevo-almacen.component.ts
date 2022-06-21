@@ -104,7 +104,7 @@ export class NuevoAlmacenComponent implements OnInit {
       tipoproductosid: data.tipoProducto.id,
       validarstock : data.validarStock
     }
-    if(!this.dataAlmacenEdit.idAlmacenEdit){
+    if(!this.AlmacenEdit){
       this.establecimientoService.crearAlmacen(newAlmacen).subscribe((resp)=> {
         if(resp){
           this.swal.mensajeExito('Los datos se grabaron correctamente!.')

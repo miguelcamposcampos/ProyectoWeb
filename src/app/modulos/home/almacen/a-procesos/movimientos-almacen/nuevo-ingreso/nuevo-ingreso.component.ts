@@ -42,8 +42,7 @@ export class NuevoIngresoComponent implements OnInit {
   modalBuscarPersona : boolean = false;
   modalBuscarProducto : boolean = false;
   mostrarBotonReportes : boolean = false;
-  mostrarDropdownAlmacenDestino :boolean =false;
-  mostrarbotoneliiminarDetalle : boolean = false;
+  mostrarDropdownAlmacenDestino :boolean =false; 
   existenroRegsitro : boolean = false;
 
   idPersonaSeleccionada : number = 0;  
@@ -150,12 +149,7 @@ export class NuevoIngresoComponent implements OnInit {
   get fa() { return this.Form.get('arrayDetalles') as FormArray; } 
   get detallesForm() { return this.fa.controls as FormGroup[]; }
 
-  onAgregarDetalle(){   
-    if(this.detallesForm.length > 0){
-      this.mostrarbotoneliiminarDetalle = true;
-    }else{
-      this.mostrarbotoneliiminarDetalle = false;
-    } 
+  onAgregarDetalle(){    
     this.detallesForm.push(this.AddDetalle());    
   }
 
@@ -181,12 +175,7 @@ export class NuevoIngresoComponent implements OnInit {
   onEliminarDetalle(index : any, detalleid : any){  
     if(detalleid === 0){
       this.fa.removeAt(index);  
-      this.cdr.detectChanges();  
-
-      if(this.detallesForm.length === 1){
-        this.mostrarbotoneliiminarDetalle = false;
-      } 
-
+      this.cdr.detectChanges();   
     } else{
       this.swal.mensajePregunta("¿Seguro que desea eliminar el detalle.?").then((response) => {
         if (response.isConfirmed) {

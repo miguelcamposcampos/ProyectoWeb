@@ -74,7 +74,7 @@ export class NuevoColorComponent implements OnInit {
     }
 
 
-    if(!this.idColorEdit){
+    if(!this.dataColorEdit){
       this.colorService.crearColor(newColor).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');

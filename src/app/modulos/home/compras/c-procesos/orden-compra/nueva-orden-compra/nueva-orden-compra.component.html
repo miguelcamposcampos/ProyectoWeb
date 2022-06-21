@@ -77,7 +77,7 @@
                                 <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm" placeholder="busca un proveedor">   
                                 <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm" placeholder="busca un proveedor">   
                                 <button type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarProveedor();" pButton  icon="pi pi-search"></button>      
-                                <button [disabled]="!existeProveedorSeleccionado" type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarProveedor();" pButton  icon="pi pi-trash"></button>    
+                                <button [disabled]="!existeProveedorSeleccionado" type="button" class="p-button-sm"  style=" background-color: #D72250;" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarProveedor();" pButton  icon="pi pi-trash"></button>    
                             </div>
                         </div>
 
@@ -199,9 +199,10 @@
                                         <tr [formGroupName]="rowIndex"> 
                                             <td>
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleCompra(rowIndex, detallesCompra.value.compradetalleid)"
                                                     icon="pi pi-trash">  
                                                 </button>

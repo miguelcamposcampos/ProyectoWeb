@@ -69,7 +69,7 @@
                                 <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
                                 <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
                                 <button type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton  icon="pi pi-search"></button>      
-                                <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
+                                <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm" pTooltip="Buscar"  style=" background-color: #D72250;" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
                             </div>
                         </div>
 
@@ -176,9 +176,10 @@
                                             </td>
                                             <td>
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleCondicionPago(rowIndex, detalles.value.ventacuotascreditoid)"
                                                     icon="pi pi-trash">  
                                                 </button>
@@ -253,9 +254,10 @@
                                         <tr [formGroupName]="rowIndex"> 
                                             <td> 
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleVenta(rowIndex)"
                                                     icon="pi pi-trash">  
                                                 </button> 
@@ -288,11 +290,11 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Cantidad</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"  (keyup)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">PrecioU</strong>
-                                                <input type="text" style="width: 80px;text-align: right;"  (keyup)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
+                                                <input type="text" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
                                             </td>   
                                             <td>
                                                 <strong class="p-column-title">Base Impon,</strong>
@@ -300,7 +302,7 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">% Dcsto</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"  (keyup)="onCalcularPrecioVenta(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
+                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Imp.Dcsto</strong>
@@ -312,15 +314,15 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Valor Venta</strong>
-                                                <input type="text" style="width: 80px;text-align: right;"  readonly class="p-inputtext-sm" pInputText formControlName="valorVenta">  
+                                                <input type="text" style="width: 80px;text-align: right;" readonly class="p-inputtext-sm" pInputText formControlName="valorVenta">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">IGV</strong>
-                                                <input type="text" style="width: 80px;text-align: right;" readonly class="p-inputtext-sm" pInputText formControlName="igv">  
+                                                <input type="number" style="width: 80px;text-align: right;" readonly [value]="detallesVentaForm[rowIndex].get('igv').value | number:'0.2-2'"  class="p-inputtext-sm" pInputText formControlName="igv">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Imp.Otros.C</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"  (keyup)="onCalcularPrecioVenta(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importesotroscargos">  
+                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importesotroscargos">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">ICBPER</strong>
@@ -328,7 +330,7 @@
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">PrecioV</strong>
-                                                <input type="text" style="width: 80px;text-align: right;" readonly [min]="0" class="p-inputtext-sm" pInputText formControlName="precioventa">  
+                                                <input type="number" style="width: 80px;text-align: right;" readonly [value]="detallesVentaForm[rowIndex].get('precioventa').value | number:'0.2-2'"   [min]="0" class="p-inputtext-sm" pInputText formControlName="precioventa">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">NroLote</strong>
@@ -396,9 +398,10 @@
                                             </td>  
                                             <td>
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleGuiaRemision(rowIndex, detallesGuiaRemision.value.ventadocumentosreferenciaid)"
                                                     icon="pi pi-trash">  
                                                 </button>
@@ -463,6 +466,7 @@
                                                     class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleDocumentoRef(rowIndex, detallesDocumentoRef.value.ventadocumentosreferenciaid)"
                                                     icon="pi pi-trash">  
                                                 </button> 

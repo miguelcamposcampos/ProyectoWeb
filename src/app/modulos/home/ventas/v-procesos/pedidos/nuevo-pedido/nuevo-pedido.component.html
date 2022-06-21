@@ -76,7 +76,7 @@
                                 <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
                                 <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
                                 <button type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton  icon="pi pi-search"></button>      
-                                <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
+                                <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm"  style=" background-color: #D72250;" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
                             </div>
                         </div>
 
@@ -212,9 +212,10 @@
                                         <tr [formGroupName]="rowIndex"> 
                                             <td>
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleVenta(rowIndex, detallesVenta.value.ventadetalleid)"
                                                     icon="pi pi-trash">  
                                                 </button>
@@ -359,9 +360,10 @@
                                             </td>  
                                             <td>
                                                 <button  
-                                                    class="p-button-sm p-button-rounded mx-2"
+                                                    class="p-button-sm p-button-rounded"
                                                     pButton 
                                                     type="button"
+                                                    style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleGuiaRemision(rowIndex, detallesGuiaRemision.value.ventadocumentosreferenciaid)"
                                                     icon="pi pi-trash">  
                                                 </button>

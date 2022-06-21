@@ -68,7 +68,7 @@ export class NuevaCondicionPagoComponent implements OnInit {
     }
  
 
-    if(!this.dataCondicion){
+    if(!this.CondicionPagoEditar){
       this.condicionPagoService.crearCondicionPago(newCondicionPago).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');

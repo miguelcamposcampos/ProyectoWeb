@@ -982,7 +982,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
 
        console.log(newOrdenCompra);
 
-      if(!this.dataOrdenCompra){
+      if(!this.OrdenCompraEditar){
         this.ocService.createOrdenCompra(newOrdenCompra).subscribe((resp) => {
           if(resp){
             this.swal.mensajePregunta("¿Quiere continuar con el registro?").then((response) => {

@@ -36,7 +36,7 @@
                         <div class="p-inputgroup">  
                             <input type="text" readonly  formControlName="nombreCliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
                             <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onModalBuscarCliente();" pButton icon="pi pi-search"></button>      
-                            <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
+                            <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Borrar"  style=" background-color: #D72250;"  class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
                         </div> 
                     </div>
                     <div class="p-field p-col-12 p-md-2 p-sm-3">     

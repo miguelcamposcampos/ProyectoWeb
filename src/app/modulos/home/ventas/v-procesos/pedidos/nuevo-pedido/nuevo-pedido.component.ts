@@ -687,7 +687,7 @@ export class NuevoPedidoComponent implements OnInit {
       pedidoData : DetallePedidoGrabar, 
     }
   
-    if(!this.dataPedido){
+    if(!this.PedidoEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp) => {
         if(resp){
           this.onVolver();

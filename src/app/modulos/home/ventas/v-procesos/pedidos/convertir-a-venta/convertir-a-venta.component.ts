@@ -102,7 +102,8 @@ export class ConvertirAVentaComponent implements OnInit {
   bloquearComboImpresoras : boolean = true;
   dataDesencryptada :any;
   dataPredeterminadosDesencryptada:any;
-
+  porcentajebolsaplasticaLS : any;
+  
   constructor(
     private ventaservice : VentasService,
     private generalService : GeneralService,
@@ -742,6 +743,7 @@ export class ConvertirAVentaComponent implements OnInit {
       if(resp){   
         this.detallesVentaForm.length = 0; 
         this.VentaEditar = resp
+ 
         for( let  i = 0; i < this.VentaEditar.detalles.length; i++){ 
           this.onAgregarDetalleVenta(); 
           this.detallesVentaForm[i].patchValue({
@@ -999,7 +1001,7 @@ export class ConvertirAVentaComponent implements OnInit {
       idsToDelete: this.arrayDetallesEliminados,
       ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0, 
     } 
-    if(!this.dataVenta){
+    if(!this.VentaEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp) => {
         if(resp){
           this.onVolver();
@@ -1430,88 +1432,120 @@ export class ConvertirAVentaComponent implements OnInit {
   }
 
   onCalcularPrecioVenta(posicion : number){
-    this.valorIGV = 0.18
-    let Porcentajebolsaplastica = 0.3;
-    let isOperacionGravada = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esGravada;
-    let Preciounitario = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.preciounitario;
-    let Porcentajedescuento = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.porcentajedescuento;
-    let Cantidad : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.cantidad;
-    let isAfectoICBPER = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esafectoicbper;
+    const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
 
-    if (!isOperacionGravada){
-      this.detallesVentaForm[posicion].patchValue({
-        precioincluyeigv : false
-      });
-    }
+    if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
+    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+    let biActualizar  = DataForm.cantidad * preciosinigv;
+    this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
 
-    let Precioincluyeigv = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.precioincluyeigv;
+    let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
+    this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd);
 
-    let preciosinigv
-    if(Precioincluyeigv){
-      preciosinigv = +(Preciounitario / (1 +this.valorIGV))
-    }else{
-      preciosinigv = +Preciounitario
-    }
+    let vVenta = (biActualizar - DataForm.importedescuento);
+    this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
+  
+    let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
+    this.detallesVentaForm[posicion].controls['igv'].setValue(igvAct);
+ 
+    let precioventaAct = (+vVenta + igvAct + DataForm.importesotroscargos);
+    let importeicbperAct = DataForm.cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
 
-
-    let biActualizar  = Cantidad * +parseFloat(preciosinigv.toFixed(3)) 
-    this.detallesVentaForm[posicion].patchValue({
-      baseimponible :  +parseFloat(biActualizar.toFixed(2))
-    });
-
-   // let Baseimponible : number  = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.baseimponible;
-    if( Porcentajedescuento > 0){
-      let dsctoFactor =  ( Porcentajedescuento / 100);
-      let impd : number = (biActualizar * dsctoFactor);
-
-      this.detallesVentaForm[posicion].patchValue({
-        importedescuento : +parseFloat(impd.toFixed(2))
-      });
-    }else{
-      this.detallesVentaForm[posicion].patchValue({
-        importedescuento : 0
-      });
-    }
-
-    let Importedescuento : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importedescuento;
-    let vVenta = (biActualizar - Importedescuento);
-    this.detallesVentaForm[posicion].patchValue({
-      valorVenta :  +parseFloat(vVenta.toFixed(2))
-    });
-
-
-   // let Valorventa : number  = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.valorVenta;
-    if(isOperacionGravada){
-      let igvAct = (vVenta * this.valorIGV);
-      this.detallesVentaForm[posicion].patchValue({
-        igv : Math.round((igvAct + Number.EPSILON) * 100) / 100  //+parseFloat(igvAct.toFixed(2))
-      });
-    }else{
-      this.detallesVentaForm[posicion].patchValue({
-        igv : 0
-      });
-    }
-
-    let Importeotroscargos : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importesotroscargos;
-    let Igv : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.igv;
-
-    let precioventaAct : number =  (vVenta +  Igv + Importeotroscargos);
-    let importeicbperAct : number = (Cantidad * (Porcentajebolsaplastica ?? 0 ));
-
-    if(isAfectoICBPER){
+    if(DataForm.esafectoicbper){ 
       this.detallesVentaForm[posicion].patchValue({
         importeicbper : importeicbperAct,
-        precioventa :  Math.round((precioventaAct + Number.EPSILON) * 100) // +parseFloat(precioventaAct.toFixed(2))
+        precioventa : precioventaAct
       });
-    }else{
-
+    }else{ 
       this.detallesVentaForm[posicion].patchValue({
         importeicbper : 0,
-        precioventa :  Math.round((precioventaAct + Number.EPSILON) * 100) 
+        precioventa : precioventaAct
       });
     }
   
     this.onCalcularTotalVenta();
+  //   this.valorIGV = 0.18
+  //   let Porcentajebolsaplastica = 0.3;
+  //   let isOperacionGravada = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esGravada;
+  //   let Preciounitario = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.preciounitario;
+  //   let Porcentajedescuento = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.porcentajedescuento;
+  //   let Cantidad : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.cantidad;
+  //   let isAfectoICBPER = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esafectoicbper;
+
+  //   if (!isOperacionGravada){
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       precioincluyeigv : false
+  //     });
+  //   }
+
+  //   let Precioincluyeigv = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.precioincluyeigv;
+
+  //   let preciosinigv
+  //   if(Precioincluyeigv){
+  //     preciosinigv = +(Preciounitario / (1 +this.valorIGV))
+  //   }else{
+  //     preciosinigv = +Preciounitario
+  //   }
+
+
+  //   let biActualizar  = Cantidad * +parseFloat(preciosinigv.toFixed(3)) 
+  //   this.detallesVentaForm[posicion].patchValue({
+  //     baseimponible :  +parseFloat(biActualizar.toFixed(2))
+  //   });
+
+  //  // let Baseimponible : number  = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.baseimponible;
+  //   if( Porcentajedescuento > 0){
+  //     let dsctoFactor =  ( Porcentajedescuento / 100);
+  //     let impd : number = (biActualizar * dsctoFactor);
+
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       importedescuento : +parseFloat(impd.toFixed(2))
+  //     });
+  //   }else{
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       importedescuento : 0
+  //     });
+  //   }
+
+  //   let Importedescuento : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importedescuento;
+  //   let vVenta = (biActualizar - Importedescuento);
+  //   this.detallesVentaForm[posicion].patchValue({
+  //     valorVenta :  +parseFloat(vVenta.toFixed(2))
+  //   });
+
+
+  //  // let Valorventa : number  = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.valorVenta;
+  //   if(isOperacionGravada){
+  //     let igvAct = (vVenta * this.valorIGV);
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       igv : Math.round((igvAct + Number.EPSILON) * 100) / 100  //+parseFloat(igvAct.toFixed(2))
+  //     });
+  //   }else{
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       igv : 0
+  //     });
+  //   }
+
+  //   let Importeotroscargos : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importesotroscargos;
+  //   let Igv : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.igv;
+
+  //   let precioventaAct : number =  (vVenta +  Igv + Importeotroscargos);
+  //   let importeicbperAct : number = (Cantidad * (Porcentajebolsaplastica ?? 0 ));
+
+  //   if(isAfectoICBPER){
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       importeicbper : importeicbperAct,
+  //       precioventa :  Math.round((precioventaAct + Number.EPSILON) * 100) // +parseFloat(precioventaAct.toFixed(2))
+  //     });
+  //   }else{
+
+  //     this.detallesVentaForm[posicion].patchValue({
+  //       importeicbper : 0,
+  //       precioventa :  Math.round((precioventaAct + Number.EPSILON) * 100) 
+  //     });
+  //   }
+  
+  //   this.onCalcularTotalVenta();
 
   }
 
