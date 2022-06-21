@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner'; 
-import { AuthService } from 'src/app/auth/services/auth.service'; 
+import { NgxSpinnerService } from 'ngx-spinner';  
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IEmpresa, IPlanes, } from '../../interface/empresa.interface';
@@ -14,10 +13,9 @@ import { EmpresaService } from '../../services/empresa.service';
 })
 export class AgregarEmpresaComponent implements OnInit { 
  
-
+  @Input() newEmpresa : boolean;
   @Output() cerrar: any = new EventEmitter<any>();
- 
-  EmpresaForm! : FormGroup;
+  EmpresaForm : FormGroup;
   Empresa! : IEmpresa;  
   EmpresaEdit! : IEmpresa;  
   PlanesArray! : IPlanes;
@@ -29,23 +27,22 @@ export class AgregarEmpresaComponent implements OnInit {
 
  
   constructor( 
-    private empresaService: EmpresaService,  
-    private authService : AuthService,
+    private empresaService: EmpresaService,   
     private formBuilder: FormBuilder,
     private swal : MensajesSwalService,
     private generalService : GeneralService,
-    private spinner : NgxSpinnerService
-
+    private spinner : NgxSpinnerService 
   ) { 
-    this.authService.verificarAutenticacion(); 
+   
     this.builform();
   }
 
   ngOnInit(): void {    
-    this.onTraerDatosParEditarEmpresa(); 
+    if(!this.newEmpresa){
+      this.onTraerDatosParEditarEmpresa(); 
+    }
   }
-
-  
+ 
   private builform(): void {
     this.EmpresaForm = this.formBuilder.group({
       Ruc: new FormControl( null, Validators.required),
@@ -61,6 +58,7 @@ export class AgregarEmpresaComponent implements OnInit {
   onTraerDatosParEditarEmpresa(){   
     this.spinner.show();
     this.empresaService.empresaPorGuid().subscribe((resp) => {  
+      console.log(resp);
       if(resp){ 
         this.EmpresaEdit = resp;
         this.EmpresaForm.patchValue({
@@ -152,9 +150,9 @@ export class AgregarEmpresaComponent implements OnInit {
   }
   
   onLimpiarFormulario(){
-    this.EmpresaForm.controls['RazonSocial'].setValue('');
-    this.EmpresaForm.controls['NombreComercial'].setValue('');
-    this.EmpresaForm.controls['DireccionFiscal'].setValue(''); 
+    this.EmpresaForm.controls['RazonSocial'].setValue(null);
+    this.EmpresaForm.controls['NombreComercial'].setValue(null);
+    this.EmpresaForm.controls['DireccionFiscal'].setValue(null); 
   }
 
   onRegresar() { 

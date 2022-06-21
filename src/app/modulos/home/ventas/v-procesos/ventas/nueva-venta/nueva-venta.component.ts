@@ -1721,7 +1721,6 @@ export class NuevaVentaComponent implements OnInit {
 
     //MOSTRAR TOTAL
     this.totalaPagar = importetotalventaActualizar;
-
     this.onSumarioDetallado();
   }
 

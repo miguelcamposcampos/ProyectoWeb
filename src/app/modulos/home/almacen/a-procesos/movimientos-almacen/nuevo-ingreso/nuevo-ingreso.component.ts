@@ -372,7 +372,7 @@ export class NuevoIngresoComponent implements OnInit {
       almacenorigenid : dataform.almacenOrigen.id,
       cantidadtotal : this.MovimientoEditar ? this.MovimientoEditar.cantidadtotal : 0,
       detalles: this.arrayDetalleGrabar,  
-      fechamovimiento : this.formatoFecha.transform(dataform.fechamovimiento,ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
+      fechamovimiento : this.formatoFecha.transform(dataform.fecha,ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       glosa: dataform.glosa,
       monedaid : dataform.moneda.id,
       motivoid : dataform.motivo.id,

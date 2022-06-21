@@ -27,7 +27,7 @@ export class ListaEmpresasComponent implements OnInit {
   empresasAsociadas : IEmpresa[] = [];
   ColsEmpresa: InterfaceColumnasGrilla[] = [];
   itemsEmpresa! : MenuItem[];   
-  tokenLS : any = ""; 
+  newEmpresa : boolean; 
   empresasAcceder! : DataEmpresa; 
   mostrarHeader : boolean = true;
   dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
@@ -160,8 +160,8 @@ export class ListaEmpresasComponent implements OnInit {
       }
     }) 
   }
+
   onNuevoTokenItems(vista :string){
-    
     const newtoken : IAuth = {
       email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
       passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
@@ -174,6 +174,7 @@ export class ListaEmpresasComponent implements OnInit {
         }else if (vista === 'usuario'){
           this.VistaUsuarios = true;
         }else if(vista === 'editarempresa'){
+          this.newEmpresa = false;
           this.VistaEditarEmpresa = true;
         }else if(vista === 'planes'){
           this.VistaListaPlanes = true;
@@ -183,34 +184,16 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   onRegistrarEmpresa(){  
+    this.newEmpresa = true
     this.VistaEditarEmpresa = true;
   }
 
-  // onVistaListaPlanes(){
-  //   this.tokenLS = localStorage.getItem('token');
-  //   this.VistaListaPlanes = true;
-  // }
 
   //Vistas
   onVistaPlanes(){
     this.mostrarHeader =  this.mostrarHeader
     this.VistaPlanes = true;
   }
-
-  // onVistaEditar(){  
-  //   this.tokenLS =  localStorage.getItem('token');
-  //   this.VistaEditarEmpresa = true;
-  // }
-
-  // onVistaRoles(){ 
-  //   this.tokenLS =  localStorage.getItem('token');
-  //   this.VistaRoles = true;
-  // }
-
-  // onVistaUsuarios(){  
-  //   this.tokenLS =  localStorage.getItem('token');
-  //   this.VistaUsuarios = true;
-  // }
 
   
   //CerrarVistas
@@ -225,8 +208,6 @@ export class ListaEmpresasComponent implements OnInit {
     this.VistaListaPlanes = false;
   }
 
-  
-
   onLogout(){
     this.swal.mensajePregunta("¿Seguro que desea cerrar la sesión?").then((response) => {
       if (response.isConfirmed) {
@@ -236,7 +217,6 @@ export class ListaEmpresasComponent implements OnInit {
     })
   }
   
- 
   onPlanelegido(event :any){
     if(event){
       const newPedido : IPedioCrate = {

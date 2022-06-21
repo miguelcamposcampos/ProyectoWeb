@@ -166,14 +166,14 @@ ngOnInit(): void {
 
 
   limpiarForm(){
-    this.Form.controls['nroDocumento'].setValue('');
-    this.Form.controls['apellidos'].setValue('');
-    this.Form.controls['nombres'].setValue('');
-    this.Form.controls['razonSocial'].setValue(''); 
-    this.Form.controls['email'].setValue('');
-    this.Form.controls['telefonos'].setValue('');
-    this.Form.controls['website'].setValue('');
-    this.Form.controls['contacto'].setValue('');
+    this.Form.controls['nroDocumento'].setValue(null);
+    this.Form.controls['apellidos'].setValue(null);
+    this.Form.controls['nombres'].setValue(null);
+    this.Form.controls['razonSocial'].setValue(null); 
+    this.Form.controls['email'].setValue(null);
+    this.Form.controls['telefonos'].setValue(null);
+    this.Form.controls['website'].setValue(null);
+    this.Form.controls['contacto'].setValue(null);
     this.ubigeoSeleccionado = null,
     this.ubigeoParaMostrar = "";
   }

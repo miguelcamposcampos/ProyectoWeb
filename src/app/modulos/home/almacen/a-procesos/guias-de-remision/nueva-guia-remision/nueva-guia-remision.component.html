@@ -98,7 +98,7 @@
                                 <div class="p-field p-col-12 p-md-12">
                                     <strong>Doc.Referencia </strong>  
                                     <div class="InputCombinado">  
-                                        <p-dropdown class="extender" [options]="arraySeries" formControlName="docReferencia"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        <p-dropdown class="extender" [options]="arraySeries" (onChange)="onObtenerDocReferencia($event)"  formControlName="docReferencia"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
                                         <input type="number" pInputText  class="p-inputtext-sm" formControlName="seriedocref"    placeholder="ingresar">   
                                         <input type="number" pInputText  class="p-inputtext-sm"  formControlName="secuencialref"   placeholder="ingresar">   
                                     </div>

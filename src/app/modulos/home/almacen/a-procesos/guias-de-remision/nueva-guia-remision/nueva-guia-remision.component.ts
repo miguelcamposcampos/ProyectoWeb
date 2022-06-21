@@ -295,6 +295,18 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     });
   }
 
+  onObtenerDocReferencia(event : any){
+    console.log(event.value);
+    if(event.value){
+      this.Form.patchValue({
+        docReferencia: this.arraySeries.find(
+          (x) => x.id === event.value.id
+        )
+      })
+    }else{
+      this.Form.controls['docReferencia'].setValue(null);
+    }
+  }
 
   Avisar(){
     this.FlgLlenaronCombo.subscribe((x) => {
@@ -495,7 +507,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   }
 
   onEliminarDetalle(index : any, idDetalleArray: any){   
-    
     if(!idDetalleArray){  
       this.fa.removeAt(index);  
       this.cdr.detectChanges();  
@@ -512,7 +523,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       }) 
     }
   }
-
 
   /* BUSCAR PERSONA */
   onModalBuscarPersona(){

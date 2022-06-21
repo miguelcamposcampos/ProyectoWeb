@@ -56,7 +56,7 @@ export class NuevoTransportistaComponent implements OnInit {
       razonSocial: new FormControl(null, Validators.required),  
       telefono: new FormControl(null),   
       fax: new FormControl(null),      
-      email: new FormControl(null, Validators.required),  
+      email: new FormControl(null),  
       direccionprincipal: new FormControl(null),  
     });
   }
@@ -176,13 +176,13 @@ export class NuevoTransportistaComponent implements OnInit {
 
   
   limpiarForm(){
-    this.Form.controls['nroDocumento'].setValue('');
-    this.Form.controls['apellidos'].setValue('');
-    this.Form.controls['nombres'].setValue('');
-    this.Form.controls['razonSocial'].setValue(''); 
-    this.Form.controls['telefono'].setValue('');
-    this.Form.controls['fax'].setValue('');
-    this.Form.controls['email'].setValue('');
+    this.Form.controls['nroDocumento'].setValue(null);
+    this.Form.controls['apellidos'].setValue(null);
+    this.Form.controls['nombres'].setValue(null);
+    this.Form.controls['razonSocial'].setValue(null); 
+    this.Form.controls['telefono'].setValue(null);
+    this.Form.controls['fax'].setValue(null);
+    this.Form.controls['email'].setValue(null);
     this.ubigeoSeleccionado = null,
     this.ubigeoParaMostrar = "";
   }

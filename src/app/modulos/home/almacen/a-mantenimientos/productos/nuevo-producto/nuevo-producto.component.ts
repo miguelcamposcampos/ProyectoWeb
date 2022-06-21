@@ -40,7 +40,7 @@ export class NuevoProductoComponent implements OnInit {
   stringBuscarenUnesco : string  ="";
   codigoProductoUnesco : string ="";
  
- 
+  estadoForm : string ="";
   arrayPreciosaEditar: IPreciosProducto[] = [];  
   dataProductoEditar : IUpdateProducto;  
 
@@ -58,9 +58,9 @@ export class NuevoProductoComponent implements OnInit {
 
   public builform(): void {
     this.Form =  this.fb.group({ 
-      codigoParaBuscarUnesco: new FormControl(null, Validators.required),
+      codigoParaBuscarUnesco: new FormControl(null),
       codigoproducto: new FormControl(null, Validators.required),
-      proveedor: new FormControl(null, Validators.required), 
+      proveedor: new FormControl(null), 
       codigounesco: new FormControl(null),   
       idlinea: new FormControl(null),   
       idcolor: new FormControl(null),
@@ -69,19 +69,19 @@ export class NuevoProductoComponent implements OnInit {
       // idColeccion: new FormControl(null),   
       // idUnidadMedida: new FormControl(null),
       idtipoProducto: new FormControl(null, Validators.required), 
-      esServiciooArticulo: new FormControl('articulo', Validators.required),   
+      esServiciooArticulo: new FormControl('articulo'),   
       descripcion: new FormControl(null, Validators.required),   
       unidadMedida: new FormControl(null, Validators.required),   
       modelo: new FormControl(null),   
-      activo: new FormControl(true, Validators.required),   
-      incluirProveedorEnDescripcion: new FormControl(false, Validators.required),   
-      requiereLote: new FormControl(false, Validators.required),   
-      requiereSerie: new FormControl(false, Validators.required),   
+      activo: new FormControl(true),   
+      incluirProveedorEnDescripcion: new FormControl(false),   
+      requiereLote: new FormControl(false),   
+      requiereSerie: new FormControl(false),   
       usadoCompras: new FormControl(true),   
       usadoVentas: new FormControl(true),   
-      descripcionEditable: new FormControl(false, Validators.required),   
-      afectoICBPER: new FormControl(false, Validators.required),  
-      afectacionid: new FormControl(false, Validators.required),
+      descripcionEditable: new FormControl(false),   
+      afectoICBPER: new FormControl(false),  
+      afectacionid: new FormControl(false),
       arrayPrecios: this.fb.array([])
     });
   }
@@ -164,12 +164,12 @@ export class NuevoProductoComponent implements OnInit {
 
   inciarFormNuevoPrecio(){
     return this.fb.group({ 
-      cantidadparaaplicar : new  FormControl(0, Validators.required),
-      cantidadunidadmedida : new FormControl(0, Validators.required), 
+      cantidadparaaplicar : new  FormControl(0),
+      cantidadunidadmedida : new FormControl(0), 
       maxprocentajedscto: new FormControl(0),  
-      monedaid: new FormControl(null, Validators.required),
+      monedaid: new FormControl(null),
       precioincluyeigv: new FormControl(false),   
-      precioventa: new FormControl(null, Validators.required),   
+      precioventa: new FormControl(null),   
       productoid: new FormControl(0),  
       productopreciosid: new FormControl(0),
       tienecondicionacantidad: new FormControl(false),
@@ -199,16 +199,17 @@ export class NuevoProductoComponent implements OnInit {
     this.productoService.productoPorId(this.idProductoEdit).subscribe((resp)=> { 
       if(resp){   
         this.dataProductoEditar = resp;    
+        this.estadoForm = 'editar'
         this.codigoProductoUnesco = this.dataProductoEditar.codigounesco
         this.Form.patchValue({
           codigounesco :  this.dataProductoEditar.codigounesco,
           codigoproducto: this.dataProductoEditar.codigoproducto,
           proveedor: this.dataProductoEditar.codproveedor,  
           idlinea: this.arrayLinea.find(
-            (x) => x.id === this.dataProductoEditar.lineaid
+            (x) => x.id === this.dataProductoEditar.lineaid ?? 0
           ),
           idcolor: this.arrayColores.find(
-            (x) => x.id === this.dataProductoEditar.colorid
+            (x) => x.id === this.dataProductoEditar.colorid ?? 0
           ),
           idtipoProducto: this.arrayTipoProducto.find(
             (x) => x.id === this.dataProductoEditar.tipoproducto
@@ -245,7 +246,9 @@ export class NuevoProductoComponent implements OnInit {
  onPintarFormArray(){ 
     /* PINTAMOS EL ARRAY DE PRECIOS */
     for( let  i = 0; i < this.dataProductoEditar.precios.length; i++){ 
-     this.onAgregarNuevoPrecio();
+      if(this.estadoForm === 'editar'){
+        this.onAgregarNuevoPrecio();
+      }
       this.preciosForm[i].patchValue({
         cantidadparaaplicar : this.dataProductoEditar.precios[i].cantidadparaaplicar,
         cantidadunidadmedida: this.dataProductoEditar.precios[i].cantidadunidadmedidaid,
@@ -254,7 +257,7 @@ export class NuevoProductoComponent implements OnInit {
           (x) => x.id ===  this.dataProductoEditar.precios[i].monedaid
         ), 
         precioincluyeigv : this.dataProductoEditar.precios[i].precioincluyeigv,
-        precioventa : this.dataProductoEditar.precios[i].precioventa,
+        precioventa : +this.dataProductoEditar.precios[i].precioventa,
         productoid : this.dataProductoEditar.precios[i].productoid,
         productopreciosid : this.dataProductoEditar.precios[i].productopreciosid,
         tienecondicionacantidad :  this.dataProductoEditar.precios[i].tienecondicioncantidad 
@@ -265,27 +268,11 @@ export class NuevoProductoComponent implements OnInit {
 
 
   onGrabarProducto(){
-    const dataForm = this.Form.value;
-
-    let esarticulo : boolean;
-    let esServicio : boolean;
-    let esBolsaPlastica : boolean = false;
-
-    if(dataForm.unidadMedida.id === 2){
-      esBolsaPlastica = true;
-    }
- 
-    if(dataForm.esServiciooArticulo === "articulo"){ 
-      esarticulo = true;
-      esServicio =  false; 
-    }else if(dataForm.esServiciooArticulo === "servicio"){
-      esServicio =  true; 
-      esarticulo = false;
-    }else{
-      esarticulo = false;
-      esServicio =  false; 
-    }
-    
+    const dataForm = this.Form.value; 
+    let esarticulo : boolean = dataForm.esServiciooArticulo === "articulo" ? true :  false;
+    let esServicio : boolean = dataForm.esServiciooArticulo === "servicio" ? true :  false;
+    let esBolsaPlastica : boolean = dataForm.unidadMedida.id === 2 ? true : false;
+  
       this.preciosForm.forEach(element => {     
         if(!element.value.monedaid){
           this.swal.mensajeInformacion('Aquellos registros vacios no se insertaran en al registro.');
@@ -297,7 +284,7 @@ export class NuevoProductoComponent implements OnInit {
           maxporcentajedscto: element.value.maxprocentajedscto,
           monedaid : element.value.monedaid.id,
           precioincluyeigv : element.value.precioincluyeigv,
-          precioventa : element.value.precioventa,
+          precioventa : +element.value.precioventa,
           productoid : this.dataProductoEditar ?  element.value.productoid : 0,
           productopreciosid:  this.dataProductoEditar ? element.value.productopreciosid : 0,
           tienecondicioncantidad :  element.value.tienecondicionacantidad
@@ -311,7 +298,7 @@ export class NuevoProductoComponent implements OnInit {
       codigoproducto : dataForm.codigoproducto,
       codigounesco :  dataForm.codigounesco,
       codproveedor : dataForm.proveedor,
-      colorid: dataForm.idcolor.id,
+      colorid: dataForm.idcolor ? dataForm.idcolor.id : null,
       descripcion : dataForm.descripcion,
       descripcioneditable : dataForm.descripcionEditable,
       esarticulo : esarticulo,
@@ -361,6 +348,25 @@ export class NuevoProductoComponent implements OnInit {
   onRegresar(){
     this.cerrar.emit(false)
   }
+
+
+  validateFormat(event) { 
+    let key;
+    if (event.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+    } else {
+      key = event.keyCode;
+      key = String.fromCharCode(key);
+    }
+    const regex = /[0-9]|\./;
+     if (!regex.test(key)) {
+      event.returnValue = false;
+       if (event.preventDefault) {
+        event.preventDefault();
+       }
+     }
+    }
+    
 
  
 }

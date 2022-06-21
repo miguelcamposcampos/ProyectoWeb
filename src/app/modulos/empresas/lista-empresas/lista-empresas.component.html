@@ -122,9 +122,9 @@
 </div>
   
  
-<app-lista-pedidos *ngIf="VistaListaPlanes" (cerrar)="onRetornar($event)"  ></app-lista-pedidos>
+<app-lista-pedidos *ngIf="VistaListaPlanes" (cerrar)="onRetornar($event)" ></app-lista-pedidos>
 
-<app-agregar-empresa *ngIf="VistaEditarEmpresa" (cerrar)="onRetornar($event)"></app-agregar-empresa>
+<app-agregar-empresa *ngIf="VistaEditarEmpresa" [newEmpresa]="newEmpresa" (cerrar)="onRetornar($event)"></app-agregar-empresa>
 
 <app-roles *ngIf="VistaRoles" (cerrar)="onRetornar($event)"></app-roles>
 

@@ -43,10 +43,10 @@
                 <p-fieldset>
                     <ng-template pTemplate="header">Codigo</ng-template>
                     <div class="formulario"> 
-                        <strong>Interno</strong>
+                        <strong>Interno *</strong>
                         <input type="text" pInputText formControlName="codigoproducto" class="p-inputtext-sm" placeholder="ingresar código del producto">   
                     
-                        <strong>Proveedor *</strong>
+                        <strong>Proveedor</strong>
                         <input  type="text" pInputText formControlName="proveedor" class="p-inputtext-sm" placeholder="ingresar el proveedor">     
 
                         <strong>SUNAT</strong>  
@@ -66,8 +66,8 @@
                 <p-fieldset>
                     <ng-template pTemplate="header">Categorizacion</ng-template>
                     <div class="formulario"> 
-                        <strong>Linea</strong>    
-                        <p-dropdown class="extender" [options]="arrayLinea"  formControlName="idlinea"  placeholder="Selecciona una linea"   optionLabel="valor1"  [showClear]="true" ></p-dropdown>
+                        <strong>Linea *</strong>    
+                        <p-dropdown class="extender" [options]="arrayLinea"  formControlName="idlinea"  placeholder="Selecciona una linea"   optionLabel="valor1"></p-dropdown>
                         
                         <strong>Color</strong>  
                         <p-dropdown class="extender" [options]="arrayColores"  formControlName="idcolor" placeholder="Selecciona un Color" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
@@ -198,8 +198,9 @@
                                 <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Moneda" optionLabel="valor1"  [showClear]="true" ></p-dropdown>  
                             </td>
                             <td>
-                                <strong class="p-column-title">P.Venta</strong>
-                                <input style="width: 100px; text-align: right;"  min="0"  formControlName="precioventa"  type="number" pInputText class="p-inputtext-sm">  
+                                <strong class="p-column-title">P.Venta</strong>  
+                                <input style="width: 100px; text-align: right;" type="text"  (keypress)="validateFormat($event)" class="p-inputtext-sm" pInputText formControlName="precioventa">  
+                                <!-- <input   [min]="0"  (keypress)="validateFormat($event)"  class="p-inputtext-sm" pInputText formControlName="precioventa">   -->
                             </td>
                             <td style="text-align: center">
                                 <strong class="p-column-title">Precio. inc. IGV</strong>
@@ -223,9 +224,10 @@
                             </td>
                             <td>
                                 <button 
-                                class="p-button-sm p-button-rounded mx-2"
+                                class="p-button-sm p-button-rounded"
                                 pButton 
                                 type="button"
+                                style=" background-color: #D72250;"
                                 (click)="onEliminarPrecio(rowIndex, precios.value.productopreciosid)"
                                 icon="pi pi-trash">  
                                 </button>

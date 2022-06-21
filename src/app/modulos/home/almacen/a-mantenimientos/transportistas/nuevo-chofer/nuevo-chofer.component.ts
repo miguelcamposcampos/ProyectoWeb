@@ -83,9 +83,9 @@ export class NuevoChoferComponent implements OnInit {
 
 
   limpiarForm(){
-    this.Form.controls['nroDocumento'].setValue('');
-    this.Form.controls['apellidos'].setValue('');
-    this.Form.controls['nombres'].setValue('');
+    this.Form.controls['nroDocumento'].setValue(null);
+    this.Form.controls['apellidos'].setValue(null);
+    this.Form.controls['nombres'].setValue(null);
   }
  
   
