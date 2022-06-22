@@ -8,8 +8,7 @@ import { PropiedadesAdicionalesServices } from '../../service/propiedadesadicion
 
 @Component({
   selector: 'app-nuevo-color',
-  templateUrl: './nuevo-color.component.html',
-  styleUrls: ['./nuevo-color.component.scss']
+  templateUrl: './nuevo-color.component.html'
 })
 export class NuevoColorComponent implements OnInit {
 

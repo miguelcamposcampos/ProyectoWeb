@@ -4,11 +4,10 @@
             <div class="stepsdemo-content">   
                 <div class="formulario">         
                     <strong>Nombre *:</strong>
-                    <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombreMarca" class="p-inputtext-sm" placeholder="ingresar una marca">     
+                    <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombreMarca" class="p-inputtext-sm" placeholder="ingresar una marca">     
                 </div> 
             </div>
-
-
+ 
             <div class="botones">
                 <button  
                     class="p-button-sm"
@@ -16,7 +15,7 @@
                     type="button"
                     style="margin-right: 1%;"
                     [disabled]="Form.invalid"
-                    label="{{ (idMarcaEdit) ? 'Actualizar' : 'Guardar' }}"
+                    label="{{ (idMarcaEdit) ? 'Actualizar' : 'Grabar' }}"
                     (click)="onGrabar()"
                     icon="pi pi-check-circle">  
                 </button>  

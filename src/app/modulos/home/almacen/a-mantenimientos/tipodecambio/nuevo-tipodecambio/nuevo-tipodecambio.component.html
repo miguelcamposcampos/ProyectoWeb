@@ -1,14 +1,16 @@
-<div class="MarginModal">
-    <div class="contenido card">
-        <form [formGroup]="Form">
-            
-            <div class="formulario"> 
-                <strong>Valor Compra *</strong>
-                <input type="number" [min]="0" pInputText formControlName="valorCompra" class="p-inputtext-sm" placeholder="ingresar valor de compra">   
-            
-                <strong>Valor Venta *</strong>
-                <input  type="number" [min]="0"  pInputText formControlName="valorVenta" class="p-inputtext-sm" placeholder="ingresar valor de venta">     
 
+<form [formGroup]="Form">
+    <div class="p-col-12"> 
+        <div class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12"> 
+                <strong>Valor Compra *</strong>
+                <input type="text" minlength="1"   (keypress)="validateFormat($event)"  pInputText formControlName="valorCompra" class="p-inputtext-sm" placeholder="ingresar valor de compra">   
+            </div>
+            <div class="p-field p-col-12"> 
+                <strong>Valor Venta *</strong>
+                <input  type="text" minlength="1" (keypress)="validateFormat($event)"  pInputText formControlName="valorVenta" class="p-inputtext-sm" placeholder="ingresar valor de venta">     
+            </div>
+            <div class="p-field p-col-12"> 
                 <strong>Fecha *</strong>
                 <p-calendar
                     readonlyInput="true"
@@ -18,31 +20,32 @@
                     dateFormat="dd/mm/yy"
                     formControlName="fechatipoCambio"
                 ></p-calendar> 
-            </div> 
-             
-            <div class="botones">
-                <button  
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    [disabled]="Form.invalid"
-                    style="margin-right: 1%;"
-                    label="{{ (!idTipoCambio) ? 'Guardar' : 'Actualizar'}}"
-                    (click)="onGrabar()"
-                    icon="pi pi-check-circle">  
-                </button>  
-    
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
-                    (click)="onRegresar()">  
-                </button>  
             </div>
+        </div>
+    </div> 
+        
+    <div class="botones">
+        <button  
+            class="p-button-sm"
+            pButton
+            type="button"
+            [disabled]="Form.invalid"
+            style="margin-right: 1%;"
+            label="{{ (!idTipoCambio) ? 'Grabar' : 'Actualizar'}}"
+            (click)="onGrabar()"
+            icon="pi pi-check-circle">  
+        </button>  
 
-        </form>
+        <button   
+            class="p-button-sm"
+            pButton
+            type="button"
+            icon="pi pi-times-circle"
+            label="Cancelar" 
+            style=" background-color: #D72250;"
+            (click)="onRegresar()">  
+        </button>  
     </div>
-</div>
+
+</form>
+    

@@ -1,7 +1,7 @@
  <div class="contenidoTable card">   
     <p-toolbar>
         <div class="p-toolbar-group-left">
-            <h3> LISTA DE COLECCION</h3> 
+            <h3> LISTA DE COLECCIÓN</h3> 
         </div>
         
         <div class="p-toolbar-group-right">
@@ -93,47 +93,42 @@
 
 
 <div *ngIf="VistaNuevaColeccion">
-    <p-dialog header="{{ (!dataColeccion) ? 'NUEVA COLECCION' : 'EDITAR COLECCION'}}" [(visible)]="VistaNuevaColeccion" [modal]="true" [style]="{width: '50vw'}">
-        <div class="MarginModal">
-            <div class="contenido card">
-                <form [formGroup]="Form">
-                    <div class="stepsdemo-content">   
-                        <div class="formulario">   
-                            <strong *ngIf="mostrarCodigo">Codigo:</strong>
-                            <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">   
-                           
-                            <strong>Nombre *:</strong>
-                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
-                        </div> 
-                    </div>
-        
-        
-                    <div class="botones">
-                        <button  
-                            class="p-button-sm"
-                            pButton
-                            type="button"
-                            [disabled]="Form.invalid"
-                            label="{{ (dataColeccion) ? 'Actualizar' : 'Guardar' }}"
-                            (click)="onGrabar()"
-                            style="margin-right: 1%;"
-                            icon="pi pi-check-circle">  
-                        </button>  
-            
-                        <button   
-                            class="p-button-sm"
-                            pButton
-                            type="button"
-                            icon="pi pi-times-circle"
-                            label="Cancelar" 
-                            style=" background-color: #D72250;"
-                            (click)="VistaNuevaColeccion = false">  
-                        </button>  
-                    </div>
-        
-                </form>
-            </div>
-        </div>
+    <p-dialog header="{{ (!dataColeccion) ? 'NUEVA COLECCIÓN' : 'EDITAR COLECCIÓN'}}" [(visible)]="VistaNuevaColeccion" [modal]="true" [style]="{width: '50vw'}">
+        <form [formGroup]="Form">
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12"> 
+                        <strong *ngIf="mostrarCodigo">Código:</strong>
+                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">   
+                    </div> 
+                    <div class="p-field p-col-12"> 
+                        <strong>Nombre *:</strong>
+                        <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+                    </div> 
+                </div> 
+            </div> 
+            <div class="botones">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    [disabled]="Form.invalid"
+                    label="{{ (dataColeccion) ? 'Actualizar' : 'Grabar' }}"
+                    (click)="onGrabar()"
+                    style="margin-right: 1%;"
+                    icon="pi pi-check-circle">  
+                </button>   
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="VistaNuevaColeccion = false">  
+                </button>  
+            </div> 
+        </form> 
     </p-dialog> 
 </div>  
 

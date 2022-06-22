@@ -30,10 +30,6 @@
             </div>
         </p-toolbar>
 
-
-
-      
-
         <div class="card">
             <p-table #dt 
             [columns]="cols" 
@@ -41,7 +37,6 @@
             selectionMode="single"
             [rowHover]="true"
             [value]="arrayProductos">  
-
                 <ng-template pTemplate="header" let-columns >
                     <tr>
                         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -64,17 +59,15 @@
                         </td>
                     </tr>
                 </ng-template>
+
                 <ng-template pTemplate="emptymessage">
                     <tr>
                       <td colspan="6">No se han cargado registros. </td>
                     </tr>
                   </ng-template> 
-            </p-table>
-
-
+            </p-table> 
         </div>  
- 
-        
+  
         <div class="botones"> 
             <button   
                 *ngIf="mostrarBotonCargar"

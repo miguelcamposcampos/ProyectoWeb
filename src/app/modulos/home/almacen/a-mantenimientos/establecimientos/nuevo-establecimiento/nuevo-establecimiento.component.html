@@ -1,12 +1,9 @@
-<div class="Margintabla">
-   
+<div class="Margintabla"> 
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
-
-
-    
-    <div class="contenido card"> 
+ 
+    <div class="contenidoTable card"> 
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3>  <i class="fas fa-city"></i>  {{tituloEstablecimiento}}</h3> 
@@ -19,11 +16,10 @@
                     style="margin-right: 1%;"
                     type="button"
                     [disabled]="Form.invalid"
-                    label="{{(!idEstablecimientoEdit) ? 'Guardar' : 'Actualizar'}}"
+                    label="{{(!idEstablecimientoEdit) ? 'Grabar' : 'Actualizar'}}"
                     (click)="onGrabarEstablecimiento()"
                     icon="pi pi-check-circle">  
-                </button>  
-
+                </button>   
                 <button   
                     class="p-button-sm"
                     pButton
@@ -35,9 +31,7 @@
                 </button>  
             </div>
         </p-toolbar>
-
-
-
+ 
         <hr>   
         <form [formGroup]="Form">
             <div class="stepsdemo-content">  
@@ -47,13 +41,7 @@
                     <input type="text" pInputText  readonly  [maxLength]="4" [minlength]="4"  formControlName="codigosunat" class="p-inputtext-sm" placeholder="ingresar codigo de sunat">   
                         
                     <strong>Razón Social *</strong>   
-                    <input type="text"  pInputText minlength="11" formControlName="razonSocial" class="p-inputtext-sm"   placeholder="ingresar la razon social">   
-
-                    <!-- <strong>Razón Social *</strong>  
-                    <div class="p-inputgroup">  
-                        <input type="text"  pInputText maxLength="11" minlength="11" (keypress)="validateFormat($event)"  formControlName="razonSocial" class="p-inputtext-sm"   placeholder="ingresar la razon social">   
-                        <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarRuc();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
-                    </div>  -->
+                    <input type="text"  pInputText minlength="11" formControlName="razonSocial" class="p-inputtext-sm"   placeholder="ingresar la razon social"> 
 
                     <strong>Nombre Comercial *</strong>
                     <input  type="text" pInputText formControlName="nombreComercial" class="p-inputtext-sm" placeholder="ingresar nombre comercial">     
@@ -94,12 +82,8 @@
                     </button>  
                     <div  *ngIf="imgParaEditar">  
                         <img width="50%" [src]="imgParaEditar" />
-                    </div>
-                    
-
-                </div>
-           
-       
+                    </div> 
+                </div> 
             </div> 
         </form> 
     </div>  

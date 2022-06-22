@@ -14,11 +14,8 @@ import { RolesService } from '../services/roles.services';
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss'],
 })
-export class RolesComponent implements OnInit { 
- // @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan
-  @Output() cerrar: any = new EventEmitter<boolean>();
- // @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
-
+export class RolesComponent implements OnInit {  
+  @Output() cerrar: any = new EventEmitter<boolean>(); 
   cols: InterfaceColumnasGrilla[] = [];  
   opcionesSeleccionadas: TreeNode[] = [];  
   ListadeRoles!: IRolPorEmpresa[];  
@@ -33,8 +30,7 @@ export class RolesComponent implements OnInit {
   constructor( 
     private swal: MensajesSwalService,
     private authService: AuthService,
-    private rolesServices: RolesService,
-    private form: FormBuilder,
+    private rolesServices: RolesService, 
     private generalService: GeneralService,
     private spinner : NgxSpinnerService
   ) {
@@ -44,17 +40,12 @@ export class RolesComponent implements OnInit {
   }
 
   private builform(): void {
-    this.Rolform = this.form.group({
+    this.Rolform = new FormGroup({
       Rol: new FormControl (null, [Validators.required, Validators.minLength(2)]),
     });
   }
 
   ngOnInit(): void {   
-    // if (!this.tokenLS) {
-    //   return;
-    // }else{
-    //   this.onNewToken();   
-    // } 
     this.onMostrarRolesPorEmpresa();
     this.cols = [
       { field: 'name', header: 'Marcar para asignar permiso, Desmarcar para quitar permiso.', visibility: true }, 
@@ -65,23 +56,7 @@ export class RolesComponent implements OnInit {
   onRegresar() {
     this.cerrar.emit(false);
   }
-
   
-  // onNewToken(){
-  //   this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
-    
-  //   const newtoken : IAuth = {
-  //     email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-  //     passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
-  //     guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
-  //   }
-  //   this.authService.login(newtoken).subscribe((resp)=>{
-  //     if(resp){
-  //      this.onMostrarRolesPorEmpresa();
-  //     }
-  //   }) 
-  // }
-
   onMostrarRolesPorEmpresa() {
     this.spinner.show();
     this.rolesServices.rolesPorEmpresa().subscribe((resp) => { 
@@ -127,7 +102,6 @@ export class RolesComponent implements OnInit {
       }
     })  
   }
- 
 
   /* Cuando damos click a un rol, nos cargaran todos los permisos */
   onVerMenuRol(rol: any) { 
@@ -140,13 +114,11 @@ export class RolesComponent implements OnInit {
     this.rolesServices.menuPorIdRol(this.idRolSelect).subscribe((resp) => {
       if (resp) {  
         this.listRespData = resp.data;
-        //this.listRespMarcado = ; 
         resp.maestroMenusIdsActivados.forEach(element => {
           this.listRespMarcado.push({id : element})
         }); 
  
         let g_Modulos: any[] = this.listRespData.filter((x: any) => x.tipoMenuAplicacion === 'Modulo');
-      
         let general: any[]=[];  
         let finall: any[]=[]; 
 
@@ -176,7 +148,6 @@ export class RolesComponent implements OnInit {
                   } 
                 }); 
              
-
             });  
                 general.push({ 
                   data : { 
@@ -219,13 +190,8 @@ export class RolesComponent implements OnInit {
            
           //FUNCION PARA ORDENAR DE FORMA ALFABETICA EL OBJETO
           this.dataTreeSelect.sort(function (a, b) {
-            if (a.data.name > b.data.name) {
-              return 1;
-            }
-            if (a.data.name < b.data.name) {
-              return -1;
-            }
-            // a must be equal to b
+            if (a.data.name > b.data.name) {return 1;}
+            if (a.data.name < b.data.name) {return -1;}
             return 0;
           }); 
       } 
@@ -271,7 +237,6 @@ export class RolesComponent implements OnInit {
           this.opcionesSeleccionadas.push(btn);    
         }
         return btn;  
-          
       } else {
         /* Si es Reporte, se filtra la data por boton y reporte y se recorre hasta terminar la ramificacion */
         let g_Reportes :any[] = []; 
@@ -336,11 +301,7 @@ export class RolesComponent implements OnInit {
       this.generalService.onValidarOtraSesion(error);
     });
   } 
-
-
-  onValidateForm(campo: string) {
-    return ( this.Rolform.controls[campo].errors && this.Rolform.controls[campo].touched );
-  }
+ 
 }
 
 

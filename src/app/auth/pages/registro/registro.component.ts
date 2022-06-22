@@ -19,8 +19,7 @@ export class RegistroComponent implements OnInit {
   registroForm!: FormGroup; 
   value: boolean = false;
   usuario! : IUsuario
-
-  
+ 
   constructor(   
       private formBuilder: FormBuilder,
       private router: Router, 
@@ -78,17 +77,11 @@ export class RegistroComponent implements OnInit {
       },error => { 
         this.spinner.hide();
         this.generalService.onValidarOtraSesion(error);
-      });
- 
+      }); 
   }
   
   onRegresar(){ 
       this.router.navigate(['/auth/login']);
   }
-
-  onValidateForm(campo: string) {
-    return ( this.registroForm.controls[campo].errors && this.registroForm.controls[campo].touched );
-  }
-
  
 }

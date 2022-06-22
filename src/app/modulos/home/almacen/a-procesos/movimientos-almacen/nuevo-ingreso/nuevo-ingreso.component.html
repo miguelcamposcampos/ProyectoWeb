@@ -62,17 +62,17 @@
                         </div>
                         
                         <div *ngIf="!mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-9">
-                            <strong>Almacen Origen *:</strong>
+                            <strong>Almacén Origen *:</strong>
                             <p-dropdown class="extender" [options]="arrayAlmacen" formControlName="almacenOrigen"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div *ngIf="mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-5">
-                            <strong>Almacen Origen *:</strong>
+                            <strong>Almacén Origen *:</strong>
                             <p-dropdown class="extender p-dropdown-sm" [options]="arrayAlmacen" formControlName="almacenOrigen"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div *ngIf="mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-4">
-                            <strong>Almacen Destino *:</strong>
+                            <strong>Almacén Destino *:</strong>
                             <p-dropdown class="extender p-dropdown-sm" [options]="arrayAlmacen" formControlName="almacenDestino"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
@@ -120,18 +120,18 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 130px;">Cod.Producto</th>
-                        <th style="width: 180px;">Descripcion</th>
+                        <th style="width: 180px;">Descripción</th>
                         <th style="width: 70px;">Cantidad</th>
                         <th style="width: 160px;">Und Medida</th>
                         <th style="width: 85px;">Val.Unitario</th>
                         <th style="width: 80px;">Val.Total</th>
-                        <th style="width: 140px;">Guia Remision</th>
+                        <th style="width: 140px;">Guia Remisión</th>
                         <th style="width: 150px;">T.Doc.Ref</th>
                         <th style="width: 140px;">Num.Doc.Ref</th>
                         <th style="width: 85px;">N.Serie</th>
                         <th style="width: 90px;">N.Lote</th>
                         <th style="width: 160px;">Fec.Vencimiento</th>
-                        <th style="width: 50px;">Accion</th>
+                        <th style="width: 50px;">Acción</th>
                     </tr>
                 </ng-template>
     
@@ -147,7 +147,7 @@
                             
                         </td>
                         <td>
-                            <strong class="p-column-title">Descripcion</strong>
+                            <strong class="p-column-title">Descripción</strong>
                             <input type="text" pInputText class="p-inputtext-sm"  formControlName="descripcion">  
                         </td>
                         <td style="text-align: center">
@@ -167,7 +167,7 @@
                             <input type="number"  readonly style="width: 70px; text-align: right;"  class="p-inputtext-sm" pInputText formControlName="valorTotal">  
                         </td>
                         <td>
-                            <strong class="p-column-title">Guia Remision</strong>
+                            <strong class="p-column-title">Guia Remisión</strong>
                             <input type="text"   style="width: 120px;"  class="p-inputtext-sm" pInputText formControlName="nroGuiaRemision">  
                         </td>
                         <td style="text-align: center">
@@ -217,35 +217,12 @@
                 </ng-template> 
                  
                 </p-table>  
-    
-            </form> 
-    
-            
-            <!-- <div class="botones">
-                <button  
-                    class="p-button-sm p-button-rounded mx-2"
-                    pButton
-                    type="button"
-                    [disabled]="Form.invalid" 
-                    label="Grabar"
-                    (click)="onGrabar()"
-                    icon="pi pi-check-circle">  
-                </button>  
-    
-                <button   
-                    class="p-button-sm p-button-rounded mx-2"
-                    pButton
-                    type="button"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    (click)="onRegresar()">  
-                </button>  
-            </div>
-     -->
+            </form>   
         </div> 
     </div>   
 </div>
   
+<!-- VISTAS Y MODALES -->
 <div *ngIf="modalBuscarPersona">
     <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
         <app-buscar-persona  [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>

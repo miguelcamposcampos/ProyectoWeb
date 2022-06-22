@@ -1,19 +1,17 @@
 <app-titulos   (cerrar)="onRegresar()" ></app-titulos>
 
-<div>
-  <div class="tituloPage">
+ 
+    <div class="tituloPage">
       <h2> <strong> Tabla de Usuarios</strong></h2> 
-  </div>
+    </div>
 
-  <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-    <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-  </ngx-spinner>
-
-
-  <div class="Margintabla">
-    <div class="card">    
-
-      <p-toolbar>
+    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+      <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+    </ngx-spinner>
+    
+    <div class="Margintabla">
+      <div class="contenidoTable card">   
+        <p-toolbar>
         <div class="p-toolbar-group-left">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -48,10 +46,7 @@
                 (click)="onModalInvitarUsuario()">  
             </button> 
         </div>
-    </p-toolbar>
-
-
-  
+        </p-toolbar>
 
         <p-table #dt 
           [columns]="cols"
@@ -95,7 +90,6 @@
                           (click)="onModalChangeRol(usuario)" 
                           tooltipPosition="top" 
                           pTooltip="Cambiar de Rol" 
-                          class="m-2" 
                           type="button"
                           icon="pi pi-cog">
                         </button> 
@@ -115,104 +109,108 @@
                 </tr> 
             </ng-template>
         </p-table> 
-    </div>
-  </div>
- 
+    </div>  
 </div>
 
-<div class="centrar">
-    <p-dialog header="Cambiar Rol" [(visible)]="modalChangeRol" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '60vw', header : '50vh'}"  >  
-      <div class="Margintabla" *ngIf="selectUsuario">
-          
-          <form [formGroup]="InvitarForm"> 
-            <div class="p-grid p-fluid">  
-              <div class="centrar">
-                ¿Desea cambiar el rol del usuario:   <strong> {{ selectUsuario.nombreUsuario }}  </strong>  de : " <strong> {{ selectUsuario.rol }} </strong> " a : 
-              </div>
-              <div class="p-inputgroup my-2 ">
-                <p-dropdown  
-                    [options]="ListadeRoles"  
-                    placeholder="Selecciona el nuevo rol" 
-                    optionLabel="nombre"  
-                    appendTo="body"
-                    formControlName="Rol"
-                    [showClear]="true">
-                </p-dropdown>  
-              </div>
-            </div>
-          </form> 
-          <div class="botones">
-            <button 
-                pButton  
-                label="Cambiar de Rol" 
-                style="margin-right: 1%;"
-                (click)="onChangeRol(selectUsuario)"  
-                class="p-button-sm p-button-rounded m-1"
-                icon="pi pi-refresh">
-            </button> 
-            <button 
-                pButton 
-                style=" background-color: #D72250;"
-                label="cancelar" 
-                (click)="modalChangeRol = false"
-                class="p-button-sm p-button-rounded m-1"
-                icon="pi pi-times-circle">
-            </button>  
+<!-- MODALES -->
+<p-dialog header="CAMBIO DE ROL"  *ngIf="selectUsuario" [(visible)]="modalChangeRol" [modal]="true" [draggable]="false" [resizable]="false">  
+  <form [formGroup]="InvitarForm"> 
+    <div class="p-col-12"> 
+      <div class="p-fluid p-formgrid p-grid"> 
+          <div class="p-field p-col-12"> 
+            <strong> USUARIO : </strong> 
+            <input readonly pInputText [value]="selectUsuario.nombreUsuario" class="p-inputtext-sm">  
+          </div>
+
+          <div class="p-field p-col-12">  
+            <strong> ROL ACTUAL : </strong> 
+            <input readonly pInputText [value]="selectUsuario.rol" class="p-inputtext-sm">   
+          </div>
+ 
+          <div class="p-field p-col-12"> 
+            <strong>CAMBIAR POR:</strong>    
+            <p-dropdown  
+              [options]="ListadeRoles"  
+              placeholder="Selecciona el nuevo rol" 
+              optionLabel="nombre"  
+              appendTo="body"
+              class="extender"
+              formControlName="Rol"
+              [showClear]="true">
+            </p-dropdown>  
           </div> 
-      </div> 
+        </div>    
+    </div>   
+  </form> 
+  <div class="botones">
+    <button 
+        pButton  
+        label="Cambiar de Rol" 
+        style="margin-right: 1%;"
+        (click)="onChangeRol(selectUsuario)"  
+        class="p-button-sm p-button-rounded m-1"
+        icon="pi pi-refresh">
+    </button> 
+    <button 
+        pButton 
+        style=" background-color: #D72250;"
+        label="cancelar" 
+        (click)="modalChangeRol = false"
+        class="p-button-sm p-button-rounded m-1"
+        icon="pi pi-times-circle">
+    </button>  
+  </div>  
+</p-dialog>
 
-    </p-dialog>
-    
-    <p-dialog header="Invitar Usuario" [(visible)]="modalInvitarUsuario" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '60vw', header : '55vh', heigth : '50vh'}"  >     
-      <div class="Margintabla">
-          <form [formGroup]="InvitarForm" class="m-2">
-            <div class="p-grid p-fluid">  
-              <div class="p-inputgroup my-2 ">
-                <i class="pi pi-user"></i> 
+<p-dialog header="INVITAR A UN USUARIO" [(visible)]="modalInvitarUsuario" [modal]="true" [draggable]="false" [resizable]="false" >     
+    <form [formGroup]="InvitarForm">
+      <div class="p-col-12"> 
+        <div class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12"> 
+                <strong> Email :</strong>
                 <input type="email" pInputText formControlName="Email" placeholder="ingrese email" class="p-inputtext-sm">  
-              </div>
-              <span *ngIf="onValidateForm('Email')">Este campo es requerido</span>
-
-              <div class="p-inputgroup my-2 "> 
-                <i class="pi pi-user-plus"></i> 
+            </div> 
+            <div class="p-field p-col-12">
+              <strong> Nuevo Rol :</strong>
                 <p-dropdown   
                   appendTo="body"
+                  class="extender"
                   [options]="ListadeRoles"   
                   placeholder="Selecciona el nuevo rol" 
                   optionLabel="nombre" 
                   formControlName="Rol"
                   [showClear]="true">
                 </p-dropdown>  
-              </div> 
-              <span *ngIf="onValidateForm('Email')">Este campo es requerido</span>
-            </div>
-          </form>  
-    
-          <div class="botones">
-            <button 
-                pButton  
-                label="Enviar invitación"
-                [disabled]="InvitarForm.invalid"
-                (click)="onEnviarInvitacion()"  
-                type="button"
-                style="margin-right: 1%;"
-                class="p-button-sm p-button-rounded m-1"
-                icon="pi pi-send">
-            </button> 
-            <button 
-                pButton 
-                label="cancelar" 
-                type="button"
-                style=" background-color: #D72250;"
-                (click)="modalInvitarUsuario = false"
-                class="p-button-sm p-button-rounded m-1"
-                icon="pi pi-times-circle">
-            </button>  
-          </div>
-    </div>  
-    </p-dialog> 
+            </div>  
+        </div>
+      </div> 
+    </form>  
+
+    <div class="botones">
+      <button 
+          pButton  
+          label="Enviar invitación"
+          [disabled]="InvitarForm.invalid"
+          (click)="onEnviarInvitacion()"  
+          type="button"
+          style="margin-right: 1%;"
+          class="p-button-sm p-button-rounded m-1"
+          icon="pi pi-send">
+      </button> 
+      <button 
+          pButton 
+          label="cancelar" 
+          type="button"
+          style=" background-color: #D72250;"
+          (click)="modalInvitarUsuario = false"
+          class="p-button-sm p-button-rounded m-1"
+          icon="pi pi-times-circle">
+      </button>  
+    </div>
+
+</p-dialog> 
   
-  </div>
+
 
 
 

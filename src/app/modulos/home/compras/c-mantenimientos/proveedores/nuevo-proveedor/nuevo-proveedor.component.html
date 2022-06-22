@@ -19,7 +19,7 @@
                     type="button"
                     style="margin-right: 1%;"
                     [disabled]="Form.invalid"
-                    label="{{ (dataProveedor) ? 'Actualizar' : 'Guardar' }}"
+                    label="{{ (dataProveedor) ? 'Actualizar' : 'Grabar' }}"
                     (click)="onGrabar()"
                     icon="pi pi-check-circle">  
                 </button>  
@@ -79,7 +79,7 @@
                     <strong>Contacto:</strong>
                     <input type="text" pInputText formControlName="contacto" placeholder="ingresa datos de un contacto"  class="p-inputtext-sm">  
   
-                    <strong>Dirección:</strong>  
+                    <strong>Ubigeo:</strong>  
                     <div class="p-inputgroup">  
                         <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="ingresa una dirección">   
                         <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      

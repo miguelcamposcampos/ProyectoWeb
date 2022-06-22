@@ -19,7 +19,7 @@
                     type="button"
                     style="margin-right: 1%;"
                     [disabled]="Form.invalid" 
-                    [label]=" (!CompraEditar) ? 'Guardar' : 'Actualizar'"
+                    [label]=" (!CompraEditar) ? 'Grabar' : 'Actualizar'"
                     (click)="onGrabar()"
                     icon="pi pi-check-circle">  
                 </button>   
@@ -151,7 +151,7 @@
                                 responsiveLayout="stack" >  
                                 <ng-template pTemplate="header">
                                     <tr class="centrar"> 
-                                        <th style="width: 50px;">Accion</th>
+                                        <th style="width: 50px;">Acción</th>
                                         <th *ngIf="mostrarCamposAnticipo" style="width: 75px;">Anticipo</th>   <!-- ANTICIPO -->
                                         <th *ngIf="mostrarCamposAnticipo" style="width: 120px;">Doc. Anticipo</th>   <!-- DOC ANTICIPO -->
                                         <th style="width: 150px;">Almacén</th>
@@ -322,7 +322,7 @@
                                 responsiveLayout="stack" >  
                                 <ng-template pTemplate="header">
                                     <tr> 
-                                        <th style="width: 50px;">Accion</th>
+                                        <th style="width: 50px;">Acción</th>
                                         <th style="width: 140px;">Compra Doc Ref</th> 
                                         <th style="width: 80px;">Compra</th> 
                                         <th style="width: 100px;">Proveedor</th> 
@@ -410,7 +410,7 @@
                                 responsiveLayout="stack" >  
                                 <ng-template pTemplate="header">
                                     <tr> 
-                                        <th style="width: 50px;">Accion</th>
+                                        <th style="width: 50px;">Acción</th>
                                         <th style="width: 95px;">Proveedor Id</th> 
                                         <th style="width: 140px;">T. Documento</th>
                                         <th style="width: 95px;">Serie</th> 

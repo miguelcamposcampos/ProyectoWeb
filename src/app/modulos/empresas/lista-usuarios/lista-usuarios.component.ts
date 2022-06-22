@@ -12,14 +12,10 @@ import { UsuariosService } from '../services/usuarios.services';
 
 @Component({
   selector: 'app-lista-usuarios',
-  templateUrl: './lista-usuarios.component.html',
-  styleUrls: ['./lista-usuarios.component.scss']
+  templateUrl: './lista-usuarios.component.html'
 })
-export class ListaUsuariosComponent implements OnInit {
-   
- // @Input() tokenLS: any; //datos de la empresa que queremos asociar a un plan 
-  @Output() cerrar : any  = new EventEmitter<boolean>();
-
+export class ListaUsuariosComponent implements OnInit { 
+  @Output() cerrar : any  = new EventEmitter<boolean>(); 
   usuariosporEmpresa : IUsuarios[] = [];
   selectUsuario! : IUsuarios;
   selectUsuarioSplit! : IUsuarios;
@@ -187,6 +183,9 @@ export class ListaUsuariosComponent implements OnInit {
       if(resp){
         this.spinner.hide();
         this.swal.mensajeExito('Se realizó el registro corerctamente!,')
+      }else{
+        this.spinner.hide();
+        this.swal.mensajeError('No se envio la invitación!,') 
       }
     },error=>{
       this.spinner.hide();
@@ -199,16 +198,13 @@ export class ListaUsuariosComponent implements OnInit {
   onModalSuspenderActivarInvitacion(){
     let condicion  = this.selectUsuarioSplit.estado === 'Denegado';
     let texto = condicion ? 'ACTIVAR' : 'SUSPENDER';
-    let textoExito = condicion ? 'activada' : 'suspendida';
-    this.spinner.show();
+    let textoExito = condicion ? 'activada' : 'suspendida'; 
     this.swal.mensajePregunta('Seguro de ' +texto+ ' la invitación?.').then((response) => {
       if (response.isConfirmed) {
         this.usuarioService.suspenderActivarUsuarioEmpresa(this.selectUsuarioSplit.usuarioEmpresaId).subscribe((resp) => { 
+          this.swal.mensajeExito('La invitación ha sido ' +textoExito+ ' correctamente!.');  
           this.onListarUsuarios(); 
-          this.swal.mensajeExito('La invitación ha sido ' +textoExito+ ' correctamente!.'); 
-          this.spinner.hide();
-        },error => { 
-          this.spinner.hide();
+        },error => {  
           this.generalService.onValidarOtraSesion(error);
         });
       }
@@ -220,8 +216,8 @@ export class ListaUsuariosComponent implements OnInit {
     this.swal.mensajePregunta("¿Seguro que desea eliminar la invitación?").then((response) => {
       if (response.isConfirmed) {
         this.usuarioService.eliminarUsuarioEmpresa(this.selectUsuarioSplit.usuarioEmpresaId).subscribe((resp) => { 
-          this.onListarUsuarios(); 
           this.swal.mensajeExito('La invitación ha sido eliminado correctamente!.'); 
+          this.onListarUsuarios(); 
         },error => { 
           this.generalService.onValidarOtraSesion(error);
         });
@@ -233,11 +229,5 @@ export class ListaUsuariosComponent implements OnInit {
   onRegresar() { 
     this.cerrar.emit(false); 
   }
-
  
-
-  onValidateForm(campo: string) {
-    return ( this.InvitarForm.controls[campo].errors && this.InvitarForm.controls[campo].touched );
-  }
-
 }

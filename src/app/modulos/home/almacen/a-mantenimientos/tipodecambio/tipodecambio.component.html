@@ -80,9 +80,7 @@
                 </form>
             </section>  
         </p-panel> 
-
-        <hr>
-
+  
         <br>
 
             <p-table   
@@ -166,51 +164,45 @@
     </div>
  
 
-    <div *ngIf="modalBuscarPorMes" class="centrar">
-        <p-dialog header="OBTENER POR MES" [(visible)]="modalBuscarPorMes" [modal]="true" [draggable]="false" [resizable]="false" class="ModalTipoCambio" >  
-        
-            <div class="MarginModal"> 
-                    <br>
-                    <div class="centrar">
-                        <strong> Selecciona un mes para obtener el tipo de cambio:</strong>   
+    <div *ngIf="modalBuscarPorMes">
+        <p-dialog header="OBTENER POR MES" [(visible)]="modalBuscarPorMes" [modal]="true" [draggable]="false" [resizable]="false" class="ModalTipoCambio" >   
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12"> 
+                        <strong> Selecciona un mes para obtener el tipo de cambio:</strong>    
+                        <p-dropdown    
+                            class="extender"
+                            [options]="arrayMeses"  
+                            placeholder="Selecciona un mes" 
+                            optionLabel="nombre"  
+                            appendTo="body"
+                            [formControl]="mesSeleccionado"
+                            [showClear]="true">
+                        </p-dropdown> 
                     </div>
-                    <br>  
-                    <p-dropdown    
-                        class="extender"
-                        [options]="arrayMeses"  
-                        placeholder="Selecciona un mes" 
-                        optionLabel="nombre"  
-                        appendTo="body"
-                        [formControl]="mesSeleccionado"
-                        [showClear]="true">
-                    </p-dropdown> 
-                <br> 
-           
-                <div class="botones">
-                    <button 
-                        pButton
-                        type="button"
-                        label="Buscar" 
-                        style="margin-right: 1%;"
-                        [disabled]="!mesSeleccionado.value"
-                        (click)="onBuscarPorMesSeleccionado()"  
-                        class="p-button-sm"
-                        icon="pi pi-refresh">
-                    </button> 
-                    <button 
-                        pButton
-                        type="button"
-                        label="Cancelar" 
-                        style=" background-color: #D72250;"
-                        (click)="modalBuscarPorMes = false"
-                        class="p-button-sm"
-                        icon="pi pi-times-circle">
-                    </button>  
-                </div> 
-                <br>
-
-            </div>
-        
+                </div>
+            </div> 
+            <div class="botones">
+                <button 
+                    pButton
+                    type="button"
+                    label="Buscar" 
+                    style="margin-right: 1%;"
+                    [disabled]="!mesSeleccionado.value"
+                    (click)="onBuscarPorMesSeleccionado()"  
+                    class="p-button-sm"
+                    icon="pi pi-refresh">
+                </button> 
+                <button 
+                    pButton
+                    type="button"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="modalBuscarPorMes = false"
+                    class="p-button-sm"
+                    icon="pi pi-times-circle">
+                </button>  
+            </div>  
       </p-dialog>
     </div>
 

@@ -170,6 +170,6 @@ export class TipodecambioComponent implements OnInit {
     }
     this.modalNuevoTipoCambio = false;
   }
-
+ 
 
 }

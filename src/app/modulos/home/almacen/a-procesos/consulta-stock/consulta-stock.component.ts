@@ -128,21 +128,18 @@ export class ConsultaStockComponent implements OnInit {
                           }
                         }
                     } 
-                  })
-             
-              
+                  }) 
             } 
-          }
+          } 
+            //validamos la variable COLS que vamos a pintar en el html, y validamos que si no existe lo agrege
+            let ExisteAlm = this.cols.find(t => t.header === data[i].almacen && data[i].almacen != 0 )
+            if(!ExisteAlm){
+              this.cols.push(
+                { field : data[i].almacen, header : data[i].almacen, visibility : true} 
+              )
+            } 
 
-              //validamos la variable COLS que vamos a pintar en el html, y validamos que si no existe lo agrege
-              let ExisteAlm = this.cols.find(t => t.header === data[i].almacen && data[i].almacen != 0 )
-              if(!ExisteAlm){
-                this.cols.push(
-                  { field : data[i].almacen, header : data[i].almacen, visibility : true} 
-                )
-              } 
-
-          pivotedData.push(pivotedObj);  
+        pivotedData.push(pivotedObj);  
       }
 
       return pivotedData

@@ -38,19 +38,7 @@
                     size="25"
                     (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
                 </span>
-            </div>
-            <!-- <div class="d-block">
-                <button
-                    class="p-button-sm mx-2"
-                    pButton
-                    type="button"
-                    icon="pi pi-plus"
-                    label="Agregar"
-                    tooltipPosition="left"
-                    pTooltip="Registrar Unidad Medida"
-                    (click)="onModalNuevoUnidadMedida()">
-                </button>
-            </div> -->
+            </div> 
         </div>
 
             <p-table #dt
@@ -112,7 +100,7 @@
     </div>
 
     <div *ngIf="modalNuevoUnidadMedida">
-        <p-dialog   [header]="(!idUnidadMedida) ? 'Nuevo Unidad Medida' : 'Editar Unidad Medida'" [(visible)]="modalNuevoUnidadMedida" [modal]="true" [draggable]="false" [resizable]="true" [style]="{width: '50vw'}">
+        <p-dialog   [header]="(!idUnidadMedida) ? 'NUEVA UNIDAD DE MEDIDA' : 'EDITAR UNIDAD DE MEDIDA'" [(visible)]="modalNuevoUnidadMedida" [modal]="true" [draggable]="false" [resizable]="true" [style]="{width: '50vw'}">
             <app-nuevo-unidaddemedida [idUnidadMedida]="idUnidadMedida"   (cerrar)="onRetornar($event)" > </app-nuevo-unidaddemedida>
         </p-dialog>
     </div>

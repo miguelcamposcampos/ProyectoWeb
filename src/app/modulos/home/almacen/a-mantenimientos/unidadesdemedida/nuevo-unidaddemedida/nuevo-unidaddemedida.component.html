@@ -1,47 +1,46 @@
-<div class="MarginModal">
-    <div class="contenido card">
-        <form [formGroup]="Form">
-            <div class="stepsdemo-content">   
-                <div class="formulario"> 
-                    <strong>Cod. Sunat</strong>
-                    <input type="text" pInputText formControlName="codigosunat" class="p-inputtext-sm" placeholder="ingresar código Sunat">   
-                
-                    <strong>Nombre</strong>
-                    <input  type="text" pInputText formControlName="nombreunidadmedida" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+ 
+<form [formGroup]="Form">
+    <div class="p-col-12"> 
+        <div class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12"> 
+                <strong>Código Sunat</strong>
+                <input type="text" pInputText formControlName="codigosunat" class="p-inputtext-sm" placeholder="ingresar código Sunat">   
+            </div> 
+            <div class="p-field p-col-12"> 
+                <strong>Nombre</strong>
+                <input  type="text" pInputText formControlName="nombreunidadmedida" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+            </div> 
+            <div class="p-field p-col-12"> 
+                <strong>Siglas</strong>
+                <input type="text" pInputText formControlName="siglasum" class="p-inputtext-sm" placeholder="ingresar una sigla">   
+            </div> 
+            <div class="p-field p-col-12"> 
+                <strong>Valor</strong>
+                <input  type="text" minlength="1" (keypress)="validateFormat($event)" pInputText formControlName="valorconversion" class="p-inputtext-sm" placeholder="ingresar un valor">     
+            </div>  
+        </div> 
+    </div> 
+    <div class="botones">
+        <button  
+            class="p-button-sm"
+            pButton
+            type="button"
+            style="margin-right: 1%;"
+            [disabled]="Form.invalid"
+            label="{{ (!idUnidadMedida) ? 'Grabar' : 'Actualizar'}}"
+            (click)="onGrabar()"
+            icon="pi pi-check-circle">  
+        </button>  
 
-                    <strong>Siglas</strong>
-                    <input type="text" pInputText formControlName="siglasum" class="p-inputtext-sm" placeholder="ingresar una sigla">   
-                
-                    <strong>Valor</strong>
-                    <input  type="number" [min]="0" pInputText formControlName="valorconversion" class="p-inputtext-sm" placeholder="ingresar un valor">     
-
-                </div> 
-            </div>
-
-
-            <div class="botones">
-                <button  
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    style="margin-right: 1%;"
-                    [disabled]="Form.invalid"
-                    label="{{ (!idUnidadMedida) ? 'Guardar' : 'Actualizar'}}"
-                    (click)="onGrabar()"
-                    icon="pi pi-check-circle">  
-                </button>  
-    
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
-                    (click)="onRegresar()">  
-                </button>  
-            </div>
-
-        </form>
+        <button   
+            class="p-button-sm"
+            pButton
+            type="button"
+            icon="pi pi-times-circle"
+            label="Cancelar" 
+            style=" background-color: #D72250;"
+            (click)="onRegresar()">  
+        </button>  
     </div>
-</div>
+
+</form>

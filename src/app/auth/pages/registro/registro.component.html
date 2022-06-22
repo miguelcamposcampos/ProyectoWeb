@@ -40,20 +40,17 @@
                             <i class="pi pi-google"></i> 
                             <input type="email" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="Ingrese un Email">
                         </div>
-                        <span *ngIf="onValidateForm('Email')">El campo es requerido </span>
-        
+                        
                         <div class="p-inputgroup my-2 ">
                             <i class="pi pi-user"></i> 
                             <input type="text" pInputText formControlName="NombreApellidos" class="p-inputtext-sm" placeholder="Ingrese su nombre Completo">
                         </div>
-                        <span *ngIf="onValidateForm('NombreApellidos')">El campo es requerido </span>
-        
+                        
                         <div class="p-inputgroup my-2 ">
                             <i class="pi pi-user-plus"></i> 
                             <input type="text" pInputText formControlName="NombreUsuario" class="p-inputtext-sm" placeholder="Ingrese un Alias">
                         </div>
-                        <span *ngIf="onValidateForm('NombreUsuario')">El campo es requerido </span>
-        
+                         
                         <div class="p-inputgroup my-2">
                             <i class="pi pi-lock"></i> 
                             <input type="password" pInputText formControlName="Password" class="p-inputtext-sm" #passwordField placeholder="Ingrese una contraseña">
@@ -66,11 +63,10 @@
                             <i *ngIf="passwordField.type === 'text'" class="pi pi-eye-slash">   </i>
                         </button>
                     </div>
-                    <span *ngIf="onValidateForm('Password')">El campo es requerido </span>
-        
+                    
                         <div class="p-inputgroup my-2">
                             <i class="pi pi-lock"></i> 
-                            <input type="password" pInputText formControlName="RepetirPassword" class="p-inputtext-sm"  #passwordRepit placeholder="Ingrese una contraseña">
+                            <input type="password" pInputText formControlName="RepetirPassword" class="p-inputtext-sm"  #passwordRepit placeholder="Confirmar la contraseña">
                             <button
                                 pButton
                                 class="p-button-sm"

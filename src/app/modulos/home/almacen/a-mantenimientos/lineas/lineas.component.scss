@@ -1,8 +1,4 @@
-
-.exception-body.access-page { 
-  background: gainsboro;
-}
-  
+ 
 .ramasTable{
   margin: 1%;
   display: flex;
@@ -21,12 +17,7 @@
   }
 }
 
-.MargenTabla{ 
-  box-shadow: 0 0 5px black !important; 
-}
-
- 
-
+  
 .MargenTabla ::ng-deep .p-datatable .p-datatable-thead > tr > th{
   justify-content: center !important;
   text-align: center;

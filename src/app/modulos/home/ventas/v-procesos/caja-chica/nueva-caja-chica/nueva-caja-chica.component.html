@@ -16,7 +16,7 @@
                     type="button"
                     style="margin-right: 1%;"
                     [disabled]="Form.invalid" 
-                    [label]=" (!CajaChicaEditar) ? 'Guardar' : 'Actualizar'"
+                    [label]=" (!CajaChicaEditar) ? 'Grabar' : 'Actualizar'"
                     (click)="onGrabar()"
                     icon="pi pi-check-circle">  
                 </button>  
@@ -121,10 +121,10 @@
                         responsiveLayout="stack" >  
                         <ng-template pTemplate="header">
                             <tr class="centrar"> 
-                                <th style="width: 50px;">Accion</th>
+                                <th style="width: 50px;">Acción</th>
                                 <th style="width: 130px;">Motivo</th>
                                 <th style="width: 80px;">Importe</th> 
-                                <th style="width: 175px;">Descripcion</th> 
+                                <th style="width: 175px;">Descripción</th> 
                                 <th style="width: 120px;">Usu. Nombre</th> 
                                 <th style="width: 170px;">Observación</th> 
                                 <th style="width: 130px;">Tip.Documento</th> 

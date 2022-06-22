@@ -9,8 +9,7 @@ import { PropiedadesAdicionalesServices } from '../service/propiedadesadicionale
 
 @Component({
   selector: 'app-temporadas',
-  templateUrl: './temporadas.component.html',
-  styleUrls: ['./temporadas.component.scss']
+  templateUrl: './temporadas.component.html'
 })
 export class TemporadasComponent implements OnInit {
 

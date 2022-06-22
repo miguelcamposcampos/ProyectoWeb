@@ -1,20 +1,6 @@
  
 
-<div class="contenidoTable card"> 
-    <!-- <div class="tituloVista">  
-        <h3> LISTA DE MATERIALES</h3> 
-        <div class="botonesTitulosVista">
-            <button 
-                pButton
-                type="button"  
-                label="Agregar" 
-                class="p-button-sm"
-                (click)="onNuevo()" 
-                icon="pi pi-plus">
-            </button>       
-        </div>  
-    </div> -->
-
+<div class="contenidoTable card">   
       <p-toolbar>
         <div class="p-toolbar-group-left">
             <h3> LISTA DE MATERIALES</h3> 
@@ -102,46 +88,42 @@
 
 <div *ngIf="VistaNuevoMaterial">
     <p-dialog header="{{ (!dataMaterial) ? 'NUEVA TEMPORADA' : 'EDITAR TEMPORADA'}}" [(visible)]="VistaNuevoMaterial" [modal]="true" [style]="{width: '50vw'}">
-        <div class="MarginModal">
-            <div class="contenido card">
-                <form [formGroup]="Form">
-                    <div class="stepsdemo-content">   
-                        <div class="formulario">   
-                            <strong *ngIf="mostrarCodigo">Codigo:</strong>
-                            <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">   
-                           
-                            <strong>Nombre *:</strong>
-                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
-                        </div> 
+        <form [formGroup]="Form">
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12"> 
+                        <strong *ngIf="mostrarCodigo">Código:</strong>
+                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">   
+                    </div> 
+                    <div class="p-field p-col-12">
+                        <strong>Nombre *:</strong>
+                        <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
                     </div>
-        
-        
-                    <div class="botones">
-                        <button  
-                            class="p-button-sm"
-                            pButton
-                            type="button"
-                            style="margin-right: 1%;"
-                            [disabled]="Form.invalid"
-                            label="{{ (dataMaterial) ? 'Actualizar' : 'Guardar' }}"
-                            (click)="onGrabar()"
-                            icon="pi pi-check-circle">  
-                        </button>  
-            
-                        <button   
-                            class="p-button-sm"
-                            pButton
-                            type="button"
-                            icon="pi pi-times-circle"
-                            label="Cancelar" 
-                            style=" background-color: #D72250;"
-                            (click)="VistaNuevoMaterial = false">  
-                        </button>  
-                    </div>
-        
-                </form>
-            </div>
-        </div>
+                </div> 
+            </div> 
+            <div class="botones">
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style="margin-right: 1%;"
+                    [disabled]="Form.invalid"
+                    label="{{ (dataMaterial) ? 'Actualizar' : 'Grabar' }}"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+    
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="VistaNuevoMaterial = false">  
+                </button>  
+            </div> 
+        </form> 
     </p-dialog> 
 </div>  
 

@@ -26,30 +26,10 @@
               </button> 
             </div>
         </p-toolbar>
-
-
-            <div class="titulo d-flex flex-wrap">
-                <div class="px-2">
-                  <strong> Buscar :</strong>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input
-                        pInputText
-                        type="text"
-                        [formControl]="criterioBusqueda"
-                        class="p-inputtext-sm"
-                        placeholder="Buscar"
-                        size="25"
-                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-                    </span> 
-                </div>
-                <!-- <div class="d-block">
-                   
-                </div> -->
-            </div>
+ 
+         
             
-            <div class="card" [responsive]="true"> 
-     
+        <div class="card" [responsive]="true"> 
             <p-table 
             [value]="listTransportistas" 
             dataKey="id" 
@@ -124,7 +104,7 @@
                 </ng-template>
 
                 <div style="margin-top: 2%;"></div>
-                <hr style="width: 5%;"desc>
+                <hr style="width: 5%;">
                 
                 <!-- LISTA DE CHOFERES -->
                 <ng-template pTemplate="rowexpansion" let-transportistas>

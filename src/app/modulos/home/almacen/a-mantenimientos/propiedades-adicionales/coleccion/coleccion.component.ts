@@ -9,8 +9,7 @@ import { PropiedadesAdicionalesServices } from '../service/propiedadesadicionale
 
 @Component({
   selector: 'app-coleccion',
-  templateUrl: './coleccion.component.html',
-  styleUrls: ['./coleccion.component.scss']
+  templateUrl: './coleccion.component.html'
 })
 export class ColeccionComponent implements OnInit {
 

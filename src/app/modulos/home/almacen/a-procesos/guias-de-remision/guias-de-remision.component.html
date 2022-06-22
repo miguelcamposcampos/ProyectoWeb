@@ -8,7 +8,7 @@
 
             <p-toolbar>
                 <div class="p-toolbar-group-left">
-                    <h3> <i class="fas fa-file-signature"></i> GUIAS DE REMISION </h3>    
+                    <h3> <i class="fas fa-file-signature"></i> GUIAS DE REMISIÓN </h3>    
                 </div>
                 
                 <div class="p-toolbar-group-right">
@@ -24,8 +24,7 @@
                     </button>      
                 </div>
             </p-toolbar>
-
-
+ 
             <form [formGroup]="FormBusqueda">
                 <div class="p-col-12"> 
                     <div class="p-fluid p-formgrid p-grid">  
@@ -60,8 +59,7 @@
 
                     </div>
                 </div> 
-            </form>
-
+            </form> 
 
             <p-table 
             [responsive]="true"
@@ -136,19 +134,14 @@
                     <tr>
                     <td colspan="6">No existen registros</td>
                     </tr>
-                </ng-template> 
-                
+                </ng-template>  
             <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadGuiasRemision($event)"></p-paginator>
-
-
-            </p-table> 
-        
+            </p-table>  
 
         </div> 
     </div>  
 </div>
  
-
 <app-nueva-guia-remision *ngIf="VistaNuevaGuiaRemision" [dataGuia]="dataGuia" (cerrar)="onRetornar($event)"></app-nueva-guia-remision>
  
   

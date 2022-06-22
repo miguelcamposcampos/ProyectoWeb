@@ -1,29 +1,21 @@
 <div class="Margintabla">
-    
-    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-      </ngx-spinner>
-
     <div class="contenido card">
         <form [formGroup]="Form">
-            <div class="stepsdemo-content">   
-                <div class="formulario"> 
-                    <strong>Nombre Almacen *</strong>
-                    <input type="text" pInputText formControlName="nombreAlmacen" class="p-inputtext-sm" placeholder="ingresar el nombre de alamacen">         
-           
-                    <strong>Tipo Producto *</strong>
-                    <p-dropdown class="extender" appendTo="body" placeholder="Selecciona un tipo de Producto"  formControlName="tipoProducto" [options]="listaTipoProducto" optionLabel="valor1"></p-dropdown>                 
-                </div> 
-                <br>
-                <div class="formulario2">  
-                    <strong>Validar Stock *</strong>
-                    <p-inputSwitch formControlName="validarStock" ></p-inputSwitch>
+            <div class="formulario"> 
+                <strong>Nombre Almacén *</strong>
+                <input type="text" pInputText formControlName="nombreAlmacen" class="p-inputtext-sm" placeholder="ingresar el nombre de alamacen">         
+        
+                <strong>Tipo Producto *</strong>
+                <p-dropdown class="extender" appendTo="body" placeholder="Selecciona un tipo de Producto"  formControlName="tipoProducto" [options]="listaTipoProducto" optionLabel="valor1"></p-dropdown>                 
+            </div> 
+            <br>
+            <div class="formulario2">  
+                <strong>Validar Stock *</strong>
+                <p-inputSwitch formControlName="validarStock" ></p-inputSwitch>
 
-                    <strong>Activo *</strong>
-                    <p-inputSwitch formControlName="activo" ></p-inputSwitch>
-                </div>
-            </div>
-
+                <strong>Activo *</strong>
+                <p-inputSwitch formControlName="activo" ></p-inputSwitch>
+            </div> 
 
             <div class="botones">
                 <button  
@@ -32,11 +24,10 @@
                     type="button"
                     style="margin-right: 1%;"
                     [disabled]="Form.invalid"
-                    label="{{ (!dataAlmacenEdit.idAlmacenEdit ) ? 'Guardar' : 'Actualizar'}}"
+                    label="{{ (!dataAlmacenEdit.idAlmacenEdit ) ? 'Grabar' : 'Actualizar'}}"
                     (click)="onGrabar()"
                     icon="pi pi-check-circle">  
-                </button>  
-    
+                </button>   
                 <button   
                     class="p-button-sm"
                     pButton

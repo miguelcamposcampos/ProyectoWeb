@@ -9,8 +9,7 @@ import { PropiedadesAdicionalesServices } from '../service/propiedadesadicionale
 
 @Component({
   selector: 'app-tallas',
-  templateUrl: './tallas.component.html',
-  styleUrls: ['./tallas.component.scss']
+  templateUrl: './tallas.component.html'
 })
 export class TallasComponent implements OnInit {
 

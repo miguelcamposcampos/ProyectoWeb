@@ -51,8 +51,8 @@
                     type="button"
                     class="p-button-sm p-button-rounded"
                     tooltipPosition="top" 
-                    [pTooltip]="!Tabs[idIndexTab].mostrarBotonCobrar? 'GUARDAR' : 'COBRAR' "   
-                    [label]="!Tabs[idIndexTab].mostrarBotonCobrar ? 'GUARDAR' : 'COBRAR' " 
+                    [pTooltip]="!Tabs[idIndexTab].mostrarBotonCobrar? 'GRABAR' : 'COBRAR' "   
+                    [label]="!Tabs[idIndexTab].mostrarBotonCobrar ? 'GRABAR' : 'COBRAR' " 
                     (click)="!Tabs[idIndexTab].mostrarBotonCobrar ? onGrabar(idIndexTab) : onCobrar(Tabs[idIndexTab].idVenta)"
                     style="margin-right :2%;" 
                     [icon]="!Tabs[idIndexTab].mostrarBotonCobrar ? 'pi pi-save' : 'fas fa-circle-dollar-to-slot'">
