@@ -174,8 +174,21 @@ export class NuevaCajaChicaComponent implements OnInit {
    }
 
    AddDetalle(){ 
+    let salida 
+    if(!this.detalleCajaChica.length){
+      salida = {
+        id: 1, 
+        nombre: 'INGRESO'
+      }
+    }else{
+      salida = {
+        id: 2, 
+        nombre: 'SALIDA'
+      }
+    }
+
     return this.fb.group({
-      motivoid: new FormControl({id: 2, nombre: 'SALIDA'}),
+      motivoid: new FormControl(salida),
       importe: new FormControl(null),
       descripcion : new FormControl(null),
       usuarionombre : new  FormControl(null),

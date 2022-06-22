@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="p-field p-col-12 p-md-9">
-                        <strong>Medio Pago *:</strong>
+                        <strong>Medio de Pago *:</strong>
                         <p-dropdown class="DropExtenso" [options]="arrayMedioPago" formControlName="medioPago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>
 
@@ -97,7 +97,6 @@
                         <strong>Glosa:</strong>
                         <input  type="text" pInputText  formControlName="glosa" class="p-inputtext-sm" placeholder="ingresar una glosa">     
                     </div>
-                    
 
                     <div class="p-field p-col-12 p-md-6 p-sm-6"> 
                         <button pButton pRipple type="button" label="Buscar Pendiente" class="p-button-rounded"  icon="fas fa-clock"  (click)="onBuscarPendiente()"></button>
@@ -171,11 +170,11 @@
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Cobrado</strong>
-                                    <input type="text" style="width: 80px;text-align: right;" (keyup)="onCalcularSaldo(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="importecobrado">  
+                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="importecobrado">  
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Redondeo</strong>
-                                    <input type="text" style="width: 80px;text-align: right;" (keyup)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeredondeo">  
+                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeredondeo">  
                                 </td>
                                 <td style="text-align: center;">
                                     <strong class="p-column-title">Apl.Retencion</strong>
@@ -183,7 +182,7 @@
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Retencion</strong>
-                                    <input type="text" style="width: 80px;text-align: right;" (keyup)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeretencion">  
+                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeretencion">  
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Nro.Doc.Retencion</strong>

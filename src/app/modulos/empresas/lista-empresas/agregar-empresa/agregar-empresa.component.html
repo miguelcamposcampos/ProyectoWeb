@@ -79,7 +79,7 @@
                     </div>
     
                     <div *ngIf="!EmpresaEdit" class="centrar"> 
-                        <button pButton *ngIf="!agregPlanElegido" label="{{ (!agregPlanElegido)? 'Elige un Plan:' : 'Plan elegido:' }}"(click)="onEscogerPlan()" icon="pi pi-check-square" class="p-button-sm" > </button>    
+                        <button pButton *ngIf="!agregPlanElegido" type="button" label="{{ (!agregPlanElegido)? 'Elige un Plan:' : 'Plan elegido:' }}"(click)="onEscogerPlan()" icon="pi pi-check-square" class="p-button-sm" > </button>    
                         <div class="d-flex">
                             <button pButton *ngIf="agregPlanElegido" [label]="agregPlanElegido" class="botonPlan p-button-sm  mx-2"   type="button"> </button> 
                             <button pButton *ngIf="agregPlanElegido" pTooltip="quitar plan elegido" tooltipPosition="left" style=" background-color: #D72250;"  type="button" (click)="onQuitarPlan()" icon="pi pi-trash" class="botonPlan p-button-sm" > </button>    

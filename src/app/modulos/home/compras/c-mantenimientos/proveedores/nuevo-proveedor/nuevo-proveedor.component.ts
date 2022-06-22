@@ -147,17 +147,24 @@ export class NuevoProveedorComponent implements OnInit {
       this.mostrarRazonSocial = false;
       this.minimoRequerido = 8;
       this.maximoRequerido = 8;
-    } else{ 
+    }else if(event === 'RUC') { 
       apellidos.setValidators(null);
       nombres.setValidators(null); 
-      razonSocial.setValidators([Validators.required]);  
+      razonSocial.setValidators([Validators.required]); 
       this.mostrarRazonSocial = true;
       this.minimoRequerido = 11;
+      this.maximoRequerido = 11;
+    }else{
+      apellidos.setValidators([Validators.required]);
+      nombres.setValidators([Validators.required]); 
+      razonSocial.setValidators(null); 
+      this.mostrarRazonSocial = false;
+      this.minimoRequerido = 15;
       this.maximoRequerido = 15;
     }
 
     apellidos.updateValueAndValidity();
-    nombres.updateValueAndValidity();
+    nombres.updateValueAndValidity(); 
     razonSocial.updateValueAndValidity();  
  
   }

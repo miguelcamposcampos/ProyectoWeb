@@ -33,10 +33,8 @@
                 (click)="onRegresar()">  
             </button>  
             </div>
-        </p-toolbar>
-        <!-- <h3><i class="fas fa-address-card"></i>{{tituloVistaTransportista}}</h3>   -->
+        </p-toolbar> 
 
-  
         <hr>   
             <div class="stepsdemo-content nuevoTransportista"> 
                 <div>
@@ -58,13 +56,13 @@
                             </div>
 
                             <strong *ngIf="!mostrarRazonSocial">Apellidos*</strong>
-                            <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly formControlName="apellidos" class="p-inputtext-sm" placeholder="ingresar tus apellidos">   
+                            <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" class="p-inputtext-sm" placeholder="ingresar tus apellidos">   
                         
                             <strong *ngIf="!mostrarRazonSocial">Nombres*</strong>
-                            <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
+                            <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
                         
-                            <strong *ngIf="mostrarRazonSocial">Razon Social *</strong>
-                            <input  *ngIf="mostrarRazonSocial" type="text" pInputText [readonly]="IngresoManual" formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
+                            <strong *ngIf="mostrarRazonSocial">Razón Social *</strong>
+                            <input  *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
                           
                             <strong>Telefono</strong>
                             <input type="text" pInputText  minlength="9" maxlength="9" (keypress)="validateNumber($event)" formControlName="telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">  
@@ -75,7 +73,7 @@
                             <strong>Email </strong>
                             <input type="email" pInputText formControlName="email" class="p-inputtext-sm" placeholder="ingresar el email">  
                            
-                            <strong>Dirección:</strong>  
+                            <strong>Ubigeo:</strong>  
                             <div class="p-inputgroup">  
                                 <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca una direccion">   
                                 <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      

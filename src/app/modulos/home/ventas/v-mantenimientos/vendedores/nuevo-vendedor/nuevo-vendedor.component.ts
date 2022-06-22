@@ -25,6 +25,13 @@ export class NuevoVendedorComponent implements OnInit {
   ubigeoSeleccionado : number = 0;
   ubigeoParaMostrar : string ="";
 
+  listTipoPersona: any[];
+  listTipoDocumento : any[];
+  minimoRequerido : number = 0;
+  maximoRequerido : number = 0; 
+  mostrarRazonSocial: boolean = false;
+
+  dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')); 
 
   constructor(    
     private swal : MensajesSwalService, 
@@ -38,15 +45,17 @@ export class NuevoVendedorComponent implements OnInit {
    public builform(): void {
     this.Form = new FormGroup({ 
       establecimiento: new FormControl(null, Validators.required), 
+      tipoPersona: new FormControl(null, Validators.required), 
+      tipoDocumento: new FormControl(null, Validators.required), 
       nroDocumento: new FormControl(null, Validators.required), 
       apellidos: new FormControl(null, Validators.required), 
       nombres: new FormControl(null, Validators.required),  
+      razonSocial: new FormControl(null), 
       direccionprincipal: new FormControl(null),  
     })
   }
   ngOnInit(): void {
-    this.onCargarDropdown();
-
+    this.onCargarDropdown(); 
     if(this.dataVendedor){
       this.spinner.show();
       this.Avisar();
@@ -57,10 +66,23 @@ export class NuevoVendedorComponent implements OnInit {
   onCargarDropdown(){
     const obsDatos = forkJoin(   
       this.generalService.listadoComboEstablecimientos(), 
+      this.generalService.listadoPorGrupo('TipoPersona'), 
+      this.generalService.listadoPorGrupo('TipoDocumento'),  
     );
     obsDatos.subscribe((response) => { 
-      this.arrayEstablecimientos = response[0];   
+      this.arrayEstablecimientos = response[0];  
+      this.listTipoPersona = response[1];
+      this.listTipoDocumento = response[2];  
       this.FlgLlenaronCombo.next(true); 
+      if(!this.VendedorEdit ){
+        if(this.dataPredeterminadosDesencryptada){
+          this.Form.patchValue({
+            establecimiento: this.arrayEstablecimientos.find(
+              (x) => x.id === +this.dataPredeterminadosDesencryptada.idEstablecimiento
+            )
+          })
+        }
+      }
     },error => { 
       this.generalService.onValidarOtraSesion(error);  
     }); 
@@ -78,21 +100,30 @@ export class NuevoVendedorComponent implements OnInit {
     this.vendedorService.VendedorPorId(id).subscribe((resp) => {
       if(resp){ 
         this.VendedorEdit = resp; 
-        this.generalService.listarubigeo(+this.VendedorEdit.personaData.ubigeoprincipal).subscribe((ubi)=> {
-          let datosubi: any = Object.values(ubi) 
-          this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2];
-        })
-
-        this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
-
+        this.onObtenerTipoDocumento(this.VendedorEdit.personaData.tipodocumentoid);
+        if(resp.personaData.ubigeoprincipal){
+          this.generalService.listarubigeo(this.VendedorEdit.personaData.ubigeoprincipal).subscribe((ubi)=> {
+            let datosubi: any = Object.values(ubi) 
+            this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2];
+          });
+          this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+        }
         this.Form.patchValue({
-          establecimiento: this.arrayEstablecimientos.find(
-            (x) => x.id === this.VendedorEdit.establecimientoid
+            establecimiento: this.arrayEstablecimientos.find(
+              (x) => x.id === this.VendedorEdit.establecimientoid
             ),
             nroDocumento: this.VendedorEdit.personaData.nrodocumentoidentidad,
             apellidos: this.VendedorEdit.personaData.apellidos,
             nombres: this.VendedorEdit .personaData.nombres,
-            direccionprincipal: this.VendedorEdit.personaData.direccionprincipal
+            direccionprincipal: this.VendedorEdit.personaData.direccionprincipal, 
+            razonSocial: this.VendedorEdit.personaData.reazonsocial,  
+            tipoPersona: this.listTipoPersona.find(
+              (x) => x.id === this.VendedorEdit.personaData.tipopersonaid
+              ),
+            tipoDocumento: this.listTipoDocumento.find(
+              (x) => x.id === this.VendedorEdit.personaData.tipodocumentoid
+            ), 
+            
           });
           this.spinner.hide();
         } 
@@ -128,6 +159,18 @@ export class NuevoVendedorComponent implements OnInit {
 
   }
 
+
+  onObtenerTipoDocumento(event: any){  
+    let evento = this.listTipoDocumento.filter(x => x.id === event) 
+    let hizoclick = event.valor1
+    if(hizoclick){
+      this.limpiarForm();
+      this.onValidacionRequired(hizoclick);
+    }else{
+      this.onValidacionRequired(evento[0].valor1);
+    } 
+  }
+
   onBuscarUbigeo(){
     this.modalBuscarUbigeo = true;
   }
@@ -153,6 +196,9 @@ export class NuevoVendedorComponent implements OnInit {
           direccionprincipal: data.direccionprincipal,
           nombres: data.nombres,
           nrodocumentoidentidad : data.nroDocumento,
+          tipodocumentoid : data.tipoDocumento.id,
+          tipopersonaid: data.tipoPersona.id,
+          reazonsocial :  data.razonSocial,
           personaid:  this.VendedorEdit ? this.VendedorEdit.personaid :0,  
           ubigeoprincipal : this.ubigeoSeleccionado,
       },
@@ -189,6 +235,44 @@ export class NuevoVendedorComponent implements OnInit {
     this.cerrar.emit(false)
   }
 
+  
+  limpiarForm(){
+    this.Form.controls['nroDocumento'].setValue(null);
+    this.Form.controls['apellidos'].setValue(null);
+    this.Form.controls['nombres'].setValue(null);
+  }
+  
+  onValidacionRequired(event : any){ 
+    const apellidos = this.Form.get("apellidos");
+    const nombres = this.Form.get("nombres");
+    const razonSocial = this.Form.get("razonSocial"); 
+    
+    if(event === 'DNI') { 
+      apellidos.setValidators([Validators.required]);
+      nombres.setValidators([Validators.required]); 
+      razonSocial.setValidators(null); 
+      this.mostrarRazonSocial = false;
+      this.minimoRequerido = 8;
+      this.maximoRequerido = 8;
+    }else if(event === 'RUC') { 
+      apellidos.setValidators(null);
+      nombres.setValidators(null); 
+      razonSocial.setValidators([Validators.required]); 
+      this.mostrarRazonSocial = true;
+      this.minimoRequerido = 11;
+      this.maximoRequerido = 11;
+    }else{
+      apellidos.setValidators([Validators.required]);
+      nombres.setValidators([Validators.required]); 
+      razonSocial.setValidators(null); 
+      this.mostrarRazonSocial = false;
+      this.minimoRequerido = 15;
+      this.maximoRequerido = 15;
+    }
 
+    apellidos.updateValueAndValidity();
+    nombres.updateValueAndValidity(); 
+    razonSocial.updateValueAndValidity(); 
+  }
 
 }

@@ -109,7 +109,7 @@
                         </div>
         
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Condicion Pago *:</strong> 
+                            <strong>Condición Pago *:</strong> 
                             <div class="p-inputgroup">  
                                 <p-dropdown  class="extender"  (onChange)="onObtenerCondicionPago($event.value.valor1)" [options]="arrayCondicionPago" formControlName="condicionpagoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>    
                                 <button type="button" *ngIf="existeCondicionPagoCredito" pTooltip="Agregar Cuotas" class="p-button-sm" tooltipPosition="left" (click)="onModalDetalleCondicionPago()" pButton icon="pi pi-plus"></button>    
@@ -128,7 +128,7 @@
                         </div>  
 
                         <div class="p-field p-col-12 p-md-12">
-                            <strong>Tipo Operacion *:</strong>
+                            <strong>Tipo Operación *:</strong>
                             <p-dropdown class="DropExtenso" [options]="arrayTipoOperacion" formControlName="codtipooperacion"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>        
                         </div>  
                     </div> 
@@ -146,23 +146,22 @@
                                     responsiveLayout="stack" >  
                                     <ng-template pTemplate="header">
                                         <tr> 
-                                            <th style="width: 80px;">Nro</th>
-                                            <th style="width: 80px;">Importe</th>
+                                            <th style="width: 80px;">Cuota</th>
+                                            <th style="width: 85px;">Importe</th>
                                             <th style="width: 150px;">Fec.Pago</th> 
-                                            <th style="width: 20px;">Accion</th>
+                                            <th style="width: 50px;">Acción</th>
                                         </tr>
                                     </ng-template> 
                         
                                     <ng-template pTemplate="body" let-detalles  let-rowIndex="rowIndex" formArrayName="arrayDetallesCondicionPago"> 
                                         <tr   [formGroupName]="rowIndex"> 
-                                            
                                             <td>
                                                 <strong class="p-column-title">Nro</strong> 
-                                                <span  style="width: 70px;" >Cuota: 00{{rowIndex + 1 }} </span>
+                                                <span  style="width: 60px;" >Nro: {{rowIndex + 1 | number : '3.0-0'}} </span>
                                             </td>
                                             <td>
                                                 <strong class="p-column-title">Importe</strong>
-                                                <input type="number"  style="width: 60px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importepagocuota">  
+                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importepagocuota">  
                                             </td>
                                             <td>
                                                 <strong class="p-column-title">Fec.Pago</strong>

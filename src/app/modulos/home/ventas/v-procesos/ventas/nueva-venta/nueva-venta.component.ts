@@ -101,7 +101,7 @@ export class NuevaVentaComponent implements OnInit {
   hostPordefecto : string = "";
   bloquearComboImpresoras : boolean = true;
   dataDesencryptada :any;
-  dataPredeterminadosDesencryptada:any;
+  dataPredeterminadosDesencryptada:any = JSON.parse(localStorage.getItem('Predeterminados')); 
   porcentajebolsaplasticaLS : any;
 
   constructor(
@@ -120,8 +120,6 @@ export class NuevaVentaComponent implements OnInit {
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
     ]
-
-    this.dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')); 
  
     this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
     if(this.dataDesencryptada){

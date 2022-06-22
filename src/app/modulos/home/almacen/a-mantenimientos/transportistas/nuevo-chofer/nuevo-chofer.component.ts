@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';  
 import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin, Subject } from 'rxjs';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ICrearChofer } from '../interface/transportista.interface';
@@ -13,17 +14,22 @@ import { TransportistaService } from '../service/transportista.service';
 })
 export class NuevoChoferComponent implements OnInit {
 
-  
+  public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   tituloVistaChofer :string = "NUEVO CHOFER"; 
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
-  @Input() dataChofer! : any;
+  @Input() dataChofer : any;
   EditarChofer : ICrearChofer 
   Form : FormGroup;
-
+  listTipoPersona: any[];
+  listTipoDocumento : any[];
   ubigeoSeleccionado : string = '';
   ubigeoParaMostrar : string =""; 
   modalBuscarUbigeo : boolean = false;
  
+  minimoRequerido : number = 0;
+  maximoRequerido : number = 0; 
+  mostrarRazonSocial: boolean = false;
+
   constructor(
     private transpService: TransportistaService,
     private generalService : GeneralService,
@@ -34,10 +40,11 @@ export class NuevoChoferComponent implements OnInit {
   }
 
   ngOnInit(): void { 
+    this.onCargarDropDown();  
     if(this.dataChofer.idChofer){
       this.spinner.show();
-      this.tituloVistaChofer = "EDITAR CHOFER";
-      this.onObtenerDataChoferEditar();
+      this.Avisar();
+      this.tituloVistaChofer = "EDITAR CHOFER"; 
     }
   }
 
@@ -45,9 +52,12 @@ export class NuevoChoferComponent implements OnInit {
   private builform(): void {
     this.Form = new FormGroup({ 
       brevete: new FormControl(null),   
+      tipoPersona: new FormControl( null, Validators.required),
+      tipoDocumento: new FormControl(null, Validators.required), 
       nroDocumento: new FormControl(null, Validators.required), 
-      apellidos: new FormControl(null),   
-      nombres: new FormControl(null),  
+      razonSocial: new FormControl(null, Validators.required),  
+      apellidos: new FormControl(null, Validators.required),   
+      nombres: new FormControl(null, Validators.required), 
       direccionprincipal: new FormControl(null),   
     });
   }
@@ -59,35 +69,60 @@ export class NuevoChoferComponent implements OnInit {
       this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento');
       return;
     } 
-    this.spinner.show();
-   // if(nroDocumento.toString().length === 8){ 
-      this.generalService.consultaPorDni(nroDocumento).subscribe((resp) => {
-        if(resp.dni){
-          this.Form.patchValue({
-            apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
-            nombres : resp.nombres
-          }); 
-        }else{
-          this.swal.mensajeError('No se encontraron datos.');
-          this.limpiarForm(); 
-        }
-        this.spinner.hide();
-      },error => {  
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error); 
-      })
-  //  }else{
-  //    this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
-  //  }
+    this.spinner.show(); 
+    this.generalService.consultaPorDni(nroDocumento).subscribe((resp) => {
+      if(resp.dni){
+        this.Form.patchValue({
+          apellidos : resp.apePaterno + ' ' + resp.apeMaterno,
+          nombres : resp.nombres
+        }); 
+      }else{
+        this.swal.mensajeError('No se encontraron datos.');
+        this.limpiarForm(); 
+      }
+      this.spinner.hide();
+    },error => {  
+      this.spinner.hide();
+      this.generalService.onValidarOtraSesion(error); 
+    }) 
   }
 
+  onCargarDropDown(){ 
+    const obsDatos = forkJoin( 
+      this.generalService.listadoPorGrupo('TipoPersona'), 
+      this.generalService.listadoPorGrupo('TipoDocumento'),  
+    );
+    obsDatos.subscribe((response) => {
+      this.listTipoPersona = response[0];
+      this.listTipoDocumento = response[1];  
+      this.FlgLlenaronCombo.next(true); 
+    },error => { 
+      this.generalService.onValidarOtraSesion(error);  
+    });
+  } 
+
+  Avisar() {
+    this.FlgLlenaronCombo.subscribe((x) => {
+      this.onObtenerDataChoferEditar(); 
+    });
+  }
+
+  onObtenerTipoDocumento(event: any){  
+    let evento = this.listTipoDocumento.filter(x => x.id === event) 
+    let hizoclick = event.valor1
+    if(hizoclick){
+      this.limpiarForm();
+      this.onValidacionRequired(hizoclick);
+    }else{
+      this.onValidacionRequired(evento[0].valor1);
+    } 
+  }
 
   limpiarForm(){
     this.Form.controls['nroDocumento'].setValue(null);
     this.Form.controls['apellidos'].setValue(null);
     this.Form.controls['nombres'].setValue(null);
   }
- 
   
  
   onObtenerDataChoferEditar(){ 
@@ -95,12 +130,28 @@ export class NuevoChoferComponent implements OnInit {
     this.transpService.choferporId(this.dataChofer.idChofer).subscribe((resp) => { 
       if(resp){ 
         this.EditarChofer = resp; 
+        this.onObtenerTipoDocumento(this.EditarChofer.personaData.tipodocumentoid);
+        if(+resp.personaData.ubigeoprincipal){
+          this.generalService.listarubigeo(+resp.personaData.ubigeoprincipal).subscribe((ubi)=> {
+            let datosubi: any = Object.values(ubi)  
+            this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2]; 
+          })
+          this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+        }
+        
         this.Form.patchValue({ 
           nroDocumento: this.EditarChofer.personaData.nrodocumentoidentidad, 
           apellidos: this.EditarChofer.personaData.apellidos,   
           nombres: this.EditarChofer.personaData.nombres, 
           brevete: this.EditarChofer.brevete, 
-          direccionprincipal: this.EditarChofer.personaData.direccionprincipal
+          direccionprincipal: this.EditarChofer.personaData.direccionprincipal,
+          tipoPersona: this.listTipoPersona.find(
+            (x) => x.id === this.EditarChofer.personaData.tipopersonaid
+            ),
+            tipoDocumento: this.listTipoDocumento.find(
+              (x) => x.id === this.EditarChofer.personaData.tipodocumentoid
+          ),
+          razonSocial: this.EditarChofer.personaData.razonsocial, 
         });
         this.spinner.hide();
       }
@@ -134,9 +185,9 @@ export class NuevoChoferComponent implements OnInit {
         direccionesAnexos: [],
         nrodocumentoidentidad : data.nroDocumento,
         personaid:  this.EditarChofer ? this.EditarChofer.personaData.personaid : 0,
-        tipodocumentoid : this.EditarChofer ? this.EditarChofer.personaData.tipodocumentoid : 1,
-        tipopersonaid: this.EditarChofer ? this.EditarChofer.personaData.tipopersonaid : 1,
-        razonsocial : '',
+        tipodocumentoid : data.tipoDocumento.id,
+        tipopersonaid: data.tipoPersona.id,
+        razonsocial :  data.razonSocial,
         ubigeoprincipal : this.ubigeoSeleccionado,
         direccionprincipal: data.direccionprincipal
       },
@@ -195,7 +246,39 @@ export class NuevoChoferComponent implements OnInit {
         event.preventDefault();
        }
      }
+  }
+
+  onValidacionRequired(event : any){ 
+    const apellidos = this.Form.get("apellidos");
+    const nombres = this.Form.get("nombres");
+    const razonSocial = this.Form.get("razonSocial"); 
+    
+    if(event === 'DNI') { 
+      apellidos.setValidators([Validators.required]);
+      nombres.setValidators([Validators.required]); 
+      razonSocial.setValidators(null); 
+      this.mostrarRazonSocial = false;
+      this.minimoRequerido = 8;
+      this.maximoRequerido = 8;
+    }else if(event === 'RUC') { 
+      apellidos.setValidators(null);
+      nombres.setValidators(null); 
+      razonSocial.setValidators([Validators.required]); 
+      this.mostrarRazonSocial = true;
+      this.minimoRequerido = 11;
+      this.maximoRequerido = 11;
+    }else{
+      apellidos.setValidators([Validators.required]);
+      nombres.setValidators([Validators.required]); 
+      razonSocial.setValidators(null); 
+      this.mostrarRazonSocial = false;
+      this.minimoRequerido = 15;
+      this.maximoRequerido = 15;
     }
 
+    apellidos.updateValueAndValidity();
+    nombres.updateValueAndValidity(); 
+    razonSocial.updateValueAndValidity(); 
+  }
     
 }

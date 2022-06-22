@@ -116,7 +116,7 @@
                         </div>
         
                         <div class="p-field p-col-12 p-md-3 p-sm-6">
-                            <strong>Condicion Pago *:</strong> 
+                            <strong>Condición Pago *:</strong> 
                             <div class="p-inputgroup">  
                                 <p-dropdown  class="extender" [options]="arrayCondicionPago" formControlName="condicionpagoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>    
                                 <button type="button" *ngIf="existeCondicionPagoCredito" pTooltip="Agregar Cuotas" class="p-button-sm" tooltipPosition="left" (click)="onModalDetalleCondicionPago()" pButton icon="pi pi-plus"></button>    
@@ -151,7 +151,7 @@
                         </div>  
 
                         <div class="p-field p-col-12 p-md-12">
-                            <strong>Tipo Operacion *:</strong>
+                            <strong>Tipo Operación *:</strong>
                             <p-dropdown class="DropExtenso" [options]="arrayTipoOperacion" formControlName="codtipooperacion"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>        
                         </div>  
                     </div> 
@@ -165,15 +165,9 @@
                     <!-- FORM ARRAY DEL DETALLE DE LA VENTA-->
                     <div *ngIf="DetalleForm" >
                         <br>
-                        <div>
-                            <!-- <div class="BotonCondiciondePago">  
-                                <strong> Agregar detalle de la venta:</strong> 
-                                <button type="button" label="Agregar" pTooltip="Agregar"  class="p-button-sm" (click)="onAgregarDetalleVenta()" tooltipPosition="left" pButton  icon="pi pi-plus"></button>                                 
-                            </div>  -->
-
+                        <div> 
                             <button pButton pRipple type="button" label="Agregar detalle Venta" class="p-button-rounded"  icon="pi pi-plus"  (click)="onAgregarDetalleVenta()"></button>
-
-
+ 
                             <div style="margin: 3%;">
                                 <p-table   
                                     class="TablaDetalleCondicionPago"
@@ -182,12 +176,12 @@
                                     responsiveLayout="stack" >  
                                     <ng-template pTemplate="header">
                                         <tr class="centrar"> 
-                                            <th style="width: 50px;">Accion</th>
+                                            <th style="width: 50px;">Acción</th>
                                             <th style="width: 150px;">Almacén</th>
                                             <th style="width: 120px;">Cod Producto</th> 
                                             <th style="width: 180px;">Producto/Servicio</th> 
                                             <th style="width: 140px;">Und Medida</th> 
-                                            <th style="width: 150px;">T.Afectacion</th> 
+                                            <th style="width: 150px;">T.Afectación</th> 
                                             <th style="width: 75px;">P.Inc.Igv</th> 
                                             <th style="width: 80px;">Cantidad</th> 
                                             <th style="width: 100px;">Precio.U</th> 
@@ -255,7 +249,7 @@
                                                 <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
                                             </td>   
                                             <td>
-                                                <strong class="p-column-title">Base Impon,</strong>
+                                                <strong class="p-column-title">Base Impon</strong>
                                                 <input type="number" style="width: 80px;text-align: right;"  readonly class="p-inputtext-sm" pInputText formControlName="baseimponible">  
                                             </td>  
                                             <td>

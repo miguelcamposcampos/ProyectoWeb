@@ -93,11 +93,13 @@ ngOnInit(): void {
       if(resp){ 
         this.ClienteEdit = resp;
         this.onObtenerTipoDocumento(this.ClienteEdit.personaData.tipodocumentoid);
-        this.generalService.listarubigeo(resp.personaData.ubigeoprincipal).subscribe((ubi)=> {
-          let datosubi: any = Object.values(ubi) 
-          this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2];
-        })
-        this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+        if(resp.personaData.ubigeoprincipal){
+          this.generalService.listarubigeo(resp.personaData.ubigeoprincipal).subscribe((ubi)=> {
+            let datosubi: any = Object.values(ubi) 
+            this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2];
+          })
+          this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+        }
 
         this.Form.patchValue({
             tipoPersona: this.arraytipoPersona.find(
@@ -148,17 +150,24 @@ ngOnInit(): void {
       this.mostrarRazonSocial = false;
       this.minimoRequerido = 8;
       this.maximoRequerido = 8;
-    } else{ 
+    }else if(event === 'RUC') { 
       apellidos.setValidators(null);
       nombres.setValidators(null); 
-      razonSocial.setValidators([Validators.required]);  
+      razonSocial.setValidators([Validators.required]); 
       this.mostrarRazonSocial = true;
       this.minimoRequerido = 11;
+      this.maximoRequerido = 11;
+    }else{
+      apellidos.setValidators([Validators.required]);
+      nombres.setValidators([Validators.required]); 
+      razonSocial.setValidators(null); 
+      this.mostrarRazonSocial = false;
+      this.minimoRequerido = 15;
       this.maximoRequerido = 15;
     }
 
     apellidos.updateValueAndValidity();
-    nombres.updateValueAndValidity();
+    nombres.updateValueAndValidity(); 
     razonSocial.updateValueAndValidity();  
  
   }

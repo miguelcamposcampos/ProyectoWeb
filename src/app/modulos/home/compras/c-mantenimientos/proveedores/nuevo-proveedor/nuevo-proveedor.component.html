@@ -51,7 +51,6 @@
                 
                     <strong>Tipo Documento *:</strong>
                     <p-dropdown class="extender p-dropdown-sm" (onChange)="onObtenerTipoDocumento($event.value)" [options]="arraytipoDocumento" formControlName="tipoDocumento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
-                
 
                     <strong>Nro Documento *:</strong>  
                     <div class="p-inputgroup">  
@@ -60,13 +59,13 @@
                     </div>
                 
                     <strong *ngIf="!mostrarRazonSocial">Apellidos:</strong>
-                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly placeholder="ingresa apellido" formControlName="apellidos" class="p-inputtext-sm">  
+                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText placeholder="ingresa apellido" formControlName="apellidos" class="p-inputtext-sm">  
                 
                     <strong *ngIf="!mostrarRazonSocial">Nombres:</strong>
-                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly  placeholder="ingresa nombres" formControlName="nombres" class="p-inputtext-sm">  
+                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText placeholder="ingresa nombres" formControlName="nombres" class="p-inputtext-sm">  
 
-                    <strong *ngIf="mostrarRazonSocial">Razon Social:</strong>
-                    <input *ngIf="mostrarRazonSocial" type="text" pInputText readonly  placeholder="ingresa razon social" formControlName="razonSocial" class="p-inputtext-sm">  
+                    <strong *ngIf="mostrarRazonSocial">Razón Social:</strong>
+                    <input *ngIf="mostrarRazonSocial" type="text" pInputText placeholder="ingresa razón social" formControlName="razonSocial" class="p-inputtext-sm">  
 
                     <strong>Email:</strong>
                     <input type="text" pInputText formControlName="email" placeholder="ingresa un email"  class="p-inputtext-sm">  

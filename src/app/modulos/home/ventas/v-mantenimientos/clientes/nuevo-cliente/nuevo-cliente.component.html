@@ -49,7 +49,6 @@
                 
                     <strong>Tipo Documento *:</strong>
                     <p-dropdown class="extender p-dropdown-sm" (onChange)="onObtenerTipoDocumento($event.value)" [options]="arraytipoDocumento" formControlName="tipoDocumento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
-                
 
                     <strong>Nro Documento *:</strong>  
                     <div class="p-inputgroup">  
@@ -58,18 +57,18 @@
                     </div>
                 
                     <strong *ngIf="!mostrarRazonSocial">Apellidos:</strong>
-                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly formControlName="apellidos" class="p-inputtext-sm">  
+                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" class="p-inputtext-sm">  
                 
                     <strong *ngIf="!mostrarRazonSocial">Nombres:</strong>
-                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText readonly formControlName="nombres" class="p-inputtext-sm">  
+                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm">  
 
                     <strong *ngIf="mostrarRazonSocial">Razon Social:</strong>
-                    <input *ngIf="mostrarRazonSocial" type="text" pInputText readonly formControlName="razonSocial" class="p-inputtext-sm">  
+                    <input *ngIf="mostrarRazonSocial" type="text" pInputText formControlName="razonSocial" class="p-inputtext-sm">  
 
                     <strong>Email:</strong>
                     <input type="text" pInputText formControlName="email" class="p-inputtext-sm">  
 
-                    <strong>Telefonos:</strong>
+                    <strong>Teléfonos:</strong>
                     <input type="number" pInputText formControlName="telefonos" class="p-inputtext-sm">  
 
                     <strong>WebSite:</strong>
@@ -78,11 +77,10 @@
                     <strong>Contacto:</strong>
                     <input type="text" pInputText formControlName="contacto" class="p-inputtext-sm">  
 
-                    <strong>Autorizado Para linea credito *:</strong>
+                    <strong>Autorizado Para linea crédito *:</strong>
                     <p-inputSwitch formControlName="autorizadoparalinea"> </p-inputSwitch>
             
-
-                    <strong>Dirección:</strong>  
+                    <strong>Ubigeo:</strong>  
                     <div class="p-inputgroup">  
                         <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca un anexo">   
                         <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
@@ -94,29 +92,6 @@
                 </div>  
             </p-fieldset>
         </form> 
-
-
-        <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid"
-                label="{{ (dataCliente) ? 'Actualizar' : 'Grabar' }}"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-
     </div>
 </div>
 

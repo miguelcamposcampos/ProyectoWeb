@@ -101,11 +101,13 @@ export class NuevoTransportistaComponent implements OnInit {
       if(resp){
         this.EditarTransportista = resp;
         this.onObtenerTipoDocumento(this.EditarTransportista.personaData.tipodocumentoid);
-        this.generalService.listarubigeo(+resp.personaData.ubigeoprincipal).subscribe((ubi)=> {
-          let datosubi: any = Object.values(ubi) 
-          this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2];
-        })
-        this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+        if(+resp.personaData.ubigeoprincipal){
+          this.generalService.listarubigeo(+resp.personaData.ubigeoprincipal).subscribe((ubi)=> {
+            let datosubi: any = Object.values(ubi) 
+            this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2];
+          })
+          this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+        }
 
         this.Form.patchValue({
           tipoPersona: this.listTipoPersona.find(
@@ -161,7 +163,7 @@ export class NuevoTransportistaComponent implements OnInit {
       apellidos.setValidators(null);
       nombres.setValidators(null); 
       razonSocial.setValidators([Validators.required]); 
-      
+
       this.mostrarRazonSocial = true;
       this.minimoRequerido = 11;
       this.maximoRequerido = 15;

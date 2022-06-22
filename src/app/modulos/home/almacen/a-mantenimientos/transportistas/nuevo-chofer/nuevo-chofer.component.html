@@ -45,21 +45,31 @@
                                 <strong>Brevete</strong>
                                 <input type="text" pInputText formControlName="brevete" class="p-inputtext-sm" placeholder="ingresar tu brevete">   
                             
+                                <strong>Tipo Persona *</strong>
+                                <p-dropdown class="extender" placeholder="Selecciona un tipo de persona"  formControlName="tipoPersona" [options]="listTipoPersona" optionLabel="valor1"></p-dropdown>
+                             
+                                <strong>Tipo Documento *</strong>
+                                <p-dropdown class="extender" (onChange)="onObtenerTipoDocumento($event.value)" placeholder="Selecciona un tipo de documento" formControlName="tipoDocumento" [options]="listTipoDocumento" optionLabel="valor1"></p-dropdown>
+                            
                                 <strong>Nro Documento *</strong>  
                                 <div class="p-inputgroup">  
-                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="8" (keypress)="validateNumber($event)" (keydown.enter)="onBuscarPorNumeroDocumento()" placeholder="ingresar el numero de documento">   
+                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" (keypress)="validateNumber($event)" (keydown.enter)="onBuscarPorNumeroDocumento()" placeholder="ingresar el numero de documento">   
                                     <button type="button" pTooltip="Buscar" tooltipPosition="left" pButton pRipple icon="pi pi-search" (click)="onBuscarPorNumeroDocumento()"styleClass="p-button-warn"></button>      
                                 </div>
-
-                                <strong>Apellidos</strong>
-                                <input type="text" pInputText readonly formControlName="apellidos" class="p-inputtext-sm" placeholder="ingresar tus apellidos">   
+ 
+                                <strong *ngIf="!mostrarRazonSocial">Apellidos*</strong>
+                                <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" class="p-inputtext-sm" placeholder="ingresar tus apellidos">   
                             
-                                <strong>Nombres</strong>
-                                <input  type="text" pInputText readonly formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
+                                <strong *ngIf="!mostrarRazonSocial">Nombres*</strong>
+                                <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
                             
-                                <strong>Dirección:</strong>  
+                                <strong *ngIf="mostrarRazonSocial">Razón Social *</strong>
+                                <input  *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
+                            
+                                
+                                <strong>Ubigeo:</strong>  
                                 <div class="p-inputgroup">  
-                                    <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca un anexo">   
+                                    <input type="text" pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca un anexo">   
                                     <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                                 </div>
 
@@ -71,28 +81,7 @@
                     </form>   
                   
                 </div> 
-            </div>
-   
-        <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid"
-                label="{{ (dataChofer.idChofer) ? 'Actualizar' : 'Grabar' }}"
-                (click)="onGrabarChofer()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
+            </div> 
     </div>  
   
 </div>

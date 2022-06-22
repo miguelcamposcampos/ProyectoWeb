@@ -45,18 +45,27 @@
                     <strong>Establecimiento *:</strong>
                     <p-dropdown class="extender p-dropdown-sm" [options]="arrayEstablecimientos" formControlName="establecimiento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                 
+                    <strong>Tipo Persona *</strong>
+                    <p-dropdown class="extender" placeholder="Selecciona un tipo de persona"  formControlName="tipoPersona" [options]="listTipoPersona" optionLabel="valor1"></p-dropdown>
+                 
+                    <strong>Tipo Documento *</strong>
+                    <p-dropdown class="extender" (onChange)="onObtenerTipoDocumento($event.value)" placeholder="Selecciona un tipo de documento" formControlName="tipoDocumento" [options]="listTipoDocumento" optionLabel="valor1"></p-dropdown>
+                 
                     <strong>Nro Documento *:</strong>  
                     <div class="p-inputgroup">  
-                        <input type="text" pInputText [minLength]="8" [maxLength]="8" formControlName="nroDocumento" class="p-inputtext-sm" placeholder="ingresa número de documento">   
+                        <input type="text" pInputText [minlength]="minimoRequerido" [maxlength]="maximoRequerido" formControlName="nroDocumento" class="p-inputtext-sm" placeholder="ingresa número de documento">   
                         <button type="button" pTooltip="Buscar" (click)="onBuscarPorDni()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                     </div>
                 
-                    <strong>Apellidos:</strong>
-                    <input type="text" pInputText readonly placeholder="ingresar apellidos" formControlName="apellidos" class="p-inputtext-sm">  
+                    <strong *ngIf="!mostrarRazonSocial">Apellidos*</strong>
+                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" class="p-inputtext-sm" placeholder="ingresar tus apellidos">   
                 
-                    <strong>Nombres:</strong>
-                    <input type="text" pInputText readonly placeholder="ingresar nombres" formControlName="nombres" class="p-inputtext-sm">  
-
+                    <strong *ngIf="!mostrarRazonSocial">Nombres*</strong>
+                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
+                
+                    <strong *ngIf="mostrarRazonSocial">Razón Social *</strong>
+                    <input  *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
+                
                     <strong>Dirección:</strong>  
                     <div class="p-inputgroup">  
                         <input type="text" readonly pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="ingresa una direccion">   

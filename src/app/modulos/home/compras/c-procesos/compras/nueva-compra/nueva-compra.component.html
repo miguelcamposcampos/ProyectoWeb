@@ -55,7 +55,6 @@
                         <strong>Tipo Documento</strong>  
                         <div class="InputCombinado">  
                             <p-dropdown class="DropExtenso" [disabled]="!existeEstablecimientoSeleccionado" (onChange)="onObtenerTipoDocumento($event.value)" [options]="arrayTipoDocumento" formControlName="documentoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor2"></p-dropdown>
-                            <!-- <p-dropdown class="extender"  [options]="arraySeriePorDocumento" formControlName="serieventa"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>  -->
                             <input type="text" pInputText  class="p-inputtext-sm"  formControlName="serieventa"   placeholder="ingresar">   
                             <input type="number" pInputText  class="p-inputtext-sm"  formControlName="secuencialventa"   placeholder="ingresar">   
                         </div>
@@ -107,7 +106,7 @@
                     </div>
     
                     <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Condicion Pago:</strong> 
+                        <strong>Condición Pago:</strong> 
                         <div class="p-inputgroup">  
                             <p-dropdown  class="extender"  [options]="arrayCondicionPago" formControlName="condicionpagoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>      
                         </div>   
