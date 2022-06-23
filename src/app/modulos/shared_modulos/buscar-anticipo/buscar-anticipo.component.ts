@@ -15,7 +15,6 @@ interface TiPersona {
 @Component({
   selector: 'app-buscar-anticipo',
   templateUrl: './buscar-anticipo.component.html',
-  styleUrls: ['./buscar-anticipo.component.scss']
 })
  
 export class BuscarAnticipoComponent implements OnInit {

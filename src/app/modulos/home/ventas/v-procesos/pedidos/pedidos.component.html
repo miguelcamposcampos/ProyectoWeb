@@ -6,8 +6,7 @@
                 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                     <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
                 </ngx-spinner>
-                   
-    
+                    
                 <p-toolbar>
                     <div class="p-toolbar-group-left">
                         <h3> <i class="fas fa-clipboard-list"></i> PEDIDOS </h3> 
@@ -30,10 +29,7 @@
                         </button> 
                     </div>
                 </p-toolbar>
-
-          
-
-
+ 
                 <div class="p-col-12"> 
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-3">
@@ -154,14 +150,10 @@
                                         icon="pi pi-trash">
                                     </button>        
                                 </div>  
-                            </ng-template>
-
-                            
-
+                            </ng-template>  
                         </td>
                     </tr>
-                </ng-template>
-
+                </ng-template> 
                 <ng-template pTemplate="emptymessage">
                     <tr>
                         <td colspan="6">No existen registros</td>
@@ -172,11 +164,10 @@
         </div> 
     </div>  
 </div>
- 
+ <!-- VISTAS Y MODAL -->
 <app-convertir-a-venta *ngIf="VistaNuevaVenta" [dataVenta]="dataVenta" (cerrar)="onRetornar($event)"  ></app-convertir-a-venta> 
 <app-nuevo-pedido *ngIf="VistaNuevoPedido" [dataPedido]="dataPedido" (cerrar)="onRetornar($event)"  ></app-nuevo-pedido> 
-
-
+ 
 <div *ngIf="modalBuscarPersona">
     <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
         <app-buscar-persona [dataPersona]="'Cliente'"  (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>

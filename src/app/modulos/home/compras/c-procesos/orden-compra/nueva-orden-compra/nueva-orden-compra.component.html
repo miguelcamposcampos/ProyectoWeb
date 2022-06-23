@@ -5,8 +5,7 @@
             <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
             </ngx-spinner>
-
-               
+ 
             <p-toolbar>
                 <div class="p-toolbar-group-left">
                     <h3> <i class="fas fa-cart-plus"></i>  {{ tituloNuevaOrdenCompra}} </h3>  
@@ -394,53 +393,30 @@
                     <button type="button" (click)="activateMenu('3')" pTooltip="Mas info..." class="p-button-sm" tooltipPosition="left" pButton icon="pi pi-info"></button>   
                 </div>
 
-            </form>
-                
+            </form> 
             <br>
-
-            <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid" 
-                [label]=" (!OrdenCompraEditar) ? 'Grabar' : 'Actualizar'"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-
-        
+ 
         </div> 
     </div>  
 </div>
+<!-- MODALES Y VISTA -->
+<div *ngIf="modalBuscarPersona">
+    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
+        <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
+    </p-dialog> 
+</div>  
 
-    <div *ngIf="modalBuscarPersona">
-        <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
-            <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
-        </p-dialog> 
-    </div>  
-    
-    <div *ngIf="modalBuscarProducto">
-        <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarProducto" [modal]="true" [style]="{width: '80vw'}">
-            <app-buscar-producto [dataProductos]="dataProductos"  (productoSelect)="onPintarProductoSeleccionado($event)"> </app-buscar-producto>
-        </p-dialog> 
-    </div>  
-    
+<div *ngIf="modalBuscarProducto">
+    <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarProducto" [modal]="true" [style]="{width: '80vw'}">
+        <app-buscar-producto [dataProductos]="dataProductos"  (productoSelect)="onPintarProductoSeleccionado($event)"> </app-buscar-producto>
+    </p-dialog> 
+</div>  
 
-    <div *ngIf="modalBuscarAnticipo">
-        <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarAnticipo" [modal]="true" [style]="{width: '80vw'}">
-            <app-buscar-anticipo [dataAnticipo]="dataAnticipo"  (AnticipoSelect)="onPintarAnticipoSeleccionado($event)"> </app-buscar-anticipo>
-        </p-dialog> 
-    </div> 
 
-    <app-orden-compra-reporte *ngIf="VistaReporte" [dataReporte]="dataReporte" (cerrar)="onRetornar()"  ></app-orden-compra-reporte> 
+<div *ngIf="modalBuscarAnticipo">
+    <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarAnticipo" [modal]="true" [style]="{width: '80vw'}">
+        <app-buscar-anticipo [dataAnticipo]="dataAnticipo"  (AnticipoSelect)="onPintarAnticipoSeleccionado($event)"> </app-buscar-anticipo>
+    </p-dialog> 
+</div> 
+
+<app-orden-compra-reporte *ngIf="VistaReporte" [dataReporte]="dataReporte" (cerrar)="onRetornar()"  ></app-orden-compra-reporte> 

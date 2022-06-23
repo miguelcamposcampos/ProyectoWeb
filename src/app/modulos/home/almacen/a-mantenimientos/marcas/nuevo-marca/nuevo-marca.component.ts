@@ -8,8 +8,7 @@ import { MarcaService } from '../service/marca.service';
 
 @Component({
   selector: 'app-nuevo-marca',
-  templateUrl: './nuevo-marca.component.html',
-  styleUrls: ['./nuevo-marca.component.scss']
+  templateUrl: './nuevo-marca.component.html'
 })
 export class NuevoMarcaComponent implements OnInit {
 

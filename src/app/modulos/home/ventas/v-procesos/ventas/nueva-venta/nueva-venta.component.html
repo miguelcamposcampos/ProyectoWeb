@@ -284,8 +284,7 @@
                                             </td>  
                                             <td style="justify-content: center;">
                                                 <strong class="p-column-title">P.Inc.Igv<</strong>
-                                                <p-inputSwitch (click)="onCalcularPrecioVenta(rowIndex)" formControlName="precioincluyeigv"></p-inputSwitch>
-                                                <!-- <p-inputSwitch (click)="onCalcularPrecioVenta(rowIndex)" [disabled]="!bloquearBotonInvluyeIgvDetalle" formControlName="precioincluyeigv"></p-inputSwitch> -->
+                                                <p-inputSwitch (click)="onCalcularPrecioVenta(rowIndex)" formControlName="precioincluyeigv"></p-inputSwitch> 
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Cantidad</strong>
@@ -650,32 +649,8 @@
                     <button type="button" type="button" (click)="activateMenu('6')" pTooltip="Mas info..." class="p-button-sm" tooltipPosition="left" pButton icon="pi pi-info"></button>   
                 </div>
 
-            </form>
-             
-            <br>
-
-            <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid" 
-                label="Grabar"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-    
-        
+            </form> 
+            <br>  
         </div> 
     </div>  
 </div>  
@@ -697,51 +672,52 @@
 </div>  
 
 <div *ngIf="modalImprimirTicket">
-    <p-dialog header="Configure su impresora ticketera" [(visible)]="modalImprimirTicket" [modal]="true" [style]="{width: '80vw'}">
-        <div class="MarginModal">
-            <div class="contenido card">
-                <form [formGroup]="FormImpresion">
-                    <div class="stepsdemo-content">   
-                        <div class="formImprimir">   
-                            <strong>Host de Impresión:</strong>
-                            <div class="p-inputgroup">  
-                                <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm">     
-                                <button class="p-button-sm" type="button" pButton label="Aplicar Host" (click)="onLoadImpresoras()"> </button>    
-                            </div> 
-
-                            <strong>Impresora:</strong>
-                            <p-dropdown class="extender" [disabled]="bloquearComboImpresoras"  appendTo="body" [options]="arrayImpresoras"  formControlName="nombreImpresora"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown> 
-
-                            <strong>Ancho Papel(puntos)):</strong>
-                            <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm">     
+    <p-dialog  header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalImprimirTicket" [modal]="true" [style]="{width: '80vw'}">
+        <form [formGroup]="FormImpresion">
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Host de Impresión:</strong>
+                        <div class="p-inputgroup">  
+                            <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm">     
+                            <button class="p-button-sm" type="button" pButton label="Aplicar Host" (click)="onLoadImpresoras()"> </button>    
                         </div> 
-                    </div> 
-                </form>
-                <div class="botones">
-                    <button  
-                        class="p-button-sm"
-                        pButton
-                        type="button"
-                        [disabled]="FormImpresion.invalid"
-                        label="Grabar"
-                        style="margin-right: 1%;"
-                        (click)="onSendImpresion()"
-                        icon="pi pi-check-circle">  
-                    </button>  
-        
-                    <button   
-                        class="p-button-sm"
-                        pButton
-                        type="button"
-                        icon="pi pi-times-circle"
-                        label="Cancelar" 
-                        style=" background-color: #D72250;"
-                        (click)="modalImprimirTicket = false">  
-                    </button>  
-                </div> 
-                <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+                    </div>
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Impresora:</strong>
+                        <p-dropdown class="extender" [disabled]="bloquearComboImpresoras"  appendTo="body" [options]="arrayImpresoras"  formControlName="nombreImpresora"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown> 
+                    </div>
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Ancho Papel(puntos)):</strong>
+                        <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm">     
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
+        <div class="botones">
+            <button  
+                class="p-button-sm"
+                pButton
+                type="button"
+                [disabled]="FormImpresion.invalid"
+                label="Grabar"
+                style="margin-right: 1%;"
+                (click)="onSendImpresion()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm"
+                pButton
+                type="button"
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                style=" background-color: #D72250;"
+                (click)="modalImprimirTicket = false">  
+            </button>  
+        </div> 
+        <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+          
     </p-dialog> 
 </div>  
 

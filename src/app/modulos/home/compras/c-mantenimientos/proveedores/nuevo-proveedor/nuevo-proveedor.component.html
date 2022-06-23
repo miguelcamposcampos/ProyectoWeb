@@ -1,12 +1,10 @@
 <div class="Margintabla">
     <div class="contenidoTable card">
-    
-
+     
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
         </ngx-spinner>
-
-           
+ 
         <p-toolbar>
             <div class="p-toolbar-group-left">
                <h3>  <i class="fas fa-city"></i>  {{tituloNuevoProveedor}}</h3> 
@@ -70,7 +68,7 @@
                     <strong>Email:</strong>
                     <input type="text" pInputText formControlName="email" placeholder="ingresa un email"  class="p-inputtext-sm">  
 
-                    <strong>Telefonos:</strong>
+                    <strong>Teléfono:</strong>
                     <input type="number" pInputText formControlName="telefonos" placeholder="ingresa un numero de telefono/celular"  class="p-inputtext-sm">  
 
                     <strong>WebSite:</strong>
@@ -91,29 +89,7 @@
                 </div>  
             </p-fieldset>
         </form> 
-
-
-        <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid"
-                label="{{ (dataProveedor) ? 'Actualizar' : 'Grabar' }}"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-
+ 
     </div>
 </div>
 

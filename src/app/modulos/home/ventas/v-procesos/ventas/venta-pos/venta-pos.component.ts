@@ -29,7 +29,6 @@ export class VentaPOSComponent implements OnInit {
 
   constructor(
     private generalService : GeneralService,
-
   ) { 
     this.builform();
   }

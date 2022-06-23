@@ -9,7 +9,6 @@
                     <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
                 </ngx-spinner>
 
-
                 <p-toolbar>
                     <div class="p-toolbar-group-left">
                         <h3>  <i class="fas fa-users"></i> ORDEN DE COMPRA</h3> 
@@ -155,13 +154,9 @@
                     <tr>
                         <td colspan="6">No existen registros</td>
                     </tr>
-                </ng-template> 
-
-
-                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadOrdenCompra($event)"></p-paginator>
-
+                </ng-template>  
             </p-table> 
-            
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadOrdenCompra($event)"></p-paginator>
         </div> 
     </div>  
          
@@ -173,7 +168,6 @@
     </p-dialog> 
 </div>  
   
-
 <app-nueva-orden-compra  *ngIf="VistaNuevaOrdenCompra" [dataOrdenCompra]="dataOrdenCompra" (cerrar)="onRetornar($event)"> </app-nueva-orden-compra>
    
 

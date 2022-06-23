@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IModuloReporte } from 'src/app/modulos/home/almacen/a-mantenimientos/productos/interface/producto.interface'; 
 import { PedidoService } from '../service/pedido.service';
@@ -9,8 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-reporte-pedido',
-  templateUrl: './reporte-pedido.component.html',
-  styleUrls: ['./reporte-pedido.component.scss']
+  templateUrl: './reporte-pedido.component.html'
 })
 export class ReportePedidoComponent  {
 
@@ -59,7 +58,7 @@ export class ReportePedidoComponent  {
   
   onDescargar(){
     var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"}); 
-    saveAs(blob, "Productos.pdf");
+    saveAs(blob, "Pedido.pdf");
   }
  
 

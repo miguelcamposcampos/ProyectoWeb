@@ -6,8 +6,7 @@ import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service
 
 @Component({
   selector: 'app-buscar-ubigeo',
-  templateUrl: './buscar-ubigeo.component.html',
-  styleUrls: ['./buscar-ubigeo.component.scss']
+  templateUrl: './buscar-ubigeo.component.html'
 })
 export class BuscarUbigeoComponent implements OnInit {
 

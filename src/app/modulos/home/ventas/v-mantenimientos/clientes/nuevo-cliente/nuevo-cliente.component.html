@@ -37,13 +37,13 @@
 
         <hr>   
         <div *ngIf="ClienteEdit" class="centrar">
-            <h3> Codigo Cliente :  {{ClienteEdit.codigocliente}}</h3> 
+            <h3> Código Cliente :  {{ClienteEdit.codigocliente}}</h3> 
         </div>
         <form [formGroup]="Form">
             <p-fieldset>
             <ng-template pTemplate="header">Datos Personales</ng-template>
 
-                <div class="formulario">   
+                <div class="formularioColum12_1">   
                     <strong>Tipo Persona *:</strong>
                     <p-dropdown class="extender p-dropdown-sm" [options]="arraytipoPersona" formControlName="tipoPersona"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                 
@@ -62,13 +62,13 @@
                     <strong *ngIf="!mostrarRazonSocial">Nombres:</strong>
                     <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm">  
 
-                    <strong *ngIf="mostrarRazonSocial">Razon Social:</strong>
+                    <strong *ngIf="mostrarRazonSocial">Razón Social:</strong>
                     <input *ngIf="mostrarRazonSocial" type="text" pInputText formControlName="razonSocial" class="p-inputtext-sm">  
 
                     <strong>Email:</strong>
                     <input type="text" pInputText formControlName="email" class="p-inputtext-sm">  
 
-                    <strong>Teléfonos:</strong>
+                    <strong>Teléfono:</strong>
                     <input type="number" pInputText formControlName="telefonos" class="p-inputtext-sm">  
 
                     <strong>WebSite:</strong>

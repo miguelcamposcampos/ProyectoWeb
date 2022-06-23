@@ -8,8 +8,7 @@ import { EstablecimientoService } from '../service/establecimiento.service';
 
 @Component({
   selector: 'app-series-establecimientos',
-  templateUrl: './series-establecimientos.component.html',
-  styleUrls: ['./series-establecimientos.component.scss']
+  templateUrl: './series-establecimientos.component.html'
 })
 export class SeriesEstablecimientosComponent implements OnInit {
 
@@ -29,9 +28,7 @@ export class SeriesEstablecimientosComponent implements OnInit {
     private swal : MensajesSwalService, 
     private generalService: GeneralService,
     private spinner: NgxSpinnerService
-  ) {
-    
-  }
+  ) { }
  
   
   ngOnInit(): void {
@@ -88,16 +85,14 @@ export class SeriesEstablecimientosComponent implements OnInit {
       }
     })  
   }
- 
-
+  
   onRetornar(event: any){ 
     if(event === 'exito'){
       this.onLoadSeries();
     } 
     this.modalNuevoSerie = false; 
   }
-
-
+ 
 
   onRegresar(){
     this.cerrar.emit(false);

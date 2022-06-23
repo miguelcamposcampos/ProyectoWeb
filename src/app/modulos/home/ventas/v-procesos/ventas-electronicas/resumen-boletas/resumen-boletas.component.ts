@@ -10,8 +10,7 @@ import { VentaElectronciaService } from '../servicio/ventaelectronica.service';
 
 @Component({
   selector: 'app-resumen-boletas',
-  templateUrl: './resumen-boletas.component.html',
-  styleUrls: ['./resumen-boletas.component.scss']
+  templateUrl: './resumen-boletas.component.html'
 })
 export class ResumenBoletasComponent implements OnInit {
 

@@ -1,35 +1,18 @@
-.reporteMovimiento{
-    display: flex;
-    justify-content: space-between;
-    @media (max-width : 700px){
-       display: grid;
-    }
- }
- .botonesCabecera{
-   display: flex;
-   align-items: flex-end;
- }
- 
 .OcultarTitulo{
   display: none;
 }
-
  
 .botonBuscar{
    display: flex;
    align-items: flex-end;   
  }
-
-
-  
+ 
  .InputCombinado{
    display: grid;
    gap: 1%;
    grid-template-columns: 70px 1fr;
 }
- 
- 
- 
+  
 .TablaDetalleCondicionPago ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
    flex: none;
    justify-content: center;

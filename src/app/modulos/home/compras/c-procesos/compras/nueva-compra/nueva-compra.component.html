@@ -5,8 +5,7 @@
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
         </ngx-spinner>
-
-            
+ 
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3> <i class="fas fa-cart-plus"></i>  {{ tituloNuevaCompra}} </h3>  
@@ -140,7 +139,6 @@
                 <div *ngIf="DetalleForm" >
                     <div>
                        <br>
-
                         <button pButton pRipple type="button" label="Agregar detalle Compra" class="p-button-rounded"  icon="pi pi-plus"  (click)="onAgregarDetalleCompra()"></button>
 
                         <div style="margin: 3%;">
@@ -227,11 +225,11 @@
                                         </td>  
                                         <td>
                                             <strong class="p-column-title">Cantidad</strong>
-                                            <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">PrecioU</strong>
-                                            <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
+                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
                                         </td>   
                                         <td>
                                             <strong class="p-column-title">Base Impon,</strong>
@@ -239,7 +237,7 @@
                                         </td>  
                                         <td>
                                             <strong class="p-column-title">% Dcsto</strong>
-                                            <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
+                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">Imp.Dcsto</strong>
@@ -251,15 +249,15 @@
                                         </td>  
                                         <td>
                                             <strong class="p-column-title">Valor Venta</strong>
-                                            <input type="number" style="width: 80px;"  readonly class="p-inputtext-sm" pInputText formControlName="valorventa">  
+                                            <input type="number" style="width: 80px;" [value]="detallesCompraForm[rowIndex].get('valorventa').value | number:'0.2-2'"   readonly class="p-inputtext-sm" pInputText formControlName="valorventa">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">IGV</strong>
-                                            <input type="number" style="width: 80px;" readonly class="p-inputtext-sm" pInputText formControlName="igv">  
+                                            <input type="number" style="width: 80px;" [value]="detallesCompraForm[rowIndex].get('igv').value | number:'0.2-2'"  readonly class="p-inputtext-sm" pInputText formControlName="igv">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">Imp.Otros.C</strong>
-                                            <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importeotroscargos">  
+                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importeotroscargos">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">ICBPER</strong>
@@ -377,9 +375,7 @@
                                         <span>  No existen registros </span> 
                                     </tr>
                                 </ng-template> 
-                        
                             </p-table>  
-
                             <br>
 
                             <div class="BotonCondiciondePago">   
@@ -395,12 +391,10 @@
                 <div *ngIf="DocReferenciaForm" >
                     <div>      
                         <div style="margin: 3%;">
-
                             <div class="formulario">
                                 <strong>Motivo Nota:</strong>  
                                 <p-dropdown class="extender" [options]="arrayMotivoNota" formControlName="motivonotaid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>    
                             </div> 
-
                             <br>
 
                             <p-table   
@@ -592,8 +586,8 @@
                                     <div *ngIf="mostrarCamposPercepcion" class="p-field p-col-12 p-md-6"> 
                                         <strong>Importe Afecto:</strong> 
                                         <div class="InputInporteAfecto">  
-                                            <input  type="text" (keyup)="onCalcularPercepcion()" pInputText formControlName="importebasepercepcion" class="p-inputtext-sm" placeholder="%">   
-                                            <input  type="text" (keyup)="onCalcularPercepcion()"pInputText formControlName="porcentajepercepcion" class="p-inputtext-sm" placeholder="%">    
+                                            <input type="text" (keydown.enter)="onCalcularPercepcion()" pInputText formControlName="importebasepercepcion" class="p-inputtext-sm" placeholder="%">   
+                                            <input type="text" (keydown.enter)="onCalcularPercepcion()"pInputText formControlName="porcentajepercepcion" class="p-inputtext-sm" placeholder="%">    
                                         </div> 
                                     </div> 
 
@@ -674,17 +668,13 @@
                 <button type="button" (click)="activateMenu('5')" pTooltip="Mas info..." class="p-button-sm" tooltipPosition="left" pButton icon="pi pi-info"></button>   
             </div>
 
-        </form>
-            
+        </form> 
         <br>
-
-       
-
-    
+ 
     </div> 
 </div>  
 
-
+<!-- MODALES -->
 <div *ngIf="modalBuscarPersona">
     <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
         <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
@@ -696,8 +686,7 @@
         <app-buscar-producto [dataProductos]="dataProductos"  (productoSelect)="onPintarProductoSeleccionado($event)"> </app-buscar-producto>
     </p-dialog> 
 </div>  
- 
-
+  
 <div *ngIf="modalBuscarAnticipo">
     <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarAnticipo" [modal]="true" [style]="{width: '80vw'}">
         <app-buscar-anticipo [dataAnticipo]="dataAnticipo"  (AnticipoSelect)="onPintarAnticipoSeleccionado($event)"> </app-buscar-anticipo>

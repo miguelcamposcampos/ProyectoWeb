@@ -9,8 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-producto-reporte',
-  templateUrl: './producto-reporte.component.html',
-  styleUrls: ['./producto-reporte.component.scss']
+  templateUrl: './producto-reporte.component.html'
 })
 export class ProductoReporteComponent   {
 
@@ -26,9 +25,7 @@ export class ProductoReporteComponent   {
     private generalService : GeneralService,
     private spinner : NgxSpinnerService
   ) { }
-
  
-
   onGenerarReporte(){
     this.spinner.show();
     this.productoService.generarReporte().subscribe((resp) => { 

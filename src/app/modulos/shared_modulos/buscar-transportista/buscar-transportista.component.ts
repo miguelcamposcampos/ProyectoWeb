@@ -8,8 +8,7 @@ import { TransportistaService } from '../../home/almacen/a-mantenimientos/transp
 
 @Component({
   selector: 'app-buscar-transportista',
-  templateUrl: './buscar-transportista.component.html',
-  styleUrls: ['./buscar-transportista.component.scss']
+  templateUrl: './buscar-transportista.component.html'
 })
 export class BuscarTransportistaComponent implements OnInit {
 

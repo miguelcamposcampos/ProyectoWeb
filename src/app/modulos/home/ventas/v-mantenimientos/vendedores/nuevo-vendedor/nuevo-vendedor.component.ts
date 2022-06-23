@@ -10,8 +10,7 @@ import { VendedoresService } from '../servicio/vendedor.service';
 
 @Component({
   selector: 'app-nuevo-vendedor',
-  templateUrl: './nuevo-vendedor.component.html',
-  styleUrls: ['./nuevo-vendedor.component.scss']
+  templateUrl: './nuevo-vendedor.component.html'
 })
 export class NuevoVendedorComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();

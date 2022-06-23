@@ -2,22 +2,13 @@
 
 <div class="Margintabla"> 
     <div class="contenidoTable card">  
-        <form [formGroup]="Form">
-            <!-- <div class="tituloVista">  
-                <h3> <i class="fas fa-cart-plus"></i>  {{ tituloNuevocobranza}} </h3>  
-                <p-splitButton  icon="pi pi-cog" appendTo="body" [model]="opcionesNuevoCobranza"></p-splitButton>     
-            </div> -->
-
-                
+        <form [formGroup]="Form">  
             <p-toolbar>
                 <div class="p-toolbar-group-left">
                     <h3> <i class="fas fa-cart-plus"></i>  {{ tituloNuevocobranza}} </h3>  
                 </div>
                 
-                <div class="p-toolbar-group-right"> 
-                    <!-- <p-tieredMenu #menu [model]="opcionesNuevoCobranza" appendTo="body" [popup]="true"></p-tieredMenu>
-                    <button #btn class="BorrarLabel p-button-sm" style="margin-right: 1%;"  type="button" pButton label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
-                    -->
+                <div class="p-toolbar-group-right">  
                     <button  
                         class="p-button-sm"
                         pButton
@@ -120,9 +111,9 @@
                                 <th style="width: 110px;" >Por Cobrar</th> 
                                 <th style="width: 85px;" >Cobrado</th> 
                                 <th style="width: 80px;" >Redondeo</th> 
-                                <th style="width: 80px;" >Aplica Retencion</th> 
+                                <th style="width: 80px;" >Aplica Retención</th> 
                                 <th style="width: 90px;" >Retencion</th> 
-                                <th style="width: 100px;" >Nro.Doc. Retencion</th> 
+                                <th style="width: 100px;" >Nro.Doc. Retención</th> 
                                 <th style="width: 95px;" >Saldo</th> 
                                 <th style="width: 160px;" >Observaciones</th> 
                             </tr>
@@ -177,15 +168,15 @@
                                     <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeredondeo">  
                                 </td>
                                 <td style="text-align: center;">
-                                    <strong class="p-column-title">Apl.Retencion</strong>
+                                    <strong class="p-column-title">Apl.Retención</strong>
                                     <p-inputSwitch class="ClassSwicth" formControlName="aplicaretencion"></p-inputSwitch> 
                                 </td>
                                 <td>
-                                    <strong class="p-column-title">Retencion</strong>
+                                    <strong class="p-column-title">Retención</strong>
                                     <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeretencion">  
                                 </td>
                                 <td>
-                                    <strong class="p-column-title">Nro.Doc.Retencion</strong>
+                                    <strong class="p-column-title">Nro.Doc.Retención</strong>
                                     <input type="text" style="width: 85px;"   class="p-inputtext-sm" pInputText formControlName="nrodocretencion">  
                                 </td>
                                 <td>
@@ -195,9 +186,7 @@
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Observaciones</strong>
                                     <input type="text"  style="width: 150px;" class="p-inputtext-sm" pInputText formControlName="observaciones">  
-                                </td>
-                            
-                            
+                                </td> 
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
@@ -209,41 +198,14 @@
                     </div>
                 
                 </div> 
-            </div> 
-             
-
-           
-              
-            
-            <!-- <div class="botones">
-                <button  
-                    class="p-button-sm p-button-rounded mx-2"
-                    pButton
-                    type="button"
-                    [disabled]="Form.invalid" 
-                    label="Grabar"
-                    (click)="onGrabar()"
-                    icon="pi pi-check-circle">  
-                </button>  
-
-                <button   
-                    class="p-button-sm p-button-rounded mx-2"
-                    pButton
-                    type="button"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    (click)="onRegresar()">  
-                </button>  
-            </div> -->
-
+            </div>  
         </form>
     </div> 
 </div>  
 
 </div>
-
+<!-- VISTAS -->
 <app-reporte-cobranza *ngIf="VistaReporte" [dataReporte]="dataReporte" (cerrar)="onRetornar()"  ></app-reporte-cobranza> 
- 
 <app-buscar-pendiente  *ngIf="VistaBuscarPendiente" [dataPendiente]="dataPendiente" (pendienteSelect)="onPintarPendientesSeleccionados($event)"> </app-buscar-pendiente>
  
   

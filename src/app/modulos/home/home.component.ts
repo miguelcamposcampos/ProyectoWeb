@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';  
 import { AppComponent } from 'src/app/app.component';  
 import { AppTopBarComponent } from 'src/app/shared/components/topbar/app.topbar.component';
@@ -12,8 +11,7 @@ import { VentasService } from './ventas/v-procesos/ventas/service/venta.service'
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html', 
-  styleUrls: ['./home.component.scss']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     rotateMenuButton: boolean;

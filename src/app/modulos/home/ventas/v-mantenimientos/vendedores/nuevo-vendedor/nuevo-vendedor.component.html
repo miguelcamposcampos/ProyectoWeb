@@ -41,7 +41,7 @@
         <form [formGroup]="Form">
             <p-fieldset>
                 <ng-template pTemplate="header">Datos Vendedor</ng-template>
-                <div class="formulario">   
+                <div class="formularioColum12_1">   
                     <strong>Establecimiento *:</strong>
                     <p-dropdown class="extender p-dropdown-sm" [options]="arrayEstablecimientos" formControlName="establecimiento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                 
@@ -77,30 +77,7 @@
 
                 </div>  
             </p-fieldset>
-        </form> 
-
-
-        <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid"
-                label="{{ (dataVendedor) ? 'Actualizar' : 'Grabar' }}"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-
+        </form>  
     </div>
 </div>
 

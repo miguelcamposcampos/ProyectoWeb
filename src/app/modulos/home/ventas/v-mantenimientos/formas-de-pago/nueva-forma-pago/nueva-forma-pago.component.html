@@ -5,12 +5,12 @@
                 <p-fieldset>
                 <ng-template pTemplate="header">Datos Principales</ng-template>
     
-                    <div class="formulario">   
+                    <div class="formularioColum12_1">   
                         <strong>Forma de Pago *:</strong>
                         <input type="text" pInputText formControlName="titulo" placeholder="ingresa el nombre de la forma de pago" class="p-inputtext-sm">  
 
                         <strong>Medio de Pago *:</strong>
-                        <p-dropdown class="DropExtenso" [options]="arrayMedioPago" formControlName="mediodePago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        <p-dropdown class="extender" [options]="arrayMedioPago" formControlName="mediodePago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     
                         <strong>Establecimiento *:</strong>
                         <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayEstablecimiento" formControlName="establecimiento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
@@ -25,7 +25,7 @@
 
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos Personales</ng-template>
-                        <div class="formulario">   
+                        <div class="formularioColum12_1">   
                             <strong>Documento *:</strong>
                             <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayDocumento" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         
@@ -36,7 +36,7 @@
 
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos Personales</ng-template> 
-                        <div class="formulario">   
+                        <div class="formularioColum12_1">   
                             <strong>Requiere Ref::</strong>
                             <p-inputSwitch formControlName="docrequierereferencia"> </p-inputSwitch>
 

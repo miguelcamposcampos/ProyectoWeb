@@ -1,39 +1,38 @@
-<div class="Margintabla">
-    <div class="contenido card">  
-        <div class="stepsdemo-content nuevoTransportista"> 
-            <br>
-            <form [formGroup]="Form">
-                <div class="formulario">  
-                    <strong>Departamento</strong>    
-                    <p-dropdown class="extender" placeholder="Selecciona un departamento"  formControlName="departamento" [options]="arrayDepartamentos" optionLabel="nombre" appendTo="body"></p-dropdown>
-    
-                    <strong>Provincia</strong>  
-                    <p-dropdown class="extender" [disabled]="bloqueardropdownProvincias"   [placeholder]="(bloqueardropdownProvincias)  ? 'Cargando Provincias ...' : 'Selecciona una provincia'"  formControlName="provincia" [options]="arrayProvincias" optionLabel="nombre" appendTo="body"></p-dropdown>
-                        
-                    <strong>Distrito</strong>
-                    <p-dropdown class="extender" [disabled]="bloqueardropdownDistritos" [placeholder]="(bloqueardropdownDistritos) ? 'Cargando Distritos ...' : 'Selecciona un distrito'" formControlName="distrito" [options]="arrayDistritos" optionLabel="nombre" appendTo="body"></p-dropdown>
-                </div>  
-            </form>
-        </div> 
-        <div class="botones">
-            <button  
-                class="p-button-sm"
-                pButton 
-                style="margin-right: 1%;"
-                label="Grabar"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm"
-                pButton
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                style=" background-color: #D72250;"
-                (click)="onRegresar()">  
-            </button>  
+<form [formGroup]="Form">
+    <div class="p-col-12"> 
+        <div class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12"> 
+                <strong>Departamento</strong>    
+                <p-dropdown class="extender" placeholder="Selecciona un departamento"  formControlName="departamento" [options]="arrayDepartamentos" optionLabel="nombre" appendTo="body"></p-dropdown>
+            </div>
+            <div class="p-field p-col-12"> 
+                <strong>Provincia</strong>  
+                <p-dropdown class="extender" [disabled]="bloqueardropdownProvincias"   [placeholder]="(bloqueardropdownProvincias)  ? 'Cargando Provincias ...' : 'Selecciona una provincia'"  formControlName="provincia" [options]="arrayProvincias" optionLabel="nombre" appendTo="body"></p-dropdown>
+            </div>
+            <div class="p-field p-col-12">   
+                <strong>Distrito</strong>
+                <p-dropdown class="extender" [disabled]="bloqueardropdownDistritos" [placeholder]="(bloqueardropdownDistritos) ? 'Cargando Distritos ...' : 'Selecciona un distrito'" formControlName="distrito" [options]="arrayDistritos" optionLabel="nombre" appendTo="body"></p-dropdown>
+            </div>
         </div>
     </div>  
-  
+
+<div class="botones">
+    <button  
+        class="p-button-sm"
+        pButton 
+        style="margin-right: 1%;"
+        label="Grabar"
+        (click)="onGrabar()"
+        icon="pi pi-check-circle">  
+    </button>  
+
+    <button   
+        class="p-button-sm"
+        pButton
+        icon="pi pi-times-circle"
+        label="Cancelar" 
+        style=" background-color: #D72250;"
+        (click)="onRegresar()">  
+    </button>  
 </div>
+</form>

@@ -145,14 +145,10 @@
                     <tr>
                         <td colspan="6">No existen registros</td>
                     </tr>
-                </ng-template> 
-
-                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadRecibosPorHonorario($event)"></p-paginator>
-
+                </ng-template>  
             </p-table> 
-             
-            
-            
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadRecibosPorHonorario($event)"></p-paginator>
+              
         </div> 
     </div>  
      

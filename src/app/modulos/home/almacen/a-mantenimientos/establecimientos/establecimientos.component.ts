@@ -31,8 +31,7 @@ export class EstablecimientosComponent implements OnInit {
   size: number = 50;
   textoPaginado : string="";
 
-
-  isLoading : boolean;
+ 
 
   constructor(
     private swal : MensajesSwalService, 

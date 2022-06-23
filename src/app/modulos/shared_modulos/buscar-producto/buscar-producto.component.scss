@@ -4,18 +4,14 @@
     align-items: flex-end;   
   }
 
- 
-   
+  
   .TablaProductos ::ng-deep  .p-datatable-scrollable .p-datatable-thead>tr>th{
     flex: none;
   }
    .TablaProductos ::ng-deep .p-datatable-scrollable .p-datatable-tbody>tr>td{
     flex: none;
   }
-
-// .TablaProductos ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-//   justify-content: center; 
-// }
+ 
 
 tr > th{
   text-align: center;

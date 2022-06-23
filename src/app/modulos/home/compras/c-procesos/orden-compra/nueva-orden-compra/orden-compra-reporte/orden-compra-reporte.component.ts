@@ -9,8 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-orden-compra-reporte',
-  templateUrl: './orden-compra-reporte.component.html',
-  styleUrls: ['./orden-compra-reporte.component.scss']
+  templateUrl: './orden-compra-reporte.component.html'
 })
 export class OrdenCompraReporteComponent   {
  
@@ -27,11 +26,8 @@ export class OrdenCompraReporteComponent   {
     private generalService: GeneralService,
     private spinner : NgxSpinnerService
   ) { }
-
  
-  
-  onGenerarReporte(){
-    
+  onGenerarReporte(){ 
     const data = {
      tipo : 'PDF',
      idOrdenCompra : this.dataReporte.compraid
@@ -65,7 +61,7 @@ export class OrdenCompraReporteComponent   {
   
   onDescargar(){
     var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"}); 
-    saveAs(blob, "Productos.pdf");
+    saveAs(blob, "OrdenCompra.pdf");
   }
  
 

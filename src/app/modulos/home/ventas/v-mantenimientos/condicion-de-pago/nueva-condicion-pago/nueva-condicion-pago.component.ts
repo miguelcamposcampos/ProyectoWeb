@@ -8,8 +8,7 @@ import { CondicionPagoService } from '../servicio/condicionespago.service';
 
 @Component({
   selector: 'app-nueva-condicion-pago',
-  templateUrl: './nueva-condicion-pago.component.html',
-  styleUrls: ['./nueva-condicion-pago.component.scss']
+  templateUrl: './nueva-condicion-pago.component.html'
 })
 export class NuevaCondicionPagoComponent implements OnInit {
 

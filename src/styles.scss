@@ -15,10 +15,10 @@ $gutter: 1rem; //for primeflex grid system
   flex: 1 1 auto;
 }
 
-.botonBuscar{
-  display: flex;
-  justify-content: center; 
-}
+// .botonBuscar{
+//   display: flex;
+//   justify-content: center; 
+// }
 
 
 .separador{
@@ -176,3 +176,39 @@ $gutter: 1rem; //for primeflex grid system
 
  
  
+.reporteMovimiento{
+  display: flex;
+  justify-content: space-between;
+  @media (max-width : 700px){
+     display: grid;
+  }
+}
+.botonesCabecera{
+ display: flex;
+ align-items: flex-end;
+}
+
+
+.formularioColum12_1{
+  display: grid;
+  grid-gap: 1rem;
+  gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 12rem 1fr;   
+  align-items: center;
+  @media (max-width: 800px) {  
+     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}  
+
+.formularioColumn10_1{
+  display: grid;
+  grid-gap: 1rem;
+  gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 10rem 1fr;   
+  align-items: center;
+  @media (max-width: 700px) {  
+     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}

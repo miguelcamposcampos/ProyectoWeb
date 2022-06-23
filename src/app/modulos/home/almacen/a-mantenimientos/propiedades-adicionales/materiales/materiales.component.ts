@@ -9,8 +9,7 @@ import { PropiedadesAdicionalesServices } from '../service/propiedadesadicionale
 
 @Component({
   selector: 'app-materiales',
-  templateUrl: './materiales.component.html',
-  styleUrls: ['./materiales.component.scss']
+  templateUrl: './materiales.component.html'
 })
 export class MaterialesComponent implements OnInit {
  

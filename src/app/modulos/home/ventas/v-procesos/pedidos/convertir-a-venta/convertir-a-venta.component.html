@@ -97,8 +97,7 @@
                             <strong>Estado:</strong>
                             <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="nombre"></p-dropdown>     
                         </div>
-
-
+ 
                         <div class="p-field p-col-12 p-md-6">
                             <strong>Glosa:</strong>
                             <input  type="text" pInputText  formControlName="glosa" class="p-inputtext-sm" placeholder="ingresar una serie">     
@@ -187,15 +186,9 @@
                 
                     <!-- FORM ARRAY DEL DETALLE DE LA VENTA-->
                     <div *ngIf="DetalleForm" >
-                        <div>
-                            <!-- <div class="BotonCondiciondePago">  
-                                <strong> Agregar detalle de la venta:</strong> 
-                                <button type="button" label="Agregar" pTooltip="Agregar"  class="p-button-sm" (click)="onAgregarDetalleVenta()" tooltipPosition="left" pButton  icon="pi pi-plus"></button>                                 
-                            </div>  -->
-
+                        <div>  
                             <button pButton pRipple type="button" label="Agregar detalle Venta" class="p-button-rounded"  icon="pi pi-plus"  (click)="onAgregarDetalleVenta()"></button>
-
-
+ 
                             <div style="margin: 3%;">
                                 <p-table   
                                     class="TablaDetalleCondicionPago"
@@ -327,9 +320,7 @@
                                                     dateFormat="dd/mm/yy"
                                                     formControlName="fechavencimiento"
                                                 ></p-calendar>  
-                                            </td> 
-                                           
-                                        
+                                            </td>  
                                         </tr>
                                     </ng-template> 
                                     <ng-template pTemplate="emptymessage">
@@ -343,8 +334,7 @@
                         </div> 
                     </div>
                     <!-- FIN DETALLE DE LA VENTA-->
-
-
+ 
 
                     <!-- FORM ARRAY DEL DETALLE GUIA REMISION-->
                     <div *ngIf="GuiaRemisionForm" >
@@ -391,10 +381,8 @@
                                         <tr>
                                             <span>  No existen registros </span> 
                                         </tr>
-                                    </ng-template> 
-                            
-                                </p-table>  
-
+                                    </ng-template>  
+                                </p-table>   
                                 <br>
 
                                 <div class="BotonCondiciondePago">   
@@ -407,8 +395,7 @@
                     </div>
                     <!-- FINDETALLE GUIA REMISION-->
  
-
-                    
+ 
                     <!-- FORM ARRAY DEL DETALLE DOCUMENTO REFERENCIA-->
                     <div *ngIf="DocReferenciaForm" >
                         <div>      
@@ -503,8 +490,7 @@
                     </div>
                     <!-- FIN DETALLE GUIA REMISION-->
 
-
-
+ 
                     <div *ngIf="OtrosForm" >
                         <br>
                         <p-fieldset>
@@ -678,50 +664,51 @@
 </div>  
 
 <div *ngIf="modalImprimirTicket">
-    <p-dialog header="Configure su impresora ticketera" [(visible)]="modalImprimirTicket" [modal]="true" [style]="{width: '80vw'}">
-        <div class="MarginModal">
-            <div class="contenido card">
-                <form [formGroup]="FormImpresion">
-                    <div class="stepsdemo-content">   
-                        <div class="formImprimir">   
-                            <strong>Host de Impresión:</strong>
-                            <div class="p-inputgroup">  
-                                <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm">     
-                                <button class="p-button-sm" type="button" pButton label="Aplicar Host" (click)="onLoadImpresoras()"> </button>    
-                            </div> 
-
-                            <strong>Impresora:</strong>
-                            <p-dropdown class="extender" [disabled]="bloquearComboImpresoras"  appendTo="body" [options]="arrayImpresoras"  formControlName="nombreImpresora"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown> 
-
-                            <strong>Ancho Papel(puntos)):</strong>
-                            <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm">     
+    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalImprimirTicket" [modal]="true" [style]="{width: '80vw'}">
+        <form [formGroup]="FormImpresion">
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Host de Impresión:</strong>
+                        <div class="p-inputgroup">  
+                            <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm">     
+                            <button class="p-button-sm" type="button" pButton label="Aplicar Host" (click)="onLoadImpresoras()"> </button>    
                         </div> 
-                    </div> 
-                </form>
-                <div class="botones">
-                    <button  
-                        class="p-button-sm"
-                        pButton
-                        type="button"
-                        [disabled]="FormImpresion.invalid"
-                        label="Grabar"
-                        (click)="onSendImpresion()"
-                        icon="pi pi-check-circle">  
-                    </button>  
-        
-                    <button   
-                        class="p-button-sm"
-                        pButton
-                        type="button"
-                        icon="pi pi-times-circle"
-                        label="Cancelar" 
-                        style=" background-color: #D72250;"
-                        (click)="modalImprimirTicket = false">  
-                    </button>  
-                </div> 
-                <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+                    </div>
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Impresora:</strong>
+                        <p-dropdown class="extender" [disabled]="bloquearComboImpresoras"  appendTo="body" [options]="arrayImpresoras"  formControlName="nombreImpresora"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown> 
+                    </div>
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Ancho Papel(puntos)):</strong>
+                        <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm">     
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
+        <div class="botones">
+            <button  
+                class="p-button-sm"
+                pButton
+                type="button"
+                [disabled]="FormImpresion.invalid"
+                label="Grabar"
+                (click)="onSendImpresion()"
+                icon="pi pi-check-circle">  
+            </button>  
+
+            <button   
+                class="p-button-sm"
+                pButton
+                type="button"
+                icon="pi pi-times-circle"
+                label="Cancelar" 
+                style=" background-color: #D72250;"
+                (click)="modalImprimirTicket = false">  
+            </button>  
+        </div> 
+        <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+          
     </p-dialog> 
 </div>  
 

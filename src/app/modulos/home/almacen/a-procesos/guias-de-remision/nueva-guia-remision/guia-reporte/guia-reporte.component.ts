@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IReporte } from '../../../../a-mantenimientos/productos/interface/producto.interface';
 import { GuiaRemisionService } from '../../service/guiaremision.service';
 import { saveAs } from 'file-saver';
@@ -11,8 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-guia-reporte',
-  templateUrl: './guia-reporte.component.html',
-  styleUrls: ['./guia-reporte.component.scss']
+  templateUrl: './guia-reporte.component.html'
 })
 export class GuiaReporteComponent   {
 
@@ -63,7 +61,7 @@ export class GuiaReporteComponent   {
   
   onDescargar(){
     var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.contentBytes)], {type: "application/pdf"}); 
-    saveAs(blob, "Productos.pdf");
+    saveAs(blob, "GuiaRemisión.pdf");
   }
  
 

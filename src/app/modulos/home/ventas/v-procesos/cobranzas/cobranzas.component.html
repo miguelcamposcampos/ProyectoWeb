@@ -8,8 +8,7 @@
             <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
             </ngx-spinner>
-
-
+ 
             <p-toolbar>
                 <div class="p-toolbar-group-left">
                     <h3> <i class="fas fa-hand-holding-dollar"></i> LISTA DE COBRANZAS</h3> 
@@ -122,25 +121,17 @@
                                 </button>        
                             </div>  
                         </ng-template>
-
-                        
-
+ 
                     </td>
                 </tr>
-            </ng-template>
-
+            </ng-template> 
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="6">No existen registros</td>
                 </tr>
-            </ng-template> 
-
-            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadCobranzas($event)"></p-paginator>
-
-        </p-table> 
-         
-        
-        
+            </ng-template>   
+        </p-table>  
+        <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadCobranzas($event)"></p-paginator>
     </div> 
 </div>  
  

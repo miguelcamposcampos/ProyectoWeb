@@ -1,184 +1,172 @@
-<div *ngIf="!VistaNuevaVenta && !VistaNuevaVentaPOS">
- 
-<div class="Margintabla"> 
-    <div class="contenidoTable card"> 
-        <form [formGroup]="FormBusqueda">
-            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-                <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-            </ngx-spinner>
-        
-            <p-toolbar>
-                <div class="p-toolbar-group-left">
-                    <h3> <i class="fas fa-cart-plus"></i> VENTAS</h3> 
-                </div>
-                
-                <div class="p-toolbar-group-right"> 
-                    <button class="BorrarLabel p-button-sm" 
-                    type="button" style="margin-right: 1%;" pButton
-                     pTooltip="Agregar Nueva Venta" tooltipPosition="top"
-                      (click)="onNuevaVenta()" label="Agregar" icon="pi pi-plus"></button> 
-                    <p-tieredMenu #menu [model]="opcioneVentas" appendTo="body" [popup]="true"></p-tieredMenu>
-                    <button #btn class="BorrarLabel p-button-sm"  type="button" pButton label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
-                </div>
-            </p-toolbar>
-
-
-            <div class="p-col-12"> 
-                <div class="p-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-3 p-sm-6">
-                        <strong>Fecha Inicio:</strong>
-                        <p-calendar  
-                            readonlyInput="true"
-                            [showIcon]="true"
-                            dateFormat="dd/mm/yy"
-                            formControlName="fechaInicio"
-                        ></p-calendar> 
-                    </div> 
-
-                    <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Fecha Fin:</strong>
-                        <p-calendar  
-                            readonlyInput="true"
-                            [showIcon]="true"
-                            dateFormat="dd/mm/yy"
-                            formControlName="fechaFin"
-                        ></p-calendar> 
-                    </div> 
+<div *ngIf="!VistaNuevaVenta && !VistaNuevaVentaPOS"> 
+    <div class="Margintabla"> 
+        <div class="contenidoTable card"> 
+            <form [formGroup]="FormBusqueda">
+                <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+                    <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+                </ngx-spinner>
+            
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <h3> <i class="fas fa-cart-plus"></i> VENTAS</h3> 
+                    </div>
                     
-                    <div class="p-field p-col-12 p-md-4 p-sm-8">
-                        <strong>Documento:</strong>
-                        <p-dropdown class="DropExtenso" [options]="arrayDocumentos" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor2"></p-dropdown>     
+                    <div class="p-toolbar-group-right"> 
+                        <button class="BorrarLabel p-button-sm" 
+                        type="button" style="margin-right: 1%;" pButton
+                        pTooltip="Agregar Nueva Venta" tooltipPosition="top"
+                        (click)="onNuevaVenta()" label="Agregar" icon="pi pi-plus"></button> 
+                        <p-tieredMenu #menu [model]="opcioneVentas" appendTo="body" [popup]="true"></p-tieredMenu>
+                        <button #btn class="BorrarLabel p-button-sm"  type="button" pButton label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
                     </div>
-
-                    <div class="p-field p-col-12 p-md-2 p-sm-4 botonBuscar"> 
-                        <button pButton label="Buscar"  class="p-button-sm" type="button"  icon="pi pi-search" (click)="onLoadVentas(null)"></button>
-                    </div> 
+                </p-toolbar>
 
 
-                    <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Serie:</strong>
-                        <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie" class="p-inputtext-sm" placeholder="ingresar una serie">     
-                    </div>
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3 p-sm-6">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicio"
+                            ></p-calendar> 
+                        </div> 
 
-                    <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Correlativo:</strong>
-                        <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo" class="p-inputtext-sm" placeholder="ingresar una serie">     
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-6">
-                        <strong>Cliente</strong>  
-                        <div class="p-inputgroup">  
-                            <input type="text" readonly  formControlName="cliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
-                            <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBuscarCliente();" pButton icon="pi pi-search"></button>      
-                            <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"  style=" background-color: #D72250;" class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
-                        </div>
-                    </div>
-
-      
-                </div> 
-            </div> 
-            
-        </form>
-        <br>
-
-    
-        <p-table  
-        [responsive]="true"
-        [columns]="cols" 
-        responsiveLayout="scroll"
-        selectionMode="single"
-        [rowHover]="true" 
-        [value]="listadoVentas">  
-
-            <ng-template pTemplate="header" let-columns >
-                <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                        {{ col.header }} 
-                        <p-sortIcon *ngIf="col.field != 'acciones'"
-                            [field]="col.field"
-                            ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order">
-                        </p-sortIcon> 
-                    </th>
-                </tr> 
-            </ng-template>
-            
-            <ng-template pTemplate="body" let-ventas let-columns="columns"  let-rowIndex="rowIndex"> 
-                <tr [pSelectableRow]="ventas" [pSelectableRowIndex]="rowIndex"  [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}">
-                    <td  *ngFor="let col of columns" >
-                        <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
- 
-                        <div [ngSwitch]="col.field">    
-                            <div *ngSwitchCase="'fechaRegistro'">
-                                {{ ventas[col.field] | date: col.formatoFecha }}
-                            </div>
-                            <div *ngSwitchCase="'fechaEmision'">
-                                {{ ventas[col.field] | date: col.formatoFecha }}
-                            </div>
-                            <div *ngSwitchCase="'fechaVencimiento'">
-                                {{ ventas[col.field] | date: col.formatoFecha }}
-                            </div> 
-                            <div *ngSwitchCase="'importe'">
-                                {{ ventas[col.field]  | number:'0.2-2'}}
-                            </div> 
-                            <div *ngSwitchCase="'saldo'">
-                                {{ ventas[col.field]  | number:'0.2-2' }}
-                            </div> 
-                            <div *ngSwitchDefault>
-                                {{ ventas[col.field]  }}
-                            </div>
-                        </div>  
-                       
-
-                        <ng-template #botones [ngIf]="col.field === 'acciones'"  >
-                            <div style="display: flex;">
-                                <button 
-                                    pButton
-                                    type="button" 
-                                    tooltipPosition="top" 
-                                    pTooltip="Editar" 
-                                    [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}"
-                                    (click)="onEditar(ventas)"
-                                    style="margin-right :2%;" 
-                                    icon="pi pi-pencil">
-                                </button>     
-                                <button 
-                                    pButton
-                                    type="button" 
-                                    tooltipPosition="top" 
-                                    style="background-color: #D72250;"
-                                    (click)="onEliminar(ventas)"
-                                    pTooltip="Eliminar"  
-                                    icon="pi pi-trash">
-                                </button>        
-                            </div>  
-                        </ng-template>
-
+                        <div class="p-field p-col-12 p-md-3  p-sm-6">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFin"
+                            ></p-calendar> 
+                        </div> 
                         
+                        <div class="p-field p-col-12 p-md-4 p-sm-8">
+                            <strong>Documento:</strong>
+                            <p-dropdown class="DropExtenso" [options]="arrayDocumentos" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor2"></p-dropdown>     
+                        </div>
 
-                    </td>
-                </tr>
-            </ng-template>
-
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="6">No existen registros</td>
-                </tr>
-            </ng-template> 
+                        <div class="p-field p-col-12 p-md-2 p-sm-4 botonBuscar"> 
+                            <button pButton label="Buscar"  class="p-button-sm" type="button"  icon="pi pi-search" (click)="onLoadVentas(null)"></button>
+                        </div> 
 
 
+                        <div class="p-field p-col-12 p-md-3  p-sm-6">
+                            <strong>Serie:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3  p-sm-6">
+                            <strong>Correlativo:</strong>
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-6">
+                            <strong>Cliente</strong>  
+                            <div class="p-inputgroup">  
+                                <input type="text" readonly  formControlName="cliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
+                                <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBuscarCliente();" pButton icon="pi pi-search"></button>      
+                                <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"  style=" background-color: #D72250;" class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
+                            </div>
+                        </div>
+
+        
+                    </div> 
+                </div> 
+                
+            </form>
+            <br>
+    
+            <p-table  
+            [responsive]="true"
+            [columns]="cols" 
+            responsiveLayout="scroll"
+            selectionMode="single"
+            [rowHover]="true" 
+            [value]="listadoVentas">  
+
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-ventas let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="ventas" [pSelectableRowIndex]="rowIndex"  [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+    
+                            <div [ngSwitch]="col.field">    
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ ventas[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaEmision'">
+                                    {{ ventas[col.field] | date: col.formatoFecha }}
+                                </div>
+                                <div *ngSwitchCase="'fechaVencimiento'">
+                                    {{ ventas[col.field] | date: col.formatoFecha }}
+                                </div> 
+                                <div *ngSwitchCase="'importe'">
+                                    {{ ventas[col.field]  | number:'0.2-2'}}
+                                </div> 
+                                <div *ngSwitchCase="'saldo'">
+                                    {{ ventas[col.field]  | number:'0.2-2' }}
+                                </div> 
+                                <div *ngSwitchDefault>
+                                    {{ ventas[col.field]  }}
+                                </div>
+                            </div>  
+                            
+                            <ng-template #botones [ngIf]="col.field === 'acciones'"  >
+                                <div style="display: flex;">
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}"
+                                        (click)="onEditar(ventas)"
+                                        style="margin-right :2%;" 
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        style="background-color: #D72250;"
+                                        (click)="onEliminar(ventas)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template> 
+                        </td>
+                    </tr>
+                </ng-template> 
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">No existen registros</td>
+                    </tr>
+                </ng-template>   
+            </p-table>  
             <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadVentas($event)"></p-paginator>
-
-        </p-table> 
-         
-        
-        
-    </div> 
-</div>  
- 
+        </div> 
+    </div>  
+    
 </div>
 
+<!-- VISTA Y MODAL -->
  <div *ngIf="VistaNuevaVenta">
     <app-nueva-venta  [dataVenta]="dataVenta" (cerrar)="onRetornar($event)"  ></app-nueva-venta> 
  </div>
@@ -192,8 +180,7 @@
         <app-buscar-persona  [dataPersona]="'Cliente'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
     </p-dialog> 
 </div>  
-  
-
+    
 <div *ngIf="modalExportarVenta">
     <p-dialog header="EXPORTAR VENTAS" [(visible)]="modalExportarVenta" [modal]="true" [style]="{width: '50vw'}">
         <br>
@@ -254,8 +241,6 @@
                 label="Generar Excel" 
                 (click)="onGenerarExcel()">  
             </button>  
-        </div>
-      
-
+        </div> 
     </p-dialog> 
 </div>  

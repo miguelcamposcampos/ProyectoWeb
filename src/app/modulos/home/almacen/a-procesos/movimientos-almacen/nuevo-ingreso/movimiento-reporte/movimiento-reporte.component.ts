@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IReporte } from '../../../../a-mantenimientos/productos/interface/producto.interface';
 import { MovimientosAlmacenService } from '../../service/movimientosalmacen.service';
 import { saveAs } from 'file-saver';
@@ -9,8 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-movimiento-reporte',
-  templateUrl: './movimiento-reporte.component.html',
-  styleUrls: ['./movimiento-reporte.component.scss']
+  templateUrl: './movimiento-reporte.component.html'
 })
 export class MovimientoReporteComponent {
 
@@ -62,7 +60,7 @@ export class MovimientoReporteComponent {
   
   onDescargar(){
     var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.contentBytes)], {type: "application/pdf"}); 
-    saveAs(blob, "Productos.pdf");
+    saveAs(blob, "Movimiento.pdf");
   }
  
 

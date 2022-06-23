@@ -1,6 +1,5 @@
  
- <div *ngIf="!VistaNuevoProveedor">
-
+ <div *ngIf="!VistaNuevoProveedor"> 
     <div class="Margintabla"> 
         <div class="contenidoTable card">  
             
@@ -34,7 +33,7 @@
                         <input class="p-inputtext-sm" placeholder="ingresa nro documento" [formControl]="nrodocumento" type="text" pInputText>        
                     </div>
                     <div class="p-field p-col-12 p-md-5">
-                       <strong>Razon. Social:</strong>
+                       <strong>Razón Social:</strong>
                        <input class="p-inputtext-sm" placeholder="ingresa razon social" [formControl]="razonsocial" type="text" pInputText>        
                    </div>
                    <div class="p-field p-col-12 p-md-2">       
@@ -112,15 +111,12 @@
                         <td colspan="6">No existen registros</td>
                     </tr>
                 </ng-template> 
-
-
-                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadProveedores($event)"></p-paginator>
-
+ 
             </p-table> 
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadProveedores($event)"></p-paginator>
             
         </div> 
-    </div>  
-         
+    </div>     
 </div>
 
 

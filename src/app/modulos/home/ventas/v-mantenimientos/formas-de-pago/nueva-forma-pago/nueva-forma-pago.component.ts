@@ -10,8 +10,7 @@ import { FomrasDePagoService } from '../servicio/formaspago.service';
 
 @Component({
   selector: 'app-nueva-forma-pago',
-  templateUrl: './nueva-forma-pago.component.html',
-  styleUrls: ['./nueva-forma-pago.component.scss']
+  templateUrl: './nueva-forma-pago.component.html'
 })
 export class NuevaFormaPagoComponent implements OnInit {
 

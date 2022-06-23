@@ -8,8 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-venta-reporte',
-  templateUrl: './venta-reporte.component.html',
-  styleUrls: ['./venta-reporte.component.scss']
+  templateUrl: './venta-reporte.component.html'
 })
 export class VentaReporteComponent  {
 
@@ -60,7 +59,7 @@ export class VentaReporteComponent  {
   
   onDescargar(){
     var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"}); 
-    saveAs(blob, "Productos.pdf");
+    saveAs(blob, "Venta.pdf");
   }
  
 

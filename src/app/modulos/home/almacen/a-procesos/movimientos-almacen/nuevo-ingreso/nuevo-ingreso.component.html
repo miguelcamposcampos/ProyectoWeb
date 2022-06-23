@@ -138,8 +138,7 @@
     
                 <ng-template pTemplate="body" let-detalles  let-rowIndex="rowIndex" formArrayName="arrayDetalles">
                         
-                    <tr   [formGroupName]="rowIndex">
-                        
+                    <tr   [formGroupName]="rowIndex"> 
                         <td >
                             <strong class="p-column-title">Cod.Producto</strong> 
                             <input type="text" style="width: 90px;" class="p-inputtext-sm"  (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"  pInputText formControlName="codigoProducto">   

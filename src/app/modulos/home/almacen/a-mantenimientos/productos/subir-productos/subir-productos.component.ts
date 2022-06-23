@@ -9,8 +9,7 @@ import { GeneralService } from 'src/app/shared/services/generales.services';
 
 @Component({
   selector: 'app-subir-productos',
-  templateUrl: './subir-productos.component.html',
-  styleUrls: ['./subir-productos.component.scss']
+  templateUrl: './subir-productos.component.html'
 })
 export class SubirProductosComponent implements OnInit {
 

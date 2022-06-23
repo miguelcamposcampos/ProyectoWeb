@@ -23,9 +23,7 @@
                     </button>   
                 </div>
             </p-toolbar>
-
-
-         
+ 
             <form [formGroup]="FormBusqueda">
                 <div class="p-col-12"> 
                     <div class="p-fluid p-formgrid p-grid">  
@@ -132,13 +130,10 @@
                             </ng-template>
                         </td>
                     </tr>
-                </ng-template>
-                
-                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadCajachica($event)"></p-paginator>
-
+                </ng-template>  
             </p-table>
-        </div> 
-    
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadCajachica($event)"></p-paginator>
+        </div>  
     </div>
 </div>
 

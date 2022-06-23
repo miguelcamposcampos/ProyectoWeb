@@ -11,8 +11,7 @@ import { LineaService } from '../service/linea.service';
 
 @Component({
   selector: 'app-nuevo-linea',
-  templateUrl: './nuevo-linea.component.html',
-  styleUrls: ['./nuevo-linea.component.scss']
+  templateUrl: './nuevo-linea.component.html'
 })
 export class NuevoLineaComponent implements OnInit {
 

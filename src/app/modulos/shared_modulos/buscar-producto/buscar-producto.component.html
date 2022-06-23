@@ -16,13 +16,13 @@
         <p-panel 
             header="Filtros Adicionales"
             [toggleable]="true"
-            [collapsed]="false" 
+            [collapsed]="true" 
             class="panel" >
             <section>
                 <div class="p-col-12"> 
                     <div class="p-fluid p-formgrid p-grid">   
                         <div class="p-field p-col-12 p-md-4">
-                            <strong>Solo Servicio:  <p-inputSwitch  [formControl]="soloServicio" ></p-inputSwitch>  </strong>
+                            <strong>Sólo Servicio:  <p-inputSwitch  [formControl]="soloServicio" ></p-inputSwitch>  </strong>
                         </div>
                     </div> 
                 </div> 
@@ -30,131 +30,7 @@
         </p-panel> 
         <hr>
         <br>
- 
-
-        <!-- <p-table   
-        class="TablaProductos"
-        [columns]="cols"  
-        [scrollable]="true" 
-        responsiveLayout="stack" 
-        selectionMode="single"
-        [rowHover]="true"
-        [paginator]="true" 
-        [rows]="10" 
-        (onRowSelect)="onSeleccionarProducto($event)"   
-        [value]="listaProductos">  
-
-            <ng-template pTemplate="header" let-columns >
-                <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                      
-                        <div [ngSwitch]="col.field">   
-                            <div style="width: 100px;" *ngSwitchCase="'codProducto'">
-                                {{ col.header }} 
-                            </div>   
-                            <div style="width: 220px;" *ngSwitchCase="'nombreProducto'">
-                                {{ col.header }} 
-                            </div>   
-                            <div style="width: 80px;" *ngSwitchCase="'stockUnidades'">
-                                {{ col.header }} 
-                           </div>   
-                           <div style="width: 75px;" *ngSwitchCase="'stockFinal'">
-                                {{ col.header }} 
-                            </div>  
-                            <div style="width: 70px;" *ngSwitchCase="'lote'">
-                                {{ col.header }} 
-                            </div>  
-                            <div style="width: 70px;" *ngSwitchCase="'serie'">
-                                {{ col.header }} 
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'linea'">
-                                {{ col.header }} 
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'marca'">
-                                {{ col.header }} 
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'unidadMedida'">
-                                 {{ col.header }} 
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'precioDefault'">
-                                 {{ col.header }} 
-                            </div> 
-                            <div style="width: 100px;" *ngSwitchCase="'precioIncluyeIgv'">
-                                 {{ col.header }} 
-                            </div> 
-                            <div style="width: 100px;" *ngSwitchCase="'monedaPrecioId'">
-                                 {{ col.header }} 
-                            </div>   
-                            <div *ngSwitchDefault>
-                                {{ col.header }} 
-                            </div>
-                        </div>   
-  
-                        <p-sortIcon *ngIf="col.field != 'acciones'"
-                            [field]="col.field"
-                            ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order">
-                        </p-sortIcon> 
-                    </th>
-                </tr> 
-            </ng-template>
-            
-            <ng-template pTemplate="body" let-anexos let-columns="columns"  let-rowIndex="rowIndex"> 
-                <tr [pSelectableRow]="anexos" [pSelectableRowIndex]="rowIndex">
-                    <td  *ngFor="let col of columns">
-                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>   
-                        <div [ngSwitch]="col.field">  
-                            <div class="centrar" *ngSwitchCase="'precioIncluyeIgv'">
-                                <div *ngIf="anexos[col.field] === false">
-                                    <i class="fas fa-square"></i>  
-                                </div> 
-                                <div *ngIf="anexos[col.field] != false">
-                                    <i class="fas fa-check-square"></i>  
-                                </div>
-                            </div>   
-                            <div style="width: 150px;" *ngSwitchCase="'codProducto'">
-                                {{ anexos[col.field]  }}
-                            </div>   
-                            <div style="width: 250px;" *ngSwitchCase="'nombreProducto'">
-                                {{ anexos[col.field]  }}
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'stockUnidades'">
-                                {{ anexos[col.field]  }}
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'stockFinal'">
-                                {{ anexos[col.field]  }}
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'unidadMedida'">
-                                {{ anexos[col.field]  }}
-                            </div>   
-                            <div style="width: 100px;" *ngSwitchCase="'precioDefault'">
-                                {{ anexos[col.field]  }}
-                            </div> 
-                            <div style="width: 100px;" *ngSwitchCase="'precioIncluyeIgv'">
-                                {{ anexos[col.field]  }}
-                            </div> 
-                            <div style="width: 100px;" *ngSwitchCase="'monedaPrecioId'">
-                                {{ anexos[col.field]  }}
-                            </div>   
-                            <div *ngSwitchDefault>
-                                {{ anexos[col.field]  }}
-                            </div>
-                        </div>  
-
-
-                    </td>
-                </tr>
-            </ng-template>
-
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="6">No existen registros</td>
-                </tr>
-                </ng-template> 
-        </p-table>  -->
-    
-    
+   
             <p-table 
             [value]="listaProductos" 
             [scrollable]="true" 

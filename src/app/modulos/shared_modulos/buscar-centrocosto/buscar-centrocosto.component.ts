@@ -7,8 +7,7 @@ import { ComprasService } from '../../home/compras/c-procesos/compras/service/co
   
 @Component({
   selector: 'app-buscar-centrocosto',
-  templateUrl: './buscar-centrocosto.component.html',
-  styleUrls: ['./buscar-centrocosto.component.scss']
+  templateUrl: './buscar-centrocosto.component.html'
 })
  
 export class BuscarCentrocostoComponent implements OnInit {
@@ -21,9 +20,7 @@ export class BuscarCentrocostoComponent implements OnInit {
     private comprasService : ComprasService,
     private swal: MensajesSwalService, 
     private spinner : NgxSpinnerService
-  ) {
-     
-   }
+  ) {}
 
   ngOnInit(): void {   
     this.onLoadCentroCosto();

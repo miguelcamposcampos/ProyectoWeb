@@ -5,7 +5,7 @@
             <div class="layout-content">
                 <p class="TextoPreloader"> 
                     <br>
-                    Se esta ejecutando una tarea de envio masivo, por favor espere....
+                    Se está ejecutando una tarea de envio masivo, por favor espere....
                     <br>
                     <p-progressBar class="pogressSpiner" mode="indeterminate" [style]="{'height': '10px', 'margin-top': '2%' }"></p-progressBar> 
                 </p>
@@ -16,25 +16,14 @@
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
- 
-       
-
-
+  
 <div #bloquear> 
     <div class="Margintabla"> 
         <div class="contenidoTable card"> 
-            <form [formGroup]="FormBusqueda">
-                <!-- <div class="tituloCobranza">  
-                    <h3> <i class="fas fa-laptop-code"></i> VENTAS ELECTRONICAS</h3> 
-                    <div class="botonesCabecera">   
-                        <button pButton type="button" label="Envio Masivo" class="p-button-sm" style="width: 130px; margin-right: 2%;"  icon="fas fa-arrow-up-wide-short" (click)="onModalEnvioMasivo()"></button>
-                        <p-splitButton  icon="pi pi-cog" appendTo="body" [model]="opcioneVentaElectronica"></p-splitButton>     
-                    </div>
-                </div> -->
-     
+            <form [formGroup]="FormBusqueda"> 
                 <p-toolbar>
                     <div class="p-toolbar-group-left">
-                        <h3> <i class="fas fa-laptop-code"></i> VENTAS ELECTRONICAS</h3> 
+                        <h3> <i class="fas fa-laptop-code"></i> VENTAS ELECTRÓNICAS</h3> 
                     </div>
                     
                     <div class="p-toolbar-group-right"> 
@@ -42,8 +31,7 @@
                         <button #btn   class="BorrarLabel p-button-sm"  type="button" pButton label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
                     </div>
                 </p-toolbar>
-
-
+ 
                 <div class="p-col-12"> 
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-5 p-sm-6">
@@ -238,47 +226,42 @@
      
     <div *ngIf="modalResumenAltayBaja">
         <p-dialog [header]="titulomodalResumen" [tipo]="tipo" [(visible)]="modalResumenAltayBaja" [modal]="true">
-            <div class="MarginModal centrar"> 
-                <div class="contenido">  
-                    <strong>Fecha Resumen:</strong> 
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                    <div class="p-field p-col-12 md-6"> 
+                        <strong>Fecha Resumen:</strong>  
+                        <p-calendar  
+                            appendTo="body"
+                            readonlyInput="true" 
+                            [formControl]="fechaResumen"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy" 
+                        ></p-calendar>  
+                    </div>  
                 </div>  
-    
-                <br>
-    
-                <div class="contenido">   
-                    <p-calendar  
-                        appendTo="body"
-                        readonlyInput="true" 
-                        [formControl]="fechaResumen"
-                        [showIcon]="true"
-                        dateFormat="dd/mm/yy" 
-                    ></p-calendar>  
-                </div>  
-        
-                <br>
-    
-                <div class="botones">  
-                    <button   
-                        class="p-button-sm p-button-rounded"
-                        pButton
-                        type="button"
-                        icon="pi pi-check-circle"
-                        label="Crear" 
-                        style="margin-right: 1%;"
-                        (click)="onCrearResumen(tipo)">  
-                    </button>  
-                    <button   
-                        class="p-button-sm p-button-rounded"
-                        pButton
-                        type="button"
-                        icon="pi pi-times-circle"
-                        label="Cancelar" 
-                        style=" background-color: #D72250;"
-                        (click)="modalResumenAltayBaja = false">  
-                    </button>  
-                </div>
-            
             </div>  
+         
+            <div class="botones">  
+                <button   
+                    class="p-button-sm p-button-rounded"
+                    pButton
+                    type="button"
+                    icon="pi pi-check-circle"
+                    label="Crear" 
+                    style="margin-right: 1%;"
+                    (click)="onCrearResumen(tipo)">  
+                </button>  
+                <button   
+                    class="p-button-sm p-button-rounded"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="modalResumenAltayBaja = false">  
+                </button>  
+            </div>
+           
         </p-dialog> 
     </div>  
     

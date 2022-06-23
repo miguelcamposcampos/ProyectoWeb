@@ -154,7 +154,7 @@
                                     <input type="text"  style="width: 70px;text-align: right;" (keydown.enter)="onCalcularImportes($event.target.value, rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="importe">  
                                 </td>  
                                 <td>
-                                    <strong class="p-column-title">Descripcion</strong>
+                                    <strong class="p-column-title">Descripción</strong>
                                     <input type="text" style="width: 160px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="descripcion">  
                                 </td> 
                                 <td>
@@ -178,8 +178,7 @@
                                     <p-calendar appendTo="body" [hourFormat]="12"  formControlName="fechaHora" [showIcon]="true" readonlyInput="true"  [showTime]="true" inputId="time"></p-calendar>
                                      
                                 </td> 
-                               
-                            
+                                
                             </tr>
                         </ng-template> 
                         <ng-template pTemplate="emptymessage">
@@ -191,31 +190,8 @@
                     </p-table>  
                 </div>
             </div> 
-        </form>
-
+        </form> 
         <br>
-
-        <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid" 
-                [label]=" (!CajaChicaEditar) ? 'Grabar' : 'Actualizar'"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle" 
-                [label]=" (!CajaChicaEditar) ? 'Cancelar' : 'Regresar'"
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-
-
+ 
     </div>
 </div>

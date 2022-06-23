@@ -12,8 +12,7 @@ interface TiPersona {
 
 @Component({
   selector: 'app-buscar-persona',
-  templateUrl: './buscar-persona.component.html',
-  styleUrls: ['./buscar-persona.component.scss']
+  templateUrl: './buscar-persona.component.html'
 })
  
 export class BuscarPersonaComponent implements OnInit {

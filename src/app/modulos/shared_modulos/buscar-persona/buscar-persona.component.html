@@ -1,6 +1,5 @@
 <div class="Margintabla">
-    <div class="card">  
-      
+    <div class="card">    
         <div class="p-col-12"> 
             <div class="p-fluid p-formgrid p-grid">  
                 <div class="p-field p-col-12 p-md-3">
@@ -16,30 +15,22 @@
                     
                 <div class="p-field p-col-12 p-md-6">
                     <strong >Buscar por Nombre o Nro Documento:</strong>
-                    <input type="text" placeholder="ingresa un anexo... "  class="p-inputtext-sm" [formControl]="criterio" pInputText>  
+                    <input type="text" placeholder="ingresa un nombre"  class="p-inputtext-sm" [formControl]="criterio" pInputText>  
                 </div>
 
                 <div class="p-field p-col-12 p-md-3 botonBuscar">
                     <button pButton label="Buscar" icon="pi pi-search" class="p-button-sm" (click)="onLoadPersonas(null)"></button>
-                </div>
-
+                </div> 
             </div>
         </div> 
-        
-        
+         
         <p-table  
         [responsive]="true"
         [columns]="cols" 
         responsiveLayout="stack"
         selectionMode="single"
-        [rowHover]="true"
-        [paginator]="true" 
-        [rows]="size"
-        (onRowSelect)="onSeleccionarPersona($event)"
-        [showCurrentPageReport]="true"
-        [currentPageReportTemplate]="textoPaginado" 
-        [rowsPerPageOptions]="[5,10,50,100]" 
-        paginatorDropdownAppendTo="body"
+        [rowHover]="true" 
+        (onRowSelect)="onSeleccionarPersona($event)" 
         [value]="listaAnexos">  
 
             <ng-template pTemplate="header" let-columns >
@@ -69,15 +60,9 @@
                 <tr>
                     <td colspan="6">No existen registros</td>
                 </tr>
-            </ng-template> 
-
-            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadPersonas($event)"></p-paginator>
-
-        </p-table> 
-    
-    
-       
-
+            </ng-template>  
+        </p-table>  
+        <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadPersonas($event)"></p-paginator>
     </div> 
 </div>  
  
