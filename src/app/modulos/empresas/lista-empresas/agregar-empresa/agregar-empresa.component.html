@@ -43,14 +43,12 @@
                             <i class="pi pi-globe"></i> 
                             <input type="text" pInputText required (keydown.enter)="onBuscarPorRuc()" formControlName="Ruc" class="p-inputtext-sm" [minlength]="11" [maxlength]="11" placeholder="ingresar el ruc">      
                         </div>
-                        <span *ngIf="onValidateForm('Ruc')">El campo es requerido </span>
-        
+
                         <div class="p-inputgroup my-2">
                             <i class="pi pi-user"></i> 
                             <input type="text" pInputText readonly formControlName="RazonSocial" class="p-inputtext-sm" placeholder="este campo se carga automaticamente al ingresar el ruc.">    
                         </div>
-                        <span *ngIf="onValidateForm('RazonSocial')">El campo es requerido </span>
-    
+
                         <div class="p-inputgroup">
                             <i class="pi pi-home"></i> 
                             <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-sm" placeholder="ingresar el nombre comercial">   
@@ -60,8 +58,7 @@
                             <i class="pi pi-map-marker"></i> 
                             <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-sm" placeholder="ingresar la dirección fiscal">   
                         </div>
-                        <span *ngIf="onValidateForm('DireccionFiscal')">El campo es requerido </span>
-    
+                        
                         <div class="p-inputgroup  ">
                             <i class="pi pi-external-link"></i> 
                             <input type="email" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="ingresar el email corporativo">     

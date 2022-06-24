@@ -57,8 +57,7 @@ export class AgregarEmpresaComponent implements OnInit {
 
   onTraerDatosParEditarEmpresa(){   
     this.spinner.show();
-    this.empresaService.empresaPorGuid().subscribe((resp) => {  
-      console.log(resp);
+    this.empresaService.empresaPorGuid().subscribe((resp) => {   
       if(resp){ 
         this.EmpresaEdit = resp;
         this.EmpresaForm.patchValue({
@@ -101,7 +100,7 @@ export class AgregarEmpresaComponent implements OnInit {
     } 
     this.spinner.show();
       this.empresaService.datosporRucGet(RucDigitado).subscribe((resp)=> {    
-        if(resp){ 
+        if(resp.Data){ 
           this.Empresa = resp.Data            /****Si hay data asigna valor a los campos del formulario****/
           this.EmpresaForm.patchValue({
             RazonSocial : this.Empresa.razonsocial, 
