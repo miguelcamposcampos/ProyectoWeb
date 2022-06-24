@@ -54,6 +54,7 @@ export class AppLoginComponent  {
   }
   
   onLogin(){
+    localStorage.clear();  
     let logindata = this.loginForm.value;    
 
     const data: IAuth = {

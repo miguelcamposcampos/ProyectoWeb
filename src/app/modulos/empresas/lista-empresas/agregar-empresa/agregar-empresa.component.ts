@@ -108,6 +108,7 @@ export class AgregarEmpresaComponent implements OnInit {
             DireccionFiscal : this.Empresa.DireccionCompleta
           });
         }else{ 
+          this.spinner.hide();
           this.onLimpiarFormulario();          /***si no hay data limpia el campos y emite un mensaje****/
           this.swal.mensajeAdvertencia('no se encontraron datos... intenta con otra ruc!.')
         }
@@ -130,6 +131,7 @@ export class AgregarEmpresaComponent implements OnInit {
         if(resp){
           this.spinner.hide();
           this.swal.mensajeExito('Se actualizaron los datos de la empresa!.'); 
+          this.onVolver('exito');
         }
       },error => {
         this.spinner.hide();
@@ -140,6 +142,7 @@ export class AgregarEmpresaComponent implements OnInit {
         if(resp){
           this.spinner.hide();
           this.swal.mensajeExito('La empresa ha sido registrada'); 
+          this.onVolver('exito');
         }
       },error => {
         this.spinner.hide();
@@ -157,6 +160,10 @@ export class AgregarEmpresaComponent implements OnInit {
 
   onRegresar() { 
     this.cerrar.emit(false); 
+  }
+ 
+  onVolver(event) { 
+    this.cerrar.emit(event); 
   }
  
 
