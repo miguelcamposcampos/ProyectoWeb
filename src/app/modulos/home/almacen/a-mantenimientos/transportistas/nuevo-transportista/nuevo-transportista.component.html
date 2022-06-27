@@ -65,7 +65,7 @@
                             <input  *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
                           
                             <strong>Telefono</strong>
-                            <input type="text" pInputText  minlength="9" maxlength="9" (keypress)="validateNumber($event)" formControlName="telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">  
+                            <input type="text" pInputText  minlength="9" maxlength="9" (keypress)="onSoloNumeros($event)" formControlName="telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">  
                         
                             <strong >Fax</strong>
                             <input type="number" pInputText formControlName="fax" class="p-inputtext-sm" placeholder="ingresar el fax">  

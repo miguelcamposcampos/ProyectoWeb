@@ -63,7 +63,7 @@ export interface IDatosPlan {
   cantidadcomprobantes: number,
   importecomprobanteadicional: number,
   fecharegistro: string,
-  planid: number
+  planid: number, 
 }
 
 

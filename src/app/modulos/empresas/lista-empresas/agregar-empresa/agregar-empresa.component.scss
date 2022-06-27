@@ -1,47 +1,9 @@
  
-  .exception-body.access-page {
-    background: gainsboro;
-  }
- 
 
-.pi{
-  font-size: 1.3rem; 
-  padding: 1% 1% 0.5% 1%;
-}
-
-.p-grid {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -1rem;
-  margin-left: -1rem;
-  margin-top: -1rem;
-  row-gap: 10px;
-}
-
-  
-// .primerdiv{  
-//   padding: 0.5%;
-//   display: flex;  
-//   background-color: #FDFEFF;
-//   box-shadow: 0 24px 64px -2px rgb(0 0 0 / 2%), 0 6px 16px -2px rgb(0 0 0 / 6%), 0 2px 6px -2px rgb(0 0 0 / 8%);
-// }
-
-// .contenteleft { 
-//   width: 400px;
-//   display: flex; 
-//   align-items: center;
-
-//   p{
-//     font-size: 20px;
-//   }
-// }
-
-// .contentrigth{ 
-//   display: flex;  
-//   align-items: center;  
-//   justify-content: flex-end;
-//   flex-grow: 1;  
-//   margin: 0;
-//   padding: 0;
-//   height: 100%;
-// }
+ .formularioColum12_1{
+    display: grid;  
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 20rem; 
+    justify-content: center;
+ }

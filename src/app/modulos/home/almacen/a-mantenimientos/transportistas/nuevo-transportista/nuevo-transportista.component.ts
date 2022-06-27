@@ -331,7 +331,7 @@ export class NuevoTransportistaComponent implements OnInit {
 
 
   
-  validateNumber(event) {
+  onSoloNumeros(event) {
     let key;
     if (event.type === 'paste') {
       key = event.clipboardData.getData('text/plain');

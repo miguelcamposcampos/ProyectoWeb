@@ -3,8 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgxSpinnerService } from 'ngx-spinner';  
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IEmpresa, IPlanes, } from '../../interface/empresa.interface';
+import { IDatosPlan, IEmpresa, IPedioCrate, IPlanes, } from '../../interface/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
+import { PlanesService } from '../../services/planes.services';
   
 @Component({
   selector: 'app-agregar-empresa',
@@ -16,11 +17,11 @@ export class AgregarEmpresaComponent implements OnInit {
   @Input() newEmpresa : boolean;
   @Output() cerrar: any = new EventEmitter<any>();
   EmpresaForm : FormGroup;
-  Empresa! : IEmpresa;  
-  EmpresaEdit! : IEmpresa;  
-  PlanesArray! : IPlanes;
+  Empresa : IEmpresa;  
+  EmpresaEdit : IEmpresa;  
+  PlanesArray : any;
   
-  agregPlanElegido : string ="";   
+  mostrarNombrePlanelegido : string ="";   
   idPlanElegido: number = 0;
   modalPlanes: boolean = false; 
   idEmpresa! : number;
@@ -31,7 +32,8 @@ export class AgregarEmpresaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private swal : MensajesSwalService,
     private generalService : GeneralService,
-    private spinner : NgxSpinnerService 
+    private spinner : NgxSpinnerService,
+    private planesService : PlanesService,
   ) { 
    
     this.builform();
@@ -81,15 +83,16 @@ export class AgregarEmpresaComponent implements OnInit {
     this.modalPlanes = true;
   }
  
-  onPlanelegido(plan : any ){  
-    this.PlanesArray = plan.plan
-    this.agregPlanElegido = plan.plan.nombre;
-    this.idPlanElegido = +plan.plan.planesarticulosid
+  onPlanelegido(event : any ){  
+    console.log(event);
+    this.PlanesArray = event
+    this.mostrarNombrePlanelegido = event.plan.nombre;
+ //   this.idPlanElegido = +plan.plan.planesarticulosid
     this.modalPlanes = false;
   }
 
   onQuitarPlan(){
-    this.agregPlanElegido = ''; 
+    this.mostrarNombrePlanelegido = ''; 
   }
 
   onBuscarPorRuc(){   
@@ -122,7 +125,7 @@ export class AgregarEmpresaComponent implements OnInit {
   onAgregarEmpresa(){
     /* newEmpresa recibe todos los valores del form, se le asigna al campo idplan el id seleciconado en el modal */
     const newEmpresa : IEmpresa = this.EmpresaForm.value; 
-    newEmpresa.planid = this.PlanesArray ? +this.idPlanElegido : 0;
+    newEmpresa.planid = this.PlanesArray ? this.PlanesArray.plan.planid : 0;
     this.spinner.show();
     if(this.EmpresaEdit){ 
       newEmpresa.empresaid = this.EmpresaEdit.empresaid;
@@ -139,9 +142,14 @@ export class AgregarEmpresaComponent implements OnInit {
     }else{
       this.empresaService.empresaCreate(newEmpresa).subscribe((resp)=>{
         if(resp){
-          this.spinner.hide();
-          this.swal.mensajeExito('La empresa ha sido registrada'); 
-          this.onVolver('exito');
+          if(this.PlanesArray){
+            this.onCreatePedido(resp); 
+          }else{
+            this.spinner.hide();
+            this.swal.mensajeAdvertencia('Eliga un plan para registrar la empresa!.'); 
+            this.spinner.hide();
+            return;
+          } 
         }
       },error => {
         this.spinner.hide();
@@ -149,6 +157,27 @@ export class AgregarEmpresaComponent implements OnInit {
     })
     }
     
+  }
+
+  onCreatePedido(resp){
+    const newPedido : IPedioCrate = {
+      planesarticulosid: this.PlanesArray.plan.planesarticulosid,
+      cantidad: this.PlanesArray.cantidad,
+      empresaguid: resp
+    }
+    this.planesService.registrarPedido(newPedido).subscribe((resp) => {
+      if(resp){ 
+        this.spinner.hide();
+        this.swal.mensajeExito('La empresa ha sido registrada'); 
+        this.onVolver('exito');
+      }else{
+        this.swal.mensajeError('No se pudo registrar la empresa'); 
+        this.spinner.hide();
+      }
+    }, error => {
+      this.spinner.hide();
+      this.generalService.onValidarOtraSesion(error);
+    })
   }
   
   onLimpiarFormulario(){
@@ -165,9 +194,22 @@ export class AgregarEmpresaComponent implements OnInit {
     this.cerrar.emit(event); 
   }
  
-
-  onValidateForm(campo: string) {
-    return ( this.EmpresaForm.controls[campo].errors && this.EmpresaForm.controls[campo].touched );
+ 
+  onSoloNumeros(event) {
+    let key;
+    if (event.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+    } else {
+      key = event.keyCode;
+      key = String.fromCharCode(key);
+    }
+    const regex = /[0-9]|\./;
+     if (!regex.test(key)) {
+      event.returnValue = false;
+       if (event.preventDefault) {
+        event.preventDefault();
+       }
+     }
   }
 
 }

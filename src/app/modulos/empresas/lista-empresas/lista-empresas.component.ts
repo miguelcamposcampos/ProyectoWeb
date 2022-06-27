@@ -132,6 +132,7 @@ export class ListaEmpresasComponent implements OnInit {
     }
 
     this.planesService.planesPorEmpresaGet(empresa.empresaGuid).subscribe((resp) => {
+      console.log(resp);
       if(resp.planId){   
         let gruiEncryptado = this.authService.cifrarData(empresa.empresaGuid)
         localStorage.setItem('guidEmpresa', gruiEncryptado ) 
