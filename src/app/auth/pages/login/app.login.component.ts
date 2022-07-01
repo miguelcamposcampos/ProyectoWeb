@@ -13,7 +13,7 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './app.login.component.html',
   styleUrls : ['./app.login.component.scss']
 })
-export class AppLoginComponent  {
+export class AppLoginComponent implements OnInit  {
   
   loginForm!: FormGroup; 
   RecordarLogin: any; 
@@ -37,6 +37,9 @@ export class AppLoginComponent  {
       this.checkRecordarLogin = true;
       this.onAutoLlenarLogin();
     }
+  }
+  ngOnInit(): void {
+    this.onLimpiarLS();
   }
   
 
@@ -117,6 +120,12 @@ export class AppLoginComponent  {
   
 
 
-
+  onLimpiarLS(){
+  //  localStorage.removeItem("loginEncryptado")
+    localStorage.removeItem("token")
+    localStorage.removeItem("estado")
+    localStorage.removeItem("DatosUsuario")
+    localStorage.removeItem("guidEmpresa")
+  }
 
 }
