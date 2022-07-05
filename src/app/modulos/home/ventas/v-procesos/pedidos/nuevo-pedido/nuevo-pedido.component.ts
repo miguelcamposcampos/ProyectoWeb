@@ -1056,8 +1056,7 @@ export class NuevoPedidoComponent implements OnInit {
 
   }
 
-  onCalcularPrecioVenta(posicion : number){ 
-  
+  onCalcularPrecioVenta(posicion : number){
       const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
 
       if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
@@ -1090,7 +1089,6 @@ export class NuevoPedidoComponent implements OnInit {
       }
     
       this.onCalcularTotalVenta();
-    
   }
 
   onCalcularTotalVenta(){
@@ -1099,8 +1097,7 @@ export class NuevoPedidoComponent implements OnInit {
     let detallesNoGratuitos : any[]=[];
     let NoAnticipos : any[]=[];
     let Anticipos : any[]=[];
- 
-    //* RECORREMOS LOS NO GRATUITOS
+  
     this.detallesVentaForm.forEach(det => {
       if(!det.value.esGratuito){
         detallesNoGratuitos.push(det.value);
