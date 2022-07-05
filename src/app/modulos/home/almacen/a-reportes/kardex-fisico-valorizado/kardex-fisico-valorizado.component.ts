@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api'; 
+import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces'; 
 import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { IModuloReporte, IReporte } from '../../a-mantenimientos/productos/interface/producto.interface';
@@ -21,9 +22,16 @@ export class KardexFisicoValorizadoComponent implements OnInit {
   Pdf : any;
   urlGenerate : any;
   arrayModalidad : IReporteModalidad[];
-  arrayMonedas : IReporteModalidad[]
+  arrayMonedas : IReporteModalidad[];
+  arrayEstablecimientos : ICombo[]; 
+  arrayLinea : ICombo[];
   Form : FormGroup;
  
+  dataProductos :any;
+  modalBuscarProducto : boolean = false;
+  nombreProductoMostrar:string="";
+  idProductoGrabar: number = 0;
+
   constructor(
     private reporteService : ReportesAlmacenService, 
     public sanitizer: DomSanitizer,
@@ -38,6 +46,8 @@ export class KardexFisicoValorizadoComponent implements OnInit {
 
    public builform(){ 
      this.Form = new FormGroup({ 
+      establecimientoid : new FormControl(null), 
+      idlinea: new FormControl(null),   
       fechaInicio : new FormControl(new Date),
       fechaFin : new FormControl(new Date),
       Moneda : new FormControl(null),
@@ -51,6 +61,19 @@ export class KardexFisicoValorizadoComponent implements OnInit {
   }
 
   onCargarCombos(){ 
+
+    this.generalService.listadoComboEstablecimientos().subscribe((resp) => { 
+      if(resp){
+        this.arrayEstablecimientos = resp;   
+      } 
+    });
+
+    this.generalService.listadoLineas().subscribe((resp) => { 
+      if(resp){
+        this.arrayLinea = resp;   
+      } 
+    }); 
+
     this.arrayMonedas = [
       {nombre : 'SOLES', codigo: 'PEN'},
       {nombre : 'DOLARES', codigo: 'USD'}, 
@@ -104,5 +127,21 @@ export class KardexFisicoValorizadoComponent implements OnInit {
     return bytes.buffer;
   }
  
+
+  onModalBuscarProducto(){
+   // const data = this.Form.value;  
+    const dataProducto = {
+      idAlmacenSelect : null, // data.almacenOrigen.id,
+      idPosicionProducto : null
+    }
+    this.dataProductos = dataProducto;
+    this.modalBuscarProducto = true;
+  }
+
+  onPintarProductoSeleccionado(event : any){  
+    this.modalBuscarProducto= false;  
+    this.nombreProductoMostrar = event.data.nombreProducto,  
+    this.idProductoGrabar = event.data.productoId
+  }
 
 }
