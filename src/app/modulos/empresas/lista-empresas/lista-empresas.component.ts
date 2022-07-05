@@ -50,14 +50,15 @@ export class ListaEmpresasComponent implements OnInit {
       { field: 'ruc', header: 'Ruc', visibility: true }, 
       { field: 'razonSocial', header: 'Razón Social', visibility: true },  
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
-    ];
-
+    ]; 
     this.onItemsEmpresas();
     this.onLoadEmpresas(); 
+   
   }
 
-   
+ 
 
+    
   onItemsEmpresas(){
     this.itemsEmpresa = [ 
       {

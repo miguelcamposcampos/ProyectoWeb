@@ -18,10 +18,12 @@
  </div>
 </div>
   
- 
+
 <div class="layout-main">  
-    <div class="layout-content">  
-        <router-outlet> </router-outlet>  
+    <div class="layout-content">   
+        <p-tabMenu [model]="Tabs" [activeItem]="activeItem" (click)="onChangeTab($event)" (dblclick)="onEliminarTab($event)" ></p-tabMenu>  
+        <hr>
+        <router-outlet> </router-outlet>      
     </div> 
 </div>
  

@@ -69,20 +69,16 @@ export class SubirProductosComponent implements OnInit {
 
 
   onUpload(event : any) {     
-    let data, header;
+    let data;
     const target: DataTransfer = <DataTransfer>(event);   
     if (target.files){
       const reader: FileReader = new FileReader();
         reader.onload = (e: any) => {
-          /* read workbook */
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
-          /* grab first sheet */
           const wsname: string = wb.SheetNames[0];
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
-          /* save data */
           data = XLSX.utils.sheet_to_json(ws); 
           let arrayData = data;
           arrayData.forEach(element => {  

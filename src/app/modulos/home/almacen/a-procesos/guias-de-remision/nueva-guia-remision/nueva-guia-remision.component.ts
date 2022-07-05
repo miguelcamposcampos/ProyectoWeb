@@ -98,7 +98,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       moneda: new FormControl(null, Validators.required), 
       tipoguia: new FormControl(null, Validators.required), 
       serieguia : new FormControl(null),
-      sencuencialguia : new FormControl(null),
+      sencuencialguia : new FormControl(0),
       docReferencia: new FormControl(null),
       seriedocref : new FormControl(null),
       secuencialref : new FormControl(null),

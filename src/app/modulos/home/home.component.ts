@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PrimeNGConfig } from 'primeng/api';  
+import { Router } from '@angular/router';
+import { MenuItem, PrimeNGConfig } from 'primeng/api';  
 import { AppComponent } from 'src/app/app.component';  
 import { AppTopBarComponent } from 'src/app/shared/components/topbar/app.topbar.component';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -11,8 +12,10 @@ import { VentasService } from './ventas/v-procesos/ventas/service/venta.service'
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html', 
 })
+
+
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     rotateMenuButton: boolean;
     topbarMenuActive: boolean;
@@ -50,7 +53,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     hostPordefecto : string = "";
     anchoPapelPordefecto : string = "";
   
-    
+    Tabs: MenuItem[] = [];
+    idIndexTab :any;
+    activeItem: any;
+    TabsCabecera = ['Mantenimientos','Procesos','Reportes', 'Configuraciones','Utilitarios']; 
+
+
     constructor(
         public renderer: Renderer2,
         private menuService: MenuService,
@@ -59,6 +67,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         private ventaservice : VentasService,
         private generalService : GeneralService,
         private swal : MensajesSwalService, 
+        private router : Router
         ) {    
             this.builform();  
             this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
@@ -88,6 +97,49 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.onCargarEstablecimientos();
     }
  
+    /* TABS */
+    onNuevoTab(event){
+        let existeTab = this.Tabs.find(x => x.label === event.label); 
+        if(!this.TabsCabecera.includes(event.label) && !existeTab){
+           this.onAgregarNuevoTab(event);
+        }else{
+            this.onChangeTab(event);
+        }
+    }
+    onAgregarNuevoTab(event){ 
+        let idG = this.Tabs ? this.Tabs.length : 0;
+        this.Tabs.push({   
+                label : event.label,
+                id: idG.toString(),
+                routerLink: event.routerLink,  
+                icon : event.icon
+            });   
+        this.activeItem = this.Tabs[idG]; 
+    }
+ 
+
+    onEliminarTab(event: any) {   
+        let IdDelete =  this.Tabs.findIndex(x => x.label === event.target.textContent);  
+        this.swal.mensajePregunta('¿Seguro de eliminar la pestaña ' +  event.target.textContent + ' ?').then((response) => {
+            if (response.isConfirmed) { 
+                this.Tabs = [...this.Tabs] 
+                this.Tabs.splice(IdDelete, 1);    
+                this.activeItem = this.Tabs[0];  
+                let ruta = './modulos/home/'+this.Tabs[0].routerLink[0].slice(2)
+                this.router.navigate([ruta]) 
+            }
+        }) 
+    }
+
+    onChangeTab(event: any) {   
+        let IdDelete =  this.Tabs.findIndex(x => x.label === event.label);   
+        this.activeItem = this.Tabs[IdDelete];  
+    }
+
+
+     /* FIN TABS */
+
+
     onCargarEstablecimientos(){
         this.generalService.listadoComboEstablecimientos().subscribe((resp) => {  
             if(resp){

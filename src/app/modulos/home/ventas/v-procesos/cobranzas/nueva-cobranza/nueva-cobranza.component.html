@@ -161,11 +161,11 @@
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Cobrado</strong>
-                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="importecobrado">  
+                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" (keydown.Tab)="onCalcularSaldo(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="importecobrado">  
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Redondeo</strong>
-                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeredondeo">  
+                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" (keydown.Tab)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeredondeo">  
                                 </td>
                                 <td style="text-align: center;">
                                     <strong class="p-column-title">Apl.Retención</strong>
@@ -173,7 +173,7 @@
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Retención</strong>
-                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeretencion">  
+                                    <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularSaldo(rowIndex)" (keydown.Tab)="onCalcularSaldo(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importeretencion">  
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Nro.Doc.Retención</strong>

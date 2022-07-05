@@ -27,7 +27,7 @@ export class NuevoPedidoComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   valorIGV : number = 0.18;
   fechaActual = new Date();
-  tituloNuevoPedido: string ="NUEVA PEDIDO";
+  tituloNuevoPedido: string ="NUEVO PEDIDO";
   opcionesNuevoPedido: MenuItem[];
   Form : FormGroup;
   PedidoEditar : IVentaPorId; 
@@ -120,11 +120,11 @@ export class NuevoPedidoComponent implements OnInit {
       fechaemision : new FormControl(this.fechaActual ,Validators.required),
       fechavencimiento : new FormControl(this.fechaActual ,Validators.required),
       fechadespacho : new FormControl(this.fechaActual ,Validators.required),
-      diasvencimiento : new FormControl(null ,Validators.required),
+      diasvencimiento : new FormControl(0,Validators.required),
       monedaid : new FormControl(null ,Validators.required),
       tipocambio : new FormControl(null ,Validators.required),
       condicionpagoid : new FormControl(null ,Validators.required),
-      estadoid : new FormControl(null, Validators.required),
+      estadoid : new FormControl({id: 1, valor1: 'PENDIENTE', valor2: null, valor3: 0, valor4: false}, Validators.required),
       glosa : new FormControl(null ,Validators.required),
       codtipooperacion : new FormControl(null ,Validators.required), 
       motivonotaid: new FormControl(null),
@@ -176,6 +176,17 @@ export class NuevoPedidoComponent implements OnInit {
     this.dataReporte = this.PedidoEditar;
     this.VistaReporte = true;
   }
+
+ 
+  onCalculardiasVencimiento(){
+    let f1x = this.formatoFecha.transform(this.Form.controls['fechaemision'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let f2x = this.formatoFecha.transform(this.Form.controls['fechavencimiento'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let fechaI = new Date(f1x);
+    let fechaF = new Date(f2x); 
+    let dias = Math.floor((fechaF.getTime() - fechaI.getTime()) / (1000 * 60 * 60 * 24)); 
+    this.Form.controls['diasvencimiento'].setValue(dias);
+  }
+
  
   onObtenerPersonaPorNroDocumentoVenta(event : any){
     let numdocumento = event.target.value; 
@@ -1045,43 +1056,45 @@ export class NuevoPedidoComponent implements OnInit {
 
   }
 
-  onCalcularPrecioVenta(posicion : number){
-    const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
-
-    if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
-    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
-    let biActualizar  = DataForm.cantidad * preciosinigv;
-    this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
-
-    let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
-    this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd);
-
-    let vVenta = (biActualizar - DataForm.importedescuento);
-    this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
+  onCalcularPrecioVenta(posicion : number){ 
   
-    let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
-    this.detallesVentaForm[posicion].controls['igv'].setValue(igvAct);
- 
-    let precioventaAct = (+vVenta + igvAct + DataForm.importesotroscargos);
-    let importeicbperAct = DataForm.cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
+      const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
 
-    if(DataForm.esafectoicbper){ 
-      this.detallesVentaForm[posicion].patchValue({
-        importeicbper : importeicbperAct,
-        precioventa : precioventaAct
-      });
-    }else{ 
-      this.detallesVentaForm[posicion].patchValue({
-        importeicbper : 0,
-        precioventa : precioventaAct
-      });
-    }
+      if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
+      let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+      let biActualizar  = DataForm.cantidad * preciosinigv;
+      this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
+
+      let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
+      this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd);
+
+      let vVenta = (biActualizar - DataForm.importedescuento);
+      this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
+    
+      let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
+      this.detallesVentaForm[posicion].controls['igv'].setValue(igvAct);
   
-    this.onCalcularTotalVenta();
- 
+      let precioventaAct = (+vVenta + igvAct + DataForm.importesotroscargos);
+      let importeicbperAct = DataForm.cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
+
+      if(DataForm.esafectoicbper){ 
+        this.detallesVentaForm[posicion].patchValue({
+          importeicbper : importeicbperAct,
+          precioventa : precioventaAct
+        });
+      }else{ 
+        this.detallesVentaForm[posicion].patchValue({
+          importeicbper : 0,
+          precioventa : precioventaAct
+        });
+      }
+    
+      this.onCalcularTotalVenta();
+    
   }
 
   onCalcularTotalVenta(){
+     
     const DataForm = this.Form.value;
     let detallesNoGratuitos : any[]=[];
     let NoAnticipos : any[]=[];

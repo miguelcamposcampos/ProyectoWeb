@@ -36,7 +36,10 @@ export class LoginService {
 
   
   logout(){   
-    localStorage.clear();  
+    localStorage.removeItem("token")
+    localStorage.removeItem("estado")
+    localStorage.removeItem("DatosUsuario")
+    localStorage.removeItem("guidEmpresa")
     this.router.navigate(['/auth/login']);
   }
 
