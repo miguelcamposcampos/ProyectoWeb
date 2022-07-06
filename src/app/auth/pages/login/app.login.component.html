@@ -7,62 +7,71 @@
     </ngx-spinner>
  
 
-    <img class="imgFondo" src="assets/demo/images/fondo-login2.jpg" alt="poseidon-layout" /> 
-    <div class="login">
-        <div class="Formlogin">
+    <div class="container-fluid p-0">
+	    <div class="row no-gutters row-height">
+	        <div class="col-lg-6 background-image">
+	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"> </div>
+	        </div>
+	        <div class="col-lg-6 d-flex flex-column content-right">
+	            <div class="container my-auto py-5">
+	                <div class="row">
+	                    <div class="login">  
+                            <div class="title"> 
+                                <img src="assets/layout/images/logotipo.svg" alt="logo" /> 
+                                <h2>¡Bienvenido!</h2>
+                                <span>Mejores soluciones Informáticas </span>
+                                <br><br>
+                                <form [formGroup]="loginForm">   
+                                    <div class="formulario form-group">  
+                                        <input type="email" pInputText formControlName="email" placeholder="CORREO ELECTRÓNICO" class="p-inputtext-sm">   
+                                       
+                                        <span class="p-input-icon-right" style="width: 100%;">
+                                            <i toggle="#password-field"
+                                            [class]="cambiarIconEye"
+                                            (click)="viewPassword(clave)"> </i>
+                                            <input type="password"  #passwordField pInputText placeholder="CONTRASEÑA" formControlName="password"  #clave class="p-inputtext-sm">    
+                                        </span>
+             
+                                        <div style="margin: 2%;">  
+                                                <p-checkbox   
+                                                    [(ngModel)]="checkRecordarLogin" 
+                                                    [binary]="true"
+                                                    label="Recordar contraseña"
+                                                    formControlName="rememberMe" >
+                                                </p-checkbox>   
+                                        </div>  
+                                        <div> 
+                                            <button    
+                                                class="p-button-sm botonIngresar"
+                                                pButton
+                                                icon="pi pi-arrow-right"
+                                                iconPos="right"
+                                                label="INGRESAR" 
+                                                [disabled]="loginForm.invalid"
+                                                (click)="onLogin()">  
+                                            </button>    
+                                        </div>  
+                                    </div>
+                                </form> 
 
-            <div class="card">  
-                <img src="assets/layout/images/logo_ti.png" alt="poseidon-layout" /> 
-                <br>  
-                <div class="tituloLogin"> 
-                    <h2>¡Bienvenido!</h2> 
-                    <form [formGroup]="loginForm">   
-                        <div class="formulario">  
-                            <input type="email" pInputText formControlName="email" placeholder="ingrese email" class="p-inputtext-sm">   
-                           
-                            <span class="p-input-icon-right" style="width: 100%;">
-                                <i toggle="#password-field"
-                                [class]="cambiarIconEye"
-                                (click)="viewPassword(clave)"> </i>
-                                <input type="password"  (keydown.enter)="onLogin()" #passwordField pInputText placeholder="ingrese contraseña" formControlName="password"  #clave class="p-inputtext-sm">    
-                            </span>
- 
-                            <div style="text-align: left; margin: 2%;">  
-                                    <p-checkbox   
-                                        [(ngModel)]="checkRecordarLogin" 
-                                        [binary]="true"
-                                        label="Recordar email"
-                                        formControlName="rememberMe" >
-                                    </p-checkbox>   
-                            </div>  
-                            <div style="text-align: right;"> 
-                                <button    
-                                    class="p-button-sm botonIngresar"
-                                    pButton
-                                    icon="pi pi-arrow-right"
-                                    iconPos="right"
-                                    label="INGRESAR" 
-                                    [disabled]="loginForm.invalid"
-                                    (click)="onLogin()">  
-                                </button>    
-                            </div>  
+                                <br>
+                                <div style="text-align: center;"> 
+                                    <span (click)="onRecuperar()" > ¿Olvidó su contraseña? </span>  
+                                    <div class="textoRegistrar">
+                                        <p>¿No tienes cuenta? <a href="#" routerLink="/auth/registro"> <b class="textoRegistrar">Registrate aquí. </b> </a></p>
+                                    </div>
+                                </div>   
+                            </div>
                         </div>
-                    </form>  
-                </div>
-                 
-                 
-                <div style="text-align: center;"> 
-                    <span (click)="onRecuperar()" > ¿olvidó su contraseña? </span>  
-                </div>  
-                
-            </div>
-    
-            <div class="textoRegistrar">
-                <p>¿No tienes cuenta? <a href="#" routerLink="/auth/registro"> <b class="textoRegistrar">Registrate aquí. </b> </a></p>
-            </div>
-    
-        </div> 
-    </div>
+ 
+	                </div>
+	            </div>
+	            <div class="container pb-3 copy">GESTISOL - Todos los Derechos Reservados 2022</div>
+	        </div>
+	    </div>
+	    <!-- /row -->
+	</div>
+	<!-- /container -->
 </body>
 
 

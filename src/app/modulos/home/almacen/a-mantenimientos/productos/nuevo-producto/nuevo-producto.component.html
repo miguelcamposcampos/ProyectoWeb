@@ -1,4 +1,4 @@
-<div class="Margintabla">
+<div class="margintabla">
     <div class="contenido card">
     
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
@@ -31,65 +31,74 @@
                     style=" background-color: #D72250;"
                     (click)="onRegresar()">  
                 </button>  
-   
             </div>
         </p-toolbar>
-
-        
-
         <hr>   
         <form [formGroup]="Form">
-            <div class="stepsdemo-content">  
-                <p-fieldset>
-                    <ng-template pTemplate="header">Codigo</ng-template>
-                    <div class="formulario"> 
-                        <strong>Interno *</strong>
-                        <input type="text" pInputText formControlName="codigoproducto" class="p-inputtext-sm" placeholder="ingresar código del producto">   
-                    
-                        <strong>Proveedor</strong>
-                        <input  type="text" pInputText formControlName="proveedor" class="p-inputtext-sm" placeholder="ingresar el proveedor">     
-
-                        <strong>SUNAT</strong>  
-                        <div class="p-inputgroup">  
-                            <input type="text" [value]="codigoProductoUnesco" pInputText (keydown.enter)="onBuscarUnesco()" formControlName="codigoParaBuscarUnesco" class="p-inputtext-sm"   placeholder="ingresar el nombre del producto a buscar">   
-                            <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
+            <div class="row no-gutters row-height">
+                <div class="col-lg-6">
+                    <p-fieldset>
+                        <ng-template pTemplate="header">Codigo</ng-template>
+                        <div class="formulario"> 
+                            <strong>Interno <span style="color: red;">*</span></strong>
+                            <br>
+                            <input type="text" pInputText formControlName="codigoproducto" class="p-inputtext-sm" placeholder="ingresar código del producto">   
+                        
+                            <strong>Proveedor</strong>
+                            <br>
+                            <input  type="text" pInputText formControlName="proveedor" class="p-inputtext-sm" placeholder="ingresar el proveedor">     
+    
+                            <strong>SUNAT</strong>
+                            <br>
+                            <div class="p-inputgroup">  
+                                <input type="text" [value]="codigoProductoUnesco" pInputText (keydown.enter)="onBuscarUnesco()" formControlName="codigoParaBuscarUnesco" class="p-inputtext-sm"   placeholder="ingresar el nombre del producto a buscar">   
+                                <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
+                            </div>
+    
+                            <strong *ngIf="mostrarcomboUnesco" >Producto</strong>  
+                            <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData" formControlName="codigounesco"  placeholder="Selecciona un producto"  [showClear]="true"  optionLabel="DescriptionES"></p-dropdown>
+                               
                         </div>
-
-                        <strong *ngIf="mostrarcomboUnesco" >Producto</strong>  
-                        <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData" formControlName="codigounesco"  placeholder="Selecciona un producto"  [showClear]="true"  optionLabel="DescriptionES"></p-dropdown>
-                           
-                    </div>
-                </p-fieldset>
+                    </p-fieldset>
+                </div>
+                <div class="col-lg-6">
+                    <p-fieldset>
+                        <ng-template pTemplate="header">Categorizacion</ng-template>
+                        <div class="formulario"> 
+                            <strong>Linea <span style="color: red;">*</span> </strong>    
+                            <p-dropdown class="extender" [options]="arrayLinea"  formControlName="idlinea"  placeholder="Selecciona una linea"   optionLabel="valor1"></p-dropdown>
+                            
+                            <strong>Color</strong>  
+                            <p-dropdown class="extender" [options]="arrayColores"  formControlName="idcolor" placeholder="Selecciona un Color" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
+                            
+                            <strong>Tipo Producto <span style="color: red;">*</span></strong>
+                            <p-dropdown class="extender" [options]="arrayTipoProducto"  formControlName="idtipoProducto"  placeholder="Selecciona tipo de Producto" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
+    
+                            <strong>Elegir:</strong>
+                            <div class="elegirOpciones">  
+                                <div>  
+                                    <strong style="margin: 15px;">SERVICIO</strong> 
+                                    
+                                    <p-radioButton  name="esServiciooArticulo"  value="servicio"  formControlName="esServiciooArticulo" ></p-radioButton> 
+                                </div>
+                                <div>   
+                                    <strong style="margin: 15px;">ARTICULO</strong>
+                                    
+                                    <p-radioButton name="esServiciooArticulo"  value="articulo"  formControlName="esServiciooArticulo" ></p-radioButton> 
+                                </div>
+                            </div>
+                        </div>
+     
+    
+                    </p-fieldset> 
+                </div>
+            </div>
+            <div class="stepsdemo-content">  
+             
 
                 <br>
  
-                <p-fieldset>
-                    <ng-template pTemplate="header">Categorizacion</ng-template>
-                    <div class="formulario"> 
-                        <strong>Linea *</strong>    
-                        <p-dropdown class="extender" [options]="arrayLinea"  formControlName="idlinea"  placeholder="Selecciona una linea"   optionLabel="valor1"></p-dropdown>
-                        
-                        <strong>Color</strong>  
-                        <p-dropdown class="extender" [options]="arrayColores"  formControlName="idcolor" placeholder="Selecciona un Color" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
-                        
-                        <strong>Tipo Producto *</strong>
-                        <p-dropdown class="extender" [options]="arrayTipoProducto"  formControlName="idtipoProducto"  placeholder="Selecciona tipo de Producto" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
-
-                        <strong>Elegir:</strong>
-                        <div class="elegirOpciones">  
-                            <div>  
-                                <strong>SERVICIO</strong> 
-                                <p-radioButton  name="esServiciooArticulo"  value="servicio"  formControlName="esServiciooArticulo" ></p-radioButton> 
-                            </div>
-                            <div>   
-                                <strong>ARTICULO</strong>
-                                <p-radioButton name="esServiciooArticulo"  value="articulo"  formControlName="esServiciooArticulo" ></p-radioButton> 
-                            </div>
-                        </div>
-                    </div>
- 
-
-                </p-fieldset> 
+               
     
                 <br>
 

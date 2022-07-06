@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PrimeNGConfig } from 'primeng/api';  
-import { AppComponent } from 'src/app/app.component';  
+import { PrimeNGConfig } from 'primeng/api';
+import { AppComponent } from 'src/app/app.component';
 import { AppTopBarComponent } from 'src/app/shared/components/topbar/app.topbar.component';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { MenuService } from 'src/app/shared/services/app.menu.service';
@@ -49,8 +49,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     impresoraPordefecto : string = "";
     hostPordefecto : string = "";
     anchoPapelPordefecto : string = "";
-  
-    
+
     constructor(
         public renderer: Renderer2,
         private menuService: MenuService,
@@ -69,7 +68,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             } 
         }
 
-          
+
     public builform(){
         this.Form = new FormGroup({ 
           establecimientoid : new FormControl(null ,Validators.required),
@@ -140,8 +139,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           if(resp){
             resp.forEach(element => {
               this.arrayImpresoras.push({nombre : element})
-            });  
-            this.bloquearComboImpresoras = false;  
+            });
+            this.bloquearComboImpresoras = false;
           }else{
             this.bloquearComboImpresoras = true;
           } 
