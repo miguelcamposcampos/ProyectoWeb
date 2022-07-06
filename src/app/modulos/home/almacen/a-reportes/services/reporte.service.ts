@@ -29,27 +29,101 @@ export class ReportesAlmacenService{
     } 
 
     generarReporteKardex(data: any){
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteKardexFisico?tipoPresentacion=${data.tipoPresentacion}&modalidad=${data.modalidad}&f1=${data.f1}&f2=${data.f2}&monedareporte=${data.monedareporte}`)
+        let params = new HttpParams();
+        params = params.append('tipoPresentacion', data.tipoPresentacion);
+        params = params.append('modalidad', data.modalidad.codigo);
+        params = params.append('f1', data.f1);
+        params = params.append('f2', data.f2);
+
+        if(data.establecimientoId){
+          params = params.append('establecimientoId', data.establecimientoId.id);
+        }
+        if(data.productoid){
+            params = params.append('productoid', data.productoid.id);
+        }
+        if(data.lineaid){
+        params = params.append('lineaid', data.lineaid.id);
+        }
+        if(data.monedareporte){
+        params = params.append('monedareporte', data.monedareporte.codigo);
+        } 
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteKardexFisico`, {params})
     } 
 
     generarReporteStock(data: any){
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteStockFisico?tipoPresentacion=${data.tipoPresentacion}&modalidad=${data.modalidad}&periodo=${data.periodo}&monedareporte=${data.monedareporte}`)
+        let params = new HttpParams();
+        params = params.append('tipoPresentacion', data.tipoPresentacion);
+        params = params.append('modalidad', data.modalidad.codigo);
+        
+        if(data.periodo){
+          params = params.append('periodo', data.periodo);
+        }
+        if(data.establecimientoId){
+            params = params.append('establecimientoId', data.establecimientoId.id);
+          }
+        if(data.lineaid){
+            params = params.append('lineaid', data.lineaid.id);
+        }
+        if(data.monedareporte){
+            params = params.append('monedareporte', data.monedareporte.codigo);
+        }  
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteStockFisico`, {params})
+      
     } 
 
     generarReporteIngresosySalidasAlmacen(data: any){
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteMovimientos?tipoPresentacion=${data.tipoPresentacion}&f1=${data.f1}&f2=${data.f2}&tipoMovimiento=${data.tipoMovimiento}&agrupamiento=${data.agrupador}`)
+        let params = new HttpParams();
+        params = params.append('tipoPresentacion', data.tipoPresentacion); 
+        params = params.append('f1', data.f1);
+        params = params.append('f2', data.f2);
+        params = params.append('tipoMovimiento', data.tipoMovimiento);
+
+        if(data.agrupador){
+            params = params.append('agrupamiento', data.agrupador.codigo);
+        }
+        if(data.establecimientoId){
+            params = params.append('establecimientoId', data.establecimientoId.id);
+        }
+        if(data.productoid){
+            params = params.append('productoid', data.productoid.id);
+        }
+        if(data.lineaid){
+            params = params.append('lineaid', data.lineaid.id);
+        }
+
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteMovimientos`, {params}) 
     } 
-
-    // generarReporteSalidasAlmacen(data: any){
-    //     return this.http.post<IReporte>(`${this.apireporte991}/v1/ProductoReport/ObtenerReporteProducto?idlinea=${data.guiaremisionid}&orderBy=${data.guiaremisionid}&estado=${data.guiaremisionid}&tipoProducto=${data.guiaremisionid}&hayFechaHora=${data.guiaremisionid}&byLine=${data.guiaremisionid}&productoCodigo=${data.guiaremisionid}`, null)
-    // } 
-
+ 
     generarReporteReposicionMercaderia(data: any){
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteReposicionMercaderia?tipoPresentacion=${data.tipoPresentacion}&f1=${data.f1}&f2=${data.f2}&almacenId=${data.almacen}`)
+        let params = new HttpParams();
+        params = params.append('tipoPresentacion', data.tipoPresentacion); 
+        params = params.append('f1', data.f1);
+        params = params.append('f2', data.f2);
+        params = params.append('almacenId', data.almacen);
+ 
+        if(data.lineaid){
+            params = params.append('lineaid', data.lineaid.id);
+        }
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteReposicionMercaderia`, {params}) 
+        
+      //  tipoPresentacion=${data.tipoPresentacion}&f1=${data.f1}&f2=${data.f2}&almacenId=${data.almacen}`)
     } 
   
     generarReporteCruceInventario(data: any){
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteCruceInventario?tipoPresentacion=${data.tipoPresentacion}&f1=${data.f1}&f2=${data.f2}&almacenId=${data.almacen}`)
+        let params = new HttpParams();
+        params = params.append('tipoPresentacion', data.tipoPresentacion); 
+        params = params.append('f1', data.f1);
+        params = params.append('f2', data.f2);
+        params = params.append('almacenId ', data.almacen);
+        
+        if(data.lineaid){
+            params = params.append('lineaid', data.lineaid.id);
+        } 
+        if(data.codigoProducto){
+            params = params.append('productoid', data.codigoProducto);
+        }
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteCruceInventario`, {params}) 
+         //  ?tipoPresentacion=${data.tipoPresentacion}&f1=${data.f1}&f2=${data.f2}&almacenId=${data.almacen}`)
     } 
   
 }

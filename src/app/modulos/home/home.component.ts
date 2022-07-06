@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     Tabs: MenuItem[] = [];
     idIndexTab :any;
     activeItem: any;
-    TabsCabecera = ['Mantenimientos','Procesos','Reportes', 'Configuraciones','Utilitarios']; 
+    TabsCabecera = ['Mantenimientos','Procesos','Reportes', 'Configuraciones','Utilitarios', 'Ver', 'Datos Generales']; 
 
 
     constructor(
@@ -98,9 +98,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
  
     /* TABS */
-    onNuevoTab(event){
-        let existeTab = this.Tabs.find(x => x.label === event.label); 
-        if(!this.TabsCabecera.includes(event.label) && !existeTab){
+    onNuevoTab(event){ 
+        if(!this.Tabs.find(x => x.label === event.label)){
            this.onAgregarNuevoTab(event);
         }else{
             this.onChangeTab(event);

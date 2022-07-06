@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
+import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { IModuloReporte } from '../../a-mantenimientos/productos/interface/producto.interface';
@@ -21,9 +22,13 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
   Pdf : any;
   urlGenerate : any;
   arrayAgrupado : IReporteModalidad[]; 
+  arrayEstablecimientos : ICombo[]; 
+  arrayLinea : ICombo[];
   Form : FormGroup;
 
- 
+  dataProductos :any;
+  modalBuscarProducto : boolean = false;  
+  
   constructor(
     private reporteService : ReportesAlmacenService, 
     public sanitizer: DomSanitizer,
@@ -38,9 +43,13 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
 
    public builform(){ 
      this.Form = new FormGroup({ 
+      nombreProducto : new FormControl(null), 
+      productoid : new FormControl(null), 
       fechaInicio : new FormControl(new Date),
       fechaFin : new FormControl(new Date), 
       Agrupado : new FormControl(null),
+      establecimientoId : new FormControl(null), 
+      lineaid: new FormControl(null),   
      })
    }
 
@@ -50,6 +59,18 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
   }
 
   onCargarCombos(){  
+    this.generalService.listadoComboEstablecimientos().subscribe((resp) => { 
+      if(resp){
+        this.arrayEstablecimientos = resp;   
+      } 
+    });
+
+    this.generalService.listadoLineas().subscribe((resp) => { 
+      if(resp){
+        this.arrayLinea = resp;   
+      } 
+    }); 
+
     this.arrayAgrupado = [
       {nombre : 'PRODUCTO', codigo: 'Producto'},
       {nombre : 'LINEA', codigo: 'Linea'},
@@ -60,13 +81,16 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
   
   onGenerarReporte(){
     const data = this.Form.value; 
-    let agrupador  = data.Agrupado ? data.Agrupado.codigo : ''
+ //   let agrupador  = data.Agrupado ? data.Agrupado.codigo : ''
     const params = {
       tipoPresentacion : 'PDF', 
       tipoMovimiento : 2,
       f1 :  this.dataform.transform(data.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2 :  this.dataform.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
-      agrupador : agrupador
+      agrupador : data.Agrupado,
+      establecimientoId : data.establecimientoId,
+      productoid : data.productoid,
+      lineaid : data.lineaid,
     }
   
     this.spinner.show();
@@ -94,6 +118,21 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
     } 
     return bytes.buffer;
   }
+
+  onModalBuscarProducto(){
+    // const data = this.Form.value;  
+     const dataProducto = {
+       idAlmacenSelect : -1, // data.almacenOrigen.id,
+       idPosicionProducto : null
+     }
+     this.dataProductos = dataProducto;
+     this.modalBuscarProducto = true;
+   }
  
+   onPintarProductoSeleccionado(event : any){  
+     this.modalBuscarProducto= false;  
+     this.Form.controls['nombreProducto'].setValue(event.data.nombreProducto);
+     this.Form.controls['productoid'].setValue(event.data.productoId); 
+   }
 
 }

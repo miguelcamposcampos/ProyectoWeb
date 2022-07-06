@@ -23,6 +23,7 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
   Pdf : any;
   urlGenerate : any;
   arrayAlmacen : ICombo[]; 
+  arrayLinea : ICombo[];
   Form : FormGroup;
 
   constructor(
@@ -41,6 +42,7 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
     fechaInicio : new FormControl(new Date),
     fechaFin : new FormControl(new Date),
     Almacen : new FormControl(null), 
+    lineaid: new FormControl(null),   
     })
   }
 
@@ -55,6 +57,12 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
         this.arrayAlmacen = resp;
       }
     })
+    this.generalService.listadoLineas().subscribe((resp) => { 
+      if(resp){
+        this.arrayLinea = resp;   
+      } 
+    }); 
+
   }
 
 
@@ -65,6 +73,7 @@ export class ReporteReposicionMercaderiaComponent implements OnInit {
       f1 :  this.dataform.transform(data.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2 :  this.dataform.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       almacen: data.Almacen ? data.Almacen.id : -1,
+      lineaid : data.lineaid,
     } 
 
     this.spinner.show();

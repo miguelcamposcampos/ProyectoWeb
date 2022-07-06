@@ -127,7 +127,9 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
     }
 
     onEnviarTitulo(event){
-        this.app.onNuevoTab(event);
+        if(!event.items){
+            this.app.onNuevoTab(event);
+        } 
     }
 
     itemClick(event: Event) {

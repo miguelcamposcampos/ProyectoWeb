@@ -28,9 +28,7 @@ export class KardexFisicoValorizadoComponent implements OnInit {
   Form : FormGroup;
  
   dataProductos :any;
-  modalBuscarProducto : boolean = false;
-  nombreProductoMostrar:string="";
-  idProductoGrabar: number = 0;
+  modalBuscarProducto : boolean = false;  
 
   constructor(
     private reporteService : ReportesAlmacenService, 
@@ -46,12 +44,14 @@ export class KardexFisicoValorizadoComponent implements OnInit {
 
    public builform(){ 
      this.Form = new FormGroup({ 
-      establecimientoid : new FormControl(null), 
-      idlinea: new FormControl(null),   
+      nombreProducto : new FormControl(null), 
+      productoid : new FormControl(null), 
+      establecimientoId : new FormControl(null), 
+      lineaid: new FormControl(null),   
       fechaInicio : new FormControl(new Date),
       fechaFin : new FormControl(new Date),
-      Moneda : new FormControl(null),
-      Modalidad : new FormControl(null),
+      Moneda : new FormControl( {nombre : 'SOLES', codigo: 'PEN'}),
+      Modalidad : new FormControl( {nombre : 'FISICO', codigo: 'Fisico'}),
      })
    }
 
@@ -90,15 +90,17 @@ export class KardexFisicoValorizadoComponent implements OnInit {
 
   onGenerarReporte(){
     const data = this.Form.value;
-   
-    let moneda = data.Moneda ? data.Moneda.codigo : 'PEN'
-    let modalidad  = data.Modalidad ? data.Modalidad.codigo : 'Fisico'
+  //  let moneda = data.Moneda ? data.Moneda.codigo : 'PEN'
+ //   let modalidad  = data.Modalidad ? data.Modalidad.codigo : 'Fisico'
     const params = {
       tipoPresentacion : 'PDF', 
+      monedareporte: data.Moneda,
       f1 :  this.dataform.transform(data.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2 :  this.dataform.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
-      monedareporte: moneda,
-      modalidad : modalidad
+      establecimientoId : data.establecimientoId,
+      productoid : data.productoid,
+      lineaid :  data.lineaid,
+      modalidad : data.Modalidad
     } 
 
     this.spinner.show();
@@ -131,7 +133,7 @@ export class KardexFisicoValorizadoComponent implements OnInit {
   onModalBuscarProducto(){
    // const data = this.Form.value;  
     const dataProducto = {
-      idAlmacenSelect : null, // data.almacenOrigen.id,
+      idAlmacenSelect : -1, // data.almacenOrigen.id,
       idPosicionProducto : null
     }
     this.dataProductos = dataProducto;
@@ -140,8 +142,8 @@ export class KardexFisicoValorizadoComponent implements OnInit {
 
   onPintarProductoSeleccionado(event : any){  
     this.modalBuscarProducto= false;  
-    this.nombreProductoMostrar = event.data.nombreProducto,  
-    this.idProductoGrabar = event.data.productoId
+    this.Form.controls['nombreProducto'].setValue(event.data.nombreProducto);
+    this.Form.controls['productoid'].setValue(event.data.productoId); 
   }
 
 }
