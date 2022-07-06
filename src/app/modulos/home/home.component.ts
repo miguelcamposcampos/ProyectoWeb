@@ -56,9 +56,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     Tabs: MenuItem[] = [];
     idIndexTab :any;
     activeItem: any;
-    TabsCabecera = ['Mantenimientos','Procesos','Reportes', 'Configuraciones','Utilitarios', 'Ver', 'Datos Generales']; 
-
-
+ 
     constructor(
         public renderer: Renderer2,
         private menuService: MenuService,
