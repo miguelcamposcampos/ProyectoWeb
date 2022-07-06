@@ -488,15 +488,14 @@ export class NuevaGuiaRemisionComponent implements OnInit {
 
   AddDetalle(){ 
     return this.fb.group({ 
-      productoid: new FormControl(null),  
-     // almacen : new  FormControl(null, Validators.required),  
+      productoid: new FormControl(null),   
       almacen: this.arrayAlmacenes.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
       codigoProducto : new FormControl(null, Validators.required), 
       descripcion: new FormControl(null),  
       unidadMedida: new FormControl(null, Validators.required),
-      cantidad: new FormControl(0),   
+      cantidad: new FormControl(1),   
       bultos: new FormControl(null, Validators.required),   
       pesoUnitario: new FormControl(null),  
       precioUnitario: new FormControl(null),

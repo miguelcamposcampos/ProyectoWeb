@@ -483,8 +483,7 @@ export class NuevoPedidoComponent implements OnInit {
       productoid : new FormControl(null),
       descripcionproducto : new FormControl(''),
       unidadmedida : new  FormControl(null), // combo
-      unidadmedidaid : new  FormControl(null), // combo
-  //   almacenid : new FormControl(null),   //combo 
+      unidadmedidaid : new  FormControl(null), // combo 
       almacenid: this.arrayAlmacen.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
@@ -511,6 +510,7 @@ export class NuevoPedidoComponent implements OnInit {
       ventaanticiporeferenciaid: new  FormControl(null),
       esInafecto : new  FormControl(null),
       esExonerado : new  FormControl(null),
+      nrocuenta : new  FormControl(null)
     })
   }
 
@@ -698,6 +698,7 @@ export class NuevoPedidoComponent implements OnInit {
       idsToDelete: this.arrayDetallesEliminados,
       ventaid : this.PedidoEditar ? this.PedidoEditar.ventaid : 0,
       pedidoData : DetallePedidoGrabar, 
+      conceptocontableid: 0
     }
   
     if(!this.PedidoEditar){
@@ -847,8 +848,8 @@ export class NuevoPedidoComponent implements OnInit {
       importeigv : this.PedidoEditar.importeigv ?? 0,
       importeotrostributos  : this.PedidoEditar.importeotrostributos ?? 0,
       importetotalventa : this.PedidoEditar.importetotalventa ?? 0,
-      importevalorventa : this.PedidoEditar.importevalorventa ?? 0
-
+      importevalorventa : this.PedidoEditar.importevalorventa ?? 0,
+      conceptocontableid : this.PedidoEditar.conceptocontableid ?? 0
     })
 
     for( let  i = 0; i < this.PedidoEditar.detalles.length; i++){
@@ -893,6 +894,7 @@ export class NuevoPedidoComponent implements OnInit {
         esGratuito:  this.PedidoEditar.detalles[i].esGratuito,
         esGravada:  this.PedidoEditar.detalles[i].esGravada,
         ventaanticiporeferenciaid:  this.PedidoEditar.detalles[i].ventaanticiporeferenciaid,
+        nrocuenta:  this.PedidoEditar.detalles[i].nrocuenta,
       });
     }
   
@@ -986,6 +988,7 @@ export class NuevoPedidoComponent implements OnInit {
           ventaAnticipoReferencia :  '',
           ventadetallemigradaid:  null,
           ventaDetalleDetraccionTransporteInfoDTO : arrayVentaDetalleDetraccionTransporte,
+          nrocuenta : element.value.nrocuenta,
         });
       }
     })
@@ -1093,7 +1096,7 @@ export class NuevoPedidoComponent implements OnInit {
 
   onCalcularTotalVenta(){
      
-    const DataForm = this.Form.value;
+    const DataForm = this.Form.getRawValue();
     let detallesNoGratuitos : any[]=[];
     let NoAnticipos : any[]=[];
     let Anticipos : any[]=[];

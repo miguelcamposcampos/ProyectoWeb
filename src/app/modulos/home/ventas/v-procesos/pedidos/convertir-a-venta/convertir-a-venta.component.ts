@@ -175,6 +175,9 @@ export class ConvertirAVentaComponent implements OnInit {
       importegratuita : new FormControl(0),
       importegravada : new FormControl(0),
       descuentoporitem: new FormControl(0),
+
+      conceptocontableid  : new FormControl(0)
+      
     })
 
     this.FormImpresion = new FormGroup({
@@ -630,8 +633,7 @@ export class ConvertirAVentaComponent implements OnInit {
       productoid : new FormControl(null),
       descripcionproducto : new FormControl(''),
       unidadmedida : new  FormControl(null), // combo
-      unidadmedidaid : new  FormControl(null), // combo
-     // almacenid : new FormControl(null),   //combo
+      unidadmedidaid : new  FormControl(null), // combo 
       almacen: this.arrayAlmacen.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
@@ -658,6 +660,7 @@ export class ConvertirAVentaComponent implements OnInit {
       ventaanticiporeferenciaid: new  FormControl(null),
       esInafecto : new  FormControl(null),
       esExonerado : new  FormControl(null),
+      nrocuenta : new  FormControl(null)
     })
   }
 
@@ -1032,6 +1035,7 @@ export class ConvertirAVentaComponent implements OnInit {
       idsCondicionPagoToDelet: this.arrayDetallesCondicionPagoEliminados,
       idsToDelete: this.arrayDetallesEliminados,
       ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0, 
+      conceptocontableid : dataform.conceptocontableid
     } 
     if(!this.VentaEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp) => {
@@ -1148,20 +1152,13 @@ export class ConvertirAVentaComponent implements OnInit {
       codtipooperacion : this.arrayTipoOperacion.find(
         (x) => x.id === tipoOperacionPintar.id
       ),
-      // motivonotaid: this.arrayMotivoNota.find(
-      //   (x) => x.id === this.VentaEditar.motivonotaid
-      // ),
+    
       dsctoglobalrporcentaje: this.VentaEditar.dsctoglobalrporcentaje ?? 0,
       esafectodetraccion: this.VentaEditar.esafectodetraccion,
       codigodetraccion: this.arrayCodigoDetraccion.find(
         (x) => x.id === +this.VentaEditar.codigodetraccion
       ),
-      porcentajedetraccion: this.VentaEditar.porcentajedetraccion ?? 0,
-
-      // serieventa :  this.arraySeriePorDocumento.find(
-      //   (x) => x.id === serieVentaPintar.id
-      // ),
-
+      porcentajedetraccion: this.VentaEditar.porcentajedetraccion ?? 0, 
       dsctoglobalimporte : this.VentaEditar.dsctoglobalimporte ?? 0,
       importeanticipo : this.VentaEditar.importeanticipo ?? 0,
       importedescuento : this.VentaEditar.importedescuento ?? 0,
@@ -1169,8 +1166,8 @@ export class ConvertirAVentaComponent implements OnInit {
       importeigv : this.VentaEditar.importeigv ?? 0,
       importeotrostributos  : this.VentaEditar.importeotrostributos ?? 0,
       importetotalventa : this.VentaEditar.importetotalventa ?? 0,
-      importevalorventa : this.VentaEditar.importevalorventa ?? 0
-
+      importevalorventa : this.VentaEditar.importevalorventa ?? 0,
+      conceptocontableid: this.VentaEditar.conceptocontableid ?? 0
     })
 
     for( let  i = 0; i < this.VentaEditar.detalles.length; i++){
@@ -1215,6 +1212,7 @@ export class ConvertirAVentaComponent implements OnInit {
         esGratuito:  this.VentaEditar.detalles[i].esGratuito,
         esGravada:  this.VentaEditar.detalles[i].esGravada,
         ventaanticiporeferenciaid:  this.VentaEditar.detalles[i].ventaanticiporeferenciaid,
+        nrocuenta:  this.VentaEditar.detalles[i].nrocuenta,
       });
     }
 
@@ -1317,6 +1315,7 @@ export class ConvertirAVentaComponent implements OnInit {
           ventaAnticipoReferencia :  '',
           ventadetallemigradaid:  null,
           ventaDetalleDetraccionTransporteInfoDTO : arrayVentaDetalleDetraccionTransporte,
+          nrocuenta : element.value.nrocuenta,
         });
       }
     })
@@ -1503,7 +1502,7 @@ export class ConvertirAVentaComponent implements OnInit {
     // //* validamos el total de porcentaje descuento
     // let Importeicbper : number  =   this.Form.controls['importeicbper'].value;  
 
-    const DataForm = this.Form.value;
+    const DataForm = this.Form.getRawValue();
     let detallesNoGratuitos : any[]=[];
     let NoAnticipos : any[]=[];
     let Anticipos : any[]=[];
