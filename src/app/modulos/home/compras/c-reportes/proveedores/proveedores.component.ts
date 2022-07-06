@@ -21,7 +21,7 @@ export class ProveedoresComponent implements OnInit {
   Pdf : any;
   urlGenerate : any; 
   Form : FormGroup;
-
+  fechaActual = new Date();
   constructor(
     private reporteService : ReportesComprasService, 
     public sanitizer: DomSanitizer, 
@@ -30,13 +30,13 @@ export class ProveedoresComponent implements OnInit {
     private formatDate : DatePipe,
     private spinner : NgxSpinnerService
   ) {
-   
+    this.builform();
   }
   
   public builform(){ 
     this.Form = new FormGroup({ 
-      fechaInicio : new FormControl(new Date),
-      fechaFin : new FormControl(new Date),  
+      fechaInicio : new FormControl(this.fechaActual),
+      fechaFin : new FormControl(this.fechaActual),  
     })
   }
 
@@ -58,8 +58,8 @@ export class ProveedoresComponent implements OnInit {
         this.contenidoReporte = resp    
         var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"});
         const url = URL.createObjectURL(blob);    
-        this.urlGenerate = url;
-        this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
+     //   this.urlGenerate = url;
+        this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(url); 
         this.spinner.hide();
       }    
     },error => { 

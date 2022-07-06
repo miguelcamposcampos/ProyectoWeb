@@ -45,7 +45,7 @@ export class VentasService{
             params = params.append('clienteId', data.clienteId);
         } 
 
-        return this.http.get<IListarVentas>(`${this.api987}/v1/Venta/ObtenerVentaConsultas`, { params: params }); 
+        return this.http.get<IListarVentas>(`${this.api987}/v1/Venta/ObtenerVentaConsultas`, { params }); 
     }
   
     ventasPorId(id :number){

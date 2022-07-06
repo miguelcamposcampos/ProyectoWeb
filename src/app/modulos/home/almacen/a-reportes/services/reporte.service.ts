@@ -17,7 +17,17 @@ export class ReportesAlmacenService{
 
  
     generarReporteProductos(data: any){
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/ProductoReport/ObtenerReporteProducto?idlinea=${data.idlinea}&orderBy=${data.orderBy}&estado=${data.estado}&tipoProducto=${data.tipoProducto}&hayFechaHora=${data.hayFechaHora}&byLine=${data.byLine}&productoCodigo=${data.productoCodigo}`, null)
+        let params = new HttpParams();
+        params = params.append('idlinea', data.idlinea);
+        params = params.append('orderBy', data.orderBy);
+        params = params.append('estado', data.estado);
+        params = params.append('tipoProducto', data.tipoProducto);
+        params = params.append('hayFechaHora', data.hayFechaHora);
+        params = params.append('byLine', data.byLine);
+        params = params.append('productoCodigo', data.productoCodigo);
+ 
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/ProductoReport/ObtenerReporteProducto`, {params})
+       // ?idlinea=${data.idlinea}&orderBy=${data.orderBy}&estado=${data.estado}&tipoProducto=${data.tipoProducto}&hayFechaHora=${data.hayFechaHora}&byLine=${data.byLine}&productoCodigo=${data.productoCodigo}`, null)
     } 
 
     generarReporteLineas(fechahora: any){

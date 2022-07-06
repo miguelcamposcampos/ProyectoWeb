@@ -25,7 +25,7 @@ export class MovimientosAlmacenService{
         params = params.append('itemsPorPagina', data.itemsPorPagina);
         params = params.append('finicio', data.finicio);
         params = params.append('ffin', data.ffin);
-        return this.http.get<IListarMovimientosAlmacen>(`${this.api987}/v1/Movimiento/ObtenerMovimientosConsulta`, { params: params }); 
+        return this.http.get<IListarMovimientosAlmacen>(`${this.api987}/v1/Movimiento/ObtenerMovimientosConsulta`, { params }); 
     }
   
     movimientoAlmacenPorId(id :number){
@@ -48,10 +48,7 @@ export class MovimientosAlmacenService{
     generarReporte(data: any){
         return this.http.post<IReporte>(`${this.apiReporte}/api/MovimientoReport/ObtenerReporteMovimiento?hayFechaHora=${data.fechaHora}&idMovimiento=${data.idMovimiento}&nroRegistro=${data.nroRegistro}`, null)
     }
-    // deletedetalle( data : any){
-    //     return this.http.post(`${this.api987}/v1/Movimiento/EliminarMovimiento `, { idMovimiento : data.idMovimiento, esRegeneracion : data.esRegeneracion})
-    // }
-
+  
     
     listadoAnexosMA(data :any): Observable<IListarAnexosMA>{
         let params = new HttpParams();
@@ -59,7 +56,7 @@ export class MovimientosAlmacenService{
         params = params.append('itemsPorPagina', data.itemsPorPagina);
         params = params.append('categoria', data.categoria);
         params = params.append('criterio', data.criterio);
-        return this.http.get<IListarAnexosMA>(`${this.api987}/Anexo/ObtenerPersonaConsulta`, { params: params }); 
+        return this.http.get<IListarAnexosMA>(`${this.api987}/Anexo/ObtenerPersonaConsulta`, { params }); 
     }
   
 

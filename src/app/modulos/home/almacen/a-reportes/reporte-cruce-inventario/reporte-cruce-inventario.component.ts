@@ -119,11 +119,7 @@ export class ReporteCruceInventarioComponent implements OnInit {
      if(!data.Almacen.id){
       this.swal.mensajeAdvertencia('Debes seleccionar un almacen');
      }
-     const dataProducto = {
-       idAlmacenSelect : data.Almacen.id,
-     //  idAlmacenSelect : data.Almacen ? data.Almacen.id : -1,
-       idPosicionProducto : null
-     }
+     const dataProducto = {idAlmacenSelect : data.Almacen.id }
      this.dataProductos = dataProducto;
      this.modalBuscarProducto = true;
    }

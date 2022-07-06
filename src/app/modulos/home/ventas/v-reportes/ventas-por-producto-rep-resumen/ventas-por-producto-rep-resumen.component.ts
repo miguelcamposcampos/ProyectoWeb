@@ -120,7 +120,7 @@ export class VentasPorProductoRepResumenComponent implements OnInit {
   onBorrarCliente(){
     this.swal.mensajePregunta('¿Seguro de quitar al cliente actual?').then((response) => {
       if (response.isConfirmed) {
-        this.idClienteSeleccionado = 0;
+        this.idClienteSeleccionado = null;
         this.Form.controls['nombreCliente'].setValue(null);
         this.existeClienteSeleccionado = false;
       }

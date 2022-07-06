@@ -119,11 +119,7 @@ export class ReporteIngresosAlmacenComponent implements OnInit {
   }
 
   onModalBuscarProducto(){
-     const dataProducto = {
-       idAlmacenSelect : -1, 
-       idPosicionProducto : null
-     }
-     this.dataProductos = dataProducto;
+    this.dataProductos = { idAlmacenSelect : -1};
      this.modalBuscarProducto = true;
    }
  

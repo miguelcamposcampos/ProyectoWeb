@@ -25,34 +25,37 @@ export class GeneralService {
 
   /* VALIDAR OTRO INICIO DE SESION */
   onValidarOtraSesion(error : any){ 
-    if(error.error.status === 403){ 
-      this.swal.mensajeCaducoSesion().then((response) => { 
-        if (response.isConfirmed) { 
-            this.router.navigate(['/auth']);
-        }
-      });
-    }else if(error.error.status === 404){ 
-      this.swal.mensajeError('No se encontraron datos...');
-    }else if(error.error.status === 401){ 
-      this.swal.mensajeCaducoSesion().then((response) => { 
-        if (response.isConfirmed) { 
-            this.router.navigate(['/auth']);
-        }
-      });
-    }else{
-      let Errores 
-      console.log(' ERROR',error); 
-      if(error.errors){ 
-        Errores = JSON.stringify(error.errors) 
-      }else if(error.error.errors){ 
-        Errores = JSON.stringify(error.error.errors) 
-      }else { 
-        Errores = JSON.stringify(error.error) 
+      if(error.status === 404){ 
+        this.swal.mensajeError('No se encontraron datos...');
+      }else if(error.error.status === 403){ 
+        this.swal.mensajeCaducoSesion().then((response) => { 
+          if (response.isConfirmed) { 
+              this.router.navigate(['/auth']);
+          }
+        });
+      }else if(error.error.status === 404){ 
+        this.swal.mensajeError('No se encontraron datos...');
+      }else if(error.error.status === 401){ 
+        this.swal.mensajeCaducoSesion().then((response) => { 
+          if (response.isConfirmed) { 
+              this.router.navigate(['/auth']);
+          }
+        });
+      }else{
+        let MsgError 
+        if(error.error){ 
+          MsgError = JSON.stringify(error.error)  
+        }else if(error.errors){ 
+          MsgError = JSON.stringify(error.errors) 
+        }else if(error.error.errors){ 
+          MsgError = JSON.stringify(error.error.errors) 
+        } 
+  
+        this.swal.mensajeError(MsgError);
+        return;
       }
-
-      this.swal.mensajeError(Errores);
-      return;
-    }
+     
+  
  
   }
  

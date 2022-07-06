@@ -22,7 +22,7 @@ export class CajaChicasService{
         params = params.append('f2', data.ffin);  
         params = params.append('paginaIndex', data.paginaIndex);  
         params = params.append('itemsxpagina', data.itemsxpagina);  
-        return this.http.get<IListaCajaChica>(`${this.api987}/v1/CajaChica/ObtenerConsultaCajaChica`, { params: params }); 
+        return this.http.get<IListaCajaChica>(`${this.api987}/v1/CajaChica/ObtenerConsultaCajaChica`, { params }); 
     }
   
     cajaChicaPorId(id :number){

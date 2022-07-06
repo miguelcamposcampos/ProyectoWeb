@@ -17,9 +17,10 @@ import { ReportesComprasService } from '../service/reportescompras.service';
 export class CompraProductoResumenComponent implements OnInit {
   es = ConstantesGenerales.ES_CALENDARIO;
   contenidoReporte : IModuloReporte;
-  Pdf : any;
-  urlGenerate : any; 
+  Pdf : any; 
   Form : FormGroup;
+  dataProductos :any;
+  modalBuscarProducto : boolean = false;  
 
   constructor(
     private reporteService : ReportesComprasService, 
@@ -34,6 +35,8 @@ export class CompraProductoResumenComponent implements OnInit {
   
   public builform(){ 
     this.Form = new FormGroup({ 
+      nombreProducto : new FormControl(null), 
+      productoid : new FormControl(null), 
       fechaInicio : new FormControl(new Date),
       fechaFin : new FormControl(new Date),  
     })
@@ -49,6 +52,7 @@ export class CompraProductoResumenComponent implements OnInit {
       tipoPresentacion : 'PDF',  
       f1 :  this.dataform.transform(data.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2 :  this.dataform.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA), 
+      productoid : data.productoid,
     }
   
     this.spinner.show();
@@ -56,9 +60,8 @@ export class CompraProductoResumenComponent implements OnInit {
       if(resp){ 
         this.contenidoReporte = resp    
         var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"});
-        const url = URL.createObjectURL(blob);    
-        this.urlGenerate = url;
-        this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
+        const url = URL.createObjectURL(blob);     
+        this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(url); 
         this.spinner.hide();
       }    
     },error => { 
@@ -77,4 +80,16 @@ export class CompraProductoResumenComponent implements OnInit {
     return bytes.buffer;
   }
  
+  onModalBuscarProducto(){ 
+    this.dataProductos = { idAlmacenSelect : -1};
+    this.modalBuscarProducto = true;
+  }
+
+  onPintarProductoSeleccionado(event : any){  
+    this.modalBuscarProducto= false;  
+    this.Form.controls['nombreProducto'].setValue(event.data.nombreProducto);
+    this.Form.controls['productoid'].setValue(event.data.productoId); 
+  }
+
+
 }

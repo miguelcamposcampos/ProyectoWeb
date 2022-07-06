@@ -21,7 +21,7 @@ export class ProveedorService {
         params = params.append('itemsporpagina', data.itemsporpagina);
         params = params.append('razonsocial', data.razonsocial);
         params = params.append('nrodoc', data.nrodocumento);
-        return this.http.get<IListaProveedores>(`${this.api987}/v1/Proveedor/ObtenerProveedoresConsulta`, {params : params})
+        return this.http.get<IListaProveedores>(`${this.api987}/v1/Proveedor/ObtenerProveedoresConsulta`, {params})
     }
  
     proveedorPorId(id :number){

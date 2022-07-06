@@ -223,7 +223,7 @@
   
 <!-- VISTAS Y MODALES -->
 <div *ngIf="modalBuscarPersona">
-    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
+    <p-dialog header="BUSCAR PROVEEDOR" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '70vw'}">
         <app-buscar-persona  [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
     </p-dialog> 
 </div>  

@@ -29,7 +29,7 @@ export class ReciboPorHonorarioService{
             params = params.append('proveedorid', data.proveedorid);
         } 
 
-        return this.http.get<IListarRxh>(`${this.api987}/ReciboHonorarios/ObtenerConsultaReciboHonorario`, { params: params }); 
+        return this.http.get<IListarRxh>(`${this.api987}/ReciboHonorarios/ObtenerConsultaReciboHonorario`, { params }); 
     } 
 
     reciboPorHonorarioPorId(id :number){

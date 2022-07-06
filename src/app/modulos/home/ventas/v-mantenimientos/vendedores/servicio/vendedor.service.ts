@@ -22,7 +22,7 @@ export class VendedoresService {
     params = params.append('paginaIndex', data.paginaIndex);
     params = params.append('itemsxpagina', data.itemsporpagina); 
     params = params.append('descripcion', data.descripcion); 
-    return this.http.get<IListarVendedores>(`${this.api987}/v1/Vendedor/ObtenerVendedoresConsulta`, { params: params });
+    return this.http.get<IListarVendedores>(`${this.api987}/v1/Vendedor/ObtenerVendedoresConsulta`, { params });
   }
  
  

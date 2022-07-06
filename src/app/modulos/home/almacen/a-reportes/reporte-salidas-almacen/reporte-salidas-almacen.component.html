@@ -14,7 +14,7 @@
                     <div class="p-field p-col-12 p-md-6 p-lg-6 p-sm-6">
                         <strong class="p-column-title">Producto</strong> 
                         <div class="p-inputgroup">  
-                            <input type="text" style="width: 90px;" class="p-inputtext-sm" pInputText formControlName="nombreProducto">   
+                            <input type="text"  readonly   style="width: 90px;" class="p-inputtext-sm" pInputText formControlName="nombreProducto">   
                             <button type="button" (click)="onModalBuscarProducto()" pTooltip="Buscar" tooltipPosition="left" pButton icon="pi pi-search" class="p-button-sm"></button>   
                         </div> 
                     </div>
@@ -28,38 +28,37 @@
                             [showClear]="true"
                         ></p-dropdown>
                     </div> 
-                    <div class="p-field p-col-12 p-md-6 p-lg-3 p-sm-6">
+                    <div class="p-field p-col-12 p-md-6 p-lg-6 p-sm-6">
                         <strong class="p-column-title">Línea:</strong> 
                         <p-dropdown
                             class="extender"
                             [options]="arrayLinea" 
+                            [showClear]="true"
                             formControlName="lineaid"  
                             placeholder="Selecciona una linea"   
                             optionLabel="valor1">
                         </p-dropdown> 
                     </div> 
                     
-                    <div class="p-field p-col-12 p-md-6 p-lg-3">
+                    <div class="p-field p-col-12 p-md-6 p-lg-3 p-sm-6">
                         <strong>Fec. Inicio *:</strong> 
                         <p-calendar
                             readonlyInput="true"
-                            [readonlyInput]="true"
                             [showIcon]="true"
                             dateFormat="dd/mm/yy"
                             formControlName="fechaInicio"
                         ></p-calendar> 
                     </div>
-                    <div class="p-field p-col-12 p-md-6 p-lg-3">
+                    <div class="p-field p-col-12 p-md-6 p-lg-3 p-sm-6">
                         <strong>Fec. Fin *:</strong> 
                         <p-calendar
                             readonlyInput="true"
-                            [readonlyInput]="true"
                             [showIcon]="true"
                             dateFormat="dd/mm/yy"
                             formControlName="fechaFin"
                         ></p-calendar> 
                     </div>
-                    <div class="p-field p-col-12 p-md-6 p-lg-4"> 
+                    <div class="p-field p-col-12 p-md-6 p-lg-4 p-sm-6"> 
                         <strong>Modalidad:</strong>
                         <p-dropdown
                             [options]="arrayAgrupado" 

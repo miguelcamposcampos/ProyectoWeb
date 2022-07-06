@@ -16,7 +16,6 @@
                         <strong>DESDE: </strong> 
                         <p-calendar
                             readonlyInput="true"
-                            [readonlyInput]="true"
                             [showIcon]="true"
                             dateFormat="dd/mm/yy"
                             formControlName="fechaInicio"
@@ -26,14 +25,13 @@
                         <strong>HASTA:</strong> 
                         <p-calendar
                             readonlyInput="true"
-                            [readonlyInput]="true"
                             [showIcon]="true"
                             dateFormat="dd/mm/yy"
                             formControlName="fechaFin"
                         ></p-calendar> 
                     </div> 
                     <div class="p-field p-col-12 p-md-3 p-sm-6">
-                        <strong class="p-column-title">ESTABLECIMIENTO:</strong> 
+                        <strong class="p-column-title">ESTABLECIMIENTO *:</strong> 
                         <p-dropdown
                             [options]="arrayEstablecimientos" 
                             formControlName="establecimientoid"

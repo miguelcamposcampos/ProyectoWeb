@@ -21,7 +21,7 @@ export class EstablecimientoService {
         let params = new HttpParams();
         params = params.append('pagIndex', data.pagIndex);
         params = params.append('itemsporpagina', data.itemsporpagina);
-        return this.http.get<any>(`${this.api987}/v1/EstablecimientoAlmacen/ObtenerEstablecimientosConsulta`, { params: params });
+        return this.http.get<any>(`${this.api987}/v1/EstablecimientoAlmacen/ObtenerEstablecimientosConsulta`, { params });
     }
 
      

@@ -72,7 +72,7 @@ export class VentasPorClienteRepAnaliticoComponent implements OnInit {
       f1 :  this.dataformat.transform(data.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2 :  this.dataformat.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       cliente: this.idClienteSeleccionado,
-      moneda : data.monedaid ? data.monedaid.id : -1,
+      moneda : data.monedaid,
     } 
 
     this.spinner.show();
@@ -116,7 +116,7 @@ export class VentasPorClienteRepAnaliticoComponent implements OnInit {
   onBorrarCliente(){
     this.swal.mensajePregunta('¿Seguro de quitar al cliente actual?').then((response) => {
       if (response.isConfirmed) {
-        this.idClienteSeleccionado = 0;
+        this.idClienteSeleccionado = null;
         this.Form.controls['nombreCliente'].setValue(null);
         this.existeClienteSeleccionado = false;
       }

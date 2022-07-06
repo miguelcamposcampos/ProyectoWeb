@@ -32,7 +32,7 @@ export class RepClienteComponent  {
     const Params = {
       fechayhora : this.fechayhoraImpresion.value,
       orderBy : -1,
-      tipoPersona : 0
+      tipoPersona : 1
     } 
     this.spinner.show();
     this.reporteService.generarReporteCliente(Params).subscribe((resp) => { 

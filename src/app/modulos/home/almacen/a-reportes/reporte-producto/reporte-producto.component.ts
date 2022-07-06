@@ -32,12 +32,8 @@ export class ReporteProductoComponent   {
  
 
 
-  onModalBuscarProducto(){
-    const data = {
-      idAlmacenSelect : 0,
-      idPosicionProducto : 0
-    }
-    this.dataProductos = data;
+  onModalBuscarProducto(){ 
+    this.dataProductos = {idAlmacenSelect : -1};
     this.modalBuscarProducto = true;
   }
 

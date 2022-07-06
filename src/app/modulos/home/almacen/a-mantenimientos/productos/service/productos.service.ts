@@ -33,7 +33,7 @@ export class ProductosService {
     params = params.append('soloServicios', data.soloServicios);
     params = params.append('usadoCompras', data.usadoCompras);
     params = params.append('usadoVentas', data.usadoVentas);
-    return this.http.get<IListaProductos>(`${this.api987}/v1/Producto/ObtenerProductoPorCriterios`, { params: params });
+    return this.http.get<IListaProductos>(`${this.api987}/v1/Producto/ObtenerProductoPorCriterios`, { params });
   }
 
   listadoUnesco(data : string): Observable<IUnesco>{

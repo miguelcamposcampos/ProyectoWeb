@@ -12,6 +12,7 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { DetraccionesComponent } from './detracciones/detraccionesn.component';
 import { CompraProveedorDaotAnaliticoComponent } from './compra-proveedor-daot-analitico/compra-proveedor-daot-analitico.component';
 import { CompraProveedorDaotResumenComponent } from './compra-proveedor-daot-resumen/compra-proveedor-daot-resumen.component';
+import { SharedModulosModule } from 'src/app/modulos/shared_modulos/shared_modulos.module';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { CompraProveedorDaotResumenComponent } from './compra-proveedor-daot-res
     CReportesRoutingModule,
     ReactiveFormsModule,
     PrimeNGModule,
- 
+    SharedModulosModule
   ]
 })
 export class CReportesModule { }

@@ -41,6 +41,8 @@ export class NuevoLineaComponent implements OnInit {
     this.Form = new FormGroup({
       nombreLinea: new FormControl(null, Validators.required),
       codigoUnesco: new FormControl(null),  
+      cuentaventas : new FormControl(null),  
+      cuentacompras  : new FormControl(null),  
       imgLinea: new FormControl(null),  
     });
   }
@@ -69,7 +71,9 @@ export class NuevoLineaComponent implements OnInit {
         this.Form.patchValue({
           nombreLinea: this.LineaEdit.nombrelinea,  
           codigoUnesco : this.LineaEdit.codigounesco,
-          imgLinea :  this.LineaEdit.imagenlinea
+          imgLinea :  this.LineaEdit.imagenlinea,
+          cuentaventas :  this.LineaEdit.cuentaventas,
+          cuentacompras :  this.LineaEdit.cuentacompras,
         })
         this.spinner.hide();
       } 
@@ -153,7 +157,9 @@ export class NuevoLineaComponent implements OnInit {
       nombrelinea: data.nombreLinea,
       parentid: this.datalinea.idLineaPadre ? this.datalinea.idLineaPadre : 0,
       lineaid: this.LineaEdit ? this.LineaEdit.lineaid : 0,
-      esagrupador : this.LineaEdit ? this.LineaEdit.esagrupador : false
+      esagrupador : this.LineaEdit ? this.LineaEdit.esagrupador : false,
+      cuentaventas: data.cuentaventas,
+      cuentacompras: data.cuentacompras,
     }
     if(!this.LineaEdit){
       this.lineaService.createLinea(newLinea).subscribe((resp) => {

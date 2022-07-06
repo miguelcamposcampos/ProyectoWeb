@@ -27,7 +27,7 @@ export class VentaElectronciaService{
         let params = new HttpParams(); 
         params = params.append('fechaInicio', data.fechaInicio);
         params = params.append('fechaFin', data.fechaFin);
-        return this.http.get<IListarVentasElectronicas[]>(`${this.api987}/v1/Venta/ObtenerVentasElectronicasConsulta`, { params: params }); 
+        return this.http.get<IListarVentasElectronicas[]>(`${this.api987}/v1/Venta/ObtenerVentasElectronicasConsulta`, { params }); 
     }
   
      
@@ -35,7 +35,7 @@ export class VentaElectronciaService{
         let params = new HttpParams(); 
         params = params.append('fechaInicio', data.fechaInicio);
         params = params.append('fechaFin', data.fechaFin);
-        return this.http.get<IListarResumenBoleta[]>(`${this.api987}/v1/Venta/ObtenerResumenesIntegracion`, { params: params }); 
+        return this.http.get<IListarResumenBoleta[]>(`${this.api987}/v1/Venta/ObtenerResumenesIntegracion`, { params }); 
     }
 
     crearResumenAltayBaja(data:any){

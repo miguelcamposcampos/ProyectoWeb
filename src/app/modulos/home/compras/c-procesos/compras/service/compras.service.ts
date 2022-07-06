@@ -30,7 +30,7 @@ export class ComprasService{
             params = params.append('proveedorid', data.proveedorid);
         } 
 
-        return this.http.get<IListarCompra>(`${this.api987}/v1/Compra/ObtenerCompraConsultas`, { params: params }); 
+        return this.http.get<IListarCompra>(`${this.api987}/v1/Compra/ObtenerCompraConsultas`, { params }); 
     } 
  
     ComrpasPorId(id :number){
@@ -69,7 +69,7 @@ export class ComprasService{
         if(data.proveedorid){
             params = params.append('proveedorid', data.proveedorid);
         }  
-        return this.http.get<any>(`${this.api987}/v1/Compra/ConsultaComprasPorProveedor`, { params: params }); 
+        return this.http.get<any>(`${this.api987}/v1/Compra/ConsultaComprasPorProveedor`, { params }); 
     }
 
     buscarCentroCosto(){

@@ -35,7 +35,7 @@ export class OrdenCompraService{
         if(data.proveedorid){
             params = params.append('proveedorid', data.proveedorid);  
         }
-        return this.http.get<IListaOrdenCompra>(`${this.api987}/v1/Compra/ObtenerOrdenCompraConsultas`, { params: params }); 
+        return this.http.get<IListaOrdenCompra>(`${this.api987}/v1/Compra/ObtenerOrdenCompraConsultas`, { params }); 
     } 
    
    ordenCompraPorId(id :number){

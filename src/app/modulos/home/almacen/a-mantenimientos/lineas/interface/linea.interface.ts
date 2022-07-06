@@ -41,7 +41,9 @@ export interface ICrearLinea{
     nombrelinea: string,
     lineaid: number,
     parentid: number,
-    esagrupador: boolean
+    esagrupador: boolean,
+    cuentaventas: string,
+    cuentacompras : string
 }
 
   

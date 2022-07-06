@@ -20,7 +20,7 @@ export class TipoCambioService {
         let params = new HttpParams();
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);
-        return this.http.get<IListaTipoCambio[]>(`${this.api987}/v1/TipoCambio/ObtenerTipoCambioPorRangoFechas`, {params : params})
+        return this.http.get<IListaTipoCambio[]>(`${this.api987}/v1/TipoCambio/ObtenerTipoCambioPorRangoFechas`, {params})
     }
 
     listadoTipoCambioPorMes(data : any): Observable<boolean>{

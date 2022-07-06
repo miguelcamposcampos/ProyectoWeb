@@ -54,6 +54,7 @@ export class CompraProveedorDaotAnaliticoComponent implements OnInit {
   
     this.spinner.show();
     this.reporteService.generarReporteProveedorDAOTAnalitico(params).subscribe((resp) => { 
+      console.log('que retorna ',resp);
       if(resp){ 
         this.contenidoReporte = resp    
         var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"});

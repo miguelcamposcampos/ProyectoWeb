@@ -119,13 +119,8 @@ export class ReporteSalidasAlmacenComponent implements OnInit {
     return bytes.buffer;
   }
 
-  onModalBuscarProducto(){
-    // const data = this.Form.value;  
-     const dataProducto = {
-       idAlmacenSelect : -1, // data.almacenOrigen.id,
-       idPosicionProducto : null
-     }
-     this.dataProductos = dataProducto;
+  onModalBuscarProducto(){ 
+     this.dataProductos = {idAlmacenSelect : -1};
      this.modalBuscarProducto = true;
    }
  
