@@ -41,18 +41,16 @@
                         <ng-template pTemplate="header">Codigo</ng-template>
                         <div class="formulario"> 
                             <strong>Interno <span style="color: red;">*</span></strong>
-                            <br>
+
                             <input type="text" pInputText formControlName="codigoproducto" class="p-inputtext-sm" placeholder="ingresar código del producto">   
                         
                             <strong>Proveedor</strong>
-                            <br>
                             <input  type="text" pInputText formControlName="proveedor" class="p-inputtext-sm" placeholder="ingresar el proveedor">     
     
                             <strong>SUNAT</strong>
-                            <br>
                             <div class="p-inputgroup">  
                                 <input type="text" [value]="codigoProductoUnesco" pInputText (keydown.enter)="onBuscarUnesco()" formControlName="codigoParaBuscarUnesco" class="p-inputtext-sm"   placeholder="ingresar el nombre del producto a buscar">   
-                                <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
+                                <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple >Buscar</button>      
                             </div>
     
                             <strong *ngIf="mostrarcomboUnesco" >Producto</strong>  
@@ -105,10 +103,11 @@
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos Principales</ng-template>
                     <div class="formulario">  
-                        <strong>Descripcion *</strong>
-                        <textarea placeholder="ingrese una descripción" formControlName="descripcion"  id="" cols="30" rows="10"></textarea>  
+                        <strong>Descripcion <span style="color: red;">*</span> </strong>
+                        <textarea placeholder="ingrese una descripción" formControlName="descripcion" style="border: 0px;
+                        background: #dddddd;"  id="" cols="30" rows="10"></textarea>  
 
-                        <strong>Unidad de Medida *</strong>  
+                        <strong>Unidad de Medida<span style="color: red;">*</span> </strong>  
                         <p-dropdown class="extender" [options]="arrayUnidadMedida"  formControlName="unidadMedida" placeholder="Seleccionar unidad de medida" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
                     
                         <strong>Modelo</strong>
@@ -124,16 +123,16 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-lg-6 p-md-6"> 
                                 <div class="switches">   
-                                    <strong> Activos *</strong>
+                                    <strong> Activos<span style="color: red;">*</span> </strong>
                                     <p-inputSwitch  formControlName="activo"  ></p-inputSwitch> 
             
                                     <strong> Incluir cod. Proveedor en descripcion</strong>
                                     <p-inputSwitch  formControlName="incluirProveedorEnDescripcion" ></p-inputSwitch> 
             
-                                    <strong> Requiere Lote *</strong>
+                                    <strong> Requiere Lote <span style="color: red;">*</span> </strong>
                                     <p-inputSwitch  formControlName="requiereLote" ></p-inputSwitch> 
             
-                                    <strong> Requiere Serie *</strong>
+                                    <strong> Requiere Serie<span style="color: red;">*</span> </strong>
                                     <p-inputSwitch formControlName="requiereSerie" ></p-inputSwitch>
                                 </div>
                             </div>
@@ -146,10 +145,10 @@
                                     <strong> Usado Ventas</strong>
                                     <p-inputSwitch  formControlName="usadoVentas"></p-inputSwitch> 
             
-                                    <strong> Descripcion editable *</strong>
+                                    <strong> Descripcion editable <span style="color: red;">*</span> </strong>
                                     <p-inputSwitch  formControlName="descripcionEditable"></p-inputSwitch> 
             
-                                    <strong> Afecto a ICBPER *</strong>
+                                    <strong> Afecto a ICBPER <span style="color: red;">*</span> </strong>
                                     <p-inputSwitch  formControlName="afectoICBPER"></p-inputSwitch> 
                                     
                                 </div> 
@@ -165,7 +164,7 @@
                     <ng-template pTemplate="header">Precios</ng-template>
                    
                     <div class="precioForm">
-                        <strong>Tipo afectación *</strong>  
+                        <strong>Tipo afectación <span style="color: red;">*</span> </strong>  
                         <p-dropdown class="extenderDrop"  formControlName="afectacionid" [options]="arrayAfectaciones" placeholder="Seleccionar afectacion"   optionLabel="valor1" [showClear]="true"></p-dropdown>
     
                         <button  
