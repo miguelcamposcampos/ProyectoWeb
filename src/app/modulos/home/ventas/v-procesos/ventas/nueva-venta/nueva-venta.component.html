@@ -289,11 +289,11 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Cantidad</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">PrecioU</strong>
-                                                <input type="text" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
+                                                <input type="text" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
                                             </td>   
                                             <td>
                                                 <strong class="p-column-title">Base Impon,</strong>
@@ -301,7 +301,7 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">% Dcsto</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
+                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Imp.Dcsto</strong>
@@ -321,7 +321,7 @@
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Imp.Otros.C</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importesotroscargos">  
+                                                <input type="number" style="width: 80px;text-align: right;"  (keydown.enter)="onCalcularPrecioVenta(rowIndex)" (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext-sm" pInputText formControlName="importesotroscargos">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">ICBPER</strong>
@@ -329,7 +329,7 @@
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">PrecioV</strong>
-                                                <input type="number" style="width: 80px;text-align: right;" readonly [value]="detallesVentaForm[rowIndex].get('precioventa').value | number:'0.2-2'"   [min]="0" class="p-inputtext-sm" pInputText formControlName="precioventa">  
+                                                <input type="number" style="width: 80px;text-align: right;" readonly [value]="detallesVentaForm[rowIndex].get('precioventa').value | number:'0.2-2'"  class="p-inputtext-sm" pInputText formControlName="precioventa">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">NroLote</strong>

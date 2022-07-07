@@ -189,6 +189,25 @@ export class NuevaCompraComponent implements OnInit {
     })
   }
 
+  
+  onCalculardiasVencimiento(){
+    let f1x = this.formatoFecha.transform(this.Form.controls['fechaemision'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let f2x = this.formatoFecha.transform(this.Form.controls['fechavencimiento'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let fechaI = new Date(f1x);
+    let fechaF = new Date(f2x); 
+    let dias = Math.floor((fechaF.getTime() - fechaI.getTime()) / (1000 * 60 * 60 * 24)); 
+    this.Form.controls['diasvencimiento'].setValue(dias);
+  }
+
+
+  onCalcularfechaVencimiento(event){
+    let diasV = +event.target.value;
+    let FV = new Date(this.Form.controls['fechaemision'].value);
+    let NuevaFecha =  new Date(FV.setDate(FV.getDate() + diasV));
+    this.Form.controls['fechavencimiento'].setValue(NuevaFecha);
+  }
+   
+
   onCargarDatosdeConfiguracion(){
     this.configService.listadoConfiguraciones().subscribe((resp) => {
       if(resp){

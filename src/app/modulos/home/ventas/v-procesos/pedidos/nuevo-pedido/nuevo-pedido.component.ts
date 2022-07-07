@@ -187,7 +187,15 @@ export class NuevoPedidoComponent implements OnInit {
     this.Form.controls['diasvencimiento'].setValue(dias);
   }
 
- 
+
+  onCalcularfechaVencimiento(event){
+    let diasV = +event.target.value;
+    let FV = new Date(this.Form.controls['fechaemision'].value);
+    let NuevaFecha =  new Date(FV.setDate(FV.getDate() + diasV));
+    this.Form.controls['fechavencimiento'].setValue(NuevaFecha);
+  }
+  
+
   onObtenerPersonaPorNroDocumentoVenta(event : any){
     let numdocumento = event.target.value; 
     this.ventaservice.obtenerPersonaPorNroDocumentoVenta(numdocumento).subscribe((resp) => {

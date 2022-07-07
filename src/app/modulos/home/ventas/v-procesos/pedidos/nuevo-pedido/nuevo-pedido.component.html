@@ -125,10 +125,9 @@
 
                         <div class="p-field p-col-12 p-md-3 p-sm-6">
                             <strong>Días Vencimiento *:</strong>
-                            <input  type="number" pInputText  formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
+                            <input  type="number" pInputText (keyup)="onCalcularfechaVencimiento($event)" formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
                         </div>
-
-
+ 
                         <div class="p-field p-col-12 p-md-3 p-sm-6">
                             <strong>Estado *:</strong>
                             <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
