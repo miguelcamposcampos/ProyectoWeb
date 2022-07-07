@@ -1,65 +1,6 @@
+/* SCSS by miguelcampossv */ 
 
- 
-// .login-body2{ 
-
-
-//     height: 100vh;
-//     justify-content: center;
-//     background-image: url("/src/assets/layout/images/fondo-login.jpg");  
-//     background-repeat: no-repeat;
-//     background-position: center;
-//     background-size: cover;
-//     display: flex;
-//     align-items: center;
-
-
-   // height: 100vh;
-    
-    // .login-wrapper2{ 
-    //     height: 100vh;
-     
-
-    //     .login-panel2{
-    //         width: 30%; 
-    //         text-align: center;
-    //         padding: 40px 20px;
-    //         display: -ms-flexbox;
-    //         display: flex;
-    //         -ms-flex-align: center;
-    //         align-items: center;
-    //         -ms-flex-pack: justify;
-    //         justify-content: space-between;
-    //         -ms-flex-direction: column;
-    //         flex-direction: column;
-    //     } 
-    // } 
-//}
-
-// @media(max-width:992px) {
-//     .login-body2 {
-//         .login-wrapper {
-//             .login-panel2 {
-//                 width: 100%;
-//             }
-//         }
-//     }
-// }
-
-
- 
-
-// .modalRecuperacion{
-//     margin: 3%;
-//     display: grid;
-//     text-align: center; 
-//     input {
-//         margin: 0;
-//         font-weight: bold;
-//         text-align: center;
-//     }
-// }
- 
- 
+@import url(../../../../assets/sass/responsive.css);
 
 .login{  
     height: 100vh;
@@ -154,7 +95,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-color: #c7c7c7;
-    background-image: url("assets/demo/images/fondo-login2.jpg");
+    background-image: url('/assets/layout/images/fondo-login2.jpg');
   }
 
 .col-lg-6 {
@@ -181,6 +122,7 @@
     width: 100%;
     padding-right: 15px;
     padding-left: 15px
+    
 }
 
 .content-right {
@@ -223,12 +165,13 @@
 
 
 .row {
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: nowrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
-    justify-content: center;
-}
+  }
 
 
 .pb-3,
@@ -314,4 +257,6 @@
 .copy {
     text-align: center;
 }
+
+
 

@@ -203,9 +203,9 @@
    justify-content: center;
 }
 
-.p-button-search {
+.p-inputgroup button {
    color: #ffffff;
-    background: #1d1d1d;
+    background: #265589;
     border: 0px solid #1B74C5;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -215,8 +215,16 @@
     border-radius: 0px;
     width: 130px;
     font-weight: 900;
+    margin: 5px;
+    
 }
 
 .p-inputtext {
    background: #dddddd;
 }
+
+::ng-deep .p-dropdown .p-dropdown-label {
+   background: #dddddd;
+   border: 0 none;
+}
+

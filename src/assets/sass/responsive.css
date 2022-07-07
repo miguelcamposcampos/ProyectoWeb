@@ -1,0 +1,24 @@
+/* CSS by miguecampossv */
+
+
+
+@media (max-width: 991px) {
+    .content-left-wrapper {
+      height: auto;
+      padding: 95px 30px 60px 30px;
+    }
+  }
+  @media (max-width: 767px) {
+    .content-left-wrapper {
+      padding: 95px 15px 60px 15px;
+    }
+
+    .col-lg-6 {
+        max-width: 100%;
+        flex: none;
+    }
+
+    .content-login {
+       margin-top: -130px!important;
+    }           
+  }
