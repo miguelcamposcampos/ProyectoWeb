@@ -163,8 +163,8 @@ export class NuevaCompraComponent implements OnInit {
       importeexonerado : new FormControl(0),  
       importeinafecto: new FormControl(0),  
       importegravada: new FormControl(0),   
-      importegratuita: new FormControl(0),   
-      conceptocontableid  : new FormControl(0)
+      importegratuita: new FormControl(0)
+     // conceptocontableid  : new FormControl(0)
     })
   }
   
@@ -473,8 +473,8 @@ export class NuevaCompraComponent implements OnInit {
       serialpercepcion : this.CompraEditar.serialpercepcion,
       importebasepercepcion: this.CompraEditar.importebasepercepcion,
       porcentajepercepcion: this.CompraEditar.porcentajepercepcion,
-      importepercepcion: this.CompraEditar.importepercepcion,
-      conceptocontableid  : this.CompraEditar.conceptocontableid  
+      importepercepcion: this.CompraEditar.importepercepcion
+     // conceptocontableid  : this.CompraEditar.conceptocontableid  
     })
 
  
@@ -1050,7 +1050,7 @@ export class NuevaCompraComponent implements OnInit {
     const DataForm = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value; 
 
     if (!DataForm.esGravada) this.detallesCompraForm[posicion].controls['precioincluyeigv'].setValue(false);
-    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+    let preciosinigv = DataForm.precioincluyeigv ? (+DataForm.preciounitario / (1 +this.valorIGV)) : +DataForm.preciounitario; 
     let biActualizar  = DataForm.cantidad * preciosinigv;
     this.detallesCompraForm[posicion].controls['baseimponible'].setValue(biActualizar)
  
@@ -1304,8 +1304,8 @@ export class NuevaCompraComponent implements OnInit {
         importepercepcion: dataform.importepercepcion,
         detalles : IDetalleCompra,
         documentoReferenciaDtos: IDocumentoReferenciaDTO,
-        idsToDelete : this.arrayDetallesEliminados,
-        conceptocontableid  : dataform.conceptocontableid  
+        idsToDelete : this.arrayDetallesEliminados
+        //conceptocontableid  : dataform.conceptocontableid  
        } 
 
        console.log(newCompra);

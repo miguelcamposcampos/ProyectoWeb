@@ -476,7 +476,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
 
   onGrabar(){
     const dataform = this.Form.value; 
-    let DetallesGrabar :any[] = this.onGrabarDetallesVenta(); 
+    let DetallesGrabar :any[] = this.onGrabarDetallesVenta();  
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
   
     const newVenta : ICrearRxh = {

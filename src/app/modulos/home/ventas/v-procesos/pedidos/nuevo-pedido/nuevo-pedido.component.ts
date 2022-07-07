@@ -487,19 +487,19 @@ export class NuevoPedidoComponent implements OnInit {
       almacenid: this.arrayAlmacen.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
-      cantidad : new  FormControl(0),
-      preciounitario : new  FormControl(0),
+      cantidad : new  FormControl(1),
+      preciounitario : new  FormControl(null),
       precioincluyeigv : new  FormControl(false),
-      baseimponible : new  FormControl(0),
+      baseimponible : new  FormControl(null),
       tipoafectacionid : new  FormControl(null), //combo
       porcentajedescuento : new  FormControl(0),
       importedescuento: new  FormControl(0),
       observaciones: new  FormControl(""),  //stext
-      valorVenta: new  FormControl(0),
-      igv : new  FormControl(0),
+      valorVenta: new  FormControl(null),
+      igv : new  FormControl(null),
       importesotroscargos : new  FormControl(0),
-      importeicbper : new  FormControl(0),
-      precioventa : new  FormControl(0),
+      importeicbper : new  FormControl(null),
+      precioventa : new  FormControl(null),
       nroLote : new  FormControl(null),  //stext
       nroSerie: new  FormControl(null), //stext
       fechavencimiento: new  FormControl(null), //celndar
@@ -647,6 +647,10 @@ export class NuevoPedidoComponent implements OnInit {
   onGrabar(){
     const dataform = this.Form.value; 
     let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta(); 
+    if(DetallesVentaGrabar){
+      this.swal.mensajeAdvertencia('Revisa el detalle, faltan datos.');
+      return;
+    }
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
     let DetallePedidoGrabar : any = this.onPedidoData(); 
      
@@ -698,7 +702,7 @@ export class NuevoPedidoComponent implements OnInit {
       idsToDelete: this.arrayDetallesEliminados,
       ventaid : this.PedidoEditar ? this.PedidoEditar.ventaid : 0,
       pedidoData : DetallePedidoGrabar, 
-      conceptocontableid: 0
+     // conceptocontableid: null
     }
   
     if(!this.PedidoEditar){
@@ -849,7 +853,7 @@ export class NuevoPedidoComponent implements OnInit {
       importeotrostributos  : this.PedidoEditar.importeotrostributos ?? 0,
       importetotalventa : this.PedidoEditar.importetotalventa ?? 0,
       importevalorventa : this.PedidoEditar.importevalorventa ?? 0,
-      conceptocontableid : this.PedidoEditar.conceptocontableid ?? 0
+    //  conceptocontableid : this.PedidoEditar.conceptocontableid ?? 0
     })
 
     for( let  i = 0; i < this.PedidoEditar.detalles.length; i++){
@@ -946,15 +950,13 @@ export class NuevoPedidoComponent implements OnInit {
 
   onGrabarDetallesVenta(){
     this.arrayDetalleVentaGrabar = [];
-
     let arrayVentaDetalleDetraccionTransporte :any = this.onGrabarDetalleVentaDetraccionTransporte();
-
+    
     this.detallesVentaForm.forEach(element => {
-      if(!element.value){
+      if(!element.value.almacenid){
         this.swal.mensajeInformacion('Aquellos registros vacios no se insertaran en al registro.');
         return;
-      }else{
-  
+      }else{  
         this.arrayDetalleVentaGrabar.push({
           ventadetalleid:  element.value.ventadetalleid,
           ventaid :  element.value.ventaid,
@@ -992,7 +994,9 @@ export class NuevoPedidoComponent implements OnInit {
         });
       }
     })
+ 
     return this.arrayDetalleVentaGrabar;
+   
   }
 
  
@@ -1059,11 +1063,11 @@ export class NuevoPedidoComponent implements OnInit {
 
   }
 
-  onCalcularPrecioVenta(posicion : number){
-      const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
-
+  onCalcularPrecioVenta(posicion : number){ 
+      const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value; 
+ 
       if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
-      let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+      let preciosinigv = DataForm.precioincluyeigv ? (+DataForm.preciounitario / (1 +this.valorIGV)) : +DataForm.preciounitario; 
       let biActualizar  = DataForm.cantidad * preciosinigv;
       this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
 

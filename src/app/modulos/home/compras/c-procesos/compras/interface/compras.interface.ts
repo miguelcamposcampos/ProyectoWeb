@@ -79,7 +79,7 @@ export interface ICrearCompra{
     detalles : IDetalleCompra[],
     documentoReferenciaDtos: IDocumentoReferenciaDTO[],
     idsToDelete : number[],
-    conceptocontableid  : number
+    conceptocontableid?  : number
 }
 
 
@@ -184,5 +184,5 @@ export interface ICompraPorId{
     fechaordencompra : string,
     fechadetraccion: string,
     fechapercepcion: string,
-    conceptocontableid  :number
+    conceptocontableid?  :number
 }

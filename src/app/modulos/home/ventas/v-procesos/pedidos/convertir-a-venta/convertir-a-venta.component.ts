@@ -174,9 +174,8 @@ export class ConvertirAVentaComponent implements OnInit {
       importevalorventa : new FormControl(0),
       importegratuita : new FormControl(0),
       importegravada : new FormControl(0),
-      descuentoporitem: new FormControl(0),
-
-      conceptocontableid  : new FormControl(0)
+      descuentoporitem: new FormControl(0)
+     // conceptocontableid  : new FormControl(0)
       
     })
 
@@ -986,6 +985,11 @@ export class ConvertirAVentaComponent implements OnInit {
   onGrabar(){
     const dataform = this.Form.value; 
     let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta();
+    if(DetallesVentaGrabar){
+      this.swal.mensajeAdvertencia('Revisa el detalle, faltan datos.');
+      return;
+    }
+    
     let DetallesCondicionPagoGrabar :any[] = this.onGrabarCondicionPago();
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
  
@@ -1034,8 +1038,8 @@ export class ConvertirAVentaComponent implements OnInit {
       documentoReferenciaDtos: DetallesDocumentoRefGrabar,
       idsCondicionPagoToDelet: this.arrayDetallesCondicionPagoEliminados,
       idsToDelete: this.arrayDetallesEliminados,
-      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0, 
-      conceptocontableid : dataform.conceptocontableid
+      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0
+    //  conceptocontableid : dataform.conceptocontableid
     } 
     if(!this.VentaEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp) => {
@@ -1166,8 +1170,8 @@ export class ConvertirAVentaComponent implements OnInit {
       importeigv : this.VentaEditar.importeigv ?? 0,
       importeotrostributos  : this.VentaEditar.importeotrostributos ?? 0,
       importetotalventa : this.VentaEditar.importetotalventa ?? 0,
-      importevalorventa : this.VentaEditar.importevalorventa ?? 0,
-      conceptocontableid: this.VentaEditar.conceptocontableid ?? 0
+      importevalorventa : this.VentaEditar.importevalorventa ?? 0
+    //  conceptocontableid: this.VentaEditar.conceptocontableid ?? 0
     })
 
     for( let  i = 0; i < this.VentaEditar.detalles.length; i++){
@@ -1466,7 +1470,7 @@ export class ConvertirAVentaComponent implements OnInit {
     const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
 
     if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
-    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+    let preciosinigv = DataForm.precioincluyeigv ? (+DataForm.preciounitario / (1 +this.valorIGV)) : +DataForm.preciounitario; 
     let biActualizar  = DataForm.cantidad * preciosinigv;
     this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
 

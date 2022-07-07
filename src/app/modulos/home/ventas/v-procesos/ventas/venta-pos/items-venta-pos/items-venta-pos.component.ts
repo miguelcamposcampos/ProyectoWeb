@@ -279,8 +279,8 @@ export class ItemsVentaPosComponent implements OnInit {
       documentoReferenciaDtos: [],
       idsCondicionPagoToDelet: [],
       idsToDelete: [],
-      ventaid : 0,
-      conceptocontableid: 0
+      ventaid : 0
+     // conceptocontableid: 0
     } 
     this.ventasservice.createVenta(newVentaPOS).subscribe((resp) => {
       if(resp){ 
