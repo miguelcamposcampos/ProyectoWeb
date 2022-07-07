@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             } 
         }
 
-          
+
     public builform(){
         this.Form = new FormGroup({ 
           establecimientoid : new FormControl(null ,Validators.required),
@@ -189,8 +189,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           if(resp){
             resp.forEach(element => {
               this.arrayImpresoras.push({nombre : element})
-            });  
-            this.bloquearComboImpresoras = false;  
+            });
+            this.bloquearComboImpresoras = false;
           }else{
             this.bloquearComboImpresoras = true;
           } 

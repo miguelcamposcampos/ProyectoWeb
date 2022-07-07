@@ -1,3 +1,51 @@
+
+ 
+// .login-body2{ 
+
+
+//     height: 100vh;
+//     justify-content: center;
+//     background-image: url("/src/assets/layout/images/fondo-login.jpg");  
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-size: cover;
+//     display: flex;
+//     align-items: center;
+
+
+   // height: 100vh;
+    
+    // .login-wrapper2{ 
+    //     height: 100vh;
+     
+
+    //     .login-panel2{
+    //         width: 30%; 
+    //         text-align: center;
+    //         padding: 40px 20px;
+    //         display: -ms-flexbox;
+    //         display: flex;
+    //         -ms-flex-align: center;
+    //         align-items: center;
+    //         -ms-flex-pack: justify;
+    //         justify-content: space-between;
+    //         -ms-flex-direction: column;
+    //         flex-direction: column;
+    //     } 
+    // } 
+//}
+
+// @media(max-width:992px) {
+//     .login-body2 {
+//         .login-wrapper {
+//             .login-panel2 {
+//                 width: 100%;
+//             }
+//         }
+//     }
+// }
+
+
  
 
 // .modalRecuperacion{
@@ -73,17 +121,196 @@
 }
  
 .formulario{ 
-    input {
-        margin: 0; 
-        border-color: #147DBA;
-        border-radius: 10px; 
-        width: 100%;
-        margin: 2%;
-    }
  
     .botonIngresar{
         color: white;
-        background-color: orange;
-        height: 25px;
+        background-color: #D72250;
+        height: 45px;
+        text-align: center;
+        width: 70%;
+        border-radius: 50px;
+        opacity: 100;
+        border: 0px;
+    }
+
+    .botonIngresar:hover{
+        color: white;
+        background-color: #6e6e6e;
+        height: 45px;
+        text-align: center;
+        width: 70%;
+        border-radius: 50px;
+        opacity: 100;
+        border: 0px;
     }
 }
+
+.background-image {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #c7c7c7;
+    background-image: url('/assets/demo/images/fondo-login2.jpg');
+  }
+
+.col-lg-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%
+}
+
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.col-lg-6 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px
+}
+
+.content-right {
+    overflow-y: auto;
+  }
+
+.flex-column {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important
+}
+
+.row-height {
+    min-height: 100vh !important;
+    height: 100vh;
+  }
+  
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0
+}
+
+.content-left-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    min-height: 100%;
+    padding: 0 90px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+  }
+
+  .d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    justify-content: center;
+}
+
+
+.pb-3,
+.py-3 {
+    padding-bottom: 1rem !important
+}
+
+.mt-auto,
+.my-auto {
+    margin-top: auto !important
+}
+
+.mr-auto,
+.mx-auto {
+    margin-right: auto !important
+}
+
+.mb-auto,
+.my-auto {
+    margin-bottom: auto !important
+}
+
+.mr-auto,
+.mx-auto {
+    margin-right: auto !important
+}
+
+.mb-auto,
+.my-auto {
+    margin-bottom: auto !important
+}
+
+.ml-auto,
+.mx-auto {
+    margin-left: auto !important
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.login h2 {
+    font-size: 35px;
+    color: #919090;
+    font-weight: 900;
+    line-height: 0.5;
+    text-align: center;
+
+}
+
+.login img {
+
+        padding: 6%;
+        width: 70%;
+        margin: 0 auto;
+
+}
+
+.login {
+    height: 100vh;
+    display: flex;
+    margin: auto;
+    margin: 0;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.p-inputtext-sm {
+    background-color: #e3e3e3;
+    border-radius: 50px;
+    width: 70%;
+    margin: 2%;
+    height: 45px;
+    padding: 25px;
+}
+
+.p-input-icon-right > i:last-of-type {
+    right: 100px;
+    color: #657380;
+}
+
+.copy {
+    text-align: center;
+}
+
