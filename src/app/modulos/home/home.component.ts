@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.Tabs.push({   
                 label : event.label,
                 id: idG.toString(),
-                routerLink: event.routerLink,  
+                routerLink: event.routerLink[0],  
                 icon : event.icon
             });   
         this.activeItem = this.Tabs[idG]; 
@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.Tabs = [...this.Tabs] 
                 this.Tabs.splice(IdDelete, 1);    
                 this.activeItem = this.Tabs[0];  
-                let ruta = './modulos/home/'+this.Tabs[0].routerLink[0].slice(2)
+                let ruta = './modulos/home/'+this.Tabs[0].routerLink.slice(2)
                 this.router.navigate([ruta]) 
             }
         }) 

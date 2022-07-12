@@ -194,8 +194,9 @@ export class RolesComponent implements OnInit {
             if (a.data.name < b.data.name) {return -1;}
             return 0;
           }); 
+          this.spinner.hide();
       } 
-      this.spinner.hide();
+     
     },error => { 
       this.spinner.hide();
       this.generalService.onValidarOtraSesion(error);

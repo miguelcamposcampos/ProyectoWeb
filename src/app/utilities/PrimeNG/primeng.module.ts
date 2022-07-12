@@ -166,6 +166,7 @@ FullCalendarModule.registerPlugins([
         TableModule,
         TabViewModule,
         TagModule,
+        TabMenuModule,
         TerminalModule,
         TieredMenuModule,
         TimelineModule,
