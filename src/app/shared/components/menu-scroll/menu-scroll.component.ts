@@ -7,13 +7,11 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./menu-scroll.component.scss']
 })
 export class MenuScrollComponent implements OnInit {
-
-  //items : any[]= [];
+ 
   items : MenuItem[]=[];
-activeItem :any;
+  activeItem :any;
 
-
-
+ 
   constructor() { }
 
   ngOnInit(): void {
