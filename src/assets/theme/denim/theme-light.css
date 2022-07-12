@@ -3761,9 +3761,12 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #657380;
 }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background: #FDFEFF;
+  /* background: #FDFEFF;
   border-color: #1B74C5;
-  color: #1B74C5;
+  color: #1B74C5; */
+  background: #1B74C5;
+  border-color: white;
+  color: white;
 }
 .p-tabview .p-tabview-left-icon {
   margin-right: 0.5rem;
