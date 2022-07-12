@@ -14,3 +14,16 @@
         margin-left: 10% !important; 
     }
 }
+
+.menu-scroll {
+    margin-top: 0px;
+}
+
+.menu-scroll{
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 80px;
+    white-space:nowrap;
+    
+  }
+  

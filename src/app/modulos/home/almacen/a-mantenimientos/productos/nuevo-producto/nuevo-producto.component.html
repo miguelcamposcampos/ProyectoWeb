@@ -1,262 +1,261 @@
 <div class="margintabla">
     <div class="contenido card">
-    
+
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
         </ngx-spinner>
 
         <p-toolbar>
             <div class="p-toolbar-group-left">
-                <h3><i class="fas fa-box"></i> {{tituloVistaNuevoProdcuto}}</h3> 
+                <h3><i class="fas fa-box"></i> {{tituloVistaNuevoProdcuto}}</h3>
             </div>
-            
-            <div class="p-toolbar-group-right">
-                <button  
-                    class="p-button-sm"
-                    pButton
-                    style="margin-right: 1%;"
-                    type="button"
-                    [disabled]="Form.invalid" 
-                    label="{{ (idProductoEdit) ? 'Actualizar' : 'Grabar' }}"
-                    (click)="onGrabarProducto()"
-                    icon="pi pi-check-circle">  
-                </button>  
 
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
-                    (click)="onRegresar()">  
-                </button>  
+            <div class="p-toolbar-group-right">
+                <button class="p-button-sm" pButton style="margin-right: 1%;" type="button" [disabled]="Form.invalid"
+                    label="{{ (idProductoEdit) ? 'Actualizar' : 'Grabar' }}" (click)="onGrabarProducto()"
+                    icon="pi pi-check-circle">
+                </button>
+
+                <button class="p-button-sm" pButton type="button" icon="pi pi-times-circle" label="Cancelar"
+                    style=" background-color: #D72250;" (click)="onRegresar()">
+                </button>
             </div>
         </p-toolbar>
-        <hr>   
+        <hr>
         <form [formGroup]="Form">
             <div class="row no-gutters row-height">
                 <div class="col-lg-6">
                     <p-fieldset>
                         <ng-template pTemplate="header">Codigo</ng-template>
-                        <div class="formulario"> 
+                        <div class="formulario">
                             <strong>Interno <span style="color: red;">*</span></strong>
 
-                            <input type="text" pInputText formControlName="codigoproducto" class="p-inputtext-sm" placeholder="ingresar código del producto">   
-                        
+                            <input type="text" pInputText formControlName="codigoproducto" class="p-inputtext-sm"
+                                placeholder="ingresar código del producto">
+
                             <strong>Proveedor</strong>
-                            <input  type="text" pInputText formControlName="proveedor" class="p-inputtext-sm" placeholder="ingresar el proveedor">     
-    
+                            <input type="text" pInputText formControlName="proveedor" class="p-inputtext-sm"
+                                placeholder="ingresar el proveedor">
+
                             <strong>SUNAT</strong>
-                            <div class="p-inputgroup">  
-                                <input type="text" [value]="codigoProductoUnesco" pInputText (keydown.enter)="onBuscarUnesco()" formControlName="codigoParaBuscarUnesco" class="p-inputtext-sm"   placeholder="ingresar el nombre del producto a buscar">   
-                                <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple >Buscar</button>      
+                            <div class="p-inputgroup">
+                                <input type="text" [value]="codigoProductoUnesco" pInputText
+                                    (keydown.enter)="onBuscarUnesco()" formControlName="codigoParaBuscarUnesco"
+                                    class="p-inputtext-sm" placeholder="ingresar el nombre del producto a buscar">
+                                <button type="button" pTooltip="Buscar" tooltipPosition="left"
+                                    (click)="onBuscarUnesco();" pButton pRipple>Buscar</button>
                             </div>
-    
-                            <strong *ngIf="mostrarcomboUnesco" >Producto</strong>  
-                            <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData" formControlName="codigounesco"  placeholder="Selecciona un producto"  [showClear]="true"  optionLabel="DescriptionES"></p-dropdown>
-                               
+
+                            <strong *ngIf="mostrarcomboUnesco">Producto</strong>
+                            <p-dropdown *ngIf="mostrarcomboUnesco" class="extender"
+                                (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData"
+                                formControlName="codigounesco" placeholder="Selecciona un producto" [showClear]="true"
+                                optionLabel="DescriptionES"></p-dropdown>
+
                         </div>
                     </p-fieldset>
                 </div>
                 <div class="col-lg-6">
                     <p-fieldset>
                         <ng-template pTemplate="header">Categorizacion</ng-template>
-                        <div class="formulario"> 
-                            <strong>Linea <span style="color: red;">*</span> </strong>    
-                            <p-dropdown class="extender" [options]="arrayLinea"  formControlName="idlinea"  placeholder="Selecciona una linea"   optionLabel="valor1"></p-dropdown>
-                            
-                            <strong>Color</strong>  
-                            <p-dropdown class="extender" [options]="arrayColores"  formControlName="idcolor" placeholder="Selecciona un Color" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
-                            
+                        <div class="formulario">
+                            <strong>Linea <span style="color: red;">*</span> </strong>
+                            <p-dropdown class="extender" [options]="arrayLinea" formControlName="idlinea"
+                                placeholder="Selecciona una linea" optionLabel="valor1"></p-dropdown>
+
+                            <strong>Color</strong>
+                            <p-dropdown class="extender" [options]="arrayColores" formControlName="idcolor"
+                                placeholder="Selecciona un Color" optionLabel="valor1" [showClear]="true"></p-dropdown>
+
                             <strong>Tipo Producto <span style="color: red;">*</span></strong>
-                            <p-dropdown class="extender" [options]="arrayTipoProducto"  formControlName="idtipoProducto"  placeholder="Selecciona tipo de Producto" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
-    
+                            <p-dropdown class="extender" [options]="arrayTipoProducto" formControlName="idtipoProducto"
+                                placeholder="Selecciona tipo de Producto" optionLabel="valor1" [showClear]="true">
+                            </p-dropdown>
+
                             <strong>Elegir:</strong>
-                            <div class="elegirOpciones">  
-                                <div>  
-                                    <strong style="margin: 15px;">SERVICIO</strong> 
-                                    
-                                    <p-radioButton  name="esServiciooArticulo"  value="servicio"  formControlName="esServiciooArticulo" ></p-radioButton> 
+                            <div class="elegirOpciones">
+                                <div>
+                                    <strong style="margin: 15px;">SERVICIO</strong>
+
+                                    <p-radioButton name="esServiciooArticulo" value="servicio"
+                                        formControlName="esServiciooArticulo"></p-radioButton>
                                 </div>
-                                <div>   
+                                <div>
                                     <strong style="margin: 15px;">ARTICULO</strong>
-                                    
-                                    <p-radioButton name="esServiciooArticulo"  value="articulo"  formControlName="esServiciooArticulo" ></p-radioButton> 
+
+                                    <p-radioButton name="esServiciooArticulo" value="articulo"
+                                        formControlName="esServiciooArticulo"></p-radioButton>
                                 </div>
                             </div>
                         </div>
-     
-    
-                    </p-fieldset> 
+
+
+                    </p-fieldset>
                 </div>
             </div>
-            <div class="stepsdemo-content">  
-             
+            <div class="stepsdemo-content">
+
 
                 <br>
- 
-               
-    
+
+
+
                 <br>
 
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos Principales</ng-template>
-                    <div class="formulario">  
+                    <div class="formulario">
                         <strong>Descripcion <span style="color: red;">*</span> </strong>
                         <textarea placeholder="ingrese una descripción" formControlName="descripcion" style="border: 0px;
-                        background: #dddddd;"  id="" cols="30" rows="10"></textarea>  
+                        background: #dddddd;" id="" cols="30" rows="10"></textarea>
 
-                        <strong>Unidad de Medida<span style="color: red;">*</span> </strong>  
-                        <p-dropdown class="extender" [options]="arrayUnidadMedida"  formControlName="unidadMedida" placeholder="Seleccionar unidad de medida" optionLabel="valor1"  [showClear]="true" ></p-dropdown>
-                    
+                        <strong>Unidad de Medida<span style="color: red;">*</span> </strong>
+                        <p-dropdown class="extender" [options]="arrayUnidadMedida" formControlName="unidadMedida"
+                            placeholder="Seleccionar unidad de medida" optionLabel="valor1" [showClear]="true">
+                        </p-dropdown>
+
                         <strong>Modelo</strong>
-                        <input  type="text" pInputText formControlName="modelo" class="p-inputtext-sm" placeholder="ingresar un modelo">        
+                        <input type="text" pInputText formControlName="modelo" class="p-inputtext-sm"
+                            placeholder="ingresar un modelo">
                     </div>
                 </p-fieldset>
-                      
+
                 <br>
 
                 <p-fieldset>
                     <ng-template pTemplate="header">Propiedad</ng-template>
-                    <div class="p-col-12"> 
+                    <div class="p-col-12">
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-lg-6 p-md-6"> 
-                                <div class="switches">   
+                            <div class="p-field p-col-12 p-lg-6 p-md-6">
+                                <div class="switches">
                                     <strong> Activos<span style="color: red;">*</span> </strong>
-                                    <p-inputSwitch  formControlName="activo"  ></p-inputSwitch> 
-            
+                                    <p-inputSwitch formControlName="activo"></p-inputSwitch>
+
                                     <strong> Incluir cod. Proveedor en descripcion</strong>
-                                    <p-inputSwitch  formControlName="incluirProveedorEnDescripcion" ></p-inputSwitch> 
-            
+                                    <p-inputSwitch formControlName="incluirProveedorEnDescripcion"></p-inputSwitch>
+
                                     <strong> Requiere Lote <span style="color: red;">*</span> </strong>
-                                    <p-inputSwitch  formControlName="requiereLote" ></p-inputSwitch> 
-            
+                                    <p-inputSwitch formControlName="requiereLote"></p-inputSwitch>
+
                                     <strong> Requiere Serie<span style="color: red;">*</span> </strong>
-                                    <p-inputSwitch formControlName="requiereSerie" ></p-inputSwitch>
+                                    <p-inputSwitch formControlName="requiereSerie"></p-inputSwitch>
                                 </div>
                             </div>
-                          
+
                             <div class="p-field p-col-12 p-lg-6 p-md-6">
-                                <div class="switches">    
+                                <div class="switches">
                                     <strong> Usado Compras</strong>
-                                    <p-inputSwitch formControlName="usadoCompras" ></p-inputSwitch> 
-            
+                                    <p-inputSwitch formControlName="usadoCompras"></p-inputSwitch>
+
                                     <strong> Usado Ventas</strong>
-                                    <p-inputSwitch  formControlName="usadoVentas"></p-inputSwitch> 
-            
+                                    <p-inputSwitch formControlName="usadoVentas"></p-inputSwitch>
+
                                     <strong> Descripcion editable <span style="color: red;">*</span> </strong>
-                                    <p-inputSwitch  formControlName="descripcionEditable"></p-inputSwitch> 
-            
+                                    <p-inputSwitch formControlName="descripcionEditable"></p-inputSwitch>
+
                                     <strong> Afecto a ICBPER <span style="color: red;">*</span> </strong>
-                                    <p-inputSwitch  formControlName="afectoICBPER"></p-inputSwitch> 
-                                    
-                                </div> 
+                                    <p-inputSwitch formControlName="afectoICBPER"></p-inputSwitch>
+
+                                </div>
                             </div>
                         </div>
 
                     </div>
-                
+
                 </p-fieldset>
 
 
                 <p-fieldset>
                     <ng-template pTemplate="header">Precios</ng-template>
-                   
+
                     <div class="precioForm">
-                        <strong>Tipo afectación <span style="color: red;">*</span> </strong>  
-                        <p-dropdown class="extenderDrop"  formControlName="afectacionid" [options]="arrayAfectaciones" placeholder="Seleccionar afectacion"   optionLabel="valor1" [showClear]="true"></p-dropdown>
-    
-                        <button  
-                            class="p-button-sm"
-                            pButton
-                            type="button"
-                            label="Agregar"
-                            (click)="onAgregarNuevoPrecio()"
-                            icon="pi pi-plus-circle">  
-                        </button>  
-                    </div> 
-               
+                        <strong>Tipo afectación <span style="color: red;">*</span> </strong>
+                        <p-dropdown class="extenderDrop" formControlName="afectacionid" [options]="arrayAfectaciones"
+                            placeholder="Seleccionar afectacion" optionLabel="valor1" [showClear]="true"></p-dropdown>
+
+                        <button class="p-button-sm" pButton type="button" label="Agregar"
+                            (click)="onAgregarNuevoPrecio()" icon="pi pi-plus-circle">
+                        </button>
+                    </div>
+
                     <br>
-    
-                   <p-table 
-                    class="ProductosTabla"   
-                    [value]="preciosForm"
-                    responsiveLayout="stack" >  
- 
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Moneda</th>
-                            <th>P.Venta</th>
-                            <th>Precio. inc. IGV.</th>
-                            <th>Condicion Cantidad</th>
-                            <th>Cant. Aplicar</th>
-                            <th>Cant. Und. Medida</th>
-                            <th>Max. % Dsct.</th>
-                            <th>Acción</th>
-                        </tr>
-                    </ng-template>
-        
- 
-                    <ng-template pTemplate="body" let-precios let-rowIndex="rowIndex" formArrayName="arrayPrecios" >
-                     
-                        <tr [formGroupName]="rowIndex" >
-                            <td>
-                                <strong class="p-column-title">Moneda</strong>
-                                <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Moneda" optionLabel="valor1"  [showClear]="true" ></p-dropdown>  
-                            </td>
-                            <td>
-                                <strong class="p-column-title">P.Venta</strong>  
-                                <input style="width: 100px; text-align: right;" type="text"  (keypress)="validateFormat($event)" class="p-inputtext-sm" pInputText formControlName="precioventa">  
-                                <!-- <input   [min]="0"  (keypress)="validateFormat($event)"  class="p-inputtext-sm" pInputText formControlName="precioventa">   -->
-                            </td>
-                            <td style="text-align: center">
-                                <strong class="p-column-title">Precio. inc. IGV</strong>
-                                <p-inputSwitch formControlName="precioincluyeigv" ></p-inputSwitch> 
-                            </td>
-                            <td style="text-align: center">
-                                <strong class="p-column-title">Condicion Cantidad</strong>
-                                <p-inputSwitch formControlName="tienecondicionacantidad" ></p-inputSwitch> 
-                            </td>
-                            <td>
-                                <strong class="p-column-title">Cant. Aplicar</strong>
-                                <input  style="width: 100px;"   min="0" formControlName="cantidadparaaplicar"  type="number" pInputText class="p-inputtext-sm">  
-                            </td>
-                            <td>
-                                <strong class="p-column-title">Cant. Und. Medida</strong>
-                                <input style="width: 100px;"  min="0"  formControlName="cantidadunidadmedida"  type="number" pInputText class="p-inputtext-sm">  
-                            </td>
-                            <td>
-                                <strong class="p-column-title">Max. % Dsct.</strong>
-                                <input  style="width: 100px;" min="0" formControlName="maxprocentajedscto"  type="number" pInputText class="p-inputtext-sm">  
-                            </td>
-                            <td>
-                                <button 
-                                class="p-button-sm p-button-rounded"
-                                pButton 
-                                type="button"
-                                style=" background-color: #D72250;"
-                                (click)="onEliminarPrecio(rowIndex, precios.value.productopreciosid)"
-                                icon="pi pi-trash">  
-                                </button>
-                            </td>
-                        </tr>
-                       
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="6">No existen registros</td>
-                        </tr>
-                    </ng-template> 
-                     
-                    </p-table>  
+
+                    <p-table class="ProductosTabla" [value]="preciosForm" responsiveLayout="stack">
+
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Moneda</th>
+                                <th>P.Venta</th>
+                                <th>Precio. inc. IGV.</th>
+                                <th>Condicion Cantidad</th>
+                                <th>Cant. Aplicar</th>
+                                <th>Cant. Und. Medida</th>
+                                <th>Max. % Dsct.</th>
+                                <th>Acción</th>
+                            </tr>
+                        </ng-template>
+
+
+                        <ng-template pTemplate="body" let-precios let-rowIndex="rowIndex" formArrayName="arrayPrecios">
+
+                            <tr [formGroupName]="rowIndex">
+                                <td>
+                                    <strong class="p-column-title">Moneda</strong>
+                                    <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"
+                                        placeholder="Moneda" optionLabel="valor1" [showClear]="true"></p-dropdown>
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">P.Venta</strong>
+                                    <input style="width: 100px; text-align: right;" type="text"
+                                        (keypress)="validateFormat($event)" class="p-inputtext-sm" pInputText
+                                        formControlName="precioventa">
+                                    <!-- <input   [min]="0"  (keypress)="validateFormat($event)"  class="p-inputtext-sm" pInputText formControlName="precioventa">   -->
+                                </td>
+                                <td style="text-align: center">
+                                    <strong class="p-column-title">Precio. inc. IGV</strong>
+                                    <p-inputSwitch formControlName="precioincluyeigv"></p-inputSwitch>
+                                </td>
+                                <td style="text-align: center">
+                                    <strong class="p-column-title">Condicion Cantidad</strong>
+                                    <p-inputSwitch formControlName="tienecondicionacantidad"></p-inputSwitch>
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">Cant. Aplicar</strong>
+                                    <input style="width: 100px;" min="0" formControlName="cantidadparaaplicar"
+                                        type="number" pInputText class="p-inputtext-sm">
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">Cant. Und. Medida</strong>
+                                    <input style="width: 100px;" min="0" formControlName="cantidadunidadmedida"
+                                        type="number" pInputText class="p-inputtext-sm">
+                                </td>
+                                <td>
+                                    <strong class="p-column-title">Max. % Dsct.</strong>
+                                    <input style="width: 100px;" min="0" formControlName="maxprocentajedscto"
+                                        type="number" pInputText class="p-inputtext-sm">
+                                </td>
+                                <td>
+                                    <button class="p-button-sm p-button-rounded" pButton type="button"
+                                        style=" background-color: #D72250;"
+                                        (click)="onEliminarPrecio(rowIndex, precios.value.productopreciosid)"
+                                        icon="pi pi-trash">
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6">No existen registros</td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
 
 
                 </p-fieldset>
-            </div> 
-        </form> 
-    </div>  
-  
+            </div>
+        </form>
+    </div>
+
 </div>
-
-

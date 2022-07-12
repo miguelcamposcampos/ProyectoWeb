@@ -196,7 +196,7 @@ export class AppMenuComponent implements OnInit {
     if(resp){    
         this.listRespData =  resp;  
         this.listRespData.sort((x, y) => x.orden - y.orden);
-     
+      //SEPARO LOS MODULOS
         let g_Modulos: any[] = this.listRespData.filter((x: any) => x.tipoMenuAplicacion === 'Modulo');
   
         let general: any=[];
@@ -204,10 +204,10 @@ export class AppMenuComponent implements OnInit {
 
         g_Modulos.forEach((x) => {
         let modulos: any = this.onObtenerModulos(x);  
-       
+          //SEPARO LOS AGRUPADORES
           let g_Agrupadores: any = resp.filter((y: any) => y.tipoMenuAplicacion === 'Agrupador' && y.padreid === modulos.maestromenuid);
           g_Agrupadores.forEach((x: any) => { 
-
+   //SEPARO LOS BOTONES
             let dataTempbotones :any = [];
             let g_Botones: any = resp.filter((z: any) =>(( z.tipoMenuAplicacion === 'Boton' || z.tipoMenuAplicacion === 'ReporteMenu') &&  z.padreid === x.maestromenuid));  
               g_Botones.forEach((element:any) => {

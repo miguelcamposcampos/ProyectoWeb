@@ -9,3 +9,420 @@
   grid-template-columns: 1fr 20px;
 }
  
+
+
+ 
+
+.formulario{
+  display: grid;
+  grid-gap: 1rem;
+  gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 10rem 1fr;   
+  align-items: center;
+  @media (max-width: 800px) {  
+     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}
+
+
+.totalesResumen{
+display: grid;
+grid-gap: 1rem;
+gap: 1rem;
+grid-auto-rows: auto;
+grid-template-columns: 12rem 1fr;   
+align-items: center;
+@media (max-width: 800px) {  
+   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+}
+
+
+.formImprimir{
+display: grid;
+grid-gap: 1rem;
+gap: 1rem;
+grid-auto-rows: auto;
+grid-template-columns: 12rem 1fr;   
+align-items: center;
+@media (max-width: 800px) {  
+   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+}
+
+
+
+.totalaMostrar{ 
+font-size: 15px;
+text-align: center;
+}
+
+
+.InputCombinadoBuscar{
+  display: grid;
+  grid-template-columns:  1fr 60px 25px; 
+}
+
+.InputCombinado{
+ display: grid;
+ gap: 1%;
+ grid-template-columns:  1fr 150px 150px;
+
+ @media (max-width: 700px) {  
+    display: block
+ }
+}
+
+
+.InputCombinado2{
+display: grid;
+gap: 1%;
+grid-template-columns: 150px 1fr 30px 30px;
+@media (max-width: 700px) {  
+ display: flex;
+} 
+}
+
+
+.botonBuscar{
+display: flex;
+align-items: flex-end;   
+}
+
+.formulario ::ng-deep input:required > strong::after{
+content:" *";   
+color: black;
+}
+
+.pintarOver{
+display: flex;
+justify-content: center;
+background-color: #1B74C5;
+color: white;
+}
+
+.titulonuevoingreso{
+display: flex;
+justify-content: space-between;
+}
+
+
+
+.importes{  
+display: grid;
+grid-gap: 1%;
+gap: 1%;
+grid-template-columns: 120px 80px 30px;
+justify-content: center;
+text-align: center;
+align-items: center;
+}
+
+
+
+.BotonCondiciondePago{
+display: flex;
+justify-content: space-around;
+align-items: baseline;
+margin: 3%;
+}
+
+
+.TablaDetalleCondicionPago ::ng-deep .p-calendar  {
+justify-content: left;
+width: 130px;
+}
+
+.TablaDetalleCondicionPago ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+flex: none;
+}
+
+.TablaDetalleCondicionPago ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+flex: 0 !important;
+}
+
+tr > th{
+  justify-content: center;
+}
+
+.TablaDetalleCondicionPago ::ng-deep .p-dropdown  {
+  justify-content: left;
+  width: 140px;
+}
+
+
+
+.TablaDetalleCondicionPago ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+  padding-right: 1rem;
+  text-align: left !important;
+}
+
+
+
+.formTabs{
+  display: grid;
+  grid-gap: 1rem;
+  gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr;   
+  align-items: center;
+  @media (max-width: 800px) {  
+     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}
+
+
+
+::ng-deep .BorrarLabel {
+.p-button-label{
+  @media (max-width:900px) {
+    display: none !important;
+  }
+}
+}
+
+
+
+
+.contenido{
+height: auto;
+}
+
+
+.formulario{
+display: grid;
+grid-gap: 1rem;
+gap: 1rem;
+grid-auto-rows: auto;
+grid-template-columns: 10rem 1fr;   
+align-items: center;
+@media (max-width: 800px) {  
+   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+}
+
+
+/*ESTILOS FORZADOS*/
+
+::ng-deep .contenido .p-fieldset {
+
+  border: 1px solid #d5d5d5;
+  background: #FDFEFF;
+  color: #b3b3b3;
+  height: 100%;
+  border-radius: 15px;
+
+}
+
+
+.precioForm{
+display: grid;
+grid-gap: 1rem;
+gap: 1rem;
+grid-auto-rows: auto;
+grid-template-columns: 10rem 2fr 0.5fr;
+align-items: center;
+@media (max-width: 700px) {  
+  display: grid;
+  grid-template-columns: 1fr;
+}
+}
+
+
+.extenderDrop{
+display: contents; 
+}
+
+.switches{
+display: grid;
+grid-gap: 1rem;
+grid-auto-rows: auto;
+grid-template-columns: 15rem 1fr;   
+align-items: center;
+@media (max-width: 800px) {   
+ grid-template-columns: 12rem 1fr;  
+}
+}  
+
+/*ESTILOS CABECERA FIELDSET*/
+.p-fieldset .p-fieldset-legend {
+padding: 0;
+border: none;
+}
+
+
+tr > th{
+justify-content: center;
+}
+.ProductosTabla ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+flex: none;
+}
+
+.ProductosTabla ::ng-deep  .p-dropdown-clearable .p-dropdown-label {
+padding-right: 1rem;
+text-align: left !important;
+}
+.ProductosTabla ::ng-deep .p-dropdown  {
+justify-content: left;
+width: 140px;
+}
+
+.elegirOpciones{
+display: flex;
+justify-content: space-evenly;
+}
+
+/*style content module*/
+
+.card {
+background: #ffffff;
+padding: 30px 20px;
+box-sizing: border-box;
+border-radius: 16px;
+width: 1024px;
+margin: auto;
+box-shadow: 0 16px 26px 0 rgb(0 0 0 / 29%);
+}
+
+.margintabla {
+box-shadow:none
+}
+
+
+::ng-deep .p-toolbar {
+background: #ffffff;
+border: 0px solid #ffffff;
+padding: 1rem;
+border-radius: 0px;
+color: #147dba;
+}
+
+
+.p-button {
+  color: #ffffff;
+  background: #1ec51b;
+  border: 0px solid #1B74C5;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 3px;
+  opacity: 100;
+  border-radius: 25px;
+  width: 130px;
+  font-weight: 900;
+}
+
+
+.col-lg-6 {
+-ms-flex: 0 0 50%;
+flex: 0 0 50%;
+max-width: 50%
+}
+
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+width: 100%;
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto
+}
+
+.col-lg-6 {
+position: relative;
+width: 100%;
+padding-right: 15px;
+padding-left: 15px
+}
+
+.content-right {
+overflow-y: auto;
+}
+
+.flex-column {
+-ms-flex-direction: column !important;
+flex-direction: column !important
+}
+
+.row-height {
+min-height: 38vh !important;
+height: 38vh;
+}
+
+
+.no-gutters {
+margin-right: 0;
+margin-left: 0
+}
+
+.content-left-wrapper {
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+height: 100%;
+min-height: 100%;
+padding: 0 90px;
+color: #fff;
+text-align: center;
+position: relative;
+}
+
+.d-flex {
+display: -ms-flexbox !important;
+display: flex !important
+}
+
+
+.row {
+display: flex;
+flex-wrap: nowrap;
+margin-right: -15px;
+margin-left: -15px;
+justify-content: center;
+}
+
+.p-inputgroup button {
+color: #ffffff;
+background: #265589;
+border: 0px solid #1B74C5;
+padding: 0.5rem 1rem;
+font-size: 1rem;
+transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+opacity: 100;
+width: 10px;
+font-weight: 900;
+margin: 5px;
+
+}
+
+.p-button-right{
+color: #ffffff;
+ background: #265589;
+ border: 0px solid #1B74C5;
+ padding: 0.5rem 1rem;
+ font-size: 1rem;
+ transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+ opacity: 100;
+ width: 10px;
+ font-weight: 900;
+ margin: 5px;
+ 
+}
+
+.p-inputtext {
+background: #dddddd;
+}
+
+::ng-deep .p-dropdown .p-dropdown-label {
+background: #dddddd;
+border: 0 none;
+}
+
+
+
