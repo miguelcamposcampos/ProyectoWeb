@@ -14,7 +14,7 @@ import { SharedModule } from './shared/shared.module';
  
   
 import { registerLocaleData } from '@angular/common';  
-import localePy from '@angular/common/locales/es-Pe';   
+import localePy from '@angular/common/locales/es-Pe'; 
 registerLocaleData(localePy, 'es');
 
 
@@ -28,7 +28,7 @@ registerLocaleData(localePy, 'es');
         SharedModule,  
     ],
     declarations: [
-        AppComponent, 
+        AppComponent,
     ],
     
     providers: [
