@@ -92,47 +92,90 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
     ngOnInit(): void { 
-        this.onCargarEstablecimientos();
+        this.onCargarEstablecimientos(); 
     }
  
     /* TABS */
+    // onNuevoTab(event){ 
+    //     if(!this.Tabs.find(x => x.label === event.label)){
+    //        this.onAgregarNuevoTab(event);
+    //     }else{
+    //         this.onChangeTab(event);
+    //     }
+    // }
+    // onAgregarNuevoTab(event){ 
+    //     let idG = this.Tabs ? this.Tabs.length : 0;
+    //     this.Tabs.push({   
+    //             label : event.label,
+    //             id: idG.toString(),
+    //             routerLink: event.routerLinkz,  
+    //             icon : event.icon
+    //         });   
+    //     this.activeItem = this.Tabs[idG]; 
+    // }
+ 
+
+    // onEliminarTab(event: any) {   
+    //     let IdDelete =  this.Tabs.findIndex(x => x.label === event.target.textContent);  
+    //     this.swal.mensajePregunta('¿Seguro de eliminar la pestaña ' +  event.target.textContent + ' ?').then((response) => {
+    //         if (response.isConfirmed) { 
+    //             this.Tabs = [...this.Tabs] 
+    //             this.Tabs.splice(IdDelete, 1);    
+    //             this.activeItem = this.Tabs[0];  
+    //             let ruta = './modulos/home/'+this.Tabs[0].routerLink[0].slice(2)
+    //             this.router.navigate([ruta]) 
+    //         }
+    //     }) 
+    // }
+
+    // onChangeTab(event: any) {   
+    //     let IdDelete =  this.Tabs.findIndex(x => x.label === event.label);   
+    //     this.activeItem = this.Tabs[IdDelete];  
+    // }
+
+
+    
     onNuevoTab(event){ 
         if(!this.Tabs.find(x => x.label === event.label)){
            this.onAgregarNuevoTab(event);
-        }else{
-            this.onChangeTab(event);
-        }
+        }else{ 
+            let IdChange =  this.Tabs.findIndex(x => x.id === event.maestromenuid.toString() );  
+            this.onChangeTab(IdChange);
+        } 
     }
-    onAgregarNuevoTab(event){ 
-        let idG = this.Tabs ? this.Tabs.length : 0;
+    onAgregarNuevoTab(event){   
         this.Tabs.push({   
-                label : event.label,
-                id: idG.toString(),
-                routerLink: event.routerLink[0],  
-                icon : event.icon
-            });   
-        this.activeItem = this.Tabs[idG]; 
+            label : event.label,
+            id: event.maestromenuid.toString(),
+            routerLink: event.routerLink[0],  
+            icon : event.icon
+        });    
+
+        setTimeout(() => {
+            let IdActive =  this.Tabs.findIndex(x => x.id === this.Tabs[this.Tabs.length - 1].id);  
+            this.activeItem = IdActive;  
+        }, 100);
+      
     }
- 
+    
 
     onEliminarTab(event: any) {   
-        let IdDelete =  this.Tabs.findIndex(x => x.label === event.target.textContent);  
-        this.swal.mensajePregunta('¿Seguro de eliminar la pestaña ' +  event.target.textContent + ' ?').then((response) => {
-            if (response.isConfirmed) { 
-                this.Tabs = [...this.Tabs] 
-                this.Tabs.splice(IdDelete, 1);    
-                this.activeItem = this.Tabs[0];  
-                let ruta = './modulos/home/'+this.Tabs[0].routerLink.slice(2)
-                this.router.navigate([ruta]) 
+        const tabDelete =  this.Tabs[event] 
+        this.swal.mensajePregunta('¿Seguro de eliminar la pestaña ' +  tabDelete.label + ' ?').then((response) => {
+            if (response.isConfirmed) {   
+                this.Tabs.splice(event, 1);    
+                this.onChangeTab(0); 
             }
         }) 
     }
 
-    onChangeTab(event: any) {   
-        let IdDelete =  this.Tabs.findIndex(x => x.label === event.label);   
-        this.activeItem = this.Tabs[IdDelete];  
+    onChangeTab(event: number) {  
+        setTimeout(() => {  
+            this.activeItem = event;
+            let ruta = './modulos/home/'+this.Tabs[event].routerLink.slice(2)
+            this.router.navigate([ruta]) 
+        }, 100);
     }
-
 
      /* FIN TABS */
 

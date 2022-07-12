@@ -21,8 +21,11 @@
 
 <div class="layout-main">  
     <div class="layout-content">   
-        <p-tabMenu [model]="Tabs" [activeItem]="activeItem" (click)="onChangeTab($event)" (dblclick)="onEliminarTab($event)" ></p-tabMenu>  
-        <hr>
+        <!-- <p-tabMenu [model]="Tabs" [activeItem]="activeItem" (click)="onChangeTab($event)" (dblclick)="onEliminarTab($event)" ></p-tabMenu>  z -->
+        <p-tabView [controlClose]="true" (onClose)="onEliminarTab($event.index)" [scrollable]="true" [activeIndex]="activeItem" (onChange)="onChangeTab($event.index)">
+            <p-tabPanel [header]="item.label" *ngFor=" let item of Tabs" [closable]="true">
+            </p-tabPanel>
+        </p-tabView> 
         <router-outlet> </router-outlet>      
     </div> 
 </div>
