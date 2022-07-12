@@ -1,0 +1,13 @@
+
+/* CSS by @miguelcampossv*/
+
+.background-image {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #c7c7c7;
+  background-image: url("assets/demo/images/fondo-login2.jpg");
+}
