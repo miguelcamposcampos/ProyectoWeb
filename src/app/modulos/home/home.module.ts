@@ -8,10 +8,11 @@ import { HomeComponent } from './home.component';
 import { SignalRService } from '../shared_modulos/signalR/signalr.service';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { NgChartsModule } from 'ng2-charts';  
+import { AppMenuComponent } from 'src/app/shared/components/menu/app.menu.component';
 
 @NgModule({
   declarations: [ 
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule, 
@@ -22,6 +23,7 @@ import { NgChartsModule } from 'ng2-charts';
     NgChartsModule, 
   ], 
   providers: [
+    AppMenuComponent,
     SignalRService,
     {
       provide: APP_INITIALIZER,

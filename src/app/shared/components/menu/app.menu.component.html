@@ -1,6 +1,6 @@
 
 
-<div class="custom-skeleton p-4"  *ngIf="CargandoMenu"> 
+<div class="custom-skeleton p-4"  *ngIf="LoadingCargandoMenu"> 
     <ul class="m-0 o-0">
         <li class="mb-3">
             <div class="flex">
@@ -66,13 +66,14 @@
             </div>
         </li>
     </ul>
-</div>
-    
-
+</div> 
 
 <ul class="layout-menu">
-    <li app-menuitem *ngFor="let item of menuSelect let i = index;" [item]="item" [index]="i" [root]="true"></li>
+    <li app-menuitem *ngFor="let item of menuSelect let i = index;"
+     [item]="item"
+      [index]="i" 
+      [root]="true"></li>
 </ul>
 
 
-
+ 

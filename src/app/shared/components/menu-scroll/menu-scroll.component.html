@@ -1,4 +1,18 @@
- <p-tabView  [scrollable]="true" [activeIndex]="activeItem">
-    <p-tabPanel [header]="item.label" *ngFor=" let item of items" >
+
+
+<div class="custom-skeleton p-4"  *ngIf="LoadingCargandoMenu"> 
+    <ul class="m-0 o-0"> 
+        <li class="mb-3"> 
+            <div style="display: flex;"> 
+                <strong> Cargando ....</strong>
+                <p-skeleton width="30%" styleClass="mx-2"></p-skeleton>
+                <p-skeleton width="30%" styleClass="mx-2"></p-skeleton> 
+            </div> 
+        </li>
+    </ul>
+</div>
+
+<p-tabView (onChange)="onMenuSeleccionado($event.index)"  [scrollable]="true" [activeIndex]="activeItem">
+    <p-tabPanel [header]="item.label" *ngFor=" let item of menuItems" >
     </p-tabPanel>
 </p-tabView> 

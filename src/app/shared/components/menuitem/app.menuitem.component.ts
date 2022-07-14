@@ -70,25 +70,25 @@ import { HomeComponent } from 'src/app/modulos/home/home.component';
         ])
     ]
 })
+
 export class AppMenuitemComponent implements OnInit, OnDestroy {
 
     @Input() item: any;
-
     @Input() index: number;
-
     @Input() root: boolean;
-
-    @Input() parentKey: string;
+    @Input() parentKey: string; 
 
     active = false;
-
     menuSourceSubscription: Subscription;
-
     menuResetSubscription: Subscription;
-
     key: string;
 
-    constructor(public app: HomeComponent, public router: Router, private cd: ChangeDetectorRef, private menuService: MenuService) {
+    constructor(
+        public app: HomeComponent,
+        public router: Router,  
+        private menuService: MenuService, 
+    ) {
+      
         this.menuSourceSubscription = this.menuService.menuSource$.subscribe(key => {
             // deactivate current active menu
             if (this.active && this.key !== key && key.indexOf(this.key) !== 0) {
@@ -112,14 +112,15 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
                     }
                 }
             });
+            
     }
 
-    ngOnInit() {
+    ngOnInit() {  
         if (!this.app.isHorizontal() && this.item.routerLink) {
             this.updateActiveStateFromRoute();
         }
-
-        this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index);
+    
+        this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index); 
     }
 
     updateActiveStateFromRoute() {   

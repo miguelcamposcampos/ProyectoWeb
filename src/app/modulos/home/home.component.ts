@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';  
 import { AppComponent } from 'src/app/app.component';  
-import { AppTopBarComponent } from 'src/app/shared/components/topbar/app.topbar.component';
+import { AppMenuComponent } from 'src/app/shared/components/menu/app.menu.component';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { MenuService } from 'src/app/shared/services/app.menu.service';
 import { GeneralService } from 'src/app/shared/services/generales.services';
@@ -25,24 +25,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     menuClick: boolean;
     topbarItemClick: boolean;
     activeTopbarItem: any;
-    documentClickListener: () => void;
-    configActive: boolean;
-    configClick: boolean;
-    rightPanelActive: boolean;
-    rightPanelClick: boolean;
+    documentClickListener: () => void; 
     menuHoverActive = false;
-    searchClick = false;
-    search = false;
+ 
 
-    @ViewChild("mPredeterminada", { static: false }) obtenerPredeterminados: AppTopBarComponent; 
-    
     modalTiketera : boolean = false;
     modalUbicacion : boolean = false;
     Form : FormGroup;
     FormImpresion : FormGroup;
-
     bloquearComboImpresoras : boolean = true; 
-
     arrayImpresoras: any[] = [];
     arrayEstablecimiento : ICombo[];
     arrayAlmacen : ICombo[];
@@ -52,21 +43,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     impresoraPordefecto : string = "";
     hostPordefecto : string = "";
     anchoPapelPordefecto : string = "";
-  
     Tabs: MenuItem[] = [];
     idIndexTab :any;
     activeItem: any;
  
+
+    mostrarMenuCosntruido: boolean = false; 
+
     constructor(
-        public renderer: Renderer2,
+        public renderer: Renderer2, 
+        public appmenu: AppMenuComponent, 
         private menuService: MenuService,
         private primengConfig: PrimeNGConfig,
         public app: AppComponent,  
         private ventaservice : VentasService,
         private generalService : GeneralService,
         private swal : MensajesSwalService, 
-        private router : Router
-        ) {    
+        private router : Router,
+        private cdr: ChangeDetectorRef
+        ) {   
             this.builform();  
             this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
             if(this.dataDesencryptada){
@@ -92,49 +87,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
     ngOnInit(): void { 
+        this.cdr.detectChanges(); 
         this.onCargarEstablecimientos(); 
+        this.onMostrarMenu();
     }
- 
-    /* TABS */
-    // onNuevoTab(event){ 
-    //     if(!this.Tabs.find(x => x.label === event.label)){
-    //        this.onAgregarNuevoTab(event);
-    //     }else{
-    //         this.onChangeTab(event);
-    //     }
-    // }
-    // onAgregarNuevoTab(event){ 
-    //     let idG = this.Tabs ? this.Tabs.length : 0;
-    //     this.Tabs.push({   
-    //             label : event.label,
-    //             id: idG.toString(),
-    //             routerLink: event.routerLinkz,  
-    //             icon : event.icon
-    //         });   
-    //     this.activeItem = this.Tabs[idG]; 
-    // }
- 
 
-    // onEliminarTab(event: any) {   
-    //     let IdDelete =  this.Tabs.findIndex(x => x.label === event.target.textContent);  
-    //     this.swal.mensajePregunta('¿Seguro de eliminar la pestaña ' +  event.target.textContent + ' ?').then((response) => {
-    //         if (response.isConfirmed) { 
-    //             this.Tabs = [...this.Tabs] 
-    //             this.Tabs.splice(IdDelete, 1);    
-    //             this.activeItem = this.Tabs[0];  
-    //             let ruta = './modulos/home/'+this.Tabs[0].routerLink[0].slice(2)
-    //             this.router.navigate([ruta]) 
-    //         }
-    //     }) 
-    // }
-
-    // onChangeTab(event: any) {   
-    //     let IdDelete =  this.Tabs.findIndex(x => x.label === event.label);   
-    //     this.activeItem = this.Tabs[IdDelete];  
-    // }
-
-
-    
+    onMostrarMenu(){
+        this.mostrarMenuCosntruido = true;
+    }
+  
     onNuevoTab(event){ 
         if(!this.Tabs.find(x => x.label === event.label)){
            this.onAgregarNuevoTab(event);
@@ -162,8 +123,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     onEliminarTab(event: any) {   
         const tabDelete =  this.Tabs[event] 
         this.swal.mensajePregunta('¿Seguro de eliminar la pestaña ' +  tabDelete.label + ' ?').then((response) => {
-            if (response.isConfirmed) {   
+            if (response.isConfirmed) {  
                 this.Tabs.splice(event, 1);    
+                this.cdr.detectChanges();   
                 this.onChangeTab(0); 
             }
         }) 
@@ -254,27 +216,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     ngAfterViewInit() {
+        this.cdr.detectChanges(); 
         // hides the horizontal submenus or top menu if outside is clicked
         this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
               
             if (!this.topbarItemClick) {
                 this.activeTopbarItem = null;
-                this.topbarMenuActive = false; 
-               
+                this.topbarMenuActive = false;  
             }
 
             if (!this.menuClick && this.isHorizontal()) { 
                 this.menuService.reset();
             }
-
-            if (this.configActive && !this.configClick) {
-                this.configActive = false; 
-            }
-
-            if (!this.rightPanelClick) {
-                this.rightPanelActive = false; 
-            }
-
+ 
             if (!this.menuClick) {  
                 if (this.overlayMenuActive) {
                     this.overlayMenuActive = false;
@@ -286,23 +240,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.menuHoverActive = false;
                 this.unblockBodyScroll();
             }
-
-            if (!this.searchClick) {
-                this.search = false; 
-            }
-
-            this.searchClick = false;
-            this.configClick = false;
+ 
+ 
             this.topbarItemClick = false;
-            this.menuClick = false;
-            this.rightPanelClick = false;
+            this.menuClick = false; 
         });
     }
 
-    onMenuButtonClick(event) {    
+    onMenuButtonClick(event) {   
+        console.log('eventeventevent',event); 
         this.rotateMenuButton = !this.rotateMenuButton;
         this.topbarMenuActive = false;
-        this.menuClick = true;
+        this.menuClick = false;
 
         if (this.app.menuMode === 'overlay' && !this.isMobile()) {
             this.overlayMenuActive = !this.overlayMenuActive;
@@ -332,13 +281,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.activeTopbarItem === item) {
             this.activeTopbarItem = null;
         } else {
-            this.activeTopbarItem = item; }
-
-        if (item.className === 'search-item topbar-item') {
-            this.search = !this.search;
-            this.searchClick = !this.searchClick;
+            this.activeTopbarItem = item; 
         }
-
+ 
         event.preventDefault();
     }
 
@@ -354,20 +299,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.app.ripple = event.checked;
         this.primengConfig.ripple = event.checked;
     }
-
-    onConfigClick(event) {
-        this.configClick = true;
-    }
-
-    onRightPanelButtonClick(event) {
-        this.rightPanelClick = true;
-        this.rightPanelActive = !this.rightPanelActive;
-        event.preventDefault();
-    }
-
-    onRightPanelClick() {
-        this.rightPanelClick = true;
-    }
+ 
 
     isTablet() {
         const width = window.innerWidth;
@@ -416,14 +348,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.modalTiketera = true;
         }else if(event === 'U'){
             this.modalUbicacion = true;
-           // this.onCargarEstablecimientos();
         }else{
             return;
         } 
     }
-
-   
-
+ 
     ngOnDestroy() {
         if (this.documentClickListener) {
             this.documentClickListener();

@@ -6,9 +6,11 @@ export class MenuService {
 
     private menuSource = new Subject<string>();
     private resetSource = new Subject();
+    private menuIdMaestro = new Subject<string>();
 
     menuSource$ = this.menuSource.asObservable();
     resetSource$ = this.resetSource.asObservable();
+    menuIdMaestro$ = this.menuIdMaestro.asObservable();
 
     onMenuStateChange(key: string) {
         this.menuSource.next(key);
@@ -16,5 +18,9 @@ export class MenuService {
 
     reset() {
         this.resetSource.next();
+    }
+
+    changeMenuPadre(id:string) {
+        this.menuIdMaestro.next(id);
     }
 }

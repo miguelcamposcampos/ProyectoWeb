@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';  
-import { MegaMenuItem } from 'primeng/api';
-import { AppComponent } from 'src/app/app.component';
+import { MegaMenuItem } from 'primeng/api'; 
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { LoginService } from 'src/app/auth/services/login.service';
 import { HomeComponent } from 'src/app/modulos/home/home.component'; 
@@ -24,9 +23,7 @@ export class AppTopBarComponent {
       private loginService : LoginService,
       private authService : AuthService, 
   ) {
-    this.onPintarDatos();
-
-  
+    this.onPintarDatos(); 
   } 
 
   onPintarDatos(){ 
@@ -39,13 +36,15 @@ export class AppTopBarComponent {
   }
  
   onLogout(){
-      this.loginService.logout();
+    this.loginService.logout();
   }
 
   onTiketera(event : string){
     this.mPredeterminado.emit(event); 
     return;  
   }
+
+
 
  
   
