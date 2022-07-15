@@ -14,7 +14,8 @@ import { PlanesService } from '../services/planes.services';
 
 @Component({
   selector: 'app-lista-empresas',
-  templateUrl: './lista-empresas.component.html'
+  templateUrl: './lista-empresas.component.html',
+  styleUrls: ['./lista-empresas.component.scss']
 })
 export class ListaEmpresasComponent implements OnInit {
  

@@ -291,3 +291,16 @@ $gutter: 1rem; //for primeflex grid system
   padding: 20px;
   margin: 5px;
 }
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  border: solid #E4E5E5;
+  border-width: 0 0 2px 0;
+  border-color: #9f9f9f;
+  background: #E1E1E1;
+  color: #659ccf;
+  padding: 1rem;
+  font-weight: 600;
+  transition: box-shadow 0.2s;
+  margin: 0px 0 5px 0;
+}
+

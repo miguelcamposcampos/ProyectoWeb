@@ -12,7 +12,8 @@ import { UsuariosService } from '../services/usuarios.services';
 
 @Component({
   selector: 'app-lista-usuarios',
-  templateUrl: './lista-usuarios.component.html'
+  templateUrl: './lista-usuarios.component.html',
+  styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent implements OnInit { 
   @Output() cerrar : any  = new EventEmitter<boolean>(); 
