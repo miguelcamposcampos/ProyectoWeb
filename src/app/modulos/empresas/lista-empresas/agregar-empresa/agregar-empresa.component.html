@@ -1,114 +1,121 @@
 <!-- <app-titulos [titulo]="(empresasSelect) ? 'Editar Empresa' :'Registrar Empresa'" (cerrar)="onRegresar()"> </app-titulos> 
   -->
-  <div>
+<div>
 
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
-    
+
+
     <p-toolbar>
-        <div class="p-toolbar-group-left">
-            <img id="app-logo"
-              style="padding-right: 2%;"
-              src="assets/layout/images/logo_color.png"
-              alt="poseidon-layout"> 
-              <!-- <h3> <strong> {{ ( !EmpresaEdit  ) ? 'Registrar Empresa' : 'Actualizar Empresa'}} </strong> </h3>  -->
+        <div class="logotipo">
+            <div class="p-toolbar-group-center">
+                <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo.svg"
+                    alt="poseidon-layout">
+            </div>
         </div>
-        
+
         <div class="p-toolbar-group-right">
-            <button    
-            class="p-button-sm mx-2"
-            pButton
-            type="button"
-            icon="pi pi-arrow-left"
-            label="Regresar"
-            tooltipPosition="left"
-            pTooltip="Regresar"
-            (click)="onRegresar()">  
-        </button>   
+            <button class="p-button-sm mx-2" pButton type="button" icon="pi pi-arrow-left" label="Regresar"
+                tooltipPosition="left" pTooltip="Regresar" (click)="onRegresar()">
+            </button>
         </div>
     </p-toolbar>
 
- 
-        <div class="tituloPage">
-            <h2> <strong>{{ ( !EmpresaEdit  ) ? ' Registrar Empresa' : 'Actualizar Empresa'}}</strong></h2> 
-        </div>
-            
-        
-        <div class="card">              
-            <form [formGroup]="EmpresaForm">    
-                
+    <div class="tituloPage">
+        <h2> <strong>{{ ( !EmpresaEdit ) ? ' Registrar Empresa' : 'Actualizar Empresa'}}</strong></h2>
+    </div>
+
+
+    <div class="margintabla">
+        <div class="contenidoTable card card-responsive">
+            <form [formGroup]="EmpresaForm">
+
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-                        <div class="formularioColum12_1">   
-                            <strong>Número de Ruc *</strong>
-                            <input type="text" pInputText required (keydown.enter)="onBuscarPorRuc()" (keypress)="onSoloNumeros($event)" formControlName="Ruc" class="p-inputtext-sm" minlength="11" maxlength="11" placeholder="ingresar el ruc">   
-                            
-                            <strong>Razón Social *</strong>
-                            <input type="text" pInputText  required formControlName="RazonSocial" class="p-inputtext-sm" placeholder="ingresar razón social">   
-                            
-                            <strong>Nombre Comercial </strong>
-                            <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-sm" placeholder="ingresar nombre comercial">   
-                            
-                            <strong>Dirección Fiscal *</strong>
-                            <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-sm" minlength="1"  placeholder="ingresar dirección fiscal">   
-                            
-                            <strong>Email </strong>
-                            <input type="text" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="ingresar el email">   
-                            
-                            <strong>Web Site </strong>
-                            <input type="url" pInputText formControlName="WebSite" class="p-inputtext-sm" placeholder="ingresar el sitio web">   
-                            
-                            <strong>Teléfono </strong>
-                            <input type="text" pInputText formControlName="Telefono" class="p-inputtext-sm" placeholder="ingresar el telefono">   
-                        </div> 
-                      
+                    <div class="formularioColum12_1">
+                        <div class="col-md-6">
+                            <strong>Número de Ruc <span style="color: red;">*</span> </strong>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" pInputText required (keydown.enter)="onBuscarPorRuc()"
+                            (keypress)="onSoloNumeros($event)" formControlName="Ruc" class="p-inputtext-sm"
+                            minlength="11" maxlength="11" placeholder="ingresar el ruc">
+                        </div>
+                        
+                     
+
+                        <strong>Razón Social <span style="color: red;">*</span> </strong>
+                        <input type="text" pInputText required formControlName="RazonSocial" class="p-inputtext-sm"
+                            placeholder="ingresar razón social">
+
+                        <strong>Nombre Comercial </strong>
+                        <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-sm"
+                            placeholder="ingresar nombre comercial">
+
+                        <strong>Dirección Fiscal <span style="color: red;">*</span> </strong>
+                        <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-sm"
+                            minlength="1" placeholder="ingresar dirección fiscal">
+
+                        <strong>Email </strong>
+                        <input type="text" pInputText formControlName="Email" class="p-inputtext-sm"
+                            placeholder="ingresar el email">
+
+                        <strong>Web Site </strong>
+                        <input type="url" pInputText formControlName="WebSite" class="p-inputtext-sm"
+                            placeholder="ingresar el sitio web">
+
+                        <strong>Teléfono </strong>
+                        <input type="text" pInputText formControlName="Telefono" class="p-inputtext-sm"
+                            placeholder="ingresar el telefono">
+                    </div>
+
                 </p-fieldset>
 
-                <div *ngIf="!EmpresaEdit" class="centrar" style="margin:2%">  
-                    <div class="d-flex">
-                        <button pButton  type="button" label="{{ (!mostrarNombrePlanelegido)? 'Elige un Plan:' : mostrarNombrePlanelegido }}" (click)="onEscogerPlan()" icon="pi pi-check-square" class="p-button-sm" > </button>    
-                        <button pButton *ngIf="mostrarNombrePlanelegido" pTooltip="quitar plan elegido" tooltipPosition="left" style=" background-color: #D72250;"  type="button" (click)="onQuitarPlan()" icon="pi pi-trash" class="botonPlan p-button-sm" > </button>    
+                <div *ngIf="!EmpresaEdit" class="centrar" style="margin:2%">
+                    <div class="container eligirPlan">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="eligirPlanTitle">
+                                    <h3>Elija el tipo de plan</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-6"><button pButton type="button"
+                                label="{{ (!mostrarNombrePlanelegido)? 'Detalle de Planes' : mostrarNombrePlanelegido }}"
+                                (click)="onEscogerPlan()" icon="pi pi-check-square" class="p-button-sm p-button-elegirplan"> </button>
+                            <button pButton *ngIf="mostrarNombrePlanelegido" pTooltip="quitar plan elegido"
+                                tooltipPosition="left" style=" background-color: #D72250;" type="button"
+                                (click)="onQuitarPlan()" icon="pi pi-trash" class="botonPlan p-button-sm"> </button></div>
+                        </div>
                     </div>
-                </div> 
 
-                
-            </form>   
-                        
-            <hr>  
+                </div>
+
+
+            </form>
+
+            <hr>
             <div class="botones">
-                <button  
-                    class="p-button-sm"
-                    pButton
-                    style="margin-right: 1%;"
-                    type="button"
-                    icon="pi pi-check-circle"
-                    label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}"  
-                    [disabled]="!EmpresaForm.valid"
-                    (click)="onAgregarEmpresa()">  
-                </button>  
-            
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    style=" background-color: #D72250;"
-                    type="button"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    (click)="onRegresar()">  
-                </button>  
-            </div>  
+                <button class="p-button-sm" pButton style="margin-right: 1%;" type="button" icon="pi pi-check-circle"
+                    label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}" [disabled]="!EmpresaForm.valid"
+                    (click)="onAgregarEmpresa()">
+                </button>
+
+                <button class="p-button-sm" pButton style=" background-color: #D72250;" type="button"
+                    icon="pi pi-times-circle" label="Cancelar" (click)="onRegresar()">
+                </button>
+            </div>
+
         </div>
-         
-     
-  </div>
-
- 
-
-<div *ngIf="modalPlanes" class="card RegistroPlanes">  
-    <p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false" [resizable]="false"> 
-            <app-planes  (onChange)="onPlanelegido($event)"  ></app-planes>
-    </p-dialog>  
-</div> 
+    </div>
+</div>
 
 
+
+
+<div *ngIf="modalPlanes" class="card RegistroPlanes">
+    <p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false"
+        [resizable]="false">
+        <app-planes (onChange)="onPlanelegido($event)"></app-planes>
+    </p-dialog>
+</div>

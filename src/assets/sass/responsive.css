@@ -1,7 +1,5 @@
 /* CSS by miguecampossv */
 
-
-
 @media (max-width: 991px) {
     .content-left-wrapper {
       height: auto;
@@ -20,5 +18,59 @@
 
     .content-login {
        margin-top: -130px!important;
-    }           
+    }    
+    
+    .header-buscar-empresas {
+
+      width: 320px!important;;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 25px;
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 25px 25px;
+      box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+      display: flex!important;
+      flex-direction: column!important;
+      align-items: center!important;
+    }
+
+    .p-input-icon-left > i:first-of-type {
+      left: 3.5rem;
+      color: #657380;
+      /* right: 0px; */
+    }
+
+    .p-inputtext.p-inputtext-sm{
+      font-size: 16px!important;
+      padding: 10px 30px!important;
+      width: 275px!important;
+      border-radius: 20px!important;
+      background: #e3e3e3;
+      text-align: center!important;
+      margin: 10px!important;
+    }
+
+    .formularioColum12_1 {
+      display: flex!important;
+      grid-gap: 1rem!important;
+      align-content: center!important;
+      flex-wrap: nowrap!important;
+      flex-direction: column!important;
+      width: 290px!important;
+
+    }
+
+    .card-responsive {
+      width: 350px!important;
+      text-align: center!important;
+    }
+
+    .eligirPlan[_ngcontent-jmu-c225] {
+      background-color: #efefef;
+      padding: 20px;
+      border-radius: 25px;
+  }
+ 
   }
