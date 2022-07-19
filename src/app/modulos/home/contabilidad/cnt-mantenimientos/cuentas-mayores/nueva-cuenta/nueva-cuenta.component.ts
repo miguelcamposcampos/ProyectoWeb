@@ -24,7 +24,6 @@ export class NuevaCuentaComponent implements OnInit {
   ) { 
       this.onForm();
   }
-
   onForm(){
     this.Form = new FormGroup({
       nrocuenta : new FormControl(null, Validators.required),
