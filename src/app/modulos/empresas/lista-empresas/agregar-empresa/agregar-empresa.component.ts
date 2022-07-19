@@ -34,9 +34,11 @@ export class AgregarEmpresaComponent implements OnInit {
     private generalService : GeneralService,
     private spinner : NgxSpinnerService,
     private planesService : PlanesService,
-  ) { 
-   
+  ) {  
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   ngOnInit(): void {    
@@ -73,9 +75,6 @@ export class AgregarEmpresaComponent implements OnInit {
         })
         this.spinner.hide();
       }
-    },error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     })
   }
   
@@ -115,9 +114,6 @@ export class AgregarEmpresaComponent implements OnInit {
           this.swal.mensajeAdvertencia('no se encontraron datos... intenta con otra ruc!.')
         }
         this.spinner.hide();
-      },error => { 
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error);
       });
    
   }
@@ -135,9 +131,6 @@ export class AgregarEmpresaComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos de la empresa!.'); 
           this.onVolver('exito');
         }
-      },error => {
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error);
       })
     }else{
       this.empresaService.empresaCreate(newEmpresa).subscribe((resp)=>{
@@ -151,10 +144,7 @@ export class AgregarEmpresaComponent implements OnInit {
             return;
           } 
         }
-      },error => {
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error);
-    })
+      });
     }
     
   }
@@ -174,10 +164,7 @@ export class AgregarEmpresaComponent implements OnInit {
         this.swal.mensajeError('No se pudo registrar la empresa'); 
         this.spinner.hide();
       }
-    }, error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
-    })
+    });
   }
   
   onLimpiarFormulario(){

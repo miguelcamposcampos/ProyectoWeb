@@ -48,9 +48,6 @@ export class SeriesEstablecimientosComponent implements OnInit {
         this.listaSeries = resp;
         this.spinner.hide();
       }  
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
    
@@ -79,8 +76,6 @@ export class SeriesEstablecimientosComponent implements OnInit {
         this.establecimientoService.deleteSerie(data.id).subscribe((resp) => { 
           this.onLoadSeries(); 
           this.swal.mensajeExito('La serie ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  

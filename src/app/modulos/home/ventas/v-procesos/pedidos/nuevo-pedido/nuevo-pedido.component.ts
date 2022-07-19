@@ -1,5 +1,4 @@
-import { DatePipe } from '@angular/common';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { DatePipe } from '@angular/common'; 
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -106,6 +105,11 @@ export class NuevoPedidoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform(); 
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
    }
 
    public builform(){
@@ -213,8 +217,6 @@ export class NuevoPedidoComponent implements OnInit {
         this.swal.mensajeAdvertencia('NUMERO DE DOCUMENTO NO ENCONTRADO!.');
         return;
       }    
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
    
@@ -332,7 +334,7 @@ export class NuevoPedidoComponent implements OnInit {
             establecimientoid: this.arrayEstablecimiento.find(
               (x) => x.id === +this.dataPredeterminadosDesencryptada.idEstablecimiento
             ), 
-          }) 
+          })
           this.idEstablecimientoSeleccionado = +this.dataPredeterminadosDesencryptada.idEstablecimiento
           this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento) 
         }
@@ -349,8 +351,6 @@ export class NuevoPedidoComponent implements OnInit {
             nombrecliente :  resp.personaData.nombreCompleto,
           })
       }   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -376,8 +376,6 @@ export class NuevoPedidoComponent implements OnInit {
           importeicbper :this.dataConfiguracion.porcentajebolsaplastica, 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -404,11 +402,10 @@ export class NuevoPedidoComponent implements OnInit {
             almacenid: this.arrayAlmacen.find(
               (x) => x.id === +this.dataPredeterminadosDesencryptada.idalmacen,
             )
-          })
-        }
-  
+          });
+        } 
       }
-    })
+    });
   }
 
 
@@ -431,8 +428,6 @@ export class NuevoPedidoComponent implements OnInit {
       if(resp){
         this.arraySeriePorDocumento = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -466,7 +461,7 @@ export class NuevoPedidoComponent implements OnInit {
       this.existeDireccionCliente = false;
       this.existeClienteSeleccionado = false;
       }
-    })
+    });
   }
 
 
@@ -608,8 +603,6 @@ export class NuevoPedidoComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -719,8 +712,6 @@ export class NuevoPedidoComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-      }, error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.ventaservice.updateVenta(newVenta).subscribe((resp) => {
@@ -728,8 +719,6 @@ export class NuevoPedidoComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      }, error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
 
@@ -775,9 +764,6 @@ export class NuevoPedidoComponent implements OnInit {
         this.existenroRegsitro = true;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -795,8 +781,6 @@ export class NuevoPedidoComponent implements OnInit {
       this.arrayAlmacen = response[0]; 
       this.arraySeriePorDocumento = response[1]; 
       this.FlgLlenaronComboParaActualizar.next(true);
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

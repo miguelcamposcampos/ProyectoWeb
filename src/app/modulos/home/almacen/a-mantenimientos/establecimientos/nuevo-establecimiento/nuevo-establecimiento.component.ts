@@ -41,8 +41,11 @@ export class NuevoEstablecimientoComponent implements OnInit {
     private establecimientoService: EstablecimientoService,
     private swal : MensajesSwalService,
     private spinner: NgxSpinnerService
-  ) { 
+  ) {  
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
     this.onCargarDepartamentos();
   }
 
@@ -74,8 +77,6 @@ export class NuevoEstablecimientoComponent implements OnInit {
       resp.forEach(element => {
         this.arrayDepartamentos.push({nombre : element})
       }); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -116,9 +117,6 @@ export class NuevoEstablecimientoComponent implements OnInit {
         });
         this.spinner.hide(); 
       }
-    },error => { 
-      this.spinner.show();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -222,8 +220,6 @@ export class NuevoEstablecimientoComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.establecimientoService.updateEstablecimiento(NewEstablecimiento).subscribe((resp)=>{
@@ -231,8 +227,6 @@ export class NuevoEstablecimientoComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     } 
   }

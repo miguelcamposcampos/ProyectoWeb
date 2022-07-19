@@ -48,6 +48,10 @@ export class CobrarComponent implements OnInit {
 
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
 
@@ -84,8 +88,6 @@ export class CobrarComponent implements OnInit {
  onCargarFormasPago(){
   this.ventaservice.obtenerFormasdePagoCobrar(this.dataCobrar.establecimientoid).subscribe((resp)=> {
     this.arrayFormasPago = resp;
-  },error => { 
-    this.generalService.onValidarOtraSesion(error);  
   });
  }
 
@@ -114,9 +116,6 @@ export class CobrarComponent implements OnInit {
       this.SaldoTotalaCobrar = parseFloat(this.saldoPendiente.importesaldo.toString()).toFixed(2);  
       this.spinner.hide();
     } 
-  },error => { 
-    this.spinner.hide();
-    this.generalService.onValidarOtraSesion(error);  
   });
  }
 
@@ -280,8 +279,6 @@ export class CobrarComponent implements OnInit {
         this.cerrar.emit('exito')
       }
       this.swal.mensajeExito('Se grabaron los datos correctamente!.')
-    }, error => { 
-      this.generalService.onValidarOtraSesion(error);  
     })
   }
  

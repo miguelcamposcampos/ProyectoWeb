@@ -45,6 +45,9 @@ export class ProductosComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   private builform() : void {
@@ -90,8 +93,6 @@ export class ProductosComponent implements OnInit {
       this.arrayColores = response[0];
       this.arrayLinea = response[1];  
       this.arrayTipoProducto = response[2];   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
  
   } 
@@ -153,9 +154,6 @@ export class ProductosComponent implements OnInit {
         this.listaProductos = resp.items;  
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
   
@@ -184,8 +182,6 @@ export class ProductosComponent implements OnInit {
         this.productoService.deleteProducto(data.id).subscribe((resp) => { 
           this.onLoadProductos(null); 
           this.swal.mensajeExito('El producto ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  

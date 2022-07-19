@@ -94,6 +94,11 @@ export class NuevaOrdenCompraComponent implements OnInit {
   ) { 
 
     this.builform();
+    
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+
     this.arrayEstado = [
       { id: 1, nombre: 'PENDIENTE'},
       { id: 2, nombre: 'APROBADA'},
@@ -211,8 +216,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
           glosa :this.dataConfiguracion.compraglosadefault,  
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -301,8 +304,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
         this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento); 
       }
       } 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -327,9 +328,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
         this.mostrarBotonReportes = true;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -471,8 +469,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
           this.swal.mensajeAdvertencia('NUMERO DE DOCUMENTO NO ENCONTRADO!.');
           return;
         } 
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
   }
 
@@ -494,8 +490,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
       if(resp){
         this.arrayAlmacen = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
    
@@ -561,8 +555,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -994,8 +986,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
               }
             }) 
           } 
-        }, error => {
-          this.generalService.onValidarOtraSesion(error);  
         });
       }else{
         this.ocService.updateOrdenCompra(newOrdenCompra).subscribe((resp) => {
@@ -1007,8 +997,6 @@ export class NuevaOrdenCompraComponent implements OnInit {
               this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
             }
           })    
-        }, error => {
-          this.generalService.onValidarOtraSesion(error);  
         });
       } 
     }

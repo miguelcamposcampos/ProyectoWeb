@@ -36,6 +36,10 @@ export class RepPlanillaCobranzaComponent implements OnInit {
     
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
     }
   
   public builform(){ 
@@ -68,9 +72,6 @@ export class RepPlanillaCobranzaComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -101,8 +102,6 @@ export class RepPlanillaCobranzaComponent implements OnInit {
         var blob = new Blob([this.onBase64ToArrayBufferExcel(this.dataExel.data)], {type: "application/xlsx"}); 
         saveAs(blob, "Reporte-Planilla-Cobranza.xlsx");  
       }
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     }); 
   }
 

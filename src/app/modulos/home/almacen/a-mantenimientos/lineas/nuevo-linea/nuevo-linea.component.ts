@@ -30,11 +30,10 @@ export class NuevoLineaComponent implements OnInit {
   constructor(
     private lineaService: LineaService,
     private swal : MensajesSwalService,
-    private productoService : ProductosService,
-    private generalService : GeneralService,
+    private productoService : ProductosService, 
     private spinner : NgxSpinnerService
   ) {   
-     this.builform();
+     this.builform();  
   }
 
   public builform(): void{
@@ -77,9 +76,6 @@ export class NuevoLineaComponent implements OnInit {
         })
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -109,9 +105,6 @@ export class NuevoLineaComponent implements OnInit {
         this.stringBuscarenUnesco = "";
       }
       this.spinner.hide();
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -167,18 +160,14 @@ export class NuevoLineaComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      }, error => { 
-        this.generalService.onValidarOtraSesion(error);   
-      })
+      });
     }else{
       this.lineaService.updateLinea(newLinea).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);   
-      })
+      });
     }
   
   }

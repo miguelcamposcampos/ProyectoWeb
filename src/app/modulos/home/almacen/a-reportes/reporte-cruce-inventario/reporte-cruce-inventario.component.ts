@@ -41,6 +41,9 @@ export class ReporteCruceInventarioComponent implements OnInit {
     private swal : MensajesSwalService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
   
   public builform(){ 
@@ -97,9 +100,6 @@ export class ReporteCruceInventarioComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       }    
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

@@ -41,6 +41,11 @@ export class RepEstadoCuentaClienteComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
   }
 
   public builform(){ 
@@ -81,9 +86,6 @@ export class RepEstadoCuentaClienteComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -114,8 +116,6 @@ export class RepEstadoCuentaClienteComponent implements OnInit {
         var blob = new Blob([this.onBase64ToArrayBufferExcel(this.dataExel.data)], {type: "application/xlsx"}); 
         saveAs(blob, "Reporte-Estado-Cuenta-Cliente.xlsx");  
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

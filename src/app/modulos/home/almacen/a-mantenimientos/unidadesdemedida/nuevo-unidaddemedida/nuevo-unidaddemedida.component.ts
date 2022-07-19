@@ -25,6 +25,9 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(): void {
@@ -55,9 +58,6 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
         });
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -77,8 +77,6 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
         this.swal.mensajeExito("Se actualizaron los datos correctamente!.");
         this.onVolver();
       }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.unidadMedidadService.createUnidadMedida(newUnidadMedidad).subscribe((resp) => {
@@ -86,8 +84,6 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
           this.swal.mensajeExito("Se grabaron los datos correctamente!.");
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   }

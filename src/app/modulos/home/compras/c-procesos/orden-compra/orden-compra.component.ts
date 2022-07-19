@@ -44,7 +44,11 @@ export class OrdenCompraComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
+  
 
 
   public builform(){
@@ -89,8 +93,6 @@ export class OrdenCompraComponent implements OnInit {
       if(resp){
         this.arrayDocumentos = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -117,9 +119,6 @@ export class OrdenCompraComponent implements OnInit {
         this.textoPaginado = resp.label;
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -142,8 +141,6 @@ export class OrdenCompraComponent implements OnInit {
           if(resp){
             this.onLoadOrdenCompra(null);
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })

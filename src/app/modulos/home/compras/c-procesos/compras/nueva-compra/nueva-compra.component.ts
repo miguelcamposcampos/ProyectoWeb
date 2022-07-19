@@ -104,6 +104,11 @@ export class NuevaCompraComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
@@ -223,8 +228,6 @@ export class NuevaCompraComponent implements OnInit {
           glosa :this.dataConfiguracion.compraglosadefault,  
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -350,8 +353,6 @@ export class NuevaCompraComponent implements OnInit {
           this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento); 
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -382,9 +383,6 @@ export class NuevaCompraComponent implements OnInit {
         this.spinner.hide(); 
       }  
       
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -402,8 +400,6 @@ export class NuevaCompraComponent implements OnInit {
       this.arrayAlmacen = response[0];  
       this.arraySeriePorDocumentoPercepcion = response[1]; 
       this.FlgLlenaronComboParaActualizar.next(true);
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -613,8 +609,6 @@ export class NuevaCompraComponent implements OnInit {
           this.swal.mensajeAdvertencia('NUMERO DE DOCUMENTO NO ENCONTRADO!.');
           return;
         } 
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
   }
 
@@ -636,8 +630,6 @@ export class NuevaCompraComponent implements OnInit {
       if(resp){
         this.arrayAlmacen = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -756,8 +748,6 @@ export class NuevaCompraComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   
   }
@@ -1341,8 +1331,6 @@ export class NuevaCompraComponent implements OnInit {
               }
             })   
           } 
-        }, error => {
-          this.generalService.onValidarOtraSesion(error);  
         });
       }else{
         this.comprasService.updateCompra(newCompra).subscribe((resp) => {
@@ -1355,8 +1343,6 @@ export class NuevaCompraComponent implements OnInit {
             }
           })   
           
-        }, error => {
-          this.generalService.onValidarOtraSesion(error);  
         });
       } 
     }

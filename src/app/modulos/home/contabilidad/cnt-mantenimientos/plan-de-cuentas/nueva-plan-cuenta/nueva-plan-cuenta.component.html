@@ -1,0 +1,116 @@
+ 
+<form [formGroup]="Form" style="margin: 0% 5% 0 5%;"> 
+ 
+    <div class="p-col-12"> 
+        <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12  p-lg-5 p-md-5">
+                <div class="formulario">   
+                    <strong>Nro cuenta *:</strong>
+                    <p-inputMask formControlName="nrocuenta"  minlength="2"  [autoClear]="false" (onInput)="onValidarInputMask($event)"  placeholder="12  -  0  -  0  -  0  -  00  -  00  -  00" mask="12 - 9 - 9 - 9 - 99 - 99 - 99" slotChar=" "></p-inputMask>    
+                </div>
+            </div>
+
+            <div class="p-field p-col-12  p-lg-5 p-md-5">
+                <div class="formulario">  
+                    <strong>Nombre cuenta*:</strong> 
+                    <input  type="text" pInputText minlength="1" formControlName="nombrecuenta" class="p-inputtext-sm" placeholder="ingresar un nombre">  
+                </div>
+            </div>
+
+            <div class="p-field p-col-12  p-lg-2 p-md-2">
+                <div class="formulario">  
+                    <strong> Imputable :</strong>   
+                    <p-inputSwitch readonly formControlName="imputable"></p-inputSwitch>  
+                </div>
+            </div>
+
+            <div class="p-field p-col-12">
+                <div class="formulario">    
+                    <strong>Naturaleza *:</strong>
+                    <div class="elegirOpciones">
+                        <div>
+                            <strong style="margin: 15px;">DEBE</strong>  
+                            <p-radioButton name="naturaleza" value="D"formControlName="naturaleza"></p-radioButton>
+                        </div>
+                        <div>
+                            <strong style="margin: 15px;">HABER</strong>
+                            <p-radioButton name="naturaleza" value="H"formControlName="naturaleza"></p-radioButton>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+             
+        </div>
+    </div> 
+
+
+    <br>
+ 
+    <div *ngIf="!bloquearData">
+        <p-tabMenu [model]="items" [activeItem]="activeItem">   </p-tabMenu>
+        <br>
+    
+        <div *ngIf="DatosForm" >
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid">
+
+                    <div class="p-field p-col-12 p-md-12">
+                        <strong>Moneda:</strong>
+                        <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"
+                        placeholder="Moneda" optionLabel="valor1" [showClear]="true"></p-dropdown>
+                    </div> 
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <div class="__switches">    
+                            <strong>Requiere Detalle:</strong>
+                            <p-inputSwitch formControlName="requieredetalle"></p-inputSwitch>  
+    
+                            <strong>Requiere Centro Costo:</strong>
+                            <p-inputSwitch formControlName="requierecentrocosto"></p-inputSwitch>  
+    
+                            <strong>Presupuesto:</strong>
+                            <p-inputSwitch formControlName="presupuesto"></p-inputSwitch>
+                        </div> 
+                    </div> 
+                    
+                    <div class="p-field p-col-12 p-md-6">
+                        <div class="__switches">    
+                            <strong>Analisis Patrimonio Neto:</strong>
+                            <p-inputSwitch formControlName="analisispatrimonioneto"></p-inputSwitch>  
+    
+                            <strong>Usado Costo Producción:</strong>
+                            <p-inputSwitch formControlName="usadocostroproduccion"></p-inputSwitch>     
+                        </div> 
+                    </div> 
+                </div>    
+            </div>  
+        </div>
+    
+        <div *ngIf="DestinoForm" >
+        
+        </div>
+    </div>
+ 
+    <div class="botones">
+        <button  
+            class="p-button-sm"
+            pButton
+            type="button"
+            style="margin-right: 1%;"
+            [disabled]="Form.invalid"
+            label="{{ (data) ? 'Actualizar' : 'Grabar' }}"
+            (click)="onGrabar()"
+            icon="pi pi-check-circle">  
+        </button>  
+
+        <button   
+            class="p-button-sm"
+            pButton
+            type="button"
+            style=" background-color: #D72250;"
+            icon="pi pi-times-circle"
+            label="Cancelar" 
+            (click)="onRegresar()">  
+        </button>  
+    </div> 
+</form> 

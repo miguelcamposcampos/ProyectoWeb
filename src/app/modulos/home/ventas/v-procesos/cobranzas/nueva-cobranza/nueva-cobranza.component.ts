@@ -61,6 +61,7 @@ export class NuevaCobranzaComponent implements OnInit {
     private configService: ConfiguracionService,
   ) {
     this.builform(); 
+ 
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
@@ -124,8 +125,6 @@ export class NuevaCobranzaComponent implements OnInit {
         this.onCargarTipoCambio();
         this.onCargarDatosdeConfiguracion(); 
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -145,8 +144,6 @@ export class NuevaCobranzaComponent implements OnInit {
           glosa :this.dataConfiguracion.ventaglosadefault, 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -209,8 +206,6 @@ export class NuevaCobranzaComponent implements OnInit {
         }
 
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   } 
 
@@ -402,8 +397,6 @@ export class NuevaCobranzaComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-      }, error => { 
-         this.generalService.onValidarOtraSesion(error);  
       })
     }else{
       this.cobranzaService.updateCobranza(newCobranza).subscribe((resp)=> {
@@ -411,9 +404,7 @@ export class NuevaCobranzaComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      }, error => { 
-         this.generalService.onValidarOtraSesion(error);  
-      })
+      });
     } 
   }
 

@@ -168,8 +168,6 @@ export class ItemsVentaPosComponent implements OnInit {
         });
         this.isSqueleton = false;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
    
   }
@@ -290,8 +288,6 @@ export class ItemsVentaPosComponent implements OnInit {
         this.onCobrar(this.Tabs[indexTab].idVenta);
       }
       this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     });
     
   }

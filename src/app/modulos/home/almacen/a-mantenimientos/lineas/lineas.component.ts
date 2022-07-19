@@ -29,7 +29,12 @@ export class LineasComponent implements OnInit {
     private lineaService : LineaService,
     private generalService : GeneralService,
     private spinner : NgxSpinnerService
-  ) { }
+  ) {
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
+   }
 
   ngOnInit(): void { 
     this.onLoadLineas(null); 
@@ -78,9 +83,6 @@ export class LineasComponent implements OnInit {
         this.textoPaginado = resp.label; 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -111,8 +113,6 @@ export class LineasComponent implements OnInit {
         this.lineaService.deleteLinea(data.id).subscribe((resp) => { 
           this.onLoadLineas(null); 
           this.swal.mensajeExito('La linea ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -148,8 +148,6 @@ export class LineasComponent implements OnInit {
         this.lineaService.deleteSubLinea(data.idLinea).subscribe((resp) => { 
           this.onLoadLineas(null); 
           this.swal.mensajeExito('La Sub linea ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     }) 

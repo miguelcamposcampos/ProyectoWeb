@@ -32,6 +32,9 @@ export class NuevoAlmacenComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){
@@ -60,8 +63,6 @@ export class NuevoAlmacenComponent implements OnInit {
     obsDatos.subscribe((response) => {
       this.listaTipoProducto = response[0];   
       this.FlgLlenaronCombo.next(true);  
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -88,9 +89,6 @@ export class NuevoAlmacenComponent implements OnInit {
         })
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -110,8 +108,6 @@ export class NuevoAlmacenComponent implements OnInit {
           this.swal.mensajeExito('Los datos se grabaron correctamente!.')
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.establecimientoService.updateAlmacen(newAlmacen).subscribe((resp)=> {
@@ -119,8 +115,6 @@ export class NuevoAlmacenComponent implements OnInit {
           this.swal.mensajeExito('Los datos se actualizaron correctamente!.')
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }
     

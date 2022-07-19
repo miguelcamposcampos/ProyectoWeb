@@ -33,6 +33,9 @@ export class VentasPorClienteDAOTRepAnaliticoComponent implements OnInit {
     
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(val => { 
+      this.spinner.hide();
+    });
   }
 
     
@@ -67,9 +70,6 @@ export class VentasPorClienteDAOTRepAnaliticoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  

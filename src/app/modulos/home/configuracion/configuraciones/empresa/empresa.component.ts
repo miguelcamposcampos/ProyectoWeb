@@ -83,8 +83,6 @@ export class EmpresaComponent implements OnInit {
       this.arrayTipoOperacion = response[4];  
       this.arrayRegimenEmpresa = response[5];  
       this.FlgLlenaronCombo.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     }); 
   }
 
@@ -188,8 +186,6 @@ export class EmpresaComponent implements OnInit {
           ), 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -221,8 +217,6 @@ export class EmpresaComponent implements OnInit {
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       } 
       this.onCargarDropdown();
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

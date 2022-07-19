@@ -29,6 +29,9 @@ export class ColeccionComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
 
@@ -59,9 +62,6 @@ export class ColeccionComponent implements OnInit {
         this.listaColecciones = resp;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -91,8 +91,6 @@ export class ColeccionComponent implements OnInit {
         this.coleccionService.deleteColeccion(data.id).subscribe((resp) => { 
           this.onLoadMaterial(); 
           this.swal.mensajeExito('La coleccion ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -111,8 +109,6 @@ export class ColeccionComponent implements OnInit {
           this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.coleccionService.updateColeccion(newColeccion).subscribe((resp)=> {
@@ -120,8 +116,6 @@ export class ColeccionComponent implements OnInit {
           this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     } 
   }

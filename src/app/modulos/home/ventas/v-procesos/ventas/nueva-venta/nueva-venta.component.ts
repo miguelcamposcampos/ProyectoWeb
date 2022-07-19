@@ -116,6 +116,10 @@ export class NuevaVentaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
@@ -201,8 +205,6 @@ export class NuevaVentaComponent implements OnInit {
           porcentajebolsaplastica :this.dataConfiguracion.porcentajebolsaplastica, 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -258,8 +260,6 @@ export class NuevaVentaComponent implements OnInit {
             nombrecliente :  resp.personaData.nombreCompleto,
           })
       }   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -877,8 +877,6 @@ export class NuevaVentaComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     }); 
   }
  
@@ -899,9 +897,7 @@ export class NuevaVentaComponent implements OnInit {
     
       this.ventaservice.imprimir(data, host).subscribe((resp) => {
         this.swal.mensajeExito('Se envió a imprimir correctamente!.') 
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);  
-      })
+      });
     }
   
   }
@@ -966,8 +962,6 @@ export class NuevaVentaComponent implements OnInit {
     this.ventaservice.imprimir(data, host).subscribe((resp) => {
       this.swal.mensajeExito('Se envió a imprimir correctamente!.')
       this.modalImprimirTicket = false;
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     })
   }
  /* FIN IMPRIMIR TICKET */
@@ -1059,8 +1053,6 @@ export class NuevaVentaComponent implements OnInit {
             }
           })   
         }    
-      },error => {  
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{ 
     this.ventaservice.updateVenta(newVenta).subscribe((resp)=>{ 
@@ -1072,8 +1064,6 @@ export class NuevaVentaComponent implements OnInit {
           this.swal.mensajeExito('Los cambios se actualizaron correctamente!.')    
         }
       })   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -1125,8 +1115,6 @@ export class NuevaVentaComponent implements OnInit {
         this.existenroRegsitro = true; 
         this.AvisarParaActualizar();  
       } 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

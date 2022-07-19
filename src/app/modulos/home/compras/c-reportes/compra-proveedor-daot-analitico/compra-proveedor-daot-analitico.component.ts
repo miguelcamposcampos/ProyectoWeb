@@ -31,6 +31,10 @@ export class CompraProveedorDaotAnaliticoComponent implements OnInit {
     
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
   
   public builform(){ 
@@ -63,9 +67,6 @@ export class CompraProveedorDaotAnaliticoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       }    
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

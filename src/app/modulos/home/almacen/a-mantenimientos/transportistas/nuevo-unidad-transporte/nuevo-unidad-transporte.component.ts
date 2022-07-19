@@ -28,6 +28,9 @@ export class NuevoUnidadTransporteComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
   private builform(): void{
@@ -65,9 +68,6 @@ export class NuevoUnidadTransporteComponent implements OnInit {
         });
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -93,8 +93,6 @@ export class NuevoUnidadTransporteComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver(); 
          }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
     }else { 
       this.transpService.updateUnidadTransporte(newUnidadTransporte).subscribe((resp) =>{
@@ -102,8 +100,6 @@ export class NuevoUnidadTransporteComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   }

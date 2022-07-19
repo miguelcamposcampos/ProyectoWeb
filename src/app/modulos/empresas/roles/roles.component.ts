@@ -37,6 +37,9 @@ export class RolesComponent implements OnInit {
 
     this.authService.verificarAutenticacion();
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   private builform(): void {
@@ -64,9 +67,6 @@ export class RolesComponent implements OnInit {
         this.ListadeRoles = resp; 
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -83,9 +83,6 @@ export class RolesComponent implements OnInit {
         this.spinner.hide();
         this.swal.mensajeExito('El Rol ah sido registrado correctamente!.');
         this.onMostrarRolesPorEmpresa();
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -96,8 +93,6 @@ export class RolesComponent implements OnInit {
         this.rolesServices.deleteRol(data.rolid).subscribe((resp) => { 
           this.onMostrarRolesPorEmpresa(); 
           this.swal.mensajeExito('El rol ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -197,9 +192,6 @@ export class RolesComponent implements OnInit {
           this.spinner.hide();
       } 
      
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
    
@@ -281,9 +273,6 @@ export class RolesComponent implements OnInit {
         this.spinner.hide();
         this.swal.mensajeExito('Se activó el Permiso: ' + event.node.data.name + ' correctamente!');
         this.onVerMenuRol(this.idRolSelect);  
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   } 
 
@@ -297,9 +286,6 @@ export class RolesComponent implements OnInit {
         this.spinner.hide();
         this.swal.mensajeExito('Se desactivó el Permiso: ' + event.node.data.name + ' correctamente!');
         this.onVerMenuRol(this.idRolSelect);  
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   } 
  

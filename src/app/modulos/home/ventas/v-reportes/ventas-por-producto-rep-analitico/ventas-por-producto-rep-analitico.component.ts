@@ -40,6 +40,9 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(val => { 
+      this.spinner.hide();
+    });
   }
 
   public builform(){ 
@@ -90,9 +93,6 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  

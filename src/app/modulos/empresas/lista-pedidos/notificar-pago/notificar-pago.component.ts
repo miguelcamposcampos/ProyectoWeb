@@ -64,10 +64,7 @@ export class NotificarPagoComponent implements OnInit {
         });
         this.spinner.hide();
       } 
-    },error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
-   })
+    });
   }
 
   onSeleccionarTodosLosPedidos(event : any){ 
@@ -140,9 +137,7 @@ export class NotificarPagoComponent implements OnInit {
         this.planesService.notificarPagoConVaucher(NewNotificar).subscribe((resp) => {
           this.onLoadPedidos(); 
           this.swal.mensajeExito('Se envió la notificación correctamente');
-        },error => {
-          this.generalService.onValidarOtraSesion(error);
-       })
+        });
       }
     })  
   }

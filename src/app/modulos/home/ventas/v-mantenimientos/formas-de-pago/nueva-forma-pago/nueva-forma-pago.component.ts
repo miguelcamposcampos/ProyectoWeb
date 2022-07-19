@@ -35,6 +35,10 @@ constructor(
   private spinner : NgxSpinnerService 
 ) { 
   this.builform();
+
+  this.generalService._hideSpinner$.subscribe(x=>{
+    this.spinner.hide();
+  })
 }
 
 public builform(){
@@ -82,8 +86,6 @@ onCargarDropdown(){
     this.arrayDocumento = response[3];   
     this.arrayDocumentoRef = response[4];   
     this.FlgLlenaronCombo.next(true); 
-  },error => { 
-    this.generalService.onValidarOtraSesion(error);  
   });
 }
 
@@ -144,8 +146,6 @@ onGrabar(){
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
         this.onVolver();
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }else{
     this.formpagoService.updateFormaPago(newCondicionPago).subscribe((resp) => {
@@ -153,8 +153,6 @@ onGrabar(){
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
         this.onVolver();
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
 
   }

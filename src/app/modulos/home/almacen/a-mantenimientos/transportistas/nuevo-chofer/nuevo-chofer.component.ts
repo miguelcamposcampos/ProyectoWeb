@@ -37,6 +37,9 @@ export class NuevoChoferComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   ngOnInit(): void { 
@@ -81,9 +84,6 @@ export class NuevoChoferComponent implements OnInit {
         this.limpiarForm(); 
       }
       this.spinner.hide();
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error); 
     }) 
   }
 
@@ -96,8 +96,6 @@ export class NuevoChoferComponent implements OnInit {
       this.listTipoPersona = response[0];
       this.listTipoDocumento = response[1];  
       this.FlgLlenaronCombo.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   } 
 
@@ -155,9 +153,6 @@ export class NuevoChoferComponent implements OnInit {
         });
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -205,8 +200,6 @@ export class NuevoChoferComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else { 
       this.transpService.updateChofer(newChofer).subscribe((resp) =>{
@@ -214,8 +207,6 @@ export class NuevoChoferComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   }

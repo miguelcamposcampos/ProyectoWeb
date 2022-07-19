@@ -44,6 +44,10 @@ export class PedidosComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
    }
 
   public builform(){
@@ -118,9 +122,6 @@ export class PedidosComponent implements OnInit {
         this.listadoPedidos = resp.items;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
 
   }
@@ -180,8 +181,6 @@ export class PedidosComponent implements OnInit {
           if(resp){
             this.onLoadPedidos();
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

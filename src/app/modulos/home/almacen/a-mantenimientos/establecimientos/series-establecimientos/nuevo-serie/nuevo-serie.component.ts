@@ -29,6 +29,9 @@ export class NuevoSerieComponent implements OnInit {
     private spinner: NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   
@@ -58,8 +61,6 @@ export class NuevoSerieComponent implements OnInit {
     obsDatos.subscribe((response) => {
       this.arrayDocumentos = response[0];  
       this.FlgLlenaronCombo.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -83,9 +84,6 @@ export class NuevoSerieComponent implements OnInit {
           }) 
           this.spinner.hide();
         }  
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -104,8 +102,6 @@ export class NuevoSerieComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.')
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.establecimientoService.updateSerie(newSerie).subscribe((resp)=>{
@@ -113,8 +109,6 @@ export class NuevoSerieComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.')
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }
 

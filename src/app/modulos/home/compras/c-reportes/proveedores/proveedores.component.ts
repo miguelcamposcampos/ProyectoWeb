@@ -31,6 +31,10 @@ export class ProveedoresComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
   
   public builform(){ 
@@ -62,9 +66,6 @@ export class ProveedoresComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(url); 
         this.spinner.hide();
       }    
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

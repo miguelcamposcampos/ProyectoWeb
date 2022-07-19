@@ -61,9 +61,6 @@ ngOnInit(): void {
         this.listaClientees = resp.items;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -83,8 +80,6 @@ ngOnInit(): void {
         this.clienteService.deleteCliente(data.idCliente).subscribe((resp) => { 
           this.onLoadClientes(null); 
           this.swal.mensajeExito('El cliente ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

@@ -1,0 +1,60 @@
+ 
+<form [formGroup]="Form">
+    <div class="p-col-12"> 
+        <div class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12 p-md-6">  
+                <strong>Nro cuenta *:</strong>
+                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nrocuenta" class="p-inputtext-sm" placeholder="ingresar un numero de cuenta">     
+            </div> 
+
+            <div class="p-field p-col-12 p-md-6">  
+                <strong>Naturaleza *:</strong>
+                <div class="elegirOpciones">
+                    <div>
+                        <strong style="margin: 15px;">DEBE</strong>  
+                        <p-radioButton name="naturaleza" value="D"
+                            formControlName="naturaleza"></p-radioButton>
+                    </div>
+                    <div>
+                        <strong style="margin: 15px;">HABER</strong>
+
+                        <p-radioButton name="naturaleza" value="H"
+                            formControlName="naturaleza"></p-radioButton>
+                    </div>
+                </div>      
+            </div> 
+
+
+            <div class="p-field p-col-12">  
+                <strong>Nombre cuenta*:</strong>
+                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombrecuenta" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+            </div> 
+  
+          
+      
+        </div> 
+    </div> 
+         
+    <div class="botones">
+        <button  
+            class="p-button-sm"
+            pButton
+            type="button"
+            style="margin-right: 1%;"
+            [disabled]="Form.invalid"
+            label="{{ (data) ? 'Actualizar' : 'Grabar' }}"
+            (click)="onGrabar()"
+            icon="pi pi-check-circle">  
+        </button>  
+
+        <button   
+            class="p-button-sm"
+            pButton
+            type="button"
+            style=" background-color: #D72250;"
+            icon="pi pi-times-circle"
+            label="Cancelar" 
+            (click)="onRegresar()">  
+        </button>  
+    </div> 
+</form> 

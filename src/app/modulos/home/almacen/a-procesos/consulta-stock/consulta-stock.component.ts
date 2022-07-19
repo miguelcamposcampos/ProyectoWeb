@@ -50,8 +50,6 @@ export class ConsultaStockComponent implements OnInit {
           this.arrayAlmacenes.push(x.id)
         );
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -91,9 +89,6 @@ export class ConsultaStockComponent implements OnInit {
           this.listaStockPivot =  this.PivotearData(resp);  
           this.spinner.hide();
         } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

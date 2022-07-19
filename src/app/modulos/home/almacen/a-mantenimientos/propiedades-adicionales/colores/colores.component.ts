@@ -53,9 +53,6 @@ export class ColoresComponent implements OnInit {
         this.listaColores = resp;   
         this.spinner.hide();
       }  
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -66,8 +63,6 @@ export class ColoresComponent implements OnInit {
         this.colorService.deleteColor(data.id).subscribe((resp) => { 
           this.onLoadColores(); 
           this.swal.mensajeExito('El color ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  

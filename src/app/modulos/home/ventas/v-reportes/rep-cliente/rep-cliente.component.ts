@@ -44,9 +44,6 @@ export class RepClienteComponent  {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -72,8 +69,6 @@ export class RepClienteComponent  {
         var blob = new Blob([this.onBase64ToArrayBufferExcel(this.dataExel.data)], {type: "application/xlsx"}); 
         saveAs(blob, "Reporte-Ventas-Sunat.xlsx");  
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

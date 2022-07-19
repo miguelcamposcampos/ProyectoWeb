@@ -62,8 +62,6 @@ export class DocumentosComponent implements OnInit {
           if(resp){
             this.onLoadDocumentos();
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -81,9 +79,6 @@ export class DocumentosComponent implements OnInit {
         this.listaDocumentos = resp; 
         this.spinner.hide();
       }
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

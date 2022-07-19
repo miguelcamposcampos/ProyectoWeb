@@ -36,6 +36,9 @@ export class TomaInventarioComponent implements OnInit {
     
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
    public builform(){
@@ -85,8 +88,6 @@ export class TomaInventarioComponent implements OnInit {
           )
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -109,8 +110,6 @@ export class TomaInventarioComponent implements OnInit {
           ), 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -129,9 +128,6 @@ export class TomaInventarioComponent implements OnInit {
         this.listadoTomaInventario = resp;
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -164,8 +160,6 @@ export class TomaInventarioComponent implements OnInit {
        }  
        this.messageService.add({key: 'ToastExitoso', severity:'success', summary: 'EXCELENTE!.', detail:  newTomaInventario.cantidad + ' Productos fueron registrados con exito!.'});
        this.Form.controls['cantidad'].setValue(1);
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     } 
 

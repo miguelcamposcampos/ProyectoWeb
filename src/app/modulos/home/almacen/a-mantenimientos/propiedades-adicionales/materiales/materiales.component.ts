@@ -28,6 +28,9 @@ export class MaterialesComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
 
@@ -86,8 +89,6 @@ export class MaterialesComponent implements OnInit {
         this.materialService.deleteMaterial(data.id).subscribe((resp) => { 
           this.onLoadMaterial(); 
           this.swal.mensajeExito('El material ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -108,8 +109,6 @@ export class MaterialesComponent implements OnInit {
           this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.materialService.updateMaterial(newTemporada).subscribe((resp)=> {
@@ -117,8 +116,6 @@ export class MaterialesComponent implements OnInit {
           this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     } 
   }

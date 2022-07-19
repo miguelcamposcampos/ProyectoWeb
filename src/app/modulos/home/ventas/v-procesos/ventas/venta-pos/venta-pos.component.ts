@@ -62,8 +62,6 @@ export class VentaPOSComponent implements OnInit {
         })
         this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento ?? 0 );
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -88,8 +86,6 @@ export class VentaPOSComponent implements OnInit {
           this.onObtenerAlmacen(+this.dataPredeterminadosDesencryptada.idalmacen);
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

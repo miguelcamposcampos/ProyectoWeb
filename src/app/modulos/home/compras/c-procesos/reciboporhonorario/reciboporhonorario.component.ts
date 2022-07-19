@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
+import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ReciboPorHonorarioService } from './service/reciboporhonorario.service';
 
@@ -33,9 +34,14 @@ export class ReciboporhonorarioComponent implements OnInit {
     private config : PrimeNGConfig,
     private rxhservice: ReciboPorHonorarioService, 
     private formatFecha : DatePipe,
-    private spinner : NgxSpinnerService
+    private spinner : NgxSpinnerService,
+    private generalService: GeneralService
     ) {
       this.builform();
+
+      this.generalService._hideSpinner$.subscribe(x=>{
+        this.spinner.hide();
+      })
     }
 
     public builform(){

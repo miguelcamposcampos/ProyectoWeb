@@ -122,6 +122,11 @@ export class ConvertirAVentaComponent implements OnInit {
 
   ) { 
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
@@ -222,8 +227,6 @@ export class ConvertirAVentaComponent implements OnInit {
           porcentajebolsaplastica :this.dataConfiguracion.porcentajebolsaplastica, 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -254,8 +257,6 @@ export class ConvertirAVentaComponent implements OnInit {
         this.swal.mensajeAdvertencia('NUMERO DE DOCUMENTO NO ENCONTRADO!.');
         return;
       }    
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -268,8 +269,6 @@ export class ConvertirAVentaComponent implements OnInit {
             nombrecliente :  resp.personaData.nombreCompleto,
           })
       }   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -431,8 +430,6 @@ export class ConvertirAVentaComponent implements OnInit {
           this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento ?? 0)
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -455,8 +452,6 @@ export class ConvertirAVentaComponent implements OnInit {
       if(resp){
         this.arrayAlmacen = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -492,8 +487,6 @@ export class ConvertirAVentaComponent implements OnInit {
       if(resp){
         this.arraySeriePorDocumento = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -822,8 +815,6 @@ export class ConvertirAVentaComponent implements OnInit {
         this.swal.mensajeExito('El documento ha sido referenciado correctamente!.');
         this.onCalcularTotalVenta();
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -856,8 +847,6 @@ export class ConvertirAVentaComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -965,8 +954,6 @@ export class ConvertirAVentaComponent implements OnInit {
     this.ventaservice.imprimir(data, host).subscribe((resp) => {
       this.swal.mensajeExito('Se envió a imprimir correctamente!.')
       this.modalImprimirTicket = false;
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     })
   }
 
@@ -1047,8 +1034,6 @@ export class ConvertirAVentaComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.ventaservice.updateVenta(newVenta).subscribe((resp) => {
@@ -1056,8 +1041,6 @@ export class ConvertirAVentaComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
 

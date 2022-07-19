@@ -38,6 +38,12 @@ const routes: Routes = [
         canActivateChild : [AuthGuard],
       }, 
       {
+        path: 'contabilidad',
+        loadChildren: () => import('./contabilidad/contabilidad.module').then(m => m.ContabilidadModule),
+        canLoad : [AuthGuard],
+        canActivateChild : [AuthGuard],
+      }, 
+      {
         path: 'landing',
         component : LandingComponent,
       }, 

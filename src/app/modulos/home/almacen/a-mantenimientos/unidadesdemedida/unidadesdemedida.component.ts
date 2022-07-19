@@ -43,9 +43,6 @@ export class UnidadesdemedidaComponent implements OnInit {
         this.listUnidadMedida = resp;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -68,8 +65,6 @@ export class UnidadesdemedidaComponent implements OnInit {
         this.unidadMedidaService.deleteUnidadMedida(data.idUnidadMedida).subscribe((resp) => { 
           this.onLoadUnidadMedida(); 
           this.swal.mensajeExito('La unidad de medida ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

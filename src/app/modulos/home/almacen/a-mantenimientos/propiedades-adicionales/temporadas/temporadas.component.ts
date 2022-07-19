@@ -27,6 +27,9 @@ export class TemporadasComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
 
@@ -56,9 +59,6 @@ export class TemporadasComponent implements OnInit {
         this.listaTemporadas = resp;   
         this.spinner.hide();
       } 
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -89,8 +89,6 @@ export class TemporadasComponent implements OnInit {
         this.temporadaService.deleteTemporada(data.id).subscribe((resp) => { 
           this.onLoadTemporada(); 
           this.swal.mensajeExito('La temporada ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -113,8 +111,6 @@ export class TemporadasComponent implements OnInit {
           this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.temporadaService.updateTemporada(newTemporada).subscribe((resp)=> {
@@ -122,8 +118,6 @@ export class TemporadasComponent implements OnInit {
           this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }
 

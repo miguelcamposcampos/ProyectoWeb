@@ -86,9 +86,6 @@ export class TransportistasComponent implements OnInit {
         this.listTransportistas = finall;  
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
     
   }
@@ -110,8 +107,6 @@ export class TransportistasComponent implements OnInit {
         this.transportistaService.deleteTransportista(data.id).subscribe((resp) => { 
           this.onLoadTransportistas(); 
           this.swal.mensajeExito('El transportista ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -142,8 +137,6 @@ export class TransportistasComponent implements OnInit {
         this.transportistaService.deleteChofer(data.id).subscribe((resp) => { 
           this.onLoadTransportistas(); 
           this.swal.mensajeExito('El chofer ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -174,8 +167,6 @@ onModalEliminarUnidadTransporte(data:any){
       this.transportistaService.deleteUnidadTransporte(data.id).subscribe((resp) => { 
         this.onLoadTransportistas(); 
         this.swal.mensajeExito('La unidad de transporte ha sido eliminado correctamente!.'); 
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   })  

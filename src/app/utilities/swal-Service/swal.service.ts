@@ -15,25 +15,7 @@ export class MensajesSwalService {
     ){
 
     }
-
-    // mensajePreloader(condicion : boolean){
-    //     if(condicion){
-    //         Swal.fire({
-    //            // title: 'Cargando',
-    //             html: 'Cargando <br> Espere un momento por favor', 
-    //             timerProgressBar: true,
-    //             didOpen: () => {
-    //               Swal.showLoading()  
-    //             }, 
-    //           }).then((result) => {
-    //             /* Read more about handling dismissals below */
-    //             if (result.dismiss === Swal.DismissReason.timer) {}
-    //      }) 
-    //     }else{
-    //         Swal.close();
-    //     }
-    // }
- 
+  
     mensajeCaducoSesion(): Promise<SweetAlertResult<any>> {
         const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) =>
         { Swal.fire({
@@ -93,27 +75,7 @@ export class MensajesSwalService {
             showConfirmButton: true,
         });
     }
-
-    // mensajePregunta(mensaje: string): Promise<SweetAlertResult<any>> {
-    //     const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) =>
-    //     { Swal.fire({
-    //         title: 'Confirmación',
-    //         text: mensaje,
-    //         icon: 'question',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Si',
-    //         cancelButtonText: 'No'
-    //       }).then(
-    //           respuesta => {
-    //               resolve(respuesta);
-    //           }
-    //       )
-    //     });
-
-    //     return promesa;
-    // }
+ 
 
 
     mensajePregunta(mensaje: string): Promise<SweetAlertResult<any>> {

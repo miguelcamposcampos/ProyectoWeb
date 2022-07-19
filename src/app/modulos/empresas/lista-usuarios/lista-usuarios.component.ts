@@ -46,6 +46,9 @@ export class ListaUsuariosComponent implements OnInit {
   ) { 
     this.authService.verificarAutenticacion();
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   private builform(): void {
@@ -118,17 +121,12 @@ export class ListaUsuariosComponent implements OnInit {
         this.onItemsOperario();
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.show();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
   onListaRoles(){   
     this.rolesService.rolesPorEmpresa().subscribe((resp) => { 
       this.ListadeRoles = resp;   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -162,9 +160,7 @@ export class ListaUsuariosComponent implements OnInit {
         this.onListarUsuarios();
         this.modalChangeRol = false;
         this.swal.mensajeExito('Se cambió el rol del usuario!.')
-      },error =>{
-        this.generalService.onValidarOtraSesion(error); 
-      })
+      });
   
   }
 
@@ -188,11 +184,7 @@ export class ListaUsuariosComponent implements OnInit {
         this.spinner.hide();
         this.swal.mensajeError('No se envio la invitación!,') 
       }
-    },error=>{
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error); 
-    })
- 
+    });
   }
  
  
@@ -205,8 +197,6 @@ export class ListaUsuariosComponent implements OnInit {
         this.usuarioService.suspenderActivarUsuarioEmpresa(this.selectUsuarioSplit.usuarioEmpresaId).subscribe((resp) => { 
           this.swal.mensajeExito('La invitación ha sido ' +textoExito+ ' correctamente!.');  
           this.onListarUsuarios(); 
-        },error => {  
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -219,8 +209,6 @@ export class ListaUsuariosComponent implements OnInit {
         this.usuarioService.eliminarUsuarioEmpresa(this.selectUsuarioSplit.usuarioEmpresaId).subscribe((resp) => { 
           this.swal.mensajeExito('La invitación ha sido eliminado correctamente!.'); 
           this.onListarUsuarios(); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  

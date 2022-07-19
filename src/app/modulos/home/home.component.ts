@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         private swal : MensajesSwalService, 
         private router : Router,
         private cdr: ChangeDetectorRef
-        ) {   
+        ) {    
             this.builform();  
             this.dataDesencryptada = JSON.parse(localStorage.getItem('DatosImpresion')) 
             if(this.dataDesencryptada){

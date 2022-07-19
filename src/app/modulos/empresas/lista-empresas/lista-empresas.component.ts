@@ -119,9 +119,6 @@ export class ListaEmpresasComponent implements OnInit {
         });  
       } 
       this.spinner.hide();
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  

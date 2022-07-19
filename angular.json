@@ -37,7 +37,8 @@
                         ],
                         "scripts": [
                             "node_modules/prismjs/prism.js",
-                            "node_modules/prismjs/components/prism-typescript.js"
+                            "node_modules/prismjs/components/prism-typescript.js",
+                            "node_modules/crypto-js/crypto-js.js"
                         ],
                         "allowedCommonJsDependencies": [
                             "@fullcalendar/daygrid",
@@ -45,7 +46,7 @@
                             "@fullcalendar/interaction",
                             "chart.js",
                             "lodash",
-                            "crypto",
+                            "crypto-js",
                             "xlsx"
                         ]
                     },

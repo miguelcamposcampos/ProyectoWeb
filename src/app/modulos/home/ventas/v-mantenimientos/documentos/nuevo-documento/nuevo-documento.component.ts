@@ -25,6 +25,10 @@ export class NuevoDocumentoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){
@@ -87,9 +91,6 @@ export class NuevoDocumentoComponent implements OnInit {
         });
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -125,8 +126,6 @@ export class NuevoDocumentoComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.documentoService.updateDocumento(newDocumento).subscribe((resp)=>{
@@ -134,8 +133,6 @@ export class NuevoDocumentoComponent implements OnInit {
           this.swal.mensajeExito('Se actualziaron los datos correctamente!');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   }
