@@ -24,15 +24,25 @@ export class ReportesComprasService{
         if(data.agrupador){
             params = params.append('agrupamiento', data.agrupador);
         }  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasSUNAT`, { params: params }); 
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasSUNAT`, { params }); 
     }  
       
     generarReporteProveedorAnalitico(data: any){
         let params = new HttpParams();
         params = params.append('tipoPresentacion', data.tipoPresentacion);
-        params = params.append('f1', data.f1);
-        params = params.append('f2', data.f2);  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasPorProveedorAnalitico`, { params: params });
+        if(data.f1){
+            params = params.append('f1', data.f1);
+        }
+        if(data.f2){
+            params = params.append('f2', data.f2);  
+        }
+        if(data.proveedorid){
+            params = params.append('proveedorid', data.proveedorid);
+        }  
+        if(data.lineaid){
+            params = params.append('lineaid', data.lineaid.id);
+        }   
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasPorProveedorAnalitico`, { params });
     }
 
 
@@ -41,15 +51,28 @@ export class ReportesComprasService{
         params = params.append('tipoPresentacion', data.tipoPresentacion);
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasPorProductoResumen`, { params: params });
+        if(data.productoid){
+            params = params.append('productoid', data.productoid);
+        }    
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasPorProductoResumen`, { params });
     }
 
     generarReporteProductoAnalitico(data: any){
         let params = new HttpParams();
         params = params.append('tipoPresentacion', data.tipoPresentacion);
-        params = params.append('f1', data.f1);
-        params = params.append('f2', data.f2);  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasPorProductoAnalitico`, { params: params });
+        if(data.f1){
+            params = params.append('f1', data.f1);
+        }
+        if(data.f2){
+            params = params.append('f2', data.f2);  
+        }
+        if(data.proveedorid){
+            params = params.append('proveedorid', data.proveedorid);
+        }  
+        if(data.lineaid){
+            params = params.append('lineaid', data.lineaid.id);
+        }    
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasPorProductoAnalitico`, { params });
     } 
 
 
@@ -58,7 +81,7 @@ export class ReportesComprasService{
         params = params.append('tipoPresentacion', data.tipoPresentacion);
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerComprasPorProveedorResumenDAOT`, { params: params });
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerComprasPorProveedorResumenDAOT`, { params });
     }
  
     generarReporteProveedorDAOTAnalitico(data: any){
@@ -66,7 +89,7 @@ export class ReportesComprasService{
         params = params.append('tipoPresentacion', data.tipoPresentacion);
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerComprasPorProveedoAnaliticoDAOT`, { params: params });
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerComprasPorProveedoAnaliticoDAOT`, { params });
     } 
   
   
@@ -76,14 +99,14 @@ export class ReportesComprasService{
         params = params.append('tipoPresentacion', data.tipoPresentacion);
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);  
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasDetraccion`, { params: params });
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteComprasDetraccion`, { params });
     } 
 
     
     generarReporteProveedor(data:any){ 
         let params = new HttpParams();
         params = params.append('tipoPresentacion', data.tipoPresentacion);
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteProveedores`, { params: params });
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingCompras/ObtenerReporteProveedores`, { params });
     } 
  
 }

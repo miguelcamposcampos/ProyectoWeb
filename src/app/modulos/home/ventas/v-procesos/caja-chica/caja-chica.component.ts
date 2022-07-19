@@ -36,6 +36,10 @@ export class CajaChicaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {  
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){
@@ -82,9 +86,6 @@ export class CajaChicaComponent implements OnInit {
         this.textoPaginado = resp.label;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -107,8 +108,6 @@ export class CajaChicaComponent implements OnInit {
             this.onLoadCajachica(null);
             this.swal.mensajeExito('El documento se ha sido eliminado correctamente!.'); 
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

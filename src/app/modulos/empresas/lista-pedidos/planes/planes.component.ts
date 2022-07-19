@@ -46,10 +46,7 @@ export class PlanesComponent implements OnInit {
         this.listaPlanes = resp;  
         this.spinner.hide();
       } 
-    },error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
-   })
+    });
   }
 
   onInfoPlan(plan : any){   
@@ -68,10 +65,7 @@ export class PlanesComponent implements OnInit {
         this.datosPlan = Datos[0];   
       }
       this.spinner.hide();
-    },error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
-   })
+    });
   }
 
   onPlanElegido(plan : any){   

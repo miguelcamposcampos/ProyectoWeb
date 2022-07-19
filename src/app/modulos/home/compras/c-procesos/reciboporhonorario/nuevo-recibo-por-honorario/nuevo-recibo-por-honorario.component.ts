@@ -69,6 +69,10 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     private configService: ConfiguracionService,
     private spinner : NgxSpinnerService
   ) {  
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
     this.builform();
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
@@ -476,7 +480,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
 
   onGrabar(){
     const dataform = this.Form.value; 
-    let DetallesGrabar :any[] = this.onGrabarDetallesVenta(); 
+    let DetallesGrabar :any[] = this.onGrabarDetallesVenta();  
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
   
     const newVenta : ICrearRxh = {
@@ -515,8 +519,6 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.rxhService.updateRxh(newVenta).subscribe((resp) => {
@@ -524,8 +526,6 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);  
       });
     } 
   }

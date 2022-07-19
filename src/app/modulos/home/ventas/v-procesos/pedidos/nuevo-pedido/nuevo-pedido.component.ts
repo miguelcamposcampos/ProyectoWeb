@@ -1,5 +1,4 @@
-import { DatePipe } from '@angular/common';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { DatePipe } from '@angular/common'; 
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -27,7 +26,7 @@ export class NuevoPedidoComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   valorIGV : number = 0.18;
   fechaActual = new Date();
-  tituloNuevoPedido: string ="NUEVA PEDIDO";
+  tituloNuevoPedido: string ="NUEVO PEDIDO";
   opcionesNuevoPedido: MenuItem[];
   Form : FormGroup;
   PedidoEditar : IVentaPorId; 
@@ -106,6 +105,11 @@ export class NuevoPedidoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform(); 
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
    }
 
    public builform(){
@@ -120,11 +124,11 @@ export class NuevoPedidoComponent implements OnInit {
       fechaemision : new FormControl(this.fechaActual ,Validators.required),
       fechavencimiento : new FormControl(this.fechaActual ,Validators.required),
       fechadespacho : new FormControl(this.fechaActual ,Validators.required),
-      diasvencimiento : new FormControl(null ,Validators.required),
+      diasvencimiento : new FormControl(0,Validators.required),
       monedaid : new FormControl(null ,Validators.required),
       tipocambio : new FormControl(null ,Validators.required),
       condicionpagoid : new FormControl(null ,Validators.required),
-      estadoid : new FormControl(null, Validators.required),
+      estadoid : new FormControl({id: 1, valor1: 'PENDIENTE', valor2: null, valor3: 0, valor4: false}, Validators.required),
       glosa : new FormControl(null ,Validators.required),
       codtipooperacion : new FormControl(null ,Validators.required), 
       motivonotaid: new FormControl(null),
@@ -176,7 +180,26 @@ export class NuevoPedidoComponent implements OnInit {
     this.dataReporte = this.PedidoEditar;
     this.VistaReporte = true;
   }
+
  
+  onCalculardiasVencimiento(){
+    let f1x = this.formatoFecha.transform(this.Form.controls['fechaemision'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let f2x = this.formatoFecha.transform(this.Form.controls['fechavencimiento'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let fechaI = new Date(f1x);
+    let fechaF = new Date(f2x); 
+    let dias = Math.floor((fechaF.getTime() - fechaI.getTime()) / (1000 * 60 * 60 * 24)); 
+    this.Form.controls['diasvencimiento'].setValue(dias);
+  }
+
+
+  onCalcularfechaVencimiento(event){
+    let diasV = +event.target.value;
+    let FV = new Date(this.Form.controls['fechaemision'].value);
+    let NuevaFecha =  new Date(FV.setDate(FV.getDate() + diasV));
+    this.Form.controls['fechavencimiento'].setValue(NuevaFecha);
+  }
+  
+
   onObtenerPersonaPorNroDocumentoVenta(event : any){
     let numdocumento = event.target.value; 
     this.ventaservice.obtenerPersonaPorNroDocumentoVenta(numdocumento).subscribe((resp) => {
@@ -194,8 +217,6 @@ export class NuevoPedidoComponent implements OnInit {
         this.swal.mensajeAdvertencia('NUMERO DE DOCUMENTO NO ENCONTRADO!.');
         return;
       }    
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
    
@@ -313,7 +334,7 @@ export class NuevoPedidoComponent implements OnInit {
             establecimientoid: this.arrayEstablecimiento.find(
               (x) => x.id === +this.dataPredeterminadosDesencryptada.idEstablecimiento
             ), 
-          }) 
+          })
           this.idEstablecimientoSeleccionado = +this.dataPredeterminadosDesencryptada.idEstablecimiento
           this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento) 
         }
@@ -330,8 +351,6 @@ export class NuevoPedidoComponent implements OnInit {
             nombrecliente :  resp.personaData.nombreCompleto,
           })
       }   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -357,8 +376,6 @@ export class NuevoPedidoComponent implements OnInit {
           importeicbper :this.dataConfiguracion.porcentajebolsaplastica, 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -385,11 +402,10 @@ export class NuevoPedidoComponent implements OnInit {
             almacenid: this.arrayAlmacen.find(
               (x) => x.id === +this.dataPredeterminadosDesencryptada.idalmacen,
             )
-          })
-        }
-  
+          });
+        } 
       }
-    })
+    });
   }
 
 
@@ -412,8 +428,6 @@ export class NuevoPedidoComponent implements OnInit {
       if(resp){
         this.arraySeriePorDocumento = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -447,7 +461,7 @@ export class NuevoPedidoComponent implements OnInit {
       this.existeDireccionCliente = false;
       this.existeClienteSeleccionado = false;
       }
-    })
+    });
   }
 
 
@@ -472,24 +486,23 @@ export class NuevoPedidoComponent implements OnInit {
       productoid : new FormControl(null),
       descripcionproducto : new FormControl(''),
       unidadmedida : new  FormControl(null), // combo
-      unidadmedidaid : new  FormControl(null), // combo
-  //   almacenid : new FormControl(null),   //combo 
+      unidadmedidaid : new  FormControl(null), // combo 
       almacenid: this.arrayAlmacen.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
-      cantidad : new  FormControl(0),
-      preciounitario : new  FormControl(0),
+      cantidad : new  FormControl(1),
+      preciounitario : new  FormControl(null),
       precioincluyeigv : new  FormControl(false),
-      baseimponible : new  FormControl(0),
+      baseimponible : new  FormControl(null),
       tipoafectacionid : new  FormControl(null), //combo
       porcentajedescuento : new  FormControl(0),
       importedescuento: new  FormControl(0),
       observaciones: new  FormControl(""),  //stext
-      valorVenta: new  FormControl(0),
-      igv : new  FormControl(0),
+      valorVenta: new  FormControl(null),
+      igv : new  FormControl(null),
       importesotroscargos : new  FormControl(0),
-      importeicbper : new  FormControl(0),
-      precioventa : new  FormControl(0),
+      importeicbper : new  FormControl(null),
+      precioventa : new  FormControl(null),
       nroLote : new  FormControl(null),  //stext
       nroSerie: new  FormControl(null), //stext
       fechavencimiento: new  FormControl(null), //celndar
@@ -500,6 +513,7 @@ export class NuevoPedidoComponent implements OnInit {
       ventaanticiporeferenciaid: new  FormControl(null),
       esInafecto : new  FormControl(null),
       esExonerado : new  FormControl(null),
+      nrocuenta : new  FormControl(null)
     })
   }
 
@@ -589,8 +603,6 @@ export class NuevoPedidoComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -636,6 +648,10 @@ export class NuevoPedidoComponent implements OnInit {
   onGrabar(){
     const dataform = this.Form.value; 
     let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta(); 
+    if(DetallesVentaGrabar){
+      this.swal.mensajeAdvertencia('Revisa el detalle, faltan datos.');
+      return;
+    }
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
     let DetallePedidoGrabar : any = this.onPedidoData(); 
      
@@ -687,6 +703,7 @@ export class NuevoPedidoComponent implements OnInit {
       idsToDelete: this.arrayDetallesEliminados,
       ventaid : this.PedidoEditar ? this.PedidoEditar.ventaid : 0,
       pedidoData : DetallePedidoGrabar, 
+     // conceptocontableid: null
     }
   
     if(!this.PedidoEditar){
@@ -695,8 +712,6 @@ export class NuevoPedidoComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-      }, error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.ventaservice.updateVenta(newVenta).subscribe((resp) => {
@@ -704,8 +719,6 @@ export class NuevoPedidoComponent implements OnInit {
           this.onVolver();
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      }, error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
 
@@ -751,9 +764,6 @@ export class NuevoPedidoComponent implements OnInit {
         this.existenroRegsitro = true;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -771,8 +781,6 @@ export class NuevoPedidoComponent implements OnInit {
       this.arrayAlmacen = response[0]; 
       this.arraySeriePorDocumento = response[1]; 
       this.FlgLlenaronComboParaActualizar.next(true);
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -836,8 +844,8 @@ export class NuevoPedidoComponent implements OnInit {
       importeigv : this.PedidoEditar.importeigv ?? 0,
       importeotrostributos  : this.PedidoEditar.importeotrostributos ?? 0,
       importetotalventa : this.PedidoEditar.importetotalventa ?? 0,
-      importevalorventa : this.PedidoEditar.importevalorventa ?? 0
-
+      importevalorventa : this.PedidoEditar.importevalorventa ?? 0,
+    //  conceptocontableid : this.PedidoEditar.conceptocontableid ?? 0
     })
 
     for( let  i = 0; i < this.PedidoEditar.detalles.length; i++){
@@ -882,6 +890,7 @@ export class NuevoPedidoComponent implements OnInit {
         esGratuito:  this.PedidoEditar.detalles[i].esGratuito,
         esGravada:  this.PedidoEditar.detalles[i].esGravada,
         ventaanticiporeferenciaid:  this.PedidoEditar.detalles[i].ventaanticiporeferenciaid,
+        nrocuenta:  this.PedidoEditar.detalles[i].nrocuenta,
       });
     }
   
@@ -933,15 +942,13 @@ export class NuevoPedidoComponent implements OnInit {
 
   onGrabarDetallesVenta(){
     this.arrayDetalleVentaGrabar = [];
-
     let arrayVentaDetalleDetraccionTransporte :any = this.onGrabarDetalleVentaDetraccionTransporte();
-
+    
     this.detallesVentaForm.forEach(element => {
-      if(!element.value){
+      if(!element.value.almacenid){
         this.swal.mensajeInformacion('Aquellos registros vacios no se insertaran en al registro.');
         return;
-      }else{
-  
+      }else{  
         this.arrayDetalleVentaGrabar.push({
           ventadetalleid:  element.value.ventadetalleid,
           ventaid :  element.value.ventaid,
@@ -975,10 +982,13 @@ export class NuevoPedidoComponent implements OnInit {
           ventaAnticipoReferencia :  '',
           ventadetallemigradaid:  null,
           ventaDetalleDetraccionTransporteInfoDTO : arrayVentaDetalleDetraccionTransporte,
+          nrocuenta : element.value.nrocuenta,
         });
       }
     })
+ 
     return this.arrayDetalleVentaGrabar;
+   
   }
 
  
@@ -1045,49 +1055,48 @@ export class NuevoPedidoComponent implements OnInit {
 
   }
 
-  onCalcularPrecioVenta(posicion : number){
-    const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
-
-    if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
-    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
-    let biActualizar  = DataForm.cantidad * preciosinigv;
-    this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
-
-    let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
-    this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd);
-
-    let vVenta = (biActualizar - DataForm.importedescuento);
-    this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
-  
-    let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
-    this.detallesVentaForm[posicion].controls['igv'].setValue(igvAct);
+  onCalcularPrecioVenta(posicion : number){ 
+      const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value; 
  
-    let precioventaAct = (+vVenta + igvAct + DataForm.importesotroscargos);
-    let importeicbperAct = DataForm.cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
+      if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
+      let preciosinigv = DataForm.precioincluyeigv ? (+DataForm.preciounitario / (1 +this.valorIGV)) : +DataForm.preciounitario; 
+      let biActualizar  = DataForm.cantidad * preciosinigv;
+      this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
 
-    if(DataForm.esafectoicbper){ 
-      this.detallesVentaForm[posicion].patchValue({
-        importeicbper : importeicbperAct,
-        precioventa : precioventaAct
-      });
-    }else{ 
-      this.detallesVentaForm[posicion].patchValue({
-        importeicbper : 0,
-        precioventa : precioventaAct
-      });
-    }
+      let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
+      this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd);
+
+      let vVenta = (biActualizar - DataForm.importedescuento);
+      this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
+    
+      let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
+      this.detallesVentaForm[posicion].controls['igv'].setValue(igvAct);
   
-    this.onCalcularTotalVenta();
- 
+      let precioventaAct = (+vVenta + igvAct + DataForm.importesotroscargos);
+      let importeicbperAct = DataForm.cantidad * (this.porcentajebolsaplasticaLS ?? 0 );
+
+      if(DataForm.esafectoicbper){ 
+        this.detallesVentaForm[posicion].patchValue({
+          importeicbper : importeicbperAct,
+          precioventa : precioventaAct
+        });
+      }else{ 
+        this.detallesVentaForm[posicion].patchValue({
+          importeicbper : 0,
+          precioventa : precioventaAct
+        });
+      }
+    
+      this.onCalcularTotalVenta();
   }
 
   onCalcularTotalVenta(){
-    const DataForm = this.Form.value;
+     
+    const DataForm = this.Form.getRawValue();
     let detallesNoGratuitos : any[]=[];
     let NoAnticipos : any[]=[];
     let Anticipos : any[]=[];
- 
-    //* RECORREMOS LOS NO GRATUITOS
+  
     this.detallesVentaForm.forEach(det => {
       if(!det.value.esGratuito){
         detallesNoGratuitos.push(det.value);

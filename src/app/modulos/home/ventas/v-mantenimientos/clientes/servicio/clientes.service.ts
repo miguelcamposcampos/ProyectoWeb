@@ -23,7 +23,7 @@ export class ClienteService {
         params = params.append('itemsporpagina', data.itemsporpagina);
         params = params.append('razonsocial', data.razonsocial);
         params = params.append('nrodoc', data.nrodoc);
-        return this.http.get<IListaCliente>(`${this.api987}/v1/Cliente/ObtenerClientesConsulta`, { params: params });
+        return this.http.get<IListaCliente>(`${this.api987}/v1/Cliente/ObtenerClientesConsulta`, { params });
     }
 
      

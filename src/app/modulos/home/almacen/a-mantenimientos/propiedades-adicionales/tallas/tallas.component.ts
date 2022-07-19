@@ -27,6 +27,9 @@ export class TallasComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
 
@@ -57,9 +60,6 @@ export class TallasComponent implements OnInit {
         this.listaTallas = resp;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -89,8 +89,6 @@ export class TallasComponent implements OnInit {
         this.tallaService.deleteTalla(data.id).subscribe((resp) => { 
           this.onLoadTallas(); 
           this.swal.mensajeExito('La talla ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  
@@ -111,8 +109,6 @@ export class TallasComponent implements OnInit {
           this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.tallaService.updateTalla(newTalla).subscribe((resp)=> {
@@ -120,8 +116,6 @@ export class TallasComponent implements OnInit {
           this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
           this.onRetornar('exito')
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }
 

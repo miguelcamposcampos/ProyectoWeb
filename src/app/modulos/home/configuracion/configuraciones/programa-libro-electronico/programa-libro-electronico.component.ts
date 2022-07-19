@@ -3,10 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ConfiguracionService } from '../service/configuracion.service';
-import { saveAs } from 'file-saver';
-import * as XLSX from 'xlsx';   
-import { IModuloReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
-import { GeneralService } from 'src/app/shared/services/generales.services';
+import { saveAs } from 'file-saver'; 
+import { IModuloReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface'; 
 
 
 @Component({
@@ -31,8 +29,7 @@ export class ProgramaLibroElectronicoComponent implements OnInit {
 
   constructor(
     private configService : ConfiguracionService,
-    private swal : MensajesSwalService,
-    private generalService : GeneralService
+    private swal : MensajesSwalService, 
   ) {
     this.builform();
    }
@@ -62,8 +59,6 @@ export class ProgramaLibroElectronicoComponent implements OnInit {
       if(resp){
         this.swal.mensajeExito('Se grabaron los datos correctamente');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -82,8 +77,6 @@ export class ProgramaLibroElectronicoComponent implements OnInit {
         var blob = new Blob([this.onBase64ToArrayBuffer(this.plantillaExcel.fileContent)], {type: "application/xlsx"}); 
         saveAs(blob, "AchivoPLE.txt");
       }
-    }, error => { 
-      this.generalService.onValidarOtraSesion(error);  
     })
   }
 

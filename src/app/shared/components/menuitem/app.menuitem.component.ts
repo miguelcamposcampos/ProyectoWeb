@@ -15,13 +15,13 @@ import { HomeComponent } from 'src/app/modulos/home/home.component';
             <div *ngIf="root && item.visible !== false">
                 <span class="layout-menuitem-text">{{item.label}}</span>
             </div>
-            <a [attr.href]="item.url" (click)="itemClick($event)" *ngIf="(!item.routerLink || item.items) && item.visible !== false" (keydown.enter)="itemClick($event)"
+            <a [attr.href]="item.url" (click)="itemClick($event)" (click)="onEnviarTitulo(item)" *ngIf="(!item.routerLink || item.items) && item.visible !== false" (keydown.enter)="itemClick($event)"
                [attr.target]="item.target" [attr.tabindex]="0" [ngClass]="item.class" (mouseenter)="onMouseEnter()" pRipple>
                 <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
                 <span class="layout-menuitem-text">{{item.label}}</span>
                 <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
             </a>
-            <a (click)="itemClick($event)" *ngIf="(item.routerLink && !item.items) && item.visible !== false"
+            <a (click)="itemClick($event)" (click)="onEnviarTitulo(item)" *ngIf="(item.routerLink && !item.items) && item.visible !== false"
                [routerLink]="item.routerLink" routerLinkActive="active-menuitem-routerlink" [routerLinkActiveOptions]="{exact: true}"
                [attr.target]="item.target" [attr.tabindex]="0" [ngClass]="item.class" (mouseenter)="onMouseEnter()" pRipple>
                 <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
@@ -70,25 +70,25 @@ import { HomeComponent } from 'src/app/modulos/home/home.component';
         ])
     ]
 })
+
 export class AppMenuitemComponent implements OnInit, OnDestroy {
 
     @Input() item: any;
-
     @Input() index: number;
-
     @Input() root: boolean;
-
-    @Input() parentKey: string;
+    @Input() parentKey: string; 
 
     active = false;
-
     menuSourceSubscription: Subscription;
-
     menuResetSubscription: Subscription;
-
     key: string;
 
-    constructor(public app: HomeComponent, public router: Router, private cd: ChangeDetectorRef, private menuService: MenuService) {
+    constructor(
+        public app: HomeComponent,
+        public router: Router,  
+        private menuService: MenuService, 
+    ) {
+      
         this.menuSourceSubscription = this.menuService.menuSource$.subscribe(key => {
             // deactivate current active menu
             if (this.active && this.key !== key && key.indexOf(this.key) !== 0) {
@@ -112,23 +112,30 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
                     }
                 }
             });
+            
     }
 
-    ngOnInit() {
+    ngOnInit() {  
         if (!this.app.isHorizontal() && this.item.routerLink) {
             this.updateActiveStateFromRoute();
         }
-
-        this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index);
+    
+        this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index); 
     }
 
     updateActiveStateFromRoute() {   
         //this.active = this.router.isActive(this.item.routerLink[0], this.item.items ? false : true);   
     }
 
+    onEnviarTitulo(event){
+        if(!event.items){
+            this.app.onNuevoTab(event);
+        } 
+    }
+
     itemClick(event: Event) {
-        // avoid processing disabled items
-        if (this.item.disabled) {
+        // avoid processing disabled items 
+        if (this.item.disabled) {   
             event.preventDefault();
             return;
         }

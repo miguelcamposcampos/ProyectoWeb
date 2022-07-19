@@ -89,6 +89,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {  
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(): void{
@@ -98,7 +101,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       moneda: new FormControl(null, Validators.required), 
       tipoguia: new FormControl(null, Validators.required), 
       serieguia : new FormControl(null),
-      sencuencialguia : new FormControl(null),
+      sencuencialguia : new FormControl(0),
       docReferencia: new FormControl(null),
       seriedocref : new FormControl(null),
       secuencialref : new FormControl(null),
@@ -193,12 +196,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
           this.onAlmacenesPorId(+this.dataPredeterminadosDesencryptada.idEstablecimiento)
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
- 
-
+  
   onBuscarProductoPorCodigo(posicion: any){
     let codProductoaBuscar = (this.Form.get('arrayDetalles') as FormArray).at(posicion).value.codigoProducto;
     const data = {
@@ -224,13 +224,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
       this.spinner.hide();
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
-  
-
+   
   onCargarDropdownParaEditar(data :any){
     const dataParams = {
       idestablecimiento : data.establecimientoid,
@@ -250,13 +246,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       this.arrayAlmacenes = response[2]; 
       this.arraySeriePorDocumento = response[3]; 
       this.FlgLlenaronComboParaActualizar.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
-
-
-
+  
   onObtenerEstablecimiento(event : any){ 
     if(event){
       this.idEstablecimientoSeleccionado = event.value.id
@@ -269,12 +261,9 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       if(resp){ 
         this.arrayAlmacenes = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
-
-
+ 
   onObtenerTguia(event: any){ 
     if(event){
       const data = {
@@ -290,8 +279,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
       if(resp){
         this.arraySeriePorDocumento = resp;
       } 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -334,9 +321,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
         this.GuiaRemisionEditar = resp;  
         this.spinner.hide();  
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -488,15 +472,14 @@ export class NuevaGuiaRemisionComponent implements OnInit {
 
   AddDetalle(){ 
     return this.fb.group({ 
-      productoid: new FormControl(null),  
-     // almacen : new  FormControl(null, Validators.required),  
+      productoid: new FormControl(null),   
       almacen: this.arrayAlmacenes.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
       codigoProducto : new FormControl(null, Validators.required), 
       descripcion: new FormControl(null),  
       unidadMedida: new FormControl(null, Validators.required),
-      cantidad: new FormControl(0),   
+      cantidad: new FormControl(1),   
       bultos: new FormControl(null, Validators.required),   
       pesoUnitario: new FormControl(null),  
       precioUnitario: new FormControl(null),
@@ -555,8 +538,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   onCargarComboUndTransporte(event : number){
     this.generalService.listarUndTransporteCombo(event).subscribe((resp) => {
       this.arrayPlacaCombo = resp; 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -579,9 +560,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
         this.Form.controls['marca'].setValue(resp.tractomarca); 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -589,8 +567,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   onCargarComboChofer(event : number){
     this.generalService.listarChoferCombo(event).subscribe((resp) => {
       this.arrayChofercombo = resp;  
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -611,9 +587,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
         this.Form.controls['brevete'].setValue(resp.brevete); 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -751,8 +724,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
             }
           })   
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.guiaRemisionService.updateguiaRemision(newGuiaRemision).subscribe((resp)=>{
@@ -764,8 +735,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
             this.onVolver();
           }
         })  
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     } 
   }

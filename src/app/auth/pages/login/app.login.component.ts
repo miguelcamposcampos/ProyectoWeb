@@ -6,6 +6,7 @@ import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IAuth } from '../../interface/auth.interface';
 import { AuthService } from '../../services/auth.service';
+import { InterceptorService } from '../../services/interceptor.service';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -27,9 +28,9 @@ export class AppLoginComponent implements OnInit  {
     private authService : AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private swal: MensajesSwalService,
-    private generalService : GeneralService,
-    private spinner : NgxSpinnerService
+    private swal: MensajesSwalService, 
+    private spinner : NgxSpinnerService, 
+    private generalService : GeneralService
   ) { 
     this.builform();
     this.RecordarLogin = localStorage.getItem('rememberMe');  
@@ -37,6 +38,11 @@ export class AppLoginComponent implements OnInit  {
       this.checkRecordarLogin = true;
       this.onAutoLlenarLogin();
     }
+
+    this.generalService._hideSpinner$.subscribe(val => { 
+      this.spinner.hide();
+    });
+
   }
   ngOnInit(): void {
     this.onLimpiarLS();
@@ -64,20 +70,16 @@ export class AppLoginComponent implements OnInit  {
       email : logindata.email,
       passwordDesencriptado :  logindata.password 
     }
-   this.spinner.show();
-    this.authService.login(data).subscribe((resp) => { 
-      if(resp){
+    this.spinner.show();
+    this.authService.login(data).subscribe((resp) => {  
+      if(resp){ 
         localStorage.setItem('rememberMe', logindata.rememberMe ? logindata.rememberMe : null); 
-        if(!(localStorage.getItem('estado') === 'Activo')){
-          this.spinner.hide();
+        if(!(localStorage.getItem('estado') === 'Activo')){ 
           this.swal.mensajeActivacionUsuario(logindata.email);
         }else{ 
           this.router.navigate(['/modulos/empresas']);
         }  
-      } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
+      }  
     });
   }
  
@@ -102,11 +104,9 @@ export class AppLoginComponent implements OnInit  {
     }
  
     this.swal.mensajeRecuperarEmail('Quiere recuperar la contraseña del correo: ', this.emailRecuperar).then((response) => { 
-      if (response.isConfirmed) { 
+      if(response.isConfirmed) { 
           this.loginService.recuperarCredenciales(this.emailRecuperar).subscribe((resp) => { 
           this.swal.mensajeExito('Se envió un correo a su bandeja de entrada.');
-        },error =>{
-          this.generalService.onValidarOtraSesion(error);  
         }) 
       }
     });

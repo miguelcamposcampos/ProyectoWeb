@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { InterceptorService } from 'src/app/auth/services/interceptor.service';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces'; 
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -31,7 +32,9 @@ export class BuscarProductoComponent implements OnInit {
     private spinner : NgxSpinnerService,
     private generalService : GeneralService
   ) {
-   
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
    }
 
   ngOnInit(): void { 
@@ -90,11 +93,7 @@ export class BuscarProductoComponent implements OnInit {
         this.listaProductos = resp;
         this.spinner.hide();
       }  
-    }, error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     })
-   
   }
 
   onSeleccionarProducto(event: any){

@@ -25,6 +25,10 @@ export class NuevoDocumentoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){
@@ -48,6 +52,7 @@ export class NuevoDocumentoComponent implements OnInit {
       notaingalmacen : new FormControl(false),
       notasalalmacen : new FormControl(false),
       cajabanco : new FormControl(false), 
+      nrocuentacobranza  : new FormControl(false), 
     })
   }
  
@@ -82,12 +87,10 @@ export class NuevoDocumentoComponent implements OnInit {
           ordencompra : this.DocumentoEditar.esordencompra,
           recibohonorario: this.DocumentoEditar.usadorecibohonorario,
           venta: this.DocumentoEditar.usadoventas,
+          nrocuentacobranza : this.DocumentoEditar.nrocuentacobranza,
         });
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -96,8 +99,7 @@ export class NuevoDocumentoComponent implements OnInit {
     const newDocumento : IListarDocumentos = {
       documentoid : data.codigo,
       nombre : data.nombre,
-      siglasdocumento : data.siglas,
-    //  esadelanto : data.adelanto,
+      siglasdocumento : data.siglas, 
       esanticipo : data.anticipo,
       escajabanco : data.cajabanco,
       escontable : data.contable, 
@@ -115,6 +117,7 @@ export class NuevoDocumentoComponent implements OnInit {
       usadocompras : data.compra,
       usadorecibohonorario : data.recibohonorario,
       usadoventas : data.venta,
+      nrocuentacobranza: data.nrocuentacobranza
 
     } 
     if(!this.DocumentoEditar){
@@ -123,8 +126,6 @@ export class NuevoDocumentoComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.documentoService.updateDocumento(newDocumento).subscribe((resp)=>{
@@ -132,8 +133,6 @@ export class NuevoDocumentoComponent implements OnInit {
           this.swal.mensajeExito('Se actualziaron los datos correctamente!');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   }

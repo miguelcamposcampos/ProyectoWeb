@@ -44,6 +44,9 @@ export class NuevoTransportistaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform(); 
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
    private builform(): void {
@@ -83,8 +86,6 @@ export class NuevoTransportistaComponent implements OnInit {
       this.listTipoPersona = response[0];
       this.listTipoDocumento = response[1];  
       this.FlgLlenaronCombo.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   } 
 
@@ -128,9 +129,6 @@ export class NuevoTransportistaComponent implements OnInit {
         });
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -217,9 +215,6 @@ export class NuevoTransportistaComponent implements OnInit {
             this.limpiarForm(); 
           }
           this.spinner.hide();
-        },error => {  
-          this.spinner.hide();
-          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
@@ -238,10 +233,7 @@ export class NuevoTransportistaComponent implements OnInit {
             this.ubigeoSeleccionado = resp.Data.ubigeo.toString();             
           }  
           this.spinner.hide();
-        },error => {
-          this.spinner.hide();
-          this.generalService.onValidarOtraSesion(error);  
-        })
+        });
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de ruc valido');
       }
@@ -299,8 +291,6 @@ export class NuevoTransportistaComponent implements OnInit {
             this.swal.mensajeExito('Se grabaron los datos correctamente!.');
             this.onVolver();
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
     } else { 
       this.transpService.updateTransportista(newTransportista).subscribe((resp) =>{
@@ -308,8 +298,6 @@ export class NuevoTransportistaComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
  

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser'; 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { IModuloReporte } from '../../a-mantenimientos/productos/interface/producto.interface';
 import { IReporteModalidad } from '../interface/reporte.interface'; 
@@ -17,7 +18,9 @@ export class StockFisicoValorizadoComponent implements OnInit {
   Pdf : any;
   urlGenerate : any;
   arrayModalidad : IReporteModalidad[];
-  arrayMonedas : IReporteModalidad[]
+  arrayMonedas : IReporteModalidad[];
+  arrayEstablecimientos : ICombo[]; 
+  arrayLinea : ICombo[];
   Form : FormGroup;
   fechaActual = new Date();
 
@@ -28,12 +31,17 @@ export class StockFisicoValorizadoComponent implements OnInit {
     private generalService : GeneralService
   ) {  
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){ 
     this.Form = new FormGroup({ 
-     Moneda : new FormControl(null),
-     Modalidad : new FormControl(null),
+     Moneda : new FormControl(  {nombre : 'SOLES', codigo: 'PEN'}),
+     Modalidad : new FormControl(   {nombre : 'FISICO', codigo: 'Fisico'}),
+     establecimientoId : new FormControl(null), 
+     lineaid: new FormControl(null),   
     })
   }
 
@@ -43,6 +51,19 @@ export class StockFisicoValorizadoComponent implements OnInit {
   }
 
   onCargarCombos(){ 
+
+    this.generalService.listadoComboEstablecimientos().subscribe((resp) => { 
+      if(resp){
+        this.arrayEstablecimientos = resp;   
+      } 
+    });
+
+    this.generalService.listadoLineas().subscribe((resp) => { 
+      if(resp){
+        this.arrayLinea = resp;   
+      } 
+    }); 
+
     this.arrayMonedas = [
       {nombre : 'SOLES', codigo: 'PEN'},
       {nombre : 'DOLARES', codigo: 'USD'}, 
@@ -55,15 +76,15 @@ export class StockFisicoValorizadoComponent implements OnInit {
   }
 
   onGenerarReporte(){
-    const data = this.Form.value;
-   
-    let moneda = data.Moneda ? data.Moneda.codigo : 'PEN'
-    let modalidad  = data.Modalidad ? data.Modalidad.codigo : 'Fisico'
+    const data = this.Form.value; 
+
     const params = {
       tipoPresentacion : 'PDF',  
+      modalidad :  data.Modalidad,
       periodo : this.fechaActual.getFullYear(),
-      monedareporte: moneda,
-      modalidad : modalidad
+      establecimientoId : data.establecimientoId, 
+      lineaid : data.lineaid,
+      monedareporte: data.Moneda
     }
  
 
@@ -77,9 +98,6 @@ export class StockFisicoValorizadoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       }    
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

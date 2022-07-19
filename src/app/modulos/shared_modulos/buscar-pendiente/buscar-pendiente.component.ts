@@ -44,6 +44,10 @@ export class BuscarPendienteComponent implements OnInit {
 
   ) { 
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){

@@ -4,8 +4,7 @@ import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service
 import { IPlantillaExcel, ISubirProductos } from '../interface/producto.interface';
 import { ProductosService } from '../service/productos.service';
 import { saveAs } from 'file-saver';
-import * as XLSX from 'xlsx';   
-import { GeneralService } from 'src/app/shared/services/generales.services';
+import * as XLSX from 'xlsx';    
 
 @Component({
   selector: 'app-subir-productos',
@@ -21,13 +20,11 @@ export class SubirProductosComponent implements OnInit {
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   DataImportada : ISubirProductos[] = [];
   data :any[]= [];
-  mostrarBotonCargar : boolean = true;
-  keys: string[]; 
+  mostrarBotonCargar : boolean = true; 
 
   constructor(
     private productoService : ProductosService, 
-    private swal : MensajesSwalService,
-    private generalService: GeneralService
+    private swal : MensajesSwalService, 
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +49,6 @@ export class SubirProductosComponent implements OnInit {
           var blob = new Blob([this.onBase64ToArrayBuffer(this.plantillaExcel.content)], {type: "application/xlsx"}); 
           saveAs(blob, "Plantilla Subir Productos.xlsx");
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
   }
 
@@ -69,20 +64,16 @@ export class SubirProductosComponent implements OnInit {
 
 
   onUpload(event : any) {     
-    let data, header;
+    let data;
     const target: DataTransfer = <DataTransfer>(event);   
     if (target.files){
       const reader: FileReader = new FileReader();
         reader.onload = (e: any) => {
-          /* read workbook */
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
-          /* grab first sheet */
           const wsname: string = wb.SheetNames[0];
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
-          /* save data */
           data = XLSX.utils.sheet_to_json(ws); 
           let arrayData = data;
           arrayData.forEach(element => {  
@@ -106,8 +97,6 @@ export class SubirProductosComponent implements OnInit {
         this.swal.mensajeExito('Se cargo la lista de productos correctamente!.');
         this.onVolver();
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 

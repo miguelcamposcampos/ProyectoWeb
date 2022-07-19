@@ -35,7 +35,7 @@ export class ConfiguracionService{
         params = params.append('tipoPresentacion', data.tipoPresentacion);
         params = params.append('year', data.year);  
         params = params.append('month', data.month);  
-        return this.http.get<IModuloReporte>(`${this.api991}/ReportingContabilidad/ObtenerReportePLE`, { params: params });
+        return this.http.get<IModuloReporte>(`${this.api991}/ReportingContabilidad/ObtenerReportePLE`, { params });
     }
  
  

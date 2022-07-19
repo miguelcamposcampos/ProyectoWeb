@@ -116,6 +116,10 @@ export class NuevaVentaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
@@ -168,7 +172,8 @@ export class NuevaVentaComponent implements OnInit {
       importevalorventa : new FormControl(0),
       importegratuita : new FormControl(0),
       importegravada : new FormControl(0),
-      descuentoporitem: new FormControl(0),
+      descuentoporitem: new FormControl(0)
+    //  conceptocontableid  : new FormControl(0)
     })
 
     this.FormImpresion = new FormGroup({
@@ -200,8 +205,6 @@ export class NuevaVentaComponent implements OnInit {
           porcentajebolsaplastica :this.dataConfiguracion.porcentajebolsaplastica, 
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -257,8 +260,6 @@ export class NuevaVentaComponent implements OnInit {
             nombrecliente :  resp.personaData.nombreCompleto,
           })
       }   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -352,15 +353,7 @@ export class NuevaVentaComponent implements OnInit {
   }
  
   onOpcionesNuevaVenta(){
-    this.opcionesNuevaVenta = [
-      // {
-      //   //SI ES NOTA DE CREDITO NO SE COBRA
-      //   label:'Cobrar',
-      //   icon:'fas fa-coins',
-      //   command:()=>{
-      //     this.onCobrar();
-      //   }
-      // },
+    this.opcionesNuevaVenta = [ 
       {
         label:'Impr. Ticket',
         icon:'fas fa-print',
@@ -623,7 +616,6 @@ export class NuevaVentaComponent implements OnInit {
       descripcionproducto : new FormControl(''),
       unidadmedida : new  FormControl(null), 
       unidadmedidaid : new  FormControl(null), 
-     // almacenid : new FormControl(null),  
       almacenid: this.arrayAlmacen.find(
         (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
       ),
@@ -650,6 +642,7 @@ export class NuevaVentaComponent implements OnInit {
       ventaanticiporeferenciaid: new  FormControl(null),
       esInafecto : new  FormControl(null),
       esExonerado : new  FormControl(null),
+      nrocuenta : new  FormControl(null),
     })
   }
 
@@ -809,6 +802,7 @@ export class NuevaVentaComponent implements OnInit {
             esGratuito:  this.VentaEditar.detalles[i].esGratuito,
             esGravada:  this.VentaEditar.detalles[i].esGravada,
             ventaanticiporeferenciaid:  this.VentaEditar.detalles[i].ventaanticiporeferenciaid,
+            nrocuenta:  this.VentaEditar.detalles[i].nrocuenta
           });
         }
         this.swal.mensajeExito('El documento ha sido referenciado correctamente!.');
@@ -883,8 +877,6 @@ export class NuevaVentaComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     }); 
   }
  
@@ -905,9 +897,7 @@ export class NuevaVentaComponent implements OnInit {
     
       this.ventaservice.imprimir(data, host).subscribe((resp) => {
         this.swal.mensajeExito('Se envió a imprimir correctamente!.') 
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);  
-      })
+      });
     }
   
   }
@@ -972,10 +962,11 @@ export class NuevaVentaComponent implements OnInit {
     this.ventaservice.imprimir(data, host).subscribe((resp) => {
       this.swal.mensajeExito('Se envió a imprimir correctamente!.')
       this.modalImprimirTicket = false;
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     })
   }
+ /* FIN IMPRIMIR TICKET */
+
+
 
   /* REPORTE */
   onReporteVenta(){
@@ -993,6 +984,10 @@ export class NuevaVentaComponent implements OnInit {
     const dataform = this.Form.value;  
 
     let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta();
+    if(DetallesVentaGrabar){
+      this.swal.mensajeAdvertencia('Revisa el detalle, faltan datos.');
+      return;
+    }
     let DetallesCondicionPagoGrabar :any[] = this.onGrabarCondicionPago();
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
      
@@ -1041,7 +1036,8 @@ export class NuevaVentaComponent implements OnInit {
       documentoReferenciaDtos: DetallesDocumentoRefGrabar,
       idsCondicionPagoToDelet: this.arrayDetallesCondicionPagoEliminados,
       idsToDelete: this.arrayDetallesEliminados,
-      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0, 
+      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0 
+     // conceptocontableid : dataform.conceptocontableid
     } 
  
 
@@ -1057,8 +1053,6 @@ export class NuevaVentaComponent implements OnInit {
             }
           })   
         }    
-      },error => {  
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{ 
     this.ventaservice.updateVenta(newVenta).subscribe((resp)=>{ 
@@ -1070,8 +1064,6 @@ export class NuevaVentaComponent implements OnInit {
           this.swal.mensajeExito('Los cambios se actualizaron correctamente!.')    
         }
       })   
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -1123,8 +1115,6 @@ export class NuevaVentaComponent implements OnInit {
         this.existenroRegsitro = true; 
         this.AvisarParaActualizar();  
       } 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -1216,7 +1206,7 @@ export class NuevaVentaComponent implements OnInit {
       importeotrostributos  : this.VentaEditar.importeotrostributos ?? 0,
       importetotalventa : this.VentaEditar.importetotalventa ?? 0,
       importevalorventa : this.VentaEditar.importevalorventa ?? 0
-
+    //  conceptocontableid : this.VentaEditar.conceptocontableid ?? 0
     })
 
     for( let  i = 0; i < this.VentaEditar.detalles.length; i++){
@@ -1261,6 +1251,7 @@ export class NuevaVentaComponent implements OnInit {
         esGratuito:  this.VentaEditar.detalles[i].esGratuito,
         esGravada:  this.VentaEditar.detalles[i].esGravada,
         ventaanticiporeferenciaid:  this.VentaEditar.detalles[i].ventaanticiporeferenciaid,
+        nrocuenta : this.VentaEditar.detalles[i].nrocuenta
       });
     }
  
@@ -1381,6 +1372,7 @@ export class NuevaVentaComponent implements OnInit {
           ventaAnticipoReferencia :  '',
           ventadetallemigradaid:  null,
           ventaDetalleDetraccionTransporteInfoDTO : arrayVentaDetalleDetraccionTransporte,
+          nrocuenta : element.value.nrocuenta
         });
       }
     })
@@ -1532,7 +1524,7 @@ export class NuevaVentaComponent implements OnInit {
     const DataForm = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value;
 
     if (!DataForm.esGravada) this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false);
-    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+    let preciosinigv = DataForm.precioincluyeigv ? (+DataForm.preciounitario / (1 +this.valorIGV)) : +DataForm.preciounitario; 
     let biActualizar  = DataForm.cantidad * preciosinigv;
     this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
 
@@ -1565,104 +1557,7 @@ export class NuevaVentaComponent implements OnInit {
   }
  
 
-  // onCalcularPrecioVenta(posicion : number){
-  //   this.valorIGV = 0.18   
-  //   let isOperacionGravada = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esGravada;
-  //   let Preciounitario = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.preciounitario;
-  //   let Porcentajedescuento = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.porcentajedescuento;
-  //   let Cantidad : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.cantidad;
-  //   let isAfectoICBPER = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.esafectoicbper;
-
-  //   if (!isOperacionGravada){
-  //     this.detallesVentaForm[posicion].controls['precioincluyeigv'].setValue(false)
-  //     // this.detallesVentaForm[posicion].patchValue({
-  //     //   precioincluyeigv : false
-  //     // });
-  //   }
-
-  //   let Precioincluyeigv = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.precioincluyeigv;
-
-  //   let preciosinigv
-  //   if(Precioincluyeigv){
-  //     preciosinigv = +(Preciounitario / (1 +this.valorIGV))
-  //   }else{
-  //     preciosinigv = +Preciounitario
-  //   }
-
-
-  //   let biActualizar  = Cantidad *   +parseFloat(preciosinigv.toFixed(3)) 
-  //   this.detallesVentaForm[posicion].controls['baseimponible'].setValue(biActualizar)
-    
-  //   // this.detallesVentaForm[posicion].patchValue({
-  //   //   baseimponible :  biActualizar.toFixed(2)
-  //   // });
-  //   // let biActualizar  = Cantidad *   +parseFloat(preciosinigv.toFixed(3)) 
-  //   // this.detallesVentaForm[posicion].patchValue({
-  //   //   baseimponible :  +parseFloat(biActualizar.toFixed(2))
-  //   // });
-
-  //  // let Baseimponible : number  = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.baseimponible;
- 
-  //   if( Porcentajedescuento > 0){
-  //     let dsctoFactor =  ( Porcentajedescuento / 100);
-  //     let impd  = (biActualizar * dsctoFactor);
-  //     this.detallesVentaForm[posicion].controls['importedescuento'].setValue(impd)
-  //     // this.detallesVentaForm[posicion].patchValue({
-  //     //   importedescuento : +parseFloat(impd.toFixed(2))
-  //     // });
-  //   }else{
-  //     this.detallesVentaForm[posicion].controls['importedescuento'].setValue(0)
-  //     // this.detallesVentaForm[posicion].patchValue({
-  //     //   importedescuento : 0
-  //     // });
-  //   }
-  //   let Importedescuento : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importedescuento;
-  //   let vVenta = (biActualizar - Importedescuento);
-  //   this.detallesVentaForm[posicion].controls['valorVenta'].setValue(vVenta)
-  //   // this.detallesVentaForm[posicion].patchValue({
-  //   //   valorVenta : +parseFloat(vVenta.toFixed(1))
-  //   // });
-
-  //  // let Valorventa : number  = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.valorVenta;
-  //  let igvAct = (vVenta * this.valorIGV); 
-  //  let newigcAtc = Math.round((igvAct + Number.EPSILON) * 100) / 100; // igvAct.toFixed(3)
-  //   if(isOperacionGravada){
-  //     this.detallesVentaForm[posicion].controls['igv'].setValue(newigcAtc)
-  //     // this.detallesVentaForm[posicion].patchValue({
-  //     //   igv : newigcAtc //igvAct
-  //     // });
-  //   }else{
-  //     this.detallesVentaForm[posicion].controls['igv'].setValue(0)
-  //     // this.detallesVentaForm[posicion].patchValue({
-  //     //   igv : 0
-  //     // });
-  //   }
-
-  //   let Importeotroscargos : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.importesotroscargos;
-  //   //let Igv : number = (this.Form.get('arrayDetalleVenta') as FormArray).at(posicion).value.igv;
-
-
-  //   let precioventaAct : number =  (vVenta +  newigcAtc + Importeotroscargos);
-  //   let importeicbperAct : number = (Cantidad * (this.porcentajebolsaplasticaLS ?? 0 ));
-
-  //   if(isAfectoICBPER){
-  //     let newPrecioVent = Math.round((precioventaAct + Number.EPSILON) * 100) / 100  //this.onDosDecimales(precioventaAct);
-  //     this.detallesVentaForm[posicion].patchValue({
-  //       importeicbper : importeicbperAct,
-  //       precioventa : +newPrecioVent // parseFloat(precioventaAct.toFixed(2))
-  //     });
-  //   }else{
-  //     let newPrecioVent =  Math.round((precioventaAct + Number.EPSILON) * 100) / 100  // this.onDosDecimales(precioventaAct);
-  //     this.detallesVentaForm[posicion].patchValue({
-  //       importeicbper : 0,
-  //       precioventa : +newPrecioVent //+parseFloat(precioventaAct.toFixed(2))
-  //     });
-  //   }
   
-  //   this.onCalcularTotalVenta();
-
-  // }
-
   onCalcularTotalVenta(){
     const DataForm = this.Form.value;
     let detallesNoGratuitos : any[]=[];

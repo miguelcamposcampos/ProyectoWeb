@@ -43,9 +43,6 @@ export class MarcasComponent implements OnInit {
         this.listaMarcas= resp;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -66,8 +63,6 @@ export class MarcasComponent implements OnInit {
         this.marcaservice.deleteMarca(data.id).subscribe((resp) => { 
           this.onLoadMarcas(); 
           this.swal.mensajeExito('La marca ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  

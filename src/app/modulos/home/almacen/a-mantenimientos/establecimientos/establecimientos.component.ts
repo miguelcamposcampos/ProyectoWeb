@@ -88,9 +88,6 @@ export class EstablecimientosComponent implements OnInit {
         this.listaEstablecimiento = finall;
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -132,8 +129,6 @@ export class EstablecimientosComponent implements OnInit {
         this.establecimientoService.deleteAlmacen(data.idAlmacen).subscribe((resp) => { 
           this.onLoadEstablecimientos(null); 
           this.swal.mensajeExito('El almacén ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);
         });
       }
     })  

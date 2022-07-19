@@ -38,6 +38,11 @@ export class NuevoClienteComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {  
      this.builform();
+
+     this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
     }
 
 public builform(): void {
@@ -76,8 +81,6 @@ ngOnInit(): void {
       this.arraytipoPersona = response[0];   
       this.arraytipoDocumento = response[1];   
       this.FlgLlenaronCombo.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -120,9 +123,6 @@ ngOnInit(): void {
           });
           this.spinner.hide();
         } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -215,9 +215,6 @@ ngOnInit(): void {
             return;
           }
           this.spinner.hide();
-        },error => {
-          this.spinner.hide();
-          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
@@ -235,9 +232,6 @@ ngOnInit(): void {
             this.ubigeoSeleccionado = resp.Data.ubigeo
             this.spinner.hide();
           }  
-        },error => {
-          this.spinner.hide();
-          this.generalService.onValidarOtraSesion(error);  
         })
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de ruc valido');
@@ -302,8 +296,6 @@ ngOnInit(): void {
           this.onVolver();
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.clienteService.updateCliente(newCliente).subscribe((resp) => {
@@ -311,8 +303,6 @@ ngOnInit(): void {
           this.onVolver();
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }  
   }

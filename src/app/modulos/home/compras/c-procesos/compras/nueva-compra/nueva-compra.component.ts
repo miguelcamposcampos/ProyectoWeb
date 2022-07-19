@@ -104,6 +104,11 @@ export class NuevaCompraComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+
     this.arrayEstado = [
       { id: true,  nombre: 'ACTIVA'},
       { id: false, nombre: 'ANULADA'},
@@ -163,12 +168,11 @@ export class NuevaCompraComponent implements OnInit {
       importeexonerado : new FormControl(0),  
       importeinafecto: new FormControl(0),  
       importegravada: new FormControl(0),   
-      importegratuita: new FormControl(0),   
+      importegratuita: new FormControl(0)
+     // conceptocontableid  : new FormControl(0)
     })
   }
- 
-
-
+  
   ngOnInit(): void {
     this.config.setTranslation(this.es)
     this.onCargarDropdown();  
@@ -180,8 +184,7 @@ export class NuevaCompraComponent implements OnInit {
     } 
 
   }
-
-
+ 
   onCargarTipoCambio(){
     let fecha = this.formatoFecha.transform(this.fechaActual, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA)
     this.ventaService.obtenertipodeCambioCobrar(fecha).subscribe((resp) => {
@@ -190,6 +193,25 @@ export class NuevaCompraComponent implements OnInit {
       }
     })
   }
+
+  
+  onCalculardiasVencimiento(){
+    let f1x = this.formatoFecha.transform(this.Form.controls['fechaemision'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let f2x = this.formatoFecha.transform(this.Form.controls['fechavencimiento'].value, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let fechaI = new Date(f1x);
+    let fechaF = new Date(f2x); 
+    let dias = Math.floor((fechaF.getTime() - fechaI.getTime()) / (1000 * 60 * 60 * 24)); 
+    this.Form.controls['diasvencimiento'].setValue(dias);
+  }
+
+
+  onCalcularfechaVencimiento(event){
+    let diasV = +event.target.value;
+    let FV = new Date(this.Form.controls['fechaemision'].value);
+    let NuevaFecha =  new Date(FV.setDate(FV.getDate() + diasV));
+    this.Form.controls['fechavencimiento'].setValue(NuevaFecha);
+  }
+   
 
   onCargarDatosdeConfiguracion(){
     this.configService.listadoConfiguraciones().subscribe((resp) => {
@@ -206,8 +228,6 @@ export class NuevaCompraComponent implements OnInit {
           glosa :this.dataConfiguracion.compraglosadefault,  
         })
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -333,8 +353,6 @@ export class NuevaCompraComponent implements OnInit {
           this.onCargarAlmacenes(+this.dataPredeterminadosDesencryptada.idEstablecimiento); 
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -365,9 +383,6 @@ export class NuevaCompraComponent implements OnInit {
         this.spinner.hide(); 
       }  
       
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -385,8 +400,6 @@ export class NuevaCompraComponent implements OnInit {
       this.arrayAlmacen = response[0];  
       this.arraySeriePorDocumentoPercepcion = response[1]; 
       this.FlgLlenaronComboParaActualizar.next(true);
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -476,7 +489,7 @@ export class NuevaCompraComponent implements OnInit {
       importebasepercepcion: this.CompraEditar.importebasepercepcion,
       porcentajepercepcion: this.CompraEditar.porcentajepercepcion,
       importepercepcion: this.CompraEditar.importepercepcion
-
+     // conceptocontableid  : this.CompraEditar.conceptocontableid  
     })
 
  
@@ -520,6 +533,7 @@ export class NuevaCompraComponent implements OnInit {
         esanticipo:  this.CompraEditar.detalles[i].esanticipo,   
         valordetraccionmn: this.CompraEditar.detalles[i].valordetraccionmn,
         valordetraccionme:this.CompraEditar.detalles[i].valordetraccionme,  
+        nrocuenta:this.CompraEditar.detalles[i].nrocuenta,  
       });
     }
   
@@ -595,8 +609,6 @@ export class NuevaCompraComponent implements OnInit {
           this.swal.mensajeAdvertencia('NUMERO DE DOCUMENTO NO ENCONTRADO!.');
           return;
         } 
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
   }
 
@@ -618,8 +630,6 @@ export class NuevaCompraComponent implements OnInit {
       if(resp){
         this.arrayAlmacen = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -638,9 +648,7 @@ export class NuevaCompraComponent implements OnInit {
       this.onCargarMotivosNotas(event.valor1)
     }
   }
-
-
-
+ 
   onObtenerTipoDocumentoPercepcion(event : any){ 
     if(event){ 
       this.onCargarDocumentoPorSeriePercepcion(event.id) 
@@ -661,8 +669,7 @@ export class NuevaCompraComponent implements OnInit {
       }
     })
   }
-
-
+ 
 
   onCargarMotivosNotas(tipoMotivo : string){
     let MotivoParams
@@ -741,14 +748,11 @@ export class NuevaCompraComponent implements OnInit {
       }else{
         this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   
   }
 
-
-  
+ 
   /* BUSCAR PRODUCTO */
   onModalBuscarProducto(posicion : number){
     let ValorAlmacen = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value.almacenid;
@@ -786,9 +790,7 @@ export class NuevaCompraComponent implements OnInit {
     this.onCalcularPrecioCompra(event.posicion)
     this.modalBuscarProducto = false;
   }
-
-
-
+ 
   /* BUSCAR ANTICIPOS */
   onModalBuscaAnticipo(posicion: number, data :any){
     const dataAnticipo = {
@@ -885,8 +887,7 @@ export class NuevaCompraComponent implements OnInit {
         esExonerado : new  FormControl(null), 
         compradetalleid : new FormControl(0),
         compraid :  new FormControl(0),
-        productoid: new FormControl(null),
-      //  almacenid: new FormControl(null), 
+        productoid: new FormControl(null), 
         almacenid: this.arrayAlmacen.find(
           (x) => x.id === (this.dataPredeterminadosDesencryptada ? this.dataPredeterminadosDesencryptada.idalmacen : null)
         ),
@@ -916,6 +917,7 @@ export class NuevaCompraComponent implements OnInit {
         esInafecto : new  FormControl(false),
         esGratuito: new  FormControl(false),
         esGravada: new  FormControl(false),
+        nrocuenta: new  FormControl(null)
     })
   }
 
@@ -1024,7 +1026,7 @@ export class NuevaCompraComponent implements OnInit {
 
   /* Habilitar Campos Detraccion */
   onHabilitarCamposDetraccion(){ 
-    this.mostrarCamposDetraccion = ! this.mostrarCamposDetraccion; 
+    this.mostrarCamposDetraccion = !this.mostrarCamposDetraccion; 
     this.onCalcularDetraccion();
   }
  
@@ -1057,7 +1059,7 @@ export class NuevaCompraComponent implements OnInit {
     const DataForm = (this.Form.get('arrayDetalleCompra') as FormArray).at(posicion).value; 
 
     if (!DataForm.esGravada) this.detallesCompraForm[posicion].controls['precioincluyeigv'].setValue(false);
-    let preciosinigv = DataForm.precioincluyeigv ? (DataForm.preciounitario / (1 +this.valorIGV)) : DataForm.preciounitario; 
+    let preciosinigv = DataForm.precioincluyeigv ? (+DataForm.preciounitario / (1 +this.valorIGV)) : +DataForm.preciounitario; 
     let biActualizar  = DataForm.cantidad * preciosinigv;
     this.detallesCompraForm[posicion].controls['baseimponible'].setValue(biActualizar)
  
@@ -1076,6 +1078,7 @@ export class NuevaCompraComponent implements OnInit {
     if(this.mostrarCamposDetraccion) {
       this.onCalcularDetraccion();
     }
+
     this.onCalcularTotalCompra();
   }
 
@@ -1311,6 +1314,7 @@ export class NuevaCompraComponent implements OnInit {
         detalles : IDetalleCompra,
         documentoReferenciaDtos: IDocumentoReferenciaDTO,
         idsToDelete : this.arrayDetallesEliminados
+        //conceptocontableid  : dataform.conceptocontableid  
        } 
 
        console.log(newCompra);
@@ -1327,8 +1331,6 @@ export class NuevaCompraComponent implements OnInit {
               }
             })   
           } 
-        }, error => {
-          this.generalService.onValidarOtraSesion(error);  
         });
       }else{
         this.comprasService.updateCompra(newCompra).subscribe((resp) => {
@@ -1341,8 +1343,6 @@ export class NuevaCompraComponent implements OnInit {
             }
           })   
           
-        }, error => {
-          this.generalService.onValidarOtraSesion(error);  
         });
       } 
     }
@@ -1383,6 +1383,7 @@ export class NuevaCompraComponent implements OnInit {
             valordetraccionme: element.value.valordetraccionme, 
             esGratuito : element.value.esGratuito,
             esGravada : element.value.esGravada, 
+            nrocuenta : element.value.nrocuenta 
           });
         }
       })

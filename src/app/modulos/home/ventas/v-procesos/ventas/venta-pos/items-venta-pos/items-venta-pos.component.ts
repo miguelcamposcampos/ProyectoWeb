@@ -168,8 +168,6 @@ export class ItemsVentaPosComponent implements OnInit {
         });
         this.isSqueleton = false;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
    
   }
@@ -279,7 +277,8 @@ export class ItemsVentaPosComponent implements OnInit {
       documentoReferenciaDtos: [],
       idsCondicionPagoToDelet: [],
       idsToDelete: [],
-      ventaid : 0,
+      ventaid : 0
+     // conceptocontableid: 0
     } 
     this.ventasservice.createVenta(newVentaPOS).subscribe((resp) => {
       if(resp){ 
@@ -289,8 +288,6 @@ export class ItemsVentaPosComponent implements OnInit {
         this.onCobrar(this.Tabs[indexTab].idVenta);
       }
       this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     });
     
   }

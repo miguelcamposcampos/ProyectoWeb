@@ -39,6 +39,9 @@ export class NuevoProveedorComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {  
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
     }
  
   public builform(): void {
@@ -76,8 +79,6 @@ export class NuevoProveedorComponent implements OnInit {
       this.arraytipoPersona = response[0];   
       this.arraytipoDocumento = response[1];   
       this.FlgLlenaronCombo.next(true); 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -118,9 +119,6 @@ export class NuevoProveedorComponent implements OnInit {
         })
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -211,10 +209,7 @@ export class NuevoProveedorComponent implements OnInit {
             return;
           }
           this.spinner.hide();
-        },error => {
-          this.spinner.hide();
-          this.generalService.onValidarOtraSesion(error);  
-        })
+        });
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
       }
@@ -232,10 +227,7 @@ export class NuevoProveedorComponent implements OnInit {
             this.ubigeoSeleccionado = resp.Data.ubigeo 
           } 
           this.spinner.hide();
-        },error => {
-          this.spinner.hide();
-          this.generalService.onValidarOtraSesion(error);  
-        })
+        });
       }else{
         this.swal.mensajeAdvertencia('porfavor ingrese un numero de ruc valido');
       }
@@ -298,8 +290,6 @@ export class NuevoProveedorComponent implements OnInit {
             }
           })   
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.proveedorService.updateProveedor(newCliente).subscribe((resp) => { 
@@ -311,8 +301,6 @@ export class NuevoProveedorComponent implements OnInit {
             this.onVolver();
           }
         })    
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }  
   }

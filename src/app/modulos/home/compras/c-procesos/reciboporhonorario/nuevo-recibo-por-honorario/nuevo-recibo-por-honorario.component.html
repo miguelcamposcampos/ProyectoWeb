@@ -313,37 +313,14 @@
                 <br> 
             </form>
              
-            <br>
-
-            <!-- <div class="botones">
-            <button  
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                [disabled]="Form.invalid" 
-                label="Grabar"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-
-            <button   
-                class="p-button-sm p-button-rounded mx-2"
-                pButton
-                type="button"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> -->
-    
-        
+            <br> 
         </div> 
 </div>  
  
     
  
 <div *ngIf="modalBuscarPersona">
-    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="BUSCAR PROVEEDOR" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
         <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
     </p-dialog> 
 </div>  

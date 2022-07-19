@@ -60,8 +60,6 @@ export class VendedoresComponent implements OnInit {
             this.onLoadVendedores(null);
           }
           this.swal.mensajeExito('El vendedor ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -81,9 +79,6 @@ export class VendedoresComponent implements OnInit {
         this.listaVendedores = resp.items; 
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

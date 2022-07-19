@@ -56,15 +56,15 @@
                     <div class="p-fluid p-formgrid p-grid">
 
                         <div class="p-field p-col-12 p-md-3">
-                            <strong>Establecimiento:</strong>
+                            <strong>Establecimiento *:</strong>
                             <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event.value.id)" [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div> 
 
                         <div class="p-field p-col-12 p-md-9">
-                            <strong>Tipo Documento</strong>  
+                            <strong>Tipo Documento *:</strong>  
                             <div class="InputCombinado">  
                                 <p-dropdown class="DropExtenso" [disabled]="!existeEstablecimientoSeleccionado" [options]="arrayTipoDocumento" formControlName="documentoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor2"></p-dropdown>
-                                <input type="text" pInputText  class="p-inputtext-sm"  formControlName="serieventa"   placeholder="ingresar">   
+                                <input type="text" pInputText  class="p-inputtext-sm"  formControlName="serieventa"   placeholder="Serie">   
                                 <input type="number" pInputText  class="p-inputtext-sm"  formControlName="secuencialventa"   placeholder="ingresar">   
                             </div>
                         </div> 
@@ -85,45 +85,47 @@
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Fecha Emisión:</strong>
+                            <strong>Fecha Emisión *:</strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
                                 dateFormat="dd/mm/yy"
+                                (onSelect)="onCalculardiasVencimiento()"
                                 formControlName="fechaemision"
                             ></p-calendar> 
                         </div> 
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Fecha Vencimiento:</strong>
+                            <strong>Fecha Vencimiento *:</strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
                                 dateFormat="dd/mm/yy"
+                                (onSelect)="onCalculardiasVencimiento()"
                                 formControlName="fechavencimiento"
                             ></p-calendar> 
                         </div> 
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Moneda:</strong>
+                            <strong>Moneda *:</strong>
                             <p-dropdown class="DropExtenso" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
         
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Tipo Cambio:</strong>
+                            <strong>Tipo Cambio *:</strong>
                             <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
                         </div>
         
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Forma Pago:</strong> 
+                            <strong>Forma Pago *:</strong> 
                             <div class="p-inputgroup">  
                                 <p-dropdown class="extender" [options]="arrayFormasPago" formControlName="formapagoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="nombre"></p-dropdown>      
                             </div>   
                         </div>
                         
                         <div class="p-field p-col-12 p-md-3 p-sm-6">
-                            <strong>Días Vencimiento:</strong>
-                            <input  type="number" pInputText  formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
+                            <strong>Días Vencimiento *:</strong>
+                            <input  type="number" pInputText (keyup)="onCalcularfechaVencimiento($event);" formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
@@ -401,7 +403,7 @@
 </div>
 <!-- MODALES Y VISTA -->
 <div *ngIf="modalBuscarPersona">
-    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="BUSCAR PROVEEDOR" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
         <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
     </p-dialog> 
 </div>  

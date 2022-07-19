@@ -49,7 +49,7 @@ export class PlanesService {
   
   //MENUS 
   obtenerMenusPorUsuarioEmpresa(): Observable<any>{ 
-    return this.http.get<any>(`${this.apiIP}/v1/Planes/ObtenerMenusPorUsuarioEmpresa`)
+    return this.http.get<any>(`${this.apiIP}/v1/Planes/ObtenerMenusPorUsuarioEmpresaNoIcon`)
   }
 
 

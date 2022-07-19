@@ -54,8 +54,6 @@ export class CondicionDePagoComponent implements OnInit {
             this.onLoadCondicionPago();
           }
           this.swal.mensajeExito('La condicion de pago se ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -68,9 +66,6 @@ export class CondicionDePagoComponent implements OnInit {
         this.listaCondicionPago = resp;
         this.spinner.hide();
       }
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   onRetornar(event: any){ 

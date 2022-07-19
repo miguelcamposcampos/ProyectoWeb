@@ -74,9 +74,6 @@ export class RegistroComponent implements OnInit {
           this.swal.mensajeExito('Se registro al usuario con conrrectamente!.');
           this.router.navigate(['/auth/login']);
         }
-      },error => { 
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error);
       }); 
   }
   

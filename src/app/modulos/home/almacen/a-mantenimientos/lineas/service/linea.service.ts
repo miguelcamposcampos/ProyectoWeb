@@ -20,7 +20,7 @@ export class LineaService {
         let params = new HttpParams();
         params = params.append('paginaIndex', data.paginaIndex);
         params = params.append('itemsPorPagina', data.itemsPorPagina);
-        return this.http.get<IListarLineas>(`${this.api987}/v1/Producto/ObtenerLineasConsulta`, { params: params }); 
+        return this.http.get<IListarLineas>(`${this.api987}/v1/Producto/ObtenerLineasConsulta`, { params }); 
     }
   
     lineaPorId(id :number){

@@ -40,6 +40,9 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(val => { 
+      this.spinner.hide();
+    });
   }
 
   public builform(){ 
@@ -90,9 +93,6 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -121,7 +121,7 @@ export class VentasPorProductoRepAnaliticoComponent implements OnInit {
   onBorrarCliente(){
     this.swal.mensajePregunta('¿Seguro de quitar al cliente actual?').then((response) => {
       if (response.isConfirmed) {
-        this.idClienteSeleccionado = 0;
+        this.idClienteSeleccionado = null;
         this.Form.controls['nombreCliente'].setValue(null);
         this.existeClienteSeleccionado = false;
       }

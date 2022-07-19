@@ -1,0 +1,158 @@
+/* SCSS by miguelcampossv */
+ 
+
+.logotipo {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.logotipo img{
+    width: 60%;
+}
+
+ 
+
+.col-lg-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%
+}
+
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.col-lg-6 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px
+    
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+
+  .p-button-agregar {
+
+    background: rgb(114, 175, 255);
+    width: 270px;
+    height: 45px;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  .tablas-empresas {
+        width: 990px;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 25px;
+        background: white;
+        padding: 20px;
+        border-radius: 35px;
+        box-shadow: 25px 25px;
+        box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+  }
+
+.column-empresas-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.column-empresas-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.p-inputtext.p-inputtext-sm {
+    font-size: 16px;
+    padding: 10px 30px;
+    width: 350px;
+    border-radius: 20px;
+    background: #e3e3e3;
+}
+  
+
+::ng-deep  .p-datatable .p-datatable-thead > tr > th {
+    text-align: center;
+    padding: 1rem 1rem;
+    border: 1px solid rgba(232, 241, 248, 0.7);
+    border-width: 0 0 1px 0;
+    font-weight: 600;
+    color: #ffffff;
+    background: #72afff;
+    transition: box-shadow 0.2s;
+}
+
+.header-buscar-empresas {
+
+    width: 990px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+    display: flex;
+  
+}
+
+::ng-deep  .p-datatable .p-datatable-tbody > tr.p-highlight {
+    background: #a3a9af;
+    color: #f8fafc;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    border: 1px solid rgba(232, 241, 248, 0.7);
+    border-width: 0 0 1px 0;
+    padding: 1rem 1rem;
+}
+
+.p-button-acceder {
+    color: #f8fafc;
+    background: #3f8748;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-ajustes {
+    color: #f8fafc;
+    background: #147DBA;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+::ng-deep .p-datatable .p-sortable-column:not(.p-highlight):hover {
+    background: rgb(180 202 219 / 70%);
+    color: #515C66;
+}

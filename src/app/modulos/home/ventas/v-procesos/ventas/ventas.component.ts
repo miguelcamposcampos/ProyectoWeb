@@ -53,6 +53,10 @@ export class VentasComponent implements OnInit {
 
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
   public builform(){
@@ -150,9 +154,6 @@ export class VentasComponent implements OnInit {
         this.listadoVentas = resp.items;   
         this.spinner.hide(); 
       } 
-    },error => { 
-      this.spinner.hide(); 
-      this.generalService.onValidarOtraSesion(error);  
     });
 
   }
@@ -202,8 +203,6 @@ export class VentasComponent implements OnInit {
             this.swal.mensajeExito('El documento se ha sido eliminado correctamente!.'); 
             this.onLoadVentas(null);
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -218,8 +217,6 @@ export class VentasComponent implements OnInit {
       if(resp){
         this.arrayDocumentos = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
    
@@ -251,11 +248,7 @@ export class VentasComponent implements OnInit {
           var blob = new Blob([this.onBase64ToArrayBuffer(this.dataExcelReporte.fileContent)], {type: "application/xlsx"}); 
           saveAs(blob, "Plantilla Subir Productos.xlsx");
         }
-    }, error => { 
-      this.generalService.onValidarOtraSesion(error);  
-    })
-
-
+    });
   }
  
   onBase64ToArrayBuffer(base64) {

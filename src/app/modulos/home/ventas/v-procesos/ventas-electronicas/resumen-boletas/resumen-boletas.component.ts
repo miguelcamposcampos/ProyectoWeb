@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
+import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IListarResumenBoleta } from '../interface/ventaelectronica.interface';
 import { VentaElectronciaService } from '../servicio/ventaelectronica.service';
@@ -22,13 +23,18 @@ export class ResumenBoletasComponent implements OnInit {
   es = ConstantesGenerales.ES_CALENDARIO;
 
   constructor(
-    private config : PrimeNGConfig,
-    private swal : MensajesSwalService,
+    private config : PrimeNGConfig, 
     private ventasElectronicasService: VentaElectronciaService,
     private readonly formatoFecha : DatePipe,
-    private spinner : NgxSpinnerService
+    private spinner : NgxSpinnerService,
+    private generalService: GeneralService
     ) {
       this.builform();
+
+      this.generalService._hideSpinner$.subscribe(x=>{
+        this.spinner.hide();
+      })
+ 
      }
   
   

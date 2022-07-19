@@ -7,13 +7,40 @@
 
            
         <div class="tituloVista">  
-            <h3> <i class="fas fa-file-pdf"></i> REPORTE KARDEX FISICO / VALORIZADO </h3>  
+            <h3> <i class="fas fa-file-pdf"></i> REPORTE STOCK FISICO / VALORIZADO </h3>  
         </div>
         <form [formGroup]="Form">
             <div class="p-col-12"> 
                 <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-5 p-lg-5"> 
-                        <strong>Modalidad:</strong>
+
+                    <div class="p-field p-col-12 p-md-6 p-lg-10 p-sm-6">
+                        <strong class="p-column-title">Establecimiento</strong> 
+                        <p-dropdown
+                            [options]="arrayEstablecimientos"  
+                            formControlName="establecimientoId"
+                            placeholder="selecciona"
+                            optionLabel="valor1"
+                            [showClear]="true"
+                        ></p-dropdown>
+                    </div> 
+
+                     <div class="p-field p-col-12 p-md-2 p-lg-2 psm-6">       
+                        <button pButton label="Generar" type="button" class="p-button-sm" icon="pi pi-file" (click)="onGenerarReporte()"></button>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6 p-lg-4 p-sm-6">
+                        <strong class="p-column-title">Línea:</strong> 
+                        <p-dropdown
+                            class="extender"
+                            [options]="arrayLinea" 
+                            formControlName="lineaid"  
+                            placeholder="Selecciona una linea"   
+                            optionLabel="valor1">
+                        </p-dropdown> 
+                    </div> 
+
+                    <div class="p-field p-col-12 p-md-5 p-lg-4 p-sm-6">  
+                        <strong>Modalidad *:</strong>
                         <p-dropdown
                             [options]="arrayModalidad" 
                             formControlName="Modalidad"
@@ -22,7 +49,7 @@
                             [showClear]="true"
                         ></p-dropdown>
                     </div>
-                    <div class="p-field p-col-12 p-md-5 p-lg-5">
+                    <div class="p-field p-col-12 p-md-5 p-lg-4 p-sm-6">
                         <strong>Moneda</strong> 
                         <p-dropdown
                             [options]="arrayMonedas" 
@@ -32,9 +59,7 @@
                             [showClear]="true"
                         ></p-dropdown>
                     </div>
-                    <div class="p-field p-col-12 p-md-2 p-lg-2">       
-                        <button pButton label="Generar" type="button" class="p-button-sm" icon="pi pi-file" (click)="onGenerarReporte()"></button>
-                    </div>
+                   
                 </div>
             </div>
     

@@ -46,12 +46,12 @@
                 <div class="p-fluid p-formgrid p-grid">
 
                     <div class="p-field p-col-12 p-md-3">
-                        <strong>Establecimiento:</strong>
+                        <strong>Establecimiento *:</strong>
                         <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event.value.id)" [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div> 
 
                     <div class="p-field p-col-12 p-md-9">
-                        <strong>Tipo Documento</strong>  
+                        <strong>Tipo Documento *:</strong>  
                         <div class="InputCombinado">  
                             <p-dropdown class="DropExtenso" [disabled]="!existeEstablecimientoSeleccionado" (onChange)="onObtenerTipoDocumento($event.value)" [options]="arrayTipoDocumento" formControlName="documentoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor2"></p-dropdown>
                             <input type="text" pInputText  class="p-inputtext-sm"  formControlName="serieventa"   placeholder="ingresar">   
@@ -75,27 +75,29 @@
                     </div>
 
                     <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Fecha Emisión:</strong>
+                        <strong>Fecha Emisión *:</strong>
                         <p-calendar  
                             readonlyInput="true"
                             [showIcon]="true"
                             dateFormat="dd/mm/yy"
+                             (onSelect)="onCalculardiasVencimiento()"
                             formControlName="fechaemision"
                         ></p-calendar> 
                     </div> 
 
                     <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Fecha Vencimiento:</strong>
+                        <strong>Fecha Vencimiento *:</strong>
                         <p-calendar  
                             readonlyInput="true"
                             [showIcon]="true"
                             dateFormat="dd/mm/yy"
+                             (onSelect)="onCalculardiasVencimiento()"
                             formControlName="fechavencimiento"
                         ></p-calendar> 
                     </div> 
 
                     <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Moneda:</strong>
+                        <strong>Moneda *:</strong>
                         <p-dropdown class="DropExtenso" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>
     
@@ -112,9 +114,10 @@
                     </div>
                     
                     <div class="p-field p-col-12 p-md-3 p-sm-6">
-                        <strong>Días Vencimiento:</strong>
-                        <input  type="number" pInputText  formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
+                        <strong>Días Vencimiento *:</strong>
+                        <input  type="number" pInputText (keyup)="onCalcularfechaVencimiento($event)" formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
                     </div>
+
 
 
                     <div class="p-field p-col-12 p-md-3  p-sm-6">
@@ -174,6 +177,7 @@
                                         <th style="width: 150px;">F.Vencimiento</th> 
                                         <th style="width: 90px;">Detrac. S/.</th> 
                                         <th style="width: 90px;">Detrac. US$</th> 
+                                        <!-- <th style="width: 90px;">Nro.Cuenta</th>  -->
                                     </tr>
                                 </ng-template> 
                     
@@ -225,11 +229,11 @@
                                         </td>  
                                         <td>
                                             <strong class="p-column-title">Cantidad</strong>
-                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                            <input type="number" style="width: 80px;" (keydown.enter)="onCalcularPrecioCompra(rowIndex)" (keydown.Tab)="onCalcularPrecioCompra(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">PrecioU</strong>
-                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
+                                            <input type="number" style="width: 80px;" (keydown.enter)="onCalcularPrecioCompra(rowIndex)" (keydown.Tab)="onCalcularPrecioCompra(rowIndex)" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
                                         </td>   
                                         <td>
                                             <strong class="p-column-title">Base Impon,</strong>
@@ -237,7 +241,7 @@
                                         </td>  
                                         <td>
                                             <strong class="p-column-title">% Dcsto</strong>
-                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
+                                            <input type="number" style="width: 80px;" (keydown.enter)="onCalcularPrecioCompra(rowIndex)" (keydown.Tab)="onCalcularPrecioCompra(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">Imp.Dcsto</strong>
@@ -257,7 +261,7 @@
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">Imp.Otros.C</strong>
-                                            <input type="number" style="width: 80px;"  (keydown.enter)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importeotroscargos">  
+                                            <input type="number" style="width: 80px;" (keydown.enter)="onCalcularPrecioCompra(rowIndex)" (keydown.Tab)="onCalcularPrecioCompra(rowIndex)"    class="p-inputtext-sm" pInputText formControlName="importeotroscargos">  
                                         </td> 
                                         <td>
                                             <strong class="p-column-title">ICBPER</strong>
@@ -284,7 +288,7 @@
                                                 dateFormat="dd/mm/yy"
                                                 formControlName="fechavencimiento"
                                             ></p-calendar>  
-                                        </td> 
+                                        </td>  
                                         <td>
                                             <strong class="p-column-title">Detraccion S/.</strong>
                                             <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="valordetraccionmn">  
@@ -293,7 +297,10 @@
                                             <strong class="p-column-title">Detraccion US$</strong>
                                             <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="valordetraccionme">  
                                         </td> 
-                                    
+                                         <!-- <td>
+                                            <strong class="p-column-title">Nro.Cuent</strong>
+                                            <input type="number" style="width: 80px;" class="p-inputtext-sm" pInputText formControlName="nrocuenta">  
+                                        </td>  -->
                                     </tr>
                                 </ng-template> 
                                 <ng-template pTemplate="emptymessage">
@@ -676,7 +683,7 @@
 
 <!-- MODALES -->
 <div *ngIf="modalBuscarPersona">
-    <p-dialog header="BUSCAR PERSONA" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="BUSCAR PROVEEDOR" [(visible)]="modalBuscarPersona" [modal]="true" [style]="{width: '80vw'}">
         <app-buscar-persona [dataPersona]="'Proveedor'" (PersonaSelect)="onPintarPersonaSeleccionada($event)"> </app-buscar-persona>
     </p-dialog> 
 </div>  

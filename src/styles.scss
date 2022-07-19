@@ -304,3 +304,20 @@ $gutter: 1rem; //for primeflex grid system
   margin: 0px 0 5px 0;
 }
 
+.elegirOpciones{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.__switches{
+  display: grid;
+  grid-gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 15rem 1fr;   
+  align-items: center;
+  @media (max-width: 800px) {   
+    grid-template-columns: 12rem 1fr;  
+  }
+  }  
+ 

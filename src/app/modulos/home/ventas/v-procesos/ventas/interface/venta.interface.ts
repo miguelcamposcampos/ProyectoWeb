@@ -76,6 +76,7 @@ export interface ICrearVenta{
     idsCondicionPagoToDelet:number[],
     idsToDelete: number[], 
     estado : string,  
+    conceptocontableid? : number
 }
 
 export interface IVentaPorId{
@@ -138,8 +139,8 @@ export interface IVentaPorId{
     tipoDocumentoCliente: string,
     vendedorid: number,
     ventaFacturaGuiaInfoDTO: IVentaFacturaInfo[],
-    ventaid : number
-
+    ventaid : number,
+   // conceptocontableid? : number
 }
 
 export interface ICondicionPagoSunat{
@@ -187,7 +188,8 @@ export interface IVentaDetalle{
     propiedadesAdicionalesDTOs? : IPropiedadesAdicionales[], 
     ventadetallemigradaid: number,
     ventadetalleid: number,
-    ventaid : number
+    ventaid : number,
+    nrocuenta: string,
 }
 
 export interface IDetalleDetraccionTransporte{

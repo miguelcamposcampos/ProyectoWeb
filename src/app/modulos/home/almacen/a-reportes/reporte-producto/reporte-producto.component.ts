@@ -32,12 +32,8 @@ export class ReporteProductoComponent   {
  
 
 
-  onModalBuscarProducto(){
-    const data = {
-      idAlmacenSelect : 0,
-      idPosicionProducto : 0
-    }
-    this.dataProductos = data;
+  onModalBuscarProducto(){ 
+    this.dataProductos = {idAlmacenSelect : -1};
     this.modalBuscarProducto = true;
   }
 
@@ -70,9 +66,6 @@ export class ReporteProductoComponent   {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       }    
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

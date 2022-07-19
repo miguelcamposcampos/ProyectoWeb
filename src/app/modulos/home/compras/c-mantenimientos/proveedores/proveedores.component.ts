@@ -59,9 +59,6 @@ export class ProveedoresComponent implements OnInit {
         this.listaProveedores = resp.items;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -81,8 +78,6 @@ export class ProveedoresComponent implements OnInit {
         this.proveedorService.deletProveedor(data.idProveedor).subscribe((resp) => { 
           this.onLoadProveedores(null); 
           this.swal.mensajeExito('El proveedor ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

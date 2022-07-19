@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { GeneralService } from 'src/app/shared/services/generales.services';
+import { NgxSpinnerService } from 'ngx-spinner'; 
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ICrearMarca } from '../interface/marca.interface';
 import { MarcaService } from '../service/marca.service';
@@ -19,11 +18,10 @@ export class NuevoMarcaComponent implements OnInit {
 
   constructor(    
     private swal : MensajesSwalService, 
-    private marcaService : MarcaService,
-    private generalService : GeneralService,
+    private marcaService : MarcaService, 
     private spinner : NgxSpinnerService
   ) {
-    this.builform();
+    this.builform(); 
    }
 
    public builform(): void {
@@ -48,9 +46,6 @@ export class NuevoMarcaComponent implements OnInit {
         })
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -71,8 +66,6 @@ export class NuevoMarcaComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.marcaService.updateMarca(newMarca).subscribe((resp) => {
@@ -80,8 +73,6 @@ export class NuevoMarcaComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => {  
-        this.generalService.onValidarOtraSesion(error);
       });
     }  
   }

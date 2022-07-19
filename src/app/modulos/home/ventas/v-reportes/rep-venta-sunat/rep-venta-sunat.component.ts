@@ -38,6 +38,10 @@ export class RepVentaSunatComponent implements OnInit {
     
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
     }
   
   public builform(){ 
@@ -79,9 +83,6 @@ export class RepVentaSunatComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide(); 
       } 
-    },error => { 
-      this.spinner.hide(); 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -114,8 +115,6 @@ export class RepVentaSunatComponent implements OnInit {
         var blob = new Blob([this.onBase64ToArrayBufferExcel(this.dataExel.data)], {type: "application/xlsx"}); 
         saveAs(blob, "Reporte-Ventas-Sunat.xlsx");  
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

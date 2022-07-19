@@ -24,6 +24,9 @@ export class NuevaCondicionPagoComponent implements OnInit {
     private spinner: NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){
@@ -50,9 +53,6 @@ export class NuevaCondicionPagoComponent implements OnInit {
         }); 
       this.spinner.hide();
       } 
-    },error => {  
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -73,8 +73,6 @@ export class NuevaCondicionPagoComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.condicionPagoService.updateCondicionPago(newCondicionPago).subscribe((resp) => {
@@ -82,8 +80,6 @@ export class NuevaCondicionPagoComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
   
     }

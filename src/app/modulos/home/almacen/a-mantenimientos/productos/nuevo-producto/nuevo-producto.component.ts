@@ -53,6 +53,9 @@ export class NuevoProductoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
      
   }
 
@@ -113,8 +116,6 @@ export class NuevoProductoComponent implements OnInit {
       this.arrayMonedas = response[4];   
       this.arrayAfectaciones = response[5];   
       this.FlgLlenaronCombo.next(true);
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);
     });
  
   } 
@@ -139,9 +140,6 @@ export class NuevoProductoComponent implements OnInit {
         this.stringBuscarenUnesco = "";
       }
       this.spinner.hide();
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -186,8 +184,6 @@ export class NuevoProductoComponent implements OnInit {
           this.productoService.deletePrecio(idPrecioArray).subscribe((resp) => {
             this.fa.removeAt(index); 
             this.swal.mensajeExito('El precio ha sido eliminado correctamente!.'); 
-          },error => { 
-            this.generalService.onValidarOtraSesion(error);
           });
         }
       })  
@@ -237,9 +233,6 @@ export class NuevoProductoComponent implements OnInit {
         this.spinner.hide();
       }
  
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
  }
  
@@ -324,8 +317,6 @@ export class NuevoProductoComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.'); 
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }else{
       this.productoService.updateProducto(newProducto).subscribe((resp) =>{
@@ -333,8 +324,6 @@ export class NuevoProductoComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.'); 
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);
       });
     }
     

@@ -19,8 +19,7 @@
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                       
+                    "options": { 
                         "outputPath": "dist/FactesolWeb",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -38,9 +37,18 @@
                         ],
                         "scripts": [
                             "node_modules/prismjs/prism.js",
-                            "node_modules/prismjs/components/prism-typescript.js"
+                            "node_modules/prismjs/components/prism-typescript.js",
+                            "node_modules/crypto-js/crypto-js.js"
                         ],
-                        "allowedCommonJsDependencies": ["@fullcalendar/daygrid","@fullcalendar/timegrid","@fullcalendar/interaction","chart.js","lodash"]
+                        "allowedCommonJsDependencies": [
+                            "@fullcalendar/daygrid",
+                            "@fullcalendar/timegrid",
+                            "@fullcalendar/interaction",
+                            "chart.js",
+                            "lodash",
+                            "crypto-js",
+                            "xlsx"
+                        ]
                     },
                     "configurations": {
                         "production": {

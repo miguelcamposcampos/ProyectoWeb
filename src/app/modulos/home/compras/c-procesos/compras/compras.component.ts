@@ -41,6 +41,9 @@ export class ComprasComponent implements OnInit , OnDestroy{
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(){
@@ -106,9 +109,6 @@ export class ComprasComponent implements OnInit , OnDestroy{
         this.listadoCompras = resp.items;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
 
   }
@@ -131,8 +131,6 @@ export class ComprasComponent implements OnInit , OnDestroy{
           if(resp){
             this.onLoadCompras(null);
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })
@@ -169,8 +167,6 @@ export class ComprasComponent implements OnInit , OnDestroy{
       if(resp){
         this.arrayDocumentos = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
    

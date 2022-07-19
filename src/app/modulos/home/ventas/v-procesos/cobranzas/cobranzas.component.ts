@@ -40,6 +40,10 @@ export class CobranzasComponent implements OnInit , OnDestroy{
 
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
   
@@ -99,9 +103,6 @@ export class CobranzasComponent implements OnInit , OnDestroy{
           this.textoPaginado = resp.label,
           this.spinner.hide();
         }
-      },error => { 
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error);  
       });
   }
 
@@ -124,8 +125,6 @@ export class CobranzasComponent implements OnInit , OnDestroy{
           if(resp){
             this.onLoadCobranzas(null);
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

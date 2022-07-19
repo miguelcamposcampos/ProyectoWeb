@@ -4,8 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PrimeNGConfig } from 'primeng/api'; 
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
-import { GeneralService } from 'src/app/shared/services/generales.services';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
+import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { ReportesVentasService } from '../service/reportesventas.service'; 
 import { DomSanitizer } from '@angular/platform-browser';    
 import { IReporte } from '../../../almacen/a-mantenimientos/productos/interface/producto.interface';
@@ -28,15 +27,17 @@ export class VentasPorVendedorRepAnaliticoComponent implements OnInit {
 
   constructor(
     private reporteService : ReportesVentasService,
-    private generalService : GeneralService,
-    private swal : MensajesSwalService,
+    private generalService : GeneralService, 
     private config : PrimeNGConfig,
     private dataformat : DatePipe,
     public sanitizer: DomSanitizer, 
     private spinner : NgxSpinnerService
   ) {
     this.builform();
-    }
+    this.generalService._hideSpinner$.subscribe(val => { 
+      this.spinner.hide();
+    });
+  }
   
   public builform(){ 
     this.Form = new FormGroup({ 
@@ -76,9 +77,6 @@ export class VentasPorVendedorRepAnaliticoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

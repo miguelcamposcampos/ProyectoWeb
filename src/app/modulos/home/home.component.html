@@ -6,22 +6,25 @@
  'layout-horizontal': isHorizontal(),
  'layout-static-active': !staticMenuDesktopInactive && isStatic(),
  'layout-mobile-active': staticMenuMobileActive,
- 'layout-rtl': app.isRTL,
- 'layout-rightpanel-active': rightPanelActive}" [class]="'layout-menu-'+ app.menuTheme+ ' layout-topbar-'+ app.topbarTheme">
+ 'layout-rtl': app.isRTL}" [class]="'layout-menu-'+ app.menuTheme+ ' layout-topbar-'+ app.topbarTheme">
 
-    <app-topbar  #mPredeterminado (mPredeterminado)="onModalesPredeterminados($event)" ></app-topbar>
- 
-
+<app-topbar (mPredeterminado)="onModalesPredeterminados($event)"></app-topbar>
+  
 <div class="menu-wrapper" (click)="onMenuClick($event)">
  <div class="layout-menu-container">  
-     <app-menu></app-menu> 
+     <app-menu ></app-menu> 
  </div>
 </div>
   
- 
+
 <div class="layout-main">  
-    <div class="layout-content">  
-        <router-outlet> </router-outlet>  
+    <div class="layout-content">   
+        <!-- <p-tabMenu [model]="Tabs" [activeItem]="activeItem" (click)="onChangeTab($event)" (dblclick)="onEliminarTab($event)" ></p-tabMenu>  z -->
+        <p-tabView [controlClose]="true" (onClose)="onEliminarTab($event.index)" [scrollable]="true" [activeIndex]="activeItem" (onChange)="onChangeTab($event.index)">
+            <p-tabPanel [header]="item.label" *ngFor=" let item of Tabs" [closable]="true">
+            </p-tabPanel>
+        </p-tabView> 
+        <router-outlet> </router-outlet>      
     </div> 
 </div>
  

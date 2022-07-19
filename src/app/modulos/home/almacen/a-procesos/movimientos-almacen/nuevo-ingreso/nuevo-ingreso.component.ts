@@ -61,6 +61,9 @@ export class NuevoIngresoComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
    public builform():void{
@@ -135,8 +138,6 @@ export class NuevoIngresoComponent implements OnInit {
           })
         }
       } 
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -245,9 +246,6 @@ export class NuevoIngresoComponent implements OnInit {
          this.spinner.hide();
       }
       
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   } 
   
@@ -278,8 +276,6 @@ export class NuevoIngresoComponent implements OnInit {
     }else{
       this.swal.mensajeAdvertencia('no se encontraron datos con el codigo ingresado.');
     }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -397,8 +393,6 @@ export class NuevoIngresoComponent implements OnInit {
             }
           })
         }  
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.moviAlmacenService.updatemovimientoAlmacen(newMovimiento).subscribe((resp)=>{ 
@@ -410,8 +404,6 @@ export class NuevoIngresoComponent implements OnInit {
               this.onVolver();
             }
           }) 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
     }
 

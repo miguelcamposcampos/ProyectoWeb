@@ -64,10 +64,7 @@ export class ListaPedidosComponent implements OnInit {
         this.listPedidos = resp;
         this.spinner.hide();
       }
-    },error => {
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
-    })
+    });
   }
 
   onRegistrarPedido(){
@@ -84,9 +81,7 @@ export class ListaPedidosComponent implements OnInit {
       this.planesService.registrarPedido(newPedido).subscribe((resp) => {
         this.swal.mensajeExito('se registró el pedido correctamente!.');
         this.onLoadPedidos();
-      },error => {
-        this.generalService.onValidarOtraSesion(error);
-    })
+      });
     }  
     this.modalPlanes = false;
   }

@@ -58,6 +58,10 @@ export class NuevaCajaChicaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
    
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+    
     this.builform();
     this.arrayEstado = [
       { id: 0,  nombre: 'ABIERTO'},
@@ -117,8 +121,6 @@ export class NuevaCajaChicaComponent implements OnInit {
       if(resp){
         this.arrayAlmacen = resp;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -154,8 +156,6 @@ export class NuevaCajaChicaComponent implements OnInit {
           })
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -223,9 +223,6 @@ export class NuevaCajaChicaComponent implements OnInit {
         this.onPintarDatosParaEditar(resp);
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -340,8 +337,6 @@ export class NuevaCajaChicaComponent implements OnInit {
             }
           })   
         }    
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.cajachicaService.updateCajaChica(newCajaChica).subscribe((resp)=>{ 
@@ -353,8 +348,6 @@ export class NuevaCajaChicaComponent implements OnInit {
             this.swal.mensajeExito('Los cambios se actualizaron correctamente!.')    
           }
         })   
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }
   }

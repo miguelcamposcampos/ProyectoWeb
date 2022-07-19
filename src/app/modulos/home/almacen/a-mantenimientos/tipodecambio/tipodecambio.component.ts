@@ -47,6 +47,9 @@ export class TipodecambioComponent implements OnInit {
   ) {
     this.arrayMeses = this.meses;
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
 
@@ -103,9 +106,6 @@ export class TipodecambioComponent implements OnInit {
         this.listaTipoCambio = resp; 
         this.spinner.hide();
       } 
-    },error => {   
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -132,8 +132,6 @@ export class TipodecambioComponent implements OnInit {
       }else{
         return;
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     }); 
     this.modalBuscarPorMes = false;
 
@@ -156,8 +154,6 @@ export class TipodecambioComponent implements OnInit {
         this.tipocambioService.deleteTipoCambio(data.id).subscribe((resp) => {
           this.onLoadTipoCambio();
           this.swal.mensajeExito('El tipo de cambio ha sido eliminado correctamente!.');
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })

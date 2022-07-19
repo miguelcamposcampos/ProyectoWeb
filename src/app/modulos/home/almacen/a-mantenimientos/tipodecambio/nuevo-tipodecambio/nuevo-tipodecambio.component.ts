@@ -32,6 +32,9 @@ export class NuevoTipodecambioComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(): void { 
@@ -63,9 +66,6 @@ export class NuevoTipodecambioComponent implements OnInit {
         });
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -84,8 +84,6 @@ export class NuevoTipodecambioComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.tipocambioService.updateTipoCambio(newTipoCambio).subscribe((resp)=> {
@@ -93,8 +91,6 @@ export class NuevoTipodecambioComponent implements OnInit {
           this.swal.mensajeExito('Se actualizarion los datos correctamente!.');
           this.onVolver();
          }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
     }
   }

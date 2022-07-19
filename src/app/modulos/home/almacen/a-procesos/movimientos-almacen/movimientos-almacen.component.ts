@@ -38,6 +38,9 @@ export class MovimientosAlmacenComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
 
   }
 
@@ -87,9 +90,6 @@ export class MovimientosAlmacenComponent implements OnInit {
         this.listaMovimientos = resp.items;  
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -150,8 +150,6 @@ export class MovimientosAlmacenComponent implements OnInit {
         this.moviAlmacenService.deletemovimientoAlmacen(data.id).subscribe((resp) => { 
           this.onLoadMovimientos(); 
           this.swal.mensajeExito('El movimiento ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

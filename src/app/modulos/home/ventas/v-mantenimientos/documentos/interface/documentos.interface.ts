@@ -20,9 +20,7 @@ export interface IListarDocumentos{
     usadocompras : boolean,
     usadorecibohonorario : boolean,
     usadoventas: boolean,
+    nrocuentacobranza: string
 }
 
  
-export interface ICrearDocumento {
-    
-}

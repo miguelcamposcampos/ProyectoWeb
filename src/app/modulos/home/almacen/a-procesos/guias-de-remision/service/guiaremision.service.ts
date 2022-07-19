@@ -25,7 +25,7 @@ export class GuiaRemisionService{
         params = params.append('itemsxpagina', data.itemsxpagina);
         params = params.append('f1', data.finicio);
         params = params.append('f2', data.ffin);
-        return this.http.get<IListarGuiasRemision>(`${this.api987}/v1/GuiaRemision/ObtenerGuiaRemisionConsulta`, { params: params }); 
+        return this.http.get<IListarGuiasRemision>(`${this.api987}/v1/GuiaRemision/ObtenerGuiaRemisionConsulta`, { params }); 
     }
   
     guiaRemisionPorId(id :number){

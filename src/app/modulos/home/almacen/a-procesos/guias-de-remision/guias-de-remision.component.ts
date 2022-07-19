@@ -36,6 +36,9 @@ export class GuiasDeRemisionComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { 
     this.builform(); 
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
   }
 
   public builform(): void {
@@ -86,9 +89,6 @@ export class GuiasDeRemisionComponent implements OnInit {
         this.listaGuiasRemision = resp.items;
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   
@@ -109,8 +109,6 @@ export class GuiasDeRemisionComponent implements OnInit {
         this.guiaRemisionService.deleteguiaRemision(data.id).subscribe((resp) => { 
           this.onLoadGuiasRemision(null); 
           this.swal.mensajeExito('La guia de remisión ha sido eliminado correctamente!.'); 
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  

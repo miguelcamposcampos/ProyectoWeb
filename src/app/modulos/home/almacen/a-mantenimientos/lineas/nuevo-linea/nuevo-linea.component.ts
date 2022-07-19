@@ -30,17 +30,18 @@ export class NuevoLineaComponent implements OnInit {
   constructor(
     private lineaService: LineaService,
     private swal : MensajesSwalService,
-    private productoService : ProductosService,
-    private generalService : GeneralService,
+    private productoService : ProductosService, 
     private spinner : NgxSpinnerService
   ) {   
-     this.builform();
+     this.builform();  
   }
 
   public builform(): void{
     this.Form = new FormGroup({
       nombreLinea: new FormControl(null, Validators.required),
       codigoUnesco: new FormControl(null),  
+      cuentaventas : new FormControl(null),  
+      cuentacompras  : new FormControl(null),  
       imgLinea: new FormControl(null),  
     });
   }
@@ -69,13 +70,12 @@ export class NuevoLineaComponent implements OnInit {
         this.Form.patchValue({
           nombreLinea: this.LineaEdit.nombrelinea,  
           codigoUnesco : this.LineaEdit.codigounesco,
-          imgLinea :  this.LineaEdit.imagenlinea
+          imgLinea :  this.LineaEdit.imagenlinea,
+          cuentaventas :  this.LineaEdit.cuentaventas,
+          cuentacompras :  this.LineaEdit.cuentacompras,
         })
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
 
@@ -105,9 +105,6 @@ export class NuevoLineaComponent implements OnInit {
         this.stringBuscarenUnesco = "";
       }
       this.spinner.hide();
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);
     });
   }
  
@@ -153,7 +150,9 @@ export class NuevoLineaComponent implements OnInit {
       nombrelinea: data.nombreLinea,
       parentid: this.datalinea.idLineaPadre ? this.datalinea.idLineaPadre : 0,
       lineaid: this.LineaEdit ? this.LineaEdit.lineaid : 0,
-      esagrupador : this.LineaEdit ? this.LineaEdit.esagrupador : false
+      esagrupador : this.LineaEdit ? this.LineaEdit.esagrupador : false,
+      cuentaventas: data.cuentaventas,
+      cuentacompras: data.cuentacompras,
     }
     if(!this.LineaEdit){
       this.lineaService.createLinea(newLinea).subscribe((resp) => {
@@ -161,18 +160,14 @@ export class NuevoLineaComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      }, error => { 
-        this.generalService.onValidarOtraSesion(error);   
-      })
+      });
     }else{
       this.lineaService.updateLinea(newLinea).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      }, error => {
-        this.generalService.onValidarOtraSesion(error);   
-      })
+      });
     }
   
   }

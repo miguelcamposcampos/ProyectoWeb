@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api'; 
+import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces'; 
 import { GeneralService } from 'src/app/shared/services/generales.services'; 
 import { IModuloReporte, IReporte } from '../../a-mantenimientos/productos/interface/producto.interface';
@@ -21,9 +22,14 @@ export class KardexFisicoValorizadoComponent implements OnInit {
   Pdf : any;
   urlGenerate : any;
   arrayModalidad : IReporteModalidad[];
-  arrayMonedas : IReporteModalidad[]
+  arrayMonedas : IReporteModalidad[];
+  arrayEstablecimientos : ICombo[]; 
+  arrayLinea : ICombo[];
   Form : FormGroup;
  
+  dataProductos :any;
+  modalBuscarProducto : boolean = false;  
+
   constructor(
     private reporteService : ReportesAlmacenService, 
     public sanitizer: DomSanitizer,
@@ -34,14 +40,21 @@ export class KardexFisicoValorizadoComponent implements OnInit {
     
   ) {
     this.builform();
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
    public builform(){ 
      this.Form = new FormGroup({ 
+      nombreProducto : new FormControl(null), 
+      productoid : new FormControl(null), 
+      establecimientoId : new FormControl(null), 
+      lineaid: new FormControl(null),   
       fechaInicio : new FormControl(new Date),
       fechaFin : new FormControl(new Date),
-      Moneda : new FormControl(null),
-      Modalidad : new FormControl(null),
+      Moneda : new FormControl( {nombre : 'SOLES', codigo: 'PEN'}),
+      Modalidad : new FormControl( {nombre : 'FISICO', codigo: 'Fisico'}),
      })
    }
 
@@ -51,6 +64,19 @@ export class KardexFisicoValorizadoComponent implements OnInit {
   }
 
   onCargarCombos(){ 
+
+    this.generalService.listadoComboEstablecimientos().subscribe((resp) => { 
+      if(resp){
+        this.arrayEstablecimientos = resp;   
+      } 
+    });
+
+    this.generalService.listadoLineas().subscribe((resp) => { 
+      if(resp){
+        this.arrayLinea = resp;   
+      } 
+    }); 
+
     this.arrayMonedas = [
       {nombre : 'SOLES', codigo: 'PEN'},
       {nombre : 'DOLARES', codigo: 'USD'}, 
@@ -67,15 +93,17 @@ export class KardexFisicoValorizadoComponent implements OnInit {
 
   onGenerarReporte(){
     const data = this.Form.value;
-   
-    let moneda = data.Moneda ? data.Moneda.codigo : 'PEN'
-    let modalidad  = data.Modalidad ? data.Modalidad.codigo : 'Fisico'
+  //  let moneda = data.Moneda ? data.Moneda.codigo : 'PEN'
+ //   let modalidad  = data.Modalidad ? data.Modalidad.codigo : 'Fisico'
     const params = {
       tipoPresentacion : 'PDF', 
+      monedareporte: data.Moneda,
       f1 :  this.dataform.transform(data.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       f2 :  this.dataform.transform(data.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
-      monedareporte: moneda,
-      modalidad : modalidad
+      establecimientoId : data.establecimientoId,
+      productoid : data.productoid,
+      lineaid :  data.lineaid,
+      modalidad : data.Modalidad
     } 
 
     this.spinner.show();
@@ -88,9 +116,6 @@ export class KardexFisicoValorizadoComponent implements OnInit {
         this.Pdf= this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGenerate); 
         this.spinner.hide();
       }    
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -104,5 +129,16 @@ export class KardexFisicoValorizadoComponent implements OnInit {
     return bytes.buffer;
   }
  
+
+  onModalBuscarProducto(){   
+    this.dataProductos = { idAlmacenSelect : -1 };
+    this.modalBuscarProducto = true;
+  }
+
+  onPintarProductoSeleccionado(event : any){  
+    this.modalBuscarProducto= false;  
+    this.Form.controls['nombreProducto'].setValue(event.data.nombreProducto);
+    this.Form.controls['productoid'].setValue(event.data.productoId); 
+  }
 
 }

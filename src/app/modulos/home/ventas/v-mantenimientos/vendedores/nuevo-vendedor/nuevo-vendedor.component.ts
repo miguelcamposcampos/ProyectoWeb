@@ -39,6 +39,10 @@ export class NuevoVendedorComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) {
     this.builform();
+
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
    }
 
    public builform(): void {
@@ -82,8 +86,6 @@ export class NuevoVendedorComponent implements OnInit {
           })
         }
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     }); 
   }
 
@@ -126,9 +128,6 @@ export class NuevoVendedorComponent implements OnInit {
           });
           this.spinner.hide();
         } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -148,9 +147,6 @@ export class NuevoVendedorComponent implements OnInit {
           this.swal.mensajeAdvertencia('Datos no encontrados.');
           return;
         }
-      },error => { 
-        this.spinner.hide();
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.swal.mensajeAdvertencia('porfavor ingrese un numero de documento valido');
@@ -211,8 +207,6 @@ export class NuevoVendedorComponent implements OnInit {
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }else{
       this.vendedorService.updateVendedor(newVendedor).subscribe((resp) => {
@@ -220,8 +214,6 @@ export class NuevoVendedorComponent implements OnInit {
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
           this.onVolver();
         }
-      },error => { 
-        this.generalService.onValidarOtraSesion(error);  
       });
     }  
   }

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http'; 
-import { Observable } from 'rxjs';  
+import { Observable, Subject } from 'rxjs';  
 import { ICombo, IDataGraficos, IGraficoProductosMasVendidos, IPorDni, IPorRuc, IUbicaciones } from '../interfaces/generales.interfaces';
 import { IListadoStock } from 'src/app/modulos/home/almacen/a-procesos/consulta-stock/interface/consultastock.interface';
-import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { Router } from '@angular/router';
+ 
 
 
 @Injectable({
@@ -17,45 +16,26 @@ export class GeneralService {
   private api987: string = environment.apiUrl987;
   private api991: string = environment.apireporte991;
   
+
+  
+  private hideSpinner = new Subject<string>();
+  _hideSpinner$ = this.hideSpinner.asObservable();
+
+
   constructor(
-    private http : HttpClient,
-    private swal : MensajesSwalService,
-    private router : Router,
+    private http : HttpClient, 
   ) { }
 
-  /* VALIDAR OTRO INICIO DE SESION */
-  onValidarOtraSesion(error : any){ 
-    if(error.error.status === 403){ 
-      this.swal.mensajeCaducoSesion().then((response) => { 
-        if (response.isConfirmed) { 
-            this.router.navigate(['/auth']);
-        }
-      });
-    }else if(error.error.status === 404){ 
-      this.swal.mensajeError('No se encontraron datos...');
-    }else if(error.error.status === 401){ 
-      this.swal.mensajeCaducoSesion().then((response) => { 
-        if (response.isConfirmed) { 
-            this.router.navigate(['/auth']);
-        }
-      });
-    }else{
-      let Errores 
-      console.log(' ERROR',error); 
-      if(error.errors){ 
-        Errores = JSON.stringify(error.errors) 
-      }else if(error.error.errors){ 
-        Errores = JSON.stringify(error.error.errors) 
-      }else { 
-        Errores = JSON.stringify(error.error) 
-      }
-
-      this.swal.mensajeError(Errores);
-      return;
-    }
- 
+    /* VALIDAMOS SI EXISTE ERROR EN EL SERVICIO Y APAGAMOS EL SPINNER */
+  ApagarSpiiner(valor : any){
+    this.hideSpinner.next(valor);
   }
- 
+
+
+
+
+  /* VALIDAR OTRO INICIO DE SESION */
+
   /* GENERAL */
   listadoPorGrupo(grupo : string): Observable<ICombo[]>{
     return this.http.get<ICombo[]>(`${this.apiIP}/v1/Datahierarchy/ObtenerDatahierarchyPorGrupo?grupo=${grupo}`);

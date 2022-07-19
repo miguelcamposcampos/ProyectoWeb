@@ -48,6 +48,11 @@ export class VentasElectronicasComponent implements OnInit  {
     ) {
       this.builform();
       this.onListarJobs();
+
+      this.generalService._hideSpinner$.subscribe(x=>{
+        this.spinner.hide();
+      })
+      
      }
   
   
@@ -124,9 +129,6 @@ export class VentasElectronicasComponent implements OnInit  {
         this.listadoVentasEletronicas = resp; 
         this.spinner.hide();
       } 
-    },error => { 
-      this.spinner.hide();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 
@@ -187,10 +189,7 @@ export class VentasElectronicasComponent implements OnInit  {
         this.modalResumenAltayBaja = false;
       }
       this.swal.mensajeExito('Se creó el resumen correctamente!.');
-    }, error => {
-      this.generalService.onValidarOtraSesion(error);  
     });
- 
   }
 
   onModalEnvioMasivo(){ 
@@ -208,10 +207,7 @@ export class VentasElectronicasComponent implements OnInit  {
           }
           this.mostrarBloqueo = true;    
           this.swal.mensajeExito('Se enviaron los comprobantes del mes de ' + MesElegido.nombre);   
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
-        
       }
     })  
   }
@@ -235,8 +231,6 @@ export class VentasElectronicasComponent implements OnInit  {
       if(this.filasBloqueadas){
         this.onListaFilasBloqueados(data.idVenta)
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
  
@@ -262,8 +256,6 @@ export class VentasElectronicasComponent implements OnInit  {
       if(resp){ 
         this.onLoadVentasElectronicas();
       }
-    },error => { 
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
 

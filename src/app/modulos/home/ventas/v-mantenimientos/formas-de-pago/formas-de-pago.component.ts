@@ -59,8 +59,6 @@ export class FormasDePagoComponent implements OnInit {
             this.onLoadFormasPago();
             this.swal.mensajeExito('La forma de pago se ha sido eliminado correctamente!.'); 
           }
-        },error => { 
-          this.generalService.onValidarOtraSesion(error);  
         });
       }
     })  
@@ -73,9 +71,6 @@ export class FormasDePagoComponent implements OnInit {
         this.listaFormaPago = resp;
         this.spinner.hide();
       }
-    },error => { 
-      this.spinner.show();
-      this.generalService.onValidarOtraSesion(error);  
     });
   }
   onRetornar(event: any){ 

@@ -25,7 +25,7 @@ export class CobranzaService{
         params = params.append('f2', data.ffin);
         params = params.append('paginaindex', data.paginaindex);
         params = params.append('itemsxpagina', data.itemporPagina);
-        return this.http.get<IListarCobranza>(`${this.api987}/v1/Cobranza/ObtenerCobranzasConsultas`, { params: params });  
+        return this.http.get<IListarCobranza>(`${this.api987}/v1/Cobranza/ObtenerCobranzasConsultas`, { params });  
     }
  
     listadoPendiente(data :any): Observable<IPendientes[]>{
@@ -44,7 +44,7 @@ export class CobranzaService{
         if(data.idPersona){
             params = params.append('idPersona', data.idPersona);
         } 
-        return this.http.get<IPendientes[]>(`${this.api987}/v1/Cobranza/ObtenerPendientesCobranza`, { params: params });  
+        return this.http.get<IPendientes[]>(`${this.api987}/v1/Cobranza/ObtenerPendientesCobranza`, { params });  
     }
 
 

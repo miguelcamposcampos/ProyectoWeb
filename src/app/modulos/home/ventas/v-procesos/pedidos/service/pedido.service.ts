@@ -38,7 +38,7 @@ export class PedidoService{
             params = params.append('clienteId', data.clienteId)
         }
  
-        return this.http.get<IListaPedido>(`${this.api987}/v1/Venta/ObtenerPedidosConsultas`, { params: params }); 
+        return this.http.get<IListaPedido>(`${this.api987}/v1/Venta/ObtenerPedidosConsultas`, { params }); 
     } 
  
     createPedido(){
