@@ -10,8 +10,7 @@ import { ConfiguracionService } from '../service/configuracion.service';
 
 @Component({
   selector: 'app-empresa',
-  templateUrl: './empresa.component.html',
-  styleUrls: ['./empresa.component.scss']
+  templateUrl: './empresa.component.html'
 })
 export class EmpresaComponent implements OnInit {
 

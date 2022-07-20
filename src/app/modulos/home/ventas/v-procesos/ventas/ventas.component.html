@@ -1,6 +1,6 @@
 <div *ngIf="!VistaNuevaVenta && !VistaNuevaVentaPOS">
     <div class="margintabla">
-        <div class="contenidoTable card">
+        <div class="contenidoTable card-box">
             <form [formGroup]="FormBusqueda">
                 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                     <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -12,11 +12,11 @@
                     </div>
 
                     <div class="p-toolbar-group-right">
-                        <button class="BorrarLabel p-button-sm p-button-blue-light" type="button"
+                        <button class="p-button-registrar" type="button"
                             style="margin-right: 1%;" pButton pTooltip="Agregar Nueva Venta" tooltipPosition="top"
                             (click)="onNuevaVenta()" label="Agregar" icon="pi pi-plus"></button>
                         <p-tieredMenu #menu [model]="opcioneVentas" appendTo="body" [popup]="true"></p-tieredMenu>
-                        <button #btn class="BorrarLabel p-button-sm p-button-blue" type="button" pButton
+                        <button #btn class="p-button-opciones" type="button" pButton
                             label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
                     </div>
                 </p-toolbar>
@@ -38,12 +38,12 @@
 
                         <div class="p-field p-col-12 p-md-4 p-sm-8">
                             <strong>Documento:</strong>
-                            <p-dropdown class="DropExtenso" [options]="arrayDocumentos" formControlName="documento"
+                            <p-dropdown class="DropExtens" [options]="arrayDocumentos" formControlName="documento"
                                 placeholder="Selecciona " [showClear]="true" optionLabel="valor2"></p-dropdown>
                         </div>
 
                         <div class="p-field p-col-12 p-md-2 p-sm-4 botonBuscar">
-                            <button pButton label="Buscar" class="p-button-sm p-button-blue-light" type="button" icon="pi pi-search"
+                            <button pButton label="Buscar" class="p-button-generico-azul" type="button" icon="pi pi-search"
                                 (click)="onLoadVentas(null)"></button>
                         </div>
 
@@ -51,20 +51,20 @@
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Serie:</strong>
                             <input type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie"
-                                class="p-inputtext-sm" placeholder="ingresar una serie">
+                                class="p-inputtext-sm-clear-grey" placeholder="ingresar una serie">
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Correlativo:</strong>
                             <input type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo"
-                                class="p-inputtext-sm" placeholder="ingresar una serie">
+                                class="p-inputtext-sm-clear-grey" placeholder="ingresar una serie">
                         </div>
 
                         <div class="p-field p-col-6 p-md-6">
                             <strong>Cliente</strong>
                             <div class="p-inputgroup">
-                                <input type="text" readonly formControlName="cliente" pInputText class="p-inputtext-sm"
-                                    placeholder="busca un cliente">
+                                <input type="text" readonly formControlName="cliente" pInputText class="p-inputtext-sm-clear-grey"
+                                    placeholder="Buscar un cliente">
                                 <button type="button" pTooltip="Buscar" class="p-button-blue-light"
                                     tooltipPosition="left" (click)="onBuscarCliente();" pButton
                                     icon="pi pi-search"></button>

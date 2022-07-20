@@ -6,8 +6,8 @@
     </div>
 
     <div class="p-toolbar-group-right">
-        <button tooltipPosition="left" pTooltip="Volver" class="mx-2 p-button-sm" pButton type="button"
-            routerLink='/auth/login' icon="pi pi-arrow-circle-left">
+        <button tooltipPosition="left" pTooltip="Volver" class="p-button-sm" pButton type="button" label="Regresar"
+            placeholder="Regresar" routerLink='/auth/login' icon="pi pi-arrow-circle-left">
         </button>
     </div>
 </p-toolbar>
@@ -22,36 +22,30 @@
 </div>
 
 <div class="margintabla">
-    <div class="contenidoTable card card-responsive">
+    <div class="contenidoTable card-box">
         <form [formGroup]="registroForm">
             <p-fieldset>
                 <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-            <div class="p-grid p-fluid" style="margin:5%;">
+                <div class="formularioEmpresa">
 
-                <div class="p-inputgroup my-2 ">
                     <strong>Nombre Completo <span style="color: red;">*</span> </strong>
-                    <br>
+
                     <input type="text" pInputText formControlName="NombreApellidos" class="p-inputtext-sm"
                         placeholder="Ingrese su nombre Completo">
-                </div>
 
-                <div class="p-inputgroup my-2 ">
                     <strong>Correo electrónico<span style="color: red;">*</span> </strong>
-                    <br>
+
                     <input type="email" pInputText formControlName="Email" class="p-inputtext-sm"
                         placeholder="Ingrese un Email">
-                </div>
 
-                <div class="p-inputgroup my-2 ">
                     <strong>Alias <span style="color: red;">*</span> </strong>
-                    <br>
                     <input type="text" pInputText formControlName="NombreUsuario" class="p-inputtext-sm"
                         placeholder="Ingrese un Alias">
-                </div>
 
-                <div class="p-inputgroup my-2">
+
                     <strong>Contraseña<span style="color: red;">*</span> </strong>
-                    <br>
+
+                    <span class="p-input-icon-right" style="width: 100%;">
                     <input type="password" pInputText formControlName="Password" class="p-inputtext-sm" #passwordField
                         placeholder="Ingrese una contraseña">
                     <button pButton class="p-button-sm"
@@ -60,31 +54,32 @@
                         <i *ngIf="passwordField.type === 'password'" class="pi pi-eye"> </i>
                         <i *ngIf="passwordField.type === 'text'" class="pi pi-eye-slash"> </i>
                     </button>
-                </div>
+                    </span>
 
-                <div class="p-inputgroup my-2">
                     <strong>Confirmar Contraseña<span style="color: red;">*</span> </strong>
-                    <br>
-                    <input type="password" pInputText formControlName="RepetirPassword" class="p-inputtext-sm"
-                        #passwordRepit placeholder="Confirmar la contraseña">
-                    <button pButton class="p-button-sm"
-                        (click)="passwordRepit.type === 'password' ? passwordRepit.type = 'text' : passwordRepit.type = 'password'"
-                        matSuffix>
-                        <i *ngIf="passwordRepit.type === 'password'" class="pi pi-eye"> </i>
-                        <i *ngIf="passwordRepit.type === 'text'" class="pi pi-eye-slash"> </i>
-                    </button>
 
+                    <span class="p-input-icon-right" style="width: 100%;">
+                        <input type="password" pInputText formControlName="RepetirPassword" class="p-inputtext-sm"
+                            #passwordRepit placeholder="Confirmar la contraseña">
+                        <button pButton class="p-button-sm"
+                            (click)="passwordRepit.type === 'password' ? passwordRepit.type = 'text' : passwordRepit.type = 'password'"
+                            matSuffix>
+                            <i *ngIf="passwordRepit.type === 'password'" class="pi pi-eye"> </i>
+                            <i *ngIf="passwordRepit.type === 'text'" class="pi pi-eye-slash"> </i>
+                        </button>
+                    </span>
                 </div>
-            </div>
 
-        </p-fieldset>
+            </p-fieldset>
 
-            <div>
-                <button class="p-button-sm" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
+            <hr>
+            <div class="botones">
+
+                <button class="p-button-registrar" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
                     label="Registrarme" type="button" [disabled]="registroForm.invalid" (click)="onRegistrar()">
                 </button>
-                <button class="p-button-sm" pButton style="background-color: #D72250;" icon="pi pi-arrow-circle-left"
-                    label="Cancelar" type="button" routerLink="/auth/login">
+                <button class="p-button-cancelar" pButton style="background-color: #D72250;"
+                    icon="pi pi-arrow-circle-left" label="Cancelar" type="button" routerLink="/auth/login">
                 </button>
 
             </div>
