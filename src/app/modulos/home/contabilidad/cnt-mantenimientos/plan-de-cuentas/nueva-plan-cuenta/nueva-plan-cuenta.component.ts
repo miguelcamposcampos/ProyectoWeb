@@ -17,7 +17,7 @@ import { PlanCuentaService } from '../service/plan-cuenta.service';
 export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
-  @Input() data : IListPlanCuenta;
+  @Input() data : any;
   @Output() cerrar : EventEmitter<boolean>  = new EventEmitter<any>();
   Form : FormGroup;
   bloquearData : boolean = true;
@@ -28,26 +28,24 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
   fechaActual = new Date();
   PlanEdit: ICreatePlanCuenta; 
   arrayMonedas : ICombo[];
-  
+  maskInput : any;
+
   constructor(
     private apiService: PlanCuentaService,
     private swal : MensajesSwalService,
     private spinner : NgxSpinnerService,
     private generalService : GeneralService
   ) { 
-
     this.generalService._hideSpinner$.subscribe(x=>{
       this.spinner.hide();
     })
-
     this.onForm();
-    
   }
+
   ngAfterViewInit(): void {
     this.onCargarDropDown();
   }
  
-
   onForm(){
     this.Form = new FormGroup({
       nrocuenta : new FormControl(null, Validators.required),
@@ -64,16 +62,16 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void { 
-    if(this.data){
+    this.maskInput = this.data.ctaMayor;
+    console.log(this.data.data);
+
+    if(this.data.data){
       this.spinner.show(); 
-      this.Avisar();
+      this.Avisar(); 
     }
     this.onTabsForm(); 
-    
   }
 
- 
-     
   Avisar() {
     this.FlgLlenaronCombo.subscribe(x => { 
       this.onDateEdit();
@@ -145,7 +143,7 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
   }
 
   onDateEdit(){
-    this.apiService.plancuentaId(this.data.idPlanCuenta).subscribe((resp) => {
+    this.apiService.plancuentaId(this.data.data.idPlanCuenta).subscribe((resp) => {
       if(resp){
         this.spinner.hide();
         this.PlanEdit = resp; 
@@ -162,11 +160,11 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
           monedaid: this.arrayMonedas.find(
             (x) => x.id === resp.monedaid
           ),
-          detalle : resp.detalle,
-          centrodecosto : resp.centrodecosto,
+          requieredetalle : resp.detalle,
+          requierecentrocosto : resp.centrodecosto,
           presupuesto : resp.presupuesto,
           analisispatrimonioneto : resp.analisispatrimonioneto,
-          usadocostoproduccion : resp.usadocostoproduccion,
+          usadocostroproduccion : resp.usadocostoproduccion,
           idauditoria: resp.idauditoria 
         })
       }
@@ -179,20 +177,21 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
     let NumCuentaGrabar  =  data.nrocuenta.replace(/ /g, "");  
     NumCuentaGrabar  = NumCuentaGrabar.replace(/-/g, "");  
 
+    let EsImputable =  this.Form.controls['imputable'].value
     const NewPlanCuenta : ICreatePlanCuenta = { 
-        plancuentaid : this.data ? this.data.idPlanCuenta : 0,
+        plancuentaid : this.data.data ? this.data.data.idPlanCuenta : 0,
         nrocuenta : NumCuentaGrabar,
         periodo : this.fechaActual.getFullYear(),
         escuentamayor : false,
         nombrecuenta : data.nombrecuenta,
         naturaleza : data.naturaleza,
         imputable : data.imputable,
-        monedaid : data.monedaid ?  data.monedaid.id : -1,
-        detalle : data.requieredetalle,
-        centrodecosto : data.requierecentrocosto,
-        presupuesto : data.presupuesto,
-        analisispatrimonioneto : data.analisispatrimonioneto,
-        usadocostoproduccion : data.usadocostroproduccion,
+        monedaid : data.monedaid ?  data.monedaid.id : -1, 
+        detalle :  EsImputable ? data.requieredetalle : false,
+        centrodecosto :  EsImputable ? data.requierecentrocosto : false,
+        presupuesto : EsImputable ?  data.presupuesto : false,
+        analisispatrimonioneto : EsImputable ? data.analisispatrimonioneto : false,
+        usadocostoproduccion :  EsImputable ? data.usadocostroproduccion : false, 
         idauditoria: this.PlanEdit ? this.PlanEdit.idauditoria : 0
     }
     console.log('que guardamos',NewPlanCuenta);

@@ -11,6 +11,7 @@ import { SharedModulosModule } from 'src/app/modulos/shared_modulos/shared_modul
 import { NuevaPlanCuentaComponent } from './plan-de-cuentas/nueva-plan-cuenta/nueva-plan-cuenta.component';
 import { SubirPlanCuentaComponent } from './plan-de-cuentas/subir-plan-cuenta/subir-plan-cuenta.component';
 import { NuevaCuentaComponent } from './cuentas-mayores/nueva-cuenta/nueva-cuenta.component';
+import { NuevaAdminConceptoComponent } from './administracion-conceptos/nueva-admin-concepto/nueva-admin-concepto.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NuevaCuentaComponent } from './cuentas-mayores/nueva-cuenta/nueva-cuent
     PlanDeCuentasComponent,
       NuevaPlanCuentaComponent,
       SubirPlanCuentaComponent,
-    AdministracionConceptosComponent
+    AdministracionConceptosComponent,
+      NuevaAdminConceptoComponent
   ],
   imports: [
     CommonModule,

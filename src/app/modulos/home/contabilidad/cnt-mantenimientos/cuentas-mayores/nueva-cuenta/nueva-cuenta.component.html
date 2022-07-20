@@ -4,7 +4,7 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12 p-md-6">  
                 <strong>Nro cuenta *:</strong>
-                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nrocuenta" class="p-inputtext-sm" placeholder="ingresar un numero de cuenta">     
+                <input  type="text" pInputText minlength="2" maxlength="2"  (keypress)="onSoloNumeros($event)" formControlName="nrocuenta" class="p-inputtext-sm" placeholder="ingresar un numero de cuenta">     
             </div> 
 
             <div class="p-field p-col-12 p-md-6">  
@@ -22,15 +22,11 @@
                             formControlName="naturaleza"></p-radioButton>
                     </div>
                 </div>      
-            </div> 
-
-
+            </div>  
             <div class="p-field p-col-12">  
                 <strong>Nombre cuenta*:</strong>
                 <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombrecuenta" class="p-inputtext-sm" placeholder="ingresar un nombre">     
-            </div> 
-  
-          
+            </div>  
       
         </div> 
     </div> 

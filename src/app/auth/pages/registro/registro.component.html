@@ -20,78 +20,52 @@
 <div class="tituloPage">
     <h2> <strong> Completa el formulario </strong></h2>
 </div>
-
+  
 <div class="margintabla">
     <div class="contenidoTable card card-responsive">
         <form [formGroup]="registroForm">
+
             <p-fieldset>
                 <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-            <div class="p-grid p-fluid" style="margin:5%;">
-
-                <div class="p-inputgroup my-2 ">
+                <div class="formularioColum12_1"> 
+  
                     <strong>Nombre Completo <span style="color: red;">*</span> </strong>
-                    <br>
                     <input type="text" pInputText formControlName="NombreApellidos" class="p-inputtext-sm"
                         placeholder="Ingrese su nombre Completo">
-                </div>
 
-                <div class="p-inputgroup my-2 ">
-                    <strong>Correo electrónico<span style="color: red;">*</span> </strong>
-                    <br>
-                    <input type="email" pInputText formControlName="Email" class="p-inputtext-sm"
-                        placeholder="Ingrese un Email">
-                </div>
+                    <strong>Correo electrónico<span style="color: red;">*</span> </strong> 
+                    <input type="email" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="Ingrese un Email">
 
-                <div class="p-inputgroup my-2 ">
                     <strong>Alias <span style="color: red;">*</span> </strong>
-                    <br>
-                    <input type="text" pInputText formControlName="NombreUsuario" class="p-inputtext-sm"
-                        placeholder="Ingrese un Alias">
-                </div>
+                    <input type="text" pInputText formControlName="NombreUsuario" class="p-inputtext-sm" placeholder="Ingrese un Alias">
 
-                <div class="p-inputgroup my-2">
                     <strong>Contraseña<span style="color: red;">*</span> </strong>
-                    <br>
-                    <input type="password" pInputText formControlName="Password" class="p-inputtext-sm" #passwordField
-                        placeholder="Ingrese una contraseña">
-                    <button pButton class="p-button-sm"
-                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                        matSuffix>
-                        <i *ngIf="passwordField.type === 'password'" class="pi pi-eye"> </i>
-                        <i *ngIf="passwordField.type === 'text'" class="pi pi-eye-slash"> </i>
-                    </button>
-                </div>
+                    <span class="p-input-icon-right" style="width: 100%;">
+                        <i toggle="#password-field"
+                        [class]="cambiarIconEye"
+                        (click)="viewPassword(clave)"> </i>
+                        <input type="password"  #passwordField pInputText placeholder="CONTRASEÑA" formControlName="Password"  #clave class="p-inputtext-sm">    
+                    </span>
 
-                <div class="p-inputgroup my-2">
                     <strong>Confirmar Contraseña<span style="color: red;">*</span> </strong>
-                    <br>
-                    <input type="password" pInputText formControlName="RepetirPassword" class="p-inputtext-sm"
-                        #passwordRepit placeholder="Confirmar la contraseña">
-                    <button pButton class="p-button-sm"
-                        (click)="passwordRepit.type === 'password' ? passwordRepit.type = 'text' : passwordRepit.type = 'password'"
-                        matSuffix>
-                        <i *ngIf="passwordRepit.type === 'password'" class="pi pi-eye"> </i>
-                        <i *ngIf="passwordRepit.type === 'text'" class="pi pi-eye-slash"> </i>
-                    </button>
-
+                    <span class="p-input-icon-right" style="width: 100%;">
+                        <i toggle="#password-field"
+                        [class]="cambiarIconEye2"
+                        (click)="viewPassword2(clave2)"> </i>
+                        <input type="password"  #passwordField2 pInputText placeholder="CONFIRMAR CONTRASEÑA" formControlName="RepetirPassword"  #clave2 class="p-inputtext-sm">    
+                    </span>
                 </div>
-            </div>
 
-        </p-fieldset>
-
-            <div>
+            </p-fieldset>
+ 
+            <div class="botones">
                 <button class="p-button-sm" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
                     label="Registrarme" type="button" [disabled]="registroForm.invalid" (click)="onRegistrar()">
                 </button>
                 <button class="p-button-sm" pButton style="background-color: #D72250;" icon="pi pi-arrow-circle-left"
                     label="Cancelar" type="button" routerLink="/auth/login">
-                </button>
-
-            </div>
-
-
-        </form>
-
-
+                </button> 
+            </div> 
+        </form>  
     </div>
 </div>
