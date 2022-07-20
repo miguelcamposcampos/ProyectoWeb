@@ -6,8 +6,8 @@
     </div>
 
     <div class="p-toolbar-group-right">
-        <button tooltipPosition="left" pTooltip="Volver" class="mx-2 p-button-sm" pButton type="button"
-            routerLink='/auth/login' icon="pi pi-arrow-circle-left">
+        <button tooltipPosition="left" pTooltip="Volver" class="p-button-sm" pButton type="button" label="Regresar"
+            placeholder="Regresar" routerLink='/auth/login' icon="pi pi-arrow-circle-left">
         </button>
     </div>
 </p-toolbar>
@@ -22,7 +22,7 @@
 </div>
   
 <div class="margintabla">
-    <div class="contenidoTable card card-responsive">
+    <div class="contenidoTable card-box">
         <form [formGroup]="registroForm">
 
             <p-fieldset>
@@ -55,7 +55,6 @@
                         <input type="password"  #passwordField2 pInputText placeholder="CONFIRMAR CONTRASEÑA" formControlName="RepetirPassword"  #clave2 class="p-inputtext-sm">    
                     </span>
                 </div>
-
             </p-fieldset>
  
             <div class="botones">
@@ -66,6 +65,6 @@
                     label="Cancelar" type="button" routerLink="/auth/login">
                 </button> 
             </div> 
-        </form>  
+        </form>   
     </div>
 </div>

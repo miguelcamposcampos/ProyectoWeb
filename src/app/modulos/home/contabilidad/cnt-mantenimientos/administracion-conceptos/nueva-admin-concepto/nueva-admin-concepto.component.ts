@@ -5,7 +5,7 @@ import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IAdminConceptoPorId } from '../interface/admin-conceptos.interface';
+import { IAdminConceptoPorId, ICrearAdminConcepto } from '../interface/admin-conceptos.interface';
 import { AdministracionConceptosService } from '../service/admin-conceptos.service';
 
 @Component({
@@ -21,9 +21,12 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
   fechaActual = new Date();
   tituloVista = "REGISTRO CONCEPTO CONTABLE";
   arrayMonedas : ICombo[];
-  arrayAreas : ICombo[];
+  arrayAreas : any[];
   Form : FormGroup;
   AdminConceptoDataEdit : IAdminConceptoPorId
+  tipoCuenta : string= '';
+  modalCuentas : boolean = false;
+
 
   constructor(
     private apiService: AdministracionConceptosService,
@@ -34,11 +37,15 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
     this.generalService._hideSpinner$.subscribe(x=>{
       this.spinner.hide();
     })
+    this.arrayAreas = [
+      {nombre : 'Venta', codigo: 0},
+      {nombre : 'Compra', codigo: 1}, 
+    ]
     this.onForm();
   }
 
   ngAfterViewInit(): void {
-    this.onCargarDropDown();
+    this.onCargarDropDown();  
   }
 
    
@@ -46,7 +53,7 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
     this.Form = new FormGroup({
       codigoconcepto : new FormControl(null, Validators.required),
       nombreconcepto : new FormControl(null, Validators.required),
-      areaid : new FormControl(null, Validators.required),
+      areaid : new FormControl({nombre : 'Venta', codigo: 0}, Validators.required),
       monedaid : new FormControl(null), 
       cuentaprecioventa : new FormControl(null),
       cuentaigv : new FormControl(null),
@@ -109,19 +116,19 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
   onGrabar(){
     const data = this.Form.value; 
 
-    const newAdminConcepto : IAdminConceptoPorId = { 
-        conceptocontableid : this.data.data ? this.data.conceptoContableId : 0,
-        codigoconcepto : data.codigoconcepto,
-        nombreconcepto: data.nombreconcepto,
-        areaid: data.areaid.id,
-        cuentaprecioventa: data.cuentaprecioventa,
-        cuentaigv: data.cuentaigv,
-        cuentadetraccion: data.cuentadetraccion,
-        cuentadescuento: data.cuentadescuento,
-        periodo : this.fechaActual.getFullYear(), 
-        monedaid:  data.monedaid ? data.monedaid.id : -1,
-        idauditoria: this.AdminConceptoDataEdit ? this.AdminConceptoDataEdit.idauditoria : 0
+    const newAdminConcepto : ICrearAdminConcepto = { 
+      conceptocontableid: this.data ? this.data.conceptoContableId : 0,
+      codigoconcepto: data.codigoconcepto,
+      nombreconcepto: data.nombreconcepto,
+      areaid : data.ara.id,
+      cuentaprecioventa: data.cuentaprecioventa,
+      cuentaigv: data.cuentaigv,
+      cuentadetraccion: data.cuentadetraccion,
+      cuentadescuento: data.cuentadescuento,
+      monedaid: data.monedaid ? data.monedaid.id : -1,
+      idauditoria: this.AdminConceptoDataEdit ? this.AdminConceptoDataEdit.idauditoria : 0
     }
+
     console.log('que guardamos',newAdminConcepto);
 
     if(!this.AdminConceptoDataEdit){
@@ -147,17 +154,27 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
 
   /* MODALES */
 
-  onModalCtarecioVenta(){
-    
-  }
-  onModalCtaPrecioIgv(){
-    
-  }
-  onModalCtaDetraccion(){
-    
-  }
-  onModalCtaDescuento(){
-    
+  onModalBuscarCuentas(tipoCuenta : string){
+    this.tipoCuenta = tipoCuenta
+    this.modalCuentas = true; 
   }
 
+  onPintarcuenta( data : any ){ 
+    console.log('Que 22 ',data.tipoCuenta);
+    console.log('Que 333',data.data.nroCuenta);
+
+    if(data.tipoCuenta === 'CtvPrecioVenta'){
+      this.Form.controls['cuentaprecioventa'].setValue(data.data.nroCuenta)
+    }else  if(data.tipoCuenta === 'CtaIgv'){
+      this.Form.controls['cuentaigv'].setValue(data.data.nroCuenta)
+    }else  if(data.tipoCuenta === 'CtaDetraccion'){
+      this.Form.controls['cuentadetraccion'].setValue(data.data.nroCuenta)
+    }else  if(data.tipoCuenta === 'CtaDescuento'){
+      this.Form.controls['cuentadescuento'].setValue(data.data.nroCuenta)
+    }
+
+    this.modalCuentas = false;
+ 
+  }
+ 
 }

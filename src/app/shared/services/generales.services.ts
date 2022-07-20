@@ -202,6 +202,22 @@ BuscarProductoPorCodigo(data: any): Observable<IListadoStock>{
   }
 
 
+  /* CONCEPTOS CONTABLES */
 
+  getcuentacontable(data : any){ 
+    let params = new HttpParams();
+    if(data.criterio){
+      params = params.append('criterio', data.criterio);
+    }
+    if(data.soloCuentasMayores){
+      params = params.append('soloCuentasMayores', data.soloCuentasMayores);
+    }
+    if(data.ctamayor){
+      params = params.append('ctamayor', data.ctamayor);
+    }  
+    return this.http.get<any[]>(`${this.api987}/Contabilidad/ObtenerPlanCuentasConsulta`, {params}) 
+  }
+
+ 
 }
  

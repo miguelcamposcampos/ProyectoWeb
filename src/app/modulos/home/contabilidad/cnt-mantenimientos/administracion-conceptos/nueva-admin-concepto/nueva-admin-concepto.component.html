@@ -1,5 +1,5 @@
-<div class="Margintabla">
-    <div class="contenidoTable card"> 
+ 
+    <div class="contenidoTable"> 
 
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -32,7 +32,8 @@
 
                                     <div class="p-field p-col-12 p-md-4">  
                                         <strong>Área *:</strong>
-                                        <input  type="text" pInputText minlength="2"  formControlName="areaid" class="p-inputtext-sm" placeholder="ingresar un area">     
+                                        <p-dropdown class="extender" [options]="arrayAreas" formControlName="areaid"
+                                        placeholder="Moneda" optionLabel="nombre" [showClear]="true"></p-dropdown>   
                                     </div> 
 
                                     <div class="p-field p-col-12">  
@@ -49,7 +50,7 @@
                                                     <strong>Cta Precio Venta :</strong> 
                                                     <div class="p-inputgroup">  
                                                         <input type="text" pInputText formControlName="cuentaprecioventa" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalCtarecioVenta()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtvPrecioVenta')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                                                     </div>
 
                                                 </div>
@@ -57,21 +58,21 @@
                                                     <strong>Cta Igv :</strong> 
                                                     <div class="p-inputgroup">  
                                                         <input type="text" pInputText formControlName="cuentaigv" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalCtaPrecioIgv()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaIgv')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                                                     </div>    
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-6">  
                                                     <strong>Cta Detracción :</strong> 
                                                      <div class="p-inputgroup">  
                                                         <input type="text" pInputText formControlName="cuentadetraccion" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalCtaDetraccion()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaDetraccion')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                                                     </div>      
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-6">  
                                                     <strong>Cta Descuento :</strong>  
                                                      <div class="p-inputgroup">  
                                                         <input type="text" pInputText formControlName="cuentadescuento" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalCtaDescuento()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaDescuento')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                                                     </div>     
                                                 </div>
                                             </div>
@@ -110,4 +111,12 @@
         </div> 
  
     </div>
-</div>  
+ 
+
+    <!-- MODAL  -->
+<div *ngIf="modalCuentas">
+    <p-dialog header="BUSCAR TIPO CUENTA" [(visible)]="modalCuentas" [modal]="true" [draggable]="false" [resizable]="false"> 
+        <app-buscar-tipo-cuenta  (CuentaSelect)="onPintarcuenta($event)" [tipoCuenta]="tipoCuenta" ></app-buscar-tipo-cuenta>
+    </p-dialog> 
+</div>
+

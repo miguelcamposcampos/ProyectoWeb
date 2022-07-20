@@ -31,6 +31,9 @@ export class RegistroComponent implements OnInit {
       private generalService: GeneralService,
       private spinner : NgxSpinnerService
   ) {
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
   }
 
   ngOnInit(): void { 

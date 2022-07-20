@@ -1,0 +1,582 @@
+/* Styles by miguelcampossv */
+
+.p-button-acceder {
+    color: #f8fafc;
+    background: #3f8748;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-registrar {
+    color: #f8fafc;
+    background: #3f8748;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-opciones {
+    color: #f8fafc;
+    background: #1B74C5;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+
+.p-button-generico-azul {
+    color: #f8fafc;
+    background: #1B74C5;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-cancelar {
+    color: #f8fafc;
+    background: #f80000;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-ajustes {
+    color: #f8fafc;
+    background: #147DBA;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-agregar-blue {
+    background: #1B74C5;
+    color: white;
+    width: 270px;
+    height: 45px;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.login h2 {
+    font-size: 35px;
+    color: #919090;
+    font-weight: 900;
+    line-height: 0.5;
+    text-align: center;
+
+}
+
+.login img {
+
+    padding: 6%;
+    width: 70%;
+    margin: 0 auto;
+
+}
+
+.login {
+    height: 100vh;
+    display: flex;
+    margin: auto;
+    margin: 0;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.imgFondo {
+    z-index: -1;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    /* Usamos cover para que nuestra imagen no se deforme al adaptarse a cada pantalla */
+    background-position: center;
+    /* Para centrar la imagen horizontal y verticalmente en el contenedor */
+    background-repeat: no-repeat;
+    /* Para que no repita la imagen */
+}
+
+.Formlogin {
+
+    .textoRegistrar {
+        text-align: center;
+        color: white !important;
+    }
+
+}
+
+.card {
+    box-shadow: 0 0 2px black !important;
+    border-radius: 5%;
+    text-align: center;
+
+    span {
+        color: #ffffff;
+    }
+
+    img {
+        padding: 6%;
+        width: 25%;
+    }
+}
+
+.tituloLogin {
+    padding-top: 4%;
+    padding-bottom: 40%;
+    text-align: center;
+    display: block;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    h2 {
+        font-weight: bold;
+        font-family: inherit;
+        font-size: 1.5em;
+        color: #D72250;
+    }
+}
+
+.formulario {
+
+    .botonIngresar {
+        color: white;
+        background-color: #D72250;
+        height: 45px;
+        text-align: center;
+        width: 60%;
+        border-radius: 50px;
+        opacity: 100;
+        border: 0px;
+    }
+
+    .botonIngresar:hover {
+        color: white;
+        background-color: #6e6e6e;
+        height: 45px;
+        text-align: center;
+        width: 60%;
+        border-radius: 50px;
+        opacity: 100;
+        border: 0px;
+    }
+}
+
+.background-image {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #c7c7c7;
+    background-image: url('/assets/layout/images/fondo-login2.jpg');
+}
+
+.col-lg-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%
+}
+
+.col-lg-6 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px
+}
+
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.content-right {
+    overflow-y: auto;
+}
+
+.flex-column {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important
+}
+
+.row-height {
+    min-height: 100vh !important;
+    height: 100vh;
+}
+
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0
+}
+
+.content-left-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    min-height: 100%;
+    padding: 0 90px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+
+
+.row-login {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+
+.pb-3,
+.py-3 {
+    padding-bottom: 1rem !important
+}
+
+.mt-auto,
+.my-auto {
+    margin-top: auto !important
+}
+
+.mr-auto,
+.mx-auto {
+    margin-right: auto !important
+}
+
+.mb-auto,
+.my-auto {
+    margin-bottom: auto !important
+}
+
+.mr-auto,
+.mx-auto {
+    margin-right: auto !important
+}
+
+.mb-auto,
+.my-auto {
+    margin-bottom: auto !important
+}
+
+.ml-auto,
+.mx-auto {
+    margin-left: auto !important
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.p-inputtext-sm {
+    background-color: #e3e3e3;
+    border-radius: 50px;
+    width: 70%;
+    margin: 2%;
+    height: 45px;
+    padding: 25px;
+}
+
+.p-input-icon-right>i:last-of-type {
+    right: 140px;
+    color: #657380;
+}
+
+.copy {
+    text-align: center;
+}
+
+
+/********** clear ********/
+
+.logotipo {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.logotipo img {
+    width: 60%;
+}
+
+.tituloPage {
+    align-items: center;
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    background-color: #147DBA;
+    color: white;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+.tablas-empresas {
+    width: 990px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 35px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+}
+
+.column-empresas-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.column-empresas-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.p-inputtext.p-inputtext-sm {
+    font-size: 16px;
+    padding: 5px 50px;
+    width: 390px;
+    border-radius: 20px;
+    background: #e3e3e3;
+}
+
+
+::ng-deep .p-datatable .p-datatable-thead>tr>th {
+    text-align: center;
+    padding: 1rem rem 1rem;
+    border: 1px solid rgba(232, 241, 248, 0.7);
+    border-width: 0 0 1px 0;
+    font-weight: 600;
+    color: #ffffff;
+    background: #72afff;
+    transition: box-shadow 0.2s;
+}
+
+.header-buscar-empresas {
+
+    width: 990px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+    display: flex;
+    align-items: center;
+
+}
+
+::ng-deep .p-datatable .p-datatable-tbody>tr.p-highlight {
+    background: #a3a9af;
+    color: #f8fafc;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody>tr>td {
+    text-align: center;
+    border: 1px solid rgba(232, 241, 248, 0.7);
+    border-width: 0 0 1px 0;
+    padding: 1rem 1rem;
+}
+
+
+::ng-deep .p-datatable .p-sortable-column:not(.p-highlight):hover {
+    background: rgb(180 202 219 / 70%);
+    color: #515C66;
+}
+
+.p-input-icon-left>i:first-of-type {
+    left: 2.5rem;
+    color: #657380;
+}
+
+/********** clear ********/
+
+
+.formularioEmpresa {
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 14rem 20rem;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+
+
+.eligirPlan {
+    background-color: #efefef;
+    padding: 65px;
+    border-radius: 25px;
+}
+
+.p-button-elegirplan {
+    width: 290px;
+    height: 45px;
+    background: #4DA8DE;
+    border-radius: 25px;
+}
+
+.card-box {
+
+    background: #ffffff;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    width: 1024px;
+    margin: auto;
+    box-shadow: 0 16px 26px 0 rgb(0 0 0 / 29%);
+}
+
+.elegirOpciones {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.margintabla {
+    margin-top: 50px;
+}
+
+
+.p-fieldset .p-fieldset-legend {
+    padding: 1rem;
+    border: 1px solid #E4E5E5;
+    color: #515C66;
+    background: #d9d9d9;
+    font-weight: 600;
+    border-radius: 3px;
+    margin: auto;
+}
+
+.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.p-dialog .p-dialog-content {
+    background: #FDFEFF;
+    color: #515C66;
+    padding: 0 1.5rem 2rem 1.5rem;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 0 !important;
+    width: 650px;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    border: 0 none;
+    background: #4d9fdc;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+
+.p-inputtext-sm-clear {
+    font-size: 16px !important;
+    padding: 10px 30px !important;
+    width: 98% !important;
+    border-radius: 5px !important;
+    background: #ffffff !important;
+}
+
+
+.p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: auto;
+}
+
+.p-inputtext-sm-clear-grey {
+    font-size: 16px !important;
+    padding: 10px 30px !important;
+    width: 98% !important;
+    border-radius: 5px !important;
+    background: #e3e3e3 !important;
+}
+
+
+.p-fluid .p-calendar .p-inputtext {
+    width: 1%;
+    background-color: #e3e3e3;
+}
+
+
+.p-fluid .p-dropdown .p-dropdown-label {
+    width: 1%;
+    background: #e3e3e3;
+}
+
+.p-toolbar {
+    background: #ffffff;
+    border: 0px solid #ffffff;
+    padding: 1rem;
+    border-radius: 0px;
+    color: #147dba;
+}

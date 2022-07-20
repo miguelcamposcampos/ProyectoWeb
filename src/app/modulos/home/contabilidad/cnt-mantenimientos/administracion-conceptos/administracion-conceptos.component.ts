@@ -51,7 +51,7 @@ export class AdministracionConceptosComponent implements OnInit {
     });
   }
 
-  onAdd(data : IListAdminConcepto){
+  onAdd(){
     this.data = null;
     this.vNuevo = true;
   }

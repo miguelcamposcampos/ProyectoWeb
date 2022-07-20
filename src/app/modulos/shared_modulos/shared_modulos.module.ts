@@ -12,6 +12,7 @@ import { BuscarUbigeoComponent } from './buscar-ubigeo/buscar-ubigeo.component';
 import { BuscarPendienteComponent } from './buscar-pendiente/buscar-pendiente.component';
 import { BuscarAnticipoComponent } from './buscar-anticipo/buscar-anticipo.component';
 import { BuscarCentrocostoComponent } from './buscar-centrocosto/buscar-centrocosto.component';
+import { BuscarTipoCuentaComponent } from './buscar-tipo-cuenta/buscar-tipo-cuenta.component';
  
 @NgModule({
   declarations: [ 
@@ -22,7 +23,8 @@ import { BuscarCentrocostoComponent } from './buscar-centrocosto/buscar-centroco
     BuscarUbigeoComponent,
     BuscarPendienteComponent,
     BuscarAnticipoComponent,
-    BuscarCentrocostoComponent
+    BuscarCentrocostoComponent,
+    BuscarTipoCuentaComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { BuscarCentrocostoComponent } from './buscar-centrocosto/buscar-centroco
     BuscarUbigeoComponent,
     BuscarPendienteComponent,
     BuscarAnticipoComponent,
-    BuscarCentrocostoComponent
+    BuscarCentrocostoComponent,
+    BuscarTipoCuentaComponent
     
   ]
 })

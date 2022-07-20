@@ -26,7 +26,7 @@
 
 
 <div class="Margintabla">
-  <div class="contenidoTable card">
+  <div class="contenidoTable">
     <div class="buscar-empresa">
       <div class="container">
         <div class="row">
@@ -42,7 +42,7 @@
             </div>
             <div class="col-lg-6">
               <div class="column-empresas-right">
-                <button class="p-button-sm  p-button-agregar" pButton icon="pi pi-plus" label="Invitar"
+                <button class="p-button-agregar-blue" pButton icon="pi pi-plus" label="Invitar"
                   tooltipPosition="left" pTooltip="Invitar Usuario" (click)="onModalInvitarUsuario()">
                 </button>
               </div>
@@ -137,10 +137,10 @@
     </form>
     <div class="botones">
       <button pButton label="Cambiar de Rol" style="margin-right: 1%;" (click)="onChangeRol(selectUsuario)"
-        class="p-button-sm p-button-rounded m-1" icon="pi pi-refresh">
+        class="p-button-registrar" icon="pi pi-refresh">
       </button>
       <button pButton label="cancelar" (click)="modalChangeRol = false"
-        class="p-button-sm p-button-rounded m-1 p-button-rounded-cancelar" icon="pi pi-times-circle">
+        class="p-button-cancelar" icon="pi pi-times-circle">
       </button>
     </div>
   </p-dialog>
@@ -167,10 +167,10 @@
 
   <div class="botones">
     <button pButton label="Enviar invitación" [disabled]="InvitarForm.invalid" (click)="onEnviarInvitacion()"
-      type="button" style="margin-right: 1%;" class="p-button-sm p-button-rounded m-1" icon="pi pi-send">
+      type="button" style="margin-right: 1%;" class="p-button-registrar" icon="pi pi-send">
     </button>
     <button pButton label="cancelar" type="button" style=" background-color: #D72250;"
-      (click)="modalInvitarUsuario = false" class="p-button-sm p-button-rounded m-1" icon="pi pi-times-circle">
+      (click)="modalInvitarUsuario = false" class="p-button-cancelar " icon="pi pi-times-circle">
     </button>
   </div>
 
