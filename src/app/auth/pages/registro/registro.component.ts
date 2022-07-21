@@ -19,7 +19,10 @@ export class RegistroComponent implements OnInit {
   registroForm!: FormGroup; 
   value: boolean = false;
   usuario! : IUsuario
- 
+  cambiarIconEye: string = "fa fa-eye";
+  cambiarIconEye2: string = "fa fa-eye";
+   
+
   constructor(   
       private formBuilder: FormBuilder,
       private router: Router, 
@@ -28,6 +31,9 @@ export class RegistroComponent implements OnInit {
       private generalService: GeneralService,
       private spinner : NgxSpinnerService
   ) {
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
   }
 
   ngOnInit(): void { 
@@ -79,6 +85,17 @@ export class RegistroComponent implements OnInit {
   
   onRegresar(){ 
       this.router.navigate(['/auth/login']);
+  }
+
+  viewPassword(input) {
+    input.type = input.type === 'password' ? 'text' : 'password'; 
+    this.cambiarIconEye = input.type === 'password' ? 'fa fa-eye' : 'fa fa-eye-slash'; 
+  }
+
+
+  viewPassword2(input) {
+    input.type = input.type === 'password' ? 'text' : 'password'; 
+    this.cambiarIconEye2 = input.type === 'password' ? 'fa fa-eye' : 'fa fa-eye-slash'; 
   }
  
 }

@@ -23,7 +23,11 @@ export class RepCondicionDePagoComponent  {
     public sanitizer: DomSanitizer, 
     private generalService: GeneralService,
     private spinner : NgxSpinnerService
-  ) { }
+  ) {
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+   }
 
  
 

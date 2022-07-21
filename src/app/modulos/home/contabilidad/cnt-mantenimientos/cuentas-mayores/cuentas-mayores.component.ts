@@ -48,7 +48,7 @@ export class CuentasMayoresComponent implements OnInit {
     }))
   }
 
-  onAdd(){
+  onAdd(){ 
     this.data = null;
     this.vNuevaCuenta = true;
   }

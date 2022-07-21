@@ -17,7 +17,7 @@ export class PlanDeCuentasComponent implements OnInit {
   cols: InterfaceColumnasGrilla[] =[];
   vSubirPlanCuenta : boolean = false;
   vNuevoPlan:boolean = false;
-  data: IListPlanCuenta;
+  data: any;
   list: IListPlanCuenta[];
   nombrePlanCuenta:string="";
   nroCuentaBuscar = new FormControl(null, Validators.required);
@@ -72,12 +72,19 @@ export class PlanDeCuentasComponent implements OnInit {
   }
 
 
-  onAdd(){
-    this.data = null;
+  onAdd(){ 
+    const data = {
+      ctaMayor : this.nroCuentaBuscar.value
+    }
+    this.data = data;
     this.vNuevoPlan = true;
   }
 
-  onEdit(data: IListPlanCuenta){
+  onEdit(plancuenta: IListPlanCuenta){
+    const data = {
+      ctaMayor : this.nroCuentaBuscar.value,
+      data : plancuenta
+    } 
     this.data = data;
     this.vNuevoPlan = true;
   }
@@ -98,7 +105,10 @@ export class PlanDeCuentasComponent implements OnInit {
     this.vSubirPlanCuenta = true;
   }
 
-  onRegresar(event){ 
+  onRegresar(event){
+    if(event){
+      this.onLoadTable();
+    }
     this.vNuevoPlan= false;
   }
 

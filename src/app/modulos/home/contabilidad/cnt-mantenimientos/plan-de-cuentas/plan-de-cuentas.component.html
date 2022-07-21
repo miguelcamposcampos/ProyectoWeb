@@ -21,6 +21,7 @@
                             label="Agregar"
                             tooltipPosition="left"
                             pTooltip="Registrar un plan"
+                            [disabled]="!nroCuentaBuscar.value"
                             (click)="onAdd()">  
                         </button> 
 
@@ -38,10 +39,7 @@
                     </div>
                 </p-toolbar>
  
-                <div class="row">
-                   
-                      
-                     
+                <div class="row"> 
                     <div class="header-buscar-empresas"> 
                         <div class="col-lg-6">
                             <div *ngIf="nombrePlanCuenta">

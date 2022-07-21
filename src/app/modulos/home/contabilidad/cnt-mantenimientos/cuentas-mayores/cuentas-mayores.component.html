@@ -10,7 +10,25 @@
       
         <div class="buscar-empresa">
             <div class="container">
-                <h3> <i class="fa-solid fa-arrow-up-a-z"></i>  <strong>  Cuentas Mayores </strong></h3> 
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <h3> <i class="fa-solid fa-arrow-up-a-z"></i>  <strong>  Cuentas Mayores </strong></h3> 
+                    </div>
+                    <div class="p-toolbar-group-right">
+                        <button    
+                            class="p-button-sm p-button-agregar"
+                            pButton
+                            type="button"
+                            icon="pi pi-plus"
+                            label="Agregar"
+                            tooltipPosition="left"
+                            pTooltip="Registrar una cuenta" 
+                            (click)="onAdd()">  
+                        </button> 
+                    </div>
+                </p-toolbar>
+
+            
                 <div class="row">
                     <div class="header-buscar-empresas">
                     <div class="col-lg-6">
@@ -22,20 +40,7 @@
                             </span> 
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="column-empresas-right">
-                            <button    
-                                class="p-button-sm p-button-agregar"
-                                pButton
-                                type="button"
-                                icon="pi pi-plus"
-                                label="Agregar"
-                                tooltipPosition="left"
-                                pTooltip="Registrar una Cuenta"
-                                (click)="onAdd()">  
-                            </button> 
-                        </div>
-                    </div>
+                    
                 </div>
                 </div>
                 <div class="row">
