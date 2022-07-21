@@ -6,33 +6,38 @@
   </ngx-spinner>
 
   
-   <div class="Margintabla"> 
-        <div class="contenido card">     
+   <div class="margintabla"> 
+        <div class="contenido card-box">     
             <div> 
                 <h3> HISTÓRICO VENTAS </h3>  
                 <strong>Rango de Información: </strong>
                 <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'HVenta')" [options]="arrayRango1" [formControl]="rangoBusqueda1"  optionLabel="nombre"></p-dropdown>     
                       
                 <div class="graficos">   
-                    <div>
+                    <div class="charts"> 
+                        <h3>Title Lorem</h3>
                         <p-chart type="line" [data]="DataLineal1" ></p-chart> 
                     </div> 
                     
-                    <div>
+                    <div class="charts">
+                        <h3>Title Lorem</h3>
                         <p-chart type="doughnut"[data]="DataGraficoDunat"  ></p-chart> 
                     </div>
                 </div>
             </div>
+            
+            <br>
+            <hr>
             <br>
             
             <div class="graficos2">   
-                <div>
+                <div class="charts">
                     <h3> COBRANZAS Y POR COBRAR </h3>  
                     <strong>Rango de Información: </strong>
                     <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'HCobranza')" [options]="arrayRango2" [formControl]="rangoBusqueda2"  optionLabel="nombre"></p-dropdown>     
                     <p-chart type="line" [data]="DataLineal2" ></p-chart> 
                 </div>
-                <div> 
+                <div class="charts"> 
                     <h3> PRODUCTO MÁS VENDIDO</h3>   
                     <strong>Rango de Información: </strong>
                     <p-dropdown class="DropExtenso" (onChange)="onObtenerRango($event, 'ProductoMasVendido')" [options]="arrayRango3" [formControl]="rangoBusqueda3"  optionLabel="nombre"></p-dropdown>     
@@ -41,12 +46,14 @@
             </div>
 
             <br>
+            <hr>
+            <br>
   
             <div>   
                 <h3> DOCUMENTOS NO REGULARIZADOS EN SUNAT</h3>   
                 <div class="graficos2">   
 
-                    <div>
+                    <div class="charts">
                         <i class="fa-solid fa-triangle-exclamation sizeIcon"></i>
                         <br>
                         <div class="textIcon">
@@ -54,7 +61,7 @@
                         </div>
                     </div> 
                     
-                    <div> 
+                    <div class="charts"> 
                         <i class="fa-regular fa-circle-check sizeIcon2"></i>
                         <div class="textIcon">
                             No tiene documento anulados sin dar de baja

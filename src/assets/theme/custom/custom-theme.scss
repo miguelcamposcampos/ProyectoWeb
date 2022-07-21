@@ -584,3 +584,103 @@
 .p-fluid .p-inputtext {
     width: 98%;
 }
+
+.InputCombinadoBuscar {
+    display: grid;
+    grid-template-columns: 1fr 60px 25px;
+}
+
+.InputCombinado {
+    display: grid;
+    gap: 1%;
+    grid-template-columns: 1fr 150px 150px;
+
+    @media (max-width: 700px) {
+        display: block
+    }
+}
+
+
+.totalesResumen {
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 1fr;
+    align-items: center;
+
+    @media (max-width: 800px) {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+}
+
+
+.formImprimir {
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 12rem 1fr;
+    align-items: center;
+
+    @media (max-width: 800px) {
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+}
+
+
+
+.totalaMostrar {
+    font-size: 15px;
+    text-align: center;
+}
+
+.precioForm {
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 10rem 2fr 0.5fr;
+    align-items: center;
+
+    @media (max-width: 700px) {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+.number-clear {
+    height: 34px;
+    margin-top: 18px;
+}
+
+
+.p-inputtext-sm-simple {
+    height: 35px;
+}
+
+.mt-18 {
+    margin-top: 18px;
+}
+
+
+.p-dropdown {
+    background: #e3e3e3;
+}
+
+.p-inputtext-sm-nonArounded {
+    border-radius: 5px !important;
+}
+
+.p-tabmenu .p-tabmenu-nav {
+    background: #e3e3e3 !important;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+    background: #e3e3e3;
+}
+
+.charts {
+
+    width: 80%;
+}
