@@ -281,6 +281,7 @@
                                     <th style="width: 90px;">N.Serie</th>
                                     <!-- <th style="width: 90px;">N.Cuenta</th>  -->
                                     <th style="width: 150px;">F.Vencimiento</th>
+                                    <th style="width: 150px;">Nro Cuenta</th>
                                 </tr>
                             </ng-template>
 
@@ -407,16 +408,15 @@
                                         <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm"
                                             pInputText formControlName="nroSerie">
                                     </td>
-                                    <!-- <td>
-                                                <strong class="p-column-title">Nro Cuenta</strong>
-                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="nrocuenta">  
-                                            </td>  -->
                                     <td>
                                         <strong class="p-column-title">F.Vencimiento</strong>
                                         <p-calendar appendTo="body" readonlyInput="true" [showIcon]="true"
-                                            dateFormat="dd/mm/yy" formControlName="fechavencimiento"></p-calendar>
-                                    </td>
-
+                                        dateFormat="dd/mm/yy" formControlName="fechavencimiento"></p-calendar>
+                                    </td> 
+                                    <td>
+                                        <strong class="p-column-title">Nro Cuenta</strong>
+                                        <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="nrocuenta">  
+                                    </td> 
 
                                 </tr>
                             </ng-template>

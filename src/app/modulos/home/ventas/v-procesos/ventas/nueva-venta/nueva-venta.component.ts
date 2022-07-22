@@ -842,7 +842,8 @@ export class NuevaVentaComponent implements OnInit {
       esafectoicbper :event.data.esAfectoICBPER,
       nroSerie: event.data.serie === "0" ? null : event.data.serie, 
       nroLote: event.data.lote === "0" ? null : event.data.lote, 
-      esGravada : event.data.precioIncluyeIgv
+      esGravada : event.data.precioIncluyeIgv,
+      nrocuenta : event.data.ctaVenta
     }); 
     this.onCalcularPrecioVenta(event.posicion);
     this.modalBuscarProducto = false; 
@@ -871,7 +872,8 @@ export class NuevaVentaComponent implements OnInit {
           esafectoicbper :resp[0].esAfectoICBPER,
           nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
           nroLote: resp[0].lote === "0" ? null : resp[0].lote, 
-          esGravada : resp[0].precioIncluyeIgv
+          esGravada : resp[0].precioIncluyeIgv,
+          nrocuenta : resp[0].ctaVenta
         });
         this.onCalcularPrecioVenta(posicion);
       }else{
@@ -925,8 +927,7 @@ export class NuevaVentaComponent implements OnInit {
       } 
     })
   }
-
-
+ 
   onObtenerBytes(data : any){
     const dataSearch = {
       ventaid: this.VentaEditar.ventaid,
@@ -965,8 +966,7 @@ export class NuevaVentaComponent implements OnInit {
     })
   }
  /* FIN IMPRIMIR TICKET */
-
-
+ 
 
   /* REPORTE */
   onReporteVenta(){

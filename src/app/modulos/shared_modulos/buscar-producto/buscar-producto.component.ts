@@ -58,6 +58,8 @@ export class BuscarProductoComponent implements OnInit {
       { field: 'precioDefault', header: 'Precio Default', visibility: true},    
       { field: 'precioIncluyeIgv', header: 'Incluye Igv', visibility: true , tipoFlag:'boolean'},    
       { field: 'monedaPrecioId', header: 'Cod Moneda', visibility: true},    
+      { field: 'ctaCompra', header: 'Cta Compra', visibility: true},    
+      { field: 'ctaVenta', header: 'Cta Venta', visibility: true},    
     ];
 
   }

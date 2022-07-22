@@ -25,7 +25,8 @@ export class NuevoLineaComponent implements OnInit {
   LineaEdit : ICrearLinea;
   imgParaEditar: string = "";
   mostrarcomboUnesco : boolean = false;
-
+  tipoCuenta : string= '';
+  modalCuentas : boolean = false;
 
   constructor(
     private lineaService: LineaService,
@@ -158,14 +159,14 @@ export class NuevoLineaComponent implements OnInit {
       this.lineaService.createLinea(newLinea).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     }else{
       this.lineaService.updateLinea(newLinea).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     }
@@ -175,9 +176,23 @@ export class NuevoLineaComponent implements OnInit {
   onRegresar() {   
     this.cerrar.emit(false); 
   }
+ 
 
-
-  onVolver() {   
-    this.cerrar.emit('exito'); 
+  
+  onModalBuscarCuentas(tipoCuenta : string){
+    this.tipoCuenta = tipoCuenta
+    this.modalCuentas = true; 
   }
+
+  onPintarcuenta( data : any ){  
+    if(data.tipoCuenta === 'CtaVenta'){
+      this.Form.controls['cuentaventas'].setValue(data.data.nroCuenta)
+    }else{
+      this.Form.controls['cuentacompras'].setValue(data.data.nroCuenta)
+    } 
+
+    this.modalCuentas = false;
+ 
+  }
+
 }

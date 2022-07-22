@@ -3,42 +3,35 @@
  
     <div class="p-col-12"> 
         <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid"> 
-            <div class="p-field p-col-12  p-lg-5 p-md-5">
-                <div class="formulario">   
-                    <strong>Nro cuenta *:</strong>
-                    <p-inputMask formControlName="nrocuenta"  minlength="2"  [autoClear]="false" (onInput)="onValidarInputMask($event)" 
-                    [placeholder]="this.maskInput + '  -  0  -  0  -  0  -  00  -  00  -  00'" [mask]="this.maskInput + ' -  9  -  9  -  9  -  99  -  99  -  99'" slotChar=" "></p-inputMask>    
-                </div>
+            <div class="p-field p-col-12  p-lg-9 p-md-9"> 
+                <strong>Nro cuenta *:</strong>
+                <p-inputMask formControlName="nrocuenta"  minlength="2"  [autoClear]="false" (onInput)="onValidarInputMask($event)" 
+                [placeholder]="this.maskInput + '  -  0  -  0  -  0  -  00  -  00  -  00'" [mask]="this.maskInput + ' -  9  -  9  -  9  -  99  -  99  -  99'" slotChar=" "></p-inputMask>    
+               
+            </div>
+            
+            <div class="p-field p-col-12 p-lg-3 p-md-3">   
+                <strong> Imputable :</strong>   
+                <p-inputSwitch readonly formControlName="imputable"></p-inputSwitch>  
             </div>
 
-            <div class="p-field p-col-12  p-lg-5 p-md-5">
-                <div class="formulario">  
-                    <strong>Nombre cuenta*:</strong> 
-                    <input  type="text" pInputText minlength="1" formControlName="nombrecuenta" class="p-inputtext-sm" placeholder="ingresar un nombre">  
-                </div>
+            <div class="p-field p-col-12"> 
+                <strong>Nombre cuenta*:</strong> 
+                <input  type="text" pInputText minlength="1" formControlName="nombrecuenta" class="p-inputtext-sm" placeholder="ingresar un nombre">  
             </div>
-
-            <div class="p-field p-col-12  p-lg-2 p-md-2">
-                <div class="formulario">  
-                    <strong> Imputable :</strong>   
-                    <p-inputSwitch readonly formControlName="imputable"></p-inputSwitch>  
-                </div>
-            </div>
-
+ 
             <div class="p-field p-col-12">
-                <div class="formulario">    
-                    <strong>Naturaleza *:</strong>
-                    <div class="elegirOpciones">
-                        <div>
-                            <strong style="margin: 15px;">DEBE</strong>  
-                            <p-radioButton name="naturaleza" value="D"formControlName="naturaleza"></p-radioButton>
-                        </div>
-                        <div>
-                            <strong style="margin: 15px;">HABER</strong>
-                            <p-radioButton name="naturaleza" value="H"formControlName="naturaleza"></p-radioButton>
-                        </div>
-                    </div>      
-                </div>
+                <strong>Naturaleza *:</strong>
+                <div class="elegirOpciones">
+                    <div>
+                        <strong style="margin: 15px;">DEBE</strong>  
+                        <p-radioButton name="naturaleza" value="D"formControlName="naturaleza"></p-radioButton>
+                    </div>
+                    <div>
+                        <strong style="margin: 15px;">HABER</strong>
+                        <p-radioButton name="naturaleza" value="H"formControlName="naturaleza"></p-radioButton>
+                    </div>
+                </div>  
             </div>
              
         </div>

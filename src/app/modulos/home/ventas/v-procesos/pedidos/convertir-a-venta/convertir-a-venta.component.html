@@ -219,6 +219,7 @@
                                             <th style="width: 90px;">N.Serie</th> 
                                                    <!-- <th style="width: 90px;">N.Cuenta</th>  -->
                                             <th style="width: 150px;">F.Vencimiento</th> 
+                                            <th style="width: 150px;">Nro Cuenta</th>
                                            
                                         </tr>
                                     </ng-template> 
@@ -311,11 +312,7 @@
                                             <td>
                                                 <strong class="p-column-title">NroSerie</strong>
                                                 <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="nroSerie">  
-                                            </td> 
-                                               <!-- <td>
-                                                <strong class="p-column-title">Nro.Cuenta</strong>
-                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="nrocuenta">  
-                                            </td>  -->
+                                            </td>  
                                             <td>
                                                 <strong class="p-column-title">F.Vencimiento</strong>
                                                 <p-calendar  
@@ -326,6 +323,10 @@
                                                     formControlName="fechavencimiento"
                                                 ></p-calendar>  
                                             </td>  
+                                            <td>
+                                                <strong class="p-column-title">Nro Cuenta</strong>
+                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="nrocuenta">  
+                                            </td> 
                                         </tr>
                                     </ng-template> 
                                     <ng-template pTemplate="emptymessage">
