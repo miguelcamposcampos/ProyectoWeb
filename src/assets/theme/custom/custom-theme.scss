@@ -523,7 +523,7 @@
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     padding: 0 !important;
-    width: 650px;
+    width: 100%;
 }
 
 .p-dialog .p-dialog-header .p-dialog-header-icon {
@@ -561,6 +561,14 @@
     background: #e3e3e3 !important;
 }
 
+
+.p-inputtext-sm-clear-grey {
+    font-size: 16px !important;
+    padding: 10px 30px !important;
+    width: 98% !important;
+    border-radius: 5px !important;
+    background: #e3e3e3 !important;
+}
 
 .p-fluid .p-calendar .p-inputtext {
     width: 1%;
@@ -683,4 +691,27 @@
 .charts {
 
     width: 80%;
+}
+
+p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+    border-color: #e3e3e3;
+    background: #e3e3e3;
+}
+
+p-inputmask {
+    border-color: #e3e3e3;
+    background: #e3e3e3;
+}
+
+.p-dialog-tipo-modal {
+    width: 100%;
+
+}
+
+.p-input-icon-left-2 {
+    left: 2.5rem;
+    color: #657380;
+    position: relative;
+    display: inline-block;
+
 }
