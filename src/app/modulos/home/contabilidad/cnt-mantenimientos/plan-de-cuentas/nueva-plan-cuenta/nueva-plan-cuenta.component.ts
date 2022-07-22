@@ -62,7 +62,7 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void { 
-    this.maskInput = this.data.data.ctaMayor; 
+    this.maskInput = this.data.ctaMayor; 
 
     if(this.data.data){
       this.spinner.show(); 

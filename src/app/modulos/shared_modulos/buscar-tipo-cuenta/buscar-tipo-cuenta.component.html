@@ -38,7 +38,7 @@
                     </ng-template>
                     
                     <ng-template pTemplate="body" let-cuenta let-columns="columns"  let-rowIndex="rowIndex"> 
-                        <tr [pSelectableRow]="cuenta" [pSelectableRowIndex]="rowIndex">
+                        <tr [pSelectableRow]="cuenta" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': !planc.esImputable }">
                             <td  *ngFor="let col of columns" >
                                 <strong class="p-column-title">{{ col.header | uppercase}}</strong>  
                                 {{ cuenta[col.field]  }} 

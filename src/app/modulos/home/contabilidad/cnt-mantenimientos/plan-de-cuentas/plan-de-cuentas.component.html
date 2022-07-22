@@ -98,7 +98,7 @@
                             </ng-template>
                             
                             <ng-template pTemplate="body" let-planc let-columns="columns"  let-rowIndex="rowIndex"> 
-                                <tr [pSelectableRow]="planc" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': (planc.nroCuenta.length < 7 ) }">
+                                <tr [pSelectableRow]="planc" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': !planc.esImputable }">
                                     <td  *ngFor="let col of columns" >
                                         <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{planc[col.field]}}  
                                         <ng-template #botones [ngIf]="col.field === 'acciones'"> 
