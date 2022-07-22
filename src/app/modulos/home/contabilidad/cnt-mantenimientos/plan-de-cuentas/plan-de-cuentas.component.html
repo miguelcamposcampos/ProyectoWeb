@@ -98,7 +98,7 @@
                             </ng-template>
                             
                             <ng-template pTemplate="body" let-planc let-columns="columns"  let-rowIndex="rowIndex"> 
-                                <tr [pSelectableRow]="planc" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': (planc.nroCuenta.length < 7 ) }">
+                                <tr [pSelectableRow]="planc" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': !planc.esImputable }">
                                     <td  *ngFor="let col of columns" >
                                         <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{planc[col.field]}}  
                                         <ng-template #botones [ngIf]="col.field === 'acciones'"> 
@@ -144,7 +144,7 @@
 
 <!-- MODAL  -->
 <div *ngIf="vNuevoPlan">
-    <p-dialog [header]="(!data) ? 'NUEVA CUENTA' : 'EDITAR CUENTA'" [(visible)]="vNuevoPlan" [modal]="true" [draggable]="false" [resizable]="false"> 
+    <p-dialog [header]="(!data) ? 'NUEVA PLAN CUENTA' : 'EDITAR PLAN CUENTA'" [(visible)]="vNuevoPlan" [modal]="true" [draggable]="false" [resizable]="false"> 
         <app-nueva-plan-cuenta  (cerrar)="onRegresar($event)" [data]="data" ></app-nueva-plan-cuenta>
     </p-dialog> 
 </div>

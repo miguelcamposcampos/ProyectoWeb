@@ -216,8 +216,7 @@ BuscarProductoPorCodigo(data: any): Observable<IListadoStock>{
       params = params.append('ctamayor', data.ctamayor);
     }  
     return this.http.get<any[]>(`${this.api987}/Contabilidad/ObtenerPlanCuentasConsulta`, {params}) 
-  }
-
+  } 
  
 }
  

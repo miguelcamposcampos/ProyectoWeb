@@ -742,7 +742,8 @@ export class NuevaCompraComponent implements OnInit {
           esafectoicbper :resp[0].esAfectoICBPER,
           nroSerie: resp[0].serie === "0" ? null : resp[0].serie, 
           nroLote: resp[0].lote === "0" ? null : resp[0].lote, 
-          esGravada : resp[0].precioIncluyeIgv
+          esGravada : resp[0].precioIncluyeIgv,
+          nrocuenta : resp[0].ctaCompra
         });
         this.onCalcularPrecioCompra(posicion)
       }else{
@@ -784,7 +785,8 @@ export class NuevaCompraComponent implements OnInit {
       nroSerie: event.data.serie === "0" ? null : event.data.serie, 
       nroLote: event.data.lote === "0" ? null : event.data.lote, 
       precioincluyeigv : event.data.precioIncluyeIgv, 
-      esGravada : event.data.precioIncluyeIgv
+      esGravada : event.data.precioIncluyeIgv,
+      nrocuenta : event.data.ctaCompra
     });
 
     this.onCalcularPrecioCompra(event.posicion)

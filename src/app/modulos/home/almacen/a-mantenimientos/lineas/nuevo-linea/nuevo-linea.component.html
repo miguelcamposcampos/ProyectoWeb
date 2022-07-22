@@ -1,34 +1,55 @@
 <form [formGroup]="Form">
-    <div class="p-col-12"> 
-        <div class="p-fluid p-formgrid p-grid"> 
+
+
+ 
+        <p-fieldset>
+                <ng-template pTemplate="header">PROPIEDADES</ng-template>
+ 
+                <div class="p-field p-col-12">  
+                    <strong>Nombre *</strong>
+                    <input  type="text" pInputText formControlName="nombreLinea" class="p-inputtext-sm" placeholder="ingresar un nombre de linea">     
+                </div>
+                <div class="p-field p-col-12"> 
+                    <strong>Producto</strong>  
+                    <div class="p-inputgroup">  
+                        <input type="text" [value]="codigoProductoUnesco" pInputText (input)="onObtenerCriterioBuscarUnesco($event)" class="p-inputtext-sm"   placeholder="ingresar el numero de documento">   
+                        <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
+                    </div>
+                </div>
+                <div class="p-field p-col-12">  
+                    <strong *ngIf="mostrarcomboUnesco" >Lista Producto</strong>  
+                    <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData" formControlName="codigoUnesco"  placeholder="Selecciona un producto"  [showClear]="true"  optionLabel="DescriptionES"></p-dropdown>
+                </div> 
+
+        </p-fieldset>
+ 
+        <p-fieldset>
+            <ng-template pTemplate="header">CUENTAS CONTABLES</ng-template>
+
             <div class="p-field p-col-12">  
-                <strong>Nombre *</strong>
-                <input  type="text" pInputText formControlName="nombreLinea" class="p-inputtext-sm" placeholder="ingresar un nombre de linea">     
-            </div>
-            <!-- <div class="p-field p-col-12">  
-                <strong>Cuenta Ventas</strong>
-                <input  type="text" pInputText formControlName="cuentaventas" maxlength="50" class="p-inputtext-sm" placeholder="ingresar cuenta ventas">     
-            </div>
-            <div class="p-field p-col-12">  
-                <strong>Cuenta Compras</strong>
-                <input  type="text" pInputText formControlName="cuentacompras" maxlength="50" lass="p-inputtext-sm" placeholder="ingresar cuenta compras">     
-            </div> -->
-            <div class="p-field p-col-12"> 
-                <strong>Producto</strong>  
+                <strong>Cuenta Ventas</strong> 
                 <div class="p-inputgroup">  
-                    <input type="text" [value]="codigoProductoUnesco" pInputText (input)="onObtenerCriterioBuscarUnesco($event)" class="p-inputtext-sm"   placeholder="ingresar el numero de documento">   
-                    <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton pRipple icon="pi pi-search"  styleClass="p-button-warn"></button>      
+                    <input type="text" pInputText formControlName="cuentaventas" class="p-inputtext-sm" placeholder="Buscar una cuenta">   
+                    <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaVenta')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                 </div>
             </div>
             <div class="p-field p-col-12">  
-                <strong *ngIf="mostrarcomboUnesco" >Lista Producto</strong>  
-                <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)" [options]="arrayUnescoData" formControlName="codigoUnesco"  placeholder="Selecciona un producto"  [showClear]="true"  optionLabel="DescriptionES"></p-dropdown>
-            </div> 
+                <strong>Cuenta Compras</strong>
+                <div class="p-inputgroup">  
+                    <input type="text" pInputText formControlName="cuentacompras" class="p-inputtext-sm" placeholder="Buscar una cuenta">   
+                    <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaCompra')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                </div>   
+            </div>
+        </p-fieldset>
+
+        <p-fieldset>
+            <ng-template pTemplate="header">IMAGEN</ng-template>
+             
             <div class="p-field p-col-12">  
                 <strong *ngIf="!imgParaEditar" >Logo</strong>
                 <p-fileUpload 
-                    *ngIf="!imgParaEditar" 
-                    name="myfiles[]"
+                *ngIf="!imgParaEditar" 
+                name="myfiles[]"
                     chooseLabel="Adjuntar" 
                     chooseIcon="pi pi-paperclip" 
                     accept="image/*" 
@@ -49,8 +70,8 @@
                     <img width="50%" [src]="imgParaEditar" />
                 </div>
             </div>  
-        </div>  
-    </div>  
+        </p-fieldset>
+ 
     <div class="botones">
         <button  
             class="p-button-sm"
@@ -72,3 +93,11 @@
         </button>  
     </div>
 </form>  
+
+
+<div *ngIf="modalCuentas">
+    <p-dialog header="BUSCAR TIPO CUENTA" [(visible)]="modalCuentas" [modal]="true" [draggable]="false" [resizable]="false"> 
+        <app-buscar-tipo-cuenta  (CuentaSelect)="onPintarcuenta($event)" [tipoCuenta]="tipoCuenta" ></app-buscar-tipo-cuenta>
+    </p-dialog> 
+</div>
+

@@ -156,7 +156,7 @@ export class LineasComponent implements OnInit {
 
  
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadLineas(null);
     }
     
