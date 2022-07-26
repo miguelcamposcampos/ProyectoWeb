@@ -36,8 +36,14 @@ export class InterceptorService implements HttpInterceptor {
                 console.log('status',event);
               }
             }, error => {  
-                console.log('existe ele erro ',error); 
-                this.onValidarOtraSesion(error);
+                console.log('error',error);  
+                let urlTC  = error.url.includes('TipoCambio')
+                console.log('urlTC',urlTC);  
+                if(urlTC){ 
+                  return;
+                }else{ 
+                  this.onValidarOtraSesion(error);
+                }
             })
           )
 
