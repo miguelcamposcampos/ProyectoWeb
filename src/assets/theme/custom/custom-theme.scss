@@ -359,7 +359,20 @@
     margin-top: 25px;
     background: white;
     padding: 20px;
-    border-radius: 35px;
+    border-radius: 20px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+}
+
+
+.tablas-planes {
+    width: 78%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius:20px;
     box-shadow: 25px 25px;
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
 }
@@ -401,6 +414,22 @@
 .header-buscar-empresas {
 
     width: 990px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+    display: flex;
+    align-items: center;
+
+}
+
+
+.header-buscar-planes{
+
     text-align: center;
     margin: 0 auto;
     margin-top: 25px;
@@ -693,7 +722,7 @@
     width: 80%;
 }
 
-p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+p-inputmask.ng-dirty.ng-invalid>.p-inputtext {
     border-color: #e3e3e3;
     background: #e3e3e3;
 }
@@ -713,5 +742,44 @@ p-inputmask {
     color: #657380;
     position: relative;
     display: inline-block;
+
+}
+
+
+
+.contenidoRoles {
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 1fr 3fr;
+
+    @media (max-width: 800px) {
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+}
+
+.BotonesRoles {
+    display: flex;
+    width: 100%;
+}
+
+
+.p-toolbar-group-center {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.p-treetable .p-treetable-thead > tr > th {
+    text-align: left;
+    padding: 1rem 1rem;
+    border-width: 0 0 1px 0;
+    font-weight: 600;
+    color: #515C66;
+    background: #dedfe1;
+    transition: box-shadow 0.2s;
+    border-radius: 10px;
 
 }

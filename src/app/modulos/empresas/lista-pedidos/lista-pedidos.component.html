@@ -1,116 +1,111 @@
-<div *ngIf="!VistaNotificarPago"> 
-  <app-titulos  (cerrar)="onRegresar()"> </app-titulos> 
-  
-    <div class="tituloPage">
-      <h2> <strong> Tabla de Pedidos</strong></h2> 
+<div *ngIf="!VistaNotificarPago">
+
+  <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+  </ngx-spinner>
+
+  <p-toolbar>
+    <div class="logotipo">
+      <div class="p-toolbar-group-center">
+        <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo.svg" alt="poseidon-layout">
+      </div>
     </div>
 
-    <div class="Margintabla">  
-      <div class="card"> 
+    <div class="p-toolbar-group-right">
+      <button class="p-button-sm" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
+        style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
+      </button>
+    </div>
+  </p-toolbar>
 
-        <p-toolbar>
-          <div class="p-toolbar-group-left">
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                class="p-inputtext-sm"
-                placeholder="Buscar"
-                size="25"
-                (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-            </span> 
+
+  <div class="tituloPage">
+    <h2> <strong> Tabla de Pedidos</strong></h2>
+  </div>
+
+  <div class="margintabla">
+    <div class="contenidoTable">
+      <div class="buscar-empresa">
+        <div class="container">
+          <div class="row">
+            <div class="header-buscar-planes">
+              <div class="col-lg-3">
+                <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar" size="25"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                </span>
+              </div>
+              <div class="col-lg-3">
+                <button class="p-button-agregar-blue" pButton icon="pi pi-plus" label="Agregar" type="button"
+                  tooltipPosition="left" pTooltip="Registrar Pedido" (click)="onRegistrarPedido()">
+                </button>
+              </div>
+
+              <div class="col-lg-3">
+                <button pButton (click)="onInformarPago()" tooltipPosition="top" type="button" pTooltip="Informar Pago"
+                  style="margin-left: 1%;" class="p-button-agregar-blue" label="Notificar" icon="pi pi-dollar">
+                </button>
+              </div>
+            </div>
           </div>
-            
-          <div class="p-toolbar-group-right"> 
-              <button    
-                class="p-button-sm"
-                pButton
-                icon="pi pi-plus"
-                label="Agregar"
-                type="button"
-                tooltipPosition="left"
-                pTooltip="Registrar Pedido"
-                (click)="onRegistrarPedido()">  
-              </button> 
-              <button 
-                pButton (click)="onInformarPago()" 
-                tooltipPosition="top" 
-                type="button"
-                pTooltip="Informar Pago" 
-                style="margin-left: 1%;"
-                class="p-button-sm" 
-                label="Notificar"
-                icon="pi pi-dollar">
-              </button>   
-              <button    
-                class="p-button-sm"
-                pButton
-                icon="pi pi-arrow-left"
-                label="Regresar"
-                tooltipPosition="left"
-                style="margin-left: 1%;"
-                pTooltip="Regresar"
-                (click)="onRegresar()">  
-            </button> 
+          <div class="row">
+            <div class="tablas-planes">
+              <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single" [rowHover]="true"
+              [value]="listPedidos">
+    
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
+                      ariaLabelDesc="Activate to sort in descending order"
+                      ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+    
+              <ng-template pTemplate="body" let-pedido let-columns="columns" let-rowIndex="sort">
+                <tr [pSelectableRow]="pedido" [pSelectableRowIndex]="rowIndex">
+                  <td *ngFor="let col of columns">
+                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>
+    
+                    <div [ngSwitch]="col.field">
+                      <div *ngSwitchCase="'fechaRegistro'">
+                        {{ pedido[col.field] | date: col.formatoFecha }}
+                      </div>
+                      <div *ngSwitchCase="'fechaRespuesta'">
+                        {{ pedido[col.field] | date: col.formatoFecha }}
+                      </div>
+                      <div *ngSwitchCase="'fechaExpiracion'">
+                        {{ pedido[col.field] | date: col.formatoFecha }}
+                      </div>
+                      <div *ngSwitchDefault>
+                        {{ pedido[col.field] }}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            </div>
           </div>
-        </p-toolbar>
-         
-          <div class="card">
-            <p-table #dt 
-            [columns]="cols" 
-            responsiveLayout="stack"
-            selectionMode="single"
-            [rowHover]="true"
-            [value]="listPedidos">  
+        </div>
 
-              <ng-template pTemplate="header" let-columns >
-                  <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                      {{ col.header }} 
-                      <p-sortIcon *ngIf="col.field != 'acciones'"
-                        [field]="col.field"
-                        ariaLabel="Activate to sort"
-                        ariaLabelDesc="Activate to sort in descending order"
-                        ariaLabelAsc="Activate to sort in ascending order">
-                      </p-sortIcon> 
-                    </th>
-                  </tr> 
-              </ng-template>
-              
-              <ng-template pTemplate="body" let-pedido let-columns="columns"  let-rowIndex="sort"> 
-                  <tr [pSelectableRow]="pedido" [pSelectableRowIndex]="rowIndex">
-                    <td  *ngFor="let col of columns" >
-                      <strong class="p-column-title">{{ col.header | uppercase}}</strong>   
-                      
-                      <div [ngSwitch]="col.field">  
-                        <div *ngSwitchCase="'fechaRegistro'">
-                          {{ pedido[col.field] | date: col.formatoFecha }}
-                        </div>
-                        <div *ngSwitchCase="'fechaRespuesta'">
-                            {{ pedido[col.field] | date: col.formatoFecha }}
-                          </div>
-                          <div *ngSwitchCase="'fechaExpiracion'">
-                            {{ pedido[col.field] | date: col.formatoFecha }}
-                          </div>
-                        <div *ngSwitchDefault>
-                          {{ pedido[col.field]  }}
-                        </div>
-                      </div>  
-                    </td>
-                  </tr>
-              </ng-template>
-          </p-table>
+      </div>
 
 
-          </div> 
-      </div>  
-      <!-- PLANES DE EMPRESA -->
-      <p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false" [resizable]="false"> 
-        <app-planes  (onChange)="onPlanelegido($event)"  ></app-planes>
-      </p-dialog> 
-    </div>   
+    </div>
+  </div>
 </div>
- 
+
+<!-- PLANES DE EMPRESA -->
+<p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false"
+[resizable]="false">
+<app-planes (onChange)="onPlanelegido($event)"></app-planes>
+</p-dialog>
+
 <!-- VISTA DE NOTIFICAR PAGOS -->
-<app-notificar-pago *ngIf="VistaNotificarPago" [tokenLS]="tokenLS" (cerrar)="onRetornar()"> </app-notificar-pago>  
+<app-notificar-pago *ngIf="VistaNotificarPago" [tokenLS]="tokenLS" (cerrar)="onRetornar()"> </app-notificar-pago>
+

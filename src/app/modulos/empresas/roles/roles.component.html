@@ -1,138 +1,113 @@
-
-<app-titulos  (cerrar)="onRegresar()" ></app-titulos>
-    
-<div> 
-  <div class="tituloPage">
-      <h2> <strong>  Roles de empresas</strong></h2> 
-  </div>
+<div>
 
   <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
     <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
   </ngx-spinner>
 
-  <div class="Margintabla">
-    <div class="contenidoTable card"> 
+  <p-toolbar>
+    <div class="logotipo">
+      <div class="p-toolbar-group-center">
+        <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo.svg" alt="poseidon-layout">
+      </div>
+    </div>
 
-      <p-toolbar>
-        <div class="p-toolbar-group-left">
-          <button 
-              (click)="onModalAgregarRol()"
-              pButton icon="pi pi-plus"
-              pTooltip="Agregar Rol"
-              label="Agregar Nuevo Rol"
-              type="button"
-              tooltipPosition="right"
-              class="p-button-sm mx-1">
-            </button>  
-        </div>
-        
-        <div class="p-toolbar-group-right"> 
-              <button    
-                class="p-button-sm"
-                pButton
-                icon="pi pi-arrow-left"
-                label="Regresar"
-                tooltipPosition="left"
-                style="margin-right: 1%;"
-                pTooltip="Regresar"
-                (click)="onRegresar()">  
-            </button>  
-        </div>
-      </p-toolbar> 
-        <hr>
-      <div class="contenidoRoles">
-        <div class="centrar"> 
-          <h3> Roles </h3>
-            <div *ngFor="let rol of ListadeRoles" class="BotonesRoles" >
-              <button 
-                (click)="onVerMenuRol(rol.rolid)"
-                style="width: 100%; margin: 2%;"
-                label="{{rol.nombre | uppercase}}" 
-                type="button"
-                pButton>
-              </button> 
-              <button 
-                style="margin: 2%; background-color: #D72250;"
-                (click)="onModaleliminarRol(rol)"
-                pButton icon="pi pi-trash"
-                pTooltip="Elimniar Rol"
-                type="button"
-                tooltipPosition="right">
-              </button> 
-          </div> 
-        </div>
+    <div class="p-toolbar-group-right">
+      <button class="p-button-sm" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
+        style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
+      </button>
+    </div>
+  </p-toolbar>
 
-        <div>
-          <div  *ngIf="!dataTreeSelect" style="padding-top:4%; text-align: center;" >
-            <span > Selecciona un Rol para ver los permisos </span>
+
+  <div class="tituloPage">
+    <h2> <strong> Roles de empresas</strong></h2>
+  </div>
+
+  <hr>
+
+  <div class="margintabla">
+    <div class="contenidoTable card-box">
+      <div class="p-toolbar-group-center">
+        <button (click)="onModalAgregarRol()" pButton icon="pi pi-plus" pTooltip="Agregar Rol" label="Agregar Nuevo Rol"
+          type="button" tooltipPosition="right" class="p-button-agregar-blue">
+        </button>
+      </div>
+
+
+      <hr>
+
+      <div class="row">
+        <div class="contenidoRoles">
+          <div class="centrar">
+            <h3> Roles </h3>
+            <div *ngFor="let rol of ListadeRoles" class="BotonesRoles">
+              <button (click)="onVerMenuRol(rol.rolid)" style="width: 100%; margin: 2%;"
+                label="{{rol.nombre | uppercase}}" type="button" pButton>
+              </button>
+              <button style="margin: 2%; background-color: #D72250;" (click)="onModaleliminarRol(rol)" pButton
+                icon="pi pi-trash" pTooltip="Elimniar Rol" type="button" tooltipPosition="right"
+                class="p-button-cancelar">
+              </button>
+            </div>
           </div>
 
-          <div *ngIf="dataTreeSelect" >  
-              <h3>Permisos</h3>   
-                 <p-treeTable 
-                  [value]="dataTreeSelect" 
-                  [columns]="cols"  
-                  (onNodeSelect)="onActivePermiso($event)"  
-                  (onNodeUnselect)="onDesactivePermiso($event)"  
-                  selectionMode="checkbox"
-                  [(selection)]="opcionesSeleccionadas"> 
- 
-                  <ng-template pTemplate="header" let-columns>
-                    <tr>
-                      <th *ngFor="let col of columns">
-                        {{ col.header }}
-                      </th>
-                    </tr>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr>
-                      <td *ngFor="let col of columns; let i = index"> 
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                        <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>  
-                        {{ rowData[col.field] }}
-                      </td>
-                    </tr>
-                  </ng-template>
-                </p-treeTable>   
+          <div>
+            <div *ngIf="!dataTreeSelect" style="padding-top:4%; text-align: center;">
+              <span> Selecciona un Rol para ver los permisos </span>
+            </div>
+
+            <div *ngIf="dataTreeSelect">
+              <h3>Permisos</h3>
+              <p-treeTable [value]="dataTreeSelect" [columns]="cols" (onNodeSelect)="onActivePermiso($event)"
+                (onNodeUnselect)="onDesactivePermiso($event)" selectionMode="checkbox"
+                [(selection)]="opcionesSeleccionadas">
+
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns">
+                      {{ col.header }}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                      <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                      <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                      {{ rowData[col.field] }}
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-treeTable>
+            </div>
           </div>
         </div>
       </div>
-  
-    </div> 
-  </div>
-          
 
-  <!-- modal agregar rol -->   
-  <p-dialog header="Agregar Rol" [(visible)]="modalAgregarRol" [modal]="true" [draggable]="false" [resizable]="false" >  
-    <form [formGroup]="Rolform">   
-      <div class="p-col-12"> 
-        <div class="p-fluid p-formgrid p-grid"> 
-            <div class="p-field p-col-12">
-              <strong> Nombre del Rol :</strong>
-              <input type="text" pInputText formControlName="Rol" placeholder="Escribe el nombre del Rol" class="p-inputtext-sm">   
-            </div>  
-          </div> 
-      </div>  
-    </form> 
+    </div>
+  </div>
+
+
+  <!-- modal agregar rol -->
+  <p-dialog header="Agregar Rol" [(visible)]="modalAgregarRol" [modal]="true" [draggable]="false" [resizable]="false">
+    <form [formGroup]="Rolform">
+      <div class="p-col-12">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12">
+            <strong> Nombre del Rol :</strong>
+            <input type="text" pInputText formControlName="Rol" placeholder="Escribe el nombre del Rol"
+              class="p-inputtext-sm">
+          </div>
+        </div>
+      </div>
+    </form>
 
     <div class="botones">
-      <button 
-        [disabled]="Rolform.invalid"
-        pButton (click)="onGrabarNuevorol()"  
-        label="Grabar"
-        style="margin-right: 1%;"
-        class="p-button-sm p-button-rounded m-2"
-        icon="pi pi-plus-circle">
-      </button> 
-      <button 
-        pButton 
-        (click)="modalAgregarRol=false"
-        label="cancelar" 
-        style=" background-color: #D72250;"
-        class="p-button-sm p-button-rounded m-2"
-        icon="pi pi-times-circle">
-    </button>  
-    </div> 
-  </p-dialog> 
-    
- 
+      <button [disabled]="Rolform.invalid" pButton (click)="onGrabarNuevorol()" label="Grabar" style="margin-right: 1%;"
+        class="p-button-sm p-button-rounded m-2" icon="pi pi-plus-circle">
+      </button>
+      <button pButton (click)="modalAgregarRol=false" label="cancelar" style=" background-color: #D72250;"
+        class="p-button-sm p-button-rounded m-2" icon="pi pi-times-circle">
+      </button>
+    </div>
+  </p-dialog>
