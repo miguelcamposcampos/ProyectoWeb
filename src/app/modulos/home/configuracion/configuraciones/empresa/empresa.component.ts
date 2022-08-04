@@ -32,6 +32,7 @@ export class EmpresaComponent implements OnInit {
   arrayCondicionPagoCompra : ICombo[];
   arrayTipoOperacion : ICombo[];
   arrayRegimenEmpresa: ICombo[];
+  arrayConceptos : ICombo[];
 
   constructor(
     private configService: ConfiguracionService,
@@ -47,6 +48,7 @@ export class EmpresaComponent implements OnInit {
       ventacondicionpagodefaultid : new FormControl(null,Validators.required),
       ventatipooperaciondefault: new FormControl(null),
       ventaglosadefault : new FormControl(null, Validators.required),
+      conceptocontabledefaultid : new FormControl(null, Validators.required), 
       porcentajebolsaplastica : new FormControl(null),
       compramonedadefault: new FormControl(null, Validators.required),
       compracondicionpagodefault : new FormControl(null, Validators.required),
@@ -73,6 +75,7 @@ export class EmpresaComponent implements OnInit {
       this.generalService.listadoCondicionPagoParaCombo(),
       this.generalService.listadoPorGrupo('TipoOperacionVenta'),
       this.generalService.listadoPorGrupo('RegimenesEmpresariales'),
+      this.generalService.onComboConceptos('Venta'),
 
     );
     obsDatos.subscribe((response) => {
@@ -82,6 +85,7 @@ export class EmpresaComponent implements OnInit {
       this.arrayCondicionPagoCompra = response[3];
       this.arrayTipoOperacion = response[4];  
       this.arrayRegimenEmpresa = response[5];  
+      this.arrayConceptos = response[6];  
       this.FlgLlenaronCombo.next(true); 
     }); 
   }
@@ -168,6 +172,9 @@ export class EmpresaComponent implements OnInit {
           ventatipooperaciondefault: this.arrayTipoOperacion.find(
             (x) => x.id === TipoOperacionEditar[0].id
           ),
+          conceptocontabledefaultid: this.arrayConceptos.find(
+            (x) => x.id === this.dataConfiguracion.conceptocontabledefaultid
+          ),
          
           ventaglosadefault :this.dataConfiguracion.ventaglosadefault,
           porcentajebolsaplastica :this.dataConfiguracion.porcentajebolsaplastica,
@@ -195,6 +202,7 @@ export class EmpresaComponent implements OnInit {
       configuracionempresaid: this.dataConfiguracion ? this.dataConfiguracion.configuracionempresaid : 0,
       ventamonedadefaultid: dataform.ventamonedadefaultid.id,
       ventacondicionpagodefaultid:  dataform.ventacondicionpagodefaultid.id,
+      conceptocontabledefaultid:  dataform.conceptocontabledefaultid.id,
       inicializada: this.dataConfiguracion ? this.dataConfiguracion.inicializada : false,
       ventatipooperaciondefault: dataform.ventatipooperaciondefault.valor2,
       compramonedadefault:  dataform.compramonedadefault.id,

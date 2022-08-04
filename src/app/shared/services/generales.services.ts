@@ -217,6 +217,10 @@ BuscarProductoPorCodigo(data: any): Observable<IListadoStock>{
     }  
     return this.http.get<any[]>(`${this.api987}/Contabilidad/ObtenerPlanCuentasConsulta`, {params}) 
   } 
+
+  onComboConceptos(concepto : string){
+    return this.http.get<ICombo[]>(`${this.api987}/Contabilidad/ObtenerConceptosParaCombo?tipoConcepto=${concepto}`) 
+  } 
  
 }
  

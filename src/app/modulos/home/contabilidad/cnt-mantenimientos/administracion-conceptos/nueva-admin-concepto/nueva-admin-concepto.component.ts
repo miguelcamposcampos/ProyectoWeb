@@ -159,10 +159,7 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
     this.modalCuentas = true; 
   }
 
-  onPintarcuenta( data : any ){ 
-    console.log('Que 22 ',data.tipoCuenta);
-    console.log('Que 333',data.data.nroCuenta);
-
+  onPintarcuenta( data : any ){  
     if(data.tipoCuenta === 'CtvPrecioVenta'){
       this.Form.controls['cuentaprecioventa'].setValue(data.data.nroCuenta)
     }else  if(data.tipoCuenta === 'CtaIgv'){

@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { ContabilidadRoutingModule } from './contabilidad-routing.module';
 import { ContabilidadComponent } from './contabilidad.component';
-
+ 
 
 @NgModule({
   declarations: [
-    ContabilidadComponent
+    ContabilidadComponent, 
   ],
   imports: [
     CommonModule,

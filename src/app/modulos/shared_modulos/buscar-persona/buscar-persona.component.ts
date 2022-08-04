@@ -37,7 +37,8 @@ export class BuscarPersonaComponent implements OnInit {
     this.ArraytipoPersona = [
       {nombre : 'Proveedor'},
       {nombre : 'Cliente'},
-      {nombre : 'Trabajador'}
+      {nombre : 'Trabajador'},
+      {nombre : 'Todos'}
     ]
    }
 

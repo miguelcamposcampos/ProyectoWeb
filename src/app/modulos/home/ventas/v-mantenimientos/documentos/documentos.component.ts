@@ -26,7 +26,11 @@ export class DocumentosComponent implements OnInit {
     private swal : MensajesSwalService,
     private generalService : GeneralService,
     private spinner : NgxSpinnerService
-  ) { }
+  ) { 
+    this.generalService._hideSpinner$.subscribe(x=>{
+      this.spinner.hide();
+    })
+  }
 
  
   ngOnInit(): void {
@@ -84,7 +88,7 @@ export class DocumentosComponent implements OnInit {
 
   
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadDocumentos();
     } 
     this.modalNuevoDocumento = false; 

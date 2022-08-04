@@ -709,14 +709,14 @@ export class NuevoPedidoComponent implements OnInit {
     if(!this.PedidoEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+         this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       });
     }else{
       this.ventaservice.updateVenta(newVenta).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+         this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       });
@@ -725,10 +725,7 @@ export class NuevoPedidoComponent implements OnInit {
 
   }
 
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
-
+ 
   onRegresar(){
     this.cerrar.emit(false);
   }

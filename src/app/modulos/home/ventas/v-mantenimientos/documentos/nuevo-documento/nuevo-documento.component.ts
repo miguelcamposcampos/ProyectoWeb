@@ -17,6 +17,9 @@ export class NuevoDocumentoComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   Form : FormGroup;
   DocumentoEditar : IListarDocumentos 
+  modalCuentas : boolean = false;
+  mostrarCampoCuenta : boolean = false;
+
 
   constructor(
     private documentoService : DocumentosService,
@@ -52,7 +55,7 @@ export class NuevoDocumentoComponent implements OnInit {
       notaingalmacen : new FormControl(false),
       notasalalmacen : new FormControl(false),
       cajabanco : new FormControl(false), 
-      nrocuentacobranza  : new FormControl(false), 
+      nrocuentacobranza  : new FormControl(null), 
     })
   }
  
@@ -67,6 +70,11 @@ export class NuevoDocumentoComponent implements OnInit {
     this.documentoService.DocumentoPorId(this.dataDocumento.documentoid).subscribe((resp)=> {
       if(resp){
         this.DocumentoEditar = resp;
+
+        this.onEsCajaBanco(this.DocumentoEditar.escajabanco);
+        if(this.DocumentoEditar.escajabanco){
+          this.mostrarCampoCuenta = true;
+        }
         this.Form.patchValue({
           codigo : this.DocumentoEditar.documentoid,
           nombre : this.DocumentoEditar.nombre,
@@ -95,7 +103,7 @@ export class NuevoDocumentoComponent implements OnInit {
   }
 
   onGrabar(){
-    const data = this.Form.value;
+    const data = this.Form.getRawValue();
     const newDocumento : IListarDocumentos = {
       documentoid : data.codigo,
       nombre : data.nombre,
@@ -124,21 +132,42 @@ export class NuevoDocumentoComponent implements OnInit {
       this.documentoService.crearDocumento(newDocumento).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!');
-          this.onVolver();
+          this.cerrar.emit(true);
         }
       });
     }else{
       this.documentoService.updateDocumento(newDocumento).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se actualziaron los datos correctamente!');
-          this.onVolver();
+          this.cerrar.emit(true);
         }
       });
     }
   }
   
-  onVolver(){
-    this.cerrar.emit('exito')
+  onEsCajaBanco(event: any){  
+    const nrocuenta = this.Form.get("nrocuentacobranza");  
+    if(event){
+      this.mostrarCampoCuenta = true;
+      nrocuenta.setValidators([Validators.required]); 
+      nrocuenta.updateValueAndValidity();
+    }else{
+      this.mostrarCampoCuenta = false;
+      nrocuenta.setValidators(null); 
+      nrocuenta.updateValueAndValidity();
+    } 
+ 
+  }
+
+  onModalBuscarCuentas(){ 
+    this.modalCuentas = true; 
+  }
+
+  onPintarcuenta( data : any ){ 
+    console.log('Que 22 ',data.tipoCuenta);
+    console.log('Que 333',data.data.nroCuenta); 
+    this.Form.controls['nrocuentacobranza'].setValue(data.data.nroCuenta);
+    this.modalCuentas = false;
   }
 
   onRegresar(){

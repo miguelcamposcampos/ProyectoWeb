@@ -55,7 +55,9 @@ export class MovimientosAlmacenService{
         params = params.append('paginaIndex', data.paginaIndex);
         params = params.append('itemsPorPagina', data.itemsPorPagina);
         params = params.append('categoria', data.categoria);
-        params = params.append('criterio', data.criterio);
+        if(data.criterio){
+            params = params.append('criterio', data.criterio);
+        }
         return this.http.get<IListarAnexosMA>(`${this.api987}/Anexo/ObtenerPersonaConsulta`, { params }); 
     }
   
