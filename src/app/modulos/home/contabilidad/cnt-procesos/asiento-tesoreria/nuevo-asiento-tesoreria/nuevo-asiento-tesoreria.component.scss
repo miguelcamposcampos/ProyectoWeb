@@ -1,14 +1,36 @@
 .CalculosDiferencia{
-    display: grid;
-    grid-template-columns:  1fr 1fr 1fr;
+    display: grid; 
 }
 
-.CalculosDiferenciaTitulos{
+.ColTitulos{
+    text-align: end;
     display: grid;
-    grid-template-columns:  1fr 1fr 1fr;
-}
-
-.BloqueDiferencia{
     align-items: center;
-    text-align: right;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 700px){
+        text-align: left; 
+        grid-template-columns: 1fr;
+    }
+
+    .CalculosDiferenciaTitulos{
+        text-align: center;
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr 1fr 1fr;
+
+       
+        @media (max-width: 700px){
+            text-align: left; 
+            grid-template-columns: 35% 25% 25%;
+        }
+
+
+        .p-inputtext.p-inputtext-sm { 
+            text-align: right;
+        }
+
+    }
 }
+
+ 

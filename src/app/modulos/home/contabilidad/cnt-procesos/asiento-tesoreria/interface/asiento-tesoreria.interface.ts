@@ -21,6 +21,7 @@ export interface IListAsientoTesoreria {
 }
 
 export interface ICrearAsientoTesoreria {
+  asientoid: number,
   esdiario : boolean,
   estesoreria : boolean,
   fecharegistro : string,
@@ -32,6 +33,8 @@ export interface ICrearAsientoTesoreria {
   nombrediario : string,
   glosadiario : string,
   detalle : IDtealleAsientoTesoreria[]
+  idsToDelete: number[];
+  idauditoria: number
 }
 
 export interface IDtealleAsientoTesoreria {

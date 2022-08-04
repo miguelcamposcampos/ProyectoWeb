@@ -9,7 +9,8 @@ import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IAsientoTesoreria } from '../interface/asiento-tesoreria.interface';
+import { ICrearAsientoTesoreria, IDtealleAsientoTesoreria } from '../interface/asiento-tesoreria.interface';
+import { AsientoTesoseriaService } from '../service/asiento-tesoreria.service';
 
 @Component({
   selector: 'app-nuevo-asiento-tesoreria',
@@ -33,13 +34,13 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
   vNuevo: boolean = false;
   modalCuentas: boolean = false;
   modalAnexos: boolean = false;
-  dataTesoreriaEdit: IAsientoTesoreria;
+  dataTesoreriaEdit: ICrearAsientoTesoreria;
   existeRegistro: boolean = false;
   Form: FormGroup;
   fechaActual = new Date();
   tipoCuenta :any;
   posicionPersona : number = 0;
-
+  arrayDetalleGrabar : IDtealleAsientoTesoreria[]= [];
 
   constructor(
     private generalService : GeneralService,
@@ -50,21 +51,22 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     private fb : FormBuilder,  
     private spinner : NgxSpinnerService,
     private cdr: ChangeDetectorRef,
+    private apiService : AsientoTesoseriaService
   ) { 
     this.builform(); 
     this.arrayMonedas = [
-      {nombre : 'SOLES', codigo: 1},
-      {nombre : 'DOLARES', codigo: 2}, 
-      {nombre : 'EUROS', codigo: 3}, 
+      {nombre : 'SOLES', id: 1},
+      {nombre : 'DOLARES', id: 2}, 
+      {nombre : 'EUROS', id: 3}, 
     ] 
  
     this.arrayTipoComprobante = [
-      {nombre : 'APERTURA', codigo: 0},
-      {nombre : 'NORMAL', codigo: 1}, 
-      {nombre : 'AJUSTE', codigo: 2}, 
-      {nombre : 'CIERRE', codigo: 3}, 
-      {nombre : 'DIFERENCIA/CAMBIO', codigo: 4}, 
-      {nombre : 'AJUSTE-LIQUIDACION', codigo: 5}, 
+      {nombre : 'APERTURA', id: 0},
+      {nombre : 'NORMAL', id: 1}, 
+      {nombre : 'AJUSTE', id: 2}, 
+      {nombre : 'CIERRE', id: 3}, 
+      {nombre : 'DIFERENCIA/CAMBIO', id: 4}, 
+      {nombre : 'AJUSTE-LIQUIDACION', id: 5}, 
     ] 
 
   }
@@ -82,18 +84,48 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       monedaid : new FormControl(  {nombre : 'SOLES', codigo: 1}, Validators.required),
       nombrediario : new FormControl(null), 
       glosadiario : new FormControl(null),  
-      arrayDetalle: this.fb.array([])
+      arrayDetalle: this.fb.array([]),
+      /* CAMPOS PARA VALIDACION */
+      totalDebeImporte : new FormControl(null),
+      totalDebeCambio : new FormControl(null),
+      totalHaberImporte : new FormControl(null),
+      totalHaberCambio : new FormControl(null),
+      totalDiferenciaImporte : new FormControl(null),
+      totalDiferenciaCambio : new FormControl(null),
     })
   }
 
 
   ngOnInit(): void {
+    this.onCargarDropdown();
     if(this.data){
       this.tituloVista = "Editar Asiento Tesorería",
       this.spinner.show();
+      this.Avisar(); 
     }
-    this.onCargarDropdown();
   }
+
+  Avisar() {
+    this.FlgLlenaronCombo.subscribe((x) => {
+      this.spinner.show(); 
+      this.onObtenerAsientoTesoreriaPorId(this.data.asientoid,'editar');
+    });
+  }
+
+  onObtenerAsientoTesoreriaPorId(asientoid : number, estado: string){  
+    this.apiService.asientosoreriaId(asientoid).subscribe((resp)=>{  
+      if(resp){   
+        this.dataTesoreriaEdit = resp; 
+        this.existeRegistro = true; 
+        this.onPintarDataFormulario();  
+      } 
+    });
+  }
+
+  onPintarDataFormulario(){ 
+    
+  }
+
 
   onCargarDropdown(){ 
     const datTC = {
@@ -156,7 +188,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       cambio: new FormControl(null),  
       centrocosto: new FormControl(null),   
       documentoid: new FormControl(0),
-      nrodocumento: new FormControl(0),
+      nrodocumento: new FormControl(null),
       documentorefid: new FormControl(0),  
       nrodocumentoref : new FormControl(null), 
       analisis: new FormControl(null),     
@@ -165,8 +197,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     });
   }
 
-  onCalcularDetalle(posicion : number){ 
-    console.log('posicion', posicion);
+  onCalcularDetalle(posicion : number){  
     const dataForm = this.Form.value;
     const dataFormDetail = (this.Form.get('arrayDetalle') as FormArray).at(posicion).value;
  
@@ -184,15 +215,15 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       AsignarCambio  = CambioEuros
     }
  
-      this.detallesForm[posicion].patchValue({
-        cambio : AsignarCambio, 
-      });
-   
-    }
+    this.detallesForm[posicion].patchValue({
+      cambio : AsignarCambio, 
+    });
+
+    this.onCalcularDiferencia();
+  }
 
 
-  onRefrescarCalculos(event:any){
-    console.log('event', event);
+  onRefrescarCalculosPorTipoCambio(event:any){ 
     this.detallesForm.forEach((x,i )=> {
       this.onCalcularDetalle(i)
     })
@@ -222,9 +253,56 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     });
   }
 
+  onCondicionarNaturaleza(event, posicion){ 
+    
+    if(event === "D" || event === "H") {
+      this.onCalcularDiferencia();
+    } else{
+      this.swal.mensajeAdvertencia('No se puede ingresar otra naturaleza, solo se permite "D" ó "H"');
+      this.detallesForm[posicion].patchValue({
+        naturaleza : null, 
+      });
+      return;
+    }
+    
+  }
 
    onCalcularDiferencia(){
+    let ArrayDebe : any[]= [];
+    let ArrayHaber : any[]= [];
 
+    this.detallesForm.forEach(det => {
+      if(det.value.naturaleza === "D"){
+        ArrayDebe.push(det.value);
+      }
+      if(det.value.naturaleza === "H"){
+        ArrayHaber.push(det.value);
+      }
+    })
+
+    /*SUMA */
+    let SumDebeImporte = ArrayDebe.reduce((sum, data)=> (sum + +data.importe ?? 0 ), 0);
+    let SumHaberImporte = ArrayHaber.reduce((sum, data)=> (sum + +data.importe ?? 0 ), 0);
+    
+    /*TIPO CAMBIO */
+    let SumDebeCambio  = ArrayDebe.reduce((sum, data)=> (sum + +data.cambio ?? 0 ), 0);
+    let SumHaberCambio  = ArrayHaber.reduce((sum, data)=> (sum + +data.cambio ?? 0 ), 0);
+
+    let SumDiferenciaImporte =  +SumDebeImporte - +SumHaberImporte
+    let SumDiferenciaCambio =  +SumDebeCambio - +SumHaberCambio
+
+    /* REEMPLAZAMOS VALORES */
+      this.Form.patchValue({
+        totalDebeImporte : SumDebeImporte,
+        totalHaberImporte : SumHaberImporte,
+
+        totalDebeCambio : SumDebeCambio,
+        totalHaberCambio : SumHaberCambio,
+
+        totalDiferenciaImporte : SumDiferenciaImporte,
+        totalDiferenciaCambio : SumDiferenciaCambio,
+      })
+      
    }
   
   onEliminarDetalle(index : any, asientodetalleid : any){ 
@@ -240,12 +318,13 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
         }
       })
     }
+    this.onCalcularDiferencia();
   }
 
  
-  onBuscarAnexo(data :any){
+  // onBuscarAnexo(data :any){
 
-  }
+  // }
 
   onModalBuscarAnexo(data :any){
     this.posicionPersona = data;
@@ -277,9 +356,58 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
 
 
   onGrabar(){
+    const dataForm = this.Form.value;
 
+    if(dataForm.totalDiferenciaImporte != dataForm.totalDiferenciaCambio ){
+      this.swal.mensajeAdvertencia("Revisar los montos de diferencia. Deben quedar en '0'");
+      return;
+    }
+ 
+    let detalle = this.onGrabarDetalleAsiento();
+    const newAsientoTesoseria : ICrearAsientoTesoreria = {
+      asientoid : this.dataTesoreriaEdit ? this.dataTesoreriaEdit.asientoid : 0,
+      esdiario : dataForm.esdiario,
+      estesoreria : dataForm.estesoreria,
+      fecharegistro :this.formatoFecha.transform(dataForm.fecharegistro, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
+      documentoid : dataForm.documentoid.id,
+      secuencial : dataForm.secuencial,
+      tipocambio : dataForm.tipocambio,
+      tipocomprobanteid : dataForm.tipocomprobanteid.id,
+      monedaid :  dataForm.monedaid.id,
+      nombrediario : dataForm.nombrediario,
+      glosadiario : dataForm.glosadiario,
+      detalle : detalle,
+      idauditoria : this.dataTesoreriaEdit ? this.dataTesoreriaEdit.idauditoria : 0,
+      idsToDelete : []
+    }
+
+    console.log('newAsientoTesoseria', newAsientoTesoseria);
   }
 
+
+  onGrabarDetalleAsiento(){
+    this.arrayDetalleGrabar = [];
+    this.detallesForm.forEach(element => { 
+        this.arrayDetalleGrabar.push({
+          asientodetalleid : element.value.asientodetalleid,
+          asientoid : element.value.asientoid,
+          personaid : element.value.personaid,
+          nrocuenta : element.value.nrocuenta,
+          naturaleza : element.value.naturaleza,
+          importe : +element.value.importe,
+          cambio : element.value.cambio,
+          centrocosto: element.value.centrocosto,
+          documentoid : element.value.documentoid,
+          nrodocumento : element.value.nrodocumento,
+          documentorefid : element.value.documentorefid,
+          nrodocumentoref : element.value.nrodocumentoref,
+          analisis : element.value.analisis,
+          fechadetalle : this.formatoFecha.transform(element.value.fechadetalle, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA), 
+          fechavencimiento : this.formatoFecha.transform(element.value.fechavencimiento, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA), 
+        }); 
+    })
+    return this.arrayDetalleGrabar;
+  }
 
   onRegresar(){
     this.cerrar.emit(false);

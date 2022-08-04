@@ -73,13 +73,13 @@
  
                     <div class="p-field p-col-12 p-lg-3 p-md-4">
                         <strong>Tipo Cambio <span style="color: red">*</span></strong>
-                        <input  type="text" pInputText (blur)="onRefrescarCalculos($event)" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                        <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio($event)" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
                     </div>
 
                     <div class="p-field p-col-12 p-lg-3 p-md-4">
                         <strong>Moneda <span style="color: red">*</span></strong>
                         <p-dropdown class="DropExtenso"
-                            (onChange)="onRefrescarCalculos($event);"
+                            (onChange)="onRefrescarCalculosPorTipoCambio($event);"
                             [options]="arrayMonedas"
                             formControlName="monedaid" 
                             placeholder="Selecciona " 
@@ -138,6 +138,7 @@
                                 class="p-button-sm"
                                 pButton 
                                 type="button"
+                                tooltipPosition="top" pTooltip="Eliminar"
                                 style=" background-color: #D72250;"
                                 (click)="onEliminarDetalle(rowIndex, detalles.value.asientodetalleid)"
                                 icon="pi pi-trash">  
@@ -146,6 +147,7 @@
                                 class="p-button-sm"
                                 pButton 
                                 type="button"
+                                tooltipPosition="top" pTooltip="Clonar"
                                 style=" background-color: #c9a134;"
                                 (click)="onDuplicarFila(detalles.value)"
                                 icon="far fa-clone" >  
@@ -163,7 +165,8 @@
                         </td>
                         <td>
                             <strong class="p-column-title">Naturaleza</strong>
-                            <input type="text" style="width: 70px;" pInputText class="p-inputtext-sm"  formControlName="naturaleza">  
+                            <input type="text" style="width: 70px;" minlength="1" maxlength="1" pInputText class="p-inputtext-sm" 
+                            (keyup)="onCondicionarNaturaleza($event.target.value, rowIndex)" formControlName="naturaleza">  
                         </td>
                         <td>
                             <strong class="p-column-title">Importe</strong>
@@ -174,7 +177,9 @@
                         </td> 
                         <td>
                             <strong class="p-column-title">Cambio</strong>
-                            <input type="text" style="width: 70px;" pInputText class="p-inputtext-sm" readonly formControlName="cambio">   
+                            <input type="text" style="width: 70px;" pInputText class="p-inputtext-sm"
+                            [value]="detallesForm[rowIndex].get('cambio').value | number:'0.2-2'"
+                             readonly formControlName="cambio">   
                         </td> 
                         <td>
                             <strong class="p-column-title">Centro Costo</strong>
@@ -234,29 +239,48 @@
                 </p-table>  
             </div>
 
-            <div class="BloqueDiferencia"> 
-                <div class="CalculosDiferenciaTitulos"> 
-                    <strong>-</strong> 
-                    <strong>Importe:</strong> 
-                    <strong>Cambio:</strong>  
+          
+                <div class="ColTitulos"> 
+                    <div></div>
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>-</strong> 
+                        <strong>Importe:</strong> 
+                        <strong>Cambio:</strong>  
+                    </div>  
+                </div> 
+  
+                <div class="ColTitulos"> 
+                    <div></div>
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>Total Debe:</strong>
+                        <input type="number" pInputText formControlName="totalDebeImporte" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalDebeImporte').value | number:'0.2-2'" placeholder="0.00"> 
+                        <input type="number" pInputText formControlName="totalDebeCambio" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalDebeCambio').value | number:'0.2-2'"placeholder="0.00">  
+                    </div>
                 </div> 
 
-                <div class="CalculosDiferencia"> 
-                    <strong>Total Debe:</strong>
-                    <input type="number" pInputText readonly class="p-inputtext-sm" placeholder="0.00"> 
-                    <input type="number" pInputText readonly class="p-inputtext-sm" placeholder="0.00"> 
-                    
-                    <strong>Total Haber:</strong>
-                    <input type="number" pInputText readonly class="p-inputtext-sm" placeholder="0.00"> 
-                    <input type="number" pInputText readonly class="p-inputtext-sm" placeholder="0.00"> 
-                
-                    <strong>Diferencia:</strong>
-                    <input type="number" pInputText readonly class="p-inputtext-sm" placeholder="0.00"> 
-                    <input type="number" pInputText readonly class="p-inputtext-sm" placeholder="0.00"> 
-                </div>
-            
-            </div>
+                <div class="ColTitulos"> 
+                    <div></div>
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>Total Haber:</strong>
+                        <input type="number" pInputText formControlName="totalHaberImporte" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalHaberImporte').value | number:'0.2-2'" placeholder="0.00"> 
+                        <input type="number" pInputText formControlName="totalHaberCambio" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalHaberCambio').value | number:'0.2-2'" placeholder="0.00"> 
+                    </div>
+                </div> 
 
+                <div class="ColTitulos"> 
+                    <div></div>  
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>Diferencia:</strong>
+                        <input type="number" pInputText formControlName="totalDiferenciaImporte" readonly class="p-inputtext-sm" 
+                         [value]="Form.get('totalDiferenciaImporte').value | number:'0.2-2'" placeholder="0.00"> 
+                        <input type="number" pInputText formControlName="totalDiferenciaCambio" readonly class="p-inputtext-sm"
+                         [value]="Form.get('totalDiferenciaCambio').value | number:'0.2-2'" placeholder="0.00">     
+                    </div>
+                </div> 
 
         </form>
     </div> 
