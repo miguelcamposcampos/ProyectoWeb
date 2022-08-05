@@ -28,19 +28,19 @@ export class AsientoDiarioService {
     } 
 
     asientosoreriaId(id: number): Observable<ICrearAsientoDiario>{
-        return this.http.get<ICrearAsientoDiario>(`${this.api987}/Contabilidad/ObtenerPlanCuentaPorId?plancuentaid=${id}`);
+        return this.http.get<ICrearAsientoDiario>(`${this.api987}/Contabilidad/ObtenerAsientoPorId?asientoid==${id}`);
     }
  
-    save(data: any){
-        return this.http.post(`${this.api987}/Contabilidad/InsertarCuenta`, data);
+    save(data: any):Observable<any>{
+        return this.http.post<any>(`${this.api987}/Contabilidad/InsertarAsiento`, data);
     }
 
-    update(data: any){
-        return this.http.post(`${this.api987}/Contabilidad/ActualizarCuenta`, data);
+    update(data: any):Observable<any>{
+        return this.http.post<any>(`${this.api987}/Contabilidad/ActualizarAsiento`, data);
     }
  
-    delete(planCuentaId: number){
-        return this.http.post(`${this.api987}/Contabilidad/Eliminarcuenta`, {planCuentaId});
+    delete(asientoId: number){
+        return this.http.post(`${this.api987}/Contabilidad/EliminarAsiento`, {asientoId});
     } 
 }
  

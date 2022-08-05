@@ -10,7 +10,6 @@ export interface IAsientoDiario {
     asientoId : number
 }
 
-
 export interface IListAsientoDiario {
     hasItems: boolean,
     items : IAsientoDiario[],
@@ -21,6 +20,8 @@ export interface IListAsientoDiario {
 }
 
 export interface ICrearAsientoDiario {
+    asientoid: number,
+    esdiario : boolean,
     estesoreria : boolean,
     fecharegistro : string,
     documentoid : number,
@@ -30,9 +31,10 @@ export interface ICrearAsientoDiario {
     monedaid :  number,
     nombrediario : string,
     glosadiario : string,
-    detalle : IDetalleAsientoDiario[]
+    detalle : IDetalleAsientoDiario[],
+    idsToDelete: number[];
+    idauditoria: number
 }
-
 
 export interface IDetalleAsientoDiario {
     asientodetalleid : number,
@@ -42,10 +44,13 @@ export interface IDetalleAsientoDiario {
     naturaleza : string,
     importe : number,
     cambio : number,
+    centrocosto: string,
     documentoid : number,
     nrodocumento : string,
     documentorefid : number,
     nrodocumentoref : string,
     analisis : string,
-    fechadetalle : string
+    fechadetalle : string,
+    fechavencimiento : string
+    anexo? : string
 }

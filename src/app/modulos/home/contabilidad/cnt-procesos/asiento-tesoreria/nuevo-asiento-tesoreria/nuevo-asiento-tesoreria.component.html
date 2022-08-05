@@ -1,38 +1,42 @@
  
 <div class="margintabla"> 
-    <div class="contenidoTable card">  
-        
-            <p-toolbar>
-                <div class="p-toolbar-group-left">
-                    <h3> <i class="fas fa-cart-plus"></i>  {{ tituloVista }} </h3>  
-                </div> 
-                <div class="p-toolbar-group-right">   
-                    <button  
-                        class="p-button-sm"
-                        pButton
-                        style="margin-right: 1%;"
-                        type="button"
-                        [disabled]="Form.invalid" 
-                        label="Grabar"
-                        (click)="onGrabar()"
-                        icon="pi pi-check-circle">  
-                    </button>   
-                    <button   
-                        class="p-button-sm"
-                        pButton
-                        type="button"
-                        icon="pi pi-times-circle"
-                        label="Cancelar" 
-                        style=" background-color: #D72250;"
-                        (click)="onRegresar()">  
-                    </button> 
-                </div>
-            </p-toolbar>
 
+    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+    </ngx-spinner>
 
-            <div *ngIf="existeRegistro"  class="centrar">    
-                <h3> N° REGISTRO:  <strong> {{dataTesoreriaEdit.nroRegistro}} </strong></h3>    
+    <div class="contenidoTable card">    
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-cart-plus"></i>  {{ tituloVista }} </h3>  
+            </div> 
+            <div class="p-toolbar-group-right">   
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    style="margin-right: 1%;"
+                    type="button"
+                    [disabled]="Form.invalid" 
+                    [label]="( data ) ?  'Actualizar' : 'Grabar'"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>   
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="onRegresar()">  
+                </button> 
             </div>
+        </p-toolbar>
+
+
+        <div *ngIf="existeRegistro"  class="centrar">    
+            <h3> N° REGISTRO:  <strong> {{dataTesoreriaEdit.nroRegistro}} </strong></h3>    
+        </div>
 
 
         <form [formGroup]="Form">        
@@ -73,13 +77,13 @@
  
                     <div class="p-field p-col-12 p-lg-3 p-md-4">
                         <strong>Tipo Cambio <span style="color: red">*</span></strong>
-                        <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio($event)" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                        <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio()" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
                     </div>
 
                     <div class="p-field p-col-12 p-lg-3 p-md-4">
                         <strong>Moneda <span style="color: red">*</span></strong>
                         <p-dropdown class="DropExtenso"
-                            (onChange)="onRefrescarCalculosPorTipoCambio($event);"
+                            (onChange)="onRefrescarCalculosPorTipoCambio();"
                             [options]="arrayMonedas"
                             formControlName="monedaid" 
                             placeholder="Selecciona " 
@@ -107,8 +111,7 @@
             </div>
 
             <div class="p-field p-col-12 p-md-12"> 
-                <p-table   
-                class="TablaDetalleCondicionPago"
+                <p-table  
                 [value]="detallesForm"
                 [scrollable]="true"  
                 responsiveLayout="stack" >  
@@ -217,15 +220,17 @@
                         <td>
                             <strong class="p-column-title">Fec. Detalle</strong>
                             <p-calendar  
+                                appendTo="body"
                                 readonlyInput="true"
                                 [showIcon]="true"
                                 dateFormat="dd/mm/yy"
                                 formControlName="fechadetalle"
                             ></p-calendar>  
                         </td>
-                        <td>
+                        <td >
                             <strong class="p-column-title">Fec. Vencimiento</strong>
                             <p-calendar  
+                                appendTo="body"
                                 readonlyInput="true"
                                 [showIcon]="true"
                                 dateFormat="dd/mm/yy"

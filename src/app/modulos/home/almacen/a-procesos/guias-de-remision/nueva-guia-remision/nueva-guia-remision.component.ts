@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { VentasService } from 'src/app/modulos/home/ventas/v-procesos/ventas/service/venta.service';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -82,8 +82,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     private ventaService : VentasService,
     private transportistaService : TransportistaService,
     private swal : MensajesSwalService,
-    private fb : FormBuilder,
-    private primengConfig : PrimeNGConfig,
+    private fb : FormBuilder, 
     private cdr: ChangeDetectorRef,
     private formatoFecha : DatePipe,
     private spinner : NgxSpinnerService
@@ -141,8 +140,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    this.primengConfig.setTranslation(this.es);
+  ngOnInit(): void { 
     this.onCargarDropdown();  
     if(this.dataGuia){
       this.spinner.show();

@@ -6,7 +6,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IAsientoTesoreria, IListAsientoTesoreria } from './interface/asiento-tesoreria.interface';
+import { IAsientoTesoreria } from './interface/asiento-tesoreria.interface';
 import { AsientoTesoseriaService } from './service/asiento-tesoreria.service';
 
 @Component({
@@ -67,13 +67,13 @@ export class AsientoTesoreriaComponent implements OnInit {
   onLoad(event : any){ 
     const dataform = this.Form.value;
     let finicio =  this.formatFecha.transform(dataform.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
-    let fehfin   =  this.formatFecha.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let ffin   =  this.formatFecha.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
    
     const data = {
       paginaindex  : event ? event.first : this.pagina,
       itemsxpagina : event ? event.rows : this.size,
       finicio : finicio,
-      ffin : fehfin
+      ffin : ffin
     }
 
     this.spinner.show();
@@ -89,6 +89,7 @@ export class AsientoTesoreriaComponent implements OnInit {
 
  
   onAdd(){
+    this.data = null;
     this.vNuevo = true;
   }
 
@@ -98,9 +99,25 @@ export class AsientoTesoreriaComponent implements OnInit {
   }
 
   onDelete(data: IAsientoTesoreria){
-
+    this.swal.mensajePregunta("¿Seguro que desea eliminar el asiento de Tesoreria: " + data.nroRegistro + " ?").then((response) => {
+      if (response.isConfirmed) {
+        this.apiService.delete(data.asientoId).subscribe((resp) => {
+          if(resp){
+            this.swal.mensajeExito('El asiento ha sido eliminado correctamente!.'); 
+            this.onLoad(null);
+          }
+        });
+      }
+    }) 
   }
 
+
+  onRegresar(event){
+    if(event){
+      this.onLoad(null);
+    }
+    this.vNuevo = false;
+  }
 
 
 

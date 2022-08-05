@@ -1,8 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { PrimeNGConfig } from 'primeng/api';
+import { NgxSpinnerService } from 'ngx-spinner'; 
 import { forkJoin, Subject } from 'rxjs';
 import { VentasService } from 'src/app/modulos/home/ventas/v-procesos/ventas/service/venta.service';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -24,11 +23,11 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   tituloVista = "Nuevo Asiento Tesorería"
   arrayTipoDoc : ICombo[];
-  arrayTipoComprobante : any[];
   arrayTipoDocumento : ICombo[];
   arrayTipoDocumentoReferencia : ICombo[];
-  arrayMonedas: any[];
   arrayDetallesEliminados : any[]=[];
+  arrayMonedas = ConstantesGenerales.arrayMonedas;
+  arrayTipoComprobante = ConstantesGenerales.arrayTipoComprobante;
 
   es = ConstantesGenerales.ES_CALENDARIO;
   vNuevo: boolean = false;
@@ -46,29 +45,13 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     private generalService : GeneralService,
     private swal : MensajesSwalService,
     private ventaService : VentasService,
-    private readonly formatoFecha : DatePipe,
-    private config : PrimeNGConfig,
+    private readonly formatoFecha : DatePipe, 
     private fb : FormBuilder,  
     private spinner : NgxSpinnerService,
     private cdr: ChangeDetectorRef,
     private apiService : AsientoTesoseriaService
   ) { 
     this.builform(); 
-    this.arrayMonedas = [
-      {nombre : 'SOLES', id: 1},
-      {nombre : 'DOLARES', id: 2}, 
-      {nombre : 'EUROS', id: 3}, 
-    ] 
- 
-    this.arrayTipoComprobante = [
-      {nombre : 'APERTURA', id: 0},
-      {nombre : 'NORMAL', id: 1}, 
-      {nombre : 'AJUSTE', id: 2}, 
-      {nombre : 'CIERRE', id: 3}, 
-      {nombre : 'DIFERENCIA/CAMBIO', id: 4}, 
-      {nombre : 'AJUSTE-LIQUIDACION', id: 5}, 
-    ] 
-
   }
 
   
@@ -80,8 +63,8 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       documentoid : new FormControl(null, Validators.required),
       secuencial : new FormControl(0),
       tipocambio : new FormControl(null, Validators.required),
-      tipocomprobanteid : new FormControl( {nombre : 'NORMAL', codigo: 1}, Validators.required),
-      monedaid : new FormControl(  {nombre : 'SOLES', codigo: 1}, Validators.required),
+      tipocomprobanteid : new FormControl( {nombre : 'NORMAL', id: 1}, Validators.required),
+      monedaid : new FormControl(  {nombre : 'SOLES', id: 1}, Validators.required),
       nombrediario : new FormControl(null), 
       glosadiario : new FormControl(null),  
       arrayDetalle: this.fb.array([]),
@@ -106,9 +89,8 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
   }
 
   Avisar() {
-    this.FlgLlenaronCombo.subscribe((x) => {
-      this.spinner.show(); 
-      this.onObtenerAsientoTesoreriaPorId(this.data.asientoid,'editar');
+    this.FlgLlenaronCombo.subscribe((x) => { 
+      this.onObtenerAsientoTesoreriaPorId(this.data.asientoId,'editar');
     });
   }
 
@@ -117,13 +99,64 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       if(resp){   
         this.dataTesoreriaEdit = resp; 
         this.existeRegistro = true; 
-        this.onPintarDataFormulario();  
+        this.onPintarDataFormulario(estado);  
       } 
     });
   }
 
-  onPintarDataFormulario(){ 
-    
+  onPintarDataFormulario(estado){ 
+    this.Form.patchValue({ 
+      esdiario : this.dataTesoreriaEdit.esdiario,  
+      estesoreria :  this.dataTesoreriaEdit.estesoreria,   
+      fecharegistro : new Date(this.dataTesoreriaEdit.fecharegistro),   
+      documentoid : this.arrayTipoDoc.find(
+        (x) => x.id === this.dataTesoreriaEdit.documentoid
+      ),  
+      secuencial : this.dataTesoreriaEdit.secuencial,  
+      tipocambio :  this.dataTesoreriaEdit.tipocambio,   
+      tipocomprobanteid : this.arrayTipoComprobante.find(
+        (x) => x.id === this.dataTesoreriaEdit.tipocomprobanteid
+      ), 
+      monedaid : this.arrayMonedas.find(
+        (x) => x.id === this.dataTesoreriaEdit.monedaid
+      ), 
+      nombrediario : this.dataTesoreriaEdit.nombrediario,  
+      glosadiario : this.dataTesoreriaEdit.glosadiario 
+     })
+
+      for( let  i = 0; i < this.dataTesoreriaEdit.detalle.length; i++){
+        if(estado === 'editar'){
+          this.onAgregarDetalles(); 
+          this.onCalcularDetalle(i);
+        }
+
+        this.detallesForm[i].patchValue({ 
+          asientodetalleid : this.dataTesoreriaEdit.detalle[i].asientodetalleid,
+          asientoid: this.dataTesoreriaEdit.detalle[i].asientoid,
+          rucPersona: this.dataTesoreriaEdit.detalle[i].anexo,
+          personaid :this.dataTesoreriaEdit.detalle[i].personaid,
+          nrocuenta :this.dataTesoreriaEdit.detalle[i].nrocuenta,
+          naturaleza :this.dataTesoreriaEdit.detalle[i].naturaleza,
+          importe :this.dataTesoreriaEdit.detalle[i].importe,
+          cambio :this.dataTesoreriaEdit.detalle[i].cambio,
+          centrocosto :this.dataTesoreriaEdit.detalle[i].centrocosto,
+          documentoid: this.arrayTipoDocumento.find(
+            (x) => x.id ===  this.dataTesoreriaEdit.detalle[i].documentoid
+          ),
+          nrodocumento :this.dataTesoreriaEdit.detalle[i].nrodocumento,
+          documentorefid: this.arrayTipoDocumentoReferencia.find(
+            (x) => x.id ===  this.dataTesoreriaEdit.detalle[i].documentorefid
+          ),
+          nrodocumentoref :this.dataTesoreriaEdit.detalle[i].nrodocumentoref,
+          analisis :this.dataTesoreriaEdit.detalle[i].analisis,
+          fechadetalle :this.dataTesoreriaEdit.detalle[i].fechadetalle ? new Date(this.dataTesoreriaEdit.detalle[i].fechadetalle) : null, 
+          fechavencimiento :this.dataTesoreriaEdit.detalle[i].fechavencimiento ? new Date(this.dataTesoreriaEdit.detalle[i].fechavencimiento) : null,  
+        });
+        this.spinner.hide(); 
+      }
+   
+
+   
   }
 
 
@@ -201,29 +234,27 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     const dataForm = this.Form.value;
     const dataFormDetail = (this.Form.get('arrayDetalle') as FormArray).at(posicion).value;
  
-    let CambioSoles = dataFormDetail.importe / dataForm.tipocambio;
-    let CambioDolares = dataFormDetail.importe  * dataForm.tipocambio;
-    let CambioEuros = dataFormDetail.importe  * dataForm.tipocambio;
-
     let AsignarCambio
 
-    if(dataForm.monedaid.codigo === 1){
-      AsignarCambio  = CambioSoles
-    }else  if(dataForm.monedaid.codigo === 2){
-      AsignarCambio  = CambioDolares
+    if(dataForm.monedaid.id === 1){
+      AsignarCambio  = dataFormDetail.importe / dataForm.tipocambio;
+    }else  if(dataForm.monedaid.id === 2){
+      AsignarCambio  =  dataFormDetail.importe  * dataForm.tipocambio;
     }else{
-      AsignarCambio  = CambioEuros
+      AsignarCambio  = dataFormDetail.importe  * dataForm.tipocambio;
     }
  
     this.detallesForm[posicion].patchValue({
       cambio : AsignarCambio, 
     });
 
-    this.onCalcularDiferencia();
+    setTimeout(() => {
+      this.onCalcularDiferencia();
+    }, 500);
   }
 
 
-  onRefrescarCalculosPorTipoCambio(event:any){ 
+  onRefrescarCalculosPorTipoCambio(){ 
     this.detallesForm.forEach((x,i )=> {
       this.onCalcularDetalle(i)
     })
@@ -288,8 +319,8 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     let SumDebeCambio  = ArrayDebe.reduce((sum, data)=> (sum + +data.cambio ?? 0 ), 0);
     let SumHaberCambio  = ArrayHaber.reduce((sum, data)=> (sum + +data.cambio ?? 0 ), 0);
 
-    let SumDiferenciaImporte =  +SumDebeImporte - +SumHaberImporte
-    let SumDiferenciaCambio =  +SumDebeCambio - +SumHaberCambio
+    let SumDiferenciaImporte =  SumDebeImporte - SumHaberImporte
+    let SumDiferenciaCambio =  SumDebeCambio - SumHaberCambio
 
     /* REEMPLAZAMOS VALORES */
       this.Form.patchValue({
@@ -302,23 +333,25 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
         totalDiferenciaImporte : SumDiferenciaImporte,
         totalDiferenciaCambio : SumDiferenciaCambio,
       })
-      
+ 
    }
   
   onEliminarDetalle(index : any, asientodetalleid : any){ 
     if(!asientodetalleid){
       this.fa.removeAt(index);
       this.cdr.detectChanges(); 
+      this.onCalcularDiferencia();
     } else{
       this.swal.mensajePregunta("¿Seguro que desea eliminar el detalle.?").then((response) => {
         if (response.isConfirmed) {
           this.arrayDetallesEliminados.push(asientodetalleid);
           this.fa.removeAt(index); 
           this.swal.mensajeExito('El detalle ha sido eliminado correctamente!.');
+          this.onCalcularDiferencia();
         }
       })
     }
-    this.onCalcularDiferencia();
+
   }
 
  
@@ -358,10 +391,10 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
   onGrabar(){
     const dataForm = this.Form.value;
 
-    if(dataForm.totalDiferenciaImporte != dataForm.totalDiferenciaCambio ){
-      this.swal.mensajeAdvertencia("Revisar los montos de diferencia. Deben quedar en '0'");
-      return;
-    }
+    // if(dataForm.totalDiferenciaImporte != dataForm.totalDiferenciaCambio ){
+    //   this.swal.mensajeAdvertencia("Revisar los montos de diferencia. Deben quedar en '0'");
+    //   return;
+    // }
  
     let detalle = this.onGrabarDetalleAsiento();
     const newAsientoTesoseria : ICrearAsientoTesoreria = {
@@ -378,7 +411,33 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       glosadiario : dataForm.glosadiario,
       detalle : detalle,
       idauditoria : this.dataTesoreriaEdit ? this.dataTesoreriaEdit.idauditoria : 0,
-      idsToDelete : []
+      idsToDelete : this.arrayDetallesEliminados
+    }
+
+    if(!this.dataTesoreriaEdit){
+      this.apiService.save(newAsientoTesoseria).subscribe((resp) => {
+        if(resp){
+          this.swal.mensajePregunta("¿Quiere editar el Asiento Diario ?").then((response) => {
+            if (response.isConfirmed) { 
+              this.onObtenerAsientoTesoreriaPorId(resp, 'nuevo');
+            }else{
+              this.swal.mensajeExito('Los cambios se grabaron correctamente!.')    
+              this.cerrar.emit(true);
+            }
+          })   
+        }    
+      });
+    }else{ 
+      this.apiService.update(newAsientoTesoseria).subscribe((resp)=>{ 
+        this.swal.mensajePregunta("¿Quiere seguir editando la venta?").then((response) => {
+          if (response.isConfirmed) { 
+            this.onObtenerAsientoTesoreriaPorId(newAsientoTesoseria.asientoid, 'nuevo')
+          }else{
+            this.cerrar.emit(true);
+            this.swal.mensajeExito('Los cambios se actualizaron correctamente!.')    
+          }
+        })   
+      });
     }
 
     console.log('newAsientoTesoseria', newAsientoTesoseria);
@@ -397,9 +456,9 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
           importe : +element.value.importe,
           cambio : element.value.cambio,
           centrocosto: element.value.centrocosto,
-          documentoid : element.value.documentoid,
+          documentoid : element.value.documentoid.id,
           nrodocumento : element.value.nrodocumento,
-          documentorefid : element.value.documentorefid,
+          documentorefid : element.value.documentorefid.id,
           nrodocumentoref : element.value.nrodocumentoref,
           analisis : element.value.analisis,
           fechadetalle : this.formatoFecha.transform(element.value.fechadetalle, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA), 

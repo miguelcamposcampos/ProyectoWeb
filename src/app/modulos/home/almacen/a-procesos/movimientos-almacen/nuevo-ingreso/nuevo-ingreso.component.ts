@@ -1,8 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { PrimeNGConfig } from 'primeng/api';
+import { NgxSpinnerService } from 'ngx-spinner'; 
 import { forkJoin, Subject } from 'rxjs';
 import { VentasService } from 'src/app/modulos/home/ventas/v-procesos/ventas/service/venta.service';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -55,8 +54,7 @@ export class NuevoIngresoComponent implements OnInit {
     private swal : MensajesSwalService, 
     private ventaService : VentasService,
     private fb : FormBuilder,
-    private cdr: ChangeDetectorRef,
-    private primengConfig : PrimeNGConfig, 
+    private cdr: ChangeDetectorRef, 
     private formatoFecha : DatePipe,
     private spinner : NgxSpinnerService
   ) { 
@@ -81,8 +79,7 @@ export class NuevoIngresoComponent implements OnInit {
    }
 
 
-  ngOnInit(): void {   
-    this.primengConfig.setTranslation(this.es);
+  ngOnInit(): void {    
     this.EvaluarTitulo();
     this.onCargarDropdown();
     this.onValidarRequeridos(); 

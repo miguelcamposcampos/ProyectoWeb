@@ -6,7 +6,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IAsientoDiario, IListAsientoDiario } from './interface/asiento-diario.interface';
+import { IAsientoDiario } from './interface/asiento-diario.interface';
 import { AsientoDiarioService } from './service/asiento-diario.service';
 
 @Component({
@@ -70,13 +70,13 @@ export class AsientoDiarioComponent implements OnInit {
   onLoad(event : any){ 
     const dataform = this.Form.value;
     let finicio =  this.formatFecha.transform(dataform.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
-    let fehfin   =  this.formatFecha.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
+    let ffin   =  this.formatFecha.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA);
    
     const data = {
       paginaindex  : event ? event.first : this.pagina,
       itemsxpagina : event ? event.rows : this.size,
       finicio : finicio,
-      ffin : fehfin
+      ffin : ffin
     }
 
     this.spinner.show();
@@ -91,6 +91,7 @@ export class AsientoDiarioComponent implements OnInit {
   }
 
   onAdd(){
+    this.data = null;
     this.vNuevo = true;
   }
 
@@ -100,9 +101,26 @@ export class AsientoDiarioComponent implements OnInit {
   }
 
   onDelete(data: IAsientoDiario){
-
+    this.swal.mensajePregunta("¿Seguro que desea eliminar el asiento diario: " + data.nroRegistro + " ?").then((response) => {
+      if (response.isConfirmed) {
+        this.apiService.delete(data.asientoId).subscribe((resp) => {
+          if(resp){
+            this.swal.mensajeExito('El asiento ha sido eliminado correctamente!.'); 
+            this.onLoad(null);
+          }
+        });
+      }
+    }) 
   }
 
 
+  onRegresar(event){
+    if(event){
+      this.onLoad(null);
+    }
+    this.vNuevo = false;
+  }
 
+
+  
 }

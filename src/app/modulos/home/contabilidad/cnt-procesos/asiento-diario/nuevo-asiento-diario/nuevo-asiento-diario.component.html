@@ -1,1 +1,304 @@
-<p>nuevo-asiento-diario works!</p>
+ 
+<div class="margintabla"> 
+
+    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+    </ngx-spinner>
+
+    <div class="contenidoTable card">    
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-cart-plus"></i>  {{ tituloVista }} </h3>  
+            </div> 
+            <div class="p-toolbar-group-right">   
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    style="margin-right: 1%;"
+                    type="button"
+                    [disabled]="Form.invalid"  
+                    [label]="( data ) ?  'Actualizar' : 'Grabar'"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>   
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    style=" background-color: #D72250;"
+                    (click)="onRegresar()">  
+                </button> 
+            </div>
+        </p-toolbar>
+
+
+        <div *ngIf="existeRegistro"  class="centrar">    
+            <h3> N° REGISTRO:  <strong> {{dataDiarioEdit.nroRegistro}} </strong></h3>    
+        </div>
+
+
+        <form [formGroup]="Form">        
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid">  
+
+                    <div class="p-field p-col-12 p-lg-5 p-md-6">
+                        <strong>Tipo Documento <span style="color: red">*</span></strong>
+                        <p-dropdown class="DropExtenso"
+                            [options]="arrayTipoDoc"
+                            formControlName="documentoid"  
+                            placeholder="Selecciona " 
+                            [showClear]="true"
+                            optionLabel="valor1">
+                        </p-dropdown>     
+                    </div>
+ 
+                    <div class="p-field p-col-12 p-lg-5 p-md-6">
+                        <strong>Tipo Comprobante <span style="color: red">*</span></strong>
+                        <p-dropdown class="DropExtenso"
+                            [options]="arrayTipoComprobante"
+                            formControlName="tipocomprobanteid"  
+                            placeholder="Selecciona " 
+                            [showClear]="true" 
+                            optionLabel="nombre">
+                        </p-dropdown>     
+                    </div>
+                    
+                    <div class="p-field p-col-12 p-lg-2 p-md-4">
+                        <strong>Fecha<span style="color: red">*</span></strong>
+                        <p-calendar  
+                            readonlyInput="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fecharegistro"
+                        ></p-calendar> 
+                    </div> 
+ 
+                    <div class="p-field p-col-12 p-lg-3 p-md-4">
+                        <strong>Tipo Cambio <span style="color: red">*</span></strong>
+                        <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio()" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                    </div>
+
+                    <div class="p-field p-col-12 p-lg-3 p-md-4">
+                        <strong>Moneda <span style="color: red">*</span></strong>
+                        <p-dropdown class="DropExtenso"
+                            (onChange)="onRefrescarCalculosPorTipoCambio();"
+                            [options]="arrayMonedas"
+                            formControlName="monedaid" 
+                            placeholder="Selecciona " 
+                            [showClear]="true" 
+                            optionLabel="nombre">
+                        </p-dropdown>     
+                    </div>
+    
+                    <div class="p-field p-col-12 p-lg-6 p-md-12">
+                        <strong>Nombre <span style="color: red">*</span></strong>
+                        <input  type="text" pInputText  formControlName="nombrediario" class="p-inputtext-sm" placeholder="ingresar una glosa">
+                    </div>
+                     
+                    <div class="p-field p-col-12 p-md-12">
+                        <strong>Glosa:</strong>
+                        <input  type="text" pInputText  formControlName="glosadiario" class="p-inputtext-sm" placeholder="ingresar una glosa">     
+                    </div>
+     
+                </div> 
+            </div>  
+
+            <div class="text-center"> 
+                <button pButton pRipple type="button" label="Agregar Detalle" class="p-button-rounded p-button-blue p-button-busqueda" 
+                 icon="fas fa-plus"  (click)="onAgregarDetalles()"></button> 
+            </div>
+
+            <div class="p-field p-col-12 p-md-12"> 
+                <p-table  
+                [value]="detallesForm"
+                [scrollable]="true"  
+                responsiveLayout="stack" >  
+                <ng-template pTemplate="header">
+                    <tr> 
+                        <th style="width: 50px;">Acción</th>
+                        <th style="width: 60px;">Nro cuenta</th>
+                        <th style="width: 85px;">Naturaleza</th>
+                        <th style="width: 160px;">Importe</th>
+                        <th style="width: 150px;">Cambio</th> 
+                        <th style="width: 160px;">Centro Costo</th> 
+                        <th style="width: 110px;">Anexo</th> 
+                        <th style="width: 110px;">Tip Documento</th> 
+                        <th style="width: 85px;">Nro Documento</th> 
+                        <th style="width: 80px;">Doc Referencia</th> 
+                        <th style="width: 80px;">Nro doc Ref.</th> 
+                        <th style="width: 90px;">Analisis</th> 
+                        <th style="width: 100px;">Fec. Detalle</th> 
+                        <th style="width: 100px;">Fec. Vencimiento</th>   
+                    </tr>
+                </ng-template> 
+
+                <ng-template pTemplate="body" let-detalles  let-rowIndex="rowIndex" formArrayName="arrayDetalle"> 
+                    <tr   [formGroupName]="rowIndex"> 
+                        <td>
+                            <button  
+                                class="p-button-sm"
+                                pButton 
+                                type="button"
+                                tooltipPosition="top" pTooltip="Eliminar"
+                                style=" background-color: #D72250;"
+                                (click)="onEliminarDetalle(rowIndex, detalles.value.asientodetalleid)"
+                                icon="pi pi-trash">  
+                            </button>
+                            <button  
+                                class="p-button-sm"
+                                pButton 
+                                type="button"
+                                tooltipPosition="top" pTooltip="Clonar"
+                                style=" background-color: #c9a134;"
+                                (click)="onDuplicarFila(detalles.value)"
+                                icon="far fa-clone" >  
+                            </button>
+                            
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Nro cuenta</strong>
+                            <input type="text" style="width: 80px;"
+                                 class="p-inputtext"
+                                pInputText formControlName="nrocuenta">
+                            <button type="button" (click)="onModalBuscarCuenta(rowIndex)"
+                                pTooltip="Buscar" type="button" tooltipPosition="left" pButton
+                                icon="pi pi-search" class="p-button-sm"></button> 
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Naturaleza</strong>
+                            <input type="text" style="width: 70px;" minlength="1" maxlength="1" pInputText class="p-inputtext-sm" 
+                            (keyup)="onCondicionarNaturaleza($event.target.value, rowIndex)" formControlName="naturaleza">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Importe</strong>
+                            <input type="text" style="width: 150px;" pInputText class="p-inputtext-sm" formControlName="importe"
+                            (keydown.enter)="onCalcularDetalle(rowIndex)"
+                            (blur)="onCalcularDetalle(rowIndex)"
+                            (keydown.Tab)="onCalcularDetalle(rowIndex)" >  
+                        </td> 
+                        <td>
+                            <strong class="p-column-title">Cambio</strong>
+                            <input type="text" style="width: 70px;" pInputText class="p-inputtext-sm"
+                            [value]="detallesForm[rowIndex].get('cambio').value | number:'0.2-2'"
+                             readonly formControlName="cambio">   
+                        </td> 
+                        <td>
+                            <strong class="p-column-title">Centro Costo</strong>
+                            <input type="text" style="width: 70px;" pInputText class="p-inputtext-sm"  formControlName="centrocosto">   
+                        </td> 
+                        <td>
+                            <strong class="p-column-title">Anexo</strong>
+                            <input type="text" style="width: 80px;"
+                                (keydown.enter)="onBuscarAnexo(rowIndex)" class="p-inputtext"
+                                pInputText formControlName="rucPersona">
+                            <button type="button" (click)="onModalBuscarAnexo(rowIndex)"
+                                pTooltip="Buscar" type="button" tooltipPosition="left" pButton
+                                icon="pi pi-search" class="p-button-sm"></button>  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Tip. Documento</strong>
+                            <p-dropdown  [options]="arrayTipoDocumento"  appendTo="body"  formControlName="documentoid"  placeholder="Selecciona..."  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Nro Documento</strong>
+                            <input type="text" style="width: 80px;text-align: right;"  class="p-inputtext-sm" pInputText formControlName="nrodocumento">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Doc Referencia</strong>
+                            <p-dropdown  [options]="arrayTipoDocumentoReferencia"  appendTo="body"  formControlName="documentorefid"  placeholder="Selecciona..."  [showClear]="true"  optionLabel="valor1"></p-dropdown>    
+                        </td>
+                        <td style="text-align: center;">
+                            <strong class="p-column-title">Nro Doc. Ref</strong>
+                            <input type="text"  style="width: 90px;text-align: right;" class="p-inputtext-sm" pInputText formControlName="nrodocumentoref">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Analisis</strong>
+                            <input type="text" style="width: 80px;text-align: right;" (keydown.enter)="onCalcularDetalle(rowIndex)" (keydown.Tab)="onCalcularDetalle(rowIndex)" class="p-inputtext-sm" pInputText formControlName="analisis">  
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Fec. Detalle</strong>
+                            <p-calendar  
+                                appendTo="body"
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechadetalle"
+                            ></p-calendar>  
+                        </td>
+                        <td >
+                            <strong class="p-column-title">Fec. Vencimiento</strong>
+                            <p-calendar  
+                                appendTo="body"
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechavencimiento"
+                            ></p-calendar> 
+                        </td>
+             
+                    </tr>
+                </ng-template>
+            
+                </p-table>  
+            </div>
+
+          
+                <div class="ColTitulos"> 
+                    <div></div>
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>-</strong> 
+                        <strong>Importe:</strong> 
+                        <strong>Cambio:</strong>  
+                    </div>  
+                </div> 
+  
+                <div class="ColTitulos"> 
+                    <div></div>
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>Total Debe:</strong>
+                        <input type="number" pInputText formControlName="totalDebeImporte" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalDebeImporte').value | number:'0.2-2'" placeholder="0.00"> 
+                        <input type="number" pInputText formControlName="totalDebeCambio" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalDebeCambio').value | number:'0.2-2'"placeholder="0.00">  
+                    </div>
+                </div> 
+
+                <div class="ColTitulos"> 
+                    <div></div>
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>Total Haber:</strong>
+                        <input type="number" pInputText formControlName="totalHaberImporte" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalHaberImporte').value | number:'0.2-2'" placeholder="0.00"> 
+                        <input type="number" pInputText formControlName="totalHaberCambio" readonly class="p-inputtext-sm" 
+                        [value]="Form.get('totalHaberCambio').value | number:'0.2-2'" placeholder="0.00"> 
+                    </div>
+                </div> 
+
+                <div class="ColTitulos"> 
+                    <div></div>  
+                    <div class="CalculosDiferenciaTitulos">
+                        <strong>Diferencia:</strong>
+                        <input type="number" pInputText formControlName="totalDiferenciaImporte" readonly class="p-inputtext-sm" 
+                         [value]="Form.get('totalDiferenciaImporte').value | number:'0.2-2'" placeholder="0.00"> 
+                        <input type="number" pInputText formControlName="totalDiferenciaCambio" readonly class="p-inputtext-sm"
+                         [value]="Form.get('totalDiferenciaCambio').value | number:'0.2-2'" placeholder="0.00">     
+                    </div>
+                </div> 
+
+        </form>
+    </div> 
+</div>  
+   
+<div *ngIf="modalCuentas">
+    <p-dialog header="BUSCAR TIPO CUENTA" [(visible)]="modalCuentas" [modal]="true" [draggable]="false" [resizable]="false"> 
+        <app-buscar-tipo-cuenta [tipoCuenta]="tipoCuenta" (CuentaSelect)="onPintarcuenta($event)" ></app-buscar-tipo-cuenta>
+    </p-dialog> 
+</div>
+
+<div *ngIf="modalAnexos">
+    <p-dialog header="BUSCAR ANEXO" [(visible)]="modalAnexos" [modal]="true" [draggable]="false" [resizable]="false"> 
+        <app-buscar-persona  [dataPersona]="'Todos'" (PersonaSelect)="onPintarAnexo($event)" ></app-buscar-persona>
+    </p-dialog> 
+</div>

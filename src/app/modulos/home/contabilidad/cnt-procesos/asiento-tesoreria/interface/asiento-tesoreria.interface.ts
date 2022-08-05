@@ -10,7 +10,6 @@ export interface IAsientoTesoreria {
     asientoId : number
 }
 
-
 export interface IListAsientoTesoreria { 
     hasItems: boolean,
     items : IAsientoTesoreria[],
@@ -53,6 +52,5 @@ export interface IDtealleAsientoTesoreria {
   analisis : string,
   fechadetalle : string
   fechavencimiento : string
+  anexo? : string
 }
-
- 
