@@ -192,7 +192,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     let fecha = this.formatoFecha.transform(this.fechaActual, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA)
     this.ventaService.obtenertipodeCambioCobrar(fecha).subscribe((resp) => {
       if(resp){ 
-        this.Form.controls['tipoCambio'].setValue(resp.valorventa)
+        this.Form.controls['tipocambio'].setValue(resp.valorventa)
       }
     })
   }

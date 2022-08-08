@@ -57,8 +57,8 @@ export class NuevoAsientoDiarioComponent implements OnInit {
   
   public builform(){
     this.Form = new FormGroup({
-      esdiario : new FormControl(false),  
-      estesoreria : new FormControl(true),  
+      esdiario : new FormControl(true),  
+      estesoreria : new FormControl(false),  
       fecharegistro : new FormControl(this.fechaActual, Validators.required),
       documentoid : new FormControl(null, Validators.required),
       secuencial : new FormControl(0),
@@ -166,12 +166,13 @@ export class NuevoAsientoDiarioComponent implements OnInit {
     esUsadoVentas : true,
     esNotaIngresoAlmacen : true,
     esNotaSalidaAlmacen : true,
-    esasientocontable : true
-    
+    esasientocontable : true 
     }
+  
     const data = { 
-        esCajaBanco : true
+      esasientocontable : true
     }
+ 
     const obsDatos = forkJoin(
       this.generalService.listadoDocumentoPortipoParacombo(data),  
       this.generalService.listadoDocumentoPortipoParacombo(datTC),
@@ -192,7 +193,7 @@ export class NuevoAsientoDiarioComponent implements OnInit {
     let fecha = this.formatoFecha.transform(this.fechaActual, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA)
     this.ventaService.obtenertipodeCambioCobrar(fecha).subscribe((resp) => {
       if(resp){ 
-        this.Form.controls['tipoCambio'].setValue(resp.valorventa)
+        this.Form.controls['tipocambio'].setValue(resp.valorventa)
       }
     })
   }

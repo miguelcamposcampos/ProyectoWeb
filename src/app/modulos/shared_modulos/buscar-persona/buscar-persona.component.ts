@@ -28,6 +28,7 @@ export class BuscarPersonaComponent implements OnInit {
   textoPaginado : string="";
   pagina: number = 1;
   size: number = 50;
+   
 
   constructor(
     private moviAlmacenService : MovimientosAlmacenService,
@@ -44,12 +45,17 @@ export class BuscarPersonaComponent implements OnInit {
 
   ngOnInit(): void { 
     this.tipopersonaBuscar.value.nombre = this.dataPersona 
+    this.dataPersona = this.dataPersona === "Proveedor" ? "codProveedor" : "codCliente";
+    if( this.dataPersona ){
+      this.cols = [ 
+        { field: "codCliente", header: 'Cod-Cliente', visibility: true }, 
+        { field: "codProveedor", header: 'Cod-Proveedor', visibility: true }, 
+        { field: 'nombreRazSocial', header: 'Nombre', visibility: true }, 
+        { field: 'nroDocumento', header: 'Nro Documento.', visibility: true},    
+      ];
+    }
+
     this.onLoadPersonas(null);
-    this.cols = [ 
-      { field: (this.dataPersona === 'Cliente') ? 'codCliente' : 'codProveedor', header: 'Codigo', visibility: true }, 
-      { field: 'nombreRazSocial', header: 'Nombre', visibility: true }, 
-      { field: 'nroDocumento', header: 'Nro Documento.', visibility: true},    
-    ];
   }
  
   onLoadPersonas(event :any){
@@ -63,7 +69,7 @@ export class BuscarPersonaComponent implements OnInit {
     this.moviAlmacenService.listadoAnexosMA(data).subscribe((resp) =>{
       if(resp){
         this.textoPaginado = resp.label;
-        this.listaAnexos = resp.items;
+        this.listaAnexos = resp.items; 
         this.spinner.hide();
       }  
     })

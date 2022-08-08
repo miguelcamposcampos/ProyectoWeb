@@ -139,6 +139,9 @@ listadoDocumentoPortipoParacombo(data: any): Observable<ICombo[]>{
   if(data.usadoReciboHonorario){
     params = params.append('usadoReciboHonorario', data.usadoReciboHonorario); 
   }
+  if(data.esasientocontable){
+    params = params.append('esasientocontable', data.esasientocontable); 
+  }
   return this.http.get<ICombo[]>(`${this.api987}/v1/Documento/ObtenerDocumentoPorTipoParaCombo`, {params})
 }
 
