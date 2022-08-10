@@ -270,6 +270,7 @@ export class NuevoAsientoDiarioComponent implements OnInit {
       asientodetalleid: new FormControl(0),
       asientoid : new FormControl(0), 
       personaid : new FormControl(data.personaid), 
+      rucPersona : new FormControl(data.rucPersona), 
       nrocuenta : new FormControl(data.nrocuenta),
       naturaleza  : new FormControl(data.naturaleza),
       importe: new FormControl(data.importe),  
@@ -359,13 +360,16 @@ export class NuevoAsientoDiarioComponent implements OnInit {
   // }
 
   onModalBuscarAnexo(data :any){
+    console.log('index', data);
     this.posicionPersona = data;
+    console.log('data anexo',this.posicionPersona);
     this.modalAnexos = true;
   }
 
   
   onPintarAnexo(data:any){
-    console.log('data anexo',data);
+    console.log('data',data);
+    console.log('data this.posicionPersona',this.posicionPersona);
     this.detallesForm[this.posicionPersona].patchValue({
       rucPersona: data.nroDocumento,
       personaid: data.idPersona

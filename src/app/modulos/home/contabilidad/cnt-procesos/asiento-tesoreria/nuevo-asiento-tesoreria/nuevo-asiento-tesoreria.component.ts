@@ -269,6 +269,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       asientodetalleid: new FormControl(0),
       asientoid : new FormControl(0), 
       personaid : new FormControl(data.personaid), 
+      rucPersona : new FormControl(data.rucPersona), 
       nrocuenta : new FormControl(data.nrocuenta),
       naturaleza  : new FormControl(data.naturaleza),
       importe: new FormControl(data.importe),  
