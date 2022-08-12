@@ -14,9 +14,9 @@
             </div>
         </div>
         
-        <div class="p-toolbar-group-right">
+        <div class="p-toolbar-group-right p-toolbar-group-center-mobile">
             <button    
-                class="p-button-sm"
+                class="p-button-generico-azul"
                 pButton
                 icon="pi pi-power-off"
                 label="Salir"
@@ -42,7 +42,7 @@
                             <div class="column-empresas-left">
                                 <span class="p-input-icon-left">
                                   <i class="pi pi-search"></i>
-                                  <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar empresa" size="25"
+                                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar empresa" size="25"
                                   (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
                                 </span> 
                             </div>
@@ -50,7 +50,7 @@
                         <div class="col-lg-6">
                             <div class="column-empresas-right">
                                 <button    
-                                    class="p-button-agregar-blue"
+                                    class="p-button-generico-agregar"
                                     pButton
                                     type="button"
                                     icon="pi pi-plus"

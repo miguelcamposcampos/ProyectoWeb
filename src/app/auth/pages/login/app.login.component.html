@@ -1,84 +1,78 @@
+<body>
 
-
-<body> 
-        
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
 
     <div class="container-fluid">
-	    <div class="row-login">
-	        <div class="col-lg-6 background-image">
-	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"> </div>
-	        </div>
-	        <div class="col-lg-6 d-flex flex-column content-right">
-	            <div class="container my-auto py-5 content-login">
-	                <div class="row">
+        <div class="row-login">
+            <div class="col-lg-6 background-image">
+                <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"> </div>
+            </div>
+            <div class="col-lg-6 d-flex flex-column content-right">
+                <div class="container my-auto py-5 content-login">
+                    <div class="row">
                         <div class="col-lg-9 col-xl-7 mx-auto">
-	                    <div class="login">  
-                            <div class="title"> 
-                                <img src="assets/layout/images/logotipo.svg" alt="logo" /> 
-                                <h2>¡Bienvenido!</h2>
-                                <span>Mejores soluciones Informáticas </span>
-                                <br><br>
-                                <form [formGroup]="loginForm">   
-                                    <div class="formulario form-group">  
-                                        <input type="email" pInputText formControlName="email" placeholder="CORREO ELECTRÓNICO" class="p-inputtext-sm">   
-                                       
-                                        <span class="p-input-icon-right" style="width: 100%;">
-                                            <i toggle="#password-field"
-                                            [class]="cambiarIconEye"
-                                            (click)="viewPassword(clave)"> </i>
-                                            <input type="password"  #passwordField pInputText placeholder="CONTRASEÑA" formControlName="password"  #clave class="p-inputtext-sm">    
-                                        </span>
-             
-                                        <div style="margin: 2%;">  
-                                                <p-checkbox   
-                                                    [(ngModel)]="checkRecordarLogin" 
-                                                    [binary]="true"
-                                                    label="Recordar contraseña"
-                                                    formControlName="rememberMe" >
-                                                </p-checkbox>   
-                                        </div>  
-                                        <div> 
-                                            <button    
-                                                class="p-button-sm botonIngresar"
-                                                pButton
-                                                icon="pi pi-arrow-right"
-                                                iconPos="right"
-                                                label="INGRESAR" 
-                                                [disabled]="loginForm.invalid"
-                                                (click)="onLogin()">  
-                                            </button>    
-                                        </div>  
-                                    </div>
-                                </form> 
+                            <div class="login">
+                                <div class="title">
+                                    <img src="assets/layout/images/logotipo.svg" alt="logo" />
+                                    <h2>¡Bienvenido!</h2>
+                                    <span>Mejores soluciones Informáticas </span>
+                                    <br><br>
+                                    <form [formGroup]="loginForm">
+                                        <div class="formulario-login form-group">
+                                            <input type="email" pInputText formControlName="email"
+                                                placeholder="CORREO ELECTRÓNICO" class="p-inputtext-sm-login">
 
-                                <br>
-                                <div style="text-align: center;"> 
-                                    <span (click)="onRecuperar()" > ¿Olvidó su contraseña? </span>  
-                                    <div class="textoRegistrar">
-                                        <p>¿No tienes cuenta? <a href="#" routerLink="/auth/registro"> <b class="textoRegistrar">Registrate aquí. </b> </a></p>
+                                            <span class="p-input-icon-right" style="width: 100%;">
+                                                <i toggle="#password-field" [class]="cambiarIconEye"
+                                                    (click)="viewPassword(clave)"> </i>
+                                                <input type="password" #passwordField pInputText
+                                                    placeholder="CONTRASEÑA" formControlName="password" #clave
+                                                    class="p-inputtext-sm-login">
+                                            </span>
+
+                                            <div style="margin: 2%;">
+                                                <p-checkbox [(ngModel)]="checkRecordarLogin" [binary]="true"
+                                                    label="Recordar contraseña" formControlName="rememberMe">
+                                                </p-checkbox>
+                                            </div>
+                                            <div>
+                                                <button class="p-button-sm boton-ingresar" pButton
+                                                    icon="pi pi-arrow-right" iconPos="right" label="INGRESAR"
+                                                    [disabled]="loginForm.invalid" (click)="onLogin()">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <br>
+                                    <div style="text-align: center;">
+                                        <span (click)="onRecuperar()"> ¿Olvidó su contraseña? </span>
+                                        <div class="textoRegistrar">
+                                            <p>¿No tienes cuenta? <a href="#" routerLink="/auth/registro"> <b
+                                                        class="textoRegistrar">Registrate aquí. </b> </a></p>
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                             </div>
                         </div>
-                        </div>
-	                </div>
-	            </div>
-	            <div class="container pb-3 copy">GESTISOL - Todos los Derechos Reservados 2022</div>
-	        </div>
-	    </div>
-	    <!-- /row -->
-	</div>
-	<!-- /container -->
+                    </div>
+                    <div class="container pb-3 copy">GESTISOL - Todos los Derechos Reservados 2022</div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
 </body>
 
 
 
 
- 
- 
+
+
 
 <!-- <div class="login-body">
     <div class="login-wrapper">

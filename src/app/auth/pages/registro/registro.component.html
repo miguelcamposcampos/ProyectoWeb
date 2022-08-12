@@ -5,8 +5,8 @@
         </div>
     </div>
 
-    <div class="p-toolbar-group-right">
-        <button tooltipPosition="left" pTooltip="Volver" class="p-button-sm" pButton type="button" label="Regresar"
+    <div class="p-toolbar-group-right p-toolbar-group-center-mobile">
+        <button tooltipPosition="left" pTooltip="Volver" class="p-button-generico-azul" pButton type="button" label="Regresar"
             placeholder="Regresar" routerLink='/auth/login' icon="pi pi-arrow-circle-left">
         </button>
     </div>
@@ -20,51 +20,51 @@
 <div class="tituloPage">
     <h2> <strong> Completa el formulario </strong></h2>
 </div>
-  
+
 <div class="margintabla">
     <div class="contenidoTable card-box">
         <form [formGroup]="registroForm">
 
             <p-fieldset>
                 <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-                <div class="formularioColum12_1"> 
-  
-                    <strong>Nombre Completo <span style="color: red;">*</span> </strong>
-                    <input type="text" pInputText formControlName="NombreApellidos" class="p-inputtext-sm"
-                        placeholder="Ingrese su nombre Completo">
+                <div class="formulario-campo-obligatorio formulario-registro-empresa">
 
-                    <strong>Correo electrónico<span style="color: red;">*</span> </strong> 
-                    <input type="email" pInputText formControlName="Email" class="p-inputtext-sm" placeholder="Ingrese un Email">
+                    <strong>Nombre Completo <span>*</span></strong>
+                    <input type="text" pInputText formControlName="NombreApellidos"
+                        class="p-inputtext-sm-registro-empresa" placeholder="Ingrese su nombre completo">
 
-                    <strong>Alias <span style="color: red;">*</span> </strong>
-                    <input type="text" pInputText formControlName="NombreUsuario" class="p-inputtext-sm" placeholder="Ingrese un Alias">
+                    <strong>Correo electrónico<span>*</span></strong>
+                    <input type="email" pInputText formControlName="Email" class="p-inputtext-sm-registro-empresa"
+                        placeholder="Ingrese un e-mail">
 
-                    <strong>Contraseña<span style="color: red;">*</span> </strong>
+                    <strong>Alias <span>*</span> </strong>
+                    <input type="text" pInputText formControlName="NombreUsuario"
+                        class="p-inputtext-sm-registro-empresa" placeholder="Ingrese un alias">
+
+                    <strong>Contraseña<span>*</span></strong>
                     <span class="p-input-icon-right" style="width: 100%;">
-                        <i toggle="#password-field"
-                        [class]="cambiarIconEye"
-                        (click)="viewPassword(clave)"> </i>
-                        <input type="password"  #passwordField pInputText placeholder="CONTRASEÑA" formControlName="Password"  #clave class="p-inputtext-sm">    
+                        <i toggle="#password-field" [class]="cambiarIconEye" (click)="viewPassword(clave)"> </i>
+                        <input type="password" #passwordField pInputText placeholder="Contraseña"
+                            formControlName="Password" #clave class="p-inputtext-sm-registro-empresa">
                     </span>
 
-                    <strong>Confirmar Contraseña<span style="color: red;">*</span> </strong>
+                    <strong>Confirmar Contraseña<span>*</span> </strong>
                     <span class="p-input-icon-right" style="width: 100%;">
-                        <i toggle="#password-field"
-                        [class]="cambiarIconEye2"
-                        (click)="viewPassword2(clave2)"> </i>
-                        <input type="password"  #passwordField2 pInputText placeholder="CONFIRMAR CONTRASEÑA" formControlName="RepetirPassword"  #clave2 class="p-inputtext-sm">    
+                        <i toggle="#password-field" [class]="cambiarIconEye2" (click)="viewPassword2(clave2)"> </i>
+                        <input type="password" #passwordField2 pInputText placeholder="Confirmar contraseña"
+                            formControlName="RepetirPassword" #clave2 class="p-inputtext-sm-registro-empresa">
                     </span>
                 </div>
             </p-fieldset>
- 
+
             <div class="botones">
-                <button class="p-button-sm" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
+                <button class="p-button-registrar" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
                     label="Registrarme" type="button" [disabled]="registroForm.invalid" (click)="onRegistrar()">
                 </button>
-                <button class="p-button-sm" pButton style="background-color: #D72250;" icon="pi pi-arrow-circle-left"
-                    label="Cancelar" type="button" routerLink="/auth/login">
-                </button> 
-            </div> 
-        </form>   
+                <button class="p-button-cancelar" pButton style="background-color: #D72250;"
+                    icon="pi pi-arrow-circle-left" label="Cancelar" type="button" routerLink="/auth/login">
+                </button>
+            </div>
+        </form>
     </div>
 </div>

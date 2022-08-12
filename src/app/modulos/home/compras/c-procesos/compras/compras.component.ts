@@ -12,7 +12,8 @@ import { ComprasService } from './service/compras.service';
 
 @Component({
   selector: 'app-compras',
-  templateUrl: './compras.component.html'
+  templateUrl: './compras.component.html',
+  styleUrls: ['./compras.component.scss']
 })
 export class ComprasComponent implements OnInit , OnDestroy{
  

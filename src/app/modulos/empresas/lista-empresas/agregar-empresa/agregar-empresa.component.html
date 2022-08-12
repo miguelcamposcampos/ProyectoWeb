@@ -16,7 +16,7 @@
         </div>
 
         <div class="p-toolbar-group-right">
-            <button class="p-button-sm mx-2" pButton type="button" icon="pi pi-arrow-left" label="Regresar"
+            <button class="p-button-generico-azul" pButton type="button" icon="pi pi-arrow-left" label="Regresar"
                 tooltipPosition="left" pTooltip="Regresar" (click)="onRegresar()">
             </button>
         </div>
@@ -32,34 +32,34 @@
             <form [formGroup]="EmpresaForm">
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-                    <div class="formularioEmpresa">
-                        <strong>Número de Ruc <span style="color: red;">*</span> </strong>
+                    <div class="formularioEmpresa formulario-campo-obligatorio">
+                        <strong>Número de Ruc <span >*</span> </strong>
                         <input type="text" pInputText required (keydown.enter)="onBuscarPorRuc()"
-                            (keypress)="onSoloNumeros($event)" formControlName="Ruc" class="p-inputtext-sm"
-                            minlength="11" maxlength="11" placeholder="ingresar el ruc">
+                            (keypress)="onSoloNumeros($event)" formControlName="Ruc" class="p-inputtext-generico"
+                            minlength="11" maxlength="11" placeholder="ingresar el RUC">
 
-                        <strong>Razón Social <span style="color: red;">*</span> </strong>
-                        <input type="text" pInputText required formControlName="RazonSocial" class="p-inputtext-sm"
+                        <strong>Razón Social <span>*</span> </strong>
+                        <input type="text" pInputText required formControlName="RazonSocial" class="p-inputtext-generico"
                             placeholder="ingresar razón social">
 
                         <strong>Nombre Comercial </strong>
-                        <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-sm"
+                        <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-generico"
                             placeholder="ingresar nombre comercial">
 
-                        <strong>Dirección Fiscal <span style="color: red;">*</span> </strong>
-                        <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-sm"
+                        <strong>Dirección Fiscal <span>*</span> </strong>
+                        <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-generico"
                             minlength="1" placeholder="ingresar dirección fiscal">
 
                         <strong>Email </strong>
-                        <input type="text" pInputText formControlName="Email" class="p-inputtext-sm"
+                        <input type="text" pInputText formControlName="Email" class="p-inputtext-generico"
                             placeholder="ingresar el email">
 
                         <strong>Web Site </strong>
-                        <input type="url" pInputText formControlName="WebSite" class="p-inputtext-sm"
+                        <input type="url" pInputText formControlName="WebSite" class="p-inputtext-generico"
                             placeholder="ingresar el sitio web">
 
                         <strong>Teléfono </strong>
-                        <input type="text" pInputText formControlName="Telefono" class="p-inputtext-sm"
+                        <input type="text" pInputText formControlName="Telefono" class="p-inputtext-generico"
                             placeholder="ingresar el telefono">
                     </div>
 
