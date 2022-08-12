@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { ICreatePlanCuenta, IListPlanCuenta } from '../interface/plan-cuentas.interface';
+import { ICreatePlanCuenta, IDetalleDestinos, IListPlanCuenta } from '../interface/plan-cuentas.interface';
 import { PlanCuentaService } from '../service/plan-cuenta.service';
 
 @Component({
@@ -29,12 +29,19 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
   PlanEdit: ICreatePlanCuenta; 
   arrayMonedas : ICombo[];
   maskInput : any;
+  arrayDetalleGrabar : IDetalleDestinos[]; 
+  arrayDetallesEliminados : any[]=[]; 
+  modalCuentas: boolean = false;
+  tipoCuenta :any;
+  claseCuenta :any;
 
   constructor(
     private apiService: PlanCuentaService,
     private swal : MensajesSwalService,
     private spinner : NgxSpinnerService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private fb : FormBuilder,
+    private cdr: ChangeDetectorRef
   ) { 
     this.generalService._hideSpinner$.subscribe(x=>{
       this.spinner.hide();
@@ -57,9 +64,11 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
       analisispatrimonioneto : new FormControl(false),
       usadocostroproduccion : new FormControl(false),
       imputable : new FormControl(false),
-      monedaid : new FormControl(null)
+      monedaid : new FormControl(null),
+      arrayDetalle: new FormArray([]),
     })
   }
+
 
   ngOnInit(): void { 
     this.maskInput = this.data.ctaMayor; 
@@ -73,7 +82,7 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
 
   Avisar() {
     this.FlgLlenaronCombo.subscribe(x => { 
-      this.onDateEdit();
+      this.onDateEdit('editar');
     });
   }
 
@@ -121,6 +130,47 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
 
   }
   
+
+  get fa() { return this.Form.get('arrayDetalle') as FormArray; } 
+  get detallesForm() { return this.fa.controls as FormGroup[]; }
+
+  onAgregarDetalles(){
+  //   const dataForm = this.Form.value;
+  //   if(!dataForm.tipocambio){
+  //     this.swal.mensajeAdvertencia("Ingresa un tipo de cambio");
+  //     return;
+  //   }
+    this.detallesForm.push(this.AddDetalle());  
+  }
+
+  AddDetalle(){
+    return this.fb.group({ 
+      asientodetalleid: new FormControl(0),
+      plancuentasdestinoid: new FormControl(0),
+      nrocuentadestino :  new FormControl(0),
+      nrocuentatransferencia : new FormControl(0),
+      porcentaje: new FormControl(0),
+      periodo: new FormControl(0),
+      plancuentaid: new FormControl(0),
+      idauditoria: new FormControl(0)
+    });
+  }
+
+  onEliminarDetalle(index : any, plancuentasdestinoid : any){ 
+    if(!plancuentasdestinoid){
+      this.fa.removeAt(index);
+      this.cdr.detectChanges();  
+    } else{
+      this.swal.mensajePregunta("¿Seguro que desea eliminar el detalle.?").then((response) => {
+        if (response.isConfirmed) {
+          this.arrayDetallesEliminados.push(plancuentasdestinoid);
+          this.fa.removeAt(index); 
+          this.swal.mensajeExito('El detalle ha sido eliminado correctamente!.');
+        }
+      })
+    }
+  }
+
   onValidarInputMask(event : any){ 
     if(event){ 
       this.onBloquearDatos(event.target.value); 
@@ -141,10 +191,10 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
     } 
   }
 
-  onDateEdit(){
+  onDateEdit(estado){
     this.apiService.plancuentaId(this.data.data.idPlanCuenta).subscribe((resp) => {
       if(resp){
-        this.spinner.hide();
+        
         this.PlanEdit = resp; 
         if(resp.nrocuenta.length > 6){
             this.bloquearData = false
@@ -166,13 +216,31 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
           usadocostroproduccion : resp.usadocostoproduccion,
           idauditoria: resp.idauditoria 
         })
+
+        for( let  i = 0; i < resp.destinos.length; i++){
+          if(estado === 'editar'){
+            this.onAgregarDetalles();  
+          }
+  
+          this.detallesForm[i].patchValue({  
+            plancuentasdestinoid: resp.destinos[i].plancuentasdestinoid,
+            nrocuentadestino :resp.destinos[i].nrocuentadestino,
+            nrocuentatransferencia :resp.destinos[i].nrocuentatransferencia,
+            porcentaje:resp.destinos[i].porcentaje,
+            periodo:resp.destinos[i].periodo,
+            plancuentaid:resp.destinos[i].plancuentaid,
+            idauditoria:resp.destinos[i].idauditoria
+          });
+        }
+
+      this.spinner.hide(); 
       }
     })
   }
 
   onGrabar(){
     const data = this.Form.value;
-
+    let ArrayDestinos = this.onArrayDestinos();
     let NumCuentaGrabar  =  data.nrocuenta.replace(/ /g, "");  
     NumCuentaGrabar  = NumCuentaGrabar.replace(/-/g, "");  
 
@@ -191,7 +259,8 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
         presupuesto : EsImputable ?  data.presupuesto : false,
         analisispatrimonioneto : EsImputable ? data.analisispatrimonioneto : false,
         usadocostoproduccion :  EsImputable ? data.usadocostroproduccion : false, 
-        idauditoria: this.PlanEdit ? this.PlanEdit.idauditoria : 0
+        idauditoria: this.PlanEdit ? this.PlanEdit.idauditoria : 0,
+        destinos : ArrayDestinos
     }
     console.log('que guardamos',NewPlanCuenta);
 
@@ -212,6 +281,48 @@ export class NuevaPlanCuentaComponent implements OnInit, AfterViewInit{
     } 
   }
 
+
+  onArrayDestinos(){
+    this.arrayDetalleGrabar = [];
+    this.detallesForm.forEach(element => { 
+        this.arrayDetalleGrabar.push({  
+          plancuentasdestinoid: element.value.plancuentasdestinoid,
+          nrocuentadestino :  element.value.nrocuentadestino,
+          nrocuentatransferencia : element.value.nrocuentatransferencia,
+          porcentaje: element.value.porcentaje,
+          periodo: this.fechaActual.getFullYear(),
+          plancuentaid: element.value.plancuentaid,
+          idauditoria: element.value.idauditoria
+
+        }); 
+    })
+    return this.arrayDetalleGrabar;
+  }
+
+
+  
+  onModalBuscarCuenta(data :any, clase : string){ 
+    this.claseCuenta = clase
+    this.tipoCuenta = data
+    this.modalCuentas = true;
+  }
+
+  onPintarcuenta(data:any){ 
+    if(this.claseCuenta === 'Cuenta'){
+      this.detallesForm[data.posicion].patchValue({
+        nrocuentadestino: data.data.nroCuenta
+      }); 
+    }else{
+      this.detallesForm[data.posicion].patchValue({
+        nrocuentatransferencia: data.data.nroCuenta
+      }); 
+    }
+  
+    this.modalCuentas = false;
+    this.claseCuenta = null
+  }
+
+ 
   onRegresar(){
     this.cerrar.emit(false);
   }

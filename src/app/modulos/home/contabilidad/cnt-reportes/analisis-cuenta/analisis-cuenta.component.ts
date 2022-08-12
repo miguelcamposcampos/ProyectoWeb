@@ -10,13 +10,12 @@ import { IModuloReporteContabilidad, IReporte } from '../../../almacen/a-manteni
 import { ReportesContabilidadService } from '../service/reportescontabilidad';
 
 @Component({
-  selector: 'app-analisis-cuenta-analitico',
-  templateUrl: './analisis-cuenta-analitico.component.html',
-  styleUrls: ['./analisis-cuenta-analitico.component.scss']
+  selector: 'app-analisis-cuenta',
+  templateUrl: './analisis-cuenta.component.html',
+  styleUrls: ['./analisis-cuenta.component.scss']
 })
-export class AnalisisCuentaAnaliticoComponent implements OnInit {
+export class AnalisisCuentaComponent implements OnInit {
 
- 
   dataReporte :any   
   Form : FormGroup;
   Pdf : any; 
@@ -25,7 +24,6 @@ export class AnalisisCuentaAnaliticoComponent implements OnInit {
   es = ConstantesGenerales.ES_CALENDARIO; 
   existeAnexoSeleccionado
   modalBuscarAnexo : boolean = false;
-  ArrayNivel: any[];
 
   constructor(
    // private reporteService : ReportesVentasService, 
@@ -41,17 +39,13 @@ export class AnalisisCuentaAnaliticoComponent implements OnInit {
       this.spinner.hide();
     })
 
-    this.ArrayNivel = [
-      {nombre : 'PorAnexo'},
-      {nombre : 'PorDocumento'},
-    ]
+    
   }
 
   public builform(){ 
     this.Form = new FormGroup({ 
       fechaHasta : new FormControl(new Date),  
       nrodocanexo : new FormControl(""),
-      agrupamiento : new FormControl(null),
       solocondetalle : new FormControl(false),
     })
   }
@@ -67,12 +61,11 @@ export class AnalisisCuentaAnaliticoComponent implements OnInit {
       fechaHasta : this.dataformat.transform(data.fechaHasta, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       nrodocanexo:  data.nrodocanexo,
       solocondetalle : data.solocondetalle,
-      agrupamiento : data.agrupamiento.nombre,
       tipoPresentacion : 'PDF'
     } 
   
     this.spinner.show();
-    this.reporteService.generarReporteAnalisisCuentaAnalitico(Params).subscribe((resp) => { 
+    this.reporteService.generarReporteAnalisisCuenta(Params).subscribe((resp) => { 
       if(resp){  
         this.contenidoReporte = resp 
         var blob = new Blob([this.onBase64ToArrayBuffer(this.contenidoReporte.fileContent)], {type: "application/pdf"});
@@ -112,5 +105,5 @@ export class AnalisisCuentaAnaliticoComponent implements OnInit {
   }
    
 
- 
+
 }

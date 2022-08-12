@@ -53,7 +53,8 @@ export class NuevaCompraComponent implements OnInit {
   arrayDestino : ICombo[];
   arrayMotivoNota : ICombo[];
   arrayCodigoDetraccion: ICombo[]; 
-  
+  arrayCoceptos: ICombo[];
+
   idProveedorSeleccionado : number = 0;
   idEstablecimientoSeleccionado : number = 0;
   existenroRegsitro : boolean = false;
@@ -167,8 +168,8 @@ export class NuevaCompraComponent implements OnInit {
       importeexonerado : new FormControl(0),  
       importeinafecto: new FormControl(0),  
       importegravada: new FormControl(0),   
-      importegratuita: new FormControl(0)
-     // conceptocontableid  : new FormControl(0)
+      importegratuita: new FormControl(0),
+      conceptocontableid  : new FormControl(0)
     })
   }
   
@@ -322,6 +323,7 @@ export class NuevaCompraComponent implements OnInit {
       this.generalService.listadoPorGrupo('DestinosCompras'),
       this.generalService.listadoPorGrupo('CodigoDetracciones'),
       this.generalService.listadoDocumentoPortipoParacombo(data),
+      this.generalService.onComboConceptos('Compra'),
     );
     obsDatos.subscribe((response) => {
       this.arrayTipoDocumento = response[0];
@@ -333,6 +335,7 @@ export class NuevaCompraComponent implements OnInit {
       this.arrayDestino = response[6];
       this.arrayCodigoDetraccion = response[7];
       this.arrayTipoDocumentoPercepcion = response[8]; 
+      this.arrayCoceptos = response[9]; 
       this.FlgLlenaronCombo.next(true);
       if(!this.dataCompra){
        this.existeEstablecimientoSeleccionado = true; 
@@ -486,8 +489,10 @@ export class NuevaCompraComponent implements OnInit {
       serialpercepcion : this.CompraEditar.serialpercepcion,
       importebasepercepcion: this.CompraEditar.importebasepercepcion,
       porcentajepercepcion: this.CompraEditar.porcentajepercepcion,
-      importepercepcion: this.CompraEditar.importepercepcion
-     // conceptocontableid  : this.CompraEditar.conceptocontableid  
+      importepercepcion: this.CompraEditar.importepercepcion,
+      conceptocontableid: this.arrayCoceptos.find(
+        (x) => x.id === this.CompraEditar.conceptocontableid
+      ),
     })
 
  
@@ -1066,8 +1071,8 @@ export class NuevaCompraComponent implements OnInit {
     let impd = (DataForm.porcentajedescuento > 0) ?  (biActualizar *  ( DataForm.porcentajedescuento / 100)) : 0
     this.detallesCompraForm[posicion].controls['importedescuento'].setValue(impd);
 
-    let vVenta = (biActualizar - DataForm.importedescuento);
-    this.detallesCompraForm[posicion].controls['valorVenta'].setValue(vVenta)
+    let vVenta = (biActualizar - DataForm.importedescuento );
+    this.detallesCompraForm[posicion].controls['valorventa'].setValue(vVenta)
 
     let igvAct =  DataForm.esGravada ? ( vVenta * this.valorIGV) : 0
     this.detallesCompraForm[posicion].controls['igv'].setValue(igvAct);
@@ -1313,8 +1318,8 @@ export class NuevaCompraComponent implements OnInit {
         importepercepcion: dataform.importepercepcion,
         detalles : IDetalleCompra,
         documentoReferenciaDtos: IDocumentoReferenciaDTO,
-        idsToDelete : this.arrayDetallesEliminados
-        //conceptocontableid  : dataform.conceptocontableid  
+        idsToDelete : this.arrayDetallesEliminados,
+        conceptocontableid  : dataform.conceptocontableid  
        } 
 
        console.log(newCompra);

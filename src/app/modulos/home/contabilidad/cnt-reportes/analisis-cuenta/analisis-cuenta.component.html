@@ -7,7 +7,7 @@
            </ngx-spinner>
            
         <div class="tituloMarca">  
-            <h3> <i class="fas fa-file-pdf"></i> REPORTE  ANÁLISIS CUENTA - ANALITICO </h3>  
+            <h3> <i class="fas fa-file-pdf"></i> REPORTE  ANÁLISIS CUENTA </h3>  
         </div>  
         <form [formGroup]="Form">
             <div class="p-col-12"> 
@@ -22,18 +22,6 @@
                             formControlName="fechaHasta"
                         ></p-calendar> 
                     </div>
-
-                    <div class="p-field p-col-12 p-md-3">
-                        <strong> Nivel :</strong>
-                        <p-dropdown
-                            [options]="ArrayNivel" 
-                            formControlName="agrupamiento" 
-                            placeholder="selecciona"
-                            optionLabel="nombre"
-                            [showClear]="true"
-                        ></p-dropdown>
-                    </div>
-
                       
                     <div class="p-field p-col-12 p-md-4 p-sm-6">
                         <strong class="p-column-title">Anexo:</strong> 

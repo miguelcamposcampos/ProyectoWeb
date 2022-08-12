@@ -81,7 +81,63 @@
         </div>
     
         <div *ngIf="DestinoForm" >
-        
+            
+            <div class="text-center"> 
+                <button pButton pRipple type="button" label="Agregar Detalle" class="p-button-rounded p-button-blue p-button-busqueda" 
+                 icon="fas fa-plus"  (click)="onAgregarDetalles()"></button> 
+            </div>
+
+            <p-table  
+                [value]="detallesForm"
+                [scrollable]="true"  
+                responsiveLayout="stack" >  
+                <ng-template pTemplate="header">
+                    <tr> 
+                        <th style="width: 50px;">Acción</th>
+                        <th style="width: 60px;">Cuenta Destino</th>
+                        <th style="width: 85px;">Cuenta Transferencia</th>
+                        <th style="width: 160px;">Porcentaje</th> 
+                    </tr>
+                </ng-template> 
+
+                <ng-template pTemplate="body" let-detalles  let-rowIndex="rowIndex" formArrayName="arrayDetalle"> 
+                    <tr   [formGroupName]="rowIndex"> 
+                        <td>
+                            <button  
+                                class="p-button-sm"
+                                pButton 
+                                type="button"
+                                tooltipPosition="top" pTooltip="Eliminar"
+                                style=" background-color: #D72250;"
+                                (click)="onEliminarDetalle(rowIndex, detalles.value.plancuentasdestinoid)"
+                                icon="pi pi-trash">  
+                            </button>  
+                        </td> 
+                        <td>
+                            <strong class="p-column-title">Cuenta Destino</strong>
+                            <input type="text" style="width: 80px;"
+                                 class="p-inputtext"
+                                pInputText formControlName="nrocuentadestino">
+                            <button type="button" (click)="onModalBuscarCuenta(rowIndex, 'Cuenta')"
+                                pTooltip="Buscar" type="button" tooltipPosition="left" pButton
+                                icon="pi pi-search" class="p-button-sm"></button> 
+                        </td>
+                        <td>
+                            <strong class="p-column-title">Cuenta Transferencia</strong>
+                            <input type="text" style="width: 80px;"
+                                 class="p-inputtext"
+                                pInputText formControlName="nrocuentatransferencia">
+                            <button type="button" (click)="onModalBuscarCuenta(rowIndex, 'Transferencia')"
+                                pTooltip="Buscar" type="button" tooltipPosition="left" pButton
+                                icon="pi pi-search" class="p-button-sm"></button> 
+                        </td> 
+                        <td>
+                            <strong class="p-column-title">Porcentaje </strong>
+                            <input type="text" style="width: 80px;text-align: right;"  class="p-inputtext-sm" pInputText formControlName="porcentaje">  
+                        </td> 
+                    </tr>
+                </ng-template>
+            </p-table> 
         </div>
     </div>
  
@@ -108,3 +164,12 @@
         </button>  
     </div> 
 </form> 
+
+
+   
+<div *ngIf="modalCuentas">
+    <p-dialog header="BUSCAR TIPO CUENTA" [(visible)]="modalCuentas" [modal]="true" [draggable]="false" [resizable]="false"> 
+        <app-buscar-tipo-cuenta [tipoCuenta]="tipoCuenta" (CuentaSelect)="onPintarcuenta($event)" ></app-buscar-tipo-cuenta>
+    </p-dialog> 
+</div>
+ 

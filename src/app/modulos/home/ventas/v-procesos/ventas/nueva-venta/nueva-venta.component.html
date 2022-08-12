@@ -40,57 +40,48 @@
                 <div class="p-col-12">
                     <div class="p-fluid p-formgrid p-grid">
                        
-                            <div class="p-field p-col-4">
+                        <div class="p-field p-col-12 p-md-3">
                                 <strong>Establecimiento <span style="color: red;">*</span></strong>
                                 <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event)"
                                     [options]="arrayEstablecimiento" formControlName="establecimientoid"
                                     placeholder="Selecciona " [showClear]="true" optionLabel="valor1"></p-dropdown>
                             </div>
 
-                            <div class="p-field p-col-4">
-                                <strong>Tipo Documento <span style="color: red;">*</span></strong>
+                            <div class="p-field p-col-12 p-md-9">
+                                <strong>Tipo Documento *:</strong>  
+                                <div class="InputCombinado">  
                                 <p-dropdown class="DropExtenso" [disabled]="!existeEstablecimientoSeleccionado"
                                     (onChange)="onObtenerTipoDocumento($event.value)" [options]="arrayTipoDocumento"
                                     formControlName="documentoid" placeholder="Selecciona" [showClear]="true"
-                                    optionLabel="valor2"></p-dropdown>
-                            </div>
-
-                            <div class="p-field p-col-4" style="margin-top:18px">
+                                    optionLabel="valor2"></p-dropdown> 
                                 <p-dropdown class="extender" [options]="arraySeriePorDocumento"
                                     formControlName="serieventa" placeholder="Selecciona" [showClear]="true"
-                                    optionLabel="valor1"></p-dropdown>
-                            </div>
-
-
-
-                            <div class="p-field p-col-4">
+                                    optionLabel="valor1"></p-dropdown> 
                                 <input type="number" disabled pInputText class="p-inputtext-sm-clear-grey number-clear"
                                     formControlName="secuencialventa" placeholder="ingresar">
+                                </div>
                             </div>
                        
-                            <div class="p-field p-col-8">
-                                <strong>Cliente <span style="color: red;">*</span></strong>
-                                <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)"
-                                    [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText
-                                    class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
-                                    placeholder="busca un cliente">
-                            </div>
+                            <div class="p-field p-col-12">
+                                <strong>Cliente <span style="color: red;">*</span></strong> 
+                                <div class="InputCombinado2">   
+                                    <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)"
+                                        [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText
+                                        class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                        placeholder="busca un cliente">
+                                
+                                    <input type="text" readonly formControlName="nombrecliente" pInputText
+                                        class="p-inputtext-sm-clear-grey  p-inputtext-sm-simple"
+                                        placeholder="Busca un cliente">
+                                
+                                    <button type="button" class="p-button-right " style="margin-right: 8px"
+                                        pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton
+                                        icon="pi pi-search" placeholder="Buscar"></button>
 
-
-                            <div class="p-field p-col-8">
-                                <input type="text" readonly formControlName="nombrecliente" pInputText
-                                    class="p-inputtext-sm-clear-grey  p-inputtext-sm-simple"
-                                    placeholder="Busca un cliente">
-                            </div>
-
-                            <div class="p-field p-col-4">
-                                <button type="button" class="p-button-right " style="margin-right: 8px"
-                                    pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton
-                                    icon="pi pi-search" placeholder="Buscar"></button>
-
-                                <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-right"
-                                    pTooltip="Buscar" style=" background-color: #D72250;" tooltipPosition="left"
-                                    (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>
+                                    <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-right"
+                                        pTooltip="Buscar" style=" background-color: #D72250;" tooltipPosition="left"
+                                        (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>
+                                </div>
                             </div>
 
                             <div *ngIf="existeDireccionCliente" class="p-field p-col-12">

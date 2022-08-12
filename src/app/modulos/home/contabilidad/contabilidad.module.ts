@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContabilidadRoutingModule } from './contabilidad-routing.module';
-import { ContabilidadComponent } from './contabilidad.component';
+import { ContabilidadComponent } from './contabilidad.component'; 
  
 
 @NgModule({
