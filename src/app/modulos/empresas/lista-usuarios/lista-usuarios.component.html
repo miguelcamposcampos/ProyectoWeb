@@ -14,7 +14,7 @@
   </div>
 
   <div class="p-toolbar-group-right">
-    <button class="p-button-sm" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
+    <button class="p-button-generico-azul" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
       style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
     </button>
   </div>
@@ -35,7 +35,7 @@
               <div class="column-empresas-left">
                 <span class="p-input-icon-left">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar" size="25"
+                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
                     (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
                 </span>
               </div>

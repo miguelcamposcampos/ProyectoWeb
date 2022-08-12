@@ -12,7 +12,7 @@
     </div>
 
     <div class="p-toolbar-group-right">
-      <button class="p-button-sm" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
+      <button class="p-button-generico-azul" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
         style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
       </button>
     </div>
@@ -29,7 +29,7 @@
     <div class="contenidoTable card-box">
       <div class="p-toolbar-group-center">
         <button (click)="onModalAgregarRol()" pButton icon="pi pi-plus" pTooltip="Agregar Rol" label="Agregar Nuevo Rol"
-          type="button" tooltipPosition="right" class="p-button-agregar-blue">
+          type="button" tooltipPosition="right" class="p-button-sm-generico-agregar">
         </button>
       </div>
 
@@ -41,7 +41,7 @@
           <div class="centrar">
             <h3> Roles </h3>
             <div *ngFor="let rol of ListadeRoles" class="BotonesRoles">
-              <button (click)="onVerMenuRol(rol.rolid)" style="width: 100%; margin: 2%;"
+              <button (click)="onVerMenuRol(rol.rolid)" style="width: 100%; margin: 2%;"  class="p-button-sm-generico"
                 label="{{rol.nombre | uppercase}}" type="button" pButton>
               </button>
               <button style="margin: 2%; background-color: #D72250;" (click)="onModaleliminarRol(rol)" pButton

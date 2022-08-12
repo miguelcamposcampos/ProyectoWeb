@@ -37,51 +37,44 @@
 
             <!-- CABECERA FORMULARIO -->
             <form [formGroup]="Form">
-                <div class="p-col-12">
-                    <div class="p-fluid p-formgrid p-grid">
-                       
-                        <div class="p-field p-col-12 p-md-3">
-                                <strong>Establecimiento <span style="color: red;">*</span></strong>
-                                <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event)"
+                <div class="p-col-12"> 
+                        <div class="row formulario-campo-obligatorio">
+                            <div class="p-field p-col-4">
+                                <strong>Establecimiento <span>*</span></strong>
+                                <p-dropdown class="DropExtenso fondo-gris" (onChange)="onObtenerEstablecimiento($event)"
                                     [options]="arrayEstablecimiento" formControlName="establecimientoid"
                                     placeholder="Selecciona " [showClear]="true" optionLabel="valor1"></p-dropdown>
                             </div>
-
-                            <div class="p-field p-col-12 p-md-9">
-                                <strong>Tipo Documento *:</strong>  
-                                <div class="InputCombinado">  
-                                <p-dropdown class="DropExtenso" [disabled]="!existeEstablecimientoSeleccionado"
+ 
+                            <div class="p-field p-col-4">
+                                <strong>Tipo Documento <span>*</span></strong>
+                                <p-dropdown class="DropExtenso fondo-gris" [disabled]="!existeEstablecimientoSeleccionado"
                                     (onChange)="onObtenerTipoDocumento($event.value)" [options]="arrayTipoDocumento"
                                     formControlName="documentoid" placeholder="Selecciona" [showClear]="true"
-                                    optionLabel="valor2"></p-dropdown> 
+                                    optionLabel="valor2"></p-dropdown>
+                            </div>
+
+                            <div class="p-field p-col-4 fondo-gris" style="margin-top:18px">
                                 <p-dropdown class="extender" [options]="arraySeriePorDocumento"
                                     formControlName="serieventa" placeholder="Selecciona" [showClear]="true"
-                                    optionLabel="valor1"></p-dropdown> 
+                                    optionLabel="valor1"></p-dropdown>
+
+                            </div>
+
+                            <div class="p-field p-col-2"> 
                                 <input type="number" disabled pInputText class="p-inputtext-sm-clear-grey number-clear"
                                     formControlName="secuencialventa" placeholder="ingresar">
                                 </div>
-                            </div>
-                       
-                            <div class="p-field p-col-12">
-                                <strong>Cliente <span style="color: red;">*</span></strong> 
-                                <div class="InputCombinado2">   
-                                    <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)"
-                                        [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText
-                                        class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
-                                        placeholder="busca un cliente">
-                                
-                                    <input type="text" readonly formControlName="nombrecliente" pInputText
-                                        class="p-inputtext-sm-clear-grey  p-inputtext-sm-simple"
-                                        placeholder="Busca un cliente">
-                                
-                                    <button type="button" class="p-button-right " style="margin-right: 8px"
-                                        pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton
-                                        icon="pi pi-search" placeholder="Buscar"></button>
-
-                                    <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-right"
-                                        pTooltip="Buscar" style=" background-color: #D72250;" tooltipPosition="left"
-                                        (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>
-                                </div>
+                        </div>
+   
+ 
+                        <div class="row formulario-campo-obligatorio">
+                            <div class="p-field p-col-7">
+                                <strong>Cliente <span>*</span></strong>
+                                <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)"
+                                    [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText
+                                    class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                    placeholder="busca un cliente">
                             </div>
 
                             <div *ngIf="existeDireccionCliente" class="p-field p-col-12">
@@ -89,9 +82,12 @@
                                 <input type="text" readonly formControlName="direccioncliente" pInputText
                                     class="p-inputtext-sm" placeholder="dirección un cliente">
                             </div>
- 
+                        </div>
+
+
+                        <div class="row formulario-campo-obligatorio">
                             <div class="p-field p-col-3">
-                                <strong>Fecha Emisión <span style="color: red;">*</span></strong>
+                                <strong>Fecha Emisión <span>*</span></strong>
                                 <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
                                     formControlName="fechaemision"></p-calendar>
                             </div>
@@ -103,7 +99,7 @@
                             </div>
 
                             <div class="p-field p-col-3">
-                                <strong>Moneda <span style="color: red;">*</span></strong>
+                                <strong>Moneda <span>*</span></strong>
                                 <p-dropdown class="DropExtenso" [options]="arrayMonedas" formControlName="monedaid"
                                     placeholder="Selecciona " [showClear]="true" optionLabel="valor1"></p-dropdown>
                             </div>
@@ -113,11 +109,11 @@
                                 <input type="number" pInputText formControlName="tipocambio"
                                     class="p-inputtext-sm-clear-grey p-inputtext-sm-simple" placeholder="0.00">
                             </div>
- 
+                        </div>
 
-
+                        <div class="row formulario-campo-obligatorio">
                             <div class="p-field p-col-3">
-                                <strong>Condición Pago <span style="color: red;">*</span></strong>
+                                <strong>Condición Pago <span>*</span></strong>
                                 <div class="p-inputgroup">
                                     <p-dropdown class="extender"
                                         (onChange)="onObtenerCondicionPago($event.value.valor1)"
@@ -142,7 +138,7 @@
                             </div>
 
                             <div class="p-field p-col-3">
-                                <strong>Tipo Operación <span style="color: red;">*</span></strong>
+                                <strong>Tipo Operación <span>*</span></strong>
                                 <p-dropdown class="DropExtenso" [options]="arrayTipoOperacion"
                                     formControlName="codtipooperacion" placeholder="Selecciona " [showClear]="true"
                                     optionLabel="valor1"></p-dropdown>

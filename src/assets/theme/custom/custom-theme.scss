@@ -10,6 +10,17 @@
     border-radius: 10px;
 }
 
+.p-button-regresar {
+    color: #f8fafc;
+    background: #3f8748;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+
 .p-button-registrar {
     color: #f8fafc;
     background: #3f8748;
@@ -71,6 +82,43 @@
     font-size: 14px;
 }
 
+.p-button-generico-agregar{
+    background: #1B74C5;
+    color: white;
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 14px;
+}
+.p-button-sm-generico-agregar {
+    background: #1B74C5;
+    color: white;
+    width: 30%;
+    height: 45px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.p-button-sm-generico {
+    color: #f8fafc;
+    background: #1B74C5;
+    border: 1px solid #1B74C5;
+    padding: 12px 5rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-inputtext.p-inputtext-generico{
+    font-size: 14px;
+    padding: 12px 50px;
+    width: 100%;
+    border-radius: 10px;
+    background: #e8f0fe;
+}
+
 .login h2 {
     font-size: 35px;
     color: #919090;
@@ -96,6 +144,7 @@
     text-align: center;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
 }
 
 .imgFondo {
@@ -151,29 +200,28 @@
     }
 }
 
-.formulario {
+.boton-ingresar {
+    color: white;
+    background-color: #D72250;
+    height: 45px;
+    text-align: center;
+    width: 100%;
+    border-radius: 50px;
+    opacity: 100;
+    border: 0px;
+    left: 2%;
+}
 
-    .botonIngresar {
-        color: white;
-        background-color: #D72250;
-        height: 45px;
-        text-align: center;
-        width: 60%;
-        border-radius: 50px;
-        opacity: 100;
-        border: 0px;
-    }
-
-    .botonIngresar:hover {
-        color: white;
-        background-color: #6e6e6e;
-        height: 45px;
-        text-align: center;
-        width: 60%;
-        border-radius: 50px;
-        opacity: 100;
-        border: 0px;
-    }
+.boton-ingresar:hover {
+    color: white;
+    background-color: #6e6e6e;
+    height: 45px;
+    text-align: center;
+    width: 100%;
+    border-radius: 50px;
+    opacity: 100;
+    border: 0px;
+    left: 2%;
 }
 
 .background-image {
@@ -185,32 +233,6 @@
     background-repeat: no-repeat;
     background-color: #c7c7c7;
     background-image: url('/assets/layout/images/fondo-login2.jpg');
-}
-
-.col-lg-6 {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%
-}
-
-.col-lg-6 {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px
-}
-
-.container,
-.container-fluid,
-.container-lg,
-.container-md,
-.container-sm,
-.container-xl {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto
 }
 
 .content-right {
@@ -257,8 +279,6 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
 }
 
 
@@ -301,17 +321,34 @@
     margin-bottom: 1rem;
 }
 
-.p-inputtext-sm {
+.p-inputtext-sm-login {
     background-color: #e3e3e3;
     border-radius: 50px;
-    width: 70%;
+    width: 100%;
     margin: 2%;
     height: 45px;
     padding: 25px;
 }
 
+.p-inputtext-sm-registro-empresa {
+    background-color: #e3e3e3;
+    border-radius: 50px;
+    width: 100%;
+    margin: 2%;
+    height: 45px;
+    padding: 25px;
+}
+
+.formulario-registro-empresa {
+    display: grid;
+    justify-items: start;
+    align-content: center;
+    justify-content: center;
+}
+
+
 .p-input-icon-right>i:last-of-type {
-    right: 140px;
+    right: 30px;
     color: #657380;
 }
 
@@ -372,7 +409,7 @@
     margin-top: 25px;
     background: white;
     padding: 20px;
-    border-radius:20px;
+    border-radius: 20px;
     box-shadow: 25px 25px;
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
 }
@@ -391,23 +428,14 @@
 
 }
 
-.p-inputtext.p-inputtext-sm {
-    font-size: 16px;
-    padding: 5px 50px;
-    width: 390px;
-    border-radius: 20px;
-    background: #e3e3e3;
-}
-
-
 ::ng-deep .p-datatable .p-datatable-thead>tr>th {
     text-align: center;
     padding: 1rem rem 1rem;
     border: 1px solid rgba(232, 241, 248, 0.7);
     border-width: 0 0 1px 0;
     font-weight: 600;
-    color: #ffffff;
-    background: #72afff;
+    color: #0b476a;
+    background: #e8f0fe;
     transition: box-shadow 0.2s;
 }
 
@@ -428,7 +456,7 @@
 }
 
 
-.header-buscar-planes{
+.header-buscar-planes {
 
     text-align: center;
     margin: 0 auto;
@@ -526,7 +554,15 @@
 }
 
 
-.p-fieldset .p-fieldset-legend {
+.formulario-campo-obligatorio span {
+    color: red;
+}
+
+.formulario-campo-obligatorio {
+    margin-top: 25px;
+}
+
+::ng-deep .p-fieldset .p-fieldset-legend {
     padding: 1rem;
     border: 1px solid #E4E5E5;
     color: #515C66;
@@ -535,6 +571,17 @@
     border-radius: 3px;
     margin: auto;
 }
+
+
+.p-inputtext.p-inputtext-sm-registro-empresa {
+    font-size: 14px;
+    padding: 5px 50px;
+    width: 500px;
+    border-radius: 10px;
+    background: #e8f0fe;
+}
+
+
 
 .p-dialog .p-dialog-header {
     border-bottom: 0 none;
@@ -745,8 +792,6 @@ p-inputmask {
 
 }
 
-
-
 .contenidoRoles {
     display: grid;
     grid-gap: 1rem;
@@ -772,7 +817,7 @@ p-inputmask {
     align-content: center;
 }
 
-.p-treetable .p-treetable-thead > tr > th {
+.p-treetable .p-treetable-thead>tr>th {
     text-align: left;
     padding: 1rem 1rem;
     border-width: 0 0 1px 0;
@@ -782,4 +827,12 @@ p-inputmask {
     transition: box-shadow 0.2s;
     border-radius: 10px;
 
+}
+
+.p-placeholder {
+    background-color: #0b476a;
+}
+
+.fondo-gris {
+    background: #dedfe1;
 }
