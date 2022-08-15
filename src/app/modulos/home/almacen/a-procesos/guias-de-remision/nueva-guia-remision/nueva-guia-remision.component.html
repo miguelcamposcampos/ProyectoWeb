@@ -334,7 +334,7 @@
 
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Cantidad</strong>
-                                    <input type="text"  style="width: 60px;" (keypress)="validateFormat($event)" (keyup)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                    <input type="text"  style="width: 60px;" (keypress)="validateFormat($event)" (blur)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Bultos</strong>
@@ -342,7 +342,7 @@
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Peso Unitario</strong>
-                                    <input type="text"    style="width: 70px;"  (keypress)="validateFormat($event)"(keyup)="onCalcularValorTotal(rowIndex, detalles.value)" class="p-inputtext-sm" pInputText formControlName="pesoUnitario">  
+                                    <input type="text"    style="width: 70px;"  (keypress)="validateFormat($event)"(blur)="onCalcularValorTotal(rowIndex, detalles.value)" class="p-inputtext-sm" pInputText formControlName="pesoUnitario">  
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Precio Unitario</strong>

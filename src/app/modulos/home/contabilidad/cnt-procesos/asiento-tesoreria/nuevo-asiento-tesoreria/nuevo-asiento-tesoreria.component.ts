@@ -139,6 +139,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
           naturaleza :this.dataTesoreriaEdit.detalle[i].naturaleza,
           importe :this.dataTesoreriaEdit.detalle[i].importe,
           cambio :this.dataTesoreriaEdit.detalle[i].cambio,
+          cambioMascara: this.dataTesoreriaEdit.detalle[i].cambio.toFixed(2),
           centrocosto :this.dataTesoreriaEdit.detalle[i].centrocosto,
           documentoid: this.arrayTipoDocumento.find(
             (x) => x.id ===  this.dataTesoreriaEdit.detalle[i].documentoid
@@ -219,6 +220,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       naturaleza  : new FormControl('D'),
       importe: new FormControl(null),  
       cambio: new FormControl(null),  
+      cambioMascara : new FormControl(null),
       centrocosto: new FormControl(null),   
       documentoid: new FormControl(0),
       nrodocumento: new FormControl(null),
@@ -246,6 +248,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
  
     this.detallesForm[posicion].patchValue({
       cambio : AsignarCambio, 
+      cambioMascara: AsignarCambio.toFixed(2)
     });
 
     setTimeout(() => {
@@ -274,6 +277,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
       naturaleza  : new FormControl(data.naturaleza),
       importe: new FormControl(data.importe),  
       cambio: new FormControl(data.cambio),  
+      cambioMascara : new FormControl(data.cambioMascara),  
       centrocosto: new FormControl(data.centrocosto),   
       documentoid: new FormControl(data.documentoid),
       nrodocumento: new FormControl(data.nrodocumento),
@@ -313,28 +317,28 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
     })
 
     /*SUMA */
-    let SumDebeImporte = ArrayDebe.reduce((sum, data)=> (sum + +data.importe ?? 0 ), 0);
-    let SumHaberImporte = ArrayHaber.reduce((sum, data)=> (sum + +data.importe ?? 0 ), 0);
+    let SumDebeImporte = ArrayDebe.reduce((sum, data)=> (sum + data.importe ?? 0 ), 0);
+    let SumHaberImporte = ArrayHaber.reduce((sum, data)=> (sum + data.importe ?? 0 ), 0);
     
     /*TIPO CAMBIO */
-    let SumDebeCambio  = ArrayDebe.reduce((sum, data)=> (sum + +data.cambio ?? 0 ), 0);
-    let SumHaberCambio  = ArrayHaber.reduce((sum, data)=> (sum + +data.cambio ?? 0 ), 0);
+    let SumDebeCambio  = ArrayDebe.reduce((sum, data)=> (sum + data.cambio ?? 0 ), 0);
+    let SumHaberCambio  = ArrayHaber.reduce((sum, data)=> (sum + data.cambio ?? 0 ), 0);
 
     let SumDiferenciaImporte =  SumDebeImporte - SumHaberImporte
     let SumDiferenciaCambio =  SumDebeCambio - SumHaberCambio
 
     /* REEMPLAZAMOS VALORES */
       this.Form.patchValue({
-        totalDebeImporte : SumDebeImporte,
-        totalHaberImporte : SumHaberImporte,
+        totalDebeImporte : SumDebeImporte.toFixed(2),
+        totalHaberImporte : SumHaberImporte.toFixed(2),
 
-        totalDebeCambio : SumDebeCambio,
-        totalHaberCambio : SumHaberCambio,
+        totalDebeCambio : SumDebeCambio.toFixed(2),
+        totalHaberCambio : SumHaberCambio.toFixed(2),
 
-        totalDiferenciaImporte : SumDiferenciaImporte,
-        totalDiferenciaCambio : SumDiferenciaCambio,
+        totalDiferenciaImporte : SumDiferenciaImporte.toFixed(2),
+        totalDiferenciaCambio : SumDiferenciaCambio.toFixed(2),
       })
- 
+      
    }
   
   onEliminarDetalle(index : any, asientodetalleid : any){ 
@@ -457,9 +461,9 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
           importe : +element.value.importe,
           cambio : element.value.cambio,
           centrocosto: element.value.centrocosto,
-          documentoid : element.value.documentoid.id,
+          documentoid :  !element.value.documentoid ? 0 : element.value.documentoid.id,
           nrodocumento : element.value.nrodocumento,
-          documentorefid : element.value.documentorefid.id,
+          documentorefid : !element.value.documentorefid ? 0 : element.value.documentorefid.id,
           nrodocumentoref : element.value.nrodocumentoref,
           analisis : element.value.analisis,
           fechadetalle : this.formatoFecha.transform(element.value.fechadetalle, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA), 

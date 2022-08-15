@@ -28,7 +28,7 @@ export class AsientoDiarioService {
     } 
 
     asientosoreriaId(id: number): Observable<ICrearAsientoDiario>{
-        return this.http.get<ICrearAsientoDiario>(`${this.api987}/Contabilidad/ObtenerAsientoPorId?asientoid==${id}`);
+        return this.http.get<ICrearAsientoDiario>(`${this.api987}/Contabilidad/ObtenerAsientoPorId?asientoid=${id}`);
     }
  
     save(data: any):Observable<any>{

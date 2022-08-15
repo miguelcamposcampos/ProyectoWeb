@@ -151,7 +151,7 @@
                         </td>
                         <td style="text-align: center">
                             <strong class="p-column-title">Cantidad</strong>
-                            <input type="number"  style="width: 60px; text-align: right;" (keyup)="onCalcularValorTotal(rowIndex, detalles.value)" (onChange)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                            <input type="number"  style="width: 60px; text-align: right;" (blur)="onCalcularValorTotal(rowIndex, detalles.value)" (onChange)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
                         </td>
                         <td style="text-align: center">
                             <strong class="p-column-title">Und Medida</strong>
@@ -159,7 +159,7 @@
                         </td>
                         <td>
                             <strong class="p-column-title">Val.Unitario</strong>
-                            <input type="number"  style="width: 70px; text-align: right;" (keyup)="onCalcularValorTotal(rowIndex, detalles.value)" (onchange)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" [min]="0" pInputText formControlName="valorUnitario">  
+                            <input type="number"  style="width: 70px; text-align: right;" (blur)="onCalcularValorTotal(rowIndex, detalles.value)" (onchange)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" [min]="0" pInputText formControlName="valorUnitario">  
                         </td>
                         <td>
                             <strong class="p-column-title">Val.Total</strong>

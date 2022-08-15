@@ -577,7 +577,7 @@
                         <div class="formulario">
                             <strong>Descuento Global:</strong>
                             <div class="p-inputgroup">
-                                <input type="number" (keyup)="onConvertiraPorcentaje()" pInputText
+                                <input type="number" (blur)="onConvertiraPorcentaje()" pInputText
                                     formControlName="dsctoglobalrporcentaje" class="p-inputtext-sm" placeholder="0">
                                 <button class="p-button-sm" type="button" pButton label="% Porcentaje"
                                     (click)="onConvertiraPorcentaje()"> </button>

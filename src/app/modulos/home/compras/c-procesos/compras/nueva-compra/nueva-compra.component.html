@@ -541,7 +541,7 @@
 
                                 <div *ngIf="mostrarCamposDetraccion" class="p-field p-col-12 p-md-2">  
                                     <strong>Porcentaje:</strong> 
-                                    <input  type="text" (keyup)="onCalcularDetraccion()" pInputText formControlName="porcentajedetraccion" class="p-inputtext-sm" placeholder="%">   
+                                    <input  type="text" (blur)="onCalcularDetraccion()" pInputText formControlName="porcentajedetraccion" class="p-inputtext-sm" placeholder="%">   
                                 </div> 
 
                                 <div *ngIf="mostrarCamposDetraccion"  class="p-field p-col-12 p-md-2">  

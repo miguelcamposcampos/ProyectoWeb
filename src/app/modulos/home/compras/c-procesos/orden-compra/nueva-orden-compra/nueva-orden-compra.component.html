@@ -234,11 +234,11 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Cantidad</strong>
-                                                <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                                <input type="number" style="width: 80px;"  (blur)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">PrecioU</strong>
-                                                <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
+                                                <input type="number" style="width: 80px;"  (blur)="onCalcularPrecioCompra(rowIndex)" [min]="0" class="p-inputtext-sm" pInputText formControlName="preciounitario">  
                                             </td>   
                                             <td>
                                                 <strong class="p-column-title">Base Impon,</strong>
@@ -246,7 +246,7 @@
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">% Dcsto</strong>
-                                                <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
+                                                <input type="number" style="width: 80px;"  (blur)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="porcentajedescuento">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Imp.Dcsto</strong>
@@ -266,7 +266,7 @@
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Imp.Otros.C</strong>
-                                                <input type="number" style="width: 80px;"  (keyup)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importeotroscargos">  
+                                                <input type="number" style="width: 80px;"  (blur)="onCalcularPrecioCompra(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importeotroscargos">  
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">ICBPER</strong>
