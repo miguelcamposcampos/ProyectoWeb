@@ -1,116 +1,111 @@
+<div class="contenidoTable card">    
+
+    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+    </ngx-spinner>
+     
  
-    <div class="contenidoTable"> 
-
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-        </ngx-spinner>
-    
-        <div class="buscar-empresa">
-            <div class="container">
-                <p-toolbar>
-                    <div class="p-toolbar-group-left">
-                        <h3>   <strong> {{ tituloVista }} </strong> </h3> 
-                    </div> 
-                </p-toolbar>
-    
-                <div class="row">
-                    <form [formGroup]="Form">
-                        <div class="header-buscar-empresas">
-                            <div class="p-col-12"> 
-                                <div class="p-fluid p-formgrid p-grid"> 
-                                    <div class="p-field p-col-12 p-md-4">  
-                                        <strong>Código:</strong>
-                                        <input  type="text" pInputText minlength="2"  formControlName="codigoconcepto" class="p-inputtext-sm" placeholder="ingresar un nombre">     
-                                    </div> 
-                        
-                                    <div class="p-field p-col-12 p-md-4">  
-                                        <strong>Moneda *:</strong>
-                                        <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"
-                                        placeholder="Moneda" optionLabel="valor1" [showClear]="true"></p-dropdown>
-                                    </div> 
-                        
-
-                                    <div class="p-field p-col-12 p-md-4">  
-                                        <strong>Área *:</strong>
-                                        <p-dropdown class="extender" [options]="arrayAreas" formControlName="areaid"
-                                        placeholder="Moneda" optionLabel="nombre" [showClear]="true"></p-dropdown>   
-                                    </div> 
-
-                                    <div class="p-field p-col-12">  
-                                        <strong>Nombre cuenta *:</strong>
-                                        <input  type="text" pInputText minlength="2"  formControlName="nombreconcepto" class="p-inputtext-sm" placeholder="ingresar un nombre">     
-                                    </div> 
-                        
-                        
-                                    <div class="p-field p-col-12 p-md-12">  
-                                        <p-fieldset>
-                                            <ng-template pTemplate="header">CUENTAS</ng-template> 
-                                            <div class="p-fluid p-formgrid p-grid" style="margin: 0 5%;"> 
-                                                <div class="p-field p-col-12 p-md-6">  
-                                                    <strong>Cta Precio Venta :</strong> 
-                                                    <div class="p-inputgroup">  
-                                                        <input type="text" pInputText formControlName="cuentaprecioventa" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtvPrecioVenta')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
-                                                    </div>
-
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-6">  
-                                                    <strong>Cta Igv :</strong> 
-                                                    <div class="p-inputgroup">  
-                                                        <input type="text" pInputText formControlName="cuentaigv" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaIgv')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
-                                                    </div>    
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-6">  
-                                                    <strong>Cta Detracción :</strong> 
-                                                     <div class="p-inputgroup">  
-                                                        <input type="text" pInputText formControlName="cuentadetraccion" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaDetraccion')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
-                                                    </div>      
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-6">  
-                                                    <strong>Cta Descuento :</strong>  
-                                                     <div class="p-inputgroup">  
-                                                        <input type="text" pInputText formControlName="cuentadescuento" class="p-inputtext-sm" placeholder="Buscar">   
-                                                        <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaDescuento')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
-                                                    </div>     
-                                                </div>
-                                            </div>
-                                        </p-fieldset>
-                                    </div> 
-                        
-                                </div> 
-                            </div> 
-                        </div>
-                    </form>
-                </div> 
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3>   <strong> {{ tituloVista }} </strong> </h3> 
             </div> 
-        </div>
 
-        <div class="botones">
-            <button  
-                class="p-button-sm"
-                pButton
-                type="button"
-                style="margin-right: 1%;"
-                [disabled]="Form.invalid"
-                label="{{ (data) ? 'Actualizar' : 'Grabar' }}"
-                (click)="onGrabar()"
-                icon="pi pi-check-circle">  
-            </button>  
-    
-            <button   
-                class="p-button-sm"
-                pButton
-                type="button"
-                style=" background-color: #D72250;"
-                icon="pi pi-times-circle"
-                label="Cancelar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div> 
- 
-    </div>
+            <div class="p-toolbar-group-right">   
+                <button  
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style="margin-right: 1%;"
+                    [disabled]="Form.invalid"
+                    label="{{ (data) ? 'Actualizar' : 'Grabar' }}"
+                    (click)="onGrabar()"
+                    icon="pi pi-check-circle">  
+                </button>  
+        
+                <button   
+                    class="p-button-sm"
+                    pButton
+                    type="button"
+                    style=" background-color: #D72250;"
+                    icon="pi pi-times-circle"
+                    label="Cancelar" 
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+        </p-toolbar>
+
+           
+        <form [formGroup]="Form">
+            <div class="header-buscar-empresas">
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid"> 
+                        <div class="p-field p-col-12 p-md-4">  
+                            <strong>Código:</strong>
+                            <input  type="text" pInputText minlength="2"  formControlName="codigoconcepto" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+                        </div> 
+            
+                        <div class="p-field p-col-12 p-md-4">  
+                            <strong>Moneda *:</strong>
+                            <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"
+                            placeholder="Moneda" optionLabel="valor1" [showClear]="true"></p-dropdown>
+                        </div> 
+            
+
+                        <div class="p-field p-col-12 p-md-4">  
+                            <strong>Área *:</strong>
+                            <p-dropdown class="extender" [options]="arrayAreas" formControlName="areaid"
+                            placeholder="Moneda" optionLabel="nombre" [showClear]="true"></p-dropdown>   
+                        </div> 
+
+                        <div class="p-field p-col-12">  
+                            <strong>Nombre cuenta *:</strong>
+                            <input  type="text" pInputText minlength="2"  formControlName="nombreconcepto" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+                        </div> 
+            
+            
+                        <div class="p-field p-col-12 p-md-12">  
+                            <p-fieldset>
+                                <ng-template pTemplate="header">CUENTAS</ng-template> 
+                                <div class="p-fluid p-formgrid p-grid" style="margin: 0 5%;"> 
+                                    <div class="p-field p-col-12 p-md-6">  
+                                        <strong>Cta Precio Venta :</strong> 
+                                        <div class="p-inputgroup">  
+                                            <input type="text" pInputText formControlName="cuentaprecioventa" class="p-inputtext-sm" placeholder="Buscar">   
+                                            <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtvPrecioVenta')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                        </div>
+
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">  
+                                        <strong>Cta Igv :</strong> 
+                                        <div class="p-inputgroup">  
+                                            <input type="text" pInputText formControlName="cuentaigv" class="p-inputtext-sm" placeholder="Buscar">   
+                                            <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaIgv')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                        </div>    
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">  
+                                        <strong>Cta Detracción :</strong> 
+                                            <div class="p-inputgroup">  
+                                            <input type="text" pInputText formControlName="cuentadetraccion" class="p-inputtext-sm" placeholder="Buscar">   
+                                            <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaDetraccion')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                        </div>      
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">  
+                                        <strong>Cta Descuento :</strong>  
+                                            <div class="p-inputgroup">  
+                                            <input type="text" pInputText formControlName="cuentadescuento" class="p-inputtext-sm" placeholder="Buscar">   
+                                            <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaDescuento')" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                                        </div>     
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div> 
+            
+                    </div> 
+                </div> 
+            </div>
+        </form>
+           
+</div>
  
 
     <!-- MODAL  -->

@@ -9,6 +9,10 @@ $gutter: 1rem; //for primeflex grid system
 @import "../node_modules/@fullcalendar/daygrid/main.min.css";
 @import "../node_modules/@fullcalendar/timegrid/main.min.css";
  
+@import "./assets/theme/custom/custom-responsive.css";
+@import "./assets/theme/custom/custom-theme.scss";
+@import "./assets/theme/custom/custom-grid.scss";
+
 .spacer{
   flex: 1 1 auto;
 }
