@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';  
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
 import { ConfiguracionService } from 'src/app/modulos/home/configuracion/configuraciones/service/configuracion.service';
@@ -53,6 +53,8 @@ export class NuevaVentaComponent implements OnInit {
   arrayCodigoDetraccion: ICombo[];
   arrayImpresoras: any[] = [];
   arrayByte: any;
+  arrayCoceptos: ICombo[];
+
 
   idClienteSeleccionado : number = 0;
   idEstablecimientoSeleccionado : number = 0;
@@ -109,8 +111,7 @@ export class NuevaVentaComponent implements OnInit {
     private generalService : GeneralService,
     private configService: ConfiguracionService,
     private swal : MensajesSwalService,
-    private readonly formatoFecha : DatePipe, 
-    private config : PrimeNGConfig,
+    private readonly formatoFecha : DatePipe,  
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
     private spinner : NgxSpinnerService
@@ -172,8 +173,8 @@ export class NuevaVentaComponent implements OnInit {
       importevalorventa : new FormControl(0),
       importegratuita : new FormControl(0),
       importegravada : new FormControl(0),
-      descuentoporitem: new FormControl(0)
-    //  conceptocontableid  : new FormControl(0)
+      descuentoporitem: new FormControl(0),
+      conceptocontableid  : new FormControl(0)
     })
 
     this.FormImpresion = new FormGroup({
@@ -198,6 +199,9 @@ export class NuevaVentaComponent implements OnInit {
           condicionpagoid: this.arrayCondicionPago.find(
             (x) => x.id === this.dataConfiguracion.ventacondicionpagodefaultid
           ), 
+          conceptocontableid: this.arrayCoceptos.find(
+            (x) => x.id === this.dataConfiguracion.conceptocontabledefaultid
+          ), 
           codtipooperacion: this.arrayTipoOperacion.find(
             (x) => x.id === TipoOperacionEditar[0].id
           ), 
@@ -208,12 +212,12 @@ export class NuevaVentaComponent implements OnInit {
     });
   }
  
-  ngOnInit(): void {    
-    this.config.setTranslation(this.es)
+  ngOnInit(): void {     
     this.onCargarDropdown();
     if(this.dataVenta){
       this.tituloNuevaVenta = "EDITAR VENTA"
       this.mostrarOpcionesEditar = true;
+      this.spinner.show();
       this.Avisar(); 
     } 
     this.onOpcionesNuevaVenta();  
@@ -385,6 +389,7 @@ export class NuevaVentaComponent implements OnInit {
       this.generalService.listadoUnidadMedida(),
       this.generalService.listadoPorGrupo('AfectacionesIGV'),
       this.generalService.listadoPorGrupo('CodigoDetracciones'),
+      this.generalService.onComboConceptos('Venta'),
     );
     obsDatos.subscribe((response) => {
       this.arrayTipoDocumento = response[0];
@@ -395,6 +400,7 @@ export class NuevaVentaComponent implements OnInit {
       this.arrayUnidadMedida = response[5];
       this.arrayTipoAfectacion = response[6];
       this.arrayCodigoDetraccion = response[7]; 
+      this.arrayCoceptos = response[8]; 
       this.FlgLlenaronCombo.next(true);
       if(!this.dataVenta){
         this.existeEstablecimientoSeleccionado = true; 
@@ -599,10 +605,10 @@ export class NuevaVentaComponent implements OnInit {
   get detallesVentaForm() { return this.fadv.controls as FormGroup[]; }
 
   onAgregarDetalleVenta(){
-    // if(!this.Form.controls['establecimientoid'].value){
-    //   this.swal.mensajeAdvertencia('Debes Seleccionar un Establecimiento para agregar detalles.');
-    //   return;
-    // }
+    if(!this.Form.controls['establecimientoid'].value){
+      this.swal.mensajeAdvertencia('Debes Seleccionar un Establecimiento para agregar detalles.');
+      return;
+    }
     this.detallesVentaForm.push(this.AddDetalleVenta());
   }
 
@@ -983,11 +989,7 @@ export class NuevaVentaComponent implements OnInit {
   onGrabar(){
     const dataform = this.Form.value;  
 
-    let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta();
-    if(DetallesVentaGrabar){
-      this.swal.mensajeAdvertencia('Revisa el detalle, faltan datos.');
-      return;
-    }
+    let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta(); 
     let DetallesCondicionPagoGrabar :any[] = this.onGrabarCondicionPago();
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
      
@@ -1036,8 +1038,8 @@ export class NuevaVentaComponent implements OnInit {
       documentoReferenciaDtos: DetallesDocumentoRefGrabar,
       idsCondicionPagoToDelet: this.arrayDetallesCondicionPagoEliminados,
       idsToDelete: this.arrayDetallesEliminados,
-      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0 
-     // conceptocontableid : dataform.conceptocontableid
+      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0,
+      conceptocontableid : dataform.conceptocontableid.id
     } 
  
 
@@ -1049,7 +1051,7 @@ export class NuevaVentaComponent implements OnInit {
               this.onObtenerVentaPorId(resp, 'nuevo');
             }else{
               this.swal.mensajeExito('Los cambios se grabaron correctamente!.')    
-              this.onVolver();
+              this.cerrar.emit(true);
             }
           })   
         }    
@@ -1060,19 +1062,14 @@ export class NuevaVentaComponent implements OnInit {
         if (response.isConfirmed) { 
           this.onObtenerVentaPorId(newVenta.ventaid, 'nuevo')
         }else{
-          this.onVolver();
+          this.cerrar.emit(true);
           this.swal.mensajeExito('Los cambios se actualizaron correctamente!.')    
         }
       })   
     });
+  } 
   }
-
-
-  }
-
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false);
@@ -1083,8 +1080,8 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   onCobradoExitoso(event){
-    if(event === 'exito'){
-      this.cerrar.emit('exito');
+    if(event){
+      this.cerrar.emit(true);
     }
     this.VistaCobrar = false; 
   }
@@ -1175,6 +1172,9 @@ export class NuevaVentaComponent implements OnInit {
       monedaid: this.arrayMonedas.find(
         (x) => x.id === this.VentaEditar.monedaid
       ),
+      conceptocontableid: this.arrayCoceptos.find(
+        (x) => x.id === this.VentaEditar.conceptocontableid
+      ),
       nrodocumentocliente: this.VentaEditar.nroDocumentoCliente,
       nombrecliente: this.VentaEditar.nombrecliente,
       direccioncliente: this.VentaEditar.direccioncliente,
@@ -1205,8 +1205,7 @@ export class NuevaVentaComponent implements OnInit {
       importeigv : this.VentaEditar.importeigv ?? 0,
       importeotrostributos  : this.VentaEditar.importeotrostributos ?? 0,
       importetotalventa : this.VentaEditar.importetotalventa ?? 0,
-      importevalorventa : this.VentaEditar.importevalorventa ?? 0
-    //  conceptocontableid : this.VentaEditar.conceptocontableid ?? 0
+      importevalorventa : this.VentaEditar.importevalorventa ?? 0, 
     })
 
     for( let  i = 0; i < this.VentaEditar.detalles.length; i++){

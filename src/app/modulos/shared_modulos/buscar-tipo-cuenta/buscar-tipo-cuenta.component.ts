@@ -13,7 +13,7 @@ import { IModalPlanCuenta } from '../../home/contabilidad/cnt-mantenimientos/adm
 })
 export class BuscarTipoCuentaComponent implements OnInit {
 
-  @Input() tipoCuenta : string;
+  @Input() tipoCuenta : any;
   @Output() CuentaSelect : EventEmitter<any> = new EventEmitter<any>();
   cols: InterfaceColumnasGrilla[] =[];
   list :  IModalPlanCuenta[];
@@ -25,7 +25,7 @@ export class BuscarTipoCuentaComponent implements OnInit {
     private spinner : NgxSpinnerService
   ) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {  
     this.cols = [  
       { field: 'nroCuenta', header: 'Numero Cuenta', visibility: true },  
       { field: 'nombreCuenta', header: 'Nombre.', visibility: true},    
@@ -58,7 +58,8 @@ export class BuscarTipoCuentaComponent implements OnInit {
         if (response.isConfirmed) {  
           const data = {
             data : event.data,
-            tipoCuenta : this.tipoCuenta
+            tipoCuenta : this.tipoCuenta,
+            posicion: this.tipoCuenta
           }
           this.CuentaSelect.emit(data); 
         }

@@ -140,7 +140,7 @@ export interface IVentaPorId{
     vendedorid: number,
     ventaFacturaGuiaInfoDTO: IVentaFacturaInfo[],
     ventaid : number,
-   // conceptocontableid? : number
+    conceptocontableid? : number
 }
 
 export interface ICondicionPagoSunat{

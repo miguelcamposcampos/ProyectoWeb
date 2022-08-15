@@ -8,6 +8,18 @@ const routes: Routes = [
     loadChildren: () => import('./cnt-mantenimientos/cnt-mantenimientos.module').then(m => m.CntMantenimientosModule),
     canLoad : [AuthGuard],
     canActivateChild : [AuthGuard]
+  },
+  {
+    path: 'procesos-contabilidad',
+    loadChildren: () => import('./cnt-procesos/cnt-procesos.module').then(m => m.CntProcesosModule),
+    canLoad : [AuthGuard],
+    canActivateChild : [AuthGuard]
+  },
+  {
+    path: 'reportes-contabilidad',
+    loadChildren: () => import('./cnt-reportes/cnt-reportes.module').then(m => m.CntReportesModule),
+    canLoad : [AuthGuard],
+    canActivateChild : [AuthGuard]
   }
 ];
 

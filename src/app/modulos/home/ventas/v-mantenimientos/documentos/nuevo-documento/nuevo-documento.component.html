@@ -22,15 +22,7 @@
                     <strong>Nombre Documento *:</strong>
                     <input type="text" pInputText formControlName="nombre" placeholder="ingres nombre de documento" class="p-inputtext-sm">  
                 </div>  
-            </div>
-
-            <!-- <div class="p-field p-col-12  p-lg-12 p-md-12">
-                <div class="formulario">   
-                    <strong>Numero Cuenta Cobranza *:</strong>
-                    <input type="text" pInputText formControlName="nrocuentacobranza" placeholder="ingres numero de cuenta cobranza" class="p-inputtext-sm">  
-                </div>  
-            </div> -->
-
+            </div> 
         </div>
     </div>
     </p-fieldset>
@@ -99,12 +91,23 @@
                         <p-inputSwitch formControlName="notasalalmacen"></p-inputSwitch>
 
                         <strong>Caja Banco:</strong>
-                        <p-inputSwitch formControlName="cajabanco"></p-inputSwitch>
+                        <p-inputSwitch formControlName="cajabanco" (onChange)="onEsCajaBanco($event.checked)"></p-inputSwitch>
                     </div>
                 </div>
 
             </div>
         </div> 
+
+        <div class="p-field p-col-12  p-lg-12 p-md-12" *ngIf="mostrarCampoCuenta">
+            <p-fieldset>
+                <ng-template pTemplate="header">Cuentas Relacionadas</ng-template>  
+                <strong>Cuenta Cobranza:</strong>
+                <div class="p-inputgroup">  
+                    <input type="text" pInputText formControlName="nrocuentacobranza" class="p-inputtext-sm" placeholder="busca un número de cuenta">   
+                    <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
+                </div> 
+            </p-fieldset>
+        </div>
     </p-fieldset>
 
     
@@ -113,9 +116,11 @@
             class="p-button-sm"
             pButton
             type="button"
+            [disabled]="Form.invalid"
             style="margin-right: 1%;"
             label="{{ (dataDocumento) ? 'Actualizar' : 'Grabar' }}"
             (click)="onGrabar()"
+
             icon="pi pi-check-circle">  
         </button>  
 
@@ -131,4 +136,10 @@
     </div> 
 </form> 
 
-       
+           <!-- MODAL  -->
+<div *ngIf="modalCuentas">
+    <p-dialog header="BUSCAR TIPO CUENTA" [(visible)]="modalCuentas" [modal]="true" [draggable]="false" [resizable]="false"> 
+        <app-buscar-tipo-cuenta  (CuentaSelect)="onPintarcuenta($event)" ></app-buscar-tipo-cuenta>
+    </p-dialog> 
+</div>
+

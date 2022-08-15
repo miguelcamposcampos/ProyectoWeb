@@ -223,11 +223,11 @@
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Importe S/.</strong>
-                                                <input type="text" (keyup)="onCalcularImporteDetalle(rowIndex)" style="width: 150px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importesoles">  
+                                                <input type="text" (blur)="onCalcularImporteDetalle(rowIndex)" style="width: 150px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importesoles">  
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Importe US$ </strong>
-                                                <input type="text" (keyup)="onCalcularImporteDetalle(rowIndex)"  style="width: 150px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importedolares">  
+                                                <input type="text" (blur)="onCalcularImporteDetalle(rowIndex)"  style="width: 150px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importedolares">  
                                             </td>   
                                         </tr>
                                     </ng-template> 

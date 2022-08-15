@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
@@ -55,6 +55,7 @@ export class ConvertirAVentaComponent implements OnInit {
   arrayCodigoDetraccion: ICombo[];
   arrayImpresoras: any[] = [];
   arrayByte: any;
+  arrayCoceptos: ICombo[];
 
   idClienteSeleccionado : number = 0;
   idEstablecimientoSeleccionado : number = 0;
@@ -112,8 +113,7 @@ export class ConvertirAVentaComponent implements OnInit {
     private ventaservice : VentasService,
     private generalService : GeneralService,
     private swal : MensajesSwalService,
-    private readonly formatoFecha : DatePipe,
-    private config : PrimeNGConfig,
+    private readonly formatoFecha : DatePipe, 
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
     private authService: AuthService, 
@@ -179,8 +179,8 @@ export class ConvertirAVentaComponent implements OnInit {
       importevalorventa : new FormControl(0),
       importegratuita : new FormControl(0),
       importegravada : new FormControl(0),
-      descuentoporitem: new FormControl(0)
-     // conceptocontableid  : new FormControl(0)
+      descuentoporitem: new FormControl(0),
+      conceptocontableid  : new FormControl(0)
       
     })
 
@@ -192,8 +192,7 @@ export class ConvertirAVentaComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.config.setTranslation(this.es)
+  ngOnInit(): void { 
     this.onCargarDropdown();
    
     if(this.dataVenta){
@@ -219,6 +218,9 @@ export class ConvertirAVentaComponent implements OnInit {
           ),   
           condicionpagoid: this.arrayCondicionPago.find(
             (x) => x.id === this.dataConfiguracion.ventacondicionpagodefaultid
+          ), 
+          conceptocontableid: this.arrayCoceptos.find(
+            (x) => x.id === this.dataConfiguracion.conceptocontabledefaultid
           ), 
           codtipooperacion: this.arrayTipoOperacion.find(
             (x) => x.id === TipoOperacionEditar[0].id
@@ -402,6 +404,7 @@ export class ConvertirAVentaComponent implements OnInit {
       this.generalService.listadoUnidadMedida(),
       this.generalService.listadoPorGrupo('AfectacionesIGV'),
       this.generalService.listadoPorGrupo('CodigoDetracciones'),
+      this.generalService.onComboConceptos('Venta'),
     );
     obsDatos.subscribe((response) => {
       this.arrayTipoDocumento = response[0];
@@ -412,6 +415,7 @@ export class ConvertirAVentaComponent implements OnInit {
       this.arrayUnidadMedida = response[5];
       this.arrayTipoAfectacion = response[6];
       this.arrayCodigoDetraccion = response[7]; 
+      this.arrayCoceptos = response[8]; 
       this.FlgLlenaronCombo.next(true); 
       if(!this.dataVenta){
         this.existeEstablecimientoSeleccionado = true; 
@@ -973,12 +977,7 @@ export class ConvertirAVentaComponent implements OnInit {
 
   onGrabar(){
     const dataform = this.Form.value; 
-    let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta();
-    if(DetallesVentaGrabar){
-      this.swal.mensajeAdvertencia('Revisa el detalle, faltan datos.');
-      return;
-    }
-    
+    let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta(); 
     let DetallesCondicionPagoGrabar :any[] = this.onGrabarCondicionPago();
     let DetallesDocumentoRefGrabar :any[] = this.onGrabarDetalleDocumentoRef();
  
@@ -1027,20 +1026,20 @@ export class ConvertirAVentaComponent implements OnInit {
       documentoReferenciaDtos: DetallesDocumentoRefGrabar,
       idsCondicionPagoToDelet: this.arrayDetallesCondicionPagoEliminados,
       idsToDelete: this.arrayDetallesEliminados,
-      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0
-    //  conceptocontableid : dataform.conceptocontableid
+      ventaid : this.VentaEditar ? this.VentaEditar.ventaid : 0,
+      conceptocontableid : dataform.conceptocontableid.id
     } 
     if(!this.VentaEditar){
       this.ventaservice.createVenta(newVenta).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+            this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       });
     }else{
       this.ventaservice.updateVenta(newVenta).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+            this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       });
@@ -1049,9 +1048,7 @@ export class ConvertirAVentaComponent implements OnInit {
 
   }
 
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false);

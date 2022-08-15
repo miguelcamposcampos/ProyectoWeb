@@ -1,8 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { PrimeNGConfig } from 'primeng/api';
+import { NgxSpinnerService } from 'ngx-spinner'; 
 import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales } from 'src/app/shared/interfaces/shared.interfaces';
@@ -52,8 +51,7 @@ export class NuevaCajaChicaComponent implements OnInit {
     private cajachicaService : CajaChicasService,
     private swal : MensajesSwalService,
     private ventaService : VentasService,
-    private formatoFecha : DatePipe,
-    private config : PrimeNGConfig,
+    private formatoFecha : DatePipe, 
     private fb : FormBuilder, 
     private spinner : NgxSpinnerService
   ) { 
@@ -87,8 +85,7 @@ export class NuevaCajaChicaComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    this.config.setTranslation(this.es)
+  ngOnInit(): void { 
     this.onCargarDropdown();
 
     if(this.dataCajaChica){ 

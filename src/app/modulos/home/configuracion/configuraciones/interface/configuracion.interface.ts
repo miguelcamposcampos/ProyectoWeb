@@ -2,6 +2,7 @@ export interface IConfiguracionEmpresa {
     configuracionempresaid: number,
     ventamonedadefaultid: number,
     ventacondicionpagodefaultid: number,
+    conceptocontabledefaultid: number,
     inicializada: boolean
     ventatipooperaciondefault: string,
     compramonedadefault: number,

@@ -94,12 +94,6 @@
                 </div>
             </div>
             <div class="stepsdemo-content">
-
-
-                <br>
-
-
-
                 <br>
 
                 <p-fieldset>
@@ -206,10 +200,9 @@
                                 </td>
                                 <td>
                                     <strong class="p-column-title">P.Venta</strong>
-                                    <input style="width: 100px; text-align: right;" type="text"
-                                        (keypress)="validateFormat($event)" class="p-inputtext-sm" pInputText
+                                    <input style="text-align: right;" type="text"
+                                        (blur)="validateFormat($event)" class="p-inputtext-sm" pInputText
                                         formControlName="precioventa">
-                                    <!-- <input   [min]="0"  (keypress)="validateFormat($event)"  class="p-inputtext-sm" pInputText formControlName="precioventa">   -->
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Precio. inc. IGV</strong>
@@ -221,12 +214,12 @@
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Cant. Aplicar</strong>
-                                    <input style="width: 100px;" min="0" formControlName="cantidadparaaplicar"
+                                    <input min="0" formControlName="cantidadparaaplicar"
                                         type="number" pInputText class="p-inputtext-sm">
                                 </td>
                                 <td>
                                     <strong class="p-column-title">Cant. Und. Medida</strong>
-                                    <input style="width: 100px;" min="0" formControlName="cantidadunidadmedida"
+                                    <input min="0" formControlName="cantidadunidadmedida"
                                         type="number" pInputText class="p-inputtext-sm">
                                 </td>
                                 <td>

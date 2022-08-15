@@ -133,3 +133,10 @@ export interface IReporteExcel{
     data : string,
     msg : string
 }
+
+export interface IModuloReporteContabilidad{
+    fileContent : string,
+    fileFullName : string,
+    fileName : string,
+    tipo : string, 
+}

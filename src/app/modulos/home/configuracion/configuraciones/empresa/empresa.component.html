@@ -52,6 +52,12 @@
                                             <strong>Impuesto Icbper:</strong>  
                                             <input type="number" pInputText  class="p-inputtext-sm" formControlName="porcentajebolsaplastica"  placeholder="impuestoIcbper">   
                                         </div>  
+
+                                        <div class="p-field p-col-12">
+                                            <strong>Concepto:</strong>  
+                                            <p-dropdown class="extender"   [options]="arrayConceptos" formControlName="conceptocontabledefaultid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                                        </div>
+
                                     </div> 
                                 </div>
                             </div>

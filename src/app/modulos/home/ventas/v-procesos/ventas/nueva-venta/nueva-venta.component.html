@@ -37,8 +37,7 @@
 
             <!-- CABECERA FORMULARIO -->
             <form [formGroup]="Form">
-                <div class="p-col-12">
-                    <div class="p-fluid p-formgrid p-grid">
+                <div class="p-col-12"> 
                         <div class="row formulario-campo-obligatorio">
                             <div class="p-field p-col-4">
                                 <strong>Establecimiento <span>*</span></strong>
@@ -46,7 +45,7 @@
                                     [options]="arrayEstablecimiento" formControlName="establecimientoid"
                                     placeholder="Selecciona " [showClear]="true" optionLabel="valor1"></p-dropdown>
                             </div>
-
+ 
                             <div class="p-field p-col-4">
                                 <strong>Tipo Documento <span>*</span></strong>
                                 <p-dropdown class="DropExtenso fondo-gris" [disabled]="!existeEstablecimientoSeleccionado"
@@ -62,12 +61,13 @@
 
                             </div>
 
-                            <div class="p-field p-col-2">
+                            <div class="p-field p-col-2"> 
                                 <input type="number" disabled pInputText class="p-inputtext-sm-clear-grey number-clear"
                                     formControlName="secuencialventa" placeholder="ingresar">
-                            </div>
+                                </div>
                         </div>
-
+   
+ 
                         <div class="row formulario-campo-obligatorio">
                             <div class="p-field p-col-7">
                                 <strong>Cliente <span>*</span></strong>
@@ -77,35 +77,15 @@
                                     placeholder="busca un cliente">
                             </div>
 
-
-                            <div class="p-field p-col-8 mt-18">
-                                <input type="text" readonly formControlName="nombrecliente" pInputText
-                                    class="p-inputtext-sm-clear-grey  p-inputtext-sm-simple"
-                                    placeholder="Busca un cliente">
-
-                            </div>
-
-                            <div class="p-field p-col-2 mt-18">
-                                <button type="button" class="p-button-right " style="margin-right: 8px"
-                                    pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton
-                                    icon="pi pi-search" placeholder="Buscar"></button>
-
-                                <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-right"
-                                    pTooltip="Buscar" style=" background-color: #D72250;" tooltipPosition="left"
-                                    (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>
-                            </div>
-
-                            <div *ngIf="existeDireccionCliente" class="p-field p-col-12 p-md-3 p-sm-6">
+                            <div *ngIf="existeDireccionCliente" class="p-field p-col-12">
                                 <strong>Dirección Cliente</strong>
                                 <input type="text" readonly formControlName="direccioncliente" pInputText
                                     class="p-inputtext-sm" placeholder="dirección un cliente">
                             </div>
-
                         </div>
 
 
                         <div class="row formulario-campo-obligatorio">
-
                             <div class="p-field p-col-3">
                                 <strong>Fecha Emisión <span>*</span></strong>
                                 <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
@@ -129,11 +109,9 @@
                                 <input type="number" pInputText formControlName="tipocambio"
                                     class="p-inputtext-sm-clear-grey p-inputtext-sm-simple" placeholder="0.00">
                             </div>
-
                         </div>
 
                         <div class="row formulario-campo-obligatorio">
-
                             <div class="p-field p-col-3">
                                 <strong>Condición Pago <span>*</span></strong>
                                 <div class="p-inputgroup">
@@ -153,13 +131,11 @@
                                     placeholder="Selecciona " [showClear]="true" optionLabel="nombre"></p-dropdown>
                             </div>
 
-
-                            <div class="p-field p-col-6">
-                                <strong>Glosa</strong>
-                                <input type="text" pInputText formControlName="glosa" class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
-                                    placeholder="ingresar una glosa">
+                            <div class="p-field p-col-3">
+                                <strong>Concepto</strong>
+                                <p-dropdown class="DropExtenso" [options]="arrayCoceptos" formControlName="conceptocontableid"
+                                    placeholder="Selecciona " [showClear]="true" optionLabel="valor1"></p-dropdown>
                             </div>
-
 
                             <div class="p-field p-col-3">
                                 <strong>Tipo Operación <span>*</span></strong>
@@ -167,9 +143,15 @@
                                     formControlName="codtipooperacion" placeholder="Selecciona " [showClear]="true"
                                     optionLabel="valor1"></p-dropdown>
                             </div>
-                        </div>
+  
 
 
+                            <div class="p-field p-col-12"> 
+                                <strong>Glosa</strong>
+                                <input type="text" pInputText formControlName="glosa" class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                    placeholder="ingresar una glosa"> 
+                            </div>
+ 
                     </div>
                 </div>
 
@@ -255,7 +237,9 @@
                             (click)="onAgregarDetalleVenta()"></button>
 
 
-                        <p-table class="TablaDetalleCondicionPago" [value]="detallesVentaForm" [scrollable]="true"
+                        <p-table class="TablaDetalleCondicionPago" 
+                            [value]="detallesVentaForm"
+                            [scrollable]="true"
                             responsiveLayout="stack">
                             <ng-template pTemplate="header">
                                 <tr class="centrar">
@@ -593,7 +577,7 @@
                         <div class="formulario">
                             <strong>Descuento Global:</strong>
                             <div class="p-inputgroup">
-                                <input type="number" (keyup)="onConvertiraPorcentaje()" pInputText
+                                <input type="number" (blur)="onConvertiraPorcentaje()" pInputText
                                     formControlName="dsctoglobalrporcentaje" class="p-inputtext-sm" placeholder="0">
                                 <button class="p-button-sm" type="button" pButton label="% Porcentaje"
                                     (click)="onConvertiraPorcentaje()"> </button>

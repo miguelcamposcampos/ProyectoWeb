@@ -12,7 +12,8 @@ export interface ICreatePlanCuenta{
     presupuesto: boolean,
     analisispatrimonioneto: boolean,
     usadocostoproduccion: boolean,
-    idauditoria: number 
+    idauditoria: number,
+    destinos: IDetalleDestinos[]
 } 
 
 export interface IListPlanCuenta{
@@ -36,4 +37,15 @@ export interface ISubirPlanescuenta{
    moneda: string,
    tieneDestino: string,
    naturaleza: string,
+}
+
+ 
+export interface IDetalleDestinos{
+    plancuentasdestinoid: number,
+    nrocuentadestino : string,
+    nrocuentatransferencia : string,
+    porcentaje: number,
+    periodo: number,
+    plancuentaid: number,
+    idauditoria: number,
 }

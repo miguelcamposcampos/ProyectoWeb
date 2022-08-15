@@ -94,7 +94,20 @@ export class ConstantesGenerales {
     
     ]
 
-
+    public static arrayMonedas = [
+      {nombre : 'SOLES', id: 1},
+      {nombre : 'DOLARES', id: 2}, 
+      {nombre : 'EUROS', id: 3}, 
+    ] 
+ 
+    public static arrayTipoComprobante = [
+      {nombre : 'APERTURA', id: 0},
+      {nombre : 'NORMAL', id: 1}, 
+      {nombre : 'AJUSTE', id: 2}, 
+      {nombre : 'CIERRE', id: 3}, 
+      {nombre : 'DIFERENCIA/CAMBIO', id: 4}, 
+      {nombre : 'AJUSTE-LIQUIDACION', id: 5}, 
+    ] 
   
   }
   

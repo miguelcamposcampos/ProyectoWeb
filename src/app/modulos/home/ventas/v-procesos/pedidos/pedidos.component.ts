@@ -188,7 +188,7 @@ export class PedidosComponent implements OnInit {
 
 
   onRetornar(event : any){
-    if(event === "exito"){
+    if(event){
       this.onLoadPedidos();
     }
     this.VistaNuevaVenta = false;

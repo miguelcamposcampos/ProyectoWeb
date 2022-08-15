@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs'; 
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
 import { ConfiguracionService } from 'src/app/modulos/home/configuracion/configuraciones/service/configuracion.service';
@@ -86,8 +86,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
     private configService: ConfiguracionService,
     private generalService : GeneralService,
     private swal : MensajesSwalService,
-    private readonly formatoFecha : DatePipe,
-    private config : PrimeNGConfig,
+    private readonly formatoFecha : DatePipe, 
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
     private spinner : NgxSpinnerService
@@ -182,8 +181,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
     })
   }
   
-  ngOnInit(): void { 
-    this.config.setTranslation(this.es)
+  ngOnInit(): void {  
     this.onCargarDropdown();  
     this.onTabsForm();
     if(this.dataOrdenCompra){ 

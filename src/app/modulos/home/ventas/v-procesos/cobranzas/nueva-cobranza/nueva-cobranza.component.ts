@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
 import { IConfiguracionEmpresa } from 'src/app/modulos/home/configuracion/configuraciones/interface/configuracion.interface';
 import { ConfiguracionService } from 'src/app/modulos/home/configuracion/configuraciones/service/configuracion.service';
@@ -48,15 +48,14 @@ export class NuevaCobranzaComponent implements OnInit {
 
   es = ConstantesGenerales.ES_CALENDARIO;
   dataConfiguracion : IConfiguracionEmpresa;
-  dataPredeterminadosDesencryptada:any;
+  dataPredeterminadosDesencryptada:any = JSON.parse(localStorage.getItem('Predeterminados')); 
 
   constructor(
     private cobranzaService : CobranzaService,
     private generalService : GeneralService,
     private ventaService : VentasService,
     private swal : MensajesSwalService,
-    private readonly formatoFecha : DatePipe,
-    private config : PrimeNGConfig,
+    private readonly formatoFecha : DatePipe, 
     private fb : FormBuilder, 
     private configService: ConfiguracionService,
   ) {
@@ -81,10 +80,8 @@ export class NuevaCobranzaComponent implements OnInit {
       arrayDetalle: this.fb.array([])
     })
   }
-  ngOnInit(): void {
-  
-    this.dataPredeterminadosDesencryptada = JSON.parse(localStorage.getItem('Predeterminados')); 
-    this.config.setTranslation(this.es);
+  ngOnInit(): void {  
+   
     this.onCargarDropdown();
 
     if(this.dataCobranza){
