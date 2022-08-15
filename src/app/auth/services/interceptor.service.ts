@@ -24,9 +24,12 @@ export class InterceptorService implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> { 
         request = request.clone({
-          setHeaders: {
+          setHeaders: {          
+         //   'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
+         //   Authorization: 
+          },
+         
         }); 
 
         return next.handle(request)

@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IAuth } from '../interface/auth.interface'; 
-import * as CryptoJS from 'crypto-js'; 
-import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';  
 import { switchMap } from 'rxjs/operators'; 
 
 @Injectable({
