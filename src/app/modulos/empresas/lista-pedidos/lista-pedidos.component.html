@@ -12,7 +12,7 @@
     </div>
 
     <div class="p-toolbar-group-right">
-      <button class="p-button-sm" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
+      <button class="p-button-generico-azul" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
         style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
       </button>
     </div>
@@ -29,22 +29,22 @@
         <div class="container">
           <div class="row">
             <div class="header-buscar-planes">
-              <div class="col-lg-3">
+              <div class="col-md-4">
                 <span class="p-input-icon-left">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text" class="p-inputtext-sm" placeholder="Buscar" size="25"
+                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
                     (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
                 </span>
               </div>
-              <div class="col-lg-3">
-                <button class="p-button-agregar-blue" pButton icon="pi pi-plus" label="Agregar" type="button"
+              <div class="col-md-4">
+                <button class="p-button-generico-agregar" pButton icon="pi pi-plus" label="Agregar" type="button"
                   tooltipPosition="left" pTooltip="Registrar Pedido" (click)="onRegistrarPedido()">
                 </button>
               </div>
 
-              <div class="col-lg-3">
+              <div class="col-md-4">
                 <button pButton (click)="onInformarPago()" tooltipPosition="top" type="button" pTooltip="Informar Pago"
-                  style="margin-left: 1%;" class="p-button-agregar-blue" label="Notificar" icon="pi pi-dollar">
+                  style="margin-left: 1%;" class="p-button-generico-agregar" label="Notificar" icon="pi pi-dollar">
                 </button>
               </div>
             </div>

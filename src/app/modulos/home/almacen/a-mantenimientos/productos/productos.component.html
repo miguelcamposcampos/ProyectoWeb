@@ -1,7 +1,7 @@
  
  <div *ngIf="!VistaNuevoProducto && !VistaReporte && !VistaSubirProductos">
-    <div class="Margintabla">
-        <div class="contenidoTable card"> 
+    <div class="margintabla">
+        <div class="contenidoTable card-box"> 
             <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
             </ngx-spinner>
@@ -14,7 +14,7 @@
                     
                     <div class="p-toolbar-group-right">
                         <button
-                            class="BorrarLabel p-button-sm" 
+                            class="p-button-registrar" 
                             type="button" 
                             pButton
                             (click)="onNuevoProducto()" 
@@ -26,7 +26,7 @@
                         </button>  
                         <p-tieredMenu #menu [model]="opcioneSplitNProducto" appendTo="body" [popup]="true"></p-tieredMenu>
                         <button #btn 
-                            class="BorrarLabel p-button-sm" 
+                            class="p-button-opciones" 
                             pTooltip="Opciones"
                             tooltipPosition="top" 
                             type="button" 
@@ -43,10 +43,10 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <strong for="firstname6">Descripción</strong>
-                                <input id="firstname6" formControlName="criterio" type="text" pInputText  class="p-inputtext-sm" placeholder="ingresa el nombre de un producto para buscar..."> 
-                                <br>  
+                                <input id="firstname6" formControlName="criterio" type="text" pInputText  class="p-inputtext-sm-clear-grey width-100" placeholder="ingresa el nombre de un producto para buscar..."> 
+                                <br><br>  
                                 <button pButton 
-                                type="button"type="button" label="Buscar"  class="p-button-sm"  icon="pi pi-search" (click)="onLoadProductos(null)"></button>
+                                type="button"type="button" label="Buscar"  class="p-button-generico-azul"  icon="pi pi-search" (click)="onLoadProductos(null)"></button>
                             </div>
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="filtoformCheck">

@@ -1,5 +1,5 @@
-<div class="Margintabla"> 
-    <div class="contenidoTable card">  
+<div class="margintabla"> 
+    <div class="contenidoTable card-box">  
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
         </ngx-spinner>
@@ -11,7 +11,7 @@
             
             <div class="p-toolbar-group-right">
                 <button  
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     pButton
                     type="button"
                     style="margin-right: 1%;"
@@ -22,7 +22,7 @@
                 </button>  
 
                 <button   
-                    class="p-button-sm"
+                    class="p-button-cancelar"
                     pButton
                     type="button"
                     style=" background-color: #D72250;"
@@ -39,21 +39,21 @@
 
        <!-- CABECERA FORMULARIO -->
         <form [formGroup]="Form">  
-            <div class="p-col-12"> 
+            <div class="p-col-12 formulario-campo-obligatorio"> 
                 <div class="p-fluid p-formgrid p-grid">
 
                     <div class="p-field p-col-12 p-md-3 p-sm-6">
-                        <strong>Establecimiento *:</strong>
+                        <strong>Establecimiento <span>*</span>:</strong>
                         <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event)" [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div> 
 
                     <div class="p-field p-col-12 p-md-3 p-sm-6">
-                        <strong>Documento *:</strong>
+                        <strong>Documento <span>*</span>:</strong>
                         <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event)" [options]="arrayDocumento" formControlName="documentoTcid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>  
 
                     <div class="p-field p-col-12 p-md-3  p-sm-6">
-                        <strong>Fecha Emisión *:</strong>
+                        <strong>Fecha Emisión <span>*</span>:</strong>
                         <p-calendar  
                             readonlyInput="true"
                             appendTo="body"
@@ -74,17 +74,17 @@
                     </div> 
 
                     <div class="p-field p-col-12 p-md-4  p-sm-6">
-                        <strong>Moneda *:</strong>
+                        <strong>Moneda <span>*</span>:</strong>
                         <p-dropdown class="DropExtenso" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>
     
                     <div class="p-field p-col-12 p-md-4 p-sm-6">
-                        <strong>Tipo Cambio *:</strong>
+                        <strong>Tipo Cambio <span>*</span>:</strong>
                         <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
                     </div>
     
                     <div class="p-field p-col-12 p-md-4  p-sm-6">
-                        <strong>Estado *:</strong>
+                        <strong>Estado <span>*</span>:</strong>
                         <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="nombre"></p-dropdown>     
                     </div>
                 </div> 

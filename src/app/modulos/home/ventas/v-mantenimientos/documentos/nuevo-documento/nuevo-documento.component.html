@@ -1,26 +1,26 @@
 <form [formGroup]="Form"> 
     <p-fieldset>
     <ng-template pTemplate="header">Datos Principales</ng-template>
-    <div class="p-col-12"> 
+    <div class="p-col-12 formulario-campo-obligatorio"> 
         <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12  p-lg-6 p-md-12">
                 <div class="formulario">    
-                    <strong>Codigo *:</strong>
-                    <input type="text" pInputText [minlength]="1" [maxLength]="3" placeholder="maximo 3 números"  formControlName="codigo" class="p-inputtext-sm">   
+                    <strong>Codigo <span>*</span>:</strong>
+                    <input type="text" pInputText [minlength]="1" [maxLength]="3" placeholder="maximo 3 números"  formControlName="codigo" class="p-inputtext-sm-clear-grey pd-5 width-100">   
                 </div>  
             </div>
 
             <div class="p-field p-col-12 p-lg-6 p-md-12">
                 <div class="formulario">    
-                    <strong>Sigas Documento *:</strong>
-                    <input type="text" pInputText [minlength]="1" [maxlength]="3" placeholder="maximo 3 caracteres"  formControlName="siglas" class="p-inputtext-sm">   
+                    <strong>Sigas Documento <span>*</span>:</strong>
+                    <input type="text" pInputText [minlength]="1" [maxlength]="3" placeholder="maximo 3 caracteres"  formControlName="siglas" class="p-inputtext-sm-clear-grey pd-5 width-100">   
                 </div>  
             </div>
 
             <div class="p-field p-col-12  p-lg-12 p-md-12">
                 <div class="formulario">   
-                    <strong>Nombre Documento *:</strong>
-                    <input type="text" pInputText formControlName="nombre" placeholder="ingres nombre de documento" class="p-inputtext-sm">  
+                    <strong>Nombre Documento <span>*</span>:</strong>
+                    <input type="text" pInputText formControlName="nombre" placeholder="ingres nombre de documento" class="p-inputtext-sm-clear-grey pd-5 width-100">  
                 </div>  
             </div> 
         </div>
@@ -58,6 +58,7 @@
                 </div>
 
                 <div class="p-field p-col-12 p-lg-4 p-md-6">
+                    
                     <div class="switches">   
                         <strong>Cotización:</strong>
                         <p-inputSwitch formControlName="cotizacion"></p-inputSwitch>
@@ -113,7 +114,7 @@
     
     <div class="botones">
         <button  
-            class="p-button-sm"
+            class="p-button-registrar"
             pButton
             type="button"
             [disabled]="Form.invalid"
@@ -125,7 +126,7 @@
         </button>  
 
         <button   
-            class="p-button-sm"
+            class="p-button-cancelar"
             pButton
             type="button"
             icon="pi pi-times-circle"

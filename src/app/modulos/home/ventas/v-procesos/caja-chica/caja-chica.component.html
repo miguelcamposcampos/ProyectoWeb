@@ -1,6 +1,6 @@
 <div *ngIf="!VistaNuevoCajaChica">
-    <div class="Margintabla">
-        <div class="contenidoTable card">  
+    <div class="margintabla">
+        <div class="contenidoTable card-box">  
             
             <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -17,7 +17,7 @@
                         type="button"
                         pTooltip="Agregar Nueva Caja Chica" tooltipPosition="top"
                         label="Agregar" 
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         (click)="onNuevo()" 
                         icon="pi pi-plus">
                     </button>   
@@ -25,7 +25,7 @@
             </p-toolbar>
  
             <form [formGroup]="FormBusqueda">
-                <div class="p-col-12"> 
+                <div class="p-col-12 "> 
                     <div class="p-fluid p-formgrid p-grid">  
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
                             <strong>Fecha Inicio:</strong>

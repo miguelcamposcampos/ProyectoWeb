@@ -1,6 +1,6 @@
 
 <div class="MarginModal"> 
-    <div class="contenidoTable card">  
+    <div class="contenidoTable card-box">  
 
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -17,7 +17,7 @@
                     type="button"
                     pTooltip="Agregar Nuevo Documento" tooltipPosition="top"
                     label="Agregar" 
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     (click)="onNuevo()" 
                     icon="pi pi-plus">
                 </button>       
@@ -29,14 +29,14 @@
             <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-6">
                     <strong for="firstname6">Nombre</strong>
-                    <input [formControl]="nombre"  class="p-inputtext-sm" placeholder="buscar..." type="text" pInputText>        
+                    <input [formControl]="nombre"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Buscar..." type="text" pInputText>        
                 </div>
                 <div class="p-field p-col-12 p-md-4">
                     <strong for="firstname6">Siglas</strong>
-                    <input [formControl]="siglas"  class="p-inputtext-sm" placeholder="buscar..." type="text" pInputText>        
+                    <input [formControl]="siglas"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Buscar..." type="text" pInputText>        
                 </div>
                 <div class="p-field p-col-12 p-md-2">       
-                    <button pButton label="Buscar"  type="button" class="p-button-sm" icon="pi pi-search" (click)="onLoadDocumentos()"></button>
+                    <button pButton label="Buscar"  type="button" class="p-button-generico-azul" icon="pi pi-search" (click)="onLoadDocumentos()"></button>
                 </div>
             </div>
         </div>

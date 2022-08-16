@@ -11,7 +11,7 @@
                         <h3> <i class="fa-solid fa-swatchbook"></i> <strong> Asientos Diario </strong></h3>
                     </div>
                     <div class="p-toolbar-group-right">
-                        <button class="p-button-sm p-button-agregar" pButton type="button" icon="pi pi-plus"
+                        <button class="p-button-registrar" pButton type="button" icon="pi pi-plus"
                             label="Agregar" tooltipPosition="left" pTooltip="Registrar una cuenta"
                             (click)="onAdd()">
                         </button>
@@ -43,14 +43,14 @@
                             </div> 
 
                             <div class="p-field p-col-12 p-md-2 botonBuscar"> 
-                                <button pButton label="Buscar" type="button"  class="p-button-sm"  icon="pi pi-search" (click)="onLoad(null)"></button>
+                                <button pButton label="Buscar" type="button"  class="p-button-busqueda"  icon="pi pi-search" (click)="onLoad(null)"></button>
                             </div> 
                         </div> 
                     </div> 
                 </form>
 
                 <div class="row">
-                    <div class="tablas-empresas">
+                    <div class="tablas-empresas width-100">
                         <p-table 
                             [columns]="cols" 
                             responsiveLayout="stack" 

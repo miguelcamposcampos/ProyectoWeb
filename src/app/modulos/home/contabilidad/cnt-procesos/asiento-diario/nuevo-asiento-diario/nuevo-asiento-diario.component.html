@@ -1,4 +1,4 @@
- <div class="contenidoTable card">  
+ <div class="contenidoTable card-box">  
       
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -10,7 +10,7 @@
             </div> 
             <div class="p-toolbar-group-right">   
                 <button  
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     pButton
                     style="margin-right: 1%;"
                     type="button"
@@ -20,7 +20,7 @@
                     icon="pi pi-check-circle">  
                 </button>   
                 <button   
-                    class="p-button-sm"
+                    class="p-button-cancelar"
                     pButton
                     type="button"
                     icon="pi pi-times-circle"
@@ -39,10 +39,10 @@
 
         <form [formGroup]="Form">        
             <div class="p-col-12"> 
-                <div class="p-fluid p-formgrid p-grid">  
+                <div class="p-fluid p-formgrid p-grid formulario-campo-obligatorio">  
 
                     <div class="p-field p-col-12 p-lg-5 p-md-6">
-                        <strong>Tipo Documento <span style="color: red">*</span></strong>
+                        <strong>Tipo Documento <span>*</span></strong>
                         <p-dropdown class="DropExtenso"
                             [options]="arrayTipoDoc"
                             formControlName="documentoid"  
@@ -53,7 +53,7 @@
                     </div>
  
                     <div class="p-field p-col-12 p-lg-5 p-md-6">
-                        <strong>Tipo Comprobante <span style="color: red">*</span></strong>
+                        <strong>Tipo Comprobante <span>*</span></strong>
                         <p-dropdown class="DropExtenso"
                             [options]="arrayTipoComprobante"
                             formControlName="tipocomprobanteid"  
@@ -64,7 +64,7 @@
                     </div>
                     
                     <div class="p-field p-col-12 p-lg-2 p-md-4">
-                        <strong>Fecha<span style="color: red">*</span></strong>
+                        <strong>Fecha<span>*</span></strong>
                         <p-calendar  
                             readonlyInput="true"
                             [showIcon]="true"
@@ -74,12 +74,12 @@
                     </div> 
  
                     <div class="p-field p-col-12 p-lg-3 p-md-4">
-                        <strong>Tipo Cambio <span style="color: red">*</span></strong>
+                        <strong>Tipo Cambio <span>*</span></strong>
                         <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio()" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
                     </div>
 
                     <div class="p-field p-col-12 p-lg-3 p-md-4">
-                        <strong>Moneda <span style="color: red">*</span></strong>
+                        <strong>Moneda <span>*</span></strong>
                         <p-dropdown class="DropExtenso"
                             (onChange)="onRefrescarCalculosPorTipoCambio();"
                             [options]="arrayMonedas"
@@ -91,7 +91,7 @@
                     </div>
     
                     <div class="p-field p-col-12 p-lg-6 p-md-12">
-                        <strong>Nombre <span style="color: red">*</span></strong>
+                        <strong>Nombre <span>*</span></strong>
                         <input  type="text" pInputText  formControlName="nombrediario" class="p-inputtext-sm" placeholder="ingresar una glosa">
                     </div>
                      

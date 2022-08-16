@@ -1,7 +1,7 @@
  
  <div *ngIf="!VistaNuevoCliente">
-    <div class="Margintabla"> 
-        <div class="contenidoTable card">  
+    <div class="margintabla"> 
+        <div class="contenidoTable card-box">  
 
             <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -19,7 +19,7 @@
                         pTooltip="Agregar Nuevo Cliente" tooltipPosition="top"
                         type="button"
                         label="Agregar" 
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         (click)="onNuevoCliente()" 
                         icon="pi pi-plus">
                     </button>   
@@ -30,14 +30,14 @@
                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
                    <div class="p-field p-col-12 p-md-5">
                        <strong for="firstname6">Razón Social:</strong>
-                       <input class="p-inputtext-sm" placeholder="buscar..." [formControl]="razonsocial" type="text" pInputText>        
+                       <input class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Buscar..." [formControl]="razonsocial" type="text" pInputText>        
                    </div>
                    <div class="p-field p-col-12 p-md-5">
                     <strong for="firstname6">Nro. Documento</strong>
-                    <input class="p-inputtext-sm" placeholder="buscar..." [formControl]="nrodoc" type="text" pInputText>        
+                    <input class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Buscar..." [formControl]="nrodoc" type="text" pInputText>        
                 </div>
                    <div class="p-field p-col-12 p-md-2">       
-                       <button pButton label="Buscar" type="button" class="p-button-sm" icon="pi pi-search" (click)="onLoadClientes(null)"></button>
+                       <button pButton label="Buscar" type="button" class="p-button-generico-azul" icon="pi pi-search" (click)="onLoadClientes(null)"></button>
                    </div>
                </div>
            </div>

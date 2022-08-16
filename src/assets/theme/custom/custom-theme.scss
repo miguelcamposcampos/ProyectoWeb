@@ -460,7 +460,6 @@
 
     text-align: center;
     margin: 0 auto;
-    margin-top: 25px;
     background: white;
     padding: 20px;
     border-radius: 20px;
@@ -468,8 +467,11 @@
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
     display: flex;
     align-items: center;
+    width: 78%;
 
 }
+
+
 
 ::ng-deep .p-datatable .p-datatable-tbody>tr.p-highlight {
     background: #a3a9af;
@@ -528,7 +530,7 @@
     padding: 30px 20px;
     box-sizing: border-box;
     border-radius: 16px;
-    width: 1024px;
+    width: 100%;
     margin: auto;
     box-shadow: 0 16px 26px 0 rgb(0 0 0 / 29%);
 }
@@ -835,4 +837,16 @@ p-inputmask {
 
 .fondo-gris {
     background: #dedfe1;
+}
+
+.width-100 {
+    width: 100%!important;
+}
+
+.pd-5 {
+    padding: 5px 15px !important;
+}
+
+.p-dropdown-trigger-icon {
+    color: #515C66!important;
 }

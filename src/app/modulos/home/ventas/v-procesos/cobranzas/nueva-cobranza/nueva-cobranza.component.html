@@ -1,7 +1,7 @@
 <div *ngIf="!VistaReporte && !VistaBuscarPendiente"> 
 
 <div class="margintabla"> 
-    <div class="contenidoTable card">  
+    <div class="contenidoTable card-box">  
         <form [formGroup]="Form">  
             <p-toolbar>
                 <div class="p-toolbar-group-left">
@@ -21,7 +21,7 @@
                     </button>   
                    
                     <button  
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         pButton
                         style="margin-right: 1%;"
                         type="button"
@@ -31,7 +31,7 @@
                         icon="pi pi-check-circle">  
                     </button>   
                     <button   
-                        class="p-button-sm"
+                        class="p-button-cancelar"
                         pButton
                         type="button"
                         icon="pi pi-times-circle"
@@ -47,15 +47,15 @@
                 <h3> N° REGISTRO:  <strong> {{CobranzaEditar.nroRegistro}} </strong></h3>    
             </div>
             
-            <div class="p-col-12"> 
+            <div class="p-col-12 formulario-campo-obligatorio"> 
                 <div class="p-fluid p-formgrid p-grid"> 
                     <div class="p-field p-col-12 p-md-3"> 
-                        <strong>Tipo Documento <span style="color: red">*</span></strong>
+                        <strong>Tipo Documento <span>*</span></strong>
                         <p-dropdown class="DropExtenso" [options]="arrayTipoRegistro" formControlName="documentoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>  
                     </div>
 
                     <div class="p-field p-col-12 p-md-3">
-                        <strong>Fecha<span style="color: red">*</span></strong>
+                        <strong>Fecha<span >*</span></strong>
                         <p-calendar  
                             readonlyInput="true"
                             [showIcon]="true"
@@ -65,22 +65,22 @@
                     </div> 
 
                     <div class="p-field p-col-12 p-md-3">
-                        <strong>Moneda <span style="color: red">*</span></strong>
+                        <strong>Moneda <span >*</span></strong>
                         <p-dropdown class="DropExtenso" [disabled]="bloquearCampos" [options]="arrayMonedas" formControlName="moneda"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>
 
                     <div class="p-field p-col-12 p-md-3">
-                        <strong>Tipo Cambio <span style="color: red">*</span></strong>
+                        <strong>Tipo Cambio <span >*</span></strong>
                         <input  type="text" pInputText [readonly]="bloquearCampos" [minLength]="1" [maxlength]="5" formControlName="tipoCambio" class="p-inputtext-sm" placeholder="0.00">     
                     </div>
 
                     <div class="p-field p-col-12 p-md-9">
-                        <strong>Medio de Pago <span style="color: red">*</span></strong>
+                        <strong>Medio de Pago <span >*</span></strong>
                         <p-dropdown class="DropExtenso" [options]="arrayMedioPago" formControlName="medioPago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>
 
                     <div class="p-field p-col-12 p-md-3">
-                        <strong>Estado <span style="color: red">*</span></strong>
+                        <strong>Estado <span >*</span></strong>
                         <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estado"  placeholder="Selecciona "  [showClear]="true"  optionLabel="nombre"></p-dropdown>     
                     </div>
                     
