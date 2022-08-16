@@ -1,7 +1,7 @@
  
  <div *ngIf="!VistaNuevoTransportista && !VistaNuevoChofer && !VistaNuevoUnidadTransporte">
-    <div class="Margintabla">
-        <div class="contenidoTable card"> 
+    <div class="margintabla">
+        <div class="contenidoTable card-box"> 
          
           <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
@@ -29,7 +29,7 @@
  
          
             
-        <div class="card" [responsive]="true"> 
+      
             <p-table 
             [value]="listTransportistas" 
             dataKey="id" 
@@ -258,7 +258,7 @@
                 </ng-template>
             </p-table>
               
-            </div>     
+            
         </div> 
     </div>  
      

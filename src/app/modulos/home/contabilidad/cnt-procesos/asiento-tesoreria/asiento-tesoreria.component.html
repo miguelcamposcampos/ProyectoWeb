@@ -11,7 +11,7 @@
                         <h3> <i class="fa-solid fa-money-check-dollar"></i><strong> Asientos Tesorería </strong></h3>
                     </div>
                     <div class="p-toolbar-group-right">
-                        <button class="p-button-sm p-button-agregar" pButton type="button" icon="pi pi-plus"
+                        <button class="p-button-registrar" pButton type="button" icon="pi pi-plus"
                             label="Agregar" tooltipPosition="left" pTooltip="Registrar una cuenta"
                             (click)="onAdd()">
                         </button>
@@ -50,7 +50,7 @@
                 </form>
 
                 <div class="row">
-                    <div class="tablas-empresas">
+                    <div class="tablas-empresas width-100"> 
                         <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single"
                             [rowHover]="true" [value]="list">
 
