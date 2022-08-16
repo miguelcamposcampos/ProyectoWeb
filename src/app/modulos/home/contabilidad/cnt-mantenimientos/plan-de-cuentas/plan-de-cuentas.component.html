@@ -13,14 +13,9 @@
                     <h3> <i class="fa-solid fa-folder-tree"></i> <strong> Planes de Cuentas </strong></h3> 
                 </div>
                 <div class="p-toolbar-group-right">
-                    <button    
-                        class="p-button-sm p-button-agregar"
-                        pButton
-                        type="button"
-                        icon="pi pi-plus"
-                        label="Agregar"
-                        tooltipPosition="left"
-                        pTooltip="Registrar un plan"
+                    <button class="p-button-registrar" pButton type="button"
+                        icon="pi pi-plus" label="Agregar"
+                        tooltipPosition="left" pTooltip="Registrar un plan"
                         [disabled]="!nroCuentaBuscar.value"
                         (click)="onAdd()">  
                     </button> 
@@ -35,12 +30,11 @@
                         pTooltip="Subir plan"
                         (click)="onUpload()">  
                     </button> 
-
                 </div>
             </p-toolbar>
 
-            <div class="row"> 
-                <div class="header-buscar-empresas"> 
+            <div class="row">
+                <div class="tablas-empresas width-100">
                     <div class="col-lg-6">
                         <div *ngIf="nombrePlanCuenta">
                             <strong> {{ nombrePlanCuenta }}</strong> 
@@ -74,7 +68,7 @@
             </div>
 
             <div class="row">
-                <div class="tablas-empresas">
+                <div class="tablas-empresas width-100">
                     <p-table #dt 
                     [columns]="cols" 
                     responsiveLayout="stack"

@@ -13,7 +13,7 @@
                         <h3> <i class="fa-solid fa-arrow-up-a-z"></i> <strong> Cuentas Mayores </strong></h3>
                     </div>
                     <div class="p-toolbar-group-right">
-                        <button class="p-button-sm p-button-agregar" pButton type="button" icon="pi pi-plus"
+                        <button class="p-button-registrar" pButton type="button" icon="pi pi-plus"
                             label="Agregar" tooltipPosition="left" pTooltip="Registrar una cuenta"
                             (click)="onAdd()">
                         </button>
@@ -22,7 +22,7 @@
 
 
                 <div class="row">
-                    <div class="header-buscar-empresas">
+                    <div class="tablas-empresas width-100"> 
                         <div class="col-lg-6">
                             <div class="column-empresas-left">
                                 <span class="p-input-icon-left">
@@ -32,12 +32,12 @@
                                         (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
                                 </span>
                             </div>
-                        </div>
-
+                        </div> 
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="tablas-empresas">
+                    <div class="tablas-empresas width-100">
                         <p-table #dt [columns]="cols" [paginator]="true" 
                         [rows]="20" responsiveLayout="stack" selectionMode="single"
                             [rowHover]="true" [value]="list">

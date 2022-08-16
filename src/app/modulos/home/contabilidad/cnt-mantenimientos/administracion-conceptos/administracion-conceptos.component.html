@@ -13,13 +13,9 @@
                         <h3> <i class="fa-brands fa-hubspot"></i> <strong>  Administracion de Conceptos </strong></h3> 
                     </div>
                     <div class="p-toolbar-group-right">
-                        <button    
-                            class="p-button-sm p-button-agregar"
-                            pButton
-                            type="button"
-                            icon="pi pi-plus"
-                            label="Agregar"
-                            tooltipPosition="left"
+                        <button class="p-button-registrar" pButton
+                            type="button" icon="pi pi-plus"
+                            label="Agregar" tooltipPosition="left"
                             pTooltip="Registrar un plan" 
                             (click)="onAdd()">  
                         </button> 
@@ -28,7 +24,7 @@
 
 
                 <div class="row">
-                    <div class="tablas-empresas">
+                    <div class="tablas-empresas width-100">
                         <p-table #dt 
                         [columns]="cols" 
                         responsiveLayout="stack"
