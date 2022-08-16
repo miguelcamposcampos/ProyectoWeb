@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';  
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
@@ -18,7 +18,8 @@ import { VentasService } from '../service/venta.service';
   templateUrl: './nueva-venta.component.html',
   styleUrls: ['./nueva-venta.component.scss']
 })
-export class NuevaVentaComponent implements OnInit {
+export class NuevaVentaComponent implements OnInit  {
+
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   public FlgLlenaronComboParaActualizar: Subject<boolean> = new Subject<boolean>();
   @Input() dataVenta : any;
@@ -106,6 +107,10 @@ export class NuevaVentaComponent implements OnInit {
   dataPredeterminadosDesencryptada:any = JSON.parse(localStorage.getItem('Predeterminados')); 
   porcentajebolsaplasticaLS : any;
 
+
+  configActive: boolean = true;  
+  configActive2: boolean = false;
+
   constructor(
     private ventaservice : VentasService,
     private generalService : GeneralService,
@@ -114,7 +119,8 @@ export class NuevaVentaComponent implements OnInit {
     private readonly formatoFecha : DatePipe,  
     private fb : FormBuilder,
     private cdr: ChangeDetectorRef,
-    private spinner : NgxSpinnerService
+    private spinner : NgxSpinnerService,
+    public renderer: Renderer2
   ) { 
     this.builform();
 
@@ -185,6 +191,18 @@ export class NuevaVentaComponent implements OnInit {
 
   }
  
+ 
+  onConfigButtonClick(event) {
+    this.configActive = !this.configActive; 
+  }
+
+
+  onConfigButtonClick2(event) {
+    this.configActive2 = !this.configActive2; 
+  }
+
+ 
+
   onCargarDatosdeConfiguracion(){
     this.configService.listadoConfiguraciones().subscribe((resp) => {
       if(resp){
@@ -212,7 +230,9 @@ export class NuevaVentaComponent implements OnInit {
     });
   }
  
-  ngOnInit(): void {     
+  ngOnInit(): void {   
+    this.onConfigButtonClick(true);  
+
     this.onCargarDropdown();
     if(this.dataVenta){
       this.tituloNuevaVenta = "EDITAR VENTA"

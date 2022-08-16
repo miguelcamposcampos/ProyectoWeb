@@ -15,22 +15,23 @@ export class ReportesContabilidadService{
         private http : HttpClient
     ){}
 
-    generarReporteAnalisisCuenta(data: any){ 
-        let params = new HttpParams();
-        params = params.append('fechaHasta', data.fechaHasta); 
-        params = params.append('nrodocanexo', data.nrodocanexo); 
-        params = params.append('solocondetalle', data.solocondetalle);  
-        params = params.append('filtroCuentas', null);   
-        return this.http.post<IModuloReporteContabilidad>(`${this.apireporte991}/ReportingContabilidad/ObtenerReporteAnalisisCuentas?tipoPresentacion=${data.tipoPresentacion}`, params);
+    generarReporteAnalisisCuenta(data: any){   
+        let OjbParams = {
+            fechaHasta:  data.fechaHasta,
+            nrodocanexo: data.nrodocanexo,
+            solocondetalle: data.solocondetalle
+        }
+
+        return this.http.post<IModuloReporteContabilidad>(`${this.apireporte991}/ReportingContabilidad/ObtenerReporteAnalisisCuentas?tipoPresentacion=${data.tipoPresentacion}`, OjbParams);
     }  
  
     /* PDF Y EXCEL DE SUNAT */
-    generarReporteAnalisisCuentaAnalitico(data: any): Observable<any>{
-        let params = new HttpParams();
-        params = params.append('fechaHasta', data.fechaHasta); 
-        params = params.append('nrodocanexo', data.nrodocanexo); 
-        params = params.append('solocondetalle', data.solocondetalle);   
-        params = params.append('filtroCuentas', null );   
-        return this.http.post<IModuloReporteContabilidad>(`${this.apireporte991}/ReportingContabilidad/ObtenerReporteAnalisisCuentasAnalitico?tipoPresentacion=${data.tipoPresentacion}&agrupamiento=${data.agrupamiento}`, params );
+    generarReporteAnalisisCuentaAnalitico(data: any): Observable<any>{ 
+        let OjbParams = {
+            fechaHasta:  data.fechaHasta,
+            nrodocanexo: data.nrodocanexo,
+            solocondetalle: data.solocondetalle
+        }
+        return this.http.post<IModuloReporteContabilidad>(`${this.apireporte991}/ReportingContabilidad/ObtenerReporteAnalisisCuentasAnalitico?tipoPresentacion=${data.tipoPresentacion}&agrupamiento=${data.agrupamiento}`, OjbParams );
     }   
-}
+}''

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PrimeNGConfig } from 'primeng/api';
@@ -49,9 +49,9 @@ export class AnalisisCuentaAnaliticoComponent implements OnInit {
 
   public builform(){ 
     this.Form = new FormGroup({ 
-      fechaHasta : new FormControl(new Date),  
+      fechaHasta : new FormControl(new Date, Validators.required),  
       nrodocanexo : new FormControl(""),
-      agrupamiento : new FormControl(null),
+      agrupamiento : new FormControl( {nombre : 'PorAnexo'}, Validators.required),
       solocondetalle : new FormControl(false),
     })
   }
