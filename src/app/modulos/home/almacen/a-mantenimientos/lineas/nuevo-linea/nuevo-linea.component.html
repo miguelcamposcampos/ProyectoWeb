@@ -26,9 +26,11 @@
         </div>
         <div class="p-field p-col-12">
             <strong *ngIf="mostrarcomboUnesco">Lista Producto</strong>
-            <p-dropdown *ngIf="mostrarcomboUnesco" class="extender" (onChange)="onSeleccionoProductoUnesco($event)"
+            <div class="p-field p-col-12 dropdown-full">
+            <p-dropdown *ngIf="mostrarcomboUnesco" class="extender dropdown-full" (onChange)="onSeleccionoProductoUnesco($event)"
                 [options]="arrayUnescoData" formControlName="codigoUnesco" placeholder="Selecciona un producto"
                 [showClear]="true" optionLabel="DescriptionES"></p-dropdown>
+            </div>
         </div>
     </p-fieldset>
 
