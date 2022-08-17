@@ -507,6 +507,7 @@
     grid-template-columns: 14rem 20rem;
     justify-content: center;
     margin-top: 25px;
+    align-items: center;
 }
 
 
@@ -525,14 +526,13 @@
 }
 
 .card-box {
-
     background: #ffffff;
     padding: 30px 20px;
     box-sizing: border-box;
     border-radius: 16px;
     width: 100%;
     margin: auto;
-    box-shadow: 0 16px 26px 0 rgb(0 0 0 / 29%);
+    box-shadow: 0 0 10px 5px rgb(0 0 0 / 29%);
 }
 
 .elegirOpciones {
@@ -556,7 +556,7 @@
 }
 
 
-.formulario-campo-obligatorio span {
+.formulario-campo-obligatorio strong span {
     color: red;
 }
 
@@ -850,3 +850,72 @@ p-inputmask {
 .p-dropdown-trigger-icon {
     color: #515C66!important;
 }
+
+.p-fieldset-form  p-fieldset legend {
+    padding: 1rem 2rem !important;
+    border: 1px solid #E4E5E5;
+    color: #515C66;
+    background: #E1E1E1!important;
+    font-weight: 600;
+    border-radius: 3px;
+    margin: auto!important;
+}
+
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > div .layout-menuitem-text {
+    color: white!important;
+    font-weight: bold!important;
+    background: #4DA8DE!important;
+    padding: 10px!important;
+    border-radius: 10px!important;
+}
+
+.menu-wrapper .layout-menu-container .layout-menu li > ul {
+    background: #d3edfc!important;
+    border-radius: 10px!important;
+    margin-top: 25px!important;
+}
+
+.menu-wrapper .layout-menu-container {
+    overflow: auto;
+    height: 100%;
+    background: #ffffff!important;
+
+}
+
+.menu-wrapper .layout-menu-container .layout-menu li > a .layout-menuitem-text {
+    margin: 0 11px;
+    color: #585454!important;
+    font-weight: 600!important;
+}
+
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > ul li a i {
+    color: #1b74c5!important;
+}
+
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > ul li a:hover {
+    background-color: #aac0cd!important;
+    font-weight: bold;
+    color: #f16383!important;
+    font-size: 16px;
+}
+
+
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > ul li.active-menuitem > a {
+    background-color: #a4c4d7!important;
+    color: #ffffff!important;
+}
+
+body.main-body {
+    background: #f7f7f7!important;
+}
+
+.p-tabview .p-tabview-nav {
+    background: #f7f7f7!important;
+    border: 0!important;
+
+}
+
+.p-tabview .p-tabview-panels {
+    display: none;
+}
+

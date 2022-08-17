@@ -3,7 +3,7 @@
         <div class="layout-topbar-left">
             <div class="layout-topbar-logo" id="logolink" style="cursor: pointer; outline: none;">
                 <img id="app-logo"
-                     src="assets/layout/images/logo_color.png"
+                     src="assets/layout/images/logotipo.svg"
                      alt="poseidon-layout">
                       <!-- <strong>  TI SOLUCIONES</strong> -->
             </div>
@@ -23,10 +23,9 @@
                 <li #profile class="topbar-item user-profile"
                     [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
                     <a href="#" (click)="appMain.onTopbarItemClick($event,profile)"> 
-                        <img  src="assets/layout/images/avatar-profile.png" alt="demo">
                         <div class="profile-info">
-                            <h6>{{usuariologeado}}</h6>
-                            <span>{{rolUsuario}}</span>
+                            <span>{{rolUsuario}}  <i class="pi pi-chevron-down"></i></span>
+                           
                         </div>
                     </a>
 

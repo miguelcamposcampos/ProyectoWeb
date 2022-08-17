@@ -1,5 +1,5 @@
 
-<div class="p-dialog-tipo-modal">
+<div class="p-dialog-tipo-modal p-fieldset-form formulario-campo-obligatorio">
 
 <form [formGroup]="Form">
 
@@ -8,7 +8,7 @@
         <ng-template pTemplate="header">PROPIEDADES</ng-template>
 
         <div class="p-field p-col-12">
-            <strong>Nombre <span style="color: red;"> *</span> </strong>
+            <strong>Nombre <span> *</span> </strong>
             <div class="p-inputgroup">
             <input type="text" pInputText formControlName="nombreLinea" class="p-inputtext-sm-clear"
                 placeholder="ingresar un nombre de linea">
