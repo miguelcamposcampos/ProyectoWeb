@@ -2,10 +2,840 @@
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
+    <form [formGroup]="Form">
+            <div class="row">
+                <div  [ngClass]="{'column-md-11': changeCols, 'column-md-8': !changeCols }"> 
+                    <div class="container-fluid">
+                        <div class="card-box">
+                            <p-toolbar>
+                                <div class="p-toolbar-group-left">
+                                    <h3> <i class="fas fa-cart-plus"></i> {{ tituloNuevaVenta}} </h3>
+                                </div>
 
+                                <div class="p-toolbar-group-right">
+                                    <button *ngIf="mostrarOpcionesEditar" pButton class="BorrarLabel p-button-sm"
+                                        type="button" style="margin-right: 1%;" pTooltip="Cobrar" tooltipPosition="top"
+                                        (click)="onCobrar()" label="Cobrar" icon="fas fa-coins"></button>
+                                    <p-tieredMenu #menu [model]="opcionesNuevaVenta" appendTo="body" [popup]="true">
+                                    </p-tieredMenu>
+                                    <button #btn *ngIf="mostrarOpcionesEditar" style="margin-right: 1%;"
+                                        class="BorrarLabel p-button-sm" type="button" pButton label="Opciones"
+                                        icon="pi pi-cog" (click)="menu.toggle($event)"></button>
+
+                                    <button class="p-button-registrar" pButton type="button" [disabled]="Form.invalid"
+                                        [label]=" (!VentaEditar) ? 'Grabar' : 'Actualizar'" style="margin-right: 1%;"
+                                        (click)="onGrabar()" icon="pi pi-check-circle">
+                                    </button>
+
+                                    <button class="p-button-cancelar" pButton type="button" icon="pi pi-times-circle"
+                                        label="Cancelar" style=" background-color: #D72250;" (click)="onRegresar()">
+                                    </button>
+
+                                </div>
+                            </p-toolbar>
+
+                            <div *ngIf="existenroRegsitro" class="centrar">
+                                <h3> N° REGISTRO: <strong> {{VentaEditar.nroRegistro}} </strong></h3>
+                            </div>
+         
+                            <div class="p-col-12">
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="row formulario-campo-obligatorio">
+                                        <div class="p-field p-col-4">
+                                            <strong>Establecimiento <span>*</span></strong>
+                                            <p-dropdown class="DropExtenso fondo-gris"
+                                                (onChange)="onObtenerEstablecimiento($event)"
+                                                [options]="arrayEstablecimiento" formControlName="establecimientoid"
+                                                placeholder="Selecciona " [showClear]="true" optionLabel="valor1">
+                                            </p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-4">
+                                            <strong>Tipo Documento <span>*</span></strong>
+                                            <p-dropdown class="DropExtenso fondo-gris"
+                                                [disabled]="!existeEstablecimientoSeleccionado"
+                                                (onChange)="onObtenerTipoDocumento($event.value)"
+                                                [options]="arrayTipoDocumento" formControlName="documentoid"
+                                                placeholder="Selecciona" [showClear]="true" optionLabel="valor2">
+                                            </p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-4 fondo-gris" style="margin-top:18px">
+                                            <p-dropdown class="extender" [options]="arraySeriePorDocumento"
+                                                formControlName="serieventa" placeholder="Selecciona"
+                                                [showClear]="true" optionLabel="valor1"></p-dropdown>
+
+                                        </div>
+
+                                        <div class="p-field p-col-2">
+                                            <input type="number" disabled pInputText
+                                                class="p-inputtext-sm-clear-grey number-clear"
+                                                formControlName="secuencialventa" placeholder="ingresar">
+                                        </div>
+                                    </div>
+
+                                    <div class="row formulario-campo-obligatorio">
+                                        <div class="p-field p-col-7">
+                                            <strong>Cliente <span>*</span></strong>
+                                            <input type="text"
+                                                (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)"
+                                                [minlength]="8" [maxLength]="11"
+                                                formControlName="nrodocumentocliente" pInputText
+                                                class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                                placeholder="busca un cliente">
+                                            <button type="button" pTooltip="Buscar" class="p-button-blue-light"
+                                                tooltipPosition="left" (click)="onBuscarCliente();" pButton
+                                                icon="pi pi-search"></button>
+                                            <button *ngIf="existeClienteSeleccionado" type="button"
+                                                pTooltip="Buscar" style=" background-color: #D72250;"
+                                                class="p-button-blue-light-buscar" tooltipPosition="left"
+                                                (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>
+                                        </div>
+
+                                        <div *ngIf="existeDireccionCliente" class="p-field p-col-12">
+                                            <strong>Dirección Cliente</strong>
+                                            <input type="text" readonly formControlName="direccioncliente"
+                                                pInputText class="p-inputtext-sm"
+                                                placeholder="dirección un cliente">
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="row formulario-campo-obligatorio">
+                                        <div class="p-field p-col-3">
+                                            <strong>Fecha Emisión <span>*</span></strong>
+                                            <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
+                                                formControlName="fechaemision"></p-calendar>
+                                        </div>
+
+                                        <div class="p-field p-col-3">
+                                            <strong>Fecha Vencimiento</strong>
+                                            <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
+                                                formControlName="fechavencimiento"></p-calendar>
+                                        </div>
+
+                                        <div class="p-field p-col-3">
+                                            <strong>Moneda <span>*</span></strong>
+                                            <p-dropdown class="DropExtenso" [options]="arrayMonedas"
+                                                formControlName="monedaid" placeholder="Selecciona "
+                                                [showClear]="true" optionLabel="valor1"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-3">
+                                            <strong>Tipo Cambio</strong>
+                                            <input type="number" pInputText formControlName="tipocambio"
+                                                class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div> -->
+
+                                    <div class="row formulario-campo-obligatorio">
+                                        <div class="p-field p-col-3">
+                                            <strong>Condición Pago <span>*</span></strong>
+                                            <div class="p-inputgroup">
+                                                <p-dropdown class="extender"
+                                                    (onChange)="onObtenerCondicionPago($event.value.valor1)"
+                                                    [options]="arrayCondicionPago" formControlName="condicionpagoid"
+                                                    placeholder="Selecciona " [showClear]="true"
+                                                    optionLabel="valor1">
+                                                </p-dropdown>
+                                                <button type="button" *ngIf="existeCondicionPagoCredito"
+                                                    pTooltip="Agregar Cuotas" class="p-button-sm"
+                                                    tooltipPosition="left" (click)="onModalDetalleCondicionPago()"
+                                                    pButton icon="pi pi-plus"></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="p-field p-col-3">
+                                            <strong>Estado</strong>
+                                            <p-dropdown class="DropExtenso" [options]="arrayEstado"
+                                                formControlName="estadoid" placeholder="Selecciona "
+                                                [showClear]="true" optionLabel="nombre"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-3">
+                                            <strong>Concepto</strong>
+                                            <p-dropdown class="DropExtenso" [options]="arrayCoceptos"
+                                                formControlName="conceptocontableid" placeholder="Selecciona "
+                                                [showClear]="true" optionLabel="valor1"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field p-col-3">
+                                            <strong>Tipo Operación <span>*</span></strong>
+                                            <p-dropdown class="DropExtenso" [options]="arrayTipoOperacion"
+                                                formControlName="codtipooperacion" placeholder="Selecciona "
+                                                [showClear]="true" optionLabel="valor1"></p-dropdown>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-field p-col-12">
+                                        <strong>Glosa</strong>
+                                        <input type="text" pInputText formControlName="glosa"
+                                            class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                            placeholder="ingresar una glosa">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FORM ARRAY DEL DETALLE CONDICION DE PAGO -->
+                            <div *ngIf="modalDetallesCondicionPago">
+                                <p-dialog header="DETALLE FORMA DE PAGO" [(visible)]="modalDetallesCondicionPago"
+                                    [modal]="true" [style]="{width: '400px'}">
+                                    <div>
+                                        <div style="margin: 3%;">
+                                            <p-table class="TablaDetalleCondicionPago"
+                                                [value]="detallesCondicionPago" [scrollable]="true"
+                                                responsiveLayout="stack">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th style="width: 80px;">Cuota</th>
+                                                        <th style="width: 85px;">Importe</th>
+                                                        <th style="width: 150px;">Fec.Pago</th>
+                                                        <th style="width: 50px;">Acción</th>
+                                                    </tr>
+                                                </ng-template>
+
+                                                <ng-template pTemplate="body" let-detalles let-rowIndex="rowIndex"
+                                                    formArrayName="arrayDetallesCondicionPago">
+                                                    <tr [formGroupName]="rowIndex">
+                                                        <td>
+                                                            <strong class="p-column-title">Nro</strong>
+                                                            <span style="width: 60px;">Nro: {{rowIndex + 1 | number
+                                                                :
+                                                                '3.0-0'}}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <strong class="p-column-title">Importe</strong>
+                                                            <input type="number" style="width: 80px;" [min]="0"
+                                                                class="p-inputtext-sm" pInputText
+                                                                formControlName="importepagocuota">
+                                                        </td>
+                                                        <td>
+                                                            <strong class="p-column-title">Fec.Pago</strong>
+                                                            <p-calendar readonlyInput="true" appendTo="body"
+                                                                [showIcon]="true" dateFormat="dd/mm/yy"
+                                                                formControlName="fechapagocuota">
+                                                            </p-calendar>
+                                                        </td>
+                                                        <td>
+                                                            <button class="p-button-sm p-button-rounded" pButton
+                                                                type="button" style=" background-color: #D72250;"
+                                                                (click)="onEliminarDetalleCondicionPago(rowIndex, detalles.value.ventacuotascreditoid)"
+                                                                icon="pi pi-trash">
+                                                            </button>
+                                                        </td>
+
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="emptymessage">
+                                                    <tr>
+                                                        <span> No existen registros </span>
+                                                    </tr>
+                                                </ng-template>
+
+                                            </p-table>
+                                        </div>
+                                        <br>
+                                        <div class="BotonCondiciondePago">
+                                            <button type="button" label="Agregar Detalle" pTooltip="Agregar"
+                                                class="p-button-sm" (click)="onAgregarDetalleCondicionPago()"
+                                                tooltipPosition="left" pButton icon="pi pi-plus"></button>
+                                        </div>
+                                    </div>
+                                </p-dialog>
+                            </div>
+                            <!--  FIN DETALLE CONDICION DE PAGO -->
+ 
+                        </div>
+                    </div>
+                </div>
+
+                <div  [ngClass]="{'column-md-1': changeCols, 'column-md-4': !changeCols }">
+                    <div class="container-fluid">
+                        <div class="card-box">
+ 
+                            <button class="p-button-sm" pButton type="button" icon="pi pi-calendar-plus"
+                            (click)="onConfigButtonClick($event)"></button>
+
+                            <div [hidden]="changeCols">
+                                <div class="p-field p-col-10">  
+                                    <strong>Fecha Emisión <span>*</span></strong>
+                                    <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
+                                        formControlName="fechaemision"></p-calendar>
+                                </div>
+    
+                                <div class="p-field p-col-10">  
+                                    <strong>Fecha Vencimiento</strong>
+                                    <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
+                                        formControlName="fechavencimiento"></p-calendar>
+                                </div>
+    
+                                <div class="p-field p-col-10">  
+                                    <strong>Moneda <span>*</span></strong> 
+                                    <p-dropdown class="DropExtenso" [options]="arrayMonedas"
+                                        formControlName="monedaid" placeholder="Selecciona " [showClear]="true"
+                                        optionLabel="valor1"></p-dropdown>
+                                </div>
+    
+                                <div class="p-field p-col-10">  
+                                    <strong>Tipo Cambio</strong>
+                                    <input type="number" pInputText formControlName="tipocambio"
+                                        class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
+                                        placeholder="0.00">
+                                </div>
+                            </div>
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="p-col-12">
+                    <div class="container-fluid">
+                        <div class=" card-box">
+                            <!-- TABS FORM -->
+                            <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+
+                            <!-- FORM ARRAY DEL DETALLE DE LA VENTA-->
+                            <div *ngIf="DetalleForm">
+                                <div> 
+                                    <br>
+                                    <button pButton pRipple type="button" label="Agregar detalle Venta"
+                                        class="p-button-rounded p-button-agregar " icon="pi pi-plus"
+                                        (click)="onAgregarDetalleVenta()"></button>
+
+
+                                    <p-table class="TablaDetalleCondicionPago" [value]="detallesVentaForm"
+                                        [scrollable]="true" responsiveLayout="stack">
+                                        <ng-template pTemplate="header">
+                                            <tr class="centrar">
+                                                <th style="width: 50px;">Acción</th>
+                                                <th style="width: 150px;">Almacén</th>
+                                                <th style="width: 120px;">Cod Producto</th>
+                                                <th style="width: 180px;">Producto/Servicio</th>
+                                                <th style="width: 140px;">Und Medida</th>
+                                                <th style="width: 150px;">T.Afectacion</th>
+                                                <th style="width: 70px;">P.Inc.Igv</th>
+                                                <th style="width: 90px;">Cantidad</th>
+                                                <th style="width: 90px;">Precio.U</th>
+                                                <th style="width: 100px;">Base.Impon</th>
+                                                <th style="width: 90px;">% Dscto</th>
+                                                <th style="width: 100px;">Imp.Dscto</th>
+                                                <th style="width: 155px;">Observaciones</th>
+                                                <th style="width: 110px;">Valor Venta</th>
+                                                <th style="width: 75px;">IGV</th>
+                                                <th style="width: 110px;">Imp.Otros.C</th>
+                                                <th style="width: 90px;">ICBPER</th>
+                                                <th style="width: 100px;">Precio.V</th>
+                                                <th style="width: 90px;">N.Lote</th>
+                                                <th style="width: 90px;">N.Serie</th>
+                                                <!-- <th style="width: 90px;">N.Cuenta</th>  -->
+                                                <th style="width: 150px;">F.Vencimiento</th>
+                                                <th style="width: 150px;">Nro Cuenta</th>
+                                            </tr>
+                                        </ng-template>
+
+                                        <ng-template pTemplate="body" let-detallesVenta let-rowIndex="rowIndex"
+                                            formArrayName="arrayDetalleVenta">
+                                            <tr [formGroupName]="rowIndex">
+                                                <td>
+                                                    <button class="p-button-sm p-button-rounded" pButton
+                                                        type="button" style=" background-color: #D72250;"
+                                                        (click)="onEliminarDetalleVenta(rowIndex)"
+                                                        icon="pi pi-trash">
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Almacén</strong>
+                                                    <p-dropdown class="extender" appendTo="body"
+                                                        [options]="arrayAlmacen" formControlName="almacenid"
+                                                        placeholder="Selecciona" [showClear]="true"
+                                                        optionLabel="valor1"></p-dropdown>
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Cod.Producto</strong>
+                                                    <input type="text" style="width: 80px;"
+                                                        (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="codproductofinal">
+                                                    <button type="button" (click)="onModalBuscarProducto(rowIndex)"
+                                                        pTooltip="Buscar" type="button" tooltipPosition="left"
+                                                        pButton icon="pi pi-search" class="p-button-sm"></button>
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Producto/Servicio</strong>
+                                                    <input type="text" style="width: 150px;" [min]="0"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="descripcionproducto">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Und Medida</strong>
+                                                    <p-dropdown class="extender" appendTo="body"
+                                                        [options]="arrayUnidadMedida"
+                                                        formControlName="unidadmedidaid" placeholder="Selecciona"
+                                                        [showClear]="true" optionLabel="valor1">
+                                                    </p-dropdown>
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">T.Afectacion</strong>
+                                                    <p-dropdown class="extender"
+                                                        (onChange)="onObtenertipoAfectacionDetalle(rowIndex, detallesVenta.value.tipoafectacionid)"
+                                                        appendTo="body" [options]="arrayTipoAfectacion"
+                                                        formControlName="tipoafectacionid" placeholder="Selecciona"
+                                                        [showClear]="true" optionLabel="valor1"></p-dropdown>
+                                                </td>
+                                                <td style="justify-content: center;">
+                                                    <strong class="p-column-title">P.Inc.Igv </strong>
+                                                    <p-inputSwitch (click)="onCalcularPrecioVenta(rowIndex)"
+                                                        formControlName="precioincluyeigv"></p-inputSwitch>
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Cantidad</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
+                                                        (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"
+                                                        class="p-inputtext" pInputText formControlName="cantidad">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">PrecioU</strong>
+                                                    <input type="text" style="width: 80px;text-align: right;"
+                                                        (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
+                                                        (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="preciounitario">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Base Impon,</strong>
+                                                    <input type="text" style="width: 80px;text-align: right;"
+                                                        readonly class="p-inputtext" pInputText
+                                                        formControlName="baseimponible">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">% Dcsto</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
+                                                        (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="porcentajedescuento">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Imp.Dcsto</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        readonly class="p-inputtext" pInputText
+                                                        formControlName="importedescuento">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Observaciones</strong>
+                                                    <input type="text" style="width: 150px;" [minlength]="0"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="observaciones">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Valor Venta</strong>
+                                                    <input type="text" style="width: 80px;text-align: right;"
+                                                        readonly class="p-inputtext" pInputText
+                                                        formControlName="valorVenta">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">IGV</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        readonly
+                                                        [value]="detallesVentaForm[rowIndex].get('igv').value | number:'0.2-2'"
+                                                        class="p-inputtext" pInputText formControlName="igv">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Imp.Otros.C</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
+                                                        (keydown.Tab)="onCalcularPrecioVenta(rowIndex)"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="importesotroscargos">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">ICBPER</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        readonly class="p-inputtext" pInputText
+                                                        formControlName="importeicbper">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">PrecioV</strong>
+                                                    <input type="number" style="width: 80px;text-align: right;"
+                                                        readonly
+                                                        [value]="detallesVentaForm[rowIndex].get('precioventa').value | number:'0.2-2'"
+                                                        class="p-inputtext" pInputText
+                                                        formControlName="precioventa">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">NroLote</strong>
+                                                    <input type="number" style="width: 80px;" [min]="0"
+                                                        class="p-inputtext" pInputText formControlName="nroLote">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">NroSerie</strong>
+                                                    <input type="number" style="width: 80px;" [min]="0"
+                                                        class="p-inputtext" pInputText formControlName="nroSerie">
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">F.Vencimiento</strong>
+                                                    <p-calendar appendTo="body" readonlyInput="true"
+                                                        [showIcon]="true" dateFormat="dd/mm/yy"
+                                                        formControlName="fechavencimiento">
+                                                    </p-calendar>
+                                                </td>
+                                                <td>
+                                                    <strong class="p-column-title">Nro Cuenta</strong>
+                                                    <input type="number" style="width: 80px;" [min]="0"
+                                                        class="p-inputtext" pInputText formControlName="nrocuenta">
+                                                </td>
+
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <span> No existen registros </span>
+                                            </tr>
+                                        </ng-template>
+
+                                    </p-table>
+
+                                </div>
+                            </div>
+                            <!-- FIN DETALLE DE LA VENTA-->
+
+                            <!-- FORM ARRAY DEL DETALLE GUIA REMISION-->
+                            <div *ngIf="GuiaRemisionForm">
+                                <div>
+
+                                    <div style="margin: 3%;">
+                                        <p-table class="TablaDetalleCondicionPago" [value]="detallesGuiaRemision"
+                                            [scrollable]="true" responsiveLayout="stack">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width: 170px;">Serie Guía</th>
+                                                    <th style="width: 170px;">Nro Guía</th>
+                                                    <th style="width: 50px;">Acción</th>
+                                                </tr>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="body" let-detallesGuiaRemision
+                                                let-rowIndex="rowIndex" formArrayName="arrayDetalleGuiaRemision">
+                                                <tr [formGroupName]="rowIndex">
+                                                    <td>
+                                                        <strong class="p-column-title">Serie Guía</strong>
+                                                        <input type="text" [min]="0" class="p-inputtext-sm"
+                                                            pInputText formControlName="serieguia">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="p-column-title">Nro Guía</strong>
+                                                        <input type="number" [min]="0" class="p-inputtext-sm"
+                                                            pInputText formControlName="nroguia">
+                                                    </td>
+                                                    <td>
+                                                        <button class="p-button-sm p-button-rounded" pButton
+                                                            type="button" style=" background-color: #D72250;"
+                                                            (click)="onEliminarDetalleGuiaRemision(rowIndex, detallesGuiaRemision.value.ventadocumentosreferenciaid)"
+                                                            icon="pi pi-trash">
+                                                        </button>
+                                                    </td>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <span> No existen registros </span>
+                                                </tr>
+                                            </ng-template>
+
+                                        </p-table>
+
+                                        <br>
+
+                                        <div class="BotonCondiciondePago">
+                                            <button type="button" label="Agregar detalle guia remision"
+                                                pTooltip="Agregar" class="p-button-sm"
+                                                (click)="onAgregarDetalleGuiaRemision()" tooltipPosition="left"
+                                                pButton icon="pi pi-plus"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                            </div>
+                            <!-- FINDETALLE GUIA REMISION-->
+
+                            <!-- FORM ARRAY DEL DETALLE DOCUMENTO REFERENCIA-->
+                            <div *ngIf="DocReferenciaForm">
+                                <div>
+                                    <div style="margin: 3%;">
+
+                                        <div class="formulario">
+                                            <strong>Motivo Nota:</strong>
+                                            <p-dropdown class="extender" [options]="arrayMotivoNota"
+                                                formControlName="motivonotaid" placeholder="Selecciona "
+                                                [showClear]="true" optionLabel="valor1"></p-dropdown>
+                                        </div>
+
+                                        <br>
+
+                                        <p-table class="TablaDetalleCondicionPago" [value]="detallesDocumentoRef"
+                                            [scrollable]="true" responsiveLayout="stack">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width: 50px;">Acción</th>
+                                                    <th style="width: 140px;">T. Documento</th>
+                                                    <th style="width: 95px;">Serie</th>
+                                                    <th style="width: 100px;">Correlativo</th>
+                                                    <th style="width: 140px;">Fec.Referencia</th>
+                                                    <th style="width: 50px;">Amarrar</th>
+                                                </tr>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="body" let-detallesDocumentoRef
+                                                let-rowIndex="rowIndex" formArrayName="arrayDetalleDocumentoRef">
+                                                <tr [formGroupName]="rowIndex">
+                                                    <td>
+                                                        <button class="p-button-sm p-button-rounded" pButton
+                                                            type="button" style=" background-color: #D72250;"
+                                                            (click)="onEliminarDetalleDocumentoRef(rowIndex, detallesDocumentoRef.value.ventadocumentosreferenciaid)"
+                                                            icon="pi pi-trash">
+                                                        </button>
+                                                    </td>
+
+                                                    <td>
+                                                        <strong class="p-column-title">T. Documento</strong>
+                                                        <p-dropdown class="extender" appendTo="body"
+                                                            [options]="arrayTipoDocumento"
+                                                            formControlName="tipodocumento" placeholder="Selecciona"
+                                                            [showClear]="true" optionLabel="valor2">
+                                                        </p-dropdown>
+                                                    </td>
+                                                    <td>
+                                                        <strong class="p-column-title">Serie</strong>
+                                                        <input type="text" style="width: 80px;" [min]="0"
+                                                            class="p-inputtext-sm" pInputText
+                                                            formControlName="serie">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="p-column-title">Correlativo</strong>
+                                                        <input type="number" style="width: 80px;" [min]="0"
+                                                            class="p-inputtext-sm" pInputText
+                                                            formControlName="correlativo">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="p-column-title">Fec.Referencia</strong>
+                                                        <p-calendar appendTo="body" readonlyInput="true"
+                                                            [showIcon]="true" dateFormat="dd/mm/yy"
+                                                            formControlName="fecReferencia">
+                                                        </p-calendar>
+                                                    </td>
+                                                    <td>
+                                                        <button class="p-button-sm p-button-rounded" pButton
+                                                            type="button"
+                                                            (click)="onReferenciarDetalleDocumentoRef(rowIndex)"
+                                                            icon="fas fa-sync">
+                                                        </button>
+                                                    </td>
+
+                                                </tr>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <span> No existen registros </span>
+                                                </tr>
+                                            </ng-template>
+
+                                        </p-table>
+                                    </div>
+                                    <br>
+                                    <div class="BotonCondiciondePago">
+                                        <button type="button" label="Agregar detalle documento referencia"
+                                            pTooltip="Agregar" class="p-button-sm"
+                                            (click)="onAgregarDetalleDocumentoRef()" tooltipPosition="left" pButton
+                                            icon="pi pi-plus"></button>
+                                    </div>
+
+                                    <hr>
+                                </div>
+                            </div>
+                            <!-- FIN DETALLE GUIA REMISION-->
+
+
+                            <div *ngIf="OtrosForm">
+                                <br>
+                                <p-fieldset>
+                                    <ng-template pTemplate="header">Descuento Global</ng-template>
+
+                                    <div class="formulario">
+                                        <strong>Descuento Global:</strong>
+                                        <div class="p-inputgroup">
+                                            <input type="number" (blur)="onConvertiraPorcentaje()" pInputText
+                                                formControlName="dsctoglobalrporcentaje" class="p-inputtext-sm"
+                                                placeholder="0">
+                                            <button class="p-button-sm" type="button" pButton label="% Porcentaje"
+                                                (click)="onConvertiraPorcentaje()"> </button>
+                                        </div>
+                                    </div>
+
+                                </p-fieldset>
+                                <br>
+                                <p-fieldset>
+                                    <ng-template pTemplate="header">Detracción</ng-template>
+                                    <div class="p-col-12">
+                                        <div class="p-fluid p-formgrid p-grid">
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <div class="formulario">
+                                                    <strong>Venta afecta detracción:</strong>
+                                                    <p-inputSwitch formControlName="esafectodetraccion">
+                                                    </p-inputSwitch>
+                                                </div>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <div class="formulario">
+                                                    <strong>Porcentaje:</strong>
+                                                    <input type="text" pInputText
+                                                        formControlName="porcentajedetraccion"
+                                                        class="p-inputtext-sm" placeholder="%">
+                                                </div>
+                                            </div>
+                                            <div class="p-field p-col-12 p-lg-12 p-md-12">
+                                                <div class="formulario">
+                                                    <strong>Código Detracción:</strong>
+                                                    <p-dropdown class="extender" appendTo="body"
+                                                        [options]="arrayCodigoDetraccion"
+                                                        formControlName="codigodetraccion" placeholder="Selecciona"
+                                                        [showClear]="true" optionLabel="valor1">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </p-fieldset>
+                                <br>
+                                <p-fieldset>
+                                    <ng-template pTemplate="header">Adicionales</ng-template>
+                                    <div class="p-col-12">
+                                        <div class="p-fluid p-formgrid p-grid">
+                                            <div class="p-field p-col-12 p-lg-4 p-md-6">
+                                                <div class="formulario">
+                                                    <span> sin filtros </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p-fieldset>
+
+                            </div>
+
+                            <div *ngIf="FacturaguiaForm">
+                                <span> Sin informacion</span>
+                            </div>
+
+                            <div *ngIf="TotalesForm">
+                                <div class="p-col-12">
+                                    <div class="p-fluid p-formgrid p-grid">
+                                        <div class="p-field p-col-12 p-lg-6 p-md-6">
+                                            <div class="totalesResumen" style="margin: 3%;">
+                                                <strong>Descuento global:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="dsctoglobalimporte" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Descuento por item:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="descuentoporitem" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Descuento Total:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importedescuento" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Anticipo:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importeanticipo" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Exonerada:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importeexonerado" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Inafecta:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importeinafecto" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+                                            </div>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-lg-6 p-md-6">
+                                            <div class="totalesResumen" style="margin: 3%;">
+
+                                                <strong>Gravada:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importegravada" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>IGV:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importeigv" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Gratuita:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importegratuita" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>Otros Tributos:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importeotrostributos" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong>ICBPER:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importeicbper" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                                <strong class="totalaMostrar">TOTAL:</strong>
+                                                <input type="number" pInputText readonly
+                                                    formControlName="importetotalventa" class="p-inputtext-sm"
+                                                    placeholder="0.00">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  FIN TABS FORM -->
+                            <br>
+                            <hr> 
+                            <div class="importes" *ngIf="TabTotalesActivo">
+                                <strong class="totalaMostrar">Importe Total </strong>
+                                <strong> {{ totalaPagar | currency:'S/. '}}</strong>
+                                <button type="button" type="button" (click)="activateMenu('6')"
+                                    pTooltip="Mas info..." class="p-button-sm" tooltipPosition="left" pButton
+                                    icon="pi pi-info"></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+    </form>
+
+         
+
+        
+
+     
+<!-- 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10">
+       
+            <div  [ngClass]="{'card-box-11-NV': !changeCols, 'card-box-8-NV': changeCols }">
                 <div class="contenidoTable card-box">
                     <div class="row">
                         <div class="p-col-12">
@@ -41,7 +871,7 @@
                                 <h3> N° REGISTRO: <strong> {{VentaEditar.nroRegistro}} </strong></h3>
                             </div>
 
-                            <!-- CABECERA FORMULARIO -->
+                        
                             <form [formGroup]="Form">
 
 
@@ -95,9 +925,7 @@
                                             (click)="onConfigButtonClick2($event)"> </button>
                                     </div>
                                 </p-sidebar>
-
-
-
+ 
                                 <div class="p-col-12">
                                     <div class="p-fluid p-formgrid p-grid">
                                         <div class="row formulario-campo-obligatorio">
@@ -186,7 +1014,7 @@
                                                     class="p-inputtext-sm-clear-grey p-inputtext-sm-simple"
                                                     placeholder="0.00">
                                             </div>
-                                        </div> -->
+                                        </div> 
 
                                         <div class="row formulario-campo-obligatorio">
                                             <div class="p-field p-col-3">
@@ -236,7 +1064,7 @@
                                     </div>
                                 </div>
 
-                                <!-- FORM ARRAY DEL DETALLE CONDICION DE PAGO -->
+                                <!-- FORM ARRAY DEL DETALLE CONDICION DE PAGO 
                                 <div *ngIf="modalDetallesCondicionPago">
                                     <p-dialog header="DETALLE FORMA DE PAGO" [(visible)]="modalDetallesCondicionPago"
                                         [modal]="true" [style]="{width: '400px'}">
@@ -304,19 +1132,15 @@
                                         </div>
                                     </p-dialog>
                                 </div>
-                                <!--  FIN DETALLE CONDICION DE PAGO -->
+                                <!--  FIN DETALLE CONDICION DE PAGO
 
                                 <br>
-                                <!-- TABS FORM -->
+                                <!-- TABS FORM 
                                 <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
 
-                                <!-- FORM ARRAY DEL DETALLE DE LA VENTA-->
+                                <!-- FORM ARRAY DEL DETALLE DE LA VENTA
                                 <div *ngIf="DetalleForm">
-                                    <div>
-                                        <!-- <div class="BotonCondiciondePago">  
-                                    <strong> Agregar detalle de la venta:</strong> 
-                                    <button type="button" label="Agregar" pTooltip="Agregar"  class="p-button-sm" (click)="onAgregarDetalleVenta()" tooltipPosition="left" pButton  icon="pi pi-plus"></button>                                 
-                                </div>  -->
+                                    <div> 
                                         <br>
                                         <button pButton pRipple type="button" label="Agregar detalle Venta"
                                             class="p-button-rounded p-button-agregar " icon="pi pi-plus"
@@ -347,7 +1171,7 @@
                                                     <th style="width: 100px;">Precio.V</th>
                                                     <th style="width: 90px;">N.Lote</th>
                                                     <th style="width: 90px;">N.Serie</th>
-                                                    <!-- <th style="width: 90px;">N.Cuenta</th>  -->
+                                                    <!-- <th style="width: 90px;">N.Cuenta</th> 
                                                     <th style="width: 150px;">F.Vencimiento</th>
                                                     <th style="width: 150px;">Nro Cuenta</th>
                                                 </tr>
@@ -520,7 +1344,7 @@
                                 </div>
                                 <!-- FIN DETALLE DE LA VENTA-->
 
-                                <!-- FORM ARRAY DEL DETALLE GUIA REMISION-->
+                                <!-- FORM ARRAY DEL DETALLE GUIA REMISION-
                                 <div *ngIf="GuiaRemisionForm">
                                     <div>
 
@@ -579,9 +1403,9 @@
                                     <hr>
 
                                 </div>
-                                <!-- FINDETALLE GUIA REMISION-->
+                                <!-- FINDETALLE GUIA REMISION
 
-                                <!-- FORM ARRAY DEL DETALLE DOCUMENTO REFERENCIA-->
+                                <!-- FORM ARRAY DEL DETALLE DOCUMENTO REFERENCIA-
                                 <div *ngIf="DocReferenciaForm">
                                     <div>
                                         <div style="margin: 3%;">
@@ -676,7 +1500,7 @@
                                         <hr>
                                     </div>
                                 </div>
-                                <!-- FIN DETALLE GUIA REMISION-->
+                                <!-- FIN DETALLE GUIA REMISION
 
 
                                 <div *ngIf="OtrosForm">
@@ -825,12 +1649,10 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <!--  FIN TABS FORM -->
+ 
+                                <!--  FIN TABS FORM
                                 <br>
-                                <hr>
-
+                                <hr> 
                                 <div class="importes" *ngIf="TabTotalesActivo">
                                     <strong class="totalaMostrar">Importe Total </strong>
                                     <strong> {{ totalaPagar | currency:'S/. '}}</strong>
@@ -847,7 +1669,7 @@
 
                 </div>
             </div>
-            <div class="col-md-2">
+            <div  [ngClass]="{'card-box-1-NV': !changeCols, 'card-box-4-NV': changeCols }">
                 <div class="contenidotable-2 card-box">
 
                     <div class="BotonesConfig">
@@ -858,8 +1680,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        
+    </div> -->
 
 </div>
 

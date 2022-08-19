@@ -17,17 +17,7 @@ export class ReportesAlmacenService{
 
  
     generarReporteProductos(data: any){
-        let params = new HttpParams();
-        params = params.append('idlinea', data.idlinea);
-        params = params.append('orderBy', data.orderBy);
-        params = params.append('estado', data.estado);
-        params = params.append('tipoProducto', data.tipoProducto);
-        params = params.append('hayFechaHora', data.hayFechaHora);
-        params = params.append('byLine', data.byLine);
-        params = params.append('productoCodigo', data.productoCodigo);
- 
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/ProductoReport/ObtenerReporteProducto`, {params})
-       // ?idlinea=${data.idlinea}&orderBy=${data.orderBy}&estado=${data.estado}&tipoProducto=${data.tipoProducto}&hayFechaHora=${data.hayFechaHora}&byLine=${data.byLine}&productoCodigo=${data.productoCodigo}`, null)
+         return this.http.post<IReporte>(`${this.apiReporte}/v1/ProductoReport/ObtenerReporteProducto?idlinea=${data.idlinea}&orderBy=${data.orderBy}&estado=${data.estado}&tipoProducto=${data.tipoProducto}&hayFechaHora=${data.hayFechaHora}&byLine=${data.byLine}&productoCodigo=${data.productoCodigo}`, null)
     } 
 
     generarReporteLineas(fechahora: any){
@@ -124,7 +114,7 @@ export class ReportesAlmacenService{
         params = params.append('tipoPresentacion', data.tipoPresentacion); 
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);
-        params = params.append('almacenId ', data.almacen);
+      //  params = params.append('almacenId ', data.almacen);
         
         if(data.lineaid){
             params = params.append('lineaid', data.lineaid.id);
@@ -132,7 +122,7 @@ export class ReportesAlmacenService{
         if(data.codigoProducto){
             params = params.append('productoid', data.codigoProducto);
         }
-        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteCruceInventario`, {params}) 
+        return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingAlmacen/ObtenerReporteCruceInventario?almacenId=${data.almacen}`, {params}) 
          //  ?tipoPresentacion=${data.tipoPresentacion}&f1=${data.f1}&f2=${data.f2}&almacenId=${data.almacen}`)
     } 
   

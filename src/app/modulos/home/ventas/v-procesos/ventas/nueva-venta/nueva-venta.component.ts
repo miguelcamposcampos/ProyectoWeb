@@ -107,9 +107,8 @@ export class NuevaVentaComponent implements OnInit  {
   dataPredeterminadosDesencryptada:any = JSON.parse(localStorage.getItem('Predeterminados')); 
   porcentajebolsaplasticaLS : any;
 
-
-  configActive: boolean = true;  
-  configActive2: boolean = false;
+ 
+  changeCols : boolean = false; 
 
   constructor(
     private ventaservice : VentasService,
@@ -190,15 +189,10 @@ export class NuevaVentaComponent implements OnInit  {
     })
 
   }
- 
- 
-  onConfigButtonClick(event) {
-    this.configActive = !this.configActive; 
-  }
+  
 
-
-  onConfigButtonClick2(event) {
-    this.configActive2 = !this.configActive2; 
+  onConfigButtonClick(event) { 
+    this.changeCols = !this.changeCols;  
   }
 
  

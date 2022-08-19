@@ -91,7 +91,7 @@
                                         <td  *ngFor="let col of columns" >
                                             <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
                                             <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                                <button 
+                                                <button  
                                                     pButton (click)="onAcceder(empresa)" 
                                                     tooltipPosition="top" 
                                                     type="button"
@@ -102,7 +102,7 @@
                                                     icon="pi pi-play">
                                                 </button>           
                                                 <p-tieredMenu  #menu [model]="itemsEmpresa" appendTo="body" [popup]="true"></p-tieredMenu>
-                                                <button  class="p-button-ajustes"  #btn type="button" pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(empresa)" ></button>
+                                                <button  class="p-button-ajustes"  #btn type="button"  [disabled]="!empresa.esAdmin" pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(empresa)" ></button>
                                             </ng-template>
                                         </td>
                                     </tr>

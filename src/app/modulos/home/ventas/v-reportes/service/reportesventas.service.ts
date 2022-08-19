@@ -25,12 +25,12 @@ export class ReportesVentasService{
     
     /* PDF Y EXCEL DE SUNAT */
     generarReporteVentaSunat(data: any): Observable<any>{
-        let params = new HttpParams();
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        params = params.append('idMoneda', data.moneda);
-        params = params.append('orderPor', data.order);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerVentaSunat`, params);
+        // let params = new HttpParams();
+        // params = params.append('fechainicio', data.f1);
+        // params = params.append('fechafin', data.f2);
+        // params = params.append('idMoneda', data.moneda);
+        // params = params.append('orderPor', data.order);
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerVentaSunat?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}&orderPor=${data.order}`, null);
     } 
  
     generarExcelVentaSunat(data : any): Observable<any>{
@@ -93,32 +93,34 @@ export class ReportesVentasService{
     }   
  
     generarReporteVenta(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        params = params.append('idMoneda', data.moneda);
-        params = params.append('orderPor', data.order);
-        params = params.append('establecimientoid', data.establecimiento);
-        params = params.append('vendedorid', data.cliente);
-        params = params.append('documentoid', data.documento);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerVenta`, params);   
-        //?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}&orderPor=${data.order}&establecimientoid=${data.establecimiento}&vendedorid=${data.cliente}&documentoid=${data.documento}`, null )
+        // let params = new HttpParams(); 
+        // params = params.append('fechainicio', data.f1);
+        // params = params.append('fechafin', data.f2);
+        // params = params.append('idMoneda', data.moneda);
+        // params = params.append('orderPor', data.order);
+        // params = params.append('establecimientoid', data.establecimiento);
+        // params = params.append('vendedorid', data.cliente);
+        // params = params.append('documentoid', data.documento);
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerVenta`, params);   
+         return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerVenta?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}&orderPor=${data.order}&establecimientoid=${data.establecimiento}&vendedorid=${data.cliente}&documentoid=${data.documento}`, null )
     }   
 
     /* PDF Y EXCEL PLANILLA COBRANZA */
     generarReportePlanillaCobranza(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        params = params.append('documentoId', data.documento);
-        params = params.append('porOrdenado', data.order);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranza`, params);   
-        //  ?fechainicio=${data.f1}&fechafin=${data.f2}&documentoId=${data.documento}&porOrdenado=${data.order}`, null )
-    }   
+        // let params = new HttpParams(); 
+        // params = params.append('fechaInicio', data.f1);
+        // params = params.append('fechaFin', data.f2);
+        // params = params.append('documentoId', data.documento);
+        // params = params.append('porOrdenado', data.order);
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranza`, params);   
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranza?fechaInicio=${data.f1}&fechaFin=${data.f2}&documentoId=${data.documento}&porOrdenado=${data.order}`, null);   
+          
+    }    
+    
     generarReporteExcelPlanillaCobranza(data: any): Observable<any>{
         let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
+        params = params.append('fechaInicio', data.f1);
+        params = params.append('fechaFin', data.f2);
         return this.http.get<IReporteExcel>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranzaExcel`, {params}); 
         // ?fechainicio=${data.f1}&fechafin=${data.f2}` )
     }    
@@ -158,28 +160,28 @@ export class ReportesVentasService{
         params = params.append('f1', data.f1);
         params = params.append('f2', data.f2);
         return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingVentas/ObtenerReportePedidosAnalitico`, {params}); 
-        // ?tipoPresentacion=${data.presentacion}&f1=${data.f1}&f2=${data.f2}` )
+        // return this.http.get<IModuloReporte>(`${this.apireporte991}/v1/ReportingVentas/ObtenerReportePedidosAnalitico?tipoPresentacion=${data.presentacion}&f1=${data.f1}&f2=${data.f2}` )
     }    
     
     
 
          
     generarReporteVendedorResumen(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        params = params.append('idMoneda', data.moneda);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorVendedorResumen`, params); 
-        // ?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}`, null )
+        // let params = new HttpParams(); 
+        // params = params.append('fechainicio', data.f1);
+        // params = params.append('fechafin', data.f2);
+        // params = params.append('idMoneda', data.moneda);
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorVendedorResumen`, params); 
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorVendedorResumen?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}`, null )
     } 
 
     generarReporteVendedorAnalitico(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        params = params.append('idMoneda', data.moneda);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorVendedorAnalitica`, params); 
-        // ?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}`, null )
+        // let params = new HttpParams(); 
+        // params = params.append('fechainicio', data.f1);
+        // params = params.append('fechafin', data.f2);
+        // params = params.append('idMoneda', data.moneda);
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorVendedorAnalitica`, params); 
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorVendedorAnalitica?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}`, null )
     } 
  
 
@@ -198,38 +200,38 @@ export class ReportesVentasService{
     } 
  
     generarReporteVentaProdcutoAnalitico(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorProductoAnalitico`, params);
-        //  ?fechainicio=${data.f1}&fechafin=${data.f2}`, null )
+    //    let params = new HttpParams(); 
+     //   params = params.append('fechainicio', data.f1);
+     //   params = params.append('fechafin', data.f2);
+      //  return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorProductoAnalitico`, params);
+         return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasPorProductoAnalitico?fechainicio=${data.f1}&fechafin=${data.f2}`, null )
     } 
  
     generarReporteVentaClienteResumen(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        if(data.moneda){
-            params = params.append('idMoneda', data.moneda.id);
-        }
-        if(data.cliente){
-            params = params.append('idCliente', data.cliente);
-        }
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasClienteResumen`, params);
-        //  ?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}&idCliente=${data.cliente}`, null )
+        // let params = new HttpParams(); 
+        // params = params.append('fechainicio', data.f1);
+        // params = params.append('fechafin', data.f2);
+        // if(data.moneda){
+        //     params = params.append('idMoneda', data.moneda.id);
+        // }
+        // if(data.cliente){
+        //     params = params.append('idCliente', data.cliente);
+        // }
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasClienteResumen`, params);
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasClienteResumen?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda.id}&idCliente=${data.cliente}`, null )
     } 
     generarReporteVentaClienteAnalitico(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        if(data.moneda){
-            params = params.append('idMoneda', data.moneda.id);
-        }
-        if(data.cliente){
-            params = params.append('idCliente', data.cliente);
-        }
+        //  let params = new HttpParams(); 
+        // params = params.append('fechainicio', data.f1);
+        // params = params.append('fechafin', data.f2);
+        // if(data.moneda){
+        //     params = params.append('idMoneda', data.moneda.id);
+        // }
+        // if(data.cliente){
+        //     params = params.append('idCliente', data.cliente);
+        // }
 
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasClienteAnalitico`, params);
-        //  ?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda}&idCliente=${data.cliente}`, null )
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasClienteAnalitico`, params);
+       return this.http.post<IReporte>(`${this.apiReporte}/v1/VentaReport/ObtenerReporteVentasClienteAnalitico?fechainicio=${data.f1}&fechafin=${data.f2}&idMoneda=${data.moneda.id}&idCliente=${data.cliente}`, null )
     }  
 }

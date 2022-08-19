@@ -185,3 +185,34 @@
     height: 0; 
     z-index: 0;
 }
+
+.column-md-1{
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%; 
+}
+
+
+.column-md-4{
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+      
+}
+
+
+
+.column-md-11{
+    -ms-flex: 0 0 91.666667%;
+    flex: 0 0 91.666667%;
+    max-width: 91.666667%; 
+}
+
+
+.column-md-8{
+    -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%; 
+}
+
+ 

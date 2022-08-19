@@ -43,7 +43,9 @@ export class ListaEmpresasComponent implements OnInit {
     private generalService : GeneralService,
     private spinner : NgxSpinnerService
   ) {
-
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
    }
    
   ngOnInit(): void {    
@@ -56,9 +58,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.onLoadEmpresas(); 
    
   }
-
  
-
     
   onItemsEmpresas(){
     this.itemsEmpresa = [ 

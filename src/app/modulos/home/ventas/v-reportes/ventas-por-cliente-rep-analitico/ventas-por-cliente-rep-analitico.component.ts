@@ -53,6 +53,9 @@ export class VentasPorClienteRepAnaliticoComponent implements OnInit {
     })
   }
 
+ // {"id":28,"itemid":1,"grupoid":6,"valor1":"SOLES","valor2":"PEN","valor3":null}
+ 
+
   ngOnInit(): void {
     this.config.setTranslation(this.es)
     this.onCargarDropwdon(); 
@@ -61,7 +64,12 @@ export class VentasPorClienteRepAnaliticoComponent implements OnInit {
   onCargarDropwdon(){ 
     this.generalService.listadoPorGrupo('Monedas').subscribe((resp) => {
       if(resp){
-        this.arrayMonedas = resp;    
+        this.arrayMonedas = resp;   
+        this.Form.patchValue({
+          monedaid: this.arrayMonedas.find(
+            (x) => x.id ===  this.arrayMonedas[0].id
+          ), 
+        }) 
       }
     }); 
   }
@@ -77,6 +85,7 @@ export class VentasPorClienteRepAnaliticoComponent implements OnInit {
       cliente: this.idClienteSeleccionado,
       moneda : data.monedaid,
     } 
+   // VentaReport/ObtenerReporteVentasClienteAnalitico?fechainicio=2022-08-19T16%3A03%3A48&fechafin=2022-08-19T16%3A03%3A48&idMoneda=1&idCliente=0
 
     this.spinner.show();
     this.reporteService.generarReporteVentaClienteAnalitico(Params).subscribe((resp) => { 
