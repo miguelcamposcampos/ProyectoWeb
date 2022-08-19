@@ -3,9 +3,10 @@
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
 
+    
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10">
+            <div  [ngClass]="{'card-box-11-NV': !changeCols, 'card-box-8-NV': changeCols }">
                 <div class="contenidoTable card-box">
                     <div class="row">
                         <div class="p-col-12">
@@ -847,7 +848,7 @@
 
                 </div>
             </div>
-            <div class="col-md-2">
+            <div  [ngClass]="{'card-box-1-NV': !changeCols, 'card-box-4-NV': changeCols }">
                 <div class="contenidotable-2 card-box">
 
                     <div class="BotonesConfig">
