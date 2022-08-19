@@ -107,18 +107,20 @@ export class ReportesVentasService{
 
     /* PDF Y EXCEL PLANILLA COBRANZA */
     generarReportePlanillaCobranza(data: any){
-        let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
-        params = params.append('documentoId', data.documento);
-        params = params.append('porOrdenado', data.order);
-        return this.http.post<IReporte>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranza`, params);   
-        //  ?fechainicio=${data.f1}&fechafin=${data.f2}&documentoId=${data.documento}&porOrdenado=${data.order}`, null )
-    }   
+        // let params = new HttpParams(); 
+        // params = params.append('fechaInicio', data.f1);
+        // params = params.append('fechaFin', data.f2);
+        // params = params.append('documentoId', data.documento);
+        // params = params.append('porOrdenado', data.order);
+        // return this.http.post<IReporte>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranza`, params);   
+        return this.http.post<IReporte>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranza?fechaInicio=${data.f1}&fechaFin=${data.f2}&documentoId=${data.documento}&porOrdenado=${data.order}`, null);   
+          
+    }    
+    
     generarReporteExcelPlanillaCobranza(data: any): Observable<any>{
         let params = new HttpParams(); 
-        params = params.append('fechainicio', data.f1);
-        params = params.append('fechafin', data.f2);
+        params = params.append('fechaInicio', data.f1);
+        params = params.append('fechaFin', data.f2);
         return this.http.get<IReporteExcel>(`${this.apiReporte}/v1/CobranzaReport/ObtenerPlanillaCobranzaExcel`, {params}); 
         // ?fechainicio=${data.f1}&fechafin=${data.f2}` )
     }    
