@@ -547,7 +547,7 @@
     margin-right: -15px;
     margin-left: -15px;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 }
 
 
@@ -929,3 +929,53 @@ body.main-body {
     height: 50px!important;
     width: 100%!important;
 }
+
+
+.contenidotable-2 {
+    min-height: 125vh;
+    margin-top: 0px;
+}
+
+.BotonesConfig{
+    width: 50px;
+    height: 130px;
+    line-height: 52px;
+    text-align: center;
+    left: 6rem;
+    border-radius: 50px;
+}
+
+.BotonesConfig .p-button-icon-only {
+    width: 60px;
+    padding: 15px 15px;
+    margin: 20px;
+    margin-left: 30px;
+}
+
+.BotonesConfig .p-button-icon-only  .pi {
+    font-size: 25px;
+}
+
+/* Comienza Importados desde los SCSS */ 
+ 
+.ramasTable{
+    /*box-shadow: 0 0 5px black !important; */
+    margin: 1%;
+    display: flex;
+    background: aliceblue;
+  }
+  
+  .titulorama{
+    margin: 2%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: baseline;
+  
+    @media (max-width: 700px){
+      display: grid;
+      justify-content: center;
+    }
+  }
+
+/* Termina Importados desde los SCSS */ 

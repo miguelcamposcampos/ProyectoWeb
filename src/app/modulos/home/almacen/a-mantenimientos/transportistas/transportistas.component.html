@@ -15,7 +15,7 @@
             
             <div class="p-toolbar-group-right">
               <button    
-                class="p-button-sm mx-2"
+                class="p-button-generico-agregar"
                 pButton
                 type="button"
                 icon="pi pi-plus"
@@ -118,7 +118,7 @@
                               pButton 
                               type="button"
                               (click)="onNuevoChofer(transportistas.id)"  
-                              class="p-button-sm"
+                              class="p-button-sm-generico"
                               style="margin-right: 2%;"
                               label="Agregar"
                               tooltipPosition="top" 
@@ -152,7 +152,7 @@
                                       pButton
                                       type="button" 
                                       (click)="onEditarChofer(transportistas.id,choferes.id )" 
-                                      class="p-button-sm"
+                                      class="p-button-sm-generico"
                                       tooltipPosition="top" 
                                       pTooltip="Editar Chofer"  
                                       icon="pi pi-pencil">
@@ -161,7 +161,7 @@
                                       pButton
                                       type="button" 
                                       (click)="onModalEliminarChofer(choferes)" 
-                                      class="p-button-sm"
+                                      class="p-button-cancelar"
                                       tooltipPosition="top" 
                                       style="background-color: #D72250;"
                                       pTooltip="Eliminar Chofer"  
