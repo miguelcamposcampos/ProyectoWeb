@@ -12,7 +12,7 @@
             
             <div class="p-toolbar-group-right">
                 <button  
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     pButton
                     style="margin-right: 1%;"
                     type="button"
@@ -23,7 +23,7 @@
                 </button>  
 
                 <button   
-                    class="p-button-sm"
+                    class="p-button-cancelar"
                     pButton
                     type="button"
                     icon="pi pi-times-circle"
@@ -36,45 +36,45 @@
 
         
         <hr>   
-            <div class="stepsdemo-content nuevoTransportista">
+            <div class="stepsdemo-content nuevoTransportista  formulario-campo-obligatorio">
                 <div>
                     <form [formGroup]="Form" class="form" >   
                         <p-fieldset>
                             <ng-template pTemplate="header">Datos Personales</ng-template>
                             <div class="formulario">   
                                 <strong>Brevete</strong>
-                                <input type="text" pInputText formControlName="brevete" class="p-inputtext-sm" placeholder="ingresar tu brevete">   
+                                <input type="text" pInputText formControlName="brevete" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar tu brevete">   
                             
-                                <strong>Tipo Persona *</strong>
+                                <strong>Tipo Persona <span> *</span></strong>
                                 <p-dropdown class="extender" placeholder="Selecciona un tipo de persona"  formControlName="tipoPersona" [options]="listTipoPersona" optionLabel="valor1"></p-dropdown>
                              
-                                <strong>Tipo Documento *</strong>
+                                <strong>Tipo Documento <span> *</span></strong>
                                 <p-dropdown class="extender" (onChange)="onObtenerTipoDocumento($event.value)" placeholder="Selecciona un tipo de documento" formControlName="tipoDocumento" [options]="listTipoDocumento" optionLabel="valor1"></p-dropdown>
                             
-                                <strong>Nro Documento *</strong>  
+                                <strong>Nro Documento <span> *</span></strong>  
                                 <div class="p-inputgroup">  
-                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" (keypress)="onSoloNumeros($event)" (keydown.enter)="onBuscarPorNumeroDocumento()" placeholder="ingresar el numero de documento">   
+                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" (keypress)="onSoloNumeros($event)" (keydown.enter)="onBuscarPorNumeroDocumento()"  class=" p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar el numero de documento">   
                                     <button type="button" pTooltip="Buscar" tooltipPosition="left" pButton pRipple icon="pi pi-search" (click)="onBuscarPorNumeroDocumento()"styleClass="p-button-warn"></button>      
                                 </div>
  
-                                <strong *ngIf="!mostrarRazonSocial">Apellidos*</strong>
-                                <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" class="p-inputtext-sm" placeholder="ingresar tus apellidos">   
+                                <strong *ngIf="!mostrarRazonSocial">Apellidos<span> *</span></strong>
+                                <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar tus apellidos">   
                             
-                                <strong *ngIf="!mostrarRazonSocial">Nombres*</strong>
-                                <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm" placeholder="ingresar tus nombres">     
+                                <strong *ngIf="!mostrarRazonSocial">Nombres<span> *</span></strong>
+                                <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar tus nombres">     
                             
-                                <strong *ngIf="mostrarRazonSocial">Razón Social *</strong>
-                                <input  *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm" placeholder="ingresar la razon social">     
+                                <strong *ngIf="mostrarRazonSocial">Razón Social <span> *</span></strong>
+                                <input  *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar la razon social">     
                             
                                 
                                 <strong>Ubigeo:</strong>  
                                 <div class="p-inputgroup">  
-                                    <input type="text" pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm" placeholder="Busca un anexo">   
+                                    <input type="text" pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Busca un anexo">   
                                     <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                                 </div>
 
                                 <strong>Dirección Principal:</strong>
-                                <input type="text" pInputText formControlName="direccionprincipal" class="p-inputtext-sm">  
+                                <input type="text" pInputText formControlName="direccionprincipal" class="p-inputtext-sm-clear-grey pd-5 width-100">  
         
                             </div> 
                         </p-fieldset>
