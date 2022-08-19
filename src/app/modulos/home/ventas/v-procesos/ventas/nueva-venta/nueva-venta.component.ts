@@ -191,11 +191,8 @@ export class NuevaVentaComponent implements OnInit  {
   }
   
 
-  onConfigButtonClick(event) {
- //   this.configActive2 = !this.configActive2; 
- //   if(this.configActive2){
-    this.changeCols = !this.changeCols; 
-//   }
+  onConfigButtonClick(event) { 
+    this.changeCols = !this.changeCols;  
   }
 
  
