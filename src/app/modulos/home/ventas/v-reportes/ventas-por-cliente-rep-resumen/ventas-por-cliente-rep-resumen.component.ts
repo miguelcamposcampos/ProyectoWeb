@@ -61,7 +61,12 @@ export class VentasPorClienteRepResumenComponent implements OnInit {
   onCargarDropwdon(){ 
     this.generalService.listadoPorGrupo('Monedas').subscribe((resp) => {
       if(resp){
-        this.arrayMonedas = resp;    
+        this.arrayMonedas = resp;   
+        this.Form.patchValue({
+          monedaid: this.arrayMonedas.find(
+            (x) => x.id ===  this.arrayMonedas[0].id
+          ), 
+        })  
       }
     }); 
   }

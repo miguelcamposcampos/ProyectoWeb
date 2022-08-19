@@ -107,11 +107,8 @@ export class NuevaVentaComponent implements OnInit  {
   dataPredeterminadosDesencryptada:any = JSON.parse(localStorage.getItem('Predeterminados')); 
   porcentajebolsaplasticaLS : any;
 
-
-//  configActive: boolean = true;  
-//  configActive2: boolean = false;
-  changeCols : boolean = true;
-  changeCols2 : boolean = true;
+ 
+  changeCols : boolean = false; 
 
   constructor(
     private ventaservice : VentasService,
@@ -192,23 +189,12 @@ export class NuevaVentaComponent implements OnInit  {
     })
 
   }
- 
- 
+  
+
   onConfigButtonClick(event) {
-   
-   // this.configActive = !this.configActive; 
-  //  if(this.configActive){
-      this.changeCols = true;
-      this.changeCols2 = true;
- //   }
-  }
-
-
-  onConfigButtonClick2(event) {
  //   this.configActive2 = !this.configActive2; 
  //   if(this.configActive2){
-    this.changeCols = false;
-    this.changeCols2 = false;
+    this.changeCols = !this.changeCols; 
 //   }
   }
 
