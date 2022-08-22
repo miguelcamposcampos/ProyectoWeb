@@ -108,7 +108,9 @@ export class NuevaVentaComponent implements OnInit  {
   porcentajebolsaplasticaLS : any;
 
  
-  changeCols : boolean = false; 
+  changeCols : boolean = true; 
+  mostrarBloqueAfectoDetraccion : boolean = false;
+  modalConfiguracionesAdicionales : boolean = false;
 
   constructor(
     private ventaservice : VentasService,
@@ -191,11 +193,19 @@ export class NuevaVentaComponent implements OnInit  {
   }
   
 
-  onConfigButtonClick(event) { 
+  onBtnConfigBar(event) { 
     this.changeCols = !this.changeCols;  
   }
 
  
+  onAfectoDetraccion(event){ 
+    this.mostrarBloqueAfectoDetraccion = !this.mostrarBloqueAfectoDetraccion
+  }
+ 
+  onModalConfiguracionesAdicionales(){
+    this.modalConfiguracionesAdicionales = true;
+  }
+
 
   onCargarDatosdeConfiguracion(){
     this.configService.listadoConfiguraciones().subscribe((resp) => {
@@ -225,7 +235,7 @@ export class NuevaVentaComponent implements OnInit  {
   }
  
   ngOnInit(): void {   
-    this.onConfigButtonClick(true);  
+    //this.onConfigButtonClick(true);  
 
     this.onCargarDropdown();
     if(this.dataVenta){
@@ -308,14 +318,14 @@ export class NuevaVentaComponent implements OnInit  {
           this.activateMenu(event.item.id);
         }
       },
-      {
-        id: '4',
-        label: 'OTROS',
-        icon: 'fas fa-square-plus',
-        command: event => {
-          this.activateMenu(event.item.id);
-        }
-      },
+      // {
+      //   id: '4',
+      //   label: 'OTROS',
+      //   icon: 'fas fa-square-plus',
+      //   command: event => {
+      //     this.activateMenu(event.item.id);
+      //   }
+      // },
       {
         id: '5',
         label: 'FACTURA GUIA',
