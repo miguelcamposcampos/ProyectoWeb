@@ -24,10 +24,9 @@
         <hr>
         <form [formGroup]="Form">
             <div class="container-fluid">
-                <div class="row formulario-campo-obligatorio">
-
-                    <div class="col-md-12">
-                        <div class="p-fluid">
+                <div class=" row formulario-campo-obligatorio">
+                    <div class="col-md-6">
+                        <div class="p-field p-col-12">
                             <p-fieldset>
                                 <ng-template pTemplate="header">Codigo</ng-template>
                                 <div class="formulario">
@@ -63,12 +62,7 @@
                         </div>
                     </div>
 
-
-                </div>
-                
-            <div class="row">
-
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="p-fluid">
                             <p-fieldset>
                                 <ng-template pTemplate="header">Categorizacion</ng-template>
@@ -107,171 +101,186 @@
                             </p-fieldset>
                         </div>
                     </div>
-
                 </div>
             </div>
 
 
+            <div class="container-fluid">
+                <div class=" row formulario-campo-obligatorio">
+                    <div class="col-md-6">
+                        <div class="p-fluid">
+                            <p-fieldset>
+                                <ng-template pTemplate="header">Datos Principales</ng-template>
+                                <div class="formulario">
+                                    <strong>Descripcion <span>*</span> </strong>
+                                    <br>
+                                    <textarea placeholder="ingrese una descripción" class="text-area-generico"
+                                        formControlName="descripcion" style="border: 0px;
+                        background: #dddddd;" id=""></textarea>
+                                    <br>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="p-fluid">
-                        <p-fieldset>
-                            <ng-template pTemplate="header">Datos Principales</ng-template>
-                            <div class="formulario formulario-campo-obligatorio">
-                                <strong>Descripcion <span>*</span> </strong>
-                                <textarea placeholder="ingrese una descripción" formControlName="descripcion" style="border: 0px;
-                        background: #dddddd;" id="" cols="30" rows="10"></textarea>
+                                    <strong>Unidad de Medida<span>*</span> </strong>
+                                    <p-dropdown class="extender" [options]="arrayUnidadMedida"
+                                        formControlName="unidadMedida" placeholder="Seleccionar unidad de medida"
+                                        optionLabel="valor1" [showClear]="true">
+                                    </p-dropdown>
 
-                                <strong>Unidad de Medida<span>*</span> </strong>
-                                <p-dropdown class="extender" [options]="arrayUnidadMedida"
-                                    formControlName="unidadMedida" placeholder="Seleccionar unidad de medida"
-                                    optionLabel="valor1" [showClear]="true">
-                                </p-dropdown>
-
-                                <strong>Modelo</strong>
-                                <input type="text" pInputText formControlName="modelo" class="p-inputtext-sm"
-                                    placeholder="ingresar un modelo">
-                            </div>
-                        </p-fieldset>
+                                    <strong>Modelo</strong>
+                                    <input type="text" pInputText formControlName="modelo"
+                                        class="p-inputtext-sm-clear-grey pd-5 width-100"
+                                        placeholder="ingresar un modelo">
+                                </div>
+                            </p-fieldset>
+                        </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="p-fluid p-formgrid p-grid">
+                            <p-fieldset>
+                                <ng-template pTemplate="header">Propiedad</ng-template>
+                                <div class="p-field p-col-12 p-md-12">
+                                    <div class="filtoformCheck">
+                                        <div class="groupform">
+
+                                                <strong> Activos<span >*</span> </strong>
+                                            <p-inputSwitch formControlName="activo"></p-inputSwitch>
+                                            
+     
+                                                <strong> Incluir cod. Proveedor en descripcion</strong>
+                                                <p-inputSwitch formControlName="incluirProveedorEnDescripcion">
+                                                </p-inputSwitch>
+       
+                                                <strong> Requiere Lote <span >*</span> </strong>
+                                            <p-inputSwitch formControlName="requiereLote"></p-inputSwitch>
+
+                                                <strong> Requiere Serie<span >*</span> </strong>
+                                            <p-inputSwitch formControlName="requiereSerie"></p-inputSwitch>
+
+                                           
+                                        </div>
+
+                                        <div class="groupform">
+                                            <strong> Usado Compras</strong>
+                                            <p-inputSwitch formControlName="usadoCompras"></p-inputSwitch>
+
+                                            <strong> Usado Ventas</strong>
+                                            <p-inputSwitch formControlName="usadoVentas"></p-inputSwitch>
+
+                                            <strong> Descripcion editable <span >*</span>
+                                            </strong>
+                                            <p-inputSwitch formControlName="descripcionEditable">
+                                            </p-inputSwitch>
+
+                                            <strong> Afecto a ICBPER <span>*</span>
+                                            </strong>
+                                            <p-inputSwitch formControlName="afectoICBPER"></p-inputSwitch>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
 
 
             <div class="row">
-            <p-fieldset>
-                <ng-template pTemplate="header">Propiedad</ng-template>
                 <div class="p-col-12">
-                    <div class="p-fluid p-formgrid p-grid">
-                        <div class="p-field p-col-12 p-lg-6 p-md-6">
-                            <div class="switches">
-                                <strong> Activos<span style="color: red;">*</span> </strong>
-                                <p-inputSwitch formControlName="activo"></p-inputSwitch>
+                    <p-fieldset>
+                        <ng-template pTemplate="header">Precios</ng-template>
 
-                                <strong> Incluir cod. Proveedor en descripcion</strong>
-                                <p-inputSwitch formControlName="incluirProveedorEnDescripcion"></p-inputSwitch>
+                        <div class="precioForm">
+                            <strong>Tipo afectación <span style="color: red;">*</span> </strong>
+                            <p-dropdown class="extenderDrop" formControlName="afectacionid"
+                                [options]="arrayAfectaciones" placeholder="Seleccionar afectacion" optionLabel="valor1"
+                                [showClear]="true"></p-dropdown>
 
-                                <strong> Requiere Lote <span style="color: red;">*</span> </strong>
-                                <p-inputSwitch formControlName="requiereLote"></p-inputSwitch>
-
-                                <strong> Requiere Serie<span style="color: red;">*</span> </strong>
-                                <p-inputSwitch formControlName="requiereSerie"></p-inputSwitch>
-                            </div>
+                            <button class="p-button-agregar" pButton type="button" label="Agregar"
+                                (click)="onAgregarNuevoPrecio()" icon="pi pi-plus-circle">
+                            </button>
                         </div>
 
-                        <div class="p-field p-col-12 p-lg-6 p-md-6">
-                            <div class="switches">
-                                <strong> Usado Compras</strong>
-                                <p-inputSwitch formControlName="usadoCompras"></p-inputSwitch>
+                        <br>
 
-                                <strong> Usado Ventas</strong>
-                                <p-inputSwitch formControlName="usadoVentas"></p-inputSwitch>
+                        <p-table class="ProductosTabla" [value]="preciosForm" responsiveLayout="stack">
 
-                                <strong> Descripcion editable <span style="color: red;">*</span> </strong>
-                                <p-inputSwitch formControlName="descripcionEditable"></p-inputSwitch>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Moneda</th>
+                                    <th>P.Venta</th>
+                                    <th>Precio. inc. IGV.</th>
+                                    <th>Condicion Cantidad</th>
+                                    <th>Cant. Aplicar</th>
+                                    <th>Cant. Und. Medida</th>
+                                    <th>Max. % Dsct.</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </ng-template>
 
-                                <strong> Afecto a ICBPER <span style="color: red;">*</span> </strong>
-                                <p-inputSwitch formControlName="afectoICBPER"></p-inputSwitch>
 
-                            </div>
-                        </div>
-                    </div>
+                            <ng-template pTemplate="body" let-precios let-rowIndex="rowIndex"
+                                formArrayName="arrayPrecios">
 
+                                <tr [formGroupName]="rowIndex">
+                                    <td>
+                                        <strong class="p-column-title">Moneda</strong>
+                                        <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"
+                                            placeholder="Moneda" optionLabel="valor1" [showClear]="true"></p-dropdown>
+                                    </td>
+                                    <td>
+                                        <strong class="p-column-title">P.Venta</strong>
+                                        <input style="text-align: right;" type="text" (blur)="validateFormat($event)"
+                                            class="p-inputtext-sm" pInputText formControlName="precioventa">
+                                    </td>
+                                    <td style="text-align: center">
+                                        <strong class="p-column-title">Precio. inc. IGV</strong>
+                                        <p-inputSwitch formControlName="precioincluyeigv"></p-inputSwitch>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <strong class="p-column-title">Condicion Cantidad</strong>
+                                        <p-inputSwitch formControlName="tienecondicionacantidad"></p-inputSwitch>
+                                    </td>
+                                    <td>
+                                        <strong class="p-column-title">Cant. Aplicar</strong>
+                                        <input min="0" formControlName="cantidadparaaplicar" type="number" pInputText
+                                            class="p-inputtext-sm">
+                                    </td>
+                                    <td>
+                                        <strong class="p-column-title">Cant. Und. Medida</strong>
+                                        <input min="0" formControlName="cantidadunidadmedida" type="number" pInputText
+                                            class="p-inputtext-sm">
+                                    </td>
+                                    <td>
+                                        <strong class="p-column-title">Max. % Dsct.</strong>
+                                        <input style="width: 100px;" min="0" formControlName="maxprocentajedscto"
+                                            type="number" pInputText class="p-inputtext-sm">
+                                    </td>
+                                    <td>
+                                        <button class="p-button-sm p-button-rounded" pButton type="button"
+                                            style=" background-color: #D72250;"
+                                            (click)="onEliminarPrecio(rowIndex, precios.value.productopreciosid)"
+                                            icon="pi pi-trash">
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">No existen registros</td>
+                                </tr>
+                            </ng-template>
+
+                        </p-table>
+
+
+                    </p-fieldset>
                 </div>
-
-            </p-fieldset>
-
-
-            <p-fieldset>
-                <ng-template pTemplate="header">Precios</ng-template>
-
-                <div class="precioForm">
-                    <strong>Tipo afectación <span style="color: red;">*</span> </strong>
-                    <p-dropdown class="extenderDrop" formControlName="afectacionid" [options]="arrayAfectaciones"
-                        placeholder="Seleccionar afectacion" optionLabel="valor1" [showClear]="true"></p-dropdown>
-
-                    <button class="p-button-sm" pButton type="button" label="Agregar" (click)="onAgregarNuevoPrecio()"
-                        icon="pi pi-plus-circle">
-                    </button>
-                </div>
-
-                <br>
-
-                <p-table class="ProductosTabla" [value]="preciosForm" responsiveLayout="stack">
-
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Moneda</th>
-                            <th>P.Venta</th>
-                            <th>Precio. inc. IGV.</th>
-                            <th>Condicion Cantidad</th>
-                            <th>Cant. Aplicar</th>
-                            <th>Cant. Und. Medida</th>
-                            <th>Max. % Dsct.</th>
-                            <th>Acción</th>
-                        </tr>
-                    </ng-template>
-
-
-                    <ng-template pTemplate="body" let-precios let-rowIndex="rowIndex" formArrayName="arrayPrecios">
-
-                        <tr [formGroupName]="rowIndex">
-                            <td>
-                                <strong class="p-column-title">Moneda</strong>
-                                <p-dropdown class="extender" [options]="arrayMonedas" formControlName="monedaid"
-                                    placeholder="Moneda" optionLabel="valor1" [showClear]="true"></p-dropdown>
-                            </td>
-                            <td>
-                                <strong class="p-column-title">P.Venta</strong>
-                                <input style="text-align: right;" type="text" (blur)="validateFormat($event)"
-                                    class="p-inputtext-sm" pInputText formControlName="precioventa">
-                            </td>
-                            <td style="text-align: center">
-                                <strong class="p-column-title">Precio. inc. IGV</strong>
-                                <p-inputSwitch formControlName="precioincluyeigv"></p-inputSwitch>
-                            </td>
-                            <td style="text-align: center">
-                                <strong class="p-column-title">Condicion Cantidad</strong>
-                                <p-inputSwitch formControlName="tienecondicionacantidad"></p-inputSwitch>
-                            </td>
-                            <td>
-                                <strong class="p-column-title">Cant. Aplicar</strong>
-                                <input min="0" formControlName="cantidadparaaplicar" type="number" pInputText
-                                    class="p-inputtext-sm">
-                            </td>
-                            <td>
-                                <strong class="p-column-title">Cant. Und. Medida</strong>
-                                <input min="0" formControlName="cantidadunidadmedida" type="number" pInputText
-                                    class="p-inputtext-sm">
-                            </td>
-                            <td>
-                                <strong class="p-column-title">Max. % Dsct.</strong>
-                                <input style="width: 100px;" min="0" formControlName="maxprocentajedscto" type="number"
-                                    pInputText class="p-inputtext-sm">
-                            </td>
-                            <td>
-                                <button class="p-button-sm p-button-rounded" pButton type="button"
-                                    style=" background-color: #D72250;"
-                                    (click)="onEliminarPrecio(rowIndex, precios.value.productopreciosid)"
-                                    icon="pi pi-trash">
-                                </button>
-                            </td>
-                        </tr>
-
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="6">No existen registros</td>
-                        </tr>
-                    </ng-template>
-
-                </p-table>
-
-
-            </p-fieldset>
+            </div>
+        </form>
     </div>
-    </form>
-</div>
 
 </div>

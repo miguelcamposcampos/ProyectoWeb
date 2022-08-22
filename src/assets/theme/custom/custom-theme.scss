@@ -82,7 +82,7 @@
     font-size: 14px;
 }
 
-.p-button-generico-agregar{
+.p-button-generico-agregar {
     background: #1B74C5;
     color: white;
     width: 100%;
@@ -91,6 +91,7 @@
     font-weight: 900;
     font-size: 14px;
 }
+
 .p-button-sm-generico-agregar {
     background: #1B74C5;
     color: white;
@@ -111,7 +112,7 @@
     border-radius: 10px;
 }
 
-.p-inputtext.p-inputtext-generico{
+.p-inputtext.p-inputtext-generico {
     font-size: 14px;
     padding: 12px 50px;
     width: 100%;
@@ -840,7 +841,7 @@ p-inputmask {
 }
 
 .width-100 {
-    width: 100%!important;
+    width: 100% !important;
 }
 
 .pd-5 {
@@ -848,70 +849,70 @@ p-inputmask {
 }
 
 .p-dropdown-trigger-icon {
-    color: #515C66!important;
+    color: #515C66 !important;
 }
 
-.p-fieldset-form  p-fieldset legend {
+.p-fieldset-form p-fieldset legend {
     padding: 1rem 2rem !important;
     border: 1px solid #E4E5E5;
     color: #515C66;
-    background: #E1E1E1!important;
+    background: #E1E1E1 !important;
     font-weight: 600;
     border-radius: 3px;
-    margin: auto!important;
+    margin: auto !important;
 }
 
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > div .layout-menuitem-text {
-    color: white!important;
-    font-weight: bold!important;
-    background: #4DA8DE!important;
-    padding: 10px!important;
-    border-radius: 10px!important;
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>div .layout-menuitem-text {
+    color: white !important;
+    font-weight: bold !important;
+    background: #4DA8DE !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
 }
 
-.menu-wrapper .layout-menu-container .layout-menu li > ul {
-    background: #d3edfc!important;
-    border-radius: 10px!important;
-    margin-top: 25px!important;
+.menu-wrapper .layout-menu-container .layout-menu li>ul {
+    background: #d3edfc !important;
+    border-radius: 10px !important;
+    margin-top: 25px !important;
 }
 
 .menu-wrapper .layout-menu-container {
     overflow: auto;
     height: 100%;
-    background: #ffffff!important;
+    background: #ffffff !important;
 
 }
 
-.menu-wrapper .layout-menu-container .layout-menu li > a .layout-menuitem-text {
+.menu-wrapper .layout-menu-container .layout-menu li>a .layout-menuitem-text {
     margin: 0 11px;
-    color: #585454!important;
-    font-weight: 600!important;
+    color: #585454 !important;
+    font-weight: 600 !important;
 }
 
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > ul li a i {
-    color: #1b74c5!important;
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a i {
+    color: #1b74c5 !important;
 }
 
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > ul li a:hover {
-    background-color: #aac0cd!important;
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a:hover {
+    background-color: #aac0cd !important;
     font-weight: bold;
-    color: #f16383!important;
+    color: #f16383 !important;
     font-size: 16px;
 }
 
 
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu > li > ul li.active-menuitem > a {
-    background-color: #a4c4d7!important;
-    color: #ffffff!important;
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li.active-menuitem>a {
+    background-color: #a4c4d7 !important;
+    color: #ffffff !important;
 }
 
 body.main-body {
-    background: #f7f7f7!important;
+    background: #f7f7f7 !important;
 }
 
 .p-tabview .p-tabview-nav {
-    background: #f7f7f7!important;
-    border: 0!important;
+    background: #f7f7f7 !important;
+    border: 0 !important;
 
 }
 
@@ -921,13 +922,13 @@ body.main-body {
 
 
 .dropdown-full .p-dropdown {
-    height: 50px!important;
-    width: 100%!important;
+    height: 50px !important;
+    width: 100% !important;
 }
 
 .dropdown-full {
-    height: 50px!important;
-    width: 100%!important;
+    height: 50px !important;
+    width: 100% !important;
 }
 
 
@@ -936,7 +937,7 @@ body.main-body {
     margin-top: 0px;
 }
 
-.BotonesConfig{
+.BotonesConfig {
     width: 50px;
     height: 130px;
     line-height: 52px;
@@ -952,30 +953,78 @@ body.main-body {
     margin-left: 30px;
 }
 
-.BotonesConfig .p-button-icon-only  .pi {
+.BotonesConfig .p-button-icon-only .pi {
     font-size: 25px;
 }
 
-/* Comienza Importados desde los SCSS */ 
- 
-.ramasTable{
+/* Comienza Importados desde los SCSS */
+
+.ramasTable {
     /*box-shadow: 0 0 5px black !important; */
     margin: 1%;
     display: flex;
     background: aliceblue;
-  }
-  
-  .titulorama{
+}
+
+.titulorama {
     margin: 2%;
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: baseline;
-  
-    @media (max-width: 700px){
-      display: grid;
-      justify-content: center;
-    }
-  }
 
-/* Termina Importados desde los SCSS */ 
+    @media (max-width: 700px) {
+        display: grid;
+        justify-content: center;
+    }
+}
+
+.groupform {
+    display: grid;
+    row-gap: 0.2rem;
+}
+
+.filtoformCheck {
+    display: grid;
+    grid-gap: 1rem;
+    gap: 3rem;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 500px) {
+        display: grid;
+        row-gap: 15%;
+        grid-template-columns: auto;
+        //  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+}
+
+
+/* Termina Importados desde los SCSS */
+
+
+.tabladetalles th,
+td {
+    padding: 20px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center !important;
+}
+
+
+.p-datatable .p-datatable-tbody>tr>td {
+    padding: 0.5rem !important;
+}
+
+
+.card-desplegable {
+    margin-left: 10px;
+    min-height: 440px;
+}
+
+.text-area-generico {
+    border: 0px;
+    background: #dddddd;
+    width: 100%;
+    height: 125px;
+}
