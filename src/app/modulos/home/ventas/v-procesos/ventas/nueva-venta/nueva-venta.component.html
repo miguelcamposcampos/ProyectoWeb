@@ -73,15 +73,7 @@
                                 </div>
 
 
-                                <div class="p-field p-col-12 p-md-12  p-sm-12">
-                                    <div *ngIf="existeDireccionCliente">
-                                        <strong>Dirección Cliente</strong>
-                                        <input type="text" readonly formControlName="direccioncliente" pInputText
-                                            class="p-inputtext-sm-clear-grey pd-5 width-100"
-                                            placeholder="dirección un cliente">
-                                    </div>
-                                </div>
-
+                             
                                 <div class="p-field p-col-6 p-md-6">
                                     <strong>Cliente</strong>
                                     <div class="p-inputgroup">
@@ -94,6 +86,16 @@
                                             style=" background-color: #D72250;" class="p-button-blue-light-buscar"
                                             tooltipPosition="left" (click)="onBorrarCliente();" pButton
                                             icon="pi pi-trash"></button>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-12  p-sm-12">
+                                    <div *ngIf="existeDireccionCliente">
+                                        <strong>Dirección Cliente</strong>
+                                        <input type="text" readonly formControlName="direccioncliente" pInputText
+                                            class="p-inputtext-sm-clear-grey pd-5 width-100"
+                                            placeholder="dirección un cliente">
                                     </div>
                                 </div>
 
@@ -277,18 +279,18 @@
                                     <ng-template pTemplate="header">
                                         <tr class="centrar">
                                             <th>Acción</th>
-                                            <th>Almacén</th>
-                                            <th>Cod Producto</th>
-                                            <th>Producto/Servicio</th>
+                                            <th id="md">Almacén</th>
+                                            <th id="md">Cod Producto</th>
+                                            <th id="lg">Producto/Servicio</th>
                                             <th>Und Medida</th>
-                                            <th>T.Afectacion</th>
+                                            <th id="lg">T.Afectacion</th>
                                             <th>P.Inc.Igv</th>
                                             <th>Cantidad</th>
                                             <th>Precio.U</th>
                                             <th>Base.Impon</th>
                                             <th>% Dscto</th>
                                             <th>Imp.Dscto</th>
-                                            <th>Observaciones</th>
+                                            <th id="lg">Observaciones</th>
                                             <th>Valor Venta</th>
                                             <th>IGV</th>
                                             <th>Imp.Otros.C</th>
@@ -312,13 +314,13 @@
                                                     (click)="onEliminarDetalleVenta(rowIndex)" icon="pi pi-trash">
                                                 </button>
                                             </td>
-                                            <td>
+                                            <td id="md">
                                                 <strong class="p-column-title">Almacén</strong>
                                                 <p-dropdown class="extender" appendTo="body" [options]="arrayAlmacen"
                                                     formControlName="almacenid" placeholder="Selecciona"
                                                     [showClear]="true" optionLabel="valor1"></p-dropdown>
                                             </td>
-                                            <td>
+                                            <td id="md">
                                                 <strong class="p-column-title">Cod.Producto</strong>
                                                 <input type="text" style="width: 80px;"
                                                     (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"
@@ -327,7 +329,7 @@
                                                     pTooltip="Buscar" type="button" tooltipPosition="left" pButton
                                                     icon="pi pi-search" class="p-button-sm"></button>
                                             </td>
-                                            <td>
+                                            <td  id="lg">
                                                 <strong class="p-column-title">Producto/Servicio</strong>
                                                 <input type="text" style="width: 150px;" [min]="0" class="p-inputtext"
                                                     pInputText formControlName="descripcionproducto">
@@ -339,7 +341,7 @@
                                                     placeholder="Selecciona" [showClear]="true" optionLabel="valor1">
                                                 </p-dropdown>
                                             </td>
-                                            <td>
+                                            <td id="lg">
                                                 <strong class="p-column-title">T.Afectacion</strong>
                                                 <p-dropdown class="extender"
                                                     (onChange)="onObtenertipoAfectacionDetalle(rowIndex, detallesVenta.value.tipoafectacionid)"
@@ -383,7 +385,7 @@
                                                 <input type="number" style="width: 80px;text-align: right;" readonly
                                                     class="p-inputtext" pInputText formControlName="importedescuento">
                                             </td>
-                                            <td>
+                                            <td  id="lg">
                                                 <strong class="p-column-title">Observaciones</strong>
                                                 <input type="text" style="width: 150px;" [minlength]="0"
                                                     class="p-inputtext" pInputText formControlName="observaciones">

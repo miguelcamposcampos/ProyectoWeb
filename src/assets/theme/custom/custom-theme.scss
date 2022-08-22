@@ -1004,18 +1004,43 @@ body.main-body {
 
 .tabladetalles th,
 td {
-    padding: 20px !important;
+    padding: 20px 1px !important;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center !important;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
+.tabladetalles #md {
+    width: 250px;
+    text-align: center !important;
+    margin: auto;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.tabladetalles #lg {
+    width: 600px;
+    text-align: center !important;
+    margin: 0px 25px;
+    justify-content: center;
+    flex-direction: row;
+}
+
+
+.tabladetalles #lg input{
+    width: 170px!important;
+}
+
+.tabladetalles #md input{
+    width: 140px!important;
+}
 
 .p-datatable .p-datatable-tbody>tr>td {
     padding: 0.5rem !important;
 }
-
 
 .card-desplegable {
     margin-left: 10px;
