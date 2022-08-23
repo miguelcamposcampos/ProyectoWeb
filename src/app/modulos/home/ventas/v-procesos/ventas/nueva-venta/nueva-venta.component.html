@@ -4,7 +4,7 @@
     </ngx-spinner>
     <form [formGroup]="Form">
         <div class="row">
-            <div [ngClass]="{'col-md-11': changeCols, 'col-md-8': !changeCols }">
+            <div [ngClass]="{'col-md-11': changeCols, 'col-md-7': !changeCols }">
                 <div class="container-fluid">
                     <div class="card-box">
                         <p-toolbar>
@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
 
-                                <div class="p-field p-col-3">
+                                <div class="p-field p-col-12 p-md-3 p-sm-6">
                                     <strong>Condición Pago <span>*</span></strong>
                                     <div class="p-inputgroup">
                                         <p-dropdown class="extender"
@@ -130,14 +130,14 @@
                                         placeholder="Selecciona " [showClear]="true" optionLabel="nombre"></p-dropdown>
                                 </div> -->
 
-                                <div class="p-field p-col-3">
+                                <div class="p-field p-col-12 p-md-3 p-sm-6">
                                     <strong>Concepto</strong>
                                     <p-dropdown class="DropExtenso" [options]="arrayCoceptos"
                                         formControlName="conceptocontableid" placeholder="Selecciona "
                                         [showClear]="true" optionLabel="valor1"></p-dropdown>
                                 </div>
 
-                                <div class="p-field p-col-3">
+                                <div class="p-field p-col-12 p-md-3 p-sm-6">
                                     <strong>Tipo Operación <span>*</span></strong>
                                     <p-dropdown class="DropExtenso" [options]="arrayTipoOperacion"
                                         formControlName="codtipooperacion" placeholder="Selecciona " [showClear]="true"
@@ -151,9 +151,11 @@
                                         placeholder="ingresar una glosa">
                                 </div>
 
-                                <button class="p-button-sm" pButton type="button" 
+                               <div class="btn-options-flotant">
+                                <button pButton type="button" 
                                     style="margin-right: 1%;" (click)="onModalConfiguracionesAdicionales()" icon="pi pi-plus">
                                 </button>
+                            </div>  
 
 
                             </div>
@@ -230,159 +232,9 @@
 
                     </div>
                 </div>
-            </div>
 
-            <div [ngClass]="{'col-md-1': changeCols, 'col-md-4': !changeCols }">
-                    <div class="p-fluid p-formgrid p-grid formulario-campo-obligatorio">
-                        <div class="container-fluid">
-                            <div class="card-box card-desplegable">
- 
-                                <button class="p-button-sm" pButton type="button" icon="pi pi-bars"
-                                (click)="onBtnConfigBar($event)"> </button><strong [hidden]="changeCols"> Opciones </strong>
-                                <br>
-                                <div [hidden]="changeCols"> 
-                                    <br>
-                                    <p-accordion [multiple]="true">
-                                        <p-accordionTab header="Cliente" [selected]="true">  
-                                            <div class="p-field p-col-12">
-                                                <strong>Busca un Cliente</strong>
-                                                <div class="p-inputgroup">
-                                                    <input type="text" readonly formControlName="nombrecliente" pInputText
-                                                        class="p-inputtext-sm-clear-grey pd-5" placeholder="Buscar un cliente">
-                                                    <button type="button" pTooltip="Buscar" class="p-button-blue-light"
-                                                        tooltipPosition="left" (click)="onBuscarCliente();" pButton
-                                                        icon="pi pi-search"></button>
-                                                    <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"
-                                                        style=" background-color: #D72250;" class="p-button-blue-light-buscar"
-                                                        tooltipPosition="left" (click)="onBorrarCliente();" pButton
-                                                        icon="pi pi-trash"></button>
-                                                </div>
-                                            </div> 
-                                            <div class="p-field p-col-12">
-                                                <div *ngIf="existeDireccionCliente">
-                                                    <strong>Dirección Cliente</strong>
-                                                    <input type="text" readonly formControlName="direccioncliente" pInputText
-                                                        class="p-inputtext-sm-clear-grey pd-5 width-100"
-                                                        placeholder="dirección un cliente">
-                                                </div>
-                                            </div> 
-                                        </p-accordionTab> 
-                                        <p-accordionTab header="Generales">  
-                                            <p-accordion [selected]="true"> 
-                                                <p-accordionTab header="Fechas">
-                                                    <div class="p-field p-col-12"> 
-                                                        <div class="row">
-                                                            <div class="p-field p-col-6">
-                                                                <!-- <strong>Fecha Emisión <span>*</span></strong> -->
-                                                                <strong>Emisión <span>*</span></strong>
-                                                                <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
-                                                                    formControlName="fechaemision"></p-calendar>
-                                                            </div>
-                    
-                                                            <div class="p-field p-col-6">
-                                                                <!-- <strong>Fecha Vencimiento</strong> -->
-                                                                <strong>Vencimiento</strong>
-                                                                <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
-                                                                    formControlName="fechavencimiento"></p-calendar>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </p-accordionTab>
-                                                <p-accordionTab header="Moneda / Tipo Cambio / Estado"> 
-                                                    <div class="p-field p-col-12"> 
-                                                        <div class="row">
-                                                            <div class="p-field p-col-6">
-                                                                <strong>Moneda <span>*</span></strong>
-                                                                <p-dropdown class="DropExtenso" [options]="arrayMonedas"
-                                                                    formControlName="monedaid" placeholder="Selecciona " [showClear]="true"
-                                                                    optionLabel="valor1"></p-dropdown>
-                                                            </div>
-        
-                                                            <div class="p-field p-col-6">
-                                                                <strong>Tipo Cambio</strong>
-                                                                <input type="number" pInputText formControlName="tipocambio"
-                                                                    class="p-inputtext-sm-clear-grey p-inputtext-sm-simple" placeholder="0.00">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="p-field p-col-6">
-                                                                <strong>Estado</strong>
-                                                                <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"
-                                                                    placeholder="Selecciona " [showClear]="true" optionLabel="nombre"></p-dropdown>
-                                                            </div>
-        
-                                                            <div class="p-field p-col-6">
-                                                               
-                                                            </div>
-                                                        </div>
-        
-                                                    </div>
-                                                </p-accordionTab>
-                                                <p-accordionTab header="Detracción">
-                                                    <div class="p-field p-col-12"> 
-                                                       
-                                                        <div class="p-field p-col-10">
-                                                            <strong>Precios Incluyen Igv.</strong>
-                                                            <p-inputSwitch></p-inputSwitch>
-                                                        </div>
-    
-                                                        <div class="p-field p-col-10">
-                                                            <strong>Afecto Retención</strong>
-                                                            <p-inputSwitch></p-inputSwitch>
-                                                        </div>
+                <br>
 
-                                                        <div class="p-field p-col-10">
-                                                            <strong>Afecto Detracción</strong>
-                                                            <p-inputSwitch (onChange)="onAfectoDetraccion($event.checked)" formControlName="esafectodetraccion"> </p-inputSwitch>
-                                                        </div>
-                                                       
-                                                        <div [hidden]="!mostrarBloqueAfectoDetraccion">
-                                                            <div class="p-field p-col-10">
-                                                                <strong>Porcentaje:</strong>
-                                                                <input type="text" pInputText formControlName="porcentajedetraccion"
-                                                                class="p-inputtext-sm" placeholder="%">
-                                                            </div> 
-                                                            <div class="p-field p-col-10">
-                                                                <strong>Código Detracción:</strong>
-                                                                <p-dropdown class="extender" appendTo="body"
-                                                                    [options]="arrayCodigoDetraccion" formControlName="codigodetraccion"
-                                                                    placeholder="Selecciona" [showClear]="true" optionLabel="valor1">
-                                                                </p-dropdown>
-                                                            </div> 
-                                                        </div>
-        
-                                                    </div>
-                                                </p-accordionTab>
-                                                <p-accordionTab header="Descuento">
-                                                    <div class="p-field p-col-12"> 
-                                                       
-                                                        <div class="p-field p-col-10">
-                                                            <strong>Descuento Global:</strong>
-                                                            <div class="p-inputgroup">
-                                                                <input type="number" (blur)="onConvertiraPorcentaje()" pInputText
-                                                                    formControlName="dsctoglobalrporcentaje" class="p-inputtext-sm"
-                                                                    placeholder="0">
-                                                                <button class="p-button-sm" type="button" pButton label="% Porcentaje"
-                                                                    (click)="onConvertiraPorcentaje()"> </button>
-                                                            </div>
-                                                        </div> 
-        
-                                                    </div>
-                                                </p-accordionTab>
-                                            </p-accordion>
- 
-                                        </p-accordionTab> 
-                                    </p-accordion>
- 
-                                </div>
-                            </div>
-                        </div>
-                </div> <!-- termina Container -->
-            </div>
-        </div>
-        <div class="row">
-            <!-- <div class="p-col-12"> -->
-            <div [ngClass]="{'col-md-11': changeCols, 'col-md-8': !changeCols }"> 
                 <div class="container-fluid">
                     <div class=" card-box">
                         <!-- TABS FORM -->
@@ -878,6 +730,160 @@
 
                     </div>
                 </div>
+            </div>
+
+            <div [ngClass]="{'col-md-1': changeCols, 'col-md-5': !changeCols }">
+                <div class="row">
+                    <div class="p-fluid p-formgrid p-grid formulario-campo-obligatorio">
+                        <div class="container-fluid">
+                            <div class="card-box card-desplegable">
+ 
+                                <button class="p-button-sm" pButton type="button" icon="pi pi-bars"
+                                (click)="onBtnConfigBar($event)"> </button>
+                                
+                                <div class="title-options" [hidden]="!changeCols"> <h2> Más Opciones</h2></div>
+                                
+                                <div class="title-options-internal" [hidden]="changeCols"> <h2> Más Opciones</h2></div>
+
+                                <div [hidden]="changeCols"> 
+                                    <br>
+                                    <p-accordion [multiple]="true">
+                                        <p-accordionTab header="Cliente" [selected]="true">  
+                                            <div class="p-field p-col-12">
+                                                <strong>Busca un Cliente</strong>
+                                                <div class="p-inputgroup">
+                                                    <input type="text" readonly formControlName="nombrecliente" pInputText
+                                                        class="p-inputtext-sm-clear-grey pd-5" placeholder="Buscar un cliente">
+                                                    <button type="button" pTooltip="Buscar" class="p-button-blue-light"
+                                                        tooltipPosition="left" (click)="onBuscarCliente();" pButton
+                                                        icon="pi pi-search"></button>
+                                                    <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"
+                                                        style=" background-color: #D72250;" class="p-button-blue-light-buscar"
+                                                        tooltipPosition="left" (click)="onBorrarCliente();" pButton
+                                                        icon="pi pi-trash"></button>
+                                                </div>
+                                            </div> 
+                                            <div class="p-field p-col-12">
+                                                <div *ngIf="existeDireccionCliente">
+                                                    <strong>Dirección Cliente</strong>
+                                                    <input type="text" readonly formControlName="direccioncliente" pInputText
+                                                        class="p-inputtext-sm-clear-grey pd-5 width-100"
+                                                        placeholder="dirección un cliente">
+                                                </div>
+                                            </div> 
+                                        </p-accordionTab> 
+                                        <p-accordionTab header="Generales">  
+                                            <p-accordion [selected]="true"> 
+                                                <p-accordionTab header="Fechas">
+                                                    <div class="p-field p-col-12"> 
+                                                        <div class="row">
+                                                            <div class="p-field p-col-6">
+                                                                <!-- <strong>Fecha Emisión <span>*</span></strong> -->
+                                                                <strong>Emisión <span>*</span></strong>
+                                                                <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
+                                                                    formControlName="fechaemision"></p-calendar>
+                                                            </div>
+                    
+                                                            <div class="p-field p-col-6">
+                                                                <!-- <strong>Fecha Vencimiento</strong> -->
+                                                                <strong>Vencimiento</strong>
+                                                                <p-calendar readonlyInput="true" [showIcon]="true" dateFormat="dd/mm/yy"
+                                                                    formControlName="fechavencimiento"></p-calendar>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </p-accordionTab>
+                                                <p-accordionTab header="Moneda / Tipo Cambio / Estado"> 
+                                                    <div class="p-field p-col-12"> 
+                                                        <div class="row">
+                                                            <div class="p-field p-col-6">
+                                                                <strong>Moneda <span>*</span></strong>
+                                                                <p-dropdown class="DropExtenso" [options]="arrayMonedas"
+                                                                    formControlName="monedaid" placeholder="Selecciona " [showClear]="true"
+                                                                    optionLabel="valor1"></p-dropdown>
+                                                            </div>
+        
+                                                            <div class="p-field p-col-6">
+                                                                <strong>Tipo Cambio</strong>
+                                                                <input type="number" pInputText formControlName="tipocambio"
+                                                                    class="p-inputtext-sm-clear-grey p-inputtext-sm-simple" placeholder="0.00">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="p-field p-col-6">
+                                                                <strong>Estado</strong>
+                                                                <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"
+                                                                    placeholder="Selecciona " [showClear]="true" optionLabel="nombre"></p-dropdown>
+                                                            </div>
+        
+                                                            <div class="p-field p-col-6">
+                                                               
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </p-accordionTab>
+                                                <p-accordionTab header="Detracción">
+                                                    <div class="p-field p-col-12"> 
+                                                       
+                                                        <div class="p-field p-col-10">
+                                                            <strong>Precios Incluyen Igv.</strong>
+                                                            <p-inputSwitch></p-inputSwitch>
+                                                        </div>
+    
+                                                        <div class="p-field p-col-10">
+                                                            <strong>Afecto Retención</strong>
+                                                            <p-inputSwitch></p-inputSwitch>
+                                                        </div>
+
+                                                        <div class="p-field p-col-10">
+                                                            <strong>Afecto Detracción</strong>
+                                                            <p-inputSwitch (onChange)="onAfectoDetraccion($event.checked)" formControlName="esafectodetraccion"> </p-inputSwitch>
+                                                        </div>
+                                                       
+                                                        <div [hidden]="!mostrarBloqueAfectoDetraccion">
+                                                            <div class="p-field p-col-10">
+                                                                <strong>Porcentaje:</strong>
+                                                                <input type="text" pInputText formControlName="porcentajedetraccion"
+                                                                class="p-inputtext-sm" placeholder="%">
+                                                            </div> 
+                                                            <div class="p-field p-col-10">
+                                                                <strong>Código Detracción:</strong>
+                                                                <p-dropdown class="extender" appendTo="body"
+                                                                    [options]="arrayCodigoDetraccion" formControlName="codigodetraccion"
+                                                                    placeholder="Selecciona" [showClear]="true" optionLabel="valor1">
+                                                                </p-dropdown>
+                                                            </div> 
+                                                        </div>
+        
+                                                    </div>
+                                                </p-accordionTab>
+                                                <p-accordionTab header="Descuento">
+                                                    <div class="p-field p-col-12"> 
+                                                       
+                                                        <div class="p-field p-col-10">
+                                                            <strong>Descuento Global:</strong>
+                                                            <div class="p-inputgroup">
+                                                                <input type="number" (blur)="onConvertiraPorcentaje()" pInputText
+                                                                    formControlName="dsctoglobalrporcentaje" class="p-inputtext-sm"
+                                                                    placeholder="0">
+                                                                <button class="p-button-sm" type="button" pButton label="% Porcentaje"
+                                                                    (click)="onConvertiraPorcentaje()"> </button>
+                                                            </div>
+                                                        </div> 
+        
+                                                    </div>
+                                                </p-accordionTab>
+                                            </p-accordion>
+ 
+                                        </p-accordionTab> 
+                                    </p-accordion>
+ 
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div> <!-- termina Container -->
             </div>
         </div>
 

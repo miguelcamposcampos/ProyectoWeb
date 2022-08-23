@@ -912,7 +912,6 @@ body.main-body {
 
 .p-tabview .p-tabview-nav {
     background: #f7f7f7 !important;
-    border: 0 !important;
 
 }
 
@@ -1044,7 +1043,7 @@ td {
 
 .card-desplegable {
     margin-left: 10px;
-    min-height: 440px;
+    min-height: 770px;
 }
 
 .text-area-generico {
@@ -1052,4 +1051,36 @@ td {
     background: #dddddd;
     width: 100%;
     height: 125px;
+}
+
+
+.title-options h2 {
+    text-orientation: upright;
+    text-transform: uppercase;
+    font-weight: 900;
+    writing-mode: vertical-rl;
+    font-size: 17px;
+    text-align: center;
+    color: #135aa9;
+}
+
+.title-options-internal h2 {
+    justify-content: space-around;
+    text-align: center;
+    margin-top: -30px;
+}
+
+
+.p-tabview .p-tabview-nav li {
+    margin-right: 1px!important;
+    border: 1px!important;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid #E4E5E5!important;
+    border-width: 0 0 1px 0!important;
+}
+
+.btn-options-flotant button {
+    display: none;
 }
