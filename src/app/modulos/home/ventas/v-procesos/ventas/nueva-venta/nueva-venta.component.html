@@ -299,6 +299,7 @@
                                                 <strong class="p-column-title">Cod.Producto</strong>
                                                 <input type="text" style="width: 80px;"
                                                     (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"
+                                                    (blur)="onBuscarProductoPorCodigo(rowIndex)"
                                                     class="p-inputtext" pInputText formControlName="codproductofinal">
                                                 <button type="button" (click)="onModalBuscarProducto(rowIndex)"
                                                     pTooltip="Buscar" type="button" tooltipPosition="left" pButton
@@ -724,7 +725,7 @@
                         <div class="importes" *ngIf="TabTotalesActivo">
                             <strong class="totalaMostrar">Importe Total </strong>
                             <strong> {{ totalaPagar | currency:'S/. '}}</strong>
-                            <button type="button" type="button" (click)="activateMenu('6')" pTooltip="Mas info..."
+                            <button type="button" type="button" (click)="activateMenu('5')" pTooltip="Mas info..."
                                 class="p-button-sm" tooltipPosition="left" pButton icon="pi pi-info"></button>
                         </div>
 

@@ -92,7 +92,7 @@ export class NuevaVentaComponent implements OnInit  {
   DetalleForm : boolean = false;
   GuiaRemisionForm : boolean = false;
   DocReferenciaForm : boolean = false;
-  OtrosForm : boolean = false;
+ // OtrosForm : boolean = false;
   FacturaguiaForm : boolean = false;
   TotalesForm: boolean = false;
   nroCuotaPintar: string = "";
@@ -327,7 +327,7 @@ export class NuevaVentaComponent implements OnInit  {
       //   }
       // },
       {
-        id: '5',
+        id: '4',
         label: 'FACTURA GUIA',
         icon: 'pi pi-fw pi-file',
         command: event => {
@@ -335,7 +335,7 @@ export class NuevaVentaComponent implements OnInit  {
         }
       },
       {
-        id: '6',
+        id: '5',
         label: 'TOTALES',
         icon: 'fas fa-list-ol',
         command: event => {
@@ -351,7 +351,7 @@ export class NuevaVentaComponent implements OnInit  {
 
     this.GuiaRemisionForm = false;
     this.DocReferenciaForm = false;
-    this.OtrosForm = false;
+  //  this.OtrosForm = false;
     this.FacturaguiaForm = false;
     this.DetalleForm = false;
     this.TotalesForm = false;
@@ -364,14 +364,14 @@ export class NuevaVentaComponent implements OnInit  {
       this.DocReferenciaForm = true
       this.activeItem = this.items[2];
     }else if(event ===  "4" ){
-      this.OtrosForm = true;
+    //   this.OtrosForm = true;
+    //   this.activeItem = this.items[3];
+    // }else if(event ===  "5" ){
+      this.FacturaguiaForm = true;
       this.activeItem = this.items[3];
     }else if(event ===  "5" ){
-      this.FacturaguiaForm = true;
-      this.activeItem = this.items[4];
-    }else if(event ===  "6" ){
       this.TotalesForm = true;
-      this.activeItem = this.items[5];
+      this.activeItem = this.items[4];
       this.TabTotalesActivo = false;
     }else{
       this.DetalleForm = true;
