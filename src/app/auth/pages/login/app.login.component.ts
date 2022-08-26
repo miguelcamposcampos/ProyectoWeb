@@ -100,17 +100,9 @@ export class AppLoginComponent implements OnInit  {
           this.swal.mensajeExito('Se envió un correo a su bandeja de entrada.');
         }) 
       }
-    });
-
+    }); 
   }
-
-  
-  onValidateForm(campo: string) {
-    return ( this.loginForm.controls[campo].errors && this.loginForm.controls[campo].touched );
-  }
-  
-
-
+ 
   onLimpiarLS(){
   //  localStorage.removeItem("loginEncryptado")
     localStorage.removeItem("token")
