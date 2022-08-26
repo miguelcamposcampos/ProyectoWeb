@@ -3358,7 +3358,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   outline-color: #4D9FDC;
 }
 .p-treetable .p-treetable-tbody > tr > td {
-  text-align: left;
+  text-align: left!important;
   border: 1px solid rgba(232, 241, 248, 0.7);
   border-width: 0 0 1px 0;
   padding: 1rem 1rem;

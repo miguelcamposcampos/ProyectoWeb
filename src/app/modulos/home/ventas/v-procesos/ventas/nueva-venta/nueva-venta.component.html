@@ -481,7 +481,7 @@
 
                                     <div class="BotonCondiciondePago">
                                         <button type="button" label="Agregar detalle guia remision" pTooltip="Agregar"
-                                            class="p-button-sm" (click)="onAgregarDetalleGuiaRemision()"
+                                            class="p-button-generico-azul" (click)="onAgregarDetalleGuiaRemision()"
                                             tooltipPosition="left" pButton icon="pi pi-plus"></button>
                                     </div>
                                 </div>
@@ -498,6 +498,7 @@
 
                                     <div class="formulario">
                                         <strong>Motivo Nota:</strong>
+                                        <br>
                                         <p-dropdown class="extender" [options]="arrayMotivoNota"
                                             formControlName="motivonotaid" placeholder="Selecciona " [showClear]="true"
                                             optionLabel="valor1"></p-dropdown>
@@ -505,16 +506,16 @@
 
                                     <br>
 
-                                    <p-table class="TablaDetalleCondicionPago" [value]="detallesDocumentoRef"
+                                    <p-table class="TablaDetalleCondicionPago tabladetalles" [value]="detallesDocumentoRef"
                                         [scrollable]="true" responsiveLayout="stack">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th style="width: 50px;">Acción</th>
-                                                <th style="width: 140px;">T. Documento</th>
-                                                <th style="width: 95px;">Serie</th>
-                                                <th style="width: 100px;">Correlativo</th>
-                                                <th style="width: 140px;">Fec.Referencia</th>
-                                                <th style="width: 50px;">Amarrar</th>
+                                                <th>Acción</th>
+                                                <th>T. Documento</th>
+                                                <th>Serie</th>
+                                                <th>Correlativo</th>
+                                                <th>Fec.Referencia</th>
+                                                <th>Amarrar</th>
                                             </tr>
                                         </ng-template>
 
@@ -574,7 +575,7 @@
                                 <br>
                                 <div class="BotonCondiciondePago">
                                     <button type="button" label="Agregar detalle documento referencia"
-                                        pTooltip="Agregar" class="p-button-sm" (click)="onAgregarDetalleDocumentoRef()"
+                                        pTooltip="Agregar" class="p-button-generico-azul" (click)="onAgregarDetalleDocumentoRef()"
                                         tooltipPosition="left" pButton icon="pi pi-plus"></button>
                                 </div>
 
