@@ -10,7 +10,7 @@
                 
                 <div class="p-toolbar-group-right">  
                     <button  
-                        class="p-button-sm p-button-blue"
+                        class="p-button-basico"
                         pButton
                         style="margin-right: 1%;"
                         type="button" 
@@ -93,29 +93,29 @@
                         <button pButton pRipple type="button" label="Buscar Pendiente" class="p-button-rounded p-button-blue p-button-busqueda"  icon="fas fa-clock"  (click)="onBuscarPendiente()"></button>
                     </div>
 
-                    <div class="p-field p-col-12 p-md-12"> 
+                    <div class="p-field p-col-12 p-md-12 tabladetalles"> 
                         <p-table   
-                        class="TablaDetalle"
+                        class="TablaDetalle tabladetalles"
                         [value]="detallesForm"
                         [scrollable]="true" 
                         responsiveLayout="stack" >  
                         <ng-template pTemplate="header">
                             <tr> 
-                                <th style="width: 50px;" >Acción</th>
-                                <th style="width: 60px;" >T.Doc</th>
-                                <th style="width: 85px;" >Documento</th>
-                                <th style="width: 160px;" >Cliente</th>
-                                <th style="width: 150px;" >FormaPago</th> 
-                                <th style="width: 160px;" >Doc.Ref</th> 
-                                <th style="width: 110px;" >Nro.Doc.Ref</th> 
-                                <th style="width: 110px;" >Por Cobrar</th> 
-                                <th style="width: 85px;" >Cobrado</th> 
-                                <th style="width: 80px;" >Redondeo</th> 
-                                <th style="width: 80px;" >Aplica Retención</th> 
-                                <th style="width: 90px;" >Retencion</th> 
-                                <th style="width: 100px;" >Nro.Doc. Retención</th> 
-                                <th style="width: 95px;" >Saldo</th> 
-                                <th style="width: 160px;" >Observaciones</th> 
+                                <th>Acción</th>
+                                <th>T.Doc</th>
+                                <th>Documento</th>
+                                <th id="lg">Cliente</th>
+                                <th id="lg">FormaPago</th> 
+                                <th id="lg">Doc.Ref</th> 
+                                <th>Nro.Doc.Ref</th> 
+                                <th>Por Cobrar</th> 
+                                <th>Cobrado</th> 
+                                <th>Redondeo</th> 
+                                <th>Aplica Retención</th> 
+                                <th>Retencion</th> 
+                                <th>Nro.Doc. Retención</th> 
+                                <th>Saldo</th> 
+                                <th>Observaciones</th> 
                             </tr>
                         </ng-template> 
 
@@ -139,15 +139,15 @@
                                     <strong class="p-column-title">Documento</strong>
                                     <input type="text" style="width: 70px;" readonly pInputText class="p-inputtext-sm"  formControlName="nroDocumento">  
                                 </td>
-                                <td>
+                                <td id="lg">
                                     <strong class="p-column-title">Cliente</strong>
                                     <input type="text" style="width: 150px;" readonly pInputText class="p-inputtext-sm"  formControlName="nombreRazSocial">  
                                 </td> 
-                                <td>
+                                <td id="lg">
                                     <strong class="p-column-title">FormaPago</strong>
                                     <p-dropdown  [options]="arrayFormaPago"  appendTo="body"  formControlName="formapagoid"  placeholder="Selecciona..."  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                                 </td> 
-                                <td>
+                                <td id="lg">
                                     <strong class="p-column-title">Doc.Ref</strong>
                                     <p-dropdown  [options]="arrayDocumentoRef"  appendTo="body"  formControlName="documentopagorefid"  placeholder="Selecciona..."  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                                 </td> 
