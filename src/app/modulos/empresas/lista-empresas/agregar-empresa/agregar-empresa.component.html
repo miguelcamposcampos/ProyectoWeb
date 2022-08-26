@@ -1,5 +1,3 @@
-<!-- <app-titulos [titulo]="(empresasSelect) ? 'Editar Empresa' :'Registrar Empresa'" (cerrar)="onRegresar()"> </app-titulos> 
-  -->
 <div>
 
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
@@ -10,7 +8,7 @@
     <p-toolbar>
         <div class="logotipo">
             <div class="p-toolbar-group-center">
-                <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo.svg"
+                <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo2.svg"
                     alt="poseidon-layout">
             </div>
         </div>
@@ -29,37 +27,37 @@
 
     <div class="margintabla">
         <div class="contenidoTable card-box card-responsive p-fieldset-form">
-            <form [formGroup]="EmpresaForm">
+            <form [formGroup]="Form">
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
                     <div class="formularioEmpresa formulario-campo-obligatorio">
                         <strong>Número de Ruc <span >*</span> </strong>
-                        <input type="text" pInputText required (keydown.enter)="onBuscarPorRuc()"
-                            (keypress)="onSoloNumeros($event)" formControlName="Ruc" class="p-inputtext-generico"
+                        <input type="text" pInputText required (keydown.enter)="onSearchRuc()"
+                            (keypress)="generalService.onSoloNumeros($event)" formControlName="ruc" class="p-inputtext-generico"
                             minlength="11" maxlength="11" placeholder="ingresar el RUC">
 
                         <strong>Razón Social <span>*</span> </strong>
-                        <input type="text" pInputText required formControlName="RazonSocial" class="p-inputtext-generico"
+                        <input type="text" pInputText required formControlName="razonsocial" class="p-inputtext-generico"
                             placeholder="ingresar razón social">
 
                         <strong>Nombre Comercial </strong>
-                        <input type="text" pInputText formControlName="NombreComercial" class="p-inputtext-generico"
+                        <input type="text" pInputText formControlName="nombrecomercial" class="p-inputtext-generico"
                             placeholder="ingresar nombre comercial">
 
                         <strong>Dirección Fiscal <span>*</span> </strong>
-                        <input type="text" pInputText formControlName="DireccionFiscal" class="p-inputtext-generico"
+                        <input type="text" pInputText formControlName="direccionfiscal" class="p-inputtext-generico"
                             minlength="1" placeholder="ingresar dirección fiscal">
 
                         <strong>Email </strong>
-                        <input type="text" pInputText formControlName="Email" class="p-inputtext-generico"
+                        <input type="text" pInputText formControlName="email" class="p-inputtext-generico"
                             placeholder="ingresar el email">
 
                         <strong>Web Site </strong>
-                        <input type="url" pInputText formControlName="WebSite" class="p-inputtext-generico"
+                        <input type="url" pInputText formControlName="website" class="p-inputtext-generico"
                             placeholder="ingresar el sitio web">
 
                         <strong>Teléfono </strong>
-                        <input type="text" pInputText formControlName="Telefono" class="p-inputtext-generico"
+                        <input type="text" pInputText formControlName="telefonos" class="p-inputtext-generico"
                             placeholder="ingresar el telefono">
                     </div>
 
@@ -73,13 +71,15 @@
                                     <h3>Elija el tipo de plan</h3>
                                 </div>
                             </div>
-                            <div class="col-lg-6"><button pButton type="button"
+                            <div class="col-lg-6">
+                                <button pButton type="button"
                                     label="{{ (!mostrarNombrePlanelegido)? 'Detalle de Planes' : mostrarNombrePlanelegido }}"
-                                    (click)="onEscogerPlan()" icon="pi pi-check-square" class="p-button-elegirplan">
+                                    (click)="onModalPlan()" icon="pi pi-check-square" class="p-button-elegirplan">
                                 </button>
                                 <button pButton *ngIf="mostrarNombrePlanelegido" pTooltip="quitar plan elegido"
                                     tooltipPosition="left" style=" background-color: #D72250;" type="button"
-                                    (click)="onQuitarPlan()" icon="pi pi-trash" class="botonPlan p-button-sm"> </button>
+                                    (click)="onDeletePlan()" icon="pi pi-trash" class="p-button-elegirplan"> 
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
             <div class="botones">
                 <button class="p-button-acceder" pButton style="margin-right: 1%;" type="button"
                     icon="pi pi-check-circle" label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}"
-                    [disabled]="!EmpresaForm.valid" (click)="onAgregarEmpresa()">
+                    [disabled]="!Form.valid" (click)="onAdd()">
                 </button>
 
                 <button class="p-button-cancelar" pButton style=" background-color: #D72250;" type="button"

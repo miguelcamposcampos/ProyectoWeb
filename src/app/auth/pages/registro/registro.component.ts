@@ -16,7 +16,7 @@ import { LoginService } from '../../services/login.service';
 export class RegistroComponent implements OnInit {
 
   itemsTopBar! : MenuItem[]; 
-  registroForm!: FormGroup; 
+  Form: FormGroup; 
   value: boolean = false;
   usuario! : IUsuario
   cambiarIconEye: string = "fa fa-eye";
@@ -37,11 +37,12 @@ export class RegistroComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-    this.registroForm = this.formBuilder.group({
-        NombreUsuario: new FormControl(null, [Validators.required]),  
-        Password: new FormControl(null, [Validators.required]),
-        Email: new FormControl(null),
-        NombreApellidos: new FormControl(null, [Validators.required]),
+    this.Form = this.formBuilder.group({
+        nombreusuario: new FormControl(null, [Validators.required]),  
+        contrasena: new FormControl(null, [Validators.required]),
+        email: new FormControl(null),
+        nombreapellidos: new FormControl(null, [Validators.required]),
+        nombreorganizacion: new FormControl(null),
         RepetirPassword: new FormControl(null, [Validators.required]), 
     });
     this.onItemsEmpresas();  
@@ -61,20 +62,15 @@ export class RegistroComponent implements OnInit {
   }
  
   onRegistrar(){
-      const dato = this.registroForm.value;
+      const dato = this.Form.value;
       if(!(dato.Password === dato.RepetirPassword)){
         this.swal.mensajeAdvertencia('Las contraseñas deben coincidir, asegurese de que las contraseñas sean iguales.')
         return;
       }
   
-      const newUsuario: IUsuario = {
-        nombreusuario: dato.NombreUsuario,
-        contrasena: dato.Password ,
-        email: dato.Email ,
-        nombreapellidos: dato.NombreApellidos,
-        nombreorganizacion: ''
-      }
+      const newUsuario: IUsuario = this.Form.getRawValue();
       this.spinner.show();
+
       this.loginService.nuevoUsuarioCreate(newUsuario).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se registro al usuario con conrrectamente!.');

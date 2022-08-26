@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgxSpinnerService } from 'ngx-spinner';  
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IDatosPlan, IEmpresa, IPedioCrate, IPlanes, } from '../../interface/empresa.interface';
+import { IEmpresa, IPedioCrate } from '../../interface/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
 import { PlanesService } from '../../services/planes.services';
   
@@ -16,22 +16,19 @@ export class AgregarEmpresaComponent implements OnInit {
  
   @Input() newEmpresa : boolean;
   @Output() cerrar: any = new EventEmitter<any>();
-  EmpresaForm : FormGroup;
-  Empresa : IEmpresa;  
+  Form : FormGroup;  
   EmpresaEdit : IEmpresa;  
   PlanesArray : any;
   
-  mostrarNombrePlanelegido : string ="";   
-  idPlanElegido: number = 0;
-  modalPlanes: boolean = false; 
-  idEmpresa! : number;
+  mostrarNombrePlanelegido : string ="";    
+  modalPlanes: boolean = false;  
 
  
   constructor( 
     private empresaService: EmpresaService,   
     private formBuilder: FormBuilder,
     private swal : MensajesSwalService,
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private spinner : NgxSpinnerService,
     private planesService : PlanesService,
   ) {  
@@ -48,14 +45,14 @@ export class AgregarEmpresaComponent implements OnInit {
   }
  
   private builform(): void {
-    this.EmpresaForm = this.formBuilder.group({
-      Ruc: new FormControl( null, Validators.required),
-      RazonSocial: new FormControl(null, Validators.required), 
-      NombreComercial: new FormControl(null), 
-      DireccionFiscal: new FormControl(null, Validators.required), 
-      Email: new FormControl(null), 
-      WebSite: new FormControl(null), 
-      Telefono: new FormControl(null),   
+    this.Form = this.formBuilder.group({
+      ruc: new FormControl( null, Validators.required),
+      razonsocial: new FormControl(null, Validators.required), 
+      nombrecomercial: new FormControl(null), 
+      direccionfiscal: new FormControl(null, Validators.required), 
+      email: new FormControl(null), 
+      website: new FormControl(null), 
+      telefonos: new FormControl(null),   
     });
   }
 
@@ -64,21 +61,13 @@ export class AgregarEmpresaComponent implements OnInit {
     this.empresaService.empresaPorGuid().subscribe((resp) => {   
       if(resp){ 
         this.EmpresaEdit = resp;
-        this.EmpresaForm.patchValue({
-          Ruc: this.EmpresaEdit.ruc,
-          RazonSocial: this.EmpresaEdit.razonsocial, 
-          NombreComercial: this.EmpresaEdit.nombrecomercial, 
-          DireccionFiscal: this.EmpresaEdit.direccionfiscal, 
-          Email: this.EmpresaEdit.email, 
-          WebSite: this.EmpresaEdit.website, 
-          Telefono: this.EmpresaEdit.telefonos
-        })
+        this.Form.patchValue(this.EmpresaEdit);
         this.spinner.hide();
       }
     })
   }
   
-  onEscogerPlan(){  
+  onModalPlan(){  
     this.modalPlanes = true;
   }
  
@@ -86,31 +75,30 @@ export class AgregarEmpresaComponent implements OnInit {
     console.log(event);
     this.PlanesArray = event
     this.mostrarNombrePlanelegido = event.plan.nombre;
- //   this.idPlanElegido = +plan.plan.planesarticulosid
     this.modalPlanes = false;
   }
 
-  onQuitarPlan(){
+  onDeletePlan(){
     this.mostrarNombrePlanelegido = ''; 
   }
 
-  onBuscarPorRuc(){   
-    let RucDigitado = this.EmpresaForm.controls['Ruc'].value;
+  onSearchRuc(){   
+    let RucDigitado = this.Form.controls['ruc'].value;
     if(!RucDigitado ){
-      this.EmpresaForm.reset(); 
+      this.Form.reset(); 
       return;
     } 
     this.spinner.show();
       this.empresaService.datosporRucGet(RucDigitado).subscribe((resp)=> {    
         if(resp.Data){ 
-          this.Empresa = resp.Data            /****Si hay data asigna valor a los campos del formulario****/
-          this.EmpresaForm.patchValue({
-            RazonSocial : this.Empresa.razonsocial, 
-            DireccionFiscal : this.Empresa.DireccionCompleta
+                  /****Si hay data asigna valor a los campos del formulario****/
+          this.Form.patchValue({
+            razonsocial :  resp.Data.razonsocial, 
+            direccionfiscal :  resp.Data.DireccionCompleta
           });
         }else{ 
           this.spinner.hide();
-          this.onLimpiarFormulario();          /***si no hay data limpia el campos y emite un mensaje****/
+          this.onCleanForm();          /***si no hay data limpia el campos y emite un mensaje****/
           this.swal.mensajeAdvertencia('no se encontraron datos... intenta con otra ruc!.')
         }
         this.spinner.hide();
@@ -118,18 +106,19 @@ export class AgregarEmpresaComponent implements OnInit {
    
   }
 
-  onAgregarEmpresa(){
+  onAdd(){
     /* newEmpresa recibe todos los valores del form, se le asigna al campo idplan el id seleciconado en el modal */
-    const newEmpresa : IEmpresa = this.EmpresaForm.value; 
+    const newEmpresa : IEmpresa = this.Form.value; 
     newEmpresa.planid = this.PlanesArray ? this.PlanesArray.plan.planid : 0;
     this.spinner.show();
+
     if(this.EmpresaEdit){ 
       newEmpresa.empresaid = this.EmpresaEdit.empresaid;
       this.empresaService.empresaUpdate(newEmpresa).subscribe((resp)=>{
         if(resp){
           this.spinner.hide();
           this.swal.mensajeExito('Se actualizaron los datos de la empresa!.'); 
-          this.onVolver('exito');
+          this.cerrar.emit(true); 
         }
       })
     }else{
@@ -159,7 +148,7 @@ export class AgregarEmpresaComponent implements OnInit {
       if(resp){ 
         this.spinner.hide();
         this.swal.mensajeExito('La empresa ha sido registrada'); 
-        this.onVolver('exito');
+        this.cerrar.emit(true); 
       }else{
         this.swal.mensajeError('No se pudo registrar la empresa'); 
         this.spinner.hide();
@@ -167,36 +156,19 @@ export class AgregarEmpresaComponent implements OnInit {
     });
   }
   
-  onLimpiarFormulario(){
-    this.EmpresaForm.controls['RazonSocial'].setValue(null);
-    this.EmpresaForm.controls['NombreComercial'].setValue(null);
-    this.EmpresaForm.controls['DireccionFiscal'].setValue(null); 
+  onCleanForm(){
+    this.Form.controls['razonsocial'].setValue(null);
+    this.Form.controls['nombrecomercial'].setValue(null);
+    this.Form.controls['direccionfiscal'].setValue(null); 
   }
 
   onRegresar() { 
     this.cerrar.emit(false); 
   }
  
-  onVolver(event) { 
-    this.cerrar.emit(event); 
-  }
+  
  
  
-  onSoloNumeros(event) {
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-  }
+ 
 
 }

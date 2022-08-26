@@ -1,7 +1,7 @@
 <p-toolbar>
     <div class="logotipo">
         <div class="p-toolbar-group-center">
-            <img id="app-logo" src="assets/layout/images/logotipo.svg" alt="poseidon-layout">
+            <img id="app-logo" src="assets/layout/images/logotipo2.svg" alt="poseidon-layout">
         </div>
     </div>
 
@@ -23,29 +23,29 @@
 
 <div class="margintabla">
     <div class="contenidoTable card-box">
-        <form [formGroup]="registroForm" class="p-fieldset-form">
+        <form [formGroup]="Form" class="p-fieldset-form">
 
             <p-fieldset>
                 <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
                 <div class="formulario-campo-obligatorio formulario-registro-empresa">
 
                     <strong>Nombre Completo <span>*</span></strong>
-                    <input type="text" pInputText formControlName="NombreApellidos"
+                    <input type="text" pInputText formControlName="nombreapellidos"
                         class="p-inputtext-sm-registro-empresa" placeholder="Ingrese su nombre completo">
 
                     <strong>Correo electrónico<span>*</span></strong>
-                    <input type="email" pInputText formControlName="Email" class="p-inputtext-sm-registro-empresa"
+                    <input type="email" pInputText formControlName="email" class="p-inputtext-sm-registro-empresa"
                         placeholder="Ingrese un e-mail">
 
                     <strong>Alias <span>*</span> </strong>
-                    <input type="text" pInputText formControlName="NombreUsuario"
+                    <input type="text" pInputText formControlName="nombreusuario"
                         class="p-inputtext-sm-registro-empresa" placeholder="Ingrese un alias">
 
                     <strong>Contraseña<span>*</span></strong>
                     <span class="p-input-icon-right" style="width: 100%;">
                         <i toggle="#password-field" [class]="cambiarIconEye" (click)="viewPassword(clave)"> </i>
                         <input type="password" #passwordField pInputText placeholder="Contraseña"
-                            formControlName="Password" #clave class="p-inputtext-sm-registro-empresa">
+                            formControlName="contrasena" #clave class="p-inputtext-sm-registro-empresa">
                     </span>
 
                     <strong>Confirmar Contraseña<span>*</span> </strong>
@@ -59,7 +59,7 @@
 
             <div class="botones">
                 <button class="p-button-registrar" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
-                    label="Registrarme" type="button" [disabled]="registroForm.invalid" (click)="onRegistrar()">
+                    label="Registrarme" type="button" [disabled]="Form.invalid" (click)="onRegistrar()">
                 </button>
                 <button class="p-button-cancelar" pButton style="background-color: #D72250;"
                     icon="pi pi-arrow-circle-left" label="Cancelar" type="button" routerLink="/auth/login">

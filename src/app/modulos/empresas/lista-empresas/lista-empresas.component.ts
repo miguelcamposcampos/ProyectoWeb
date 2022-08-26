@@ -107,12 +107,12 @@ export class ListaEmpresasComponent implements OnInit {
 
   onLoadEmpresas(){
     this.spinner.show();
+
     this.empresaService.empresasGet().subscribe((resp) =>{ 
       if(resp.length > 0){ 
         this.empresasAsociadas = resp;   
       }else{ 
-        this.swal.mensajeRegistrarEmpresa()
-        .then((response) => { 
+        this.swal.mensajeRegistrarEmpresa().then((response) => { 
           if (response.isConfirmed) { 
             this.router.navigate(['/modulos/empresas/agregar-empresa'])
           }
@@ -131,13 +131,11 @@ export class ListaEmpresasComponent implements OnInit {
     }
 
     this.planesService.planesPorEmpresaGet(empresa.empresaGuid).subscribe((resp) => {
-      console.log(resp);
       if(resp.planId){   
         let gruiEncryptado = this.authService.cifrarData(empresa.empresaGuid)
         localStorage.setItem('guidEmpresa', gruiEncryptado ) 
         localStorage.setItem('DatosUsuario', JSON.stringify(DatoUsuarioEncryptado));  
         this.onNewToken(); 
-     
       }else{ 
         this.swal.mensajeElegirunPlan().then((response) => { 
           if (response.isConfirmed) { 
@@ -151,7 +149,7 @@ export class ListaEmpresasComponent implements OnInit {
   onNewToken(){ 
     const newtoken : IAuth = {
       email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.passwordDesencriptado), // localStorage.getItem('passwordDesencriptado')!, 
       guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
     }
     this.authService.login(newtoken).subscribe((resp)=>{
@@ -164,7 +162,7 @@ export class ListaEmpresasComponent implements OnInit {
   onNuevoTokenItems(vista :string){
     const newtoken : IAuth = {
       email : this.authService.desCifrarData(this.dataDesencryptada.email),  // localStorage.getItem('email')!,
-      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.password), // localStorage.getItem('passwordDesencriptado')!, 
+      passwordDesencriptado : this.authService.desCifrarData(this.dataDesencryptada.passwordDesencriptado), // localStorage.getItem('passwordDesencriptado')!, 
       guidEmpresa :  this.authService.desCifrarData(localStorage.getItem('guidEmpresa')) // localStorage.getItem('guidEmpresa')!
     }
     this.authService.login(newtoken).subscribe((resp)=>{
@@ -198,7 +196,7 @@ export class ListaEmpresasComponent implements OnInit {
   
   //CerrarVistas
   onRetornar(event :any){
-    if(event === 'exito'){
+    if(event){
       this.onLoadEmpresas();
     }
     this.VistaEditarEmpresa = false;

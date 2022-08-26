@@ -21,7 +21,7 @@ export class PlanesComponent implements OnInit {
   listaPlanes : IPlanes[] = []; 
   datosPlan! : IDatosPlan; 
   datosPlanArray! : IDatosPlan[]; 
-  pintarforeach : boolean = false;
+  mostrardatosArray : boolean = false;
   cantidadIngresada = new FormControl(0, Validators.required);
 
   constructor(
@@ -31,12 +31,17 @@ export class PlanesComponent implements OnInit {
     private generalService : GeneralService,
     private spinner: NgxSpinnerService
   ) {  
+
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
+
     this.authService.verificarAutenticacion(); 
   }
 
   ngOnInit(): void {  
     this.onCargarPlanes();  
-    this.onInfoPlan(1)
+  //  this.onInfoPlan(1)
   }
 
   onCargarPlanes(){
@@ -44,28 +49,29 @@ export class PlanesComponent implements OnInit {
     this.planesService.planesGet().subscribe((resp)=>{ 
       if(resp){
         this.listaPlanes = resp;  
+        this.onInfoPlan(null);
         this.spinner.hide();
       } 
     });
   }
 
   onInfoPlan(plan : any){   
-    this.cantidadIngresada.setValue(0); 
-    let id = (plan.index + 1)
-    const idplan = id ? id : 1;
+    this.cantidadIngresada.setValue(0);  
+    const idplan = plan ? plan + 1 : 1;
     this.spinner.show();
+
     this.planesService.datosPlanPorId(idplan).subscribe((resp) => { 
-      if(resp.length > 1){
+      if(resp){
+        if(resp.length > 1){
+          this.mostrardatosArray = true;
+        }else{
+          this.mostrardatosArray = false;
+        }
         let ArrayDatos: IDatosPlan[] = Object.values(resp) 
-        this.datosPlanArray = ArrayDatos;
-        this.pintarforeach = true;  
-      }else{
-        this.pintarforeach = false 
-        let Datos : IDatosPlan[] = Object.values(resp) 
-        this.datosPlan = Datos[0];   
+        this.datosPlanArray = ArrayDatos; 
+        this.spinner.hide();
       }
-      this.spinner.hide();
-    });
+    }); 
   }
 
   onPlanElegido(plan : any){   

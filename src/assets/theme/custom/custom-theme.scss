@@ -539,7 +539,11 @@
 
 .card-box {
     background: #ffffff;
-    padding: 30px 20px;
+  
+    /***CAMBIO CRISTIAN MARTINEZ**/
+      // padding: 30px 20px;
+      padding: 10px 20px;
+    /***CAMBIO CRISTIAN MARTINEZ**/
     box-sizing: border-box;
     border-radius: 16px;
     width: 100%;
@@ -928,6 +932,10 @@ body.main-body {
 
 .p-tabview .p-tabview-panels {
     display: none;
+}
+
+.formPlanes2 .p-tabview .p-tabview-panels {
+    display: grid;
 }
 
 
