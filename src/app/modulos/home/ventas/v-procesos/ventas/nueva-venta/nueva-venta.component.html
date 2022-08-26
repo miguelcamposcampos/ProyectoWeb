@@ -71,36 +71,7 @@
                                         class="p-inputtext-sm-clear-grey number-clear" formControlName="secuencialventa"
                                         placeholder="ingresar">
                                 </div>
-
-
-                                <!-- <div class="p-field p-col-12 p-md-12  p-sm-12">
-                                    <div *ngIf="existeDireccionCliente">
-                                        <strong>Dirección Cliente</strong>
-                                        <input type="text" readonly formControlName="direccioncliente" pInputText
-                                            class="p-inputtext-sm-clear-grey pd-5 width-100"
-                                            placeholder="dirección un cliente">
-                                    </div>
-                                </div>
-
-
-                             
->>>>>>> ee42f6836ce9e6feb5cba6f50c36ff7b7fed3238
-                                <div class="p-field p-col-6 p-md-6">
-                                    <strong>Cliente</strong>
-                                    <div class="p-inputgroup">
-                                        <input type="text" readonly formControlName="cliente" pInputText
-                                            class="p-inputtext-sm-clear-grey pd-5" placeholder="Buscar un cliente">
-                                        <button type="button" pTooltip="Buscar" class="p-button-blue-light"
-                                            tooltipPosition="left" (click)="onBuscarCliente();" pButton
-                                            icon="pi pi-search"></button>
-                                        <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Buscar"
-                                            style=" background-color: #D72250;" class="p-button-blue-light-buscar"
-                                            tooltipPosition="left" (click)="onBorrarCliente();" pButton
-                                            icon="pi pi-trash"></button>
-                                    </div>
-                                </div> -->
-
-
+  
                                 <div class="p-field p-col-12 p-md-12  p-sm-12">
                                     <div *ngIf="existeDireccionCliente">
                                         <strong>Dirección Cliente</strong>
@@ -123,13 +94,7 @@
                                             (click)="onModalDetalleCondicionPago()" pButton icon="pi pi-plus"></button>
                                     </div>
                                 </div>
-
-                                <!-- <div class="p-field p-col-3">
-                                    <strong>Estado</strong>
-                                    <p-dropdown class="DropExtenso" [options]="arrayEstado" formControlName="estadoid"
-                                        placeholder="Selecciona " [showClear]="true" optionLabel="nombre"></p-dropdown>
-                                </div> -->
-
+ 
                                 <div class="p-field p-col-12 p-md-3 p-sm-6">
                                     <strong>Concepto</strong>
                                     <p-dropdown class="DropExtenso" [options]="arrayCoceptos"
@@ -144,7 +109,7 @@
                                         optionLabel="valor1"></p-dropdown>
                                 </div>
 
-                                <div class="p-field p-col-12">
+                                <div class="p-field p-col-12 p-md-12">
                                     <strong>Glosa</strong>
                                     <input type="text" pInputText formControlName="glosa"
                                         class="p-inputtext-sm-clear-grey p-inputtext-sm-simple pd-5 width-100"

@@ -1,105 +1,125 @@
-<app-titulos  (cerrar)="onRegresar()"> </app-titulos> 
-  
+<!-- <app-titulos  (cerrar)="onRegresar()"> </app-titulos> 
+   -->
 <div>
-    <div class="tituloPage">
-        <h2> <strong> Pedidos a notificar </strong></h2> 
-    </div>
 
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
     
-    <div class="margintabla"> 
-        <div class="card">
-            <div class="titulo d-flex flex-wrap"> 
-                <div class="px-2">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input
-                        pInputText
-                        type="text"
-                        class="p-inputtext-sm"
-                        placeholder="Buscar"
-                        size="25"
-                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-                    </span> 
-                </div>
-                <div class="d-block">   
-                    <button    
-                      class="p-button-sm"
-                      pButton
-                      icon="pi pi-arrow-left"
-                      label="Regresar"
-                      tooltipPosition="left"
-                      style="margin-left: 1%;"
-                      pTooltip="Regresar"
-                      (click)="onRegresar()">  
-                  </button> 
-                </div>
-            </div>  
-
-            <p-table #dt [columns]="cols" 
-                [value]="listPedidos"
-                [rowHover]="true"
-                responsiveLayout="stack"  
-                (onHeaderCheckboxToggle)="onSeleccionarTodosLosPedidos($event)" 
-                (onRowSelect)="onSeleccionarPedidos($event)"  
-                (onRowUnselect)="onQuitarSeleccionPedidos($event)"  >
-
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th><p-tableHeaderCheckbox  ></p-tableHeaderCheckbox></th>
-                        <th *ngFor="let col of cols" [pSortableColumn]="col.field">
-                            {{col.header}} 
-                            <p-sortIcon  
-                            [field]="col.field"
-                            ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order">
-                            </p-sortIcon> 
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-col let-rowIndex>
-                    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"> 
-                        <td><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
-                        <td *ngFor="let col of cols">
-                            <strong class="p-column-title"> {{ col.header | uppercase}}  </strong> 
-                            {{rowData[col.field]}}
-                        <td> 
-                    </tr>
-                </ng-template>      
-            </p-table>
-        
+    <p-toolbar>
+        <div class="logotipo">
+          <div class="p-toolbar-group-center">
+            <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo2.svg" alt="poseidon-layout">
+          </div>
+        </div>
+      </p-toolbar>
     
-        <div *ngIf="mostrarAdjuntar">   
-            <p-fileUpload
-                name="myfiles[]"
-                chooseLabel="Adjuntar" 
-                chooseIcon="pi pi-paperclip" 
-                accept="image/*" 
-                [auto]="true" 
-                (onRemove)="onEliminarArchivo($event)"
-                [customUpload]="true"
-                (uploadHandler)="onUpload($event)"> 
-            </p-fileUpload>
 
-        </div>
+    <div class="tituloPage">
+        <h2> <strong> Pedidos a notificar </strong></h2> 
+    </div>
 
-        <div class="centrar" style="padding: 2%;">
-            <p-button
-                *ngIf="mostrarEnviarNotificacion" 
-                [disabled]="!mostrarEnviarNotificacion"
-                class="p-button-sm p-button-rounded m-4"
-                label="Enviar Notificación" 
-                icon="pi pi-check-circle" 
-                (onClick)="onModalEnviarNotificacion()">
-            </p-button>
-        </div>
+    <div class="margintabla">
+        <div class="contenidoTable">
+          <div class="buscar-empresa">
+            <div class="container">
+              <div class="row">
+                <div class="header-buscar-planes">
+                    <div class="col-md-6">
+                        <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
+                            (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                        </span> 
+                    </div>
+                   
+                    <div class="col-lg-6">
+                        <div class="column-planes-right">
+                            <button    
+                                class="p-button-generico-agregar"
+                                pButton
+                                icon="pi pi-arrow-left"
+                                label="Regresar"
+                                tooltipPosition="left"
+                                style="margin-left: 1%;"
+                                pTooltip="Regresar"
+                                (click)="onRegresar()">  
+                            </button> 
+                        </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="tablas-planes">
+
+                    <p-table #dt [columns]="cols" 
+                        [value]="listPedidos"
+                        [rowHover]="true"
+                        responsiveLayout="stack"  
+                        (onHeaderCheckboxToggle)="onSeleccionarTodosLosPedidos($event)" 
+                        (onRowSelect)="onSeleccionarPedidos($event)"  
+                        (onRowUnselect)="onQuitarSeleccionPedidos($event)"  >
+    
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th><p-tableHeaderCheckbox  ></p-tableHeaderCheckbox></th>
+                            <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                                {{col.header}} 
+                                <p-sortIcon  
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                                </p-sortIcon> 
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-col let-rowIndex>
+                        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"> 
+                            <td><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                            <td *ngFor="let col of cols">
+                                <strong class="p-column-title"> {{ col.header | uppercase}}  </strong> 
+                                {{rowData[col.field]}}
+                            <td> 
+                        </tr>
+                    </ng-template>      
+                    </p-table>
+
+                    <div *ngIf="mostrarAdjuntar">   
+                        <p-fileUpload
+                            name="myfiles[]"
+                            chooseLabel="Adjuntar" 
+                            chooseIcon="pi pi-paperclip" 
+                            accept="image/*" 
+                            [auto]="true" 
+                            (onRemove)="onEliminarArchivo($event)"
+                            [customUpload]="true"
+                            (uploadHandler)="onUpload($event)"> 
+                        </p-fileUpload>
+            
+                    </div>
+            
+                    <div class="centrar" style="padding: 2%;">
+                        <p-button
+                            *ngIf="mostrarEnviarNotificacion" 
+                            [disabled]="!mostrarEnviarNotificacion"
+                            class="p-button-sm p-button-rounded m-4"
+                            label="Enviar Notificación" 
+                            icon="pi pi-check-circle" 
+                            (onClick)="onModalEnviarNotificacion()">
+                        </p-button>
+                    </div>
+                </div>
+             </div>
+          </div>
+  
+        </div> 
+      </div>
     </div>
-    </div>
-</div>
- 
+  </div>
+
+
+   
   
       
   

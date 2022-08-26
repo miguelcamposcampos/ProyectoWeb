@@ -1,7 +1,4 @@
-<!-- <app-titulos (cerrar)="onRegresar()"></app-titulos> -->
-
 <!-- Reempplazo de cabecera -->
-
 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
   <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
 </ngx-spinner>
@@ -9,7 +6,7 @@
 <p-toolbar>
   <div class="logotipo">
     <div class="p-toolbar-group-center">
-      <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo.svg" alt="poseidon-layout">
+      <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logotipo2.svg" alt="poseidon-layout">
     </div>
   </div>
 
@@ -51,7 +48,11 @@
         </div>
         <div class="row">
           <div class="tablas-empresas">
-            <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single" [rowHover]="true"
+            <p-table #dt 
+              [columns]="cols" 
+              responsiveLayout="stack"
+              selectionMode="single" 
+              [rowHover]="true"
               [value]="usuariosporEmpresa">
 
               <ng-template pTemplate="header" let-columns>
@@ -82,13 +83,14 @@
 
                     <ng-template #botones [ngIf]="col.field === 'acciones'">
                       <div class="d-flex">
-                        <button *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
+                        <button  class="p-button-ajustes"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
                           tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
                         </button>
 
-                        <p-splitButton class="m-2" *ngIf="!usuario.esAdmin" icon="pi pi-cog" type="button"
-                          (click)="onSelectItems(usuario)" [model]="itemsOperario">
-                        </p-splitButton>
+                        <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
+                        <button  class="p-button-ajustes"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
+                        pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
+ 
 
                       </div>
                     </ng-template>

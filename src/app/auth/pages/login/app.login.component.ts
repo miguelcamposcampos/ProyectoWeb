@@ -6,7 +6,6 @@ import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IAuth } from '../../interface/auth.interface';
 import { AuthService } from '../../services/auth.service';
-import { InterceptorService } from '../../services/interceptor.service';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class AppLoginComponent implements OnInit  {
   
   loginForm!: FormGroup; 
   RecordarLogin: any; 
-  dataDesencryptada :any;
+  dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado'));
   emailRecuperar : string = ""; 
   checkRecordarLogin :boolean;
   cambiarIconEye: string = "fa fa-eye";
@@ -52,8 +51,8 @@ export class AppLoginComponent implements OnInit  {
   private builform(): void {
     this.loginForm = this.formBuilder.group({
       email: new FormControl( null, [Validators.required, Validators.email]),
-      password: new FormControl( null, [Validators.required, Validators.minLength(4)]), 
-      rememberMe: new FormControl(null),    
+      passwordDesencriptado: new FormControl( null, [Validators.required, Validators.minLength(4)]), 
+      rememberMe: new FormControl(false),    
     });
   }
  
@@ -64,18 +63,15 @@ export class AppLoginComponent implements OnInit  {
   
   onLogin(){
     localStorage.clear();  
-    let logindata = this.loginForm.value;    
-
-    const data: IAuth = {
-      email : logindata.email,
-      passwordDesencriptado :  logindata.password 
-    }
+    const data: IAuth = this.loginForm.getRawValue();  
+    let Remem :any = data.rememberMe;
     this.spinner.show();
+
     this.authService.login(data).subscribe((resp) => {  
       if(resp){ 
-        localStorage.setItem('rememberMe', logindata.rememberMe ? logindata.rememberMe : null); 
+        localStorage.setItem('rememberMe', Remem); 
         if(!(localStorage.getItem('estado') === 'Activo')){ 
-          this.swal.mensajeActivacionUsuario(logindata.email);
+          this.swal.mensajeActivacionUsuario(data.email);
         }else{ 
           this.router.navigate(['/modulos/empresas']);
         }  
@@ -84,14 +80,9 @@ export class AppLoginComponent implements OnInit  {
   }
  
   onAutoLlenarLogin(){  
-    this.dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
     if(this.dataDesencryptada){
-      let emailDesencriptado = this.authService.desCifrarData(this.dataDesencryptada.email)
-      this.loginForm.patchValue({
-        email :  emailDesencriptado // localStorage.getItem('email'), 
-      }) 
+      this.loginForm.controls['email'].setValue(this.authService.desCifrarData(this.dataDesencryptada.email));
     }
-   
   }
  
 

@@ -3,6 +3,7 @@ export interface IAuth{
     guidEmpresa? : string,
     passwordDesencriptado : string,
     token? : string
+    rememberMe? : boolean
 }
 
 export interface IUsuario {

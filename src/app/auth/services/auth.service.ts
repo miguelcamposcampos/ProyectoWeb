@@ -77,7 +77,7 @@ export class AuthService {
     //grabamos los datos del login para luego consumirlos y generar un token con el guid de la empresa
     const LoginEncryptado : any = {
       email: this.cifrarData(data.email),
-      password : this.cifrarData(data.passwordDesencriptado)
+      passwordDesencriptado : this.cifrarData(data.passwordDesencriptado)
     }
     localStorage.setItem('loginEncryptado', JSON.stringify(LoginEncryptado));   
     return this.http.post<IAuth>(`${this.baseUrl}/v1/Seguridad/AutenticarUsuario`, data).pipe( 
