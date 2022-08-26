@@ -22,7 +22,7 @@
               label="Agregar"
               tooltipPosition="left"
               pTooltip="Agregar nuevo Establecimiento"
-              (click)="onNuevoEstablecimiento()">  
+              (click)="onAddEstablecimiento()">  
             </button>     
           </div>
       </p-toolbar>
@@ -79,7 +79,7 @@
                           type="button"
                           tooltipPosition="top" 
                           pTooltip="Editar establecimiento"  
-                          (click)="onEditarEstablecimiento(establecimiento.id)"
+                          (click)="onEditEstablecimiento(establecimiento.id)"
                           icon="pi pi-pencil">
                         </button> 
                         <button 
@@ -111,7 +111,7 @@
                           <h3> LISTA DE ALMACENES</h3> 
                           <button 
                             pButton 
-                            (click)="onNuevoAlmacen(establecimiento.id)"  
+                            (click)="onAddAlmacen(establecimiento.id)"  
                             class="p-button-sm"
                             style="margin-right: 2%;"
                             label="Agregar"
@@ -155,7 +155,7 @@
                                     style="margin-right: 2% ;"
                                     pButton 
                                     type="button"
-                                    (click)="onEditarAlmacen(almacen.idAlmacen, establecimiento.id)" 
+                                    (click)="onEditAlmacen(almacen.idAlmacen, establecimiento.id)" 
                                     class="p-button-sm"
                                     tooltipPosition="top" 
                                     pTooltip="Editar Almacen"  
@@ -163,7 +163,7 @@
                                   </button> 
                                   <button  
                                     pButton 
-                                    (click)="onModalEliminar(almacen)" 
+                                    (click)="onDelete(almacen)" 
                                     class="p-button-sm"
                                     tooltipPosition="top" 
                                     style=" background-color: #D72250;"

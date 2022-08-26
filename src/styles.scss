@@ -211,10 +211,14 @@ $gutter: 1rem; //for primeflex grid system
 
 }
 
+  
+  /***CAMBIO CRISTIAN MARTINEZ**/  
+    .layout-wrapper .layout-main {
+     // padding-top: 105px;
+      padding-top: 85px;
+    }
+  /***CAMBIO CRISTIAN MARTINEZ**/
 
-.layout-wrapper .layout-main {
-  padding-top: 105px;
-}
 
  
 .elegirOpciones{

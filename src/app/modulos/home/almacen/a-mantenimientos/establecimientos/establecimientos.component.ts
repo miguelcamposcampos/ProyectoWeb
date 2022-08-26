@@ -17,13 +17,11 @@ export class EstablecimientosComponent implements OnInit {
   colsAlmacen: InterfaceColumnasGrilla[] = [];
   treeTable: any[] = [];
   arrayAlmacen : any[] = []; 
-
   listaEstablecimiento : TreeNode[] = [];
 
   VistaNuevoEstablecimiento : boolean = false;
   VistaSeries : boolean = false;
   modalNuevoAlmacen : boolean = false;
-
   idEstablecimientoEdit : number = null; 
   dataAlmacenEdit : any; 
 
@@ -32,13 +30,16 @@ export class EstablecimientosComponent implements OnInit {
   textoPaginado : string="";
 
  
-
   constructor(
     private swal : MensajesSwalService, 
     private establecimientoService : EstablecimientoService,
     private generalService : GeneralService,
     private spinner : NgxSpinnerService
-  ) { }
+  ) { 
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
+  }
 
   ngOnInit(): void {
     this.cols = [ 
@@ -59,9 +60,8 @@ export class EstablecimientosComponent implements OnInit {
     
     this.onLoadEstablecimientos(null);
   }
- 
 
-
+  /* FUNCIONES DE Establecimientos */
   onLoadEstablecimientos(event : any){
     const Params = {
       pagIndex : event ? event.first :  this.pagina,
@@ -72,6 +72,7 @@ export class EstablecimientosComponent implements OnInit {
       if(resp){
         this.textoPaginado = resp.label; 
         this.treeTable = resp.items;
+
         let finall : any[] = [];
         this.treeTable.forEach((x) => {
           finall.push({
@@ -91,30 +92,30 @@ export class EstablecimientosComponent implements OnInit {
     });
   }
 
-  onNuevoEstablecimiento(){ 
+  onAddEstablecimiento(){ 
     this.idEstablecimientoEdit = null;
     this.VistaNuevoEstablecimiento = true;
   }
   
-  onEditarEstablecimiento(idEstablecimiento : number){  
-    this.idEstablecimientoEdit = idEstablecimiento;
+  onEditEstablecimiento(id : number){  
+    this.idEstablecimientoEdit = id;
     this.VistaNuevoEstablecimiento = true;
   }
 
-  onVerSeries(idEstablecimiento : number){
-    this.idEstablecimientoEdit = idEstablecimiento;
+  onVerSeries(id : number){
+    this.idEstablecimientoEdit = id;
     this.VistaSeries = true;
   }
- 
-  onNuevoAlmacen(idEstablecimiento : number){ 
-    const Data = {
-      idEstablecimiento : idEstablecimiento
-    }
+
+
+  /* FUNCIONES DE ALMACEN */
+  onAddAlmacen(idEstablecimiento : number){ 
+    const Data = { idEstablecimiento }
     this.dataAlmacenEdit = Data
     this.modalNuevoAlmacen = true;
   }
 
-  onEditarAlmacen(idAlmacen : any, idEstablecimiento : any){ 
+  onEditAlmacen(idAlmacen : any, idEstablecimiento : any){ 
     const Data = {
       idAlmacenEdit : idAlmacen,
       idEstablecimiento : idEstablecimiento
@@ -123,7 +124,7 @@ export class EstablecimientosComponent implements OnInit {
     this.modalNuevoAlmacen = true;
   }
  
-  onModalEliminar(data:any){
+  onDelete(data:any){
     this.swal.mensajePregunta("¿Seguro que desea eliminar el almacén " + data.nombreAlmacen + " ?").then((response) => {
       if (response.isConfirmed) {
         this.establecimientoService.deleteAlmacen(data.idAlmacen).subscribe((resp) => { 
@@ -137,7 +138,7 @@ export class EstablecimientosComponent implements OnInit {
   
 
   onRetornar(event : any){    
-    if(event === 'exito'){
+    if(event){
       this.onLoadEstablecimientos(null)
      }
 
