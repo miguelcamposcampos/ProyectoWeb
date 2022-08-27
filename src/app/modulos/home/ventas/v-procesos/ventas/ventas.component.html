@@ -12,9 +12,15 @@
                     </div>
 
                     <div class="p-toolbar-group-right">
-                        <button class="p-button-registrar" type="button"
-                            style="margin-right: 1%;" pButton pTooltip="Agregar Nueva Venta" tooltipPosition="top"
-                            (click)="onNuevaVenta()" label="Agregar" icon="pi pi-plus"></button>
+                        <button 
+                            class="p-button-registrar" 
+                            type="button"
+                            pButton pTooltip="Agregar Nueva Venta" 
+                            tooltipPosition="top"
+                            (click)="onNuevaVenta()" 
+                            label="Agregar" 
+                            icon="pi pi-plus">
+                        </button>
                         <p-tieredMenu #menu [model]="opcioneVentas" appendTo="body" [popup]="true"></p-tieredMenu>
                         <button #btn class="p-button-opciones" type="button" pButton
                             label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
@@ -50,19 +56,19 @@
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Serie:</strong>
                             <input type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie"
-                                class="p-inputtext-sm-clear-grey" placeholder="ingresar una serie">
+                                class="p-inputtext-sm-form" placeholder="ingresar una serie">
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Correlativo:</strong>
                             <input type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo"
-                                class="p-inputtext-sm-clear-grey" placeholder="ingresar una serie">
+                                class="p-inputtext-sm-form" placeholder="ingresar una serie">
                         </div>
 
                         <div class="p-field p-col-6 p-md-6">
                             <strong>Cliente</strong>
                             <div class="p-inputgroup">
-                                <input type="text" readonly formControlName="cliente" pInputText class="p-inputtext-sm-clear-grey"
+                                <input type="text" readonly formControlName="cliente" pInputText class="p-inputtext-sm-form"
                                     placeholder="Buscar un cliente">
                                 <button type="button" pTooltip="Buscar" class="p-button-blue-light"
                                     tooltipPosition="left" (click)="onBuscarCliente();" pButton

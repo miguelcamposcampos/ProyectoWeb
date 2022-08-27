@@ -15,17 +15,15 @@
                     class="p-button-registrar"
                     pButton
                     type="button"
-                    style="margin-right: 1%;"
                     [disabled]="Form.invalid"
                     label="{{ (data) ? 'Actualizar' : 'Grabar' }}"
                     (click)="onGrabar()"
                     icon="pi pi-check-circle">  
-                </button>  
-        
-                <button     class="p-button-cancelar"
+                </button>   
+                <button    
+                    class="p-button-cancelar"
                     pButton
                     type="button"
-                    style=" background-color: #D72250;"
                     icon="pi pi-times-circle"
                     label="Cancelar" 
                     (click)="onRegresar()">  

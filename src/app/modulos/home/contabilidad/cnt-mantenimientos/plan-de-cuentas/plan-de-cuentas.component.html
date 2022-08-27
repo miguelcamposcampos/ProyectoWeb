@@ -13,15 +13,18 @@
                     <h3> <i class="fa-solid fa-folder-tree"></i> <strong> Planes de Cuentas </strong></h3> 
                 </div>
                 <div class="p-toolbar-group-right">
-                    <button class="p-button-registrar" pButton type="button"
+                    <button 
+                        class="p-button-registrar" 
+                        pButton type="button"
                         icon="pi pi-plus" label="Agregar"
-                        tooltipPosition="left" pTooltip="Registrar un plan"
+                        tooltipPosition="left" 
+                        pTooltip="Registrar un plan"
                         [disabled]="!nroCuentaBuscar.value"
                         (click)="onAdd()">  
                     </button> 
 
                     <button    
-                        class="p-button-sm p-button-agregar"
+                        class="p-button-sm-generico-azul"
                         pButton
                         type="button"
                         icon="pi pi-plus"
@@ -52,7 +55,7 @@
                         <br  *ngIf="nombrePlanCuenta">
                         <div class="column-empresas-right">
                             <button    
-                                class="p-button-sm p-button-agregar"
+                                class="p-button-sm-generico-azul"
                                 pButton
                                 type="button"
                                 icon="pi pi-search"
@@ -100,6 +103,7 @@
                                         <div style="display: flex;">
                                             <button 
                                                 pButton
+                                                class="p-button-sm-generico-azul"
                                                 type="button" 
                                                 tooltipPosition="top" 
                                                 pTooltip="Editar" 
@@ -109,9 +113,9 @@
                                             </button>     
                                             <button 
                                                 pButton
+                                                class="p-button-cancelar"
                                                 type="button" 
-                                                tooltipPosition="top" 
-                                                style=" background-color: #D72250;"
+                                                tooltipPosition="top"  
                                                 (click)="onDelete(planc)"
                                                 pTooltip="Eliminar"  
                                                 icon="pi pi-trash">

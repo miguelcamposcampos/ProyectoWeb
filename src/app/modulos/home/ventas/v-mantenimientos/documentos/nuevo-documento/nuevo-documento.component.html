@@ -117,8 +117,7 @@
             class="p-button-registrar"
             pButton
             type="button"
-            [disabled]="Form.invalid"
-            style="margin-right: 1%;"
+            [disabled]="Form.invalid" 
             label="{{ (dataDocumento) ? 'Actualizar' : 'Grabar' }}"
             (click)="onGrabar()"
 
@@ -130,8 +129,7 @@
             pButton
             type="button"
             icon="pi pi-times-circle"
-            label="Cancelar" 
-            style=" background-color: #D72250;"
+            label="Cancelar"  
             (click)="onRegresar()">  
         </button>  
     </div> 

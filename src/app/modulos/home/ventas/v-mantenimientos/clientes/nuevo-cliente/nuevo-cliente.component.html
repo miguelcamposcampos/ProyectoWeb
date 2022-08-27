@@ -14,8 +14,7 @@
                 <button  
                     class="p-button-registrar"
                     pButton
-                    type="button"
-                    style="margin-right: 1%;"
+                    type="button" 
                     [disabled]="Form.invalid"
                     label="{{ (dataCliente) ? 'Actualizar' : 'Grabar' }}"
                     (click)="onGrabar()"
@@ -26,8 +25,7 @@
                     pButton
                     type="button"
                     icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
+                    label="Cancelar"  
                     (click)="onRegresar()">  
                 </button>  
             </div>
