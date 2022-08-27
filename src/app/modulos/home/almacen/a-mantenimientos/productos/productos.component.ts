@@ -77,8 +77,7 @@ export class ProductosComponent implements OnInit {
       { field: 'fechaRegistro', header: 'Fec.Registro', visibility: true , formatoFecha: ConstantesGenerales._FORMATO_FECHA_VISTA }, 
       { field: 'estado', header: 'Estado', visibility: true , tipoFlag: 'estado', }, 
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
-    ];
-   // this.onLoadProductos(null)
+    ]; 
     this.onOpcionesProducto();  
     this.onCargarDropDown();  
   }
@@ -103,14 +102,14 @@ export class ProductosComponent implements OnInit {
         label:'Reporte',
         icon:'pi pi-fw pi-file',
         command:()=>{
-          this.onVistaReporte();
+          this.onReport();
         }
       },
       {
         label:'Subir Producto',
         icon:'pi pi-fw pi-cloud-upload',
         command:()=>{
-         this.onVistaSubirProductos();
+         this.onUploadProdcut();
         }
       }, 
     ]
@@ -157,26 +156,26 @@ export class ProductosComponent implements OnInit {
     });
   }
   
-  onNuevoProducto(){
+  onAdd(){
     this.idProductoEdit = null;
     this.VistaNuevoProducto = true;
   }
   
-  onVistaReporte(){
+  onReport(){
     this.VistaReporte = true;
   }
  
-  onVistaSubirProductos(){
+  onUploadProdcut(){
     this.VistaSubirProductos = true;
   }
 
-  onEditar( idproducto : any){   
+  onEdit( idproducto : any){   
     this.idProductoEdit = idproducto
     this.VistaNuevoProducto = true;
   }
  
   
-  onModalEliminar(data:any){ 
+  onDelete(data:any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar el producto " + data.descripcion + " ?").then((response) => {
       if (response.isConfirmed) {
         this.productoService.deleteProducto(data.id).subscribe((resp) => { 
@@ -189,7 +188,7 @@ export class ProductosComponent implements OnInit {
  
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadProductos(null);
     }
     

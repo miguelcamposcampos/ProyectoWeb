@@ -22,7 +22,6 @@ export class NuevoChoferComponent implements OnInit {
   Form : FormGroup;
   listTipoPersona: any[];
   listTipoDocumento : any[];
-  ubigeoSeleccionado : string = '';
   ubigeoParaMostrar : string =""; 
   modalBuscarUbigeo : boolean = false;
  
@@ -32,7 +31,7 @@ export class NuevoChoferComponent implements OnInit {
 
   constructor(
     private transpService: TransportistaService,
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private swal : MensajesSwalService,
     private spinner : NgxSpinnerService
   ) { 
@@ -62,6 +61,7 @@ export class NuevoChoferComponent implements OnInit {
       apellidos: new FormControl(null, Validators.required),   
       nombres: new FormControl(null, Validators.required), 
       direccionprincipal: new FormControl(null),   
+      ubigeo: new FormControl(null),   
     });
   }
 
@@ -129,12 +129,13 @@ export class NuevoChoferComponent implements OnInit {
       if(resp){ 
         this.EditarChofer = resp; 
         this.onObtenerTipoDocumento(this.EditarChofer.personaData.tipodocumentoid);
+
         if(+resp.personaData.ubigeoprincipal){
           this.generalService.listarubigeo(+resp.personaData.ubigeoprincipal).subscribe((ubi)=> {
             let datosubi: any = Object.values(ubi)  
             this.ubigeoParaMostrar = datosubi[0] + ' - ' +  datosubi[1] + ' - ' + datosubi[2]; 
           })
-          this.ubigeoSeleccionado = resp.personaData.ubigeoprincipal;
+          this.Form.controls['ubigeo'].setValue(resp.personaData.ubigeoprincipal);  
         }
         
         this.Form.patchValue({ 
@@ -163,7 +164,7 @@ export class NuevoChoferComponent implements OnInit {
   onPintarUbigeoSeleccionado( data : any){ 
     if(data){
       this.ubigeoParaMostrar = data.nombreubigeo;
-      this.ubigeoSeleccionado = data.ubigeo; 
+      this.Form.controls['ubigeo'].setValue(data.ubigeo); 
     }
     this.modalBuscarUbigeo = false;
   }
@@ -183,7 +184,7 @@ export class NuevoChoferComponent implements OnInit {
         tipodocumentoid : data.tipoDocumento.id,
         tipopersonaid: data.tipoPersona.id,
         razonsocial :  data.razonSocial,
-        ubigeoprincipal : this.ubigeoSeleccionado,
+        ubigeoprincipal : data.ubigeo,
         direccionprincipal: data.direccionprincipal
       },
       idauditoria :  this.EditarChofer ? this.EditarChofer.idauditoria : 0,
@@ -198,14 +199,14 @@ export class NuevoChoferComponent implements OnInit {
       this.transpService.grabarChofer(newChofer).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     }else { 
       this.transpService.updateChofer(newChofer).subscribe((resp) =>{
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     }
@@ -216,29 +217,8 @@ export class NuevoChoferComponent implements OnInit {
     this.cerrar.emit(false); 
   }
 
-
-  onVolver() {   
-    this.cerrar.emit('exito'); 
-  }
-
-
-  onSoloNumeros(event) {
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-  }
-
+ 
+ 
   onValidacionRequired(event : any){ 
     const apellidos = this.Form.get("apellidos");
     const nombres = this.Form.get("nombres");

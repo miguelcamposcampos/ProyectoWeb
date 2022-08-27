@@ -56,10 +56,10 @@
 
                         <ng-template #botones [ngIf]="col.field === 'acciones'">
                             <div style="display: flex;">
-                                <button pButton type="button" tooltipPosition="top" pTooltip="Editar"
+                                <button pButton type="button" class="p-button-generico-azul" tooltipPosition="top" pTooltip="Editar"
                                     (click)="onEditar(lineas.id)" style="margin-right :2%;" icon="pi pi-pencil">
                                 </button>
-                                <button pButton type="button" tooltipPosition="top" style=" background-color: #D72250;"
+                                <button pButton type="button" class="p-button-generico-azul" tooltipPosition="top" style=" background-color: #D72250;"
                                     (click)="onModalEliminar(lineas)" pTooltip="Eliminar" icon="pi pi-trash">
                                 </button>
                             </div>
@@ -85,7 +85,7 @@
                                 <div class="titulorama">
                                     <h3> SUB LINEAS</h3>
                                     <button pButton type="button" (click)="onNuevaSubLinea(lineas.id)"
-                                        class="p-button-sm" style="margin-right: 2%;" label="Agregar"
+                                        class="p-button-generico-azul" style="margin-right: 2%;" label="Agregar"
                                         tooltipPosition="top" pTooltip="Agregar SubLinea" icon="pi pi-plus">
                                     </button>
                                 </div>
@@ -130,11 +130,11 @@
                             <div style="display: flex;">
                                 <button style="margin-right: 2% ;" pButton type="button"
                                     (click)="onEditarSubLinea(subLineas.idLinea, subLineas.idLineaPadre )"
-                                    class="p-button-sm" tooltipPosition="top" pTooltip="Editar SubLinea"
+                                    class="p-button-generico-azul" tooltipPosition="top" pTooltip="Editar SubLinea"
                                     icon="pi pi-pencil">
                                 </button>
                                 <button pButton type="button" (click)="onEliminarSubLinea(subLineas)"
-                                    class="p-button-sm" tooltipPosition="top" style=" background-color: #D72250;"
+                                    class="p-button-generico-azul" tooltipPosition="top" style=" background-color: #D72250;"
                                     pTooltip="Eliminar SubLinea" icon="pi pi-trash">
                                 </button>
                             </div>

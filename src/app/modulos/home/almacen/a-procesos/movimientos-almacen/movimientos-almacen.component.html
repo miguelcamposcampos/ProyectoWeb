@@ -16,20 +16,22 @@
                         type="button" (click)="onNuevoIngreso()" 
                         pTooltip="Nuevo Ingreso" tooltipPosition="top" 
                         label="Ingreso" 
-                        pButton
-                        style="margin-right: 1%;"
+                        pButton 
+                        class="p-button-generico-azul"
                         icon="fas fa-arrow-alt-circle-down">
                     </button> 
                     <button class="BorrarLabel p-button-sm" 
                         type="button" (click)="onNuevaSalida()" 
                         pTooltip="Nueva Salida" tooltipPosition="top" 
-                        style="margin-right: 1%;"
+                        style="margin-right: 1%;margin-left: 1%;"
+                        class="p-button-generico-azul"
                         pButton
                         label="Salida" icon="fas fa-arrow-alt-circle-up">
                     </button> 
                     <button class="BorrarLabel p-button-sm" 
                         type="button" (click)="onNuevaTransferencia()" 
                         pButton
+                        class="p-button-generico-azul"
                         pTooltip="Nueva Transferencia" tooltipPosition="top"
                         label="Transferencia" icon="fas fa-sync-alt">
                     </button> 
@@ -63,11 +65,11 @@
 
                         <div class="p-field p-col-12 p-sm-6 p-md-4 ">
                             <strong >Anexo:</strong>
-                            <input type="text" placeholder="ingresa un anexo... "  class="p-inputtext-sm" formControlName="anexo" pInputText>  
+                            <input type="text" placeholder="ingresa un anexo... "  class="p-inputtext-sm-clear-grey pd-5 width-100" formControlName="anexo" pInputText>  
                         </div>
 
                         <div class="p-field p-col-12 p-sm-6 p-md-2 botonBuscar">
-                            <button pButton label="Buscar"   type="button" icon="pi pi-search"   class="p-button-sm" (click)="onLoadMovimientos()"></button>
+                            <button pButton label="Buscar"   type="button" icon="pi pi-search"   class="p-button-generico-azul" (click)="onLoadMovimientos()"></button>
                         </div>
 
                     </div>
@@ -139,13 +141,14 @@
                                         tooltipPosition="top" 
                                         pTooltip="Editar" 
                                         (click)="onEditar(movAlmacen)"
-                                        style="margin-right :2%;" 
+                                        class="p-button-generico-azul"
                                         icon="pi pi-pencil">
                                     </button>     
                                     <button 
                                         pButton
                                         type="button" 
                                         tooltipPosition="top" 
+                                        class="p-button-generico-azul"
                                         style=" background-color: #D72250;"
                                         (click)="onModalEliminar(movAlmacen)"
                                         pTooltip="Eliminar"  

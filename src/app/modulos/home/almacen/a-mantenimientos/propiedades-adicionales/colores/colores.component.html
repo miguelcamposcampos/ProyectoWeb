@@ -12,8 +12,8 @@
                 pButton
                 type="button"  
                 label="Agregar" 
-                class="p-button-sm"
-                (click)="onNuevoColor()" 
+                class="p-button-registrar"
+                (click)="onAdd()" 
                 icon="pi pi-plus">
             </button>   
         </div>
@@ -66,16 +66,17 @@
                                 type="button" 
                                 tooltipPosition="top" 
                                 pTooltip="Editar" 
-                                (click)="onEditar(colores.id)"
-                                style="margin-right :2%;" 
+                                (click)="onEdit(colores.id)"
+                                class="p-button-generico-azul" 
                                 icon="pi pi-pencil">
                             </button>     
                             <button 
                                 pButton
                                 type="button" 
                                 tooltipPosition="top" 
+                                class="p-button-generico-azul"
                                 style=" background-color: #D72250;"
-                                (click)="onModalEliminar(colores)"
+                                (click)="onDelete(colores)"
                                 pTooltip="Eliminar"  
                                 icon="pi pi-trash">
                             </button>        

@@ -8,8 +8,7 @@ import { EstablecimientoService } from './service/establecimiento.service';
 
 @Component({
   selector: 'app-establecimientos',
-  templateUrl: './establecimientos.component.html',
-  styleUrls: ['./establecimientos.component.scss']
+  templateUrl: './establecimientos.component.html'
 })
 export class EstablecimientosComponent implements OnInit {
 

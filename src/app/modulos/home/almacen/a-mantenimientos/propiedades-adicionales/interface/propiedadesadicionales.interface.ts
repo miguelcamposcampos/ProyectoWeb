@@ -96,7 +96,7 @@ export interface IColeccion{
     nombre: string,
 }
 
-export interface ICrearColeccion {
+export interface ICrearColeccion { 
     descripcion : string,
     coleccionid : number
 }

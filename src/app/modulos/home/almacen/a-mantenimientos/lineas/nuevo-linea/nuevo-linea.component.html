@@ -4,13 +4,12 @@
 <form [formGroup]="Form">
 
     <p-fieldset>
-
         <ng-template pTemplate="header">PROPIEDADES</ng-template>
 
         <div class="p-field p-col-12">
             <strong>Nombre <span> *</span> </strong>
             <div class="p-inputgroup">
-            <input type="text" pInputText formControlName="nombreLinea" class="p-inputtext-sm-clear"
+            <input type="text" pInputText formControlName="nombreLinea"  class="p-inputtext-sm-clear"
                 placeholder="ingresar un nombre de linea">
             </div>
         </div>
@@ -18,7 +17,7 @@
             <strong>Producto</strong>
             <div class="p-inputgroup">
                 <input type="text" [value]="codigoProductoUnesco" pInputText
-                    (input)="onObtenerCriterioBuscarUnesco($event)" class="p-inputtext-sm-clear"
+                    (input)="onObtenerCriterioBuscarUnesco($event)"  class="p-inputtext-sm-clear"
                     placeholder="ingresar el numero de documento">
                 <button type="button" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarUnesco();" pButton
                     pRipple icon="pi pi-search" styleClass="p-button-warn"></button>
@@ -41,10 +40,10 @@
         <div class="p-field p-col-12">
             <strong>Cuenta Ventas</strong>
             <div class="p-inputgroup">
-                <input type="text" pInputText formControlName="cuentaventas" class="p-inputtext-sm-clear"
+                <input type="text" pInputText formControlName="cuentaventas"  class="p-inputtext-sm-clear"
                     placeholder="Buscar una cuenta">
                 <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaVenta')"
-                    tooltipPosition="left" pButton class="p-button-sm" icon="pi pi-search"></button>
+                    tooltipPosition="left" pButton class="p-button-generico-azul" icon="pi pi-search"></button>
             </div>
         </div>
         <div class="p-field p-col-12">
@@ -53,7 +52,7 @@
                 <input type="text" pInputText formControlName="cuentacompras" class="p-inputtext-sm-clear "
                     placeholder="Buscar una cuenta">
                 <button type="button" pTooltip="Buscar" (click)="onModalBuscarCuentas('CtaCompra')"
-                    tooltipPosition="left" pButton class="p-button-sm" icon="pi pi-search"></button>
+                    tooltipPosition="left" pButton class="p-button-generico-azul" icon="pi pi-search"></button>
             </div>
         </div>
     </p-fieldset>
@@ -67,7 +66,7 @@
                 accept="image/*" [auto]="true" (onRemove)="onEliminarArchivo($event)" [customUpload]="true"
                 (uploadHandler)="onUpload($event)">
             </p-fileUpload>
-            <button *ngIf="imgParaEditar" class="p-button-sm" pButton label="Cambiar Logo" (click)="onCambiarLogo()"
+            <button *ngIf="imgParaEditar" class="p-button-generico-azul" pButton label="Cambiar Logo" (click)="onCambiarLogo()"
                 icon="pi pi-check-circle">
             </button>
             <div *ngIf="imgParaEditar">

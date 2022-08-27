@@ -22,6 +22,7 @@
 
 
 .p-button-registrar {
+    margin-right: 1%;
     color: #f8fafc;
     background: #3f8748;
     border: 0px solid #1B74C5;
@@ -385,7 +386,10 @@
     display: flex;
     height: 80px;
     justify-content: center;
-    background-color: #147DBA;
+    /**** CAMBIOS CRISTIAN MARTINEZ ***/
+    // background-color: #147DBA;
+    background-color: #135AA9;
+    /**** CAMBIOS CRISTIAN MARTINEZ ***/
     color: white;
 }
 
@@ -656,10 +660,10 @@
 }
 
 
-.p-inputtext-sm-clear-grey {
-    font-size: 16px !important;
-    padding: 10px 30px !important;
-    width: 98% !important;
+.p-inputtext-sm-form {
+    height: 35px;
+    width: 100% !important;
+    font-size: 16px !important; 
     border-radius: 5px !important;
     background: #e3e3e3 !important;
 }

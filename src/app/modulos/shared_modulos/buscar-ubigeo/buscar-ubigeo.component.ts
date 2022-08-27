@@ -17,6 +17,7 @@ export class BuscarUbigeoComponent implements OnInit {
     departamento:['', Validators.required],
     provincia:['', Validators.required],
     distrito:['', Validators.required],
+    ubigeo:['', Validators.required],
   }) 
   direccionUbigeo: FormControl = new FormControl('', Validators.required);
 
@@ -26,7 +27,7 @@ export class BuscarUbigeoComponent implements OnInit {
   arrayDepartamentos: any[] = [];
   arrayProvincias: any[] = [];
   arrayDistritos: any[] = [];
-  ubigeo : number = 0;
+ 
 
   constructor(
     private generalService: GeneralService,
@@ -36,9 +37,7 @@ export class BuscarUbigeoComponent implements OnInit {
     this.onCargarDepartamentos();
   }
 
-
-
-
+ 
   ngOnInit(): void {
     this.onchangeDepartamentos();   
   }
@@ -59,7 +58,7 @@ export class BuscarUbigeoComponent implements OnInit {
           this.bloqueardropdownProvincias = true; 
           this.arrayDistritos = []
           this.bloqueardropdownDistritos = true; 
-          this.ubigeo === null;
+          this.Form.get('ubigeo').setValue(null);           
         }),
         switchMap( resp => this.generalService.listaProvincias(resp.nombre))
     ).subscribe( provincias => {
@@ -76,7 +75,7 @@ export class BuscarUbigeoComponent implements OnInit {
         tap(()=>{  
             this.arrayDistritos = []
             this.bloqueardropdownDistritos = true; 
-            this.ubigeo === null;
+            this.Form.get('ubigeo').setValue(null);    
           }), 
           switchMap( resp => this.generalService.listaDistritos(this.Form.get('departamento')?.value.nombre, resp.nombre) )
       ).subscribe( distritos => {
@@ -91,13 +90,13 @@ export class BuscarUbigeoComponent implements OnInit {
   onchangeDistrito(){
     this.Form.get('distrito')?.valueChanges.pipe(
       tap(()=>{   
-          this.ubigeo === null;
+        this.Form.get('ubigeo').setValue(null);    
         }), 
         switchMap( resp =>  
           this.generalService.listaUbigeo(this.Form.get('departamento')?.value.nombre, this.Form.get('provincia')?.value.nombre, resp.nombre)
         )
     ).subscribe( ubi => {
-      this.ubigeo = ubi  
+      this.Form.get('ubigeo').setValue(ubi);   
     });
   }
  
@@ -116,7 +115,7 @@ export class BuscarUbigeoComponent implements OnInit {
       if (response.isConfirmed) {  
         const data ={
           punto : this.dataUbigeo,
-          ubigeo : this.ubigeo,
+          ubigeo : this.Form.get('ubigeo').value,
           nombreubigeo :  (this.Form.get('departamento').value.nombre + ' - ' + this.Form.get('provincia').value.nombre  +  ' - ' + this.Form.get('distrito').value.nombre)
         }
         this.ubigeoSelect.emit(data); 

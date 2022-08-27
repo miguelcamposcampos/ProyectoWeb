@@ -26,12 +26,13 @@ export class NuevoEstablecimientoComponent implements OnInit {
   direccionUbigeo: FormControl = new FormControl('');
   bloqueardropdownProvincias : boolean = false;
   bloqueardropdownDistritos : boolean = false;
+
   arrayDepartamentos: any[] = [];
   arrayProvincias: any[] = [];
   arrayDistritos: any[] = [];
-  ubigeoSelect : number = 0; 
-  datosPorRuc : IPorRuc;
 
+ 
+  datosPorRuc : IPorRuc;
   dataEstablecimientoEdit : IEstablecimientoPorId;
   imgParaEditar: string = "";
  
@@ -50,15 +51,16 @@ export class NuevoEstablecimientoComponent implements OnInit {
   }
 
   public builform(): void{
-    this.Form = new FormGroup({
+    this.Form = new FormGroup({ 
       codigosunat: new FormControl( null),
-      razonSocial: new FormControl(null, Validators.required), 
-      nombreComercial: new FormControl(null, Validators.required),  
+      nombreestablecimiento: new FormControl(null, Validators.required), 
+      nombrecomercial: new FormControl(null, Validators.required),  
       direccion:  new FormControl(null, Validators.required),  
       departamento:  new FormControl(''),
       provincia:  new FormControl(''),
       distrito:  new FormControl(''),
-      logoestablecimiento : new FormControl(null)
+      logoestablecimiento : new FormControl(null),
+      ubigeo : new FormControl(0)
     });
   }
 
@@ -66,7 +68,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
     if(this.idEstablecimientoEdit){
       this.spinner.show();
       this.tituloEstablecimiento = "EDITAR ESTEBLECIMIENTO";
-      this.onBuscarEstablecimientoPorId();
+      this.onFormEdit();
     }
 
     this.onchangeDepartamentos();
@@ -80,41 +82,12 @@ export class NuevoEstablecimientoComponent implements OnInit {
     });
   }
 
-  // onBuscarRuc(){ 
-  // let RucaBuscar = this.Form.controls['razonSocial'].value;
-  // if(!RucaBuscar){
-  //   this.swal.mensajeAdvertencia('Ingrese un numero de Ruc porfavor!.');
-  //   return;
-  // }  
-  //  this.spinner.show();
-  //   this.generalService.consultarPorRuc(RucaBuscar).subscribe((resp) => {
-  //     if(resp){ 
-  //       this.datosPorRuc = resp;  
-  //       this.Form.patchValue({  
-  //         nombreComercial : this.datosPorRuc.Data.razonsocial,
-  //         direccion:  this.datosPorRuc.Data.DireccionCompleta  
-  //       })
-  //       this.spinner.hide();
-  //     } 
-  //   },error => { 
-  //     this.spinner.hide();
-  //     this.generalService.onValidarOtraSesion(error);
-  //   });
-  // }
-
-  onBuscarEstablecimientoPorId(){  
+  onFormEdit(){  
     this.establecimientoService.establecimeintoPorId(this.idEstablecimientoEdit).subscribe((resp) => { 
       if(resp){ 
         this.dataEstablecimientoEdit = resp;  
         this.imgParaEditar  = ConstantesGenerales._FORMATO_IMAGEN_PNG_DESDE_BASE_64 + this.dataEstablecimientoEdit.logoestablecimiento
- 
-        this.Form.patchValue({
-          codigosunat: this.dataEstablecimientoEdit.codigosunat,
-          razonSocial : this.dataEstablecimientoEdit.nombreestablecimiento,
-          nombreComercial : this.dataEstablecimientoEdit.nombrecomercial,
-          direccion: this.dataEstablecimientoEdit.direccion,  
-          logoestablecimiento : this.dataEstablecimientoEdit.logoestablecimiento
-        });
+        this.Form.patchValue(this.dataEstablecimientoEdit);
         this.spinner.hide(); 
       }
     });
@@ -124,8 +97,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
     this.imgParaEditar = "";
     this.Form.controls['logoestablecimiento'].setValue(null);
   }
- 
- 
+  
   onchangeDepartamentos(){ 
     this.Form.get('departamento')?.valueChanges.pipe(
       tap(()=>{ 
@@ -133,7 +105,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
           this.bloqueardropdownProvincias = true;
           this.arrayDistritos = []
           this.bloqueardropdownDistritos = true;
-          this.ubigeoSelect === null;
+          this.Form.controls['ubigeo'].setValue(null); 
         }),
         switchMap( resp => this.generalService.listaProvincias(resp.nombre))
     ).subscribe( provincias => {
@@ -150,7 +122,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
       tap(()=>{  
           this.arrayDistritos = []
           this.bloqueardropdownDistritos = true;
-          this.ubigeoSelect === null;
+          this.Form.controls['ubigeo'].setValue(null); 
         }), 
         switchMap( resp =>  
           this.generalService.listaDistritos(this.Form.get('departamento')?.value.nombre, resp.nombre)
@@ -167,17 +139,16 @@ export class NuevoEstablecimientoComponent implements OnInit {
   onchangeDistrito(){
     this.Form.get('distrito')?.valueChanges.pipe(
       tap(()=>{   
-          this.ubigeoSelect === null;
+        this.Form.controls['ubigeo'].setValue(null); 
         }), 
         switchMap( resp =>  
           this.generalService.listaUbigeo(this.Form.get('departamento')?.value.nombre, this.Form.get('provincia')?.value.nombre, resp.nombre)
         )
     ).subscribe( ubi => {
-      this.ubigeoSelect = ubi  
+      this.Form.controls['ubigeo'].setValue(ubi); 
     });
   }
-
-
+ 
   onUpload(event : any) {    
     if(event){  
       const file = event.files[0];
@@ -188,8 +159,7 @@ export class NuevoEstablecimientoComponent implements OnInit {
       }
     }
   }
- 
- 
+  
   handleReaderLoaded(event : any) {  
     this.ImgBase64 = btoa(event.target.result);
     this.Form.controls['logoestablecimiento'].setValue(this.ImgBase64)
@@ -201,31 +171,23 @@ export class NuevoEstablecimientoComponent implements OnInit {
       this.Form.controls['logoestablecimiento'].setValue(null);
     }
   }
-
-
-  onGrabarEstablecimiento(){
-    const data = this.Form.value
-    const NewEstablecimiento : ICreateEstablecimiento = {
-      codigosunat : data.codigosunat,
-      direccion : data.direccion,
-      establecimientoid: this.idEstablecimientoEdit ? this.idEstablecimientoEdit : 0,
-      nombrecomercial: data.nombreComercial,
-      logoestablecimiento : data.logoestablecimiento, 
-      nombreestablecimiento : data.razonSocial, //raazon social
-      ubigeo: this.ubigeoSelect,
-    }
+ 
+  onGrabarEstablecimiento(){ 
+    const NewEstablecimiento : ICreateEstablecimiento = this.Form.getRawValue();
+    NewEstablecimiento.establecimientoid = this.dataEstablecimientoEdit ? this.dataEstablecimientoEdit.establecimientoid : 0;
+  
     if(!this.idEstablecimientoEdit){
       this.establecimientoService.crearEstablecimiento(NewEstablecimiento).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     }else{
       this.establecimientoService.updateEstablecimiento(NewEstablecimiento).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     } 
@@ -235,30 +197,6 @@ export class NuevoEstablecimientoComponent implements OnInit {
   onRegresar() {   
     this.cerrar.emit(false); 
   }
-
-
-  onVolver() {   
-    this.cerrar.emit('exito'); 
-  }
-
-
-
-  validateFormat(event) { 
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-    }
-    
+ 
 
 }

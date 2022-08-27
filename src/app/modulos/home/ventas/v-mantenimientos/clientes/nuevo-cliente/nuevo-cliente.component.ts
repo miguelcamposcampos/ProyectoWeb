@@ -293,24 +293,20 @@ ngOnInit(): void {
     if(!this.ClienteEdit){
       this.clienteService.crearCliente(newCliente).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+          this.cerrar.emit(true)
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       });
     }else{
       this.clienteService.updateCliente(newCliente).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+          this.cerrar.emit(true)
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       });
     }  
   }
-
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
-
+ 
   onRegresar(){
     this.cerrar.emit(false)
   }

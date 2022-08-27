@@ -718,7 +718,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
               this.onObtenerguiaRemisionPorId(resp, 'nuevo')
             }else{
               this.swal.mensajeExito('los datos de grabaron correctamente!.');
-              this.onVolver();
+              this.cerrar.emit(true);
             }
           })   
         }
@@ -730,7 +730,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
             this.onObtenerguiaRemisionPorId(newGuiaRemision.guiaremisionid, 'nuevo')
           }else{
             this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-            this.onVolver();
+            this.cerrar.emit(true);
           }
         })  
       });
@@ -746,11 +746,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     this.VistaReporte = false;
   }
 
-
-  onVolver(){ 
-    this.cerrar.emit('exito') 
-  }
-
+ 
   onRegresar(){
     this.cerrar.emit(false);
   }
@@ -770,24 +766,6 @@ export class NuevaGuiaRemisionComponent implements OnInit {
     PLACA.updateValueAndValidity();
     CHOFER.updateValueAndValidity(); 
   }
-
-  validateFormat(event) { 
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-    }
-    
-
+ 
 
 }

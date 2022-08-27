@@ -1,44 +1,51 @@
-<div class="margintabla">
-    <div class="contenido card">
-        <form [formGroup]="Form">
-            <div class="formulario"> 
+ 
+<form [formGroup]="Form">
+    <div class="p-col-12"> 
+        <div class="p-fluid p-formgrid p-grid"> 
+            <div class="p-field p-col-12"> 
                 <strong>Nombre Almacén *</strong>
-                <input type="text" pInputText formControlName="nombreAlmacen" class="p-inputtext-sm" placeholder="ingresar el nombre de alamacen">         
-        
+                <input type="text" pInputText formControlName="nombreAlmacen"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar el nombre de alamacen">         
+            </div> 
+            <div class="p-field p-col-12"> 
                 <strong>Tipo Producto *</strong>
                 <p-dropdown class="extender" appendTo="body" placeholder="Selecciona un tipo de Producto"  formControlName="tipoProducto" [options]="listaTipoProducto" optionLabel="valor1"></p-dropdown>                 
             </div> 
-            <br>
-            <div class="formulario2">  
-                <strong>Validar Stock *</strong>
-                <p-inputSwitch formControlName="validarStock" ></p-inputSwitch>
-
-                <strong>Activo *</strong>
-                <p-inputSwitch formControlName="activo" ></p-inputSwitch>
+    
+            <div class="p-field p-col-12">
+                <div class="elegirOpciones">
+                    <div>
+                        <strong style="margin: 15px;">Validar Stock *</strong>
+                        <p-inputSwitch formControlName="validarStock" ></p-inputSwitch>
+                    </div>
+                    <div>
+                        <strong style="margin: 15px;">Activo *</strong>
+                        <p-inputSwitch formControlName="activo" ></p-inputSwitch>
+                    </div>
+                </div>  
             </div> 
+        </div> 
+    </div> 
 
-            <div class="botones">
-                <button  
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    style="margin-right: 1%;"
-                    [disabled]="Form.invalid"
-                    label="{{ (!dataAlmacenEdit.idAlmacenEdit ) ? 'Grabar' : 'Actualizar'}}"
-                    (click)="onGrabar()"
-                    icon="pi pi-check-circle">  
-                </button>   
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    style="background-color: #D72250;"
-                    icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    (click)="onRegresar()">  
-                </button>  
-            </div>
-
-        </form>
+    <div class="botones">
+        <button  
+            class="p-button-registrar"
+            pButton
+            type="button"
+            style="margin-right: 1%;"
+            [disabled]="Form.invalid"
+            label="{{ (!dataAlmacenEdit.idAlmacenEdit ) ? 'Grabar' : 'Actualizar'}}"
+            (click)="onGrabar()"
+            icon="pi pi-check-circle">  
+        </button>   
+        <button   
+            class="p-button-cancelar"
+            pButton
+            type="button" 
+            icon="pi pi-times-circle"
+            label="Cancelar" 
+            (click)="onRegresar()">  
+        </button>  
     </div>
-</div>
+
+</form>
+ 

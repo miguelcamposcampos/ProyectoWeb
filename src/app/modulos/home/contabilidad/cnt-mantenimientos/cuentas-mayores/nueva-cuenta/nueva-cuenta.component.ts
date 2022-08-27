@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { ICreateCuentasMayores } from '../interface/cuentas-mayores.interface';
 import { CuentasMayoresService } from '../service/cuentas-mayores.service';
@@ -20,6 +21,7 @@ export class NuevaCuentaComponent implements OnInit {
   constructor(
     private apiService : CuentasMayoresService,
     private swal : MensajesSwalService,
+    public generalService: GeneralService,
     private spinner: NgxSpinnerService
   ) { 
       this.onForm();
@@ -94,26 +96,7 @@ export class NuevaCuentaComponent implements OnInit {
   onRegresar(){
     this.cerrar.emit(false);
   }
-
-
-    
-  onSoloNumeros(event) {
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-    }
-
+ 
   
 }
  

@@ -11,8 +11,7 @@
             <div class="p-toolbar-group-right">   
                 <button  
                     class="p-button-registrar"
-                    pButton
-                    style="margin-right: 1%;"
+                    pButton 
                     type="button"
                     [disabled]="Form.invalid"  
                     [label]="( data ) ?  'Actualizar' : 'Grabar'"
@@ -24,8 +23,7 @@
                     pButton
                     type="button"
                     icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
+                    label="Cancelar"  
                     (click)="onRegresar()">  
                 </button> 
             </div>

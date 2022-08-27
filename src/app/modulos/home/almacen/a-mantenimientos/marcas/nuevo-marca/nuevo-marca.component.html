@@ -4,14 +4,14 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12">  
                 <strong>Nombre *:</strong>
-                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombreMarca" class="p-inputtext-sm" placeholder="ingresar una marca">     
+                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombreMarca" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar una marca">     
             </div> 
         </div> 
     </div> 
          
     <div class="botones">
         <button  
-            class="p-button-sm"
+            class="p-button-registrar"
             pButton
             type="button"
             style="margin-right: 1%;"
@@ -22,10 +22,9 @@
         </button>  
 
         <button   
-            class="p-button-sm"
+            class="p-button-cancelar"
             pButton
-            type="button"
-            style=" background-color: #D72250;"
+            type="button" 
             icon="pi pi-times-circle"
             label="Cancelar" 
             (click)="onRegresar()">  

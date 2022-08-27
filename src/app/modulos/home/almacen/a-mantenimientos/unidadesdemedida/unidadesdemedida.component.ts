@@ -22,7 +22,11 @@ export class UnidadesdemedidaComponent implements OnInit {
     private swal : MensajesSwalService,
     private generalService : GeneralService,
     private spinner : NgxSpinnerService
-  ) { }
+  ) {
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
+   }
 
   ngOnInit(){
     this.onLoadUnidadMedida();
@@ -47,19 +51,19 @@ export class UnidadesdemedidaComponent implements OnInit {
   }
 
 
-  onModalNuevoUnidadMedida(){  
+  onAdd(){  
     this.idUnidadMedida = null;
     this.modalNuevoUnidadMedida = true;
   }
 
-  onEditar(id  : number){  
+  onEdit(id  : number){  
     this.idUnidadMedida = id;
     this.modalNuevoUnidadMedida = true;
   }
  
     
   
-  onModalEliminar(data:any){ 
+  onDelete(data:any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar la unidad de medida " + data.nombreunidadmedida + " ?").then((response) => {
       if (response.isConfirmed) {
         this.unidadMedidaService.deleteUnidadMedida(data.idUnidadMedida).subscribe((resp) => { 
@@ -72,7 +76,7 @@ export class UnidadesdemedidaComponent implements OnInit {
  
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadUnidadMedida();
     } 
     this.modalNuevoUnidadMedida = false; 

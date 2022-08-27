@@ -20,7 +20,7 @@
                         type="button"
                         label="Agregar" 
                         class="p-button-registrar"
-                        (click)="onNuevoCliente()" 
+                        (click)="onAdd()" 
                         icon="pi pi-plus">
                     </button>   
                 </div>
@@ -29,11 +29,11 @@
             <div class="p-col-12"> 
                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
                    <div class="p-field p-col-12 p-md-5">
-                       <strong for="firstname6">Razón Social:</strong>
+                       <strong>Razón Social:</strong>
                        <input class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Buscar..." [formControl]="razonsocial" type="text" pInputText>        
                    </div>
                    <div class="p-field p-col-12 p-md-5">
-                    <strong for="firstname6">Nro. Documento</strong>
+                    <strong>Nro. Documento</strong>
                     <input class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="Buscar..." [formControl]="nrodoc" type="text" pInputText>        
                 </div>
                    <div class="p-field p-col-12 p-md-2">       
@@ -87,7 +87,7 @@
                                         type="button" 
                                         tooltipPosition="top" 
                                         pTooltip="Editar" 
-                                        (click)="onEditar(cliente)"
+                                        (click)="onEdit(cliente)"
                                         style="margin-right :2%;" 
                                         icon="pi pi-pencil">
                                     </button>     
@@ -96,7 +96,7 @@
                                         type="button" 
                                         tooltipPosition="top" 
                                         style=" background-color: #D72250;"
-                                        (click)="onEliminar(cliente)"
+                                        (click)="onDelete(cliente)"
                                         pTooltip="Eliminar"  
                                         icon="pi pi-trash">
                                     </button>        

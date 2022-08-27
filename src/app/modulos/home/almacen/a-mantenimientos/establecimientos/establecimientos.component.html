@@ -72,10 +72,9 @@
           
                     <ng-template #botones [ngIf]="col.field === 'acciones'">
                       <div style="display: flex;">
-                        <button 
-                          style="margin-right: 2%;"
+                        <button  
                           pButton 
-                          class="p-button-sm"
+                          class="p-button-sm-generico"
                           type="button"
                           tooltipPosition="top" 
                           pTooltip="Editar establecimiento"  
@@ -85,7 +84,7 @@
                         <button 
                           pButton 
                           type="button"
-                          class="p-button-sm"
+                          class="p-button-sm-generico"
                           (click)="onVerSeries(establecimiento.id)"
                           tooltipPosition="top" 
                           pTooltip="Ver Series"  
@@ -112,8 +111,7 @@
                           <button 
                             pButton 
                             (click)="onAddAlmacen(establecimiento.id)"  
-                            class="p-button-sm"
-                            style="margin-right: 2%;"
+                            class="p-button-sm-generico"
                             label="Agregar"
                             type="button"
                             tooltipPosition="top" 
@@ -151,12 +149,11 @@
                             </div>  
                               <ng-template #botones [ngIf]="col.field === 'acciones'">
                                 <div style="display: flex;">
-                                  <button 
-                                    style="margin-right: 2% ;"
+                                  <button  
                                     pButton 
                                     type="button"
                                     (click)="onEditAlmacen(almacen.idAlmacen, establecimiento.id)" 
-                                    class="p-button-sm"
+                                    class="p-button-sm-generico"
                                     tooltipPosition="top" 
                                     pTooltip="Editar Almacen"  
                                     icon="pi pi-pencil">
@@ -164,7 +161,7 @@
                                   <button  
                                     pButton 
                                     (click)="onDelete(almacen)" 
-                                    class="p-button-sm"
+                                    class="p-button-sm-generico"
                                     tooltipPosition="top" 
                                     style=" background-color: #D72250;"
                                     type="button"

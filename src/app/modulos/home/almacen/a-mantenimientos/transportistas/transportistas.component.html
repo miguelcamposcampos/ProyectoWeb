@@ -15,7 +15,7 @@
             
             <div class="p-toolbar-group-right">
               <button    
-                class="p-button-generico-agregar"
+                class="p-button-registrar" 
                 pButton
                 type="button"
                 icon="pi pi-plus"
@@ -77,10 +77,9 @@
                       <ng-template #botones [ngIf]="col.field === 'acciones'">
                         <div style="display: flex;">
                           <button 
-                            style="margin-right: 2% ;"
                             pButton
                             type="button" 
-                            class="p-button-sm"
+                            class="p-button-sm-generico"
                             tooltipPosition="top" 
                             pTooltip="Editar Transportista"  
                             (click)="onEditarTransportista(transportistas.id)"
@@ -89,7 +88,7 @@
                           <button 
                             pButton
                             type="button" 
-                            class="p-button-sm"
+                            class="p-button-sm-generico"
                             (click)="onModalEliminarTransportista(transportistas)"
                             tooltipPosition="top" 
                             style="background-color: #D72250;"
@@ -147,8 +146,7 @@
                                 <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{choferes[col.field]}}  
                                 <ng-template #botones [ngIf]="col.field === 'acciones'">
                                   <div style="display: flex;">
-                                    <button 
-                                      style="margin-right: 2% ;"
+                                    <button  
                                       pButton
                                       type="button" 
                                       (click)="onEditarChofer(transportistas.id,choferes.id )" 
@@ -188,10 +186,9 @@
                             <h3> LISTA DE UNIDADES DE TRANSPORTE</h3> 
                             <button 
                               pButton
-                              type="button"
-                              style="margin-right: 2%;"
-                              label="Agregar"
-                              class="p-button-sm"
+                              type="button" 
+                              label="Agregar" 
+                              class="p-button-sm-generico"
                               (click)="onNuevoUnidadTransportista(transportistas.id)"  
                               tooltipPosition="top" 
                               pTooltip="Agregar Unidad de Transporte"  
@@ -220,11 +217,10 @@
                                 <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{unidades[col.field]}}  
                                 <ng-template #botones [ngIf]="col.field === 'acciones'">
                                   <div style="display: flex;">
-                                    <button 
-                                      style="margin-right: 2% ;"
+                                    <button  
                                       pButton
                                       type="button" 
-                                      class="p-button-sm"
+                                      class="p-button-sm-generico"
                                       (click)="onEditarUnidadTransportista(transportistas.id, unidades.id)"
                                       tooltipPosition="top" 
                                       pTooltip="Editar Und. Transporte"  
@@ -233,7 +229,7 @@
                                     <button  
                                       pButton
                                       type="button" 
-                                      class="p-button-sm"
+                                      class="p-button-sm-generico"
                                       style="background-color: #D72250;"
                                       (click)="onModalEliminarUnidadTransporte(unidades)"
                                       tooltipPosition="top" 

@@ -114,7 +114,7 @@ export class NuevaVentaComponent implements OnInit  {
 
   constructor(
     private ventaservice : VentasService,
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private configService: ConfiguracionService,
     private swal : MensajesSwalService,
     private readonly formatoFecha : DatePipe,  
@@ -196,7 +196,6 @@ export class NuevaVentaComponent implements OnInit  {
   onBtnConfigBar(event) { 
     this.changeCols = !this.changeCols;  
   }
-
  
   onAfectoDetraccion(event){ 
     this.mostrarBloqueAfectoDetraccion = !this.mostrarBloqueAfectoDetraccion
@@ -205,8 +204,7 @@ export class NuevaVentaComponent implements OnInit  {
   onModalConfiguracionesAdicionales(){
     this.modalConfiguracionesAdicionales = true;
   }
-
-
+ 
   onCargarDatosdeConfiguracion(){
     this.configService.listadoConfiguraciones().subscribe((resp) => {
       if(resp){
@@ -234,9 +232,7 @@ export class NuevaVentaComponent implements OnInit  {
     });
   }
  
-  ngOnInit(): void {   
-    //this.onConfigButtonClick(true);  
-
+  ngOnInit(): void {  
     this.onCargarDropdown();
     if(this.dataVenta){
       this.tituloNuevaVenta = "EDITAR VENTA"
@@ -317,15 +313,7 @@ export class NuevaVentaComponent implements OnInit  {
         command: event => {
           this.activateMenu(event.item.id);
         }
-      },
-      // {
-      //   id: '4',
-      //   label: 'OTROS',
-      //   icon: 'fas fa-square-plus',
-      //   command: event => {
-      //     this.activateMenu(event.item.id);
-      //   }
-      // },
+      }, 
       {
         id: '4',
         label: 'FACTURA GUIA',
@@ -350,8 +338,7 @@ export class NuevaVentaComponent implements OnInit  {
   activateMenu(event) {
 
     this.GuiaRemisionForm = false;
-    this.DocReferenciaForm = false;
-  //  this.OtrosForm = false;
+    this.DocReferenciaForm = false; 
     this.FacturaguiaForm = false;
     this.DetalleForm = false;
     this.TotalesForm = false;
@@ -363,10 +350,7 @@ export class NuevaVentaComponent implements OnInit  {
     }else if(event ===  "3" ){
       this.DocReferenciaForm = true
       this.activeItem = this.items[2];
-    }else if(event ===  "4" ){
-    //   this.OtrosForm = true;
-    //   this.activeItem = this.items[3];
-    // }else if(event ===  "5" ){
+    }else if(event ===  "4" ){ 
       this.FacturaguiaForm = true;
       this.activeItem = this.items[3];
     }else if(event ===  "5" ){
@@ -1697,8 +1681,8 @@ export class NuevaVentaComponent implements OnInit  {
     }else if(dsctoglobalporcentaje === 0){
       this.Form.controls['dsctoglobalrporcentaje'].setValue(0.00);
     }
-    let convertirNumero =  dsctoglobalporcentaje //Number.parseFloat(dsctoglobalporcentaje).toFixed(2);
-    this.Form.controls['dsctoglobalrporcentaje'].setValue(+convertirNumero);
+     let convertirNumero =  dsctoglobalporcentaje.toFixed(5);
+     this.Form.controls['dsctoglobalrporcentaje'].setValue(convertirNumero);
     
     this.onCalcularTotalVenta();
   }
@@ -1731,8 +1715,7 @@ export class NuevaVentaComponent implements OnInit  {
  
 }
 
-
- 
+  
 function ponerceros(number, width) {
   var numberOutput = Math.abs(number); /* Valor absoluto del número */
   var length = number.toString().length; /* Largo del número */ 

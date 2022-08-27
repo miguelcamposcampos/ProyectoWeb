@@ -108,9 +108,8 @@
 
     <div class="botones">
         <button  
-            class="p-button-sm"
-            pButton
-            style="margin-right: 1%;"
+            class="p-button-registrar"
+            pButton 
             [disabled]="!PendientesSeleccionados.length" 
             label="Seleccionar"
             (click)="onGrabar()"
@@ -118,11 +117,10 @@
         </button>  
 
         <button   
-            class="p-button-sm"
+            class="p-button-cancelar"
             pButton
             icon="pi pi-times-circle"
-            label="Cancelar" 
-            style=" background-color: #D72250;"
+            label="Cancelar"  
             (click)="onRegresar()">  
         </button>  
     </div>
