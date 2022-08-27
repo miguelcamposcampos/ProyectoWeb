@@ -4,11 +4,11 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12"> 
                 <strong>Valor Compra *</strong>
-                <input type="text" minlength="1"   (keypress)="validateFormat($event)"  pInputText formControlName="valorCompra" class="p-inputtext-sm" placeholder="ingresar valor de compra">   
+                <input type="text" minlength="1"   (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorCompra" class="p-inputtext-sm" placeholder="ingresar valor de compra">   
             </div>
             <div class="p-field p-col-12"> 
                 <strong>Valor Venta *</strong>
-                <input  type="text" minlength="1" (keypress)="validateFormat($event)"  pInputText formControlName="valorVenta" class="p-inputtext-sm" placeholder="ingresar valor de venta">     
+                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorVenta" class="p-inputtext-sm" placeholder="ingresar valor de venta">     
             </div>
             <div class="p-field p-col-12"> 
                 <strong>Fecha *</strong>
@@ -26,7 +26,7 @@
         
     <div class="botones">
         <button  
-            class="p-button-sm"
+            class="p-button-registrar"
             pButton
             type="button"
             [disabled]="Form.invalid"
@@ -37,12 +37,11 @@
         </button>  
 
         <button   
-            class="p-button-sm"
+            class="p-button-cancelar"
             pButton
             type="button"
             icon="pi pi-times-circle"
-            label="Cancelar" 
-            style=" background-color: #D72250;"
+            label="Cancelar"  
             (click)="onRegresar()">  
         </button>  
     </div>

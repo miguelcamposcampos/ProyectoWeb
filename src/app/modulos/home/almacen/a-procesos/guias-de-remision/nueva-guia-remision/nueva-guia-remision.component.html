@@ -334,23 +334,23 @@
 
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Cantidad</strong>
-                                    <input type="text"  style="width: 60px;" (keypress)="validateFormat($event)" (blur)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
+                                    <input type="text"  style="width: 60px;" (keypress)="generalService.onSoloNumeros($event)" (blur)="onCalcularValorTotal(rowIndex, detalles.value)"  class="p-inputtext-sm" pInputText formControlName="cantidad">  
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Bultos</strong>
-                                    <input type="text"   style="width: 70px;" (keypress)="validateFormat($event)"  class="p-inputtext-sm"   pInputText formControlName="bultos">  
+                                    <input type="text"   style="width: 70px;" (keypress)="generalService.onSoloNumeros($event)"  class="p-inputtext-sm"   pInputText formControlName="bultos">  
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Peso Unitario</strong>
-                                    <input type="text"    style="width: 70px;"  (keypress)="validateFormat($event)"(blur)="onCalcularValorTotal(rowIndex, detalles.value)" class="p-inputtext-sm" pInputText formControlName="pesoUnitario">  
+                                    <input type="text"    style="width: 70px;"  (keypress)="generalService.onSoloNumeros($event)"(blur)="onCalcularValorTotal(rowIndex, detalles.value)" class="p-inputtext-sm" pInputText formControlName="pesoUnitario">  
                                 </td>
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Precio Unitario</strong>
-                                    <input type="text"   style="width: 70px;" (keypress)="validateFormat($event)" class="p-inputtext-sm" pInputText formControlName="precioUnitario">  
+                                    <input type="text"   style="width: 70px;" (keypress)="generalService.onSoloNumeros($event)" class="p-inputtext-sm" pInputText formControlName="precioUnitario">  
                                 </td> 
                                 <td style="text-align: center">
                                     <strong class="p-column-title">Peso total</strong>
-                                    <input type="text"  readonly class="p-inputtext-sm"  (keypress)="validateFormat($event)" style="width: 80px;" pInputText formControlName="pesoTotal">  
+                                    <input type="text"  readonly class="p-inputtext-sm"  (keypress)="generalService.onSoloNumeros($event)" style="width: 80px;" pInputText formControlName="pesoTotal">  
                                 </td>  
                             </tr>
                         </ng-template>

@@ -4,11 +4,11 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12"> 
                 <strong *ngIf="mostrarCodigo">Código:</strong>
-                <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">     
+                <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-clear-grey pd-5 width-100">     
             </div> 
             <div class="p-field p-col-12">  
                 <strong>Nombre *:</strong>
-                <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+                <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar un nombre">     
             </div> 
             <!-- <strong>Predeterminado:</strong>
             <p-colorPicker appendTo="body"  formControlName="color"></p-colorPicker> -->
@@ -17,7 +17,7 @@
 
     <div class="botones">
         <button  
-            class="p-button-sm"
+            class="p-button-registrar"
             pButton
             type="button"
             style="margin-right: 1%;"
@@ -28,12 +28,11 @@
         </button>  
 
         <button   
-            class="p-button-sm"
+            class="p-button-cancelar"
             pButton
             type="button"
             icon="pi pi-times-circle"
-            label="Cancelar" 
-            style=" background-color: #D72250;"
+            label="Cancelar"  
             (click)="onRegresar()">  
         </button>  
     </div> 

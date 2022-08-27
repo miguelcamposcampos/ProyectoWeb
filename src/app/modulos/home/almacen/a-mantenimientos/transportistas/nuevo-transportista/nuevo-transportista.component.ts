@@ -38,7 +38,7 @@ export class NuevoTransportistaComponent implements OnInit {
   
   constructor(
     private transpService: TransportistaService,
-    private generalService: GeneralService,
+    public generalService: GeneralService,
     private swal : MensajesSwalService,
     private cd: ChangeDetectorRef,
     private spinner : NgxSpinnerService
@@ -289,14 +289,14 @@ export class NuevoTransportistaComponent implements OnInit {
         this.transpService.grabarTransportista(newTransportista).subscribe((resp) => {
           if(resp){
             this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-            this.onVolver();
+            this.cerrar.emit(true); 
           }
         });
     } else { 
       this.transpService.updateTransportista(newTransportista).subscribe((resp) =>{
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+          this.cerrar.emit(true); 
         }
       });
     }
@@ -311,31 +311,6 @@ export class NuevoTransportistaComponent implements OnInit {
   onRegresar() {   
     this.cerrar.emit(false); 
   }
-
-
-  onVolver() {   
-    this.cerrar.emit('exito'); 
-  }
-
-
-  
-  onSoloNumeros(event) {
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-    }
-
-
+ 
     
 }

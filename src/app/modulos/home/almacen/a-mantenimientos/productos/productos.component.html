@@ -17,7 +17,7 @@
                             class="p-button-registrar" 
                             type="button" 
                             pButton
-                            (click)="onNuevoProducto()" 
+                            (click)="onAdd()" 
                             label="Agregar" 
                             style="margin-right: 1%;"
                             pTooltip="Agregar" 
@@ -188,7 +188,7 @@
                                                 type="button"
                                                 tooltipPosition="top" 
                                                 pTooltip="Editar" 
-                                                (click)="onEditar(productos.id)"
+                                                (click)="onEdit(productos.id)"
                                                 style="margin-right :2%;" 
                                                 icon="pi pi-pencil">
                                             </button>     
@@ -197,7 +197,7 @@
                                                 type="button"
                                                 tooltipPosition="top" 
                                                 style=" background-color: #D72250;"
-                                                (click)="onModalEliminar(productos)"
+                                                (click)="onDelete(productos)"
                                                 pTooltip="Eliminar"  
                                                 icon="pi pi-trash">
                                             </button>        

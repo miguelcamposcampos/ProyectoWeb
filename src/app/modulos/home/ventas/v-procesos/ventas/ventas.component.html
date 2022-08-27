@@ -127,9 +127,9 @@
                                 <div style="display: flex;">
                                     <button pButton type="button" tooltipPosition="top" pTooltip="Editar"
                                         [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}"
-                                        (click)="onEditar(ventas)" style="margin-right :2%;" icon="pi pi-pencil">
+                                        (click)="onEditar(ventas)"    class="p-button-generico-azul" icon="pi pi-pencil">
                                     </button>
-                                    <button pButton type="button" tooltipPosition="top"
+                                    <button pButton type="button" tooltipPosition="top" class="p-button-generico-azul"
                                         style="background-color: #D72250;" (click)="onEliminar(ventas)"
                                         pTooltip="Eliminar" icon="pi pi-trash">
                                     </button>

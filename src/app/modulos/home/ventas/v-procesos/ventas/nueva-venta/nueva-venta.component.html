@@ -148,9 +148,7 @@
                                                 <tr [formGroupName]="rowIndex">
                                                     <td>
                                                         <strong class="p-column-title">Nro</strong>
-                                                        <span style="width: 60px;">Nro: {{rowIndex + 1 | number
-                                                            :
-                                                            '3.0-0'}}
+                                                        <span style="width: 60px;">Nro: {{rowIndex + 1 | number:'3.0-0'}}
                                                         </span>
                                                     </td>
                                                     <td>
@@ -185,9 +183,9 @@
                                         </p-table>
                                     </div>
                                     <br>
-                                    <div class="BotonCondiciondePago">
+                                    <div class="centrar" style="margin-bottom: 2%;" >
                                         <button type="button" label="Agregar Detalle" pTooltip="Agregar"
-                                            class="p-button-sm" (click)="onAgregarDetalleCondicionPago()"
+                                            class="p-button-generico-azul" (click)="onAgregarDetalleCondicionPago()"
                                             tooltipPosition="left" pButton icon="pi pi-plus"></button>
                                     </div>
                                 </div>

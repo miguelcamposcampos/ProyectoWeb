@@ -52,9 +52,7 @@ export class ColeccionComponent implements OnInit {
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
     ];
   }
-
-  
-
+ 
   onLoadMaterial(){
     this.spinner.show();
     this.coleccionService.listadoColeccion().subscribe((resp)=> {
@@ -66,14 +64,14 @@ export class ColeccionComponent implements OnInit {
   }
  
 
-  onNuevo(){
+  onAdd(){
     this.Form.reset();
     this.mostrarCodigo = false;
     this.dataColeccion = null,
     this.VistaNuevaColeccion = true;
   }
 
-  onEditar( data : any){    
+  onEdit( data : any){    
     this.dataColeccion = data; 
     this.Form.patchValue({
       codigo: data.cod,
@@ -85,7 +83,7 @@ export class ColeccionComponent implements OnInit {
   }
  
 
-  onEliminar(data:any){
+  onDelete(data:any){
     this.swal.mensajePregunta("¿Seguro que desea eliminar la coleccion " + data.nombre + " ?").then((response) => {
       if (response.isConfirmed) {
         this.coleccionService.deleteColeccion(data.id).subscribe((resp) => { 
@@ -107,21 +105,21 @@ export class ColeccionComponent implements OnInit {
       this.coleccionService.crearColeccion(newColeccion).subscribe((resp)=> {
         if(resp){
           this.swal.mensajeExito('Se Grabaron los datos correctamente!.');
-          this.onRetornar('exito')
+          this.onRetornar(true)
         }
       });
     }else{
       this.coleccionService.updateColeccion(newColeccion).subscribe((resp)=> {
         if(resp){
           this.swal.mensajeExito('Se Actualizaron los datos correctamente!.');
-          this.onRetornar('exito')
+          this.onRetornar(true)
         }
       });
     } 
   }
  
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadMaterial();
     } 
     this.VistaNuevaColeccion = false; 

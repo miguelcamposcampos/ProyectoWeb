@@ -14,22 +14,20 @@ $gutter: 1rem; //for primeflex grid system
 @import "./assets/theme/custom/custom-grid.scss";
 
 
-.spacer{
-  flex: 1 1 auto;
-}
-
-// .botonBuscar{
-//   display: flex;
-//   justify-content: center; 
-// }//
  
+ .formulario{
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 11rem 1fr;   
+    align-items: center;
+    @media (max-width: 700px) {  
+       grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    }
+ }
 
-.separador{
-  margin-right: 1%;
-  padding: 1% 2% 2% 2%;
-  border: solid 2px;
-  text-align: center;
-}
+ 
 
 .tituloVista{
   display: flex;

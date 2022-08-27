@@ -9,8 +9,8 @@
                 pButton
                 type="button"   
                 label="Agregar" 
-                class="p-button-sm"
-                (click)="onNuevo()" 
+                class="p-button-registrar"
+                (click)="onAdd()" 
                 icon="pi pi-plus">
             </button>   
         </div>
@@ -63,16 +63,17 @@
                                 type="button" 
                                 tooltipPosition="top" 
                                 pTooltip="Editar" 
-                                (click)="onEditar(coleccion)"
-                                style="margin-right :2%;" 
+                                (click)="onEdit(coleccion)"
+                                class="p-button-generico-azul"
                                 icon="pi pi-pencil">
                             </button>     
                             <button 
                                 pButton
                                 type="button" 
                                 tooltipPosition="top" 
+                                class="p-button-generico-azul"
                                 style=" background-color: #D72250;"
-                                (click)="onEliminar(coleccion)"
+                                (click)="onDelete(coleccion)"
                                 pTooltip="Eliminar"  
                                 icon="pi pi-trash">
                             </button>        
@@ -99,17 +100,17 @@
                 <div class="p-fluid p-formgrid p-grid"> 
                     <div class="p-field p-col-12"> 
                         <strong *ngIf="mostrarCodigo">Código:</strong>
-                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm">   
+                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-clear-grey pd-5 width-100">   
                     </div> 
                     <div class="p-field p-col-12"> 
                         <strong>Nombre *:</strong>
-                        <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm" placeholder="ingresar un nombre">     
+                        <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar un nombre">     
                     </div> 
                 </div> 
             </div> 
             <div class="botones">
                 <button  
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     pButton
                     type="button"
                     [disabled]="Form.invalid"
@@ -119,12 +120,11 @@
                     icon="pi pi-check-circle">  
                 </button>   
                 <button   
-                    class="p-button-sm"
+                    class="p-button-cancelar"
                     pButton
                     type="button"
                     icon="pi pi-times-circle"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
+                    label="Cancelar"  
                     (click)="VistaNuevaColeccion = false">  
                 </button>  
             </div> 

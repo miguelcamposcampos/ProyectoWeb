@@ -21,7 +21,7 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
   constructor(
     private unidadMedidadService : UnidaddeMedidaService,
     private swal : MensajesSwalService, 
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private spinner : NgxSpinnerService
   ) { 
     this.builform();
@@ -75,45 +75,24 @@ export class NuevoUnidaddemedidaComponent implements OnInit {
      this.unidadMedidadService.updateUnidadMedida(newUnidadMedidad).subscribe((resp) => {
       if(resp){
         this.swal.mensajeExito("Se actualizaron los datos correctamente!.");
-        this.onVolver();
+       this.cerrar.emit(false);
       }
       });
     }else{
       this.unidadMedidadService.createUnidadMedida(newUnidadMedidad).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito("Se grabaron los datos correctamente!.");
-          this.onVolver();
+         this.cerrar.emit(false);
         }
       });
     }
   }
 
-  onVolver(){ 
-    this.cerrar.emit('exito');
-  }
+ 
 
   onRegresar(){ 
     this.cerrar.emit(false);
   }
-
-
-  
-  validateFormat(event) { 
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-    }
-
+ 
 
 }

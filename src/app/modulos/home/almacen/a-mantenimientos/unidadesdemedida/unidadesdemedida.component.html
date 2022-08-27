@@ -19,28 +19,27 @@
                     label="Agregar"
                     tooltipPosition="left"
                     pTooltip="Agregar nueva Unidad Medida"
-                    (click)="onModalNuevoUnidadMedida()">
+                    (click)="onAdd()">
                 </button>
             </div>
         </p-toolbar>
     
-
-        <div class="titulo d-flex flex-wrap">
-            <div class="px-2">
-                <strong> Buscar :</strong>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input
+        <div class="p-col-12"> 
+            <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-8">
+                    <strong >Buscar:</strong>
+                    <input   
                     pInputText
                     type="text"
-                    class="p-inputtext-sm"
+                    class="p-inputtext-sm-clear-grey pd-5 width-100"
                     placeholder="Buscar unidad Medida"
                     size="25"
-                    (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-                </span>
-            </div> 
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>             
+                </div>
+                
+            </div>
         </div>
-
+ 
             <p-table #dt
             [paginator]="true"
             [rows]="10"
@@ -74,18 +73,18 @@
                                     style="margin-right: 2% ;"
                                     pButton
                                     type="button"
-                                    class="p-button-sm"
-                                    (click)="onEditar(unidad.unidadmedidaid)"
+                                    class="p-button-generico-azul"
+                                    (click)="onEdit(unidad.unidadmedidaid)"
                                     tooltipPosition="top"
-                                    pTooltip="Editar Und Medida"
+                                    pTooltip="Editar Und. Medida"
                                     icon="pi pi-pencil">
                                   </button>
                                   <button
                                     pButton
                                     type="button"
-                                    class="p-button-sm"
+                                    class="p-button-generico-azul"
                                     style=" background-color: #D72250;"
-                                    (click)="onModalEliminar(unidad)"
+                                    (click)="onDelete(unidad)"
                                     tooltipPosition="top"
                                     pTooltip="Eliminar Und. Medida"
                                     icon="pi pi-trash">

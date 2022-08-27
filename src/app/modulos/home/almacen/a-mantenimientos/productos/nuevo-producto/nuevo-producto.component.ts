@@ -45,7 +45,7 @@ export class NuevoProductoComponent implements OnInit {
   dataProductoEditar : IUpdateProducto;  
 
   constructor(
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private productoService : ProductosService,
     private fb : FormBuilder,
     private swal : MensajesSwalService, 
@@ -260,7 +260,7 @@ export class NuevoProductoComponent implements OnInit {
  }
 
 
-  onGrabarProducto(){
+  onAdd(){
     const dataForm = this.Form.value; 
     let esarticulo : boolean = dataForm.esServiciooArticulo === "articulo" ? true :  false;
     let esServicio : boolean = dataForm.esServiciooArticulo === "servicio" ? true :  false;
@@ -315,48 +315,25 @@ export class NuevoProductoComponent implements OnInit {
       this.productoService.crearProducto(newProducto).subscribe((resp) =>{
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.'); 
-          this.onVolver();
+          this.cerrar.emit(true)
         }
       });
     }else{
       this.productoService.updateProducto(newProducto).subscribe((resp) =>{
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.'); 
-          this.onVolver();
+          this.cerrar.emit(true)
         }
       });
     }
     
   }
-
  
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
-
   onRegresar(){
     this.cerrar.emit(false)
   }
 
-
-  validateFormat(event) { 
-    let key;
-    if (event.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-    } else {
-      key = event.keyCode;
-      key = String.fromCharCode(key);
-    }
-    const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
-      event.returnValue = false;
-       if (event.preventDefault) {
-        event.preventDefault();
-       }
-     }
-    }
-    
-
+  
  
 }
 

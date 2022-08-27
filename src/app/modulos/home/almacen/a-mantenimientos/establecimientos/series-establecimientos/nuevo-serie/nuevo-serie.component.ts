@@ -5,13 +5,12 @@ import { forkJoin, Subject } from 'rxjs';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { IEstablecimientoCrearSerie, IEstablecimientoSeries } from '../../interface/establecimiento.interface';
+import { IEstablecimientoCrearSerie } from '../../interface/establecimiento.interface';
 import { EstablecimientoService } from '../../service/establecimiento.service';
 
 @Component({
   selector: 'app-nuevo-serie',
-  templateUrl: './nuevo-serie.component.html',
-  styleUrls: ['./nuevo-serie.component.scss']
+  templateUrl: './nuevo-serie.component.html'
 })
 export class NuevoSerieComponent implements OnInit {
 

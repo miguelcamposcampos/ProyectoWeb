@@ -35,17 +35,6 @@ export class ColoresComponent implements OnInit {
     ];
   }
 
-
-  onNuevoColor(){
-    this.idColorEdit = null,
-    this.VistaNuevoColor = true;
-  }
-
-  onEditar( idColor : any){   
-    this.idColorEdit = idColor
-    this.VistaNuevoColor = true;
-  }
-
   onLoadColores(){
     this.spinner.show();
     this.colorService.listadoColores().subscribe((resp)=> {
@@ -56,8 +45,19 @@ export class ColoresComponent implements OnInit {
     });
   }
  
+  onAdd(){
+    this.idColorEdit = null,
+    this.VistaNuevoColor = true;
+  }
 
-  onModalEliminar(data:any){
+  onEdir( idColor : any){   
+    this.idColorEdit = idColor
+    this.VistaNuevoColor = true;
+  }
+
+
+
+  onDelete(data:any){
     this.swal.mensajePregunta("¿Seguro que desea eliminar el color " + data.nombre + " ?").then((response) => {
       if (response.isConfirmed) {
         this.colorService.deleteColor(data.id).subscribe((resp) => { 
@@ -71,10 +71,9 @@ export class ColoresComponent implements OnInit {
  
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadColores();
     }
-    
     this.VistaNuevoColor = false; 
   }
 

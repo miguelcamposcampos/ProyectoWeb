@@ -21,6 +21,7 @@ export class ClientesComponent implements OnInit {
   listaClientees : ICliente[];
   razonsocial = new FormControl('')
   nrodoc = new FormControl('')
+
   textoPaginado : string="";
   pagina: number = 1;
   size: number = 50;
@@ -30,7 +31,11 @@ export class ClientesComponent implements OnInit {
     private clienteService : ClienteService, 
     private generalService: GeneralService,
     private spinner : NgxSpinnerService
-  ) { }
+  ) { 
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
+  }
  
 
 
@@ -64,17 +69,17 @@ ngOnInit(): void {
     });
   }
  
-  onNuevoCliente(){
+  onAdd(){
     this.dataCliente = null;
     this.VistaNuevoCliente = true;
   }
 
-  onEditar(data : any){
+  onEdit(data : any){
     this.dataCliente = data;
     this.VistaNuevoCliente = true;
   }
 
-  onEliminar(data:any){ 
+  onDelete(data:any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar al cliente " + data.nombrecompleto + " ?").then((response) => {
       if (response.isConfirmed) {
         this.clienteService.deleteCliente(data.idCliente).subscribe((resp) => { 
@@ -87,7 +92,7 @@ ngOnInit(): void {
   
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event){
       this.onLoadClientes(null);
     } 
     this.VistaNuevoCliente = false; 

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service'; 
@@ -15,24 +14,25 @@ export class SeriesEstablecimientosComponent implements OnInit {
   @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
   @Input() idEstablecimientoEdit : number;
  
-  modalNuevoSerie : boolean = false;
-  arrayDocumentos : ICombo[];
+  modalNuevoSerie : boolean = false; 
   cols : InterfaceColumnasGrilla[] = [];
-  listaSeries: any[]; 
-  idEstablecimeinto : number = 0;
-  dataEdit : any;
-  idSerieEliminar : number = 0; 
+  listaSeries: any[];  
+  dataEdit : any; 
    
   constructor(
     private establecimientoService : EstablecimientoService,
     private swal : MensajesSwalService, 
     private generalService: GeneralService,
     private spinner: NgxSpinnerService
-  ) { }
+  ) { 
+    this.generalService._hideSpinner$.subscribe(x => {
+      this.spinner.hide();
+    })
+  }
  
   
   ngOnInit(): void {
-    this.onLoadSeries();   
+    this.onLoad();   
     this.cols = [ 
       { field: 'serie', header: 'Serie', visibility: true},
       { field: 'tipoDocumento', header: 'Tipo documento', visibility: true },  
@@ -41,7 +41,7 @@ export class SeriesEstablecimientosComponent implements OnInit {
     ];  
   }
   
-  onLoadSeries(){
+  onLoad(){
     this.spinner.show();
     this.establecimientoService.listarSeries(this.idEstablecimientoEdit).subscribe((resp)=> {
       if(resp){ 
@@ -52,7 +52,7 @@ export class SeriesEstablecimientosComponent implements OnInit {
   }
    
 
-  onNuevaSerie(){
+  onAdd(){
     const Data = {
       idEstablecimiento : this.idEstablecimientoEdit
     }
@@ -60,7 +60,7 @@ export class SeriesEstablecimientosComponent implements OnInit {
     this.modalNuevoSerie =  true;
   }
 
-  onEditar(idSerie : number){
+  onEdit(idSerie : number){
     const Data = {
       idSerieEditar : idSerie,
       idEstablecimiento : this.idEstablecimientoEdit
@@ -70,11 +70,11 @@ export class SeriesEstablecimientosComponent implements OnInit {
   }
 
   
-  onModalEliminar(data:any){ 
+  onDelete(data:any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar la serie " + data.serie + " ?").then((response) => {
       if (response.isConfirmed) {
         this.establecimientoService.deleteSerie(data.id).subscribe((resp) => { 
-          this.onLoadSeries(); 
+          this.onLoad(); 
           this.swal.mensajeExito('La serie ha sido eliminado correctamente!.'); 
         });
       }
@@ -82,8 +82,8 @@ export class SeriesEstablecimientosComponent implements OnInit {
   }
   
   onRetornar(event: any){ 
-    if(event === 'exito'){
-      this.onLoadSeries();
+    if(event){
+      this.onLoad();
     } 
     this.modalNuevoSerie = false; 
   }

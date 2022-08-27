@@ -53,7 +53,7 @@
                             
                                 <strong>Nro Documento <span> *</span></strong>  
                                 <div class="p-inputgroup">  
-                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" (keypress)="onSoloNumeros($event)" (keydown.enter)="onBuscarPorNumeroDocumento()"  class=" p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar el numero de documento">   
+                                    <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" (keypress)="generalService.onSoloNumeros($event)" (keydown.enter)="onBuscarPorNumeroDocumento()"  class=" p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar el numero de documento">   
                                     <button type="button" pTooltip="Buscar" tooltipPosition="left" pButton pRipple icon="pi pi-search" (click)="onBuscarPorNumeroDocumento()"styleClass="p-button-warn"></button>      
                                 </div>
  

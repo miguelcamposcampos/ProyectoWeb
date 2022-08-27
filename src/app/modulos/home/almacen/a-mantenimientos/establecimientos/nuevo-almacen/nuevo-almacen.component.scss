@@ -1,24 +1,24 @@
  
- .formulario{
-    display: grid;
-    grid-gap: 1rem;
-    gap: 1rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 10rem 1fr;   
-    align-items: center;
-    @media (max-width: 800px) {  
-       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    }
- }
+//  .formulario{
+//     display: grid;
+//     grid-gap: 1rem;
+//     gap: 1rem;
+//     grid-auto-rows: auto;
+//     grid-template-columns: 10rem 1fr;   
+//     align-items: center;
+//     @media (max-width: 800px) {  
+//        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+//     }
+//  }
  
- .formulario2{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   column-gap: 5%;
-   @media (max-width: 800px) {  
-      display: grid;
-      text-align: center;
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-   }
- }
+//  .formulario2{
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    column-gap: 5%;
+//    @media (max-width: 800px) {  
+//       display: grid;
+//       text-align: center;
+//       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+//    }
+//  }

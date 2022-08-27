@@ -70,7 +70,7 @@
                                 type="button"
                                 label="Buscar" 
                                 icon="pi pi-search"
-                                class="p-button-sm"
+                                class="p-button-generico-azul"
                                 (click)="onLoadTipoCambio()">
                             </button>
                             </div>
@@ -132,7 +132,7 @@
                                     style="margin-right: 2% ;"
                                     pButton
                                     type="button" 
-                                    class="p-button-sm"
+                                    class="p-button-generico-azul"
                                     (click)="onEditar(tipoCambio.id)"
                                     tooltipPosition="top" 
                                     pTooltip="Editar Und Medida"  
@@ -141,7 +141,7 @@
                                   <button  
                                     pButton
                                     type="button" 
-                                    class="p-button-sm"
+                                    class="p-button-generico-azul"
                                     style=" background-color: #D72250;"
                                     (click)="onModalEliminar(tipoCambio)"
                                     tooltipPosition="top" 
@@ -190,16 +190,15 @@
                     style="margin-right: 1%;"
                     [disabled]="!mesSeleccionado.value"
                     (click)="onBuscarPorMesSeleccionado()"  
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     icon="pi pi-refresh">
                 </button> 
                 <button 
                     pButton
                     type="button"
-                    label="Cancelar" 
-                    style=" background-color: #D72250;"
+                    label="Cancelar"  
                     (click)="modalBuscarPorMes = false"
-                    class="p-button-sm"
+                    class="p-button-cancelar"
                     icon="pi pi-times-circle">
                 </button>  
             </div>  

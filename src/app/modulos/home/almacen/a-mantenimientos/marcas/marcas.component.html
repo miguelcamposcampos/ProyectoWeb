@@ -27,11 +27,11 @@
         <div class="p-col-12"> 
             <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-8">
-                    <strong for="firstname6">Descripción</strong>
-                    <input id="firstname6"   class="p-inputtext-sm" placeholder="buscar..." type="text" pInputText>        
+                    <strong>Descripción</strong>
+                    <input class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="buscar..." type="text" pInputText>        
                 </div>
                 <div class="p-field p-col-12 p-md-4">       
-                    <button pButton label="Buscar" type="button" class="p-button-sm" icon="pi pi-search" (click)="onLoadMarcas()"></button>
+                    <button pButton label="Buscar" type="button" class="p-button-generico-azul" icon="pi pi-search" (click)="onLoadMarcas()"></button>
                 </div>
             </div>
         </div>
@@ -82,13 +82,15 @@
                                     tooltipPosition="top" 
                                     pTooltip="Editar" 
                                     (click)="onEditar(marcas.id)"
-                                    style="margin-right :2%;" 
+                                    class="p-button-generico-azul"
+                                    style="margin-right :1%;" 
                                     icon="pi pi-pencil">
                                 </button>     
                                 <button 
                                     pButton 
                                     type="button"
                                     tooltipPosition="top" 
+                                    class="p-button-generico-azul"
                                     style=" background-color: #D72250;"
                                     (click)="onModalEliminar(marcas)"
                                     pTooltip="Eliminar"  

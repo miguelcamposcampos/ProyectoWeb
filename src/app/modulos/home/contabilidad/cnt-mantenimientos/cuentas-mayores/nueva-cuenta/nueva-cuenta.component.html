@@ -3,7 +3,7 @@
         <div class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-12">
                 <strong>Nro cuenta *:</strong>
-                <input type="text" pInputText minlength="2" maxlength="2" (keypress)="onSoloNumeros($event)"
+                <input type="text" pInputText minlength="2" maxlength="2" (keypress)="generalService.onSoloNumeros($event)"
                     formControlName="nrocuenta" class="p-inputtext-sm" placeholder="ingresar un numero de cuenta">
             </div>
 
@@ -23,7 +23,6 @@
                     </div>
                     <div>
                         <strong style="margin: 15px;">HABER</strong>
-
                         <p-radioButton name="naturaleza" value="H" formControlName="naturaleza"></p-radioButton>
                     </div>
                 </div>
@@ -38,7 +37,7 @@
         label="{{ (data) ? 'Actualizar' : 'Grabar' }}" (click)="onGrabar()" icon="pi pi-check-circle">
     </button>
 
-    <button  class="p-button-cancelar" pButton type="button" style=" background-color: #D72250;" icon="pi pi-times-circle"
+    <button  class="p-button-cancelar" pButton type="button"  icon="pi pi-times-circle"
         label="Cancelar" (click)="onRegresar()">
     </button>
 </div>
