@@ -305,10 +305,9 @@
                             <tr   [formGroupName]="rowIndex"> 
                                 <td>
                                     <button  
-                                        class="p-button-sm p-button-rounded mx-2"
+                                        class="p-button-cancelar"
                                         pButton 
-                                        type="button"
-                                        style=" background-color: #D72250;"
+                                        type="button" 
                                         (click)="onEliminarDetalle(rowIndex, detalles.value.guiaremisiondetalleid)"
                                         icon="pi pi-trash">  
                                     </button>
@@ -320,7 +319,7 @@
                                 </td>
                                 <td >
                                     <strong class="p-column-title">Cod.Producto</strong> 
-                                    <input type="text" style="width: 90px;"   (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="codigoProducto">   
+                                    <input type="text" style="width: 90px;" (keydown.Tab)="onBuscarProductoPorCodigo(rowIndex)"   (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"  class="p-inputtext-sm" pInputText formControlName="codigoProducto">   
                                     <button type="button" (click)="onModalBuscarProducto(rowIndex)" pTooltip="Buscar" tooltipPosition="left" pButton icon="pi pi-search" class="p-button-sm"></button>      
                                 </td>
                                 <td>

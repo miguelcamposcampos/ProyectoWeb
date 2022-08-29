@@ -674,10 +674,10 @@
 }
 
 
-.p-fluid .p-dropdown .p-dropdown-label {
-    width: 1%;
-    background: #e3e3e3;
-}
+// .p-fluid .p-dropdown .p-dropdown-label {
+//     width: 1%;
+//     background: #e3e3e3;
+// }
 
 .p-toolbar {
     background: #ffffff;
@@ -943,15 +943,15 @@ body.main-body {
 }
 
 
-.dropdown-full .p-dropdown {
-    height: 50px !important;
-    width: 100% !important;
-}
+// .dropdown-full .p-dropdown {
+//     height: 50px !important;
+//     width: 100% !important;
+// }
 
-.dropdown-full {
-    height: 50px !important;
-    width: 100% !important;
-}
+// .dropdown-full {
+//     height: 50px !important;
+//     width: 100% !important;
+// }
 
 
 .contenidotable-2 {
@@ -1062,7 +1062,7 @@ td {
 
 
 //*** CAMBIOS CRISTIAN MARTINEZ ***/
-.tabladetalles-details {
+.tabladetalles {
     margin: 0 1.5%;
 }
 
@@ -1143,12 +1143,17 @@ td {
     flex: none;
     flex-direction: row;
 }
+
+
+/**COMPONENTNES**/
 .tabladetalles #CL-detail input{
     width: 150px!important;
 }
 .tabladetalles #CXXX-calendar-detail p-calendar{
-    width: 135px!important;
+    width: 130px!important;
 }
+
+
 
 //*** CAMBIOS CRISTIAN MARTINEZ ***/
 

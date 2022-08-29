@@ -635,9 +635,12 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   box-shadow: 0 0 0 0.2rem #4D9FDC;
   border-color: #1B74C5;
 }
+/**CAMBIOS CRISTIAN MARTINEZ **/
 .p-dropdown.p-dropdown-clearable .p-dropdown-label {
   padding-right: 1.5rem;
+  /* width: 130px; */
 }
+/**CAMBIOS CRISTIAN MARTINEZ **/
 .p-dropdown .p-dropdown-label {
   background: transparent;
   border: 0 none;

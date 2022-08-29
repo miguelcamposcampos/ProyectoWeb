@@ -214,7 +214,7 @@
                                             <td>
                                                 <strong class="p-column-title">Cod.Producto</strong> 
                                                 <input type="text" style="width: 80px;"  class="p-inputtext-sm" 
-                                                (blur)="onBuscarProductoPorCodigo(rowIndex)"
+                                                (keydown.Tab)="onBuscarProductoPorCodigo(rowIndex)"
                                                 (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"  
                                                 pInputText formControlName="codproductofinal">   
                                                 <button type="button" (click)="onModalBuscarProducto(rowIndex)" pTooltip="Buscar" tooltipPosition="left" pButton icon="pi pi-search" class="p-button-sm"></button>      
