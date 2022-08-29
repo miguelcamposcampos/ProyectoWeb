@@ -1,40 +1,64 @@
-<div class="margintabla card">
-    <div [ngClass]="{'contenidoTable': !esModal, 'card': esModal }"> 
-        <div [ngClass]="{'reporteMovimiento' : !esModal, 'OcultarTitulo' : esModal }">  
-            <h3> <i class="fas fa-circle-dollar-to-slot"></i> COBRAR </h3> 
-        </div> 
+<div class="container-fluid">
+    <div class="card-box">
+        <div [ngClass]="{'contenidoTable': !esModal, 'card-box': esModal }"> 
+          
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fas fa-circle-dollar-to-slot"></i> COBRAR </h3> 
+                </div> 
+                <div class="p-toolbar-group-right">
+                    <button   
+                        class="p-button-registrar"
+                        pButton
+                        type="button"
+                        icon="pi pi-save"
+                        label="Grabar" 
+                        style="margin-right: 1%"
+                        (click)="onGrabar()">  
+                    </button>  
+                    <button   
+                        class="p-button-cancelar"
+                        pButton
+                        type="button"
+                        icon="pi pi-arrow-circle-left"
+                        label="Regresar" 
+                        (click)="onRegresar()">  
+                    </button>  
+                </div>
+            </p-toolbar>
 
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-        </ngx-spinner>
+            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+                <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+            </ngx-spinner>
 
-        <p-toast key="ToastExitoso"  position="top-right"></p-toast>
+            <p-toast key="ToastExitoso"  position="top-right"></p-toast>
+
             <form [formGroup]="Form" >
                 <div class="p-col-12" >  
-                    <div class="p-fluid p-formgrid p-grid">  
-                        <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>Forma Pago *:</strong>
+                    <div class="p-fluid p-formgrid p-grid formulario-campo-obligatorio">
+                        <div class="p-field p-col-12 p-md-4 p-sm-6">
+                            <strong>Forma Pago <span> * </span></strong>
                             <p-dropdown class="DropExtenso" [disabled]="bloquearComboFormaPago" (onChange)="onObtenerFormPago($event.value)" [options]="arrayFormasPago" formControlName="FormadePago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div> 
 
-                        <div class="p-field p-col-12 p-md-4 p-sm-4">
+                        <div class="p-field p-col-12 p-md-4 p-sm-6">
                             <strong>Nro Referencia:</strong>
-                            <input  type="text" pInputText formControlName="NroReferencia" class="p-inputtext-sm" placeholder="ingresar una referencia">     
+                            <input  type="text" pInputText formControlName="NroReferencia" class="p-inputtext-sm-form" placeholder="ingresar una referencia">     
                         </div>
 
-                        <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>Importe a Cobrar : {{  SaldoTotalaCobrar }}</strong> 
-                            <div class="InputCombinado">  
-                                <input type="text" disabled formControlName="MonedaaCobrar" pInputText  class="p-inputtext-sm" placeholder="">   
-                                <input type="number" [min]="1" (keydown.enter)="onAgregarCobro()" formControlName="ImporteACobrar" pInputText  class="p-inputtext-sm" placeholder="0.00">     
-                            </div>
+                        <div class="p-field p-col-12 p-md-1 p-sm-4">
+                            <strong>Moneda </strong>  
+                            <input type="text" disabled formControlName="MonedaaCobrar" pInputText 
+                            class="p-inputtext-sm-form">   
                         </div>
-                    </div> 
-                </div>
-                <div class="p-col-12"  > 
-                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3 p-sm-8">
+                            <strong>Importe a Cobrar :{{  SaldoTotalaCobrar | number:'0.2-2' }}</strong>  
+                            <input type="number" [min]="1" (keydown.enter)="onAgregarCobro()" 
+                            formControlName="ImporteACobrar" pInputText  class="p-inputtext-sm-form" placeholder="0.00">   
+                        </div>
+                    
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>Fec.Cobranza *:</strong>
+                            <strong>Fec.Cobranza <span> * </span></strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
@@ -44,64 +68,66 @@
                         </div> 
     
                         <div class="p-field p-col-12 p-md-4 p-sm-4">
-                            <strong>T. Cambio *:</strong>
-                            <input type="number" pInputText disabled formControlName="TipoCambio" class="p-inputtext-sm" placeholder="0.00">     
+                            <strong>T. Cambio <span> * </span></strong>
+                            <input type="number" pInputText disabled formControlName="TipoCambio" 
+                            class="p-inputtext-sm-form" placeholder="0.00">     
                         </div>
     
-                        <div class="p-field p-col-12 p-md-3 p-sm-3 botonBuscar"> 
-                            <button type="button" pTooltip="Agregar" label="Agregar Cobranza"  [disabled]="bloquearBotonAgregarCobro" class="p-button-sm" tooltipPosition="left" (click)="onAgregarCobro()" pButton icon="fas fa-circle-dollar-to-slot"></button>      
+                        <div class="p-field p-col-12 p-md-4 p-sm-4 botonBuscar"> 
+                            <button type="button" pTooltip="Agregar" label="Agregar Cobranza"  
+                            [disabled]="bloquearBotonAgregarCobro" class="p-button-generico-azul" tooltipPosition="left" 
+                            (click)="onAgregarCobro()" pButton icon="fas fa-circle-dollar-to-slot"></button>      
                         </div>
                     </div>
                 </div> 
                
             </form>
 
-            <div > 
-                <div style="margin: 3%;">
-                    <p-table   
-                        class="TablaDetalleCondicionPago"
+            <div> 
+                
+                <p-table   
+                        class="tabladetalles"
                         [value]="arrayCobro"
                         [scrollable]="true" 
                         responsiveLayout="stack" >  
                         <ng-template pTemplate="header">
                             <tr> 
-                                <th style="width: 50px;" >N°</th>
-                                <th style="width: 150px;" >FormaPago</th>
-                                <th style="width: 160px;" >NroDocReferencia</th>
-                                <th style="width: 80px;" >Moneda</th> 
-                                <th style="width: 70px;" >Importe</th> 
-                                <th style="width: 70px;" >Acción</th>
+                                <th id="sm-detail">N°</th>
+                                <th id="md-detail">FormaPago</th>
+                                <th id="md-detail">NroDocReferencia</th>
+                                <th id="md-detail">Moneda</th> 
+                                <th id="md-detail">Importe</th> 
+                                <th id="sm-detail">Acción</th>
                             </tr>
                         </ng-template> 
             
                         <ng-template pTemplate="body" let-detalles let-rowIndex="rowIndex" > 
                             <tr>  
-                                <td>
+                                <td id="sm-detail">
                                     <strong class="p-column-title">N°</strong> 
-                                    <span style="width: 40px;">{{rowIndex + 1 }} </span>
+                                    <span>{{rowIndex + 1 }} </span>
                                 </td>
-                                <td>
+                                <td id="md-detail">
                                     <strong class="p-column-title">FormaPago</strong> 
-                                    <span style="width: 120px;">  {{detalles.formaPago}} </span> 
+                                    <span>  {{detalles.formaPago}} </span> 
                                 </td>
-                                <td>
+                                <td id="md-detail">
                                     <strong class="p-column-title">NroDocReferencia</strong>  
-                                    <span style="width: 150px;" > {{detalles.nroDocRef}}</span>
+                                    <span > {{detalles.nroDocRef}}</span>
                                 </td>
-                                <td>
+                                <td id="md-detail">
                                     <strong class="p-column-title">Moneda</strong> 
-                                    <span style="width: 70px;"> {{detalles.Moneda}} </span> 
+                                    <span> {{detalles.Moneda}} </span> 
                                 </td>
-                                <td>
+                                <td id="md-detail">
                                     <strong class="p-column-title">Importe</strong> 
-                                    <span style="width: 70px;"> {{detalles.importe}} </span>
+                                    <span> {{detalles.importe | number:'0.2-2' }} </span>
                                 </td> 
-                                <td>
+                                <td id="sm-detail">
                                     <button  
-                                        class="p-button-sm p-button-rounded"
+                                        class="p-button-cancelar p-button-rounded"
                                         pButton 
                                         type="button"
-                                        style=" background-color: #D72250;"
                                         (click)="onEliminarCobranza(rowIndex)"
                                         icon="pi pi-trash">  
                                     </button>
@@ -114,29 +140,10 @@
                             </tr>
                         </ng-template> 
                 
-                    </p-table>  
-                </div> 
+                </p-table>  
+               
             </div> 
- 
-            <div class="botones">   
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    icon="pi pi-save"
-                    label="Grabar" 
-                    style="margin-right: 1%"
-                    (click)="onGrabar()">  
-                </button>  
-                <button   
-                    class="p-button-sm"
-                    pButton
-                    type="button"
-                    icon="pi pi-arrow-circle-left"
-                    label="Regresar" 
-                    (click)="onRegresar()">  
-                </button>  
-            </div>
-        
+        </div>
+             
     </div>
 </div>

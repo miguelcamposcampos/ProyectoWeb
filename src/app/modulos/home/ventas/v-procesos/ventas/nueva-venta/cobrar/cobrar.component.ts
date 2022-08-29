@@ -60,6 +60,7 @@ export class CobrarComponent implements OnInit {
       fechacobranza: new FormControl(this.fechaActual, Validators.required),
       NroReferencia: new FormControl(null, Validators.required),
       MonedaaCobrar: new FormControl(null, Validators.required),
+      MonedaId: new FormControl(null),
       FormadePago: new FormControl(null),  
       ImporteACobrar: new FormControl(null),  
       TipoCambio: new FormControl(null),  
@@ -122,34 +123,28 @@ export class CobrarComponent implements OnInit {
  onObtenerFormPago(event : any){  
   if(event){    
     this.bloquearBotonAgregarCobro = false;
-    let nombreMoneda = this.arrayMonedas.find(x => x.id === event.id) 
+    let nombreMoneda = this.arrayMonedas.find(x => x.id === event.valor3) 
     this.Form.controls['MonedaaCobrar'].setValue(nombreMoneda.valor2);  
-    this.onCalcularCambioaDolar(event.valor3); 
+    this.Form.controls['MonedaId'].setValue(nombreMoneda.valor1);  
+    this.onCalcularCambioaDolar(nombreMoneda.valor3); 
   }else{
     this.bloquearBotonAgregarCobro = true; 
   }
  }
 
- onCalcularCambioaDolar(event){
-  let NewSaldo: number;
+ onCalcularCambioaDolar(event){ 
   const dataFormulario = this.Form.value; 
 
   if(event === 2){  
-    if(this.arrayCobro.length){
-      NewSaldo = (  (this.saldoPendiente.importesaldo - this.totaldeCobrosRealizados) / dataFormulario.TipoCambio) 
-      this.SaldoTotalaCobrar =  parseFloat(NewSaldo.toFixed(2)); 
-    }else{
-      NewSaldo = (this.saldoPendiente.importesaldo / dataFormulario.TipoCambio)  
-      this.SaldoTotalaCobrar = parseFloat(NewSaldo.toString()).toFixed(2);   
-    } 
+    this.SaldoTotalaCobrar = this.arrayCobro.length
+    ? ((this.saldoPendiente.importesaldo - this.totaldeCobrosRealizados) / dataFormulario.TipoCambio) 
+    : (this.saldoPendiente.importesaldo / dataFormulario.TipoCambio)
   }else if(event === 1){   
-    if(this.arrayCobro.length){
-      let saldoActual = (this.saldoPendiente.importesaldo - this.totaldeCobrosRealizados)
-      this.SaldoTotalaCobrar = parseFloat(saldoActual.toFixed(2));
-    }else{  
-      this.SaldoTotalaCobrar = parseFloat(this.saldoPendiente.importesaldo.toString()).toFixed(2);  
-    }
+    this.SaldoTotalaCobrar = this.arrayCobro.length
+    ? (this.saldoPendiente.importesaldo - this.totaldeCobrosRealizados)
+    : this.saldoPendiente.importesaldo;
   }
+  this.CalcularMontoRestante();
  }
 
 
@@ -157,22 +152,19 @@ export class CobrarComponent implements OnInit {
   get arrayPagosRegistrados() { return this.fa.controls as FormGroup[]; }
 
   onAgregarCobro(){  
-    
     const dataForm = this.Form.value;
   
     if(!dataForm.ImporteACobrar){
       this.swal.mensajeAdvertencia('Ingresa un monto a cobrar porfavor!.');
       return;
     }
- 
-    let numParseado =   +parseFloat(dataForm.ImporteACobrar.toString()).toFixed(2); 
-    
-    if(numParseado < 0.01){
+  
+    if(dataForm.ImporteACobrar < 0.01){
       this.swal.mensajeAdvertencia('no puede ingresar números negativos');
       return;
     } 
 
-    if(numParseado > this.SaldoTotalaCobrar){
+    if(dataForm.ImporteACobrar > this.SaldoTotalaCobrar){
       this.swal.mensajeAdvertencia('no puede ingresar un monto mayor al importe total');
       return;
     } 
@@ -182,9 +174,9 @@ export class CobrarComponent implements OnInit {
     const newCobro = {
       formaPagoId: dataForm.FormadePago.id,
       formaPago: dataForm.FormadePago.valor1,
-      importe: +numParseado,
+      importe: +dataForm.ImporteACobrar,
       Moneda :  dataForm.MonedaaCobrar, 
-      MonedaId : monedaGrabar,
+      MonedaId : dataForm.MonedaId, //monedaGrabar,
       nroDocRef: dataForm.NroReferencia,
       tipodocRefId: 0,
     }
@@ -224,18 +216,12 @@ export class CobrarComponent implements OnInit {
       let cobradoDolares =  (this.totaldeCobrosRealizados / this.Form.controls['TipoCambio'].value);
       let nuevoSaldodolar = importeSaldoDolar - cobradoDolares; 
       let numeroDosdig = parseFloat(nuevoSaldodolar.toString()).toFixed(2); 
-      this.SaldoTotalaCobrar = +numeroDosdig // this.onDosDecimales(nuevoSaldodolar);
-   
+      this.SaldoTotalaCobrar = +numeroDosdig // this.onDosDecimales(nuevoSaldodolar); 
     }
-   
- 
-    if(this.SaldoTotalaCobrar === 0){
-      this.bloquearBotonAgregarCobro = true;
-      this.bloquearComboFormaPago = true;
-    }else{
-      this.bloquearComboFormaPago = false;
-      this.bloquearBotonAgregarCobro = false;
-    }  
+    
+    this.bloquearBotonAgregarCobro = (this.SaldoTotalaCobrar === 0) ?  true : false;
+    this.bloquearComboFormaPago = (this.SaldoTotalaCobrar === 0) ?  true : false;
+    
   }
 
  
@@ -244,15 +230,7 @@ export class CobrarComponent implements OnInit {
     this.CalcularMontoRestante();
   }
 
-  onDosDecimales(n) {
-    let t=n.toString();
-    let regex=/(\d*.\d{0,2})/;
-   // let retornaNumero = t.match(regex)[0];
-    return t.match(regex)[0];
-  }
-
   
-
   onGrabar(){   
     this.detalleCobranza = [];
     this.arrayCobro.forEach(element => { 
@@ -276,7 +254,7 @@ export class CobrarComponent implements OnInit {
     console.log('newCobranzaRapida',newCobranzaRapida);
     this.ventaservice.crearCobranzaRapida(newCobranzaRapida).subscribe((resp) => {
       if(resp){
-        this.cerrar.emit('exito')
+        this.cerrar.emit(true);
       }
       this.swal.mensajeExito('Se grabaron los datos correctamente!.')
     })

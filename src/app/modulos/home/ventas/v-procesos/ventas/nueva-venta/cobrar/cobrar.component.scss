@@ -1,26 +1,26 @@
-.OcultarTitulo{
-  display: none;
-}
+// .OcultarTitulo{
+//   display: none;
+// }
  
-.botonBuscar{
-   display: flex;
-   align-items: flex-end;   
- }
+// .botonBuscar{
+//    display: flex;
+//    align-items: flex-end;   
+//  }
  
- .InputCombinado{
-   display: grid;
-   gap: 1%;
-   grid-template-columns: 70px 1fr;
-}
+//  .InputCombinado{
+//    display: grid;
+//    gap: 1%;
+//    grid-template-columns: 70px 1fr;
+// }
   
-.TablaDetalleCondicionPago ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
-   flex: none;
-   justify-content: center;
- }
+// .TablaDetalleCondicionPago ::ng-deep .p-datatable-scrollable .p-datatable-thead>tr>th{
+//    flex: none;
+//    justify-content: center;
+//  }
  
- .TablaDetalleCondicionPago ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
-   flex: 0 !important;
-   text-align: center;
- }
+//  .TablaDetalleCondicionPago ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+//    flex: 0 !important;
+//    text-align: center;
+//  }
  
  

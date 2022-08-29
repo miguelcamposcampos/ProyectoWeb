@@ -4,21 +4,24 @@
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
            </ngx-spinner>
-           
-        <div class="reporteMovimiento">  
-            <h3> <i class="fas fa-file-pdf"></i> REPORTE </h3> 
-            <div class="botonesCabecera">   
+            
+
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-file-pdf"></i> REPORTE </h3> 
+            </div>
+
+            <div class="p-toolbar-group-right">
                 <button   
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     pButton
                     type="button"
                     icon="pi pi-cloud-download"
-                    label="Generar" 
-                    style="margin-right: 1%"
+                    label="Generar"  
                     (click)="onGenerarReporte()">  
                 </button>  
                 <button   
-                    class="p-button-sm"
+                    class="p-button-generico-azul"
                     pButton
                     type="button"
                     icon="pi pi-arrow-circle-left"
@@ -26,7 +29,8 @@
                     (click)="onRegresar()">  
                 </button>  
             </div>
-        </div>
+        </p-toolbar>
+
 
         <div *ngIf="contenidoReporte" style="height: 80vh;"> 
              <br> 

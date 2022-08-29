@@ -78,14 +78,14 @@
                                         placeholder="ingresar">
                                 </div>
   
-                                <div class="p-field p-col-12 p-md-12  p-sm-12">
+                                <!-- <div class="p-field p-col-12 p-md-12  p-sm-12">
                                     <div *ngIf="existeDireccionCliente">
                                         <strong>Dirección Cliente</strong>
                                         <input type="text" readonly formControlName="direccioncliente" pInputText
                                             class="p-inputtext-sm-clear-grey pd-5 width-100"
                                             placeholder="dirección un cliente">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="p-field p-col-12 p-md-3 p-sm-6">
                                     <strong>Condición Pago <span>*</span></strong>
@@ -217,7 +217,7 @@
                                     (click)="onAgregarDetalleVenta()"></button>
 
 
-                                <p-table class="TablaDetalleCondicionPago tabladetalles" [value]="detallesVentaForm"
+                                <p-table class="tabladetalles" [value]="detallesVentaForm"
                                     [scrollable]="true" responsiveLayout="stack">
                                     <ng-template pTemplate="header">
                                         <tr class="centrar">
@@ -400,10 +400,9 @@
 
                         <!-- FORM ARRAY DEL DETALLE GUIA REMISION-->
                         <div *ngIf="GuiaRemisionForm">
-                            <div>
-
+                            <div> 
                                 <div style="margin: 3%;">
-                                    <p-table class="TablaDetalleCondicionPago tabladetalles" [value]="detallesGuiaRemision"
+                                    <p-table class="tabladetalles" [value]="detallesGuiaRemision"
                                         [scrollable]="true" responsiveLayout="stack">
                                         <ng-template pTemplate="header">
                                             <tr>
@@ -628,28 +627,28 @@
                                         <div class="totalesResumen" style="margin: 3%;">
                                             <strong>Descuento global:</strong>
                                             <input type="number" pInputText readonly
-                                                formControlName="dsctoglobalimporte" class="p-inputtext-sm"
+                                                formControlName="dsctoglobalimporte" class="p-inputtext-sm-form"
                                                 placeholder="0.00">
 
                                             <strong>Descuento por item:</strong>
                                             <input type="number" pInputText readonly formControlName="descuentoporitem"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>Descuento Total:</strong>
                                             <input type="number" pInputText readonly formControlName="importedescuento"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>Anticipo:</strong>
                                             <input type="number" pInputText readonly formControlName="importeanticipo"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>Exonerada:</strong>
                                             <input type="number" pInputText readonly formControlName="importeexonerado"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>Inafecta:</strong>
                                             <input type="number" pInputText readonly formControlName="importeinafecto"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
                                         </div>
                                     </div>
 
@@ -658,28 +657,28 @@
 
                                             <strong>Gravada:</strong>
                                             <input type="number" pInputText readonly formControlName="importegravada"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>IGV:</strong>
                                             <input type="number" pInputText readonly formControlName="importeigv"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>Gratuita:</strong>
                                             <input type="number" pInputText readonly formControlName="importegratuita"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong>Otros Tributos:</strong>
                                             <input type="number" pInputText readonly
-                                                formControlName="importeotrostributos" class="p-inputtext-sm"
+                                                formControlName="importeotrostributos" class="p-inputtext-sm-form"
                                                 placeholder="0.00">
 
                                             <strong>ICBPER:</strong>
                                             <input type="number" pInputText readonly formControlName="importeicbper"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                             <strong class="totalaMostrar">TOTAL:</strong>
                                             <input type="number" pInputText readonly formControlName="importetotalventa"
-                                                class="p-inputtext-sm" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
 
                                         </div>
                                     </div>
@@ -710,8 +709,7 @@
                                 <button class="p-button-sm" pButton type="button" icon="pi pi-bars"
                                 (click)="onBtnConfigBar($event)"> </button>
                                 
-                                <div class="title-options" [hidden]="!changeCols"> <h2> Más Opciones</h2></div>
-                                
+                                <div class="title-options" (click)="onBtnConfigBar($event)" [hidden]="!changeCols"> <p> <i class="pi pi-arrow-up"></i> Más Opciones</p></div>
                                 <div class="title-options-internal" [hidden]="changeCols"> <h2> Más Opciones</h2></div>
 
                                 <div [hidden]="changeCols"> 

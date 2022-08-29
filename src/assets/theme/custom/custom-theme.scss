@@ -446,7 +446,7 @@
 
 ::ng-deep .p-datatable .p-datatable-thead>tr>th {
     text-align: center;
-    padding: 1rem rem 1rem;
+    padding: 1rem 1rem 1rem;
     border: 1px solid rgba(232, 241, 248, 0.7);
     border-width: 0 0 1px 0;
     font-weight: 600;
@@ -1034,7 +1034,7 @@ td {
     flex-direction: column;
     flex-wrap: nowrap;
 }
-
+ 
 .tabladetalles #md {
     width: 250px;
     text-align: center !important;
@@ -1052,21 +1052,59 @@ td {
 }
 
 
-.tabladetalles #lg input{
-    width: 170px!important;
-}
 
 .tabladetalles #md input{
     width: 140px!important;
 }
+.tabladetalles #lg input{
+    width: 170px!important;
+}
+
+
+//*** CAMBIOS CRISTIAN MARTINEZ ***/
+.tabladetalles #sm-detail {
+    width: 50px;
+    text-align: center !important; 
+    justify-content: center; 
+    flex: none;
+}
+
+.tabladetalles #md-detail {
+    width: 200px;
+    text-align: center !important; 
+    justify-content: center; 
+    flex: none;
+}
+
+
+.tabladetalles #sm-detail input{
+    width: 50px!important;
+    flex: none;
+}
+
+.tabladetalles #md-detail input{
+    width: 100px!important;
+}
+
+//*** CAMBIOS CRISTIAN MARTINEZ ***/
+
+
+
 
 .p-datatable .p-datatable-tbody>tr>td {
     padding: 0.5rem !important;
 }
 
 .card-desplegable {
+    //*** CAMBIO CRISTIAN MARTINEZ ***/
+    // margin-left: 10px;
+    // min-height: 770px;
+
+  //  text-align: center;
     margin-left: 10px;
     min-height: 770px;
+    padding: 10px 10px;
+//*** CAMBIO CRISTIAN MARTINEZ ***/
 }
 
 .text-area-generico {
@@ -1077,7 +1115,7 @@ td {
 }
 
 
-.title-options h2 {
+.title-options p {
     text-orientation: upright;
     text-transform: uppercase;
     font-weight: 900;
@@ -1085,12 +1123,18 @@ td {
     font-size: 17px;
     text-align: center;
     color: #135aa9;
+    //**CAMBIOS CRISTIAN MARTINEz ***/
+    width: 30px;
+    margin-top: 20px;
+    //**CAMBIOS CRISTIAN MARTINEz ***/
 }
 
 .title-options-internal h2 {
-    justify-content: space-around;
-    text-align: center;
     margin-top: -30px;
+    font-weight: 900;
+    font-size: 22px;
+    text-align: center;
+    color: #135aa9;
 }
 
 
