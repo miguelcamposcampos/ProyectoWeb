@@ -128,28 +128,14 @@ $gutter: 1rem; //for primeflex grid system
   display: contents;
 }
 
- .p-dropdown {
-  display: flex;
-  font-size: 15px;
-  height: 31px;
-  align-items: center;
-}
-
- .p-fluid .p-calendar {
-  display: flex;
-  height: 31px;
-}
+//  .p-dropdown {
+//   display: flex;
+//   font-size: 15px;
+//   height: 31px;
+//   align-items: center;
+// }
 
   
-.contenidoTable{
-  min-height: 85vh;
-}
-
-
-.p-datatable .p-datatable-tbody > tr > td { 
-  padding: 0.5rem 0.5rem !important;
-} 
-
 
 
 .cantidadTomaInventario{
@@ -166,19 +152,6 @@ $gutter: 1rem; //for primeflex grid system
 } 
 
  
- 
-.reporteMovimiento{
-  display: flex;
-  justify-content: space-between;
-  @media (max-width : 700px){
-     display: grid;
-  }
-}
-.botonesCabecera{
- display: flex;
- align-items: flex-end;
-}
-
 
 .formularioColum12_1{
   display: grid;
@@ -191,22 +164,9 @@ $gutter: 1rem; //for primeflex grid system
      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   }
 }  
-
-.formularioColumn10_1{
-  display: grid;
-  grid-gap: 1rem;
-  gap: 1rem;
-  grid-auto-rows: auto;
-  grid-template-columns: 10rem 1fr;   
-  align-items: center;
-  @media (max-width: 700px) {  
-     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  }
-}
-
+ 
 .menu-wrapper {
-  top: 100px!important;
-
+  top: 100px!important; 
 }
 
   

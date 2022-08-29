@@ -105,11 +105,10 @@
 
                             <ng-template #botones [ngIf]="col.field === 'acciones'">
                                 <div style="display: flex;">
-                                <button 
-                                    style="margin-right: 2% ;"
+                                <button  
                                     pButton
                                     type="button" 
-                                    class="p-button-sm"
+                                    class="p-button-generico-azul"
                                     (click)="onEditar(cajachica.idCajaChica)"
                                     tooltipPosition="top" 
                                     pTooltip="Editar Und Medida"  
@@ -118,8 +117,7 @@
                                 <button  
                                     pButton
                                     type="button" 
-                                    class="p-button-sm"
-                                    style="background-color: #D72250;"
+                                    class="p-button-cancelar" 
                                     (click)="onEliminar(cajachica)"
                                     tooltipPosition="top" 
                                     pTooltip="Eliminar Und. Medida"  

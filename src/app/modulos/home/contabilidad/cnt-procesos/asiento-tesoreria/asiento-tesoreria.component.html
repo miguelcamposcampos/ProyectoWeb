@@ -84,11 +84,11 @@
                                         <ng-template #botones [ngIf]="col.field === 'acciones'">
                                             <div style="display: flex;">
                                                 <button pButton type="button" tooltipPosition="top"
-                                                    pTooltip="Editar" (click)="onEdit(atesoreria)"
-                                                    style="margin-right :2%;" icon="pi pi-pencil">
+                                                class="p-button-generico-azul" 
+                                                    pTooltip="Editar" (click)="onEdit(atesoreria)" icon="pi pi-pencil">
                                                 </button>
                                                 <button pButton type="button" tooltipPosition="top"
-                                                    style=" background-color: #D72250;" (click)="onDelete(atesoreria)"
+                                                class="p-button-cancelar"  (click)="onDelete(atesoreria)"
                                                     pTooltip="Eliminar" icon="pi pi-trash">
                                                 </button>
                                             </div>

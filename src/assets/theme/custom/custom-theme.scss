@@ -663,7 +663,7 @@
 .p-inputtext-sm-form {
     height: 35px;
     width: 100% !important;
-    font-size: 16px !important; 
+    font-size: 14px !important; 
     border-radius: 5px !important;
     background: #e3e3e3 !important;
 }
@@ -1062,28 +1062,92 @@ td {
 
 
 //*** CAMBIOS CRISTIAN MARTINEZ ***/
-.tabladetalles #sm-detail {
+.tabladetalles-details {
+    margin: 0 1.5%;
+}
+
+.tabladetalles #L-detail {
     width: 50px;
     text-align: center !important; 
+    justify-content: center  !important; 
+    flex: none;
+    flex-direction: row;
+}
+.tabladetalles #L-detail input{ 
+    width: 50px !important;
+    flex: none;
+}
+
+.tabladetalles #LX-detail {
+    width: 60px;
+    text-align: center !important; 
+    justify-content: center  !important; 
+    flex: none;
+    flex-direction: row;
+}
+
+.tabladetalles #LX-detail input{ 
+    width: 60px !important;
+    flex: none;
+}
+
+
+.tabladetalles #LXX-detail {
+    width: 70px;
+    text-align: center !important; 
+    justify-content: center  !important; 
+    flex: none;
+    flex-direction: row;
+}
+.tabladetalles #LXX-detail input{ 
+    width: 70px!important;
+    flex: none;
+}
+
+
+.tabladetalles #C-detail {
+    width: 100px;
+    text-align: center !important; 
+    justify-content: center; 
+    flex: none;
+    flex-direction: row;
+}
+
+.tabladetalles #C-detail input{
+    width: 100px;
+    text-align: center !important; 
     justify-content: center; 
     flex: none;
 }
 
-.tabladetalles #md-detail {
-    width: 200px;
+.tabladetalles #CXXX-detail {
+    width: 130px;
+    text-align: center !important; 
+    justify-content: center; 
+    flex: none;
+    flex-direction: row;
+}
+
+.tabladetalles #CXXX-detail input{
+    width: 130px;
     text-align: center !important; 
     justify-content: center; 
     flex: none;
 }
 
 
-.tabladetalles #sm-detail input{
-    width: 50px!important;
+.tabladetalles #CL-detail {
+    width: 150px;
+    text-align: center !important; 
+    justify-content: center; 
     flex: none;
+    flex-direction: row;
 }
-
-.tabladetalles #md-detail input{
-    width: 100px!important;
+.tabladetalles #CL-detail input{
+    width: 150px!important;
+}
+.tabladetalles #CXXX-calendar-detail p-calendar{
+    width: 135px!important;
 }
 
 //*** CAMBIOS CRISTIAN MARTINEZ ***/

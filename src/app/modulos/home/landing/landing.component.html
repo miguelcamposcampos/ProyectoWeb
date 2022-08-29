@@ -58,17 +58,17 @@
                         <i class="fa-solid fa-triangle-exclamation sizeIcon"></i>
                         <br>
                         <div class="textIcon">
-                            Tiene {{ (DataEnviadosASunat) ? DataEnviadosASunat.noEnviados : 0}} documentos SIN enviar a Sunat
+                            Tiene <strong> {{ (DataEnviadosASunat) ? DataEnviadosASunat.noEnviados : 0}} </strong>documentos SIN enviar a Sunat
                         </div>
                     </div> 
                     
                     <div class="charts"> 
                         <i class="fa-regular fa-circle-check sizeIcon2"></i>
                         <div class="textIcon">
-                            No tiene documento anulados sin dar de baja
+                            No tiene <strong> {{ (DataEnviadosASunat) ? DataEnviadosASunat.anuladosSinBaja : 0} </strong> } documento anulados sin dar de baja
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-   </div>
+   </div> 

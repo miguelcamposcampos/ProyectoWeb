@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
@@ -22,7 +22,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class VentasComponent implements OnInit {
 
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
-  cols: InterfaceColumnasGrilla[] = [];
+  cols: any[] = [];
   FormBusqueda : FormGroup; 
   FormExportar : FormGroup; 
   opcioneVentas : MenuItem[];
@@ -41,6 +41,7 @@ export class VentasComponent implements OnInit {
   size: number = 50;
   idClienteSeleccionado : number = 0;
   dataExcelReporte : IModuloReporte
+  filterCols : any[];
 
   constructor(
     private swal : MensajesSwalService,
@@ -85,7 +86,7 @@ export class VentasComponent implements OnInit {
     this.onCargarTipoDocumento();
     this.onLoadVentas(null);
     this.cols = [ 
-      { field: 'nroRegistro', header: 'Nro Registro', visibility: true }, 
+     // { field: 'nroRegistro', header: 'Nro Registro', visibility: true }, 
       { field: 'tipoDocumento', header: 'Tipo Documento', visibility: true},   
       { field: 'nroDocumento', header: 'Nro Documento', visibility: true},   
       { field: 'fechaEmision', header: 'Fec. Emision',  visibility: true, formatoFecha : ConstantesGenerales._FORMATO_FECHA_VISTA},   
@@ -101,7 +102,21 @@ export class VentasComponent implements OnInit {
       { field: 'usuarioRegistro', header: 'Usuario. Reg', visibility: true},   
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
     ];
+
+    this.filterCols = this.cols;
   }
+  
+  /** FILTRAR COLUMNAS EN LA TABLA */
+  @Input() get selectedColumns(): any[] {
+    return this.filterCols;
+  }
+
+  set selectedColumns(val: any[]) { 
+    this.filterCols = this.cols.filter(col => val.includes(col));
+  }
+
+  /** FILTRAR COLUMNAS EN LA TABLA */
+
 
   onSignalERP(){ 
     this.signalService.iniciarConeccionSR(); 
@@ -190,12 +205,12 @@ export class VentasComponent implements OnInit {
     this.VistaNuevaVentaPOS = true;
   }
 
-  onEditar(ventas : any){
+  onEdit(ventas : any){
     this.dataVenta = ventas
     this.VistaNuevaVenta = true;
   }
 
-  onEliminar(ventas: any){ 
+  onDelete(ventas: any){ 
     this.swal.mensajePregunta("¿Seguro que desea eliminar la venta con nuero de registro: " + ventas.nroRegistro + " ?").then((response) => {
       if (response.isConfirmed) {
         this.ventasService.deleteVenta(ventas.idVenta).subscribe((resp) => {

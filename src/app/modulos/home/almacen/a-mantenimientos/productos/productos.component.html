@@ -18,8 +18,7 @@
                             type="button" 
                             pButton
                             (click)="onAdd()" 
-                            label="Agregar" 
-                            style="margin-right: 1%;"
+                            label="Agregar"  
                             pTooltip="Agregar" 
                             tooltipPosition="top" 
                             icon="pi pi-plus">
@@ -185,6 +184,7 @@
                                         <div style="display: flex;">
                                             <button 
                                                 pButton 
+                                                class="p-button-generico-azul" 
                                                 type="button"
                                                 tooltipPosition="top" 
                                                 pTooltip="Editar" 
@@ -193,10 +193,10 @@
                                                 icon="pi pi-pencil">
                                             </button>     
                                             <button 
+                                                class="p-button-cancelar" 
                                                 pButton 
                                                 type="button"
-                                                tooltipPosition="top" 
-                                                style=" background-color: #D72250;"
+                                                tooltipPosition="top"  
                                                 (click)="onDelete(productos)"
                                                 pTooltip="Eliminar"  
                                                 icon="pi pi-trash">

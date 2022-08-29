@@ -69,8 +69,7 @@
                             <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{unidad[col.field]}}
                             <ng-template #botones [ngIf]="col.field === 'acciones'">
                                 <div style="display: flex;">
-                                  <button
-                                    style="margin-right: 2% ;"
+                                  <button 
                                     pButton
                                     type="button"
                                     class="p-button-generico-azul"
@@ -82,8 +81,7 @@
                                   <button
                                     pButton
                                     type="button"
-                                    class="p-button-generico-azul"
-                                    style=" background-color: #D72250;"
+                                    class="p-button-cancelar" 
                                     (click)="onDelete(unidad)"
                                     tooltipPosition="top"
                                     pTooltip="Eliminar Und. Medida"

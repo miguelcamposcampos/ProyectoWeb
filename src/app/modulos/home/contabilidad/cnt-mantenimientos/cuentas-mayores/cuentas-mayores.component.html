@@ -68,12 +68,17 @@
                                         {{cmayor[col.field]}}
                                         <ng-template #botones [ngIf]="col.field === 'acciones'">
                                             <div style="display: flex;">
-                                                <button pButton type="button" tooltipPosition="top"
-                                                    pTooltip="Editar" (click)="onEdit(cmayor)"
-                                                    style="margin-right :2%;" icon="pi pi-pencil">
+                                                <button pButton type="button" 
+                                                    tooltipPosition="top"
+                                                    pTooltip="Editar" 
+                                                    (click)="onEdit(cmayor)"
+                                                    class="p-button-generico-azul" 
+                                                    icon="pi pi-pencil">
                                                 </button>
-                                                <button pButton type="button" tooltipPosition="top"
-                                                    style=" background-color: #D72250;" (click)="onDelete(cmayor)"
+                                                <button pButton type="button"
+                                                    tooltipPosition="top"
+                                                    class="p-button-cancelar" 
+                                                    (click)="onDelete(cmayor)"
                                                     pTooltip="Eliminar" icon="pi pi-trash">
                                                 </button>
                                             </div>

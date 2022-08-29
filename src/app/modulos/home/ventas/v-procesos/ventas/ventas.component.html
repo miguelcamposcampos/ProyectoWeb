@@ -85,13 +85,20 @@
                 </div>
 
             </form>
-            <br>
+            
 
-            <p-table [responsive]="true" [columns]="cols" responsiveLayout="scroll" selectionMode="single"
+            <p-table [responsive]="true" [columns]="selectedColumns" responsiveLayout="scroll" selectionMode="single"
                 [rowHover]="true" [value]="listadoVentas">
+
+                <ng-template pTemplate="caption">
+                    <strong> Filtrar columnas</strong> &nbsp;
+                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+                </ng-template>
 
                 <ng-template pTemplate="header" let-columns>
                     <tr>
+                        <th>Nro Registro</th>
                         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                             {{ col.header }}
                             <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
@@ -105,6 +112,9 @@
                 <ng-template pTemplate="body" let-ventas let-columns="columns" let-rowIndex="rowIndex">
                     <tr [pSelectableRow]="ventas" [pSelectableRowIndex]="rowIndex"
                         [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}">
+
+                        <td>{{ventas.nroRegistro}}</td>
+
                         <td *ngFor="let col of columns">
                             <strong class="p-column-title">{{ col.header | uppercase}}</strong>
 
@@ -133,11 +143,12 @@
                                 <div style="display: flex;">
                                     <button pButton type="button" tooltipPosition="top" pTooltip="Editar"
                                         [ngClass]="{'EstadoBaja': ventas.estadoSUNAT  === '[DE BAJA]'}"
-                                        (click)="onEditar(ventas)"    class="p-button-generico-azul" icon="pi pi-pencil">
+                                        (click)="onEdit(ventas)" class="p-button-generico-azul" icon="pi pi-pencil">
                                     </button>
-                                    <button pButton type="button" tooltipPosition="top" class="p-button-generico-azul"
-                                        style="background-color: #D72250;" (click)="onEliminar(ventas)"
-                                        pTooltip="Eliminar" icon="pi pi-trash">
+                                    <button
+                                    pButton type="button"
+                                     tooltipPosition="top" class="p-button-cancelar" 
+                                        (click)="onDelete(ventas)" pTooltip="Eliminar" icon="pi pi-trash">
                                     </button>
                                 </div>
                             </ng-template>

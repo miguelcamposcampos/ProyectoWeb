@@ -169,7 +169,7 @@ export class CobrarComponent implements OnInit {
       return;
     } 
 
-    let monedaGrabar = this.arrayMonedas.find(x => x.valor2 === dataForm.MonedaaCobrar) 
+  //  let monedaGrabar = this.arrayMonedas.find(x => x.valor2 === dataForm.MonedaaCobrar) 
    
     const newCobro = {
       formaPagoId: dataForm.FormadePago.id,
@@ -234,14 +234,7 @@ export class CobrarComponent implements OnInit {
   onGrabar(){   
     this.detalleCobranza = [];
     this.arrayCobro.forEach(element => { 
-      this.detalleCobranza.push({
-        formaPagoId : element.formaPagoId,
-        importe :  +element.importe,
-        Moneda :  element.Moneda,
-        MonedaId :  element.MonedaId,
-        nroDocRef : '',
-        tipoDocRefId: 0
-      })
+      this.detalleCobranza.push(element); 
     })
 
     const data = this.Form.value;
