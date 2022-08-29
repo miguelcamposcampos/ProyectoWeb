@@ -63,7 +63,7 @@ export class RegistroComponent implements OnInit {
  
   onRegistrar(){
       const dato = this.Form.value;
-      if(!(dato.Password === dato.RepetirPassword)){
+      if(!(dato.contrasena === dato.RepetirPassword)){
         this.swal.mensajeAdvertencia('Las contraseñas deben coincidir, asegurese de que las contraseñas sean iguales.')
         return;
       }
@@ -71,11 +71,9 @@ export class RegistroComponent implements OnInit {
       const newUsuario: IUsuario = this.Form.getRawValue();
       this.spinner.show();
 
-      this.loginService.nuevoUsuarioCreate(newUsuario).subscribe((resp) => {
-        if(resp){
-          this.swal.mensajeExito('Se registro al usuario con conrrectamente!.');
-          this.router.navigate(['/auth/login']);
-        }
+      this.loginService.nuevoUsuarioCreate(newUsuario).subscribe((resp) => { 
+        this.swal.mensajeExito('Se registro al usuario con conrrectamente!.');
+        this.router.navigate(['/auth/login']); 
       }); 
   }
   

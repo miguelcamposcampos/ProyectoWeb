@@ -71,6 +71,7 @@ export class AppLoginComponent implements OnInit  {
       if(resp){ 
         localStorage.setItem('rememberMe', Remem); 
         if(!(localStorage.getItem('estado') === 'Activo')){ 
+          this.spinner.hide();
           this.swal.mensajeActivacionUsuario(data.email);
         }else{ 
           this.router.navigate(['/modulos/empresas']);
