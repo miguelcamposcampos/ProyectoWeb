@@ -15,7 +15,7 @@ export class NuevoUnidadTransporteComponent implements OnInit {
 
     
   tituloVistaUnidadTransporte :string = "NUEVO UNIDAD TRANSPORTE";
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() dataUnidadTransporte! : any;
   EditarUnidadTransporte : ICrearUnidadTransporte;
 
@@ -91,14 +91,14 @@ export class NuevoUnidadTransporteComponent implements OnInit {
       this.transpService.grabarUnidadTransporte(newUnidadTransporte).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver(); 
+            this.cerrar.emit(true);
          }
         });
     }else { 
       this.transpService.updateUnidadTransporte(newUnidadTransporte).subscribe((resp) =>{
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+            this.cerrar.emit(true);
         }
       });
     }
@@ -108,12 +108,8 @@ export class NuevoUnidadTransporteComponent implements OnInit {
   onRegresar() {   
     this.cerrar.emit(false); 
   }
-
-
-  onVolver() {   
-    this.cerrar.emit('exito'); 
-  }
-
+ 
+ 
  
 
 }

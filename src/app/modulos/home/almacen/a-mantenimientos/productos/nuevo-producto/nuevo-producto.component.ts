@@ -17,7 +17,7 @@ export class NuevoProductoComponent implements OnInit {
   
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() idProductoEdit : number;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   tituloVistaNuevoProdcuto : string = "NUEVO PRODUCTO";
 
   CheckIncluyeIgv : boolean = false;

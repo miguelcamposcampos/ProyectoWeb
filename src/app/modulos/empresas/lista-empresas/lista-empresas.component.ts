@@ -114,7 +114,8 @@ export class ListaEmpresasComponent implements OnInit {
       }else{ 
         this.swal.mensajeRegistrarEmpresa().then((response) => { 
           if (response.isConfirmed) { 
-            this.router.navigate(['/modulos/empresas/agregar-empresa'])
+            this.newEmpresa = true
+            this.VistaEditarEmpresa = true;
           }
         });  
       } 
@@ -195,7 +196,7 @@ export class ListaEmpresasComponent implements OnInit {
 
   
   //CerrarVistas
-  onRetornar(event :any){
+  onRetornar(event){
     if(event){
       this.onLoadEmpresas();
     }

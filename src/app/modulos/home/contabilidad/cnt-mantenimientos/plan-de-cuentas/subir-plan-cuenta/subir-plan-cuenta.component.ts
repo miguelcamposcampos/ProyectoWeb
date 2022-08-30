@@ -14,7 +14,7 @@ import { IPlantillaEXcelPlancuenta, ISubirPlanescuenta } from '../interface/plan
 export class SubirPlanCuentaComponent implements OnInit {
 
 
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   cols: InterfaceColumnasGrilla[] = [];
   arrayplanescuenta : ISubirPlanescuenta[]=[];
   armarTabla : any[]=[];

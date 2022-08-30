@@ -20,7 +20,7 @@ export class NuevoAsientoTesoreriaComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() data : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   tituloVista = "Nuevo Asiento Tesorería"
   arrayTipoDoc : ICombo[];
   arrayTipoDocumento : ICombo[];

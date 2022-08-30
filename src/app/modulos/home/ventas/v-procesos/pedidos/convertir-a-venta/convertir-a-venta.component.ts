@@ -24,7 +24,7 @@ export class ConvertirAVentaComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   public FlgLlenaronComboParaActualizar: Subject<boolean> = new Subject<boolean>();
   @Input() dataVenta : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   valorIGV : number = 0.18;
   fechaActual = new Date();
   tituloNuevaVenta: string ="NUEVA VENTA";

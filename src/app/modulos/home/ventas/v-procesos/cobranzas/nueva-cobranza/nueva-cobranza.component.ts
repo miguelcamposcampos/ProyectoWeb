@@ -22,7 +22,7 @@ export class NuevaCobranzaComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataCobranza : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
 
   fechaActual = new Date();
   tituloNuevocobranza: string ="NUEVA COBRANZA";
@@ -391,24 +391,21 @@ export class NuevaCobranzaComponent implements OnInit {
     if(!this.CobranzaEditar){
       this.cobranzaService.createcobranza(newCobranza).subscribe((resp)=> {
         if(resp){
-          this.onVolver();
+           this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       })
     }else{
       this.cobranzaService.updateCobranza(newCobranza).subscribe((resp)=> {
         if(resp){
-          this.onVolver();
+           this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       });
     } 
   }
 
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
-
+ 
   onRegresar(){
     this.cerrar.emit(false);
   }

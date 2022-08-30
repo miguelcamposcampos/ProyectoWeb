@@ -15,7 +15,7 @@ import { TransportistaService } from '../service/transportista.service';
 })
 export class NuevoTransportistaComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
-  @Output() cerrar: EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() idTransportistaEdit! : number;
   tituloVistaTransportista: string ="NUEVO TRANSPORTISTA";
   EditarTransportista : ICrearTransportista;

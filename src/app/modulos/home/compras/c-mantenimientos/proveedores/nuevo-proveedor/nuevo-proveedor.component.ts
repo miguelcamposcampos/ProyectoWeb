@@ -18,7 +18,7 @@ export class NuevoProveedorComponent implements OnInit {
   
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataProveedor! : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   ProveedorEdit : IProveedorPorId;
  
@@ -286,7 +286,7 @@ export class NuevoProveedorComponent implements OnInit {
               this.onObtenerProveedorPorId(+resp);
             }else{
               this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-              this.onVolver();
+                this.cerrar.emit(true);
             }
           })   
         }
@@ -298,16 +298,14 @@ export class NuevoProveedorComponent implements OnInit {
             this.onObtenerProveedorPorId(newCliente.idproveedor);
           }else{
             this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-            this.onVolver();
+              this.cerrar.emit(true);
           }
         })    
       });
     }  
   }
 
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false)

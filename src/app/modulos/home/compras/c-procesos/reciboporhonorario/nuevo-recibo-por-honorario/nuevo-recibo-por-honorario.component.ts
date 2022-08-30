@@ -23,7 +23,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataRxH : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   fechaActual = new Date();
   tituloReciboPorHonorario: string ="NUEVO RECIBO POR HONORARIO";
   es = ConstantesGenerales.ES_CALENDARIO;
@@ -516,14 +516,14 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
     if(!this.RxhEditar){
       this.rxhService.createRxh(newVenta).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+            this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se grabaron los datos correctamente!.');
       });
     }else{
       this.rxhService.updateRxh(newVenta).subscribe((resp) => {
         if(resp){
-          this.onVolver();
+            this.cerrar.emit(true);
         }
         this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
       });
@@ -570,11 +570,7 @@ export class NuevoReciboPorHonorarioComponent implements OnInit {
  
     return this.arrayDetalleDocReferenciaGrabar; 
   }
-
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
-
+ 
   onRegresar(){
     this.cerrar.emit(false);
   }

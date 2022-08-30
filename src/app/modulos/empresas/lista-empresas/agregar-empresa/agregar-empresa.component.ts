@@ -15,7 +15,7 @@ import { PlanesService } from '../../services/planes.services';
 export class AgregarEmpresaComponent implements OnInit { 
  
   @Input() newEmpresa : boolean;
-  @Output() cerrar: any = new EventEmitter<any>();
+  @Output() cerrar: any = new EventEmitter<boolean>();
   Form : FormGroup;  
   EmpresaEdit : IEmpresa;  
   PlanesArray : any;
@@ -41,6 +41,8 @@ export class AgregarEmpresaComponent implements OnInit {
   ngOnInit(): void {    
     if(!this.newEmpresa){
       this.onTraerDatosParEditarEmpresa(); 
+    }else{
+      return;
     }
   }
  
@@ -110,8 +112,9 @@ export class AgregarEmpresaComponent implements OnInit {
     /* newEmpresa recibe todos los valores del form, se le asigna al campo idplan el id seleciconado en el modal */
     const newEmpresa : IEmpresa = this.Form.value; 
     newEmpresa.planid = this.PlanesArray ? this.PlanesArray.plan.planid : 0;
+    
     this.spinner.show();
-
+    
     if(this.EmpresaEdit){ 
       newEmpresa.empresaid = this.EmpresaEdit.empresaid;
       this.empresaService.empresaUpdate(newEmpresa).subscribe((resp)=>{
@@ -126,8 +129,8 @@ export class AgregarEmpresaComponent implements OnInit {
         if(resp){
           if(this.PlanesArray){
             this.onCreatePedido(resp); 
-          }else{
             this.spinner.hide();
+          }else{ 
             this.swal.mensajeAdvertencia('Eliga un plan para registrar la empresa!.'); 
             this.spinner.hide();
             return;
@@ -135,8 +138,8 @@ export class AgregarEmpresaComponent implements OnInit {
         }
       });
     }
-    
   }
+  
 
   onCreatePedido(resp){
     const newPedido : IPedioCrate = {

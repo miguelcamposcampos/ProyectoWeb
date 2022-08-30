@@ -15,7 +15,7 @@ import { VendedoresService } from '../servicio/vendedor.service';
 export class NuevoVendedorComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataVendedor! : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   VendedorEdit : ICrearVendedor;
   arrayEstablecimientos : ICombo[];
@@ -205,22 +205,20 @@ export class NuevoVendedorComponent implements OnInit {
       this.vendedorService.crearVendedor(newVendedor).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+           this.cerrar.emit(true);
         }
       });
     }else{
       this.vendedorService.updateVendedor(newVendedor).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+           this.cerrar.emit(true);
         }
       });
     }  
   }
 
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false)

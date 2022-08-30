@@ -20,7 +20,7 @@ export class NuevoIngresoComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataMovimientoEdit : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   es : any = ConstantesGenerales.ES_CALENDARIO;
   Form! : FormGroup; 
   fechaActual = new Date(); 
@@ -386,7 +386,7 @@ export class NuevoIngresoComponent implements OnInit {
               this.onObtenerMovimientoPorId(+resp, 'nuevo')
             }else{
               this.swal.mensajeExito('los datos de grabaron correctamente!.');
-              this.onVolver();
+               this.cerrar.emit(true);
             }
           })
         }  
@@ -398,7 +398,7 @@ export class NuevoIngresoComponent implements OnInit {
               this.onObtenerMovimientoPorId(newMovimiento.movimientoid, 'nuevo')
             }else{
               this.swal.mensajeExito('los datos de actualizaron correctamente!.');
-              this.onVolver();
+               this.cerrar.emit(true);
             }
           }) 
         });
@@ -410,9 +410,7 @@ export class NuevoIngresoComponent implements OnInit {
     this.VistaReporte = false;
   }
 
-  onVolver(){ 
-    this.cerrar.emit('exito') 
-  }
+ 
 
   onRegresar(){ 
     this.cerrar.emit(false) 

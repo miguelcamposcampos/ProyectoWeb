@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { InterceptorService } from 'src/app/auth/services/interceptor.service';
+import { NgxSpinnerService } from 'ngx-spinner'; 
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces'; 
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
@@ -37,8 +36,7 @@ export class BuscarProductoComponent implements OnInit {
     })
    }
 
-  ngOnInit(): void { 
-   // this.onLoadProductos();
+  ngOnInit(): void {  
 
     this.cols = [ 
       { field: 'codProducto', header: 'Codigo', visibility: true }, 
@@ -48,12 +46,7 @@ export class BuscarProductoComponent implements OnInit {
       { field: 'lote', header: 'Lote.', visibility: true},    
       { field: 'serie', header: 'Serie.', visibility: true},    
       { field: 'linea', header: 'Linea.', visibility: true},    
-      { field: 'marca', header: 'Marca', visibility: true},    
-      // { field: 'modelo', header: 'Modelo', visibility: true},   
-      // { field: 'color', header: 'Color', visibility: true},    
-      // { field: 'permiteEditarDescripcion', header: 'Edita Descrip.', visibility: true , tipoFlag:'boolean'},    
-      // { field: 'esServicio', header: 'Es Servivio', visibility: true , tipoFlag:'boolean'},    
-      // { field: 'esAfectoICBPER', header: 'Es AfectoCBPER', visibility: true , tipoFlag:'boolean'},    
+      { field: 'marca', header: 'Marca', visibility: true},       
       { field: 'unidadMedida', header: 'Und. Medida', visibility: true},    
       { field: 'precioDefault', header: 'Precio Default', visibility: true},    
       { field: 'precioIncluyeIgv', header: 'Incluye Igv', visibility: true , tipoFlag:'boolean'},    

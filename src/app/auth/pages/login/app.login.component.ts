@@ -62,7 +62,8 @@ export class AppLoginComponent implements OnInit  {
   }
   
   onLogin(){
-    localStorage.clear();  
+    this.loginService.logout();
+    
     const data: IAuth = this.loginForm.getRawValue();  
     let Remem :any = data.rememberMe;
     this.spinner.show();

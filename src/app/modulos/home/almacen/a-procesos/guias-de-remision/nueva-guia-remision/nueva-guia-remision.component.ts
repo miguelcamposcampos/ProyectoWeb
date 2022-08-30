@@ -23,7 +23,7 @@ export class NuevaGuiaRemisionComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   public FlgLlenaronComboParaActualizar: Subject<boolean> = new Subject<boolean>();
   @Input() dataGuia! : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   tituloNuevoguiaRemision : string = "NUEVO GUIA REMISION";
   mostrarBotonReportes : boolean = false;
   existenroGuiaRemision : boolean = false; 

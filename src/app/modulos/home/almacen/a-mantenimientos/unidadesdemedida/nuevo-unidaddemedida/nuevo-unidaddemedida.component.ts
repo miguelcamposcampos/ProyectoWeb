@@ -13,7 +13,7 @@ import { UnidaddeMedidaService } from '../servicio/unidaddemedida.service';
 export class NuevoUnidaddemedidaComponent implements OnInit {
 
   @Input() idUnidadMedida : number;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
 
   Form : FormGroup;
   UnidadMedidaEditar : IListaUnidadMedida;

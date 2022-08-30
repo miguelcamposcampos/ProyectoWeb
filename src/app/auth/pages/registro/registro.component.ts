@@ -74,6 +74,7 @@ export class RegistroComponent implements OnInit {
       this.loginService.nuevoUsuarioCreate(newUsuario).subscribe((resp) => { 
         this.swal.mensajeExito('Se registro al usuario con conrrectamente!.');
         this.router.navigate(['/auth/login']); 
+        this.spinner.hide();
       }); 
   }
   

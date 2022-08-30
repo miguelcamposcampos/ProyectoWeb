@@ -17,7 +17,7 @@ export class NuevoClienteComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataCliente! : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   ClienteEdit : ICrearCliente;
  

@@ -14,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class GuiaReporteComponent   {
 
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() dataReporte : any;
   contenidoReporte : IReporte;
   Pdf : any;

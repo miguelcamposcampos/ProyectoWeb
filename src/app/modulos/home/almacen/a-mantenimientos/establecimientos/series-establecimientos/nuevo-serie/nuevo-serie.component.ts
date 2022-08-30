@@ -16,7 +16,7 @@ export class NuevoSerieComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataEdit : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;  
   arrayDocumentos : ICombo[];
   dataEditarSerie : IEstablecimientoCrearSerie;
@@ -99,24 +99,21 @@ export class NuevoSerieComponent implements OnInit {
       this.establecimientoService.crearSerie(newSerie).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.')
-          this.onVolver();
+          this.cerrar.emit(true);
         }
       });
     }else{
       this.establecimientoService.updateSerie(newSerie).subscribe((resp)=>{
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.')
-          this.onVolver();
+          this.cerrar.emit(true);
         }
       });
     }
 
   }
  
-
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false)

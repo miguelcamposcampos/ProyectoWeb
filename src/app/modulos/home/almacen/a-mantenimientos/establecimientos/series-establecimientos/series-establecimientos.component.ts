@@ -11,7 +11,7 @@ import { EstablecimientoService } from '../service/establecimiento.service';
 })
 export class SeriesEstablecimientosComponent implements OnInit {
 
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() idEstablecimientoEdit : number;
  
   modalNuevoSerie : boolean = false; 

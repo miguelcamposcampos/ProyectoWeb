@@ -26,7 +26,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>(); 
   public FlgLlenaronComboParaActualizar: Subject<boolean> = new Subject<boolean>(); 
   @Input() dataOrdenCompra : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   valorIGV : number = 0.18;
   fechaActual = new Date();
   tituloNuevaOrdenCompra: string ="NUEVA ORDEN COMPRA";
@@ -979,7 +979,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
               if (response.isConfirmed) {
                 this.onObtenerVentaPorId(resp, 'nuevo')
               }else{
-                this.onVolver();
+                 this.cerrar.emit(true);
                 this.swal.mensajeExito('Se grabaron los datos correctamente!.');
               }
             }) 
@@ -991,7 +991,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
             if (response.isConfirmed) {
               this.onObtenerVentaPorId(newOrdenCompra.compraid, 'nuevo')
             }else{
-              this.onVolver();
+               this.cerrar.emit(true);
               this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
             }
           })    
@@ -1060,9 +1060,7 @@ export class NuevaOrdenCompraComponent implements OnInit {
       return  this. arrayDetalleComraCMDGrabar;
     }
  
-    onVolver(){
-      this.cerrar.emit('exito');
-    }
+ 
   
     onRegresar(){
       this.cerrar.emit(false);

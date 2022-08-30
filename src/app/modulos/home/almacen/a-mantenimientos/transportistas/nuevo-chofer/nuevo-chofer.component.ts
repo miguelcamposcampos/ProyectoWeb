@@ -16,7 +16,7 @@ export class NuevoChoferComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   tituloVistaChofer :string = "NUEVO CHOFER"; 
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() dataChofer : any;
   EditarChofer : ICrearChofer 
   Form : FormGroup;

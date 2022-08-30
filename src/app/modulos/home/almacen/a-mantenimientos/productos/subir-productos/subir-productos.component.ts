@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 export class SubirProductosComponent implements OnInit {
 
   
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   cols: InterfaceColumnasGrilla[] = [];
   arrayProductos : ISubirProductos[]=[];
   plantillaExcel : IPlantillaExcel;
@@ -95,14 +95,12 @@ export class SubirProductosComponent implements OnInit {
     this.productoService.createSubirProductos(this.arrayProductos).subscribe((resp) =>{
       if(resp){
         this.swal.mensajeExito('Se cargo la lista de productos correctamente!.');
-        this.onVolver();
+        this.cerrar.emit(true);
       }
     });
   }
 
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false)

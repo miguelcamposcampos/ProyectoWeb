@@ -13,7 +13,7 @@ import { PropiedadesAdicionalesServices } from '../../service/propiedadesadicion
 export class NuevoColorComponent implements OnInit {
 
   @Input() idColorEdit : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   dataColorEdit : IColorPorId;
   mostrarCodigo: boolean = false;
@@ -77,26 +77,19 @@ export class NuevoColorComponent implements OnInit {
       this.colorService.crearColor(newColor).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+           this.cerrar.emit(true);
         }
       });
     }else{
       this.colorService.updateColor(newColor).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+           this.cerrar.emit(true);
         }
       });
-    }
-    
-
+    } 
+  }
  
-
-  }
-
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
 
   onRegresar(){
     this.cerrar.emit(false)

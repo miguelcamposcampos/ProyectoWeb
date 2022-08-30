@@ -25,7 +25,7 @@ export class NuevaCompraComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   public FlgLlenaronComboParaActualizar: Subject<boolean> = new Subject<boolean>();
   @Input() dataCompra : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   valorIGV : number = 0.18;
   fechaActual = new Date();
   tituloNuevaCompra: string ="NUEVA COMPRA";
@@ -1331,7 +1331,7 @@ export class NuevaCompraComponent implements OnInit {
               if (response.isConfirmed) {
                 this.onObtenerVentaPorId(resp, 'nuevo')
               }else{
-                this.onVolver();
+                 this.cerrar.emit(true);
                 this.swal.mensajeExito('Los cambios se grabaron correctamente!.')    
               }
             })   
@@ -1344,7 +1344,7 @@ export class NuevaCompraComponent implements OnInit {
               this.onObtenerVentaPorId(newCompra.compraid, 'nuevo')
             }else{
               this.swal.mensajeExito('Se actualizaron los datos correctamente!.');  
-              this.onVolver();
+               this.cerrar.emit(true);
             }
           })   
           
@@ -1455,10 +1455,7 @@ export class NuevaCompraComponent implements OnInit {
       this.onCalcularTotalCompra();
     }
  
-    onVolver(){
-      this.cerrar.emit('exito');
-    }
-  
+     
     onRegresar(){
       this.cerrar.emit(false);
     }

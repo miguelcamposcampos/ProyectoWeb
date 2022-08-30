@@ -13,7 +13,7 @@ import { CondicionPagoService } from '../servicio/condicionespago.service';
 export class NuevaCondicionPagoComponent implements OnInit {
 
   @Input() dataCondicion : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   CondicionPagoEditar : IListaCondicionesPago;
 
@@ -71,27 +71,20 @@ export class NuevaCondicionPagoComponent implements OnInit {
       this.condicionPagoService.crearCondicionPago(newCondicionPago).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+           this.cerrar.emit(true);
         }
       });
     }else{
       this.condicionPagoService.updateCondicionPago(newCondicionPago).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+           this.cerrar.emit(true);
         }
       });
   
-    }
-    
-
+    } 
+  }
  
-
-  }
-
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
 
   onRegresar(){
     this.cerrar.emit(false)

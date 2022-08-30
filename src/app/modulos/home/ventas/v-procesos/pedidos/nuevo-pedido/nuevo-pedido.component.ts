@@ -23,7 +23,7 @@ export class NuevoPedidoComponent implements OnInit {
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   public FlgLlenaronComboParaActualizar: Subject<boolean> = new Subject<boolean>();
   @Input() dataPedido : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   valorIGV : number = 0.18;
   fechaActual = new Date();
   tituloNuevoPedido: string ="NUEVO PEDIDO";

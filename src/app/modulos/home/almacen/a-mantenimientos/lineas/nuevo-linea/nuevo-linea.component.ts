@@ -16,7 +16,7 @@ import { LineaService } from '../service/linea.service';
 export class NuevoLineaComponent implements OnInit {
 
   @Input() datalinea : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup; 
   arrayUnescoData: Unesco[];
   ImgBase64 : string = ""; 

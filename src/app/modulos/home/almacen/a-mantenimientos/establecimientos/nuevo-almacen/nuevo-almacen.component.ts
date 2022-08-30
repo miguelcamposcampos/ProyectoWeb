@@ -18,7 +18,7 @@ export class NuevoAlmacenComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataAlmacenEdit : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
 
   Form : FormGroup;
   AlmacenEditar : IAlmacenPorId;
@@ -106,24 +106,21 @@ export class NuevoAlmacenComponent implements OnInit {
       this.establecimientoService.crearAlmacen(newAlmacen).subscribe((resp)=> {
         if(resp){
           this.swal.mensajeExito('Los datos se grabaron correctamente!.')
-          this.onVolver();
+         this.cerrar.emit(true);
         }
       });
     }else{
       this.establecimientoService.updateAlmacen(newAlmacen).subscribe((resp)=> {
         if(resp){
           this.swal.mensajeExito('Los datos se actualizaron correctamente!.')
-          this.onVolver();
+         this.cerrar.emit(true);
         }
       });
     }
     
 
   }
-
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
+ 
   onRegresar(){
     this.cerrar.emit(false);
   }

@@ -17,7 +17,7 @@ import { EstablecimientoService } from '../service/establecimiento.service';
 export class NuevoEstablecimientoComponent implements OnInit {
 
   @Input() idEstablecimientoEdit : number;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   tituloEstablecimiento : string ="NUEVO ESTABLECIMIENTO"
   ImgBase64 : string = null; 

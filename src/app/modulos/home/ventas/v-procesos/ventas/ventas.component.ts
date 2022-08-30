@@ -239,7 +239,7 @@ export class VentasComponent implements OnInit {
   onRetornar(event : any){
     this.VistaNuevaVentaPOS = false;
     this.VistaNuevaVenta = false; 
-    if(event === "exito"){
+    if(event){
       this.onLoadVentas(null);
     }
   }

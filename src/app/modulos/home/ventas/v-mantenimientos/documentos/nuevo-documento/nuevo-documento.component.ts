@@ -14,7 +14,7 @@ import { DocumentosService } from '../servicio/documentos.service';
 export class NuevoDocumentoComponent implements OnInit {
 
   @Input() dataDocumento : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   DocumentoEditar : IListarDocumentos 
   modalCuentas : boolean = false;

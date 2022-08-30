@@ -145,7 +145,7 @@ export class ReciboporhonorarioComponent implements OnInit {
    
   
     onRetornar(event : any){
-      if(event === "exito"){
+      if(event){
         this.onLoadRecibosPorHonorario(null);
       }
       this.VistaNuevoReciboPorHonorario = false; 

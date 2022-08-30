@@ -12,7 +12,7 @@ import { MarcaService } from '../service/marca.service';
 export class NuevoMarcaComponent implements OnInit {
 
   @Input() idMarcaEdit : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   Form : FormGroup;
   dataMarcaEdit : ICrearMarca;
 
@@ -64,22 +64,19 @@ export class NuevoMarcaComponent implements OnInit {
       this.marcaService.createMarca(newMarca).subscribe((resp) => {
         if(resp){ 
           this.swal.mensajeExito('Se grabaron los datos correctamente!.');
-          this.onVolver();
+            this.cerrar.emit(true);
         }
       });
     }else{
       this.marcaService.updateMarca(newMarca).subscribe((resp) => {
         if(resp){
           this.swal.mensajeExito('Se actualizaron los datos correctamente!.');
-          this.onVolver();
+            this.cerrar.emit(true);
         }
       });
     }  
   }
-
-  onVolver(){
-    this.cerrar.emit('exito')
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false)

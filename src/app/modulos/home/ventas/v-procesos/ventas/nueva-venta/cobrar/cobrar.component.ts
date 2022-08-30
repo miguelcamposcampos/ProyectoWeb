@@ -20,7 +20,7 @@ import { VentasService } from '../../service/venta.service';
 export class CobrarComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() dataCobrar : any;
   arrayFormasPago : ICombo[];
   es = ConstantesGenerales.ES_CALENDARIO;

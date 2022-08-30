@@ -13,7 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class OrdenCompraReporteComponent   {
  
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() dataReporte : any;
   contenidoReporte : IModuloReporte;
   Pdf : any;

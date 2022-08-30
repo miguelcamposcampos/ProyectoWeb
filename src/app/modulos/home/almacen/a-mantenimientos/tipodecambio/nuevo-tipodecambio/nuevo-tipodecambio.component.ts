@@ -15,7 +15,7 @@ import { TipoCambioService } from '../service/tipocambio.service';
 })
 export class NuevoTipodecambioComponent implements OnInit {
 
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() idTipoCambio : number;
   Form: FormGroup
   TipoCambioEditar : ITipoCambioPorId;

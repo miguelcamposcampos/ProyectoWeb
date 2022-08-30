@@ -20,7 +20,7 @@ export class NuevaCajaChicaComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() dataCajaChica : any;
-  @Output() cerrar : EventEmitter<any> = new EventEmitter<any>();
+  @Output() cerrar : EventEmitter<boolean> = new EventEmitter<boolean>();
   tituloCajaChica : string ="NUEVA CAJA CHICA";
   existenroRegsitro: boolean = false;
   fechaActual = new Date(); 
@@ -329,7 +329,7 @@ export class NuevaCajaChicaComponent implements OnInit {
             if (response.isConfirmed) {
               this.onObtenerCajaChicaPorId(resp, 'nuevo');
             }else{
-              this.onVolver();
+               this.cerrar.emit(false);
               this.swal.mensajeExito('Los cambios se grabaron correctamente!.')    
             }
           })   
@@ -341,7 +341,7 @@ export class NuevaCajaChicaComponent implements OnInit {
           if (response.isConfirmed) {
             this.onObtenerCajaChicaPorId(newCajaChica.cajachicaid, 'nuevo')
           }else{
-            this.onVolver();
+             this.cerrar.emit(true);
             this.swal.mensajeExito('Los cambios se actualizaron correctamente!.')    
           }
         })   
@@ -370,9 +370,7 @@ export class NuevaCajaChicaComponent implements OnInit {
     return this.arrayDetalleGrabar
   }
  
-  onVolver(){
-    this.cerrar.emit('exito');
-  }
+ 
 
   onRegresar(){
     this.cerrar.emit(false);
