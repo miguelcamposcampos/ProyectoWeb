@@ -20,7 +20,7 @@
                         tooltipPosition="top"
                         type="button"
                         label="Agregar" 
-                        class="p-button-sm"
+                        class="p-button-sm p-button-registrar"
                         (click)="onNuevoVendedor()" 
                         icon="pi pi-plus">
                     </button>        
@@ -32,10 +32,10 @@
                 <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-8">
                         <strong for="firstname6">Descripción</strong>
-                        <input class="p-inputtext-sm" placeholder="buscar..." [formControl]="descripcion" type="text" pInputText>        
+                        <input class="p-inputtext-sm  p-inputtext-gris" placeholder="Buscar..." [formControl]="descripcion" type="text" pInputText>        
                     </div>
                     <div class="p-field p-col-12 p-md-4">       
-                        <button pButton label="Buscar" type="button" class="p-button-sm" icon="pi pi-search" (click)="onLoadVendedores(null)"></button>
+                        <button pButton label="Buscar" type="button" class="p-button-sm p-button-generico-azul" icon="pi pi-search" (click)="onLoadVendedores(null)"></button>
                     </div>
                 </div>
             </div>

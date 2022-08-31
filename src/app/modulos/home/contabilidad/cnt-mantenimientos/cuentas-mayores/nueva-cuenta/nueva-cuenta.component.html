@@ -1,21 +1,21 @@
 <form [formGroup]="Form">
-    <div class="p-col-12">
+    <div class="p-col-12 formulario-campo-obligatorio">
         <div class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-12">
-                <strong>Nro cuenta *:</strong>
+                <strong>Nro cuenta <span>*</span>:</strong>
                 <input type="text" pInputText minlength="2" maxlength="2" (keypress)="generalService.onSoloNumeros($event)"
-                    formControlName="nrocuenta" class="p-inputtext-sm" placeholder="ingresar un numero de cuenta">
+                    formControlName="nrocuenta" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar un numero de cuenta">
             </div>
 
             <div class="p-field p-col-12">
-                <strong>Nombre cuenta*:</strong>
+                <strong>Nombre cuenta <span>*</span>:</strong>
                 <input type="text" pInputText minlength="1" maxlength="20" formControlName="nombrecuenta"
-                    class="p-inputtext-sm" placeholder="ingresar un nombre">
+                    class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar un nombre">
             </div>
 
 
             <div class="p-field p-col-12">
-                <strong>Naturaleza *:</strong>
+                <strong>Naturaleza <span>*</span>:</strong>
                 <div class="elegirOpciones">
                     <div>
                         <strong style="margin: 15px;">DEBE</strong>

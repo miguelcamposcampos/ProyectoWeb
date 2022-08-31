@@ -13,7 +13,7 @@
                 
                 <div class="p-toolbar-group-right">
                     <button  
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         pButton
                         type="button"
                         style="margin-right: 1%;"
@@ -23,7 +23,7 @@
                         icon="pi pi-check-circle">  
                     </button>   
                     <button   
-                        class="p-button-sm"
+                        class="p-button-cancelar"
                         pButton
                         type="button"
                         icon="pi pi-times-circle"
@@ -48,16 +48,16 @@
                             <strong>Tipo Documento</strong>  
                             <div class="InputCombinado">  
                                 <p-dropdown class="DropExtenso" (onChange)="onObtenerTipoDocumento($event.value)" [options]="arrayTipoDocumento" formControlName="documentoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor2"></p-dropdown> 
-                                <input type="number" pInputText  class="p-inputtext-sm"  formControlName="serieventa"   placeholder="ingresar">   
-                                <input type="number" pInputText  class="p-inputtext-sm"  formControlName="secuencialventa"   placeholder="ingresar">   
+                                <input type="number" pInputText  class="p-inputtext-sm p-inputtext-gris"  formControlName="serieventa"   placeholder="ingresar">   
+                                <input type="number" pInputText  class="p-inputtext-sm p-inputtext-gris"  formControlName="secuencialventa"   placeholder="ingresar">   
                             </div>
                         </div> 
                         
                         <div class="p-field p-col-12 p-md-12">
                             <strong>Cliente</strong>  
                             <div class="InputCombinadoCliente">  
-                                <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
-                                <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm" placeholder="ingresa nombre de cliente">   
+                                <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm p-inputtext-gris" placeholder="Busca un cliente">   
+                                <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm p-inputtext-gris" placeholder="Ingresa nombre de cliente">   
                                 <button type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarCliente();" pButton  icon="pi pi-search"></button>      
                                 <button [disabled]="!existeClienteSeleccionado" type="button" class="p-button-sm" pTooltip="Borrar"   style=" background-color: #D72250;" tooltipPosition="left" (click)="onBorrarCliente();" pButton  icon="pi pi-trash"></button>    
                             </div>
@@ -85,7 +85,7 @@
         
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Tipo Cambio:</strong>
-                            <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                            <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm p-inputtext-gris" placeholder="0.00">     
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
@@ -95,7 +95,7 @@
  
                         <div class="p-field p-col-12">
                             <strong>Glosa:</strong>
-                            <input  type="text" pInputText  formControlName="glosa" class="p-inputtext-sm" placeholder="ingresar una glosa">     
+                            <input  type="text" pInputText  formControlName="glosa" class="p-inputtext-sm p-inputtext-gris" placeholder="Ingresar una glosa">     
                         </div>   
                     </div> 
                 </div> 
@@ -190,16 +190,16 @@
 
                             <div style="margin: 3%;">
                                 <p-table   
-                                    class="TablaDetalle"
+                                    class="TablaDetalle tabladetalles"
                                     [value]="detalles"
                                     [scrollable]="true" 
                                     responsiveLayout="stack" >  
                                     <ng-template pTemplate="header">
                                         <tr class="centrar"> 
-                                            <th style="width: 50px;">Acción</th> 
-                                            <th style="width: 120px;">Centro Costo</th> 
-                                            <th style="width: 180px;">Importe S/.</th> 
-                                            <th style="width: 140px;">Importe US$</th>  
+                                            <th>Acción</th> 
+                                            <th>Centro Costo</th> 
+                                            <th>Importe S/.</th> 
+                                            <th>Importe US$</th>  
                                            
                                         </tr>
                                     </ng-template> 
@@ -218,16 +218,16 @@
                                             </td>                   
                                             <td>
                                                 <strong class="p-column-title">Centro Costo</strong> 
-                                                <input type="text" style="width: 80px;"  class="p-inputtext-sm" readonly pInputText formControlName="centrocosto">   
+                                                <input type="text"  class="p-inputtext-sm" readonly pInputText formControlName="centrocosto">   
                                                 <button type="button" (click)="onModalBuscarCentroCosto(detalles.value, rowIndex)" pTooltip="Buscar" tooltipPosition="left" pButton icon="pi pi-search" class="p-button-sm"></button>      
                                             </td> 
                                             <td>
                                                 <strong class="p-column-title">Importe S/.</strong>
-                                                <input type="text" (blur)="onCalcularImporteDetalle(rowIndex)" style="width: 150px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importesoles">  
+                                                <input type="text" (blur)="onCalcularImporteDetalle(rowIndex)"  [min]="0" class="p-inputtext-sm" pInputText formControlName="importesoles">  
                                             </td>  
                                             <td>
                                                 <strong class="p-column-title">Importe US$ </strong>
-                                                <input type="text" (blur)="onCalcularImporteDetalle(rowIndex)"  style="width: 150px;" [min]="0" class="p-inputtext-sm" pInputText formControlName="importedolares">  
+                                                <input type="text" (blur)="onCalcularImporteDetalle(rowIndex)"   [min]="0" class="p-inputtext-sm" pInputText formControlName="importedolares">  
                                             </td>   
                                         </tr>
                                     </ng-template> 

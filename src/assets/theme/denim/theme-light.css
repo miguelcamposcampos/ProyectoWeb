@@ -2210,7 +2210,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-width: 0 0 1px 0;
   font-weight: 600;
   color: #515C66;
-  background: #F6F9FE;
+  background: #f3f3f3;
   transition: box-shadow 0.2s; 
 }
 /*RESIZE DE LA TABLA EN  700*/

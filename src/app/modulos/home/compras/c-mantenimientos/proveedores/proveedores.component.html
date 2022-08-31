@@ -18,7 +18,7 @@
                         pButton  
                         type="button"
                         label="Agregar" 
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         (click)="onNuevo()" 
                         icon="pi pi-plus">
                     </button>           
@@ -30,14 +30,14 @@
                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-5">
                         <strong>Nro. Documento</strong>
-                        <input class="p-inputtext-sm" placeholder="ingresa nro documento" [formControl]="nrodocumento" type="text" pInputText>        
+                        <input class="p-inputtext-sm p-inputtext-gris" placeholder="Ingresa nro documento" [formControl]="nrodocumento" type="text" pInputText>        
                     </div>
                     <div class="p-field p-col-12 p-md-5">
                        <strong>Razón Social:</strong>
-                       <input class="p-inputtext-sm" placeholder="ingresa razon social" [formControl]="razonsocial" type="text" pInputText>        
+                       <input class="p-inputtext-sm p-inputtext-gris" placeholder="Ingresa razon social" [formControl]="razonsocial" type="text" pInputText>        
                    </div>
                    <div class="p-field p-col-12 p-md-2">       
-                       <button pButton label="Buscar" type="button" class="p-button-sm" icon="pi pi-search" (click)="onLoadProveedores(null)"></button>
+                       <button pButton label="Buscar" type="button" class="p-button-sm p-button-sm-generico-azul" icon="pi pi-search" (click)="onLoadProveedores(null)"></button>
                    </div>
                </div>
            </div>

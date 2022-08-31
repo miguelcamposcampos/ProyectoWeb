@@ -1,21 +1,21 @@
 <div class="MarginModal">
-    <div class="contenido card"> 
+    <div class="contenido formulario-campo-obligatorio"> 
         <form [formGroup]="Form">
             <div class="stepsdemo-content">  
                 <p-fieldset>
                 <ng-template pTemplate="header">Datos Principales</ng-template>
     
                     <div class="formularioColum12_1">   
-                        <strong>Forma de Pago *:</strong>
-                        <input type="text" pInputText formControlName="titulo" placeholder="ingresa el nombre de la forma de pago" class="p-inputtext-sm">  
+                        <strong>Forma de Pago <span>*</span>:</strong>
+                        <input type="text" pInputText formControlName="titulo" placeholder="ingresa el nombre de la forma de pago" class="p-inputtext-sm p-inputtext-gris">  
 
-                        <strong>Medio de Pago *:</strong>
+                        <strong>Medio de Pago <span>*</span>:</strong>
                         <p-dropdown class="extender" [options]="arrayMedioPago" formControlName="mediodePago"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     
-                        <strong>Establecimiento *:</strong>
+                        <strong>Establecimiento <span>*</span>:</strong>
                         <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayEstablecimiento" formControlName="establecimiento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
 
-                        <strong>Moneda *:</strong>
+                        <strong>Moneda <span>*</span>:</strong>
                         <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayMoneda" formControlName="moneda"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     
                     </div>  
@@ -26,7 +26,7 @@
                 <p-fieldset>
                     <ng-template pTemplate="header">Datos Personales</ng-template>
                         <div class="formularioColum12_1">   
-                            <strong>Documento *:</strong>
+                            <strong>Documento <span>*</span>:</strong>
                             <p-dropdown class="extender p-dropdown-sm" appendTo="body" [options]="arrayDocumento" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         
                         </div>  
@@ -49,7 +49,7 @@
 
         <div class="botones">
             <button  
-                class="p-button-sm"
+                class="p-button-regitrar"
                 pButton
                 type="button"
                 style="margin-right: 1%;"
@@ -60,7 +60,7 @@
             </button>  
 
             <button   
-                class="p-button-sm"
+                class="p-button-cancelar"
                 pButton
                 type="button"
                 icon="pi pi-times-circle"

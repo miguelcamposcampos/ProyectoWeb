@@ -19,7 +19,7 @@
                         (click)="onNuevaGuiasRemision()"
                         pTooltip="Agregar Nueva Guia de Remision"  
                         label="Agregar"
-                        class="p-button-sm"
+                        class="p-button-sm p-button-registrar"
                         icon="pi pi-plus">
                     </button>      
                 </div>
@@ -50,11 +50,11 @@
 
                         <div class="p-field p-col-12 p-sm-6 p-md-4 ">
                             <strong >Secuencial:</strong>
-                            <input type="text"  formControlName="secuencial" placeholder="ingresa una secuencia..." class="p-inputtext-sm" pInputText>  
+                            <input type="text"  formControlName="secuencial" placeholder="ingresa una secuencia..." class="p-inputtext-sm p-inputtext-gris" pInputText>  
                         </div>
 
                         <div   class="p-field p-col-12 p-sm-6 p-md-2 botonBuscar">
-                            <button pButton   type="button" label="Buscar"  class="p-button-sm"  icon="pi pi-search" (click)="onLoadGuiasRemision(null)"></button>
+                            <button pButton   type="button" label="Buscar"  class="p-button-sm p-button-generico-azul "  icon="pi pi-search" (click)="onLoadGuiasRemision(null)"></button>
                         </div>
 
                     </div>

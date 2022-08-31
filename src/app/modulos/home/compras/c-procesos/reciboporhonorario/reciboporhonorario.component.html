@@ -20,7 +20,7 @@
                             pButton  
                             type="button"
                             label="Agregar" 
-                            class="p-button-sm"
+                            class="p-button-registrar"
                             (click)="onNuevo()" 
                             icon="pi pi-plus">
                         </button>      
@@ -52,14 +52,14 @@
                         <div class="p-field p-col-12 p-md-4 p-sm-8">
                             <strong>Cliente</strong>  
                             <div class="p-inputgroup">  
-                                <input type="text" readonly  formControlName="cliente" pInputText  class="p-inputtext-sm" placeholder="busca un cliente">   
+                                <input type="text" readonly  formControlName="cliente" pInputText  class="p-inputtext-sm p-inputtext-gris" placeholder="Busca un cliente">   
                                 <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBuscarCliente();" pButton icon="pi pi-search"></button>      
                                 <button *ngIf="existeClienteSeleccionado" type="button" pTooltip="Borrar"   style=" background-color: #D72250;" class="p-button-sm" tooltipPosition="left" (click)="onBorrarCliente();" pButton icon="pi pi-trash"></button>    
                             </div>
                         </div>
     
                         <div class="p-field p-col-12 p-md-2 p-sm-4  botonBuscar"  > 
-                            <button type="button" label="Buscar" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onLoadRecibosPorHonorario(null);" pButton icon="pi pi-search"></button>     
+                            <button type="button" label="Buscar" pTooltip="Buscar"  class="p-button-sm p-inputtext-generico-azul" tooltipPosition="left" (click)="onLoadRecibosPorHonorario(null);" pButton icon="pi pi-search"></button>     
                         </div>
 
                     </div> 
