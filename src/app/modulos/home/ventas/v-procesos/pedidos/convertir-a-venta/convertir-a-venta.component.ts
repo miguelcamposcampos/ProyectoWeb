@@ -92,8 +92,8 @@ export class ConvertirAVentaComponent implements OnInit {
   DetalleForm : boolean = false;
   GuiaRemisionForm : boolean = false;
   DocReferenciaForm : boolean = false;
-  OtrosForm : boolean = false;
-  FacturaguiaForm : boolean = false;
+ // OtrosForm : boolean = false;
+//  FacturaguiaForm : boolean = false;
   TotalesForm: boolean = false;
   nroCuotaPintar: string = "";
   dataCobrar : any;
@@ -334,8 +334,8 @@ export class ConvertirAVentaComponent implements OnInit {
 
     this.GuiaRemisionForm = false;
     this.DocReferenciaForm = false;
-    this.OtrosForm = false;
-    this.FacturaguiaForm = false;
+   // this.OtrosForm = false;
+   // this.FacturaguiaForm = false;
     this.DetalleForm = false;
     this.TotalesForm = false;
     this.TabTotalesActivo = true;
@@ -346,15 +346,15 @@ export class ConvertirAVentaComponent implements OnInit {
     }else if(event ===  "3" ){
       this.DocReferenciaForm = true
       this.activeItem = this.items[2];
+    // }else if(event ===  "4" ){
+    //   this.OtrosForm = true;
+    //   this.activeItem = this.items[3];
+    // }else if(event ===  "5" ){
+    //   this.FacturaguiaForm = true;
+    //   this.activeItem = this.items[4];
     }else if(event ===  "4" ){
-      this.OtrosForm = true;
-      this.activeItem = this.items[3];
-    }else if(event ===  "5" ){
-      this.FacturaguiaForm = true;
-      this.activeItem = this.items[4];
-    }else if(event ===  "6" ){
       this.TotalesForm = true;
-      this.activeItem = this.items[5];
+      this.activeItem = this.items[3];
       this.TabTotalesActivo = false;
     }else{
       this.DetalleForm = true;

@@ -93,7 +93,7 @@ export class NuevaVentaComponent implements OnInit  {
   GuiaRemisionForm : boolean = false;
   DocReferenciaForm : boolean = false;
  // OtrosForm : boolean = false;
-  FacturaguiaForm : boolean = false;
+  //FacturaguiaForm : boolean = false;
   TotalesForm: boolean = false;
   nroCuotaPintar: string = "";
   dataCobrar : any;
@@ -314,16 +314,16 @@ export class NuevaVentaComponent implements OnInit  {
           this.activateMenu(event.item.id);
         }
       }, 
+      // {
+      //   id: '4',
+      //   label: 'FACTURA GUIA',
+      //   icon: 'pi pi-fw pi-file',
+      //   command: event => {
+      //     this.activateMenu(event.item.id);
+      //   }
+      // },
       {
         id: '4',
-        label: 'FACTURA GUIA',
-        icon: 'pi pi-fw pi-file',
-        command: event => {
-          this.activateMenu(event.item.id);
-        }
-      },
-      {
-        id: '5',
         label: 'TOTALES',
         icon: 'fas fa-list-ol',
         command: event => {
@@ -339,7 +339,7 @@ export class NuevaVentaComponent implements OnInit  {
 
     this.GuiaRemisionForm = false;
     this.DocReferenciaForm = false; 
-    this.FacturaguiaForm = false;
+  //  this.FacturaguiaForm = false;
     this.DetalleForm = false;
     this.TotalesForm = false;
     this.TabTotalesActivo = true;
@@ -350,12 +350,12 @@ export class NuevaVentaComponent implements OnInit  {
     }else if(event ===  "3" ){
       this.DocReferenciaForm = true
       this.activeItem = this.items[2];
-    }else if(event ===  "4" ){ 
-      this.FacturaguiaForm = true;
-      this.activeItem = this.items[3];
-    }else if(event ===  "5" ){
+    // }else if(event ===  "4" ){ 
+    //   this.FacturaguiaForm = true;
+    //   this.activeItem = this.items[3];
+    }else if(event ===  "4" ){
       this.TotalesForm = true;
-      this.activeItem = this.items[4];
+      this.activeItem = this.items[3];
       this.TabTotalesActivo = false;
     }else{
       this.DetalleForm = true;
@@ -995,6 +995,8 @@ export class NuevaVentaComponent implements OnInit  {
   }
 
   onGrabar(){
+    this.spinner.show();
+    
     const dataform = this.Form.value;  
 
     let DetallesVentaGrabar :any[] = this.onGrabarDetallesVenta(); 

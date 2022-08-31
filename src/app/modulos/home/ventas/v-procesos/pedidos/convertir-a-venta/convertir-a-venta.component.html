@@ -500,7 +500,7 @@
                     <!-- FIN DETALLE GUIA REMISION-->
 
  
-                    <div *ngIf="OtrosForm" >
+                    <!-- <div *ngIf="OtrosForm" >
                         <br>
                         <p-fieldset>
                             <ng-template pTemplate="header">Descuento Global</ng-template> 
@@ -555,11 +555,11 @@
                             </div> 
                         </p-fieldset>
         
-                    </div>
+                    </div> -->
 
-                    <div *ngIf="FacturaguiaForm" >
+                    <!-- <div *ngIf="FacturaguiaForm" >
                       <span> Sin informacion</span>
-                    </div>
+                    </div> -->
 
                     <div *ngIf="TotalesForm" >
                         <div class="p-col-12"> 
@@ -621,7 +621,7 @@
                 <div class="importes" *ngIf="TabTotalesActivo"> 
                     <strong class="totalaMostrar">Importe Total </strong> 
                     <strong > {{ totalaPagar | currency:'S/. '}}</strong>  
-                    <button type="button" (click)="activateMenu('6')" pTooltip="Mas info..." class="p-button-sm" tooltipPosition="left" pButton icon="pi pi-info"></button>   
+                    <button type="button" (click)="activateMenu('4')" pTooltip="Mas info..." class="p-button-sm" tooltipPosition="left" pButton icon="pi pi-info"></button>   
                 </div>
 
             </form>
