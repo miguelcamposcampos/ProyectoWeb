@@ -65,7 +65,7 @@ export class NuevaVentaComponent implements OnInit  {
   existeEstablecimientoSeleccionado : boolean = false;
   existeCondicionPagoCredito : boolean = false;
 
-  mostrarTabsDocumentReferencia : boolean = true;
+  mostrarTabsDocumentReferencia : boolean = false;
   mostrarbotoneliminarDetalle : boolean = false;
   mostrarbotoneliminarDetalleFormPago : boolean = false;
   arrayDetallesEliminados: any[] =[];
