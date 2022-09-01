@@ -2496,9 +2496,15 @@ p:last-child {
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem>div {
-  padding-left: 12px;
-  margin-bottom: 6px;
-  margin-top: 24px;
+  padding-left: 13px;
+  margin-bottom: 5px;
+  margin-top: 25px;
+  width: 200px !important;
+  background-color: #147dba;
+  text-align: center;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem>div>.layout-menuitem-text {
@@ -2560,8 +2566,8 @@ p:last-child {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  padding-left: 19px;
-  width: 215px;
+  padding-left: 10px;
+  width: 200px;
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul li ul {

@@ -220,43 +220,43 @@
                                 <p-table class="TablaDetalleCondicionPago tabladetalles" [value]="detallesVentaForm"
                                     [scrollable]="true" responsiveLayout="stack">
                                     <ng-template pTemplate="header">
-                                        <tr class="centrar">
+                                        <tr class="centrar encabezados-grid">
                                             <th>Acción</th>
-                                            <th id="md">Almacén</th>
+                                            <th id="lg">Almacén</th>
                                             <th id="md">Cod Producto</th>
                                             <th id="lg">Producto/Servicio</th>
-                                            <th>Und Medida</th>
+                                            <th id="lg">Und Medida</th>
                                             <th id="lg">T.Afectacion</th>
-                                            <th>P.Inc.Igv</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio.U</th>
-                                            <th>Base.Impon</th>
-                                            <th>% Dscto</th>
-                                            <th>Imp.Dscto</th>
+                                            <th id="sd">P.Inc.Igv</th>
+                                            <th id="sd">Cantidad</th>
+                                            <th id="sd">Precio.U</th>
+                                            <th id="sd">Base.Impon</th>
+                                            <th id="sd">% Dscto</th>
+                                            <th id="sd">Imp.Dscto</th>
                                             <th id="lg">Observaciones</th>
-                                            <th>Valor Venta</th>
-                                            <th>IGV</th>
-                                            <th>Imp.Otros.C</th>
-                                            <th>ICBPER</th>
-                                            <th>Precio.V</th>
-                                            <th>N.Lote</th>
-                                            <th>N.Serie</th> 
-                                            <th>F.Vencimiento</th>
-                                            <th>Nro Cuenta</th>
+                                            <th id="sd">Valor Venta</th>
+                                            <th id="sd">IGV</th>
+                                            <th id="sd">Imp.Otros.C</th>
+                                            <th id="sd">ICBPER</th>
+                                            <th id="sd">Precio.V</th>
+                                            <th id="sd">N.Lote</th>
+                                            <th id="sd">N.Serie</th> 
+                                            <th id="md">F.Vencimiento</th>
+                                            <th id="sd">Nro Cuenta</th>
                                         </tr>
                                     </ng-template>
 
 
                                     <ng-template pTemplate="body" let-detallesVenta let-rowIndex="rowIndex"
                                         formArrayName="arrayDetalleVenta">
-                                        <tr [formGroupName]="rowIndex">
-                                            <td>
+                                        <tr [formGroupName]="rowIndex" class="body-grid">
+                                            <td id="sd">
                                                 <button class="p-button-sm p-button-rounded" pButton type="button"
                                                     style=" background-color: #D72250;"
                                                     (click)="onEliminarDetalleVenta(rowIndex)" icon="pi pi-trash">
                                                 </button>
                                             </td>
-                                            <td id="md">
+                                            <td id="lg">
                                                 <strong class="p-column-title">Almacén</strong>
                                                 <p-dropdown class="extender" appendTo="body" [options]="arrayAlmacen"
                                                     formControlName="almacenid" placeholder="Selecciona"
@@ -264,7 +264,7 @@
                                             </td>
                                             <td id="md">
                                                 <strong class="p-column-title">Cod.Producto</strong>
-                                                <input type="text" style="width: 80px;"
+                                                <input type="text"
                                                     (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"
                                                     (blur)="onBuscarProductoPorCodigo(rowIndex)"
                                                     class="p-inputtext" pInputText formControlName="codproductofinal">
@@ -274,10 +274,10 @@
                                             </td>
                                             <td  id="lg">
                                                 <strong class="p-column-title">Producto/Servicio</strong>
-                                                <input type="text" style="width: 150px;" [min]="0" class="p-inputtext"
+                                                <input type="text" [min]="0" class="p-inputtext"
                                                     pInputText formControlName="descripcionproducto">
                                             </td>
-                                            <td>
+                                            <td id="lg">
                                                 <strong class="p-column-title">Und Medida</strong>
                                                 <p-dropdown class="extender" appendTo="body"
                                                     [options]="arrayUnidadMedida" formControlName="unidadmedidaid"
@@ -292,95 +292,95 @@
                                                     formControlName="tipoafectacionid" placeholder="Selecciona"
                                                     [showClear]="true" optionLabel="valor1"></p-dropdown>
                                             </td>
-                                            <td style="justify-content: center;">
+                                            <td id="sd">
                                                 <strong class="p-column-title">P.Inc.Igv </strong>
                                                 <p-inputSwitch (click)="onCalcularPrecioVenta(rowIndex)"
                                                     formControlName="precioincluyeigv"></p-inputSwitch>
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">Cantidad</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"
+                                                <input type="number" 
                                                     (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
                                                     (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext"
                                                     pInputText formControlName="cantidad">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">PrecioU</strong>
-                                                <input type="text" style="width: 80px;text-align: right;"
+                                                <input type="text" 
                                                     (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
                                                     (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext"
                                                     pInputText formControlName="preciounitario">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">Base Impon,</strong>
-                                                <input type="text" style="width: 80px;text-align: right;" readonly
+                                                <input type="text" readonly
                                                     class="p-inputtext" pInputText formControlName="baseimponible">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">% Dcsto</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"
+                                                <input type="number" 
                                                     (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
                                                     (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext"
                                                     pInputText formControlName="porcentajedescuento">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">Imp.Dcsto</strong>
-                                                <input type="number" style="width: 80px;text-align: right;" readonly
+                                                <input type="number"  readonly
                                                     class="p-inputtext" pInputText formControlName="importedescuento">
                                             </td>
                                             <td  id="lg">
                                                 <strong class="p-column-title">Observaciones</strong>
-                                                <input type="text" style="width: 150px;" [minlength]="0"
+                                                <input type="text" [minlength]="0"
                                                     class="p-inputtext" pInputText formControlName="observaciones">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">Valor Venta</strong>
-                                                <input type="text" style="width: 80px;text-align: right;" readonly
+                                                <input type="text"  readonly
                                                     class="p-inputtext" pInputText formControlName="valorVenta">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">IGV</strong>
-                                                <input type="number" style="width: 80px;text-align: right;" readonly
+                                                <input type="number" readonly
                                                     [value]="detallesVentaForm[rowIndex].get('igv').value | number:'0.2-2'"
                                                     class="p-inputtext" pInputText formControlName="igv">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">Imp.Otros.C</strong>
-                                                <input type="number" style="width: 80px;text-align: right;"
+                                                <input type="number"
                                                     (keydown.enter)="onCalcularPrecioVenta(rowIndex)"
                                                     (keydown.Tab)="onCalcularPrecioVenta(rowIndex)" class="p-inputtext"
                                                     pInputText formControlName="importesotroscargos">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">ICBPER</strong>
-                                                <input type="number" style="width: 80px;text-align: right;" readonly
+                                                <input type="number" readonly
                                                     class="p-inputtext" pInputText formControlName="importeicbper">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">PrecioV</strong>
-                                                <input type="number" style="width: 80px;text-align: right;" readonly
+                                                <input type="number"  readonly
                                                     [value]="detallesVentaForm[rowIndex].get('precioventa').value | number:'0.2-2'"
                                                     class="p-inputtext" pInputText formControlName="precioventa">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">NroLote</strong>
-                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext"
+                                                <input type="number" [min]="0" class="p-inputtext"
                                                     pInputText formControlName="nroLote">
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">NroSerie</strong>
-                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext"
+                                                <input type="number"[min]="0" class="p-inputtext"
                                                     pInputText formControlName="nroSerie">
                                             </td>
-                                            <td>
+                                            <td id="md">
                                                 <strong class="p-column-title">F.Vencimiento</strong>
                                                 <p-calendar appendTo="body" readonlyInput="true" [showIcon]="true"
                                                     dateFormat="dd/mm/yy" formControlName="fechavencimiento">
                                                 </p-calendar>
                                             </td>
-                                            <td>
+                                            <td id="sd">
                                                 <strong class="p-column-title">Nro Cuenta</strong>
-                                                <input type="number" style="width: 80px;" [min]="0" class="p-inputtext"
+                                                <input type="number" [min]="0" class="p-inputtext"
                                                     pInputText formControlName="nrocuenta">
                                             </td>
 
