@@ -1,5 +1,6 @@
 /* Responsive by miguecampossv */
 
+<<<<<<< HEAD
 @media (min-width: 1980px) {
   .card-desplegable {
     margin-left: 35px !important;
@@ -13,7 +14,73 @@
   }
 }
 
+=======
+/* Large Devices */
+>>>>>>> StylesV1.0
 
+@media (min-width:2042px) and (max-width:2162px) {
+
+  .card-desplegable {
+    margin-left: 35px !important;
+    min-height: 770px !important;
+  }
+
+  .card-desplegable button {
+    margin: auto;
+    text-align: center;
+    display: flex;
+  }
+    
+}
+
+@media (min-width:1921px) and (max-width:2041px) {
+
+  .card-desplegable {
+    margin-left: 35px !important;
+    min-height: 770px !important;
+  }
+
+  .card-desplegable button {
+    margin: auto;
+    text-align: center;
+    display: flex;
+  }
+
+    
+}
+
+@media (min-width:1800px) and (max-width:1920px) {
+
+  .card-desplegable {
+    margin-left: 35px !important;
+    min-height: 770px !important;
+  }
+
+  .card-desplegable button {
+    margin: auto;
+    text-align: center;
+    display: flex;
+  }
+
+    
+}
+
+@media (min-width:1600px) and (max-width:1799px) {
+
+  .card-desplegable {
+    margin-left: 35px !important;
+    min-height: 770px !important;
+  }
+
+  .card-desplegable button {
+    margin: auto;
+    text-align: center;
+    display: flex;
+  }
+    
+}
+
+/* Large Devices */
 
 @media (max-width: 991px) {
   .content-left-wrapper {
@@ -146,6 +213,11 @@
     background-color: #efefef;
     padding: 20px;
     border-radius: 25px;
+  }
+
+  .only-responsive {
+    display: flex!important;
+    flex-direction: column!important;
   }
 
 }

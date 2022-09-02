@@ -394,15 +394,6 @@
 }
 
 
-.row {
-    display: flex;
-    flex-wrap: nowrap;
-    margin-right: -15px;
-    margin-left: -15px;
-    flex-direction: row;
-    align-items: center;
-}
-
 
 
 .tablas-empresas {
@@ -889,7 +880,6 @@ p-inputmask {
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>div .layout-menuitem-text {
     color: white !important;
     font-weight: bold !important;
-    background: #4DA8DE !important;
     padding: 10px 45px !important;
     border-radius: 10px !important;
 }
@@ -898,6 +888,7 @@ p-inputmask {
     background: #d3edfc !important;
     border-radius: 10px !important;
     margin-top: 25px !important;
+    margin-left: 12px;
 }
 
 .menu-wrapper .layout-menu-container {
@@ -1048,6 +1039,21 @@ td {
     flex-direction: row;
 }
 
+
+.tabladetalles #sd {
+    width: 20px;
+    text-align: center !important;
+    margin: auto;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.tabladetalles #sd  input{
+    width: 72px!important;
+
+}
+
+
 .tabladetalles #lg {
     width: 600px;
     text-align: center !important;
@@ -1068,10 +1074,11 @@ td {
     width: 170px!important;
 }
 
-
-//*** CAMBIOS CRISTIAN MARTINEZ ***/
-.tabladetalles {
-    margin: 0 1.5%;
+.tabladetalles #lg  .p-dropdown {
+    width: 190px;
+}
+.tabladetalles #md input{
+    width: 140px!important;
 }
 
 .tabladetalles #L-detail {
@@ -1201,14 +1208,7 @@ td {
     font-size: 17px;
     text-align: center;
     color: #135aa9;
-
-    //**CAMBIOS CRISTIAN MARTINEz ***/
-   // width: 30px;
-   // margin-top: 20px;
-    //**CAMBIOS CRISTIAN MARTINEz ***/
-
     margin: auto;
-
 }
 
 .title-options-internal h2 {
@@ -1247,4 +1247,22 @@ td {
     flex-wrap: nowrap;
     width: 100%;
     background: #f3f3f3;
+}
+
+.encabezados-grid {
+    background-color: #f3f3f3!important;
+}
+
+.body-grid {
+    background-color: #ffffff!important;
+}
+
+.formulario {
+    display:block!important;
+    grid-gap: 1rem;
+    grid-gap: 1rem;
+    gap: 2rem;
+    grid-auto-rows: auto;
+    grid-template-columns: 11rem 1fr;
+    align-items: center;
 }
