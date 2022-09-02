@@ -1,17 +1,17 @@
 
 <form [formGroup]="Form">
-    <div class="p-col-12"> 
+    <div class="p-col-12 formalario-campo-obligatorio"> 
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12"> 
-                <strong>Valor Compra *</strong>
-                <input type="text" minlength="1"   (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorCompra" class="p-inputtext-sm" placeholder="ingresar valor de compra">   
+                <strong>Valor Compra <span>*</span></strong>
+                <input type="text" minlength="1"   (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorCompra" class="p-inputtext-sm p-inputtext-gris " placeholder="ingresar valor de compra">   
             </div>
             <div class="p-field p-col-12"> 
-                <strong>Valor Venta *</strong>
-                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorVenta" class="p-inputtext-sm" placeholder="ingresar valor de venta">     
+                <strong>Valor Venta <span>*</span></strong>
+                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorVenta" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar valor de venta">     
             </div>
             <div class="p-field p-col-12"> 
-                <strong>Fecha *</strong>
+                <strong>Fecha <span>*</span></strong>
                 <p-calendar
                     readonlyInput="true"
                     class="extender"

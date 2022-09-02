@@ -20,7 +20,7 @@
                             pTooltip="Agregar Nueva Orden de Compra" tooltipPosition="top"
                             type="button"
                             label="Agregar" 
-                            class="p-button-sm"
+                            class="p-button-registrar"
                             (click)="onNuevo()" 
                             icon="pi pi-plus">
                         </button>
@@ -56,24 +56,24 @@
                         </div>
 
                         <div class="p-field p-col-12 p-md-2 p-sm-4 botonBuscar"> 
-                            <button pButton label="Buscar" type="button" class="p-button-sm"  icon="pi pi-search" (click)="onLoadOrdenCompra(null)"></button>
+                            <button pButton label="Buscar" type="button" class="p-button-generico-azul"  icon="pi pi-search" (click)="onLoadOrdenCompra(null)"></button>
                         </div> 
 
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Serie:</strong>
-                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="serie" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar una serie">     
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
                             <strong>Correlativo:</strong>
-                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo" class="p-inputtext-sm" placeholder="ingresar una serie">     
+                            <input  type="text" pInputText [minLength]="1" [maxlength]="15" formControlName="correlativo" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar una serie">     
                         </div>
                         
                         <div class="p-field p-col-12 p-md-6">
                             <strong>Proveedor</strong>  
                             <div class="p-inputgroup">  
-                                <input type="text" formControlName="proveedor" pInputText  class="p-inputtext-sm" placeholder="busca un proveedor">   
+                                <input type="text" formControlName="proveedor" pInputText  class="p-inputtext-sm p-inputtext-gris" placeholder="Busca un proveedor">   
                                 <button type="button" pTooltip="Buscar"  class="p-button-sm" tooltipPosition="left" (click)="onBuscarProveedor();" pButton icon="pi pi-search"></button>      
                                 <button *ngIf="existeProveedorSeleccionado" type="button" pTooltip="Buscar"  style=" background-color: #D72250;" class="p-button-sm" tooltipPosition="left" (click)="onBorrarProveedor();" pButton icon="pi pi-trash"></button>    
                             </div>

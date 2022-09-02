@@ -17,13 +17,13 @@
                         pButton  
                         type="button"
                         label="Reporte" 
-                        class="p-button-sm"
+                        class="p-button-generico-azul"
                         style="margin-right: 1%;"
                         (click)="onReporte()" 
                         icon="pi pi-file">
                     </button>     
                     <button  
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         style="margin-right: 1%;"
                         pButton
                         type="button"
@@ -34,7 +34,7 @@
                     </button>  
         
                     <button   
-                        class="p-button-sm"
+                        class="p-button-cancelar"
                         pButton
                         type="button"
                         icon="pi pi-times-circle"
@@ -52,28 +52,28 @@
 
             <!-- CABECERA FORMULARIO -->
             <form [formGroup]="Form">  
-                <div class="p-col-12"> 
+                <div class="p-col-12 formulario-campo-obligatorio"> 
                     <div class="p-fluid p-formgrid p-grid">
 
                         <div class="p-field p-col-12 p-md-3">
-                            <strong>Establecimiento *:</strong>
+                            <strong>Establecimiento <span> *</span>:</strong>
                             <p-dropdown class="DropExtenso" (onChange)="onObtenerEstablecimiento($event.value.id)" [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div> 
 
                         <div class="p-field p-col-12 p-md-9">
-                            <strong>Tipo Documento *:</strong>  
+                            <strong>Tipo Documento <span> *</span>:</strong>  
                             <div class="InputCombinado">  
                                 <p-dropdown class="DropExtenso" [disabled]="!existeEstablecimientoSeleccionado" [options]="arrayTipoDocumento" formControlName="documentoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor2"></p-dropdown>
-                                <input type="text" pInputText  class="p-inputtext-sm"  formControlName="serieventa"   placeholder="Serie">   
-                                <input type="number" pInputText  class="p-inputtext-sm"  formControlName="secuencialventa"   placeholder="ingresar">   
+                                <input type="text" pInputText  class="p-inputtext-sm p-inputtext-gris"  formControlName="serieventa"   placeholder="Serie">   
+                                <input type="number" pInputText  class="p-inputtext-sm p-inputtext-gris"  formControlName="secuencialventa"   placeholder="ingresar">   
                             </div>
                         </div> 
                         
                         <div class="p-field p-col-12 p-md-12">
                             <strong>Proveedor</strong>  
                             <div class="InputCombinado2">  
-                                <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm" placeholder="busca un proveedor">   
-                                <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm" placeholder="busca un proveedor">   
+                                <input type="text" (keydown.enter)="onObtenerPersonaPorNroDocumentoVenta($event)" [minlength]="8" [maxLength]="11" formControlName="nrodocumentocliente" pInputText  class="p-inputtext-sm p-inputtext-gris" placeholder="Busca un proveedor">   
+                                <input type="text" readonly  formControlName="nombrecliente" pInputText  class="p-inputtext-sm p-inputtext-gris" placeholder="Busca un proveedor">   
                                 <button type="button" class="p-button-sm" pTooltip="Buscar" tooltipPosition="left" (click)="onBuscarProveedor();" pButton  icon="pi pi-search"></button>      
                                 <button [disabled]="!existeProveedorSeleccionado" type="button" class="p-button-sm"  style=" background-color: #D72250;" pTooltip="Buscar" tooltipPosition="left" (click)="onBorrarProveedor();" pButton  icon="pi pi-trash"></button>    
                             </div>
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Fecha Emisión *:</strong>
+                            <strong>Fecha Emisión <span> *</span>:</strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
@@ -96,7 +96,7 @@
                         </div> 
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Fecha Vencimiento *:</strong>
+                            <strong>Fecha Vencimiento <span> *</span>:</strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
@@ -107,25 +107,25 @@
                         </div> 
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Moneda *:</strong>
+                            <strong>Moneda <span> *</span>:</strong>
                             <p-dropdown class="DropExtenso" [options]="arrayMonedas" formControlName="monedaid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
         
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Tipo Cambio *:</strong>
-                            <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                            <strong>Tipo Cambio <span> *</span>:</strong>
+                            <input  type="number" pInputText  formControlName="tipocambio" class="p-inputtext-sm p-inputtext-gris" placeholder="0.00">     
                         </div>
         
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
-                            <strong>Forma Pago *:</strong> 
+                            <strong>Forma Pago <span> *</span>:</strong> 
                             <div class="p-inputgroup">  
                                 <p-dropdown class="extender" [options]="arrayFormasPago" formControlName="formapagoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="nombre"></p-dropdown>      
                             </div>   
                         </div>
                         
                         <div class="p-field p-col-12 p-md-3 p-sm-6">
-                            <strong>Días Vencimiento *:</strong>
-                            <input  type="number" pInputText (keyup)="onCalcularfechaVencimiento($event);" formControlName="diasvencimiento" class="p-inputtext-sm" placeholder="0">     
+                            <strong>Días Vencimiento <span> *</span>:</strong>
+                            <input  type="number" pInputText (keyup)="onCalcularfechaVencimiento($event);" formControlName="diasvencimiento" class="p-inputtext-sm p-inputtext-gris" placeholder="0">     
                         </div>
 
                         <div class="p-field p-col-12 p-md-3  p-sm-6">
@@ -140,7 +140,7 @@
 
                         <div class="p-field  p-col-12 p-md-9 p-sm-8">
                             <strong>Glosa:</strong>
-                            <input  type="text" pInputText  formControlName="glosa" class="p-inputtext-sm" placeholder="ingresar una glosa">     
+                            <input  type="text" pInputText  formControlName="glosa" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar una glosa">     
                         </div>   
 
                         <div class="p-field p-col-12 p-md-3 p-sm-4">
@@ -163,35 +163,35 @@
                             <br> 
                             <button pButton pRipple type="button" label="Agregar detalle Compra" class="p-button-rounded"  icon="pi pi-plus"  (click)="onAgregarDetalleCompra()"></button>
 
-                            <div style="margin: 3%;">
+                            <div>
                                 <p-table   
-                                    class="TablaDetalle"
+                                    class="TablaDetalleCondicionPago tabladetalles"
                                     [value]="detallesCompraForm"
                                     [scrollable]="true" 
                                     responsiveLayout="stack" >  
                                     <ng-template pTemplate="header">
                                         <tr class="centrar"> 
-                                            <th style="width: 50px;">Acción</th> 
-                                            <th style="width: 150px;">Almacén</th>
-                                            <th style="width: 120px;">Cod Producto</th> 
-                                            <th style="width: 180px;">Producto/Servicio</th> 
-                                            <th style="width: 140px;">Und Medida</th> 
-                                            <th style="width: 135px;">Destino</th> 
-                                            <th style="width: 75px;">P.Inc.Igv</th> 
-                                            <th style="width: 100px;">Cantidad</th> 
-                                            <th style="width: 90px;">Precio.U</th> 
-                                            <th style="width: 100px;">Base.Impon</th> 
-                                            <th style="width: 90px;">% Dscto</th> 
-                                            <th style="width: 100px;">Imp.Dscto</th> 
-                                            <th style="width: 155px;">Observaciones</th> 
-                                            <th style="width: 110px;">Valor Venta</th> 
-                                            <th style="width: 75px;">IGV</th> 
-                                            <th style="width: 110px;">Imp.Otros.C</th> 
-                                            <th style="width: 90px;">ICBPER</th> 
-                                            <th style="width: 100px;">Precio.OC</th> 
-                                            <th style="width: 90px;">N.Lote</th> 
-                                            <th style="width: 90px;">N.Serie</th> 
-                                            <th style="width: 150px;">F.Vencimiento</th>  
+                                            <th>Acción</th> 
+                                            <th>Almacén</th>
+                                            <th>Cod Producto</th> 
+                                            <th>Producto/Servicio</th> 
+                                            <th>Und Medida</th> 
+                                            <th>Destino</th> 
+                                            <th>P.Inc.Igv</th> 
+                                            <th>Cantidad</th> 
+                                            <th>Precio.U</th> 
+                                            <th>Base.Impon</th> 
+                                            <th>% Dscto</th> 
+                                            <th>Imp.Dscto</th> 
+                                            <th>Observaciones</th> 
+                                            <th>Valor Venta</th> 
+                                            <th>IGV</th> 
+                                            <th>Imp.Otros.C</th> 
+                                            <th>ICBPER</th> 
+                                            <th>Precio.OC</th> 
+                                            <th>N.Lote</th> 
+                                            <th>N.Serie</th> 
+                                            <th>F.Vencimiento</th>  
                                         </tr>
                                     </ng-template> 
                         

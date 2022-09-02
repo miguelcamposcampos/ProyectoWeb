@@ -36,11 +36,11 @@
 
 
     <form [formGroup]="Form">        
-        <div class="p-col-12"> 
+        <div class="p-col-12 formulario-campo-obligatorio"> 
             <div class="p-fluid p-formgrid p-grid">  
 
                 <div class="p-field p-col-12 p-lg-5 p-md-6">
-                    <strong>Tipo Documento <span style="color: red">*</span></strong>
+                    <strong>Tipo Documento <span >*</span></strong>
                     <p-dropdown class="DropExtenso"
                         [options]="arrayTipoDoc"
                         formControlName="documentoid"  
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="p-field p-col-12 p-lg-5 p-md-6">
-                    <strong>Tipo Comprobante <span style="color: red">*</span></strong>
+                    <strong>Tipo Comprobante <span >*</span></strong>
                     <p-dropdown class="DropExtenso"
                         [options]="arrayTipoComprobante"
                         formControlName="tipocomprobanteid"  
@@ -62,7 +62,7 @@
                 </div>
                 
                 <div class="p-field p-col-12 p-lg-2 p-md-4">
-                    <strong>Fecha<span style="color: red">*</span></strong>
+                    <strong>Fecha <span >*</span></strong>
                     <p-calendar  
                         readonlyInput="true"
                         [showIcon]="true"
@@ -72,12 +72,12 @@
                 </div> 
 
                 <div class="p-field p-col-12 p-lg-3 p-md-4">
-                    <strong>Tipo Cambio <span style="color: red">*</span></strong>
-                    <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio()" formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">     
+                    <strong>Tipo Cambio <span >*</span></strong>
+                    <input  type="text" pInputText (blur)="onRefrescarCalculosPorTipoCambio()" formControlName="tipocambio" class="p-inputtext-sm p-inputtext-gris" placeholder="0.00">     
                 </div>
 
                 <div class="p-field p-col-12 p-lg-3 p-md-4">
-                    <strong>Moneda <span style="color: red">*</span></strong>
+                    <strong>Moneda <span >*</span></strong>
                     <p-dropdown class="DropExtenso"
                         (onChange)="onRefrescarCalculosPorTipoCambio();"
                         [options]="arrayMonedas"
@@ -89,13 +89,13 @@
                 </div>
 
                 <div class="p-field p-col-12 p-lg-6 p-md-12">
-                    <strong>Nombre <span style="color: red">*</span></strong>
-                    <input  type="text" pInputText  formControlName="nombrediario" class="p-inputtext-sm" placeholder="ingresar una glosa">
+                    <strong>Nombre <span >*</span></strong>
+                    <input  type="text" pInputText  formControlName="nombrediario" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar una glosa">
                 </div>
                  
                 <div class="p-field p-col-12 p-md-12">
                     <strong>Glosa:</strong>
-                    <input  type="text" pInputText  formControlName="glosadiario" class="p-inputtext-sm" placeholder="ingresar una glosa">     
+                    <input  type="text" pInputText  formControlName="glosadiario" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar una glosa">     
                 </div>
  
             </div> 
@@ -107,19 +107,19 @@
         </div>
 
         <div class="p-field p-col-12 p-md-12"> 
-            <p-table  
+            <p-table  class="tabladetalles"
             [value]="detallesForm"
             [scrollable]="true"  
             responsiveLayout="stack" >  
             <ng-template pTemplate="header">
                 <tr> 
-                    <th>Acción</th>
-                    <th>Nro cuenta</th>
+                    <th id="lg">Acción</th>
+                    <th id="lg">Nro cuenta</th>
                     <th>Naturaleza</th>
                     <th>Importe</th>
                     <th>Cambio</th> 
                     <th>Centro Costo</th> 
-                    <th>Anexo</th> 
+                    <th id="lg">Anexo</th> 
                     <th>Tip Documento</th> 
                     <th>Nro Documento</th> 
                     <th>Doc Referencia</th> 
@@ -132,7 +132,7 @@
 
             <ng-template pTemplate="body" let-detalles  let-rowIndex="rowIndex" formArrayName="arrayDetalle"> 
                 <tr   [formGroupName]="rowIndex"> 
-                    <td>
+                    <td id="lg">
                         <button  
                             class="p-button-sm"
                             pButton 
@@ -153,7 +153,7 @@
                         </button>
                         
                     </td>
-                    <td>
+                    <td id="lg"> 
                         <strong class="p-column-title">Nro cuenta</strong>
                         <input type="text" class="p-inputtext" pInputText formControlName="nrocuenta">
                         <button type="button" (click)="onModalBuscarCuenta(rowIndex)" pTooltip="Buscar" type="button" tooltipPosition="left" pButton
@@ -176,7 +176,7 @@
                         <strong class="p-column-title">Centro Costo</strong>
                         <input type="text" pInputText class="p-inputtext-sm"  formControlName="centrocosto">   
                     </td> 
-                    <td>
+                    <td id="lg">
                         <strong class="p-column-title">Anexo</strong>
                         <input type="text" (keydown.enter)="onBuscarAnexo(rowIndex)" class="p-inputtext" pInputText formControlName="rucPersona">
                         <button type="button" (click)="onModalBuscarAnexo(rowIndex)" pTooltip="Buscar" type="button" tooltipPosition="left" pButton

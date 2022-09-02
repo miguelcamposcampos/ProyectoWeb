@@ -644,6 +644,11 @@
     background: #ffffff !important;
 }
 
+.p-inputtext-gris {
+    background: #e4e4e4 !important;
+}
+
+
 
 .p-dialog .p-dialog-header .p-dialog-title {
     font-weight: 600;
@@ -885,7 +890,7 @@ p-inputmask {
     color: white !important;
     font-weight: bold !important;
     background: #4DA8DE !important;
-    padding: 10px !important;
+    padding: 10px 45px !important;
     border-radius: 10px !important;
 }
 
@@ -1026,10 +1031,10 @@ body.main-body {
 
 .tabladetalles th,
 td {
-    padding: 20px 1px !important;
+    padding: 20px 30px !important;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /*white-space: nowrap;/*/
     text-align: center !important;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -1053,6 +1058,9 @@ td {
 
 
 
+.tabladetalles #lg  .p-dropdown {
+    width: 190px;
+}
 .tabladetalles #md input{
     width: 140px!important;
 }
@@ -1162,6 +1170,7 @@ td {
 
 .p-datatable .p-datatable-tbody>tr>td {
     padding: 0.5rem !important;
+
 }
 
 .card-desplegable {
@@ -1192,10 +1201,14 @@ td {
     font-size: 17px;
     text-align: center;
     color: #135aa9;
+
     //**CAMBIOS CRISTIAN MARTINEz ***/
-    width: 30px;
-    margin-top: 20px;
+   // width: 30px;
+   // margin-top: 20px;
     //**CAMBIOS CRISTIAN MARTINEz ***/
+
+    margin: auto;
+
 }
 
 .title-options-internal h2 {
@@ -1227,4 +1240,11 @@ td {
 
 .importes button{
     margin-left: 25px;
+}
+
+.p-datatable-scrollable .p-datatable-thead>tr, .p-datatable-scrollable .p-datatable-tbody>tr, .p-datatable-scrollable .p-datatable-tfoot>tr {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    background: #f3f3f3;
 }

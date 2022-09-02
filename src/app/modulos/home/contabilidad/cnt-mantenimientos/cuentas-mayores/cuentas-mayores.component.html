@@ -27,18 +27,19 @@
                 </p-toolbar>
 
 
-                <div class="row">
-                    <div class="width-100"> 
-                        <div class="col-lg-6">
-                            <div class="column-empresas-left">
-                                <span class="p-input-icon-left">
-                                    <i class="pi pi-search"></i>
-                                    <input pInputText type="text" class="p-inputtext-sm"
-                                        placeholder="Buscar cuenta mayor" size="25"
-                                        (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
-                                </span>
-                            </div>
-                        </div> 
+                <div class="p-col-12"> 
+                    <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-8">
+                            <strong >Buscar:</strong>
+                            <input   
+                            pInputText
+                            type="text"
+                            class="p-inputtext-sm-clear-grey pd-5 width-100"
+                            placeholder="Buscar unidad Medida"
+                            size="25"
+                            (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>             
+                        </div>
+                        
                     </div>
                 </div>
 
