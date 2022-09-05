@@ -97,7 +97,7 @@
 
 
 <div *ngIf="VistaNuevoColor">
-    <p-dialog header="{{ (!idColorEdit) ? 'NUEVO COLOR' : 'EDITAR COLOR'}}" [(visible)]="VistaNuevoColor" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="{{ (!idColorEdit) ? 'NUEVO COLOR' : 'EDITAR COLOR'}}" [(visible)]="VistaNuevoColor" [modal]="true">
         <app-nuevo-color [idColorEdit]="idColorEdit" (cerrar)="onRetornar($event)"> </app-nuevo-color>
     </p-dialog> 
 </div>  

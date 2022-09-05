@@ -91,6 +91,16 @@ $gutter: 1rem; //for primeflex grid system
   padding: 0;
 }
 
+.p-dialog{
+  width: 50%;
+  @media (max-width: 600px) {  
+    width: 95%;
+  }
+  @media (max-width: 767px) {  
+    width: 80%;
+  }
+}
+
 
 .p-dialog .p-dialog-content {
   padding: 0 !important;

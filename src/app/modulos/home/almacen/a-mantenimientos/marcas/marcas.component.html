@@ -113,7 +113,7 @@
 </div>   
  
 <div *ngIf="VistaNuevoMarca">
-    <p-dialog header="{{ (!idMarcaEdit) ? 'NUEVA MARCA' : 'EDITAR MARCA'}}" [(visible)]="VistaNuevoMarca" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="{{ (!idMarcaEdit) ? 'NUEVA MARCA' : 'EDITAR MARCA'}}" [(visible)]="VistaNuevoMarca" [modal]="true">
         <app-nuevo-marca [idMarcaEdit]="idMarcaEdit" (cerrar)="onRetornar($event)"> </app-nuevo-marca>
     </p-dialog> 
 </div>  

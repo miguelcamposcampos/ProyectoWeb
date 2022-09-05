@@ -13,13 +13,12 @@ import { AdministracionConceptosService } from '../service/admin-conceptos.servi
   templateUrl: './nueva-admin-concepto.component.html',
   styleUrls: ['./nueva-admin-concepto.component.scss']
 })
-export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
+export class NuevaAdminConceptoComponent implements OnInit {
 
   public FlgLlenaronCombo: Subject<boolean> = new Subject<boolean>();
   @Input() data : any;
   @Output() cerrar : EventEmitter<boolean>  = new EventEmitter<any>();
   fechaActual = new Date();
-  tituloVista = "REGISTRO CONCEPTO CONTABLE";
   arrayMonedas : ICombo[];
   arrayAreas : any[];
   Form : FormGroup;
@@ -43,10 +42,7 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
     ]
     this.onForm();
   }
-
-  ngAfterViewInit(): void {
-    this.onCargarDropDown();  
-  }
+ 
 
    
   onForm(){
@@ -63,8 +59,9 @@ export class NuevaAdminConceptoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.onCargarDropDown();  
+
     if(this.data){
-      this.tituloVista = "ACTUALIZAR CONCEPTO CONTABLE"
       this.spinner.show(); 
       this.Avisar(); 
     } 

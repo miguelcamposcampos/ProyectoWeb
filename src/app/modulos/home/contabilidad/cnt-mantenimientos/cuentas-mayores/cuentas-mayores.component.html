@@ -1,96 +1,86 @@
-<div>
-   
-    <div class="contenidoTable card-box">
+<div class="margintabla"> 
+    <div class="contenidoTable card-box"> 
 
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
         </ngx-spinner>
+ 
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fa-solid fa-arrow-up-a-z"></i> <strong> Cuentas Mayores </strong></h3>
+            </div>
+            <div class="p-toolbar-group-right">
+                <button 
+                    class="p-button-registrar" 
+                    pButton 
+                    type="button" 
+                    icon="pi pi-plus"
+                    label="Agregar" 
+                    tooltipPosition="left" 
+                    pTooltip="Registrar una cuenta"
+                    (click)="onAdd()">
+                </button>
+            </div>
+        </p-toolbar>
 
-        <div class="buscar-empresa">
-            <div class="container">
-                <p-toolbar>
-                    <div class="p-toolbar-group-left">
-                        <h3> <i class="fa-solid fa-arrow-up-a-z"></i> <strong> Cuentas Mayores </strong></h3>
-                    </div>
-                    <div class="p-toolbar-group-right">
-                        <button 
-                            class="p-button-registrar" 
-                            pButton 
-                            type="button" 
-                            icon="pi pi-plus"
-                            label="Agregar" 
-                            tooltipPosition="left" 
-                            pTooltip="Registrar una cuenta"
-                            (click)="onAdd()">
-                        </button>
-                    </div>
-                </p-toolbar>
-
-
-                <div class="p-col-12"> 
-                    <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
-                        <div class="p-field p-col-12 p-md-8">
-                            <strong >Buscar:</strong>
-                            <input   
-                            pInputText
-                            type="text"
-                            class="p-inputtext-sm-clear-grey pd-5 width-100"
-                            placeholder="Buscar unidad Medida"
-                            size="25"
-                            (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>             
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="width-100">
-                        <p-table #dt [columns]="cols" [paginator]="true" 
-                        [rows]="20" responsiveLayout="stack" selectionMode="single"
-                            [rowHover]="true" [value]="list">
-
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                        {{ col.header }}
-                                        <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field"
-                                            ariaLabel="Activate to sort"
-                                            ariaLabelDesc="Activate to sort in descending order"
-                                            ariaLabelAsc="Activate to sort in ascending order">
-                                        </p-sortIcon>
-                                    </th>
-                                </tr>
-                            </ng-template>
-
-                            <ng-template pTemplate="body" let-cmayor let-columns="columns" let-rowIndex="rowIndex">
-                                <tr [pSelectableRow]="cmayor" [pSelectableRowIndex]="rowIndex">
-                                    <td *ngFor="let col of columns">
-                                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>
-                                        {{cmayor[col.field]}}
-                                        <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                            <div style="display: flex;">
-                                                <button pButton type="button" tooltipPosition="top"
-                                                    pTooltip="Editar" (click)="onEdit(cmayor)"
-                                                    style="margin-right :2%;" icon="pi pi-pencil">
-                                                </button>
-                                                <button pButton type="button" tooltipPosition="top"
-                                                    style=" background-color: #D72250;" (click)="onDelete(cmayor)"
-                                                    pTooltip="Eliminar" icon="pi pi-trash">
-                                                </button>
-                                            </div>
-                                        </ng-template>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
+        <div class="p-col-12"> 
+            <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-8">
+                    <strong >Buscar:</strong>
+                    <input   
+                    pInputText type="text" class="p-inputtext-sm-form"
+                    placeholder="Buscar unidad Medida"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>             
+                </div>  
+                <div class="p-field p-col-12 p-md-4">       
+                    <button pButton label="Buscar" type="button" class="p-button-generico-azul" 
+                    icon="pi pi-search" (click)="dt.filterGlobal($any($event.target).value, 'contains')"></button>
                 </div>
             </div>
-
         </div>
+ 
+        <p-table #dt [columns]="cols" [paginator]="true" 
+        [rows]="20" responsiveLayout="stack" selectionMode="single"
+            [rowHover]="true" [value]="list">
 
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{ col.header }}
+                        <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-cmayor let-columns="columns" let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="cmayor" [pSelectableRowIndex]="rowIndex">
+                    <td *ngFor="let col of columns">
+                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>
+                        {{cmayor[col.field]}}
+                        <ng-template #botones [ngIf]="col.field === 'acciones'">
+                            <div style="display: flex;">
+                                <button pButton type="button" tooltipPosition="top"
+                                    class="p-button-generico-azul"
+                                    pTooltip="Editar" (click)="onEdit(cmayor)"
+                                    icon="pi pi-pencil">
+                                </button>
+                                <button pButton type="button" tooltipPosition="top"
+                                    class="p-button-cancelar" 
+                                    (click)="onDelete(cmayor)"
+                                    pTooltip="Eliminar" icon="pi pi-trash">
+                                </button>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
-    
+     
 </div>
 
 <!-- MODAL  -->

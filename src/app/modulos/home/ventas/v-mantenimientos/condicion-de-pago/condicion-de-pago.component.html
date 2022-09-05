@@ -109,7 +109,7 @@
  
  
  <div *ngIf="modalNuevaCondicionPago">
-    <p-dialog header="{{ (!dataCondicion) ? 'NUEVA CONDICIÓN DE PAGO' : 'EDITAR CONDICIÓN DE PAGO' }}" [(visible)]="modalNuevaCondicionPago" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="{{ (!dataCondicion) ? 'NUEVA CONDICIÓN DE PAGO' : 'EDITAR CONDICIÓN DE PAGO' }}" [(visible)]="modalNuevaCondicionPago" [modal]="true">
         <app-nueva-condicion-pago [dataCondicion]="dataCondicion" (cerrar)="onRetornar($event)"> </app-nueva-condicion-pago>
     </p-dialog> 
 </div>  

@@ -107,7 +107,7 @@
 
 
 <div *ngIf="modalBuscarUbigeo">
-    <p-dialog header="BUSCAR UBIGEO" [(visible)]="modalBuscarUbigeo" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="BUSCAR UBIGEO" [(visible)]="modalBuscarUbigeo" [modal]="true">
         <app-buscar-ubigeo [dataUbigeo]="dataUbigeo" (ubigeoSelect)="onPintarUbigeoSeleccionado($event)"> </app-buscar-ubigeo>
     </p-dialog> 
 </div>  

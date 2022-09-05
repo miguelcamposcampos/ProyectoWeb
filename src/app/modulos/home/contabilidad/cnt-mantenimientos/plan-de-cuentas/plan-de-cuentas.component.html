@@ -1,13 +1,11 @@
- <div *ngIf="!vSubirPlanCuenta">
- 
-    <div class="contenidoTable card-box"> 
+ <div *ngIf="!vSubirPlanCuenta"> 
+    <div class="margintabla"> 
+        <div class="contenidoTable card-box"> 
 
-    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-    </ngx-spinner>
-    
-    <div class="buscar-empresa">
-        <div class="container"> 
+            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+                <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+            </ngx-spinner>
+             
             <p-toolbar>
                 <div class="p-toolbar-group-left">
                     <h3> <i class="fa-solid fa-folder-tree"></i> <strong> Planes de Cuentas </strong></h3> 
@@ -24,7 +22,7 @@
                     </button> 
 
                     <button    
-                        class="p-button-sm-generico-azul"
+                        class="p-button-generico-azul"
                         pButton
                         type="button"
                         icon="pi pi-plus"
@@ -36,104 +34,89 @@
                 </div>
             </p-toolbar>
 
-            <div class="row">
-                <div class="tablas-empresas width-100">
-                    <div class="col-lg-6">
-                        <div *ngIf="nombrePlanCuenta">
-                            <strong> {{ nombrePlanCuenta }}</strong> 
-                        </div> 
-                        <div class="column-empresas-left">
-                            <span class="p-input-icon-left">
-                                <input pInputText type="text" class="p-inputtext-sm" [formControl]="nroCuentaBuscar" placeholder="Ingresa un número de cuenta" size="25"
-                                (keydown.enter)="onSearch()"
-                                (keyup)="onValidarNroCuenta($event);"
-                                (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-                            </span> 
-                        </div>
-                    </div> 
-                    <div class="col-lg-6">
-                        <br  *ngIf="nombrePlanCuenta">
-                        <div class="column-empresas-right">
-                            <button    
-                                class="p-button-sm-generico-azul"
-                                pButton
-                                type="button"
-                                icon="pi pi-search"
-                                label="Buscar"
-                                tooltipPosition="left"
-                                [disabled]="!nroCuentaBuscar.value"
-                                pTooltip="Buscar"
-                                (click)="onSearch()">  
-                            </button> 
-                        </div>
+            <div class="p-col-12"> 
+                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-8">
+                        <strong *ngIf="nombrePlanCuenta">  {{ nombrePlanCuenta }}</strong>  
+                        <input pInputText type="text" class="p-inputtext-sm-form" [formControl]="nroCuentaBuscar" placeholder="Ingresa un número de cuenta"
+                        (keydown.enter)="onSearch()"
+                        (keyup)="onValidarNroCuenta($event);"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>      
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">       
+                        <button    
+                            class="p-button-generico-azul"
+                            pButton
+                            type="button"
+                            icon="pi pi-search"
+                            label="Buscar"
+                            tooltipPosition="left"
+                            [disabled]="!nroCuentaBuscar.value"
+                            pTooltip="Buscar"
+                            (click)="onSearch()">  
+                        </button> 
                     </div>
                 </div>
             </div>
+ 
+           
+            <p-table #dt 
+            [columns]="cols" 
+            responsiveLayout="stack"
+            selectionMode="single"
+            [rowHover]="true"
+            [paginator]="true" 
+            [rows]="20" 
+            [value]="list">  
 
-            <div class="row">
-                <div class="tablas-empresas width-100">
-                    <p-table #dt 
-                    [columns]="cols" 
-                    responsiveLayout="stack"
-                    selectionMode="single"
-                    [rowHover]="true"
-                    [paginator]="true" 
-                    [rows]="20" 
-                    [value]="list">  
-        
-                        <ng-template pTemplate="header" let-columns >
-                            <tr>
-                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                    {{ col.header }} 
-                                    <p-sortIcon *ngIf="col.field != 'acciones'"
-                                        [field]="col.field"
-                                        ariaLabel="Activate to sort"
-                                        ariaLabelDesc="Activate to sort in descending order"
-                                        ariaLabelAsc="Activate to sort in ascending order">
-                                    </p-sortIcon> 
-                                </th>
-                            </tr> 
-                        </ng-template>
-                        
-                        <ng-template pTemplate="body" let-planc let-columns="columns"  let-rowIndex="rowIndex"> 
-                            <tr [pSelectableRow]="planc" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': !planc.esImputable }">
-                                <td  *ngFor="let col of columns" >
-                                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{planc[col.field]}}  
-                                    <ng-template #botones [ngIf]="col.field === 'acciones'"> 
-                                        <div style="display: flex;">
-                                            <button 
-                                                pButton
-                                                class="p-button-sm-generico-azul"
-                                                type="button" 
-                                                tooltipPosition="top" 
-                                                pTooltip="Editar" 
-                                                (click)="onEdit(planc)"
-                                                style="margin-right :2%;" 
-                                                icon="pi pi-pencil">
-                                            </button>     
-                                            <button 
-                                                pButton
-                                                class="p-button-cancelar"
-                                                type="button" 
-                                                tooltipPosition="top"  
-                                                (click)="onDelete(planc)"
-                                                pTooltip="Eliminar"  
-                                                icon="pi pi-trash">
-                                            </button>        
-                                        </div>  
-                                    </ng-template>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>    
-                </div>
-            </div>
+                <ng-template pTemplate="header" let-columns >
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }} 
+                            <p-sortIcon *ngIf="col.field != 'acciones'"
+                                [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr> 
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-planc let-columns="columns"  let-rowIndex="rowIndex"> 
+                    <tr [pSelectableRow]="planc" [pSelectableRowIndex]="rowIndex" [ngClass]="{'PintarFila': !planc.esImputable }">
+                        <td  *ngFor="let col of columns" >
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{planc[col.field]}}  
+                            <ng-template #botones [ngIf]="col.field === 'acciones'"> 
+                                <div style="display: flex;">
+                                    <button 
+                                        pButton
+                                        class="p-button-generico-azul"
+                                        type="button" 
+                                        tooltipPosition="top" 
+                                        pTooltip="Editar" 
+                                        (click)="onEdit(planc)"
+                                        icon="pi pi-pencil">
+                                    </button>     
+                                    <button 
+                                        pButton
+                                        class="p-button-cancelar"
+                                        type="button" 
+                                        tooltipPosition="top"  
+                                        (click)="onDelete(planc)"
+                                        pTooltip="Eliminar"  
+                                        icon="pi pi-trash">
+                                    </button>        
+                                </div>  
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>    
         </div>
-
-    </div>
-        
-    </div>
-     
+         
+            
+    </div>  
 </div>
   
 <!-- VISTA -->

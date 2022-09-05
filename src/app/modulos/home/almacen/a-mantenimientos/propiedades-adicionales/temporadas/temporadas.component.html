@@ -87,7 +87,7 @@
 
 
 <div *ngIf="VistaNuevaTemporada">
-    <p-dialog header="{{ (!dataTemporada) ? 'NUEVA TEMPORADA' : 'EDITAR TEMPORADA'}}" [(visible)]="VistaNuevaTemporada" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="{{ (!dataTemporada) ? 'NUEVA TEMPORADA' : 'EDITAR TEMPORADA'}}" [(visible)]="VistaNuevaTemporada" [modal]="true">
 
         <form [formGroup]="Form">
             <div class="p-col-12"> 

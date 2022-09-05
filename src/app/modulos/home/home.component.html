@@ -35,7 +35,7 @@
 </div>
 
 <div *ngIf="modalUbicacion">
-    <p-dialog header="ESTABLECIMIENTO - ALMACÉN PREDETERMINADO" [(visible)]="modalUbicacion" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="ESTABLECIMIENTO - ALMACÉN PREDETERMINADO" [(visible)]="modalUbicacion" [modal]="true">
         <form [formGroup]="Form"> 
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 
@@ -76,7 +76,7 @@
 </div>  
 
 <div *ngIf="modalTiketera">
-    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalTiketera" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalTiketera" [modal]="true">
     <form [formGroup]="FormImpresion">
         <div class="p-col-12"> 
             <div class="p-fluid p-formgrid p-grid"> 
