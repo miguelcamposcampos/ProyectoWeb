@@ -16,13 +16,13 @@
                         pButton  
                         type="button"
                         label="Reporte" 
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         style="margin-right: 1%;"
                         (click)="onReporte()" 
                         icon="pi pi-file">
                     </button>   
                     <button  
-                        class="p-button-sm"
+                        class="p-button-registrar"
                         pButton
                         type="button"
                         [disabled]="Form.invalid" 
@@ -32,7 +32,7 @@
                         icon="pi pi-check-circle">  
                     </button>  
                     <button   
-                        class="p-button-sm"
+                        class="p-button-cancelar"
                         pButton
                         type="button"
                         icon="pi pi-times-circle"
@@ -49,10 +49,10 @@
                 <h3> N° REGISTRO:  <strong> {{MovimientoEditar.nroRegistro}} </strong></h3>   
             </div>
             <form [formGroup]="Form">
-                <div class="p-col-12"> 
+                <div class="p-col-12 formulario-campo-obligatorio"> 
                     <div class="p-fluid p-formgrid p-grid">  
                         <div class="p-field p-col-12 p-sm-6 p-md-3">
-                            <strong>Fecha Inicio *:</strong>
+                            <strong>Fecha Inicio <span>*</span>:</strong>
                             <p-calendar  
                                 readonlyInput="true"
                                 [showIcon]="true"
@@ -62,47 +62,47 @@
                         </div>
                         
                         <div *ngIf="!mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-9">
-                            <strong>Almacén Origen *:</strong>
+                            <strong>Almacén Origen <span>*</span>:</strong>
                             <p-dropdown class="extender" [options]="arrayAlmacen" formControlName="almacenOrigen"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div *ngIf="mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-5">
-                            <strong>Almacén Origen *:</strong>
+                            <strong>Almacén Origen <span>*</span>:</strong>
                             <p-dropdown class="extender p-dropdown-sm" [options]="arrayAlmacen" formControlName="almacenOrigen"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div *ngIf="mostrarDropdownAlmacenDestino" class="p-field p-col-12 p-sm-6 p-md-4">
-                            <strong>Almacén Destino *:</strong>
+                            <strong>Almacén Destino <span>*</span>:</strong>
                             <p-dropdown class="extender p-dropdown-sm" [options]="arrayAlmacen" formControlName="almacenDestino"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div class="p-field p-col-12 p-sm-6 p-md-6">
-                            <strong>Motivo *:</strong>
+                            <strong>Motivo <span>*</span>:</strong>
                             <p-dropdown class="extender p-dropdown-sm" [options]="arrayMotivoIngreso" formControlName="motivo"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div class="p-field p-col-12 p-sm-6 p-md-6">
                             <strong>Glosa:</strong>
-                            <input type="text" pInputText formControlName="glosa" class="p-inputtext-sm" placeholder="ingresar una glosa">
+                            <input type="text" pInputText formControlName="glosa" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar una glosa">
                         </div>
     
                          
                         <div class="p-field p-col-12 p-sm-6 p-md-6">
-                            <strong>Anexo *</strong>  
+                            <strong>Anexo <span>*</span></strong>  
                             <div class="p-inputgroup">  
-                                <input type="text" readonly pInputText formControlName="anexo" class="p-inputtext-sm" placeholder="Busca un anexo">   
+                                <input type="text" readonly pInputText formControlName="anexo" class="p-inputtext-sm p-inputtext-gris " placeholder="Busca un anexo">   
                                 <button type="button" pTooltip="Buscar" (click)="onModalBuscarPersona()" tooltipPosition="left" pButton class="p-button-sm"  icon="pi pi-search" ></button>      
                             </div>
                         </div>
     
                         <div class="p-field p-col-12 p-sm-6 p-md-3">
-                            <strong>Moneda *:</strong>
+                            <strong>Moneda <span>*</span>:</strong>
                             <p-dropdown class="extender" [options]="arrayMonedas" formControlName="moneda"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                         </div>
     
                         <div class="p-field p-col-12 p-sm-6 p-md-3">
-                            <strong>Tipo Cambio *:</strong>
-                            <input type="number" pInputText formControlName="tipocambio" class="p-inputtext-sm" placeholder="0.00">  
+                            <strong>Tipo Cambio <span>*</span>:</strong>
+                            <input type="number" pInputText formControlName="tipocambio" class="p-inputtext-sm p-inputtext-gris" placeholder="0.00">  
                         </div> 
                     </div>
                 </div> 
@@ -112,26 +112,26 @@
                 </div>
                 
                 <p-table  
-                class="TablaMovimientos"
+                class="TablaMovimientos tabladetalles"
                 [value]="detallesForm"
                 [scrollable]="true" 
                 responsiveLayout="stack" >  
     
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 130px;">Cod.Producto</th>
-                        <th style="width: 180px;">Descripción</th>
-                        <th style="width: 70px;">Cantidad</th>
-                        <th style="width: 160px;">Und Medida</th>
-                        <th style="width: 85px;">Val.Unitario</th>
-                        <th style="width: 80px;">Val.Total</th>
-                        <th style="width: 140px;">Guia Remisión</th>
-                        <th style="width: 150px;">T.Doc.Ref</th>
-                        <th style="width: 140px;">Num.Doc.Ref</th>
-                        <th style="width: 85px;">N.Serie</th>
-                        <th style="width: 90px;">N.Lote</th>
-                        <th style="width: 160px;">Fec.Vencimiento</th>
-                        <th style="width: 50px;">Acción</th>
+                        <th>Cod.Producto</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Und Medida</th>
+                        <th>Val.Unitario</th>
+                        <th>Val.Total</th>
+                        <th>Guia Remisión</th>
+                        <th>T.Doc.Ref</th>
+                        <th>Num.Doc.Ref</th>
+                        <th>N.Serie</th>
+                        <th>N.Lote</th>
+                        <th>Fec.Vencimiento</th>
+                        <th>Acción</th>
                     </tr>
                 </ng-template>
     
@@ -141,6 +141,7 @@
                     <tr   [formGroupName]="rowIndex"> 
                         <td >
                             <strong class="p-column-title">Cod.Producto</strong> 
+
                             <input type="text" style="width: 90px;" class="p-inputtext-sm"
                                 (keydown.Tab)="onBuscarProductoPorCodigo(rowIndex)"
                                 (keydown.enter)="onBuscarProductoPorCodigo(rowIndex)"  
@@ -212,11 +213,12 @@
                     
                     </tr>
                 </ng-template>
+                
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="6">No existen registros</td>
+                        <span> No existen registros </span>
                     </tr>
-                </ng-template> 
+                </ng-template>
                  
                 </p-table>  
             </form>   

@@ -113,7 +113,7 @@
  
  
  <div *ngIf="modalNuevaFormaPago">
-    <p-dialog header="{{ (!dataFormaPago) ? 'NUEVA FORMA DE PAGO' : 'EDITAR FORMA DE PAGO' }}" [(visible)]="modalNuevaFormaPago" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="{{ (!dataFormaPago) ? 'NUEVA FORMA DE PAGO' : 'EDITAR FORMA DE PAGO' }}" [(visible)]="modalNuevaFormaPago" [modal]="true">
         <app-nueva-forma-pago [dataFormaPago]="dataFormaPago" (cerrar)="onRetornar($event)"> </app-nueva-forma-pago>
     </p-dialog> 
 </div>  

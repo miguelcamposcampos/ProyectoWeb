@@ -163,7 +163,7 @@
 
 <div *ngIf="modalNuevoAlmacen">
   <p-dialog header="{{ (!dataAlmacenEdit.idAlmacenEdit) ?  'NUEVO ALMACEN' : 'EDITAR ALMACEN'}}"
-    [(visible)]="modalNuevoAlmacen" [modal]="true" [draggable]="false" [resizable]="true" [style]="{width: '50vw'}">
+    [(visible)]="modalNuevoAlmacen" [modal]="true" [draggable]="false" [resizable]="true">
     <app-nuevo-almacen [dataAlmacenEdit]="dataAlmacenEdit" (cerrar)="onRetornar($event)"> </app-nuevo-almacen>
   </p-dialog>
 </div>

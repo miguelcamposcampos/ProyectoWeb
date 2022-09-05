@@ -93,7 +93,7 @@
 
 
 <div *ngIf="VistaNuevaColeccion">
-    <p-dialog header="{{ (!dataColeccion) ? 'NUEVA COLECCIÓN' : 'EDITAR COLECCIÓN'}}" [(visible)]="VistaNuevaColeccion" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="{{ (!dataColeccion) ? 'NUEVA COLECCIÓN' : 'EDITAR COLECCIÓN'}}" [(visible)]="VistaNuevaColeccion" [modal]="true">
         <form [formGroup]="Form">
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 

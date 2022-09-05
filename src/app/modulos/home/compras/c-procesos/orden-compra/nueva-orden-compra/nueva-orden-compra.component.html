@@ -419,7 +419,7 @@
 
 
 <div *ngIf="modalBuscarAnticipo">
-    <p-dialog header="BUSCAR PRODUCTO" [(visible)]="modalBuscarAnticipo" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="BUSCAR ANTICIPO" [(visible)]="modalBuscarAnticipo" [modal]="true" [style]="{width: '80vw'}">
         <app-buscar-anticipo [dataAnticipo]="dataAnticipo"  (AnticipoSelect)="onPintarAnticipoSeleccionado($event)"> </app-buscar-anticipo>
     </p-dialog> 
 </div> 

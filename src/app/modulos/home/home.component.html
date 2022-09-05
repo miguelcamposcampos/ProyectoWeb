@@ -35,7 +35,7 @@
 </div>
 
 <div *ngIf="modalUbicacion">
-    <p-dialog header="ESTABLECIMIENTO - ALMACÉN PREDETERMINADO" [(visible)]="modalUbicacion" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog header="ESTABLECIMIENTO - ALMACÉN PREDETERMINADO" [(visible)]="modalUbicacion" [modal]="true">
         <form [formGroup]="Form"> 
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 
@@ -76,14 +76,14 @@
 </div>  
 
 <div *ngIf="modalTiketera">
-    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalTiketera" [modal]="true" [style]="{width: '80vw'}">
+    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalTiketera" [modal]="true">
     <form [formGroup]="FormImpresion">
         <div class="p-col-12"> 
             <div class="p-fluid p-formgrid p-grid"> 
                 <div class="p-field p-col-12 md-6"> 
                     <strong>Host de Impresión:</strong>
                     <div class="p-inputgroup">  
-                        <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm">     
+                        <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm p-inputtext-gris">     
                         <button class="p-button-sm" type="button" pButton label="Aplicar Host" (click)="onLoadImpresoras()"> </button>    
                     </div> 
                 </div>
@@ -93,14 +93,14 @@
                 </div>
                 <div class="p-field p-col-12 md-6"> 
                     <strong>Ancho Papel(puntos)):</strong>
-                    <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm">     
+                    <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm p-inputtext-gris">     
                 </div>
             </div>
         </div>
     </form>
     <div class="botones">
         <button  
-            class="p-button-sm"
+            class="p-button-registrar"
             pButton
             [disabled]="FormImpresion.invalid"
             label="Grabar"
@@ -110,7 +110,7 @@
         </button>  
 
         <button   
-            class="p-button-sm"
+            class="p-button-cancelar"
             pButton
             style=" background-color: #D72250;"
             icon="pi pi-times-circle"
@@ -118,6 +118,6 @@
             (click)="modalTiketera = false">  
         </button>  
     </div> 
-    <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+    <div class="center"><span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span></div>
     </p-dialog> 
 </div> 

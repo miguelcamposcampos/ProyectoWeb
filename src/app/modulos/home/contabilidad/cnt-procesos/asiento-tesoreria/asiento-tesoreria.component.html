@@ -1,110 +1,102 @@
  <div *ngIf="!vNuevo">
-    <div class="contenidoTable card-box">
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-        </ngx-spinner>
+    <div class="margintabla"> 
+        <div class="contenidoTable card-box">
+            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+                <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+            </ngx-spinner>
+    
+            <p-toolbar>
+                <div class="p-toolbar-group-left">
+                    <h3> <i class="fa-solid fa-money-check-dollar"></i><strong> Asientos Tesorería </strong></h3>
+                </div>
+                <div class="p-toolbar-group-right">
+                    <button class="p-button-registrar" pButton type="button" icon="pi pi-plus"
+                        label="Agregar" tooltipPosition="left" pTooltip="Registrar una cuenta"
+                        (click)="onAdd()">
+                    </button>
+                </div>
+            </p-toolbar>
 
-        <div class="buscar-empresa">
-            <div class="container">
-                <p-toolbar>
-                    <div class="p-toolbar-group-left">
-                        <h3> <i class="fa-solid fa-money-check-dollar"></i><strong> Asientos Tesorería </strong></h3>
-                    </div>
-                    <div class="p-toolbar-group-right">
-                        <button class="p-button-registrar" pButton type="button" icon="pi pi-plus"
-                            label="Agregar" tooltipPosition="left" pTooltip="Registrar una cuenta"
-                            (click)="onAdd()">
-                        </button>
-                    </div>
-                </p-toolbar>
- 
+            <form [formGroup]="Form">
+                <div class="p-col-12"> 
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-5">
+                            <strong>Fecha Inicio:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaInicio"
+                            ></p-calendar> 
+                        </div> 
 
-                <form [formGroup]="Form">
-                    <div class="p-col-12"> 
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-5">
-                                <strong>Fecha Inicio:</strong>
-                                <p-calendar  
-                                    readonlyInput="true"
-                                    [showIcon]="true"
-                                    dateFormat="dd/mm/yy"
-                                    formControlName="fechaInicio"
-                                ></p-calendar> 
-                            </div> 
+                        <div class="p-field p-col-12 p-md-5">
+                            <strong>Fecha Fin:</strong>
+                            <p-calendar  
+                                readonlyInput="true"
+                                [showIcon]="true"
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaFin"
+                            ></p-calendar> 
+                        </div> 
 
-                            <div class="p-field p-col-12 p-md-5">
-                                <strong>Fecha Fin:</strong>
-                                <p-calendar  
-                                    readonlyInput="true"
-                                    [showIcon]="true"
-                                    dateFormat="dd/mm/yy"
-                                    formControlName="fechaFin"
-                                ></p-calendar> 
-                            </div> 
-
-                            <div class="p-field p-col-12 p-md-2 botonBuscar"> 
-                                <button pButton label="Buscar" type="button"  class="p-button-sm"  icon="pi pi-search" (click)="onLoad(null)"></button>
-                            </div> 
+                        <div class="p-field p-col-12 p-md-2 botonBuscar"> 
+                            <button pButton label="Buscar" type="button"  class="p-button-sm"  icon="pi pi-search" (click)="onLoad(null)"></button>
                         </div> 
                     </div> 
-                </form>
+                </div> 
+            </form>
 
-                <div class="row">
-                    <div class="tablas-empresas width-100"> 
-                        <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single"
-                            [rowHover]="true" [value]="list">
+            <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single"
+                [rowHover]="true" [value]="list">
 
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                        {{ col.header }}
-                                        <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field"
-                                            ariaLabel="Activate to sort"
-                                            ariaLabelDesc="Activate to sort in descending order"
-                                            ariaLabelAsc="Activate to sort in ascending order">
-                                        </p-sortIcon>
-                                    </th>
-                                </tr>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{ col.header }}
+                            <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field"
+                                ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-atesoreria let-columns="columns" let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="atesoreria" [pSelectableRowIndex]="rowIndex">
+                        <td *ngFor="let col of columns">
+                            <strong class="p-column-title">{{ col.header | uppercase}}</strong>
+                                
+                            <div [ngSwitch]="col.field">
+                                <div *ngSwitchCase="'fechaRegistro'">
+                                    {{ atesoreria[col.field] | date: col.formatoFecha }}
+                                </div> 
+                                <div *ngSwitchDefault>
+                                    {{ atesoreria[col.field] }}
+                                </div>
+                            </div>
+
+                            <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                <div style="display: flex;">
+                                    <button pButton type="button" tooltipPosition="top"
+                                    class="p-button-generico-azul" 
+                                        pTooltip="Editar" (click)="onEdit(atesoreria)" icon="pi pi-pencil">
+                                    </button>
+                                    <button pButton type="button" tooltipPosition="top"
+                                    class="p-button-cancelar"  (click)="onDelete(atesoreria)"
+                                        pTooltip="Eliminar" icon="pi pi-trash">
+                                    </button>
+                                </div>
                             </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
 
-                            <ng-template pTemplate="body" let-atesoreria let-columns="columns" let-rowIndex="rowIndex">
-                                <tr [pSelectableRow]="atesoreria" [pSelectableRowIndex]="rowIndex">
-                                    <td *ngFor="let col of columns">
-                                        <strong class="p-column-title">{{ col.header | uppercase}}</strong>
-                                         
-                                        <div [ngSwitch]="col.field">
-                                            <div *ngSwitchCase="'fechaRegistro'">
-                                                {{ atesoreria[col.field] | date: col.formatoFecha }}
-                                            </div> 
-                                            <div *ngSwitchDefault>
-                                                {{ atesoreria[col.field] }}
-                                            </div>
-                                        </div>
-
-                                        <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                            <div style="display: flex;">
-                                                <button pButton type="button" tooltipPosition="top"
-                                                class="p-button-generico-azul" 
-                                                    pTooltip="Editar" (click)="onEdit(atesoreria)" icon="pi pi-pencil">
-                                                </button>
-                                                <button pButton type="button" tooltipPosition="top"
-                                                class="p-button-cancelar"  (click)="onDelete(atesoreria)"
-                                                    pTooltip="Eliminar" icon="pi pi-trash">
-                                                </button>
-                                            </div>
-                                        </ng-template>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-
-                        <p-paginator [rows]="10" [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"
-                        [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoad($event)"></p-paginator>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            <p-paginator [rows]="10" [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"
+            [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoad($event)"></p-paginator>
+        </div> 
 
     </div>
     
