@@ -1016,7 +1016,7 @@
                         <strong>Host de Impresión:</strong>
                         <div class="p-inputgroup">
                             <input type="text" pInputText formControlName="hostImpresion" class="p-inputtext-sm">
-                            <button class="p-button-sm" type="button" pButton label="Aplicar Host"
+                            <button class="p-button-sm p-button-gris" type="button" pButton label="Aplicar Host"
                                 (click)="onLoadImpresoras()"> </button>
                         </div>
                     </div>
@@ -1035,15 +1035,15 @@
             </div>
         </form>
         <div class="botones">
-            <button class="p-button-sm" pButton type="button" [disabled]="FormImpresion.invalid" label="Grabar"
+            <button class="p-button-registrar" pButton type="button" [disabled]="FormImpresion.invalid" label="Grabar"
                 style="margin-right: 1%;" (click)="onSendImpresion()" icon="pi pi-check-circle">
             </button>
 
-            <button class="p-button-sm" pButton type="button" icon="pi pi-times-circle" label="Cancelar"
+            <button class="p-button-cancelar" pButton type="button" icon="pi pi-times-circle" label="Cancelar"
                 style=" background-color: #D72250;" (click)="modalImprimirTicket = false">
             </button>
         </div>
-        <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+        <span style="text-align: center"><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
 
     </p-dialog>
 </div>
