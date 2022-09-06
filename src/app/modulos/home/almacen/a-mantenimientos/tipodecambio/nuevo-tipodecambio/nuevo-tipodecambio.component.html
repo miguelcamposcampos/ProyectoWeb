@@ -4,11 +4,13 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12"> 
                 <strong>Valor Compra <span>*</span></strong>
-                <input type="text" minlength="1"   (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorCompra" class="p-inputtext-sm p-inputtext-gris " placeholder="ingresar valor de compra">   
+                <input type="text" minlength="1"   (keypress)="generalService.onSoloNumeros($event)"  pInputText 
+                formControlName="valorCompra" class="p-inputtext-sm-form" placeholder="ingresar valor de compra">   
             </div>
             <div class="p-field p-col-12"> 
                 <strong>Valor Venta <span>*</span></strong>
-                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)"  pInputText formControlName="valorVenta" class="p-inputtext-sm p-inputtext-gris" placeholder="ingresar valor de venta">     
+                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)"  
+                pInputText formControlName="valorVenta" class="p-inputtext-sm-form" placeholder="ingresar valor de venta">     
             </div>
             <div class="p-field p-col-12"> 
                 <strong>Fecha <span>*</span></strong>
@@ -29,8 +31,7 @@
             class="p-button-registrar"
             pButton
             type="button"
-            [disabled]="Form.invalid"
-            style="margin-right: 1%;"
+            [disabled]="Form.invalid" 
             label="{{ (!idTipoCambio) ? 'Grabar' : 'Actualizar'}}"
             (click)="onGrabar()"
             icon="pi pi-check-circle">  

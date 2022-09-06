@@ -50,7 +50,7 @@ export class ColoresComponent implements OnInit {
     this.VistaNuevoColor = true;
   }
 
-  onEdir( idColor : any){   
+  onEdit( idColor : any){   
     this.idColorEdit = idColor
     this.VistaNuevoColor = true;
   }

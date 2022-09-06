@@ -25,6 +25,12 @@ export class PropiedadesAdicionalesComponent implements OnInit {
     this.onTabsForm();
   }
  
+  onMenuSeleccionado(event){ 
+    const clickedTab = this.items.filter((x, index) => index === event);  
+    console.log(clickedTab);
+    this.activateMenu(clickedTab[0]);
+  }
+
   onTabsForm(){
     this.items = [
       {
@@ -78,18 +84,18 @@ export class PropiedadesAdicionalesComponent implements OnInit {
     this.tabMateriales = false;
     this.tabColeccion = false;
 
-    this.titulo = event.item.label
+    this.titulo = event.label
 
-    if(event.item.id ===  "2" ){
+    if(event.id ===  "2" ){
       this.tabTalla = true; 
       this.activeItem = this.items[1];
-    }else if(event.item.id ===  "3" ){
+    }else if(event.id ===  "3" ){
       this.tabTemporada = true; 
        this.activeItem = this.items[2];
-    }else if(event.item.id ===  "4" ){
+    }else if(event.id ===  "4" ){
       this.tabMateriales = true; 
        this.activeItem = this.items[3];
-    }else if(event.item.id ===  "5" ){
+    }else if(event.id ===  "5" ){
       this.tabColeccion = true; 
        this.activeItem = this.items[4];
     }else{

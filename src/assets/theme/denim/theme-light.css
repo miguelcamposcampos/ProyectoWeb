@@ -2207,7 +2207,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   font-weight: 600;
 }
 .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+ 
   padding: 1rem 1rem;
   border: 1px solid rgba(232, 241, 248, 0.7);
   border-width: 0 0 1px 0;
@@ -2215,6 +2215,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #515C66;
   background: #f3f3f3;
   transition: box-shadow 0.2s; 
+  /**CAMBIOS CRISTIAN MARTINEZ **/
+  justify-content: center;
+  text-align: center;
+  /**CAMBIOS CRISTIAN MARTINEZ **/
 }
 /*RESIZE DE LA TABLA EN  700*/
 @media (max-width: 700px) {

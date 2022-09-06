@@ -1,8 +1,5 @@
  
-
-<div class="contenidoTable card-box">   
-
-    <p-toolbar>
+ <p-toolbar>
         <div class="p-toolbar-group-left">
             <h3> LISTA DE COLORES</h3> 
         </div>
@@ -17,13 +14,12 @@
                 icon="pi pi-plus">
             </button>   
         </div>
-    </p-toolbar>
+</p-toolbar>
 
-    <p-table 
-    [responsive]="true"
-    [columns]="cols" 
+<p-table 
     responsiveLayout="stack"
-    selectionMode="single"
+    [scrollable]="true"   
+    [columns]="cols"  
     [rowHover]="true"
     [paginator]="true" 
     [rows]="10"
@@ -90,13 +86,11 @@
                 <td colspan="6">No existen registros</td>
             </tr>
         </ng-template> 
-    </p-table> 
-    
-</div> 
+</p-table> 
 
 
 <div *ngIf="VistaNuevoColor">
-    <p-dialog header="{{ (!idColorEdit) ? 'NUEVO COLOR' : 'EDITAR COLOR'}}" [(visible)]="VistaNuevoColor" [modal]="true">
+    <p-dialog header="{{ (!idColorEdit) ? 'NUEVO COLOR' : 'EDITAR COLOR'}}" [(visible)]="VistaNuevoColor" [modal]="true" [style]="{width: '30vw'}">
         <app-nuevo-color [idColorEdit]="idColorEdit" (cerrar)="onRetornar($event)"> </app-nuevo-color>
     </p-dialog> 
 </div>  

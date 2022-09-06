@@ -13,231 +13,156 @@ $gutter: 1rem; //for primeflex grid system
 @import "./assets/theme/custom/custom-theme.scss";
 @import "./assets/theme/custom/custom-grid.scss";
 
-
+  
  
- .formulario{
-    display: grid;
-    grid-gap: 1rem;
-    gap: 1rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 11rem 1fr;   
-    align-items: center;
-    @media (max-width: 700px) {  
-       grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-    }
- }
-
- 
-
-.tituloVista{
-  display: flex;
-  justify-content: space-between;
-  @media (max-width : 700px){
-      display: grid;
-  }
-}
-
-.botonesTitulosVista{
-  display: flex;
-  align-items: center;
-}
-
-
-.botonBuscar{
-  display: flex;
-  align-items: flex-end;   
-}
-
-
-.CampoSwicth{
-  display: flex;
-  align-items: center;   
-}
-
-
-.titulo{  
-    padding: 5px;
-    font-size: 1em;  
-    padding-left: 20px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 0 0 10px 10px;
-    font-weight: 500;
-    align-items: center; 
-    @media (max-width: 700px) {
-      display: block;
-    }
-  }
-
-
-.p-dialog-mask {
-  z-index: 999 !important;
-  min-width: 25%;
-}
-.p-dialog .p-dialog-header .p-dialog-header-icon{
-  color: white;
-}
-
-
-::ng-deep .swal2-container.swal2-center>.swal2-popup {
-  grid-column: 2;
-  grid-row: 2;
-  align-self: center;
-  justify-self: center;
-  z-index: 999;
-}
- 
-.p-fieldset .p-fieldset-content {
-  padding: 0;
-}
-
-.p-dialog{
-  width: 50%;
-  @media (max-width: 600px) {  
-    width: 95%;
-  }
-  @media (max-width: 767px) {  
-    width: 80%;
-  }
-}
-
-
-.p-dialog .p-dialog-content {
-  padding: 0 !important;
-}
-.p-dialog .p-dialog-footer {
-  padding: 0  !important;
-}
-
-.centrar{
-  text-align: center;
-}
-
- 
-.p-inputgroup { 
-  align-items: center;
-  width: 100%; 
-}
-
-.botones{
-  margin: 2%;
-  text-align: center;
-}
-
-.tituloPage {
-  align-items: center;
-  display: flex;
-  height: 100px;
-  justify-content: center;
-  background-color: #135AA9;
-  color: white;
- 
-}
-
-.extender{
-  display: contents;
-}
-
-//  .p-dropdown {
-//   display: flex;
-//   font-size: 15px;
-//   height: 31px;
+// .p-inputgroup { 
 //   align-items: center;
+//   width: 100%; 
 // }
 
-  
 
 
-.cantidadTomaInventario{
-  text-align: center; 
-  font-weight: bold;
-  background-color: lightgray;
-  font-size: large;
-}
+// .tituloPage {
+//   align-items: center;
+//   display: flex;
+//   height: 100px;
+//   justify-content: center;
+//   background-color: #135AA9;
+//   color: white;
+ 
+// }
 
+// .extender{
+//   display: contents;
+// }
 
-::ng-deep .p-toolbar{
-  padding-top: 0% !important;
-  padding-bottom: 0% !important;
-} 
+// //  .p-dropdown {
+// //   display: flex;
+// //   font-size: 15px;
+// //   height: 31px;
+// //   align-items: center;
+// // }
 
+   
+// .cantidadTomaInventario{
+//   text-align: center; 
+//   font-weight: bold;
+//   background-color: lightgray;
+//   font-size: large;
+// }
  
 
-.formularioColum12_1{
-  display: grid;
-  grid-gap: 1rem;
-  gap: 1rem;
-  grid-auto-rows: auto;
-  grid-template-columns: 12rem 1fr;   
-  align-items: center;
-  @media (max-width: 800px) {  
-     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  }
-}  
- 
-.menu-wrapper {
-  top: 100px!important; 
-}
 
-  
-  /***CAMBIO CRISTIAN MARTINEZ**/  
-    .layout-wrapper .layout-main {
-     // padding-top: 105px;
-      padding-top: 85px;
-    }
-  /***CAMBIO CRISTIAN MARTINEZ**/
+   
+// .elegirOpciones{
+//   display: flex;
+//   justify-content: space-evenly;
+// }
 
 
- 
-.elegirOpciones{
-  display: flex;
-  justify-content: space-evenly;
-}
-
-
-.__switches{
-  display: grid;
-  grid-gap: 1rem;
-  grid-auto-rows: auto;
-  grid-template-columns: 15rem 1fr;   
-  align-items: center;
-  @media (max-width: 800px) {   
-    grid-template-columns: 12rem 1fr;  
-  }
-  }  
+// .__switches{
+//   display: grid;
+//   grid-gap: 1rem;
+//   grid-auto-rows: auto;
+//   grid-template-columns: 15rem 1fr;   
+//   align-items: center;
+//   @media (max-width: 800px) {   
+//     grid-template-columns: 12rem 1fr;  
+//   }
+//   }  
  
 
-  .CalculosDiferencia{
-    display: grid; 
-}
+//   .CalculosDiferencia{
+//     display: grid; 
+// }
 
-.ColTitulos{
-    text-align: end;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr 1fr;
+// .ColTitulos{
+//     text-align: end;
+//     display: grid;
+//     align-items: center;
+//     grid-template-columns: 1fr 1fr;
 
-    @media (max-width: 700px){
-        text-align: left; 
-        grid-template-columns: 1fr;
-    }
+//     @media (max-width: 700px){
+//         text-align: left; 
+//         grid-template-columns: 1fr;
+//     }
 
-    .CalculosDiferenciaTitulos{
-        text-align: center;
-        display: grid;
-        align-items: center;
-        grid-template-columns: 1fr 1fr 1fr;
+//     .CalculosDiferenciaTitulos{
+//         text-align: center;
+//         display: grid;
+//         align-items: center;
+//         grid-template-columns: 1fr 1fr 1fr;
 
        
-        @media (max-width: 700px){
-            text-align: left; 
-            grid-template-columns: 35% 25% 25%;
-        }
+//         @media (max-width: 700px){
+//             text-align: left; 
+//             grid-template-columns: 35% 25% 25%;
+//         }
 
 
-        .p-inputtext.p-inputtext-sm { 
-            text-align: right;
-        }
+//         .p-inputtext.p-inputtext-sm { 
+//             text-align: right;
+//         }
 
+//     }
+// }
+
+
+/***CAMBIO CRISTIAN MARTINEZ**/  
+  .layout-wrapper .layout-main { 
+    padding-top: 85px;
+  }
+
+  .botones{
+    margin: 2%;
+    text-align: center;
+  }
+
+
+  .p-dialog-mask {
+    z-index: 999 !important;
+    min-width: 25%;
+  }
+  .p-dialog .p-dialog-header .p-dialog-header-icon{
+    color: white;
+  }
+
+
+  ::ng-deep .swal2-container.swal2-center>.swal2-popup {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    z-index: 999;
+  }
+   
+  .p-dialog{
+    width: 50%;
+    @media (max-width: 600px) {  
+      width: 95% !important;
     }
-}
+    @media (max-width: 767px) {  
+      width: 80% !important;
+    }
+  }
+
+    
+  ::ng-deep .p-toolbar{
+    padding-top: 0% !important;
+    padding-bottom: 0% !important;
+  } 
+ 
+ 
+  .menu-wrapper {
+    top: 100px!important; 
+  }
+
+  .CampoSwicth{
+    display: flex;
+    align-items: center;   
+  }
+
+
+ 
+
+/***CAMBIO CRISTIAN MARTINEZ**/

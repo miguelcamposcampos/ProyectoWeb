@@ -64,7 +64,8 @@
                                 ></p-calendar> 
                             </div>
 
-                            <div class="p-field p-col-12 p-md-4 botonBuscar"> 
+                            <div class="p-field p-col-12 p-md-4"> 
+                                <br>
                                 <button 
                                 pButton
                                 type="button"
@@ -84,11 +85,12 @@
         <br>
 
             <p-table   
+            class="TablaDetalleCondicionPago"
+            responsiveLayout="stack"
+            [scrollable]="true" 
             [paginator]="true" 
             [rows]="10" 
             [columns]="cols" 
-            responsiveLayout="stack"
-            selectionMode="single"
             [rowHover]="true"
             [value]="listaTipoCambio">  
 
@@ -156,14 +158,16 @@
     </div>
 
     <div *ngIf="modalNuevoTipoCambio">
-        <p-dialog   [header]="(!idTipoCambio) ? 'Nuevo Tipo Cambio' : 'Editar Tipo Cambio'" [(visible)]="modalNuevoTipoCambio" [modal]="true" [draggable]="false" [resizable]="false" class="ModalTipoCambio">
+        <p-dialog   [header]="(!idTipoCambio) ? 'Nuevo Tipo Cambio' : 'Editar Tipo Cambio'" [(visible)]="modalNuevoTipoCambio" 
+            [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '30vw'}">
             <app-nuevo-tipodecambio [idTipoCambio]="idTipoCambio"   (cerrar)="onRetornar($event)" > </app-nuevo-tipodecambio>
         </p-dialog> 
     </div>
  
 
     <div *ngIf="modalBuscarPorMes">
-        <p-dialog header="OBTENER POR MES" [(visible)]="modalBuscarPorMes" [modal]="true" [draggable]="false" [resizable]="false" class="ModalTipoCambio" >   
+        <p-dialog header="OBTENER POR MES" [(visible)]="modalBuscarPorMes" [modal]="true" [draggable]="false" 
+        [resizable]="false" [style]="{width: '25vw'}">   
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 
                     <div class="p-field p-col-12"> 

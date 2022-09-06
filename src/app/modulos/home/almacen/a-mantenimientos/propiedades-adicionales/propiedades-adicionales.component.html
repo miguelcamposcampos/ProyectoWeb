@@ -5,7 +5,16 @@
     </ngx-spinner>
 
     <div class="contenidoTable card-box">   
-        <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>             
+        <!-- <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>      -->
+
+        <p-tabView (onChange)="onMenuSeleccionado($event.index)"  [scrollable]="true" [activeIndex]="activeItem">
+            <p-tabPanel [header]="item.label" *ngFor=" let item of items" >
+            </p-tabPanel>
+        </p-tabView> 
+
+    </div>
+    <br>
+    <div class="contenidoTable card-box">   
             <div *ngIf="tabColor" >
                 <app-colores></app-colores>
             </div> 

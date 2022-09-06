@@ -4,14 +4,21 @@
 
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
-           </ngx-spinner>
-           
-        <div class="tituloMarca">  
-            <h3> <i class="fas fa-file-pdf"></i> REPORTE  ANÁLISIS CUENTA </h3>  
-        </div>  
+        </ngx-spinner>
+            
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-file-pdf"></i> REPORTE  ANÁLISIS CUENTA </h3>  
+            </div>
+            <div class="p-toolbar-group-right">
+                <button pButton class="p-button-generico-azul" label="Generar" type="button" 
+                pTooltip="PDF" icon="pi pi-file-pdf" (click)="onGenerarReporte()"></button>
+            </div>
+        </p-toolbar>
+ 
         <form [formGroup]="Form">
             <div class="p-col-12"> 
-                <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid"> 
+                <div class="p-fluid p-formgrid p-grid"> 
                    
                     <div class="p-field p-col-12 p-md-3 p-sm-6">
                         <strong>Fec Hasta: </strong> 
@@ -32,28 +39,19 @@
                         </div> 
                     </div>
 
-                    <div class="p-field p-col-12 p-md-3 p-sm-6">
-                        <!-- <div class="p-field p-col-12 p-md-10 CampoSwicth"> -->
+                    <div class="p-field p-col-12 p-md-3 p-sm-6"> 
                         <strong style="margin-right: 1.5%;">Sólo con Detalle</strong>  
                         <p-inputSwitch  formControlName="solocondetalle"></p-inputSwitch> 
                          
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-2 p-sm-6">     
-                        <button pButton class="p-button-sm" label="Generar" type="button" pTooltip="PDF" icon="pi pi-file-pdf" (click)="onGenerarReporte()"></button>
-                    </div>
+                    </div> 
 
                 </div>
-            </div>
-    
-        </form>
-    
+            </div> 
+        </form> 
+    </div> 
 
-        <div *ngIf="contenidoReporte" style="height: 80vh;"> 
-            <br> 
-            <iframe  [src]="Pdf" height="95%" width="100%"></iframe> 
-        </div>
- 
+    <div *ngIf="contenidoReporte" class="contenidoTable card-box">  
+        <iframe  [src]="Pdf" height="95%" width="100%"></iframe>  
     </div> 
 </div>  
 

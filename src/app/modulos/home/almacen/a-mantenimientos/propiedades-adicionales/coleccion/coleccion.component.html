@@ -1,109 +1,100 @@
- <div class="contenidoTable card-box">   
-    <p-toolbar>
-        <div class="p-toolbar-group-left">
-            <h3> LISTA DE COLECCIÓN</h3> 
-        </div>
-        
-        <div class="p-toolbar-group-right">
-            <button 
-                pButton
-                type="button"   
-                label="Agregar" 
-                class="p-button-registrar"
-                (click)="onAdd()" 
-                icon="pi pi-plus">
-            </button>   
-        </div>
-    </p-toolbar>
-
-    <p-table 
-    [responsive]="true"
-    [columns]="cols" 
-    responsiveLayout="stack"
-    selectionMode="single"
-    [rowHover]="true"
-    [paginator]="true" 
-    [rows]="10"
-    [showCurrentPageReport]="true" 
-    [rowsPerPageOptions]="[5,10,50,100]" 
-    [value]="listaColecciones">  
-
-        <ng-template pTemplate="header" let-columns >
-            <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{ col.header }} 
-                    <p-sortIcon *ngIf="col.field != 'acciones'"
-                        [field]="col.field"
-                        ariaLabel="Activate to sort"
-                        ariaLabelDesc="Activate to sort in descending order"
-                        ariaLabelAsc="Activate to sort in ascending order">
-                    </p-sortIcon> 
-                </th>
-            </tr> 
-        </ng-template>
-        
-        <ng-template pTemplate="body" let-coleccion let-columns="columns"  let-rowIndex="rowIndex"> 
-            <tr [pSelectableRow]="coleccion" [pSelectableRowIndex]="rowIndex">
-                <td  *ngFor="let col of columns" >
-                    <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
-
-                    <div [ngSwitch]="col.field">    
-                        <div *ngSwitchCase="'fechaRegistro'">
-                            {{ coleccion[col.field] | date: col.formatoFecha }}
-                        </div>
-                        <div *ngSwitchDefault>
-                            {{ coleccion[col.field]  }}
-                        </div>
-                    </div>  
-
-                    <ng-template #botones [ngIf]="col.field === 'acciones'">
-                        <div style="display: flex;">
-                            <button 
-                                pButton
-                                type="button" 
-                                tooltipPosition="top" 
-                                pTooltip="Editar" 
-                                (click)="onEdit(coleccion)"
-                                class="p-button-generico-azul"
-                                icon="pi pi-pencil">
-                            </button>     
-                            <button 
-                                pButton
-                                type="button" 
-                                tooltipPosition="top" 
-                                class="p-button-cancelar" 
-                                (click)="onDelete(coleccion)"
-                                pTooltip="Eliminar"  
-                                icon="pi pi-trash">
-                            </button>        
-                        </div>  
-                    </ng-template>  
-                </td>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="6">No existen registros</td>
-            </tr>
-            </ng-template> 
-    </p-table> 
+   
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <h3> LISTA DE COLECCIÓN</h3> 
+    </div>
     
-</div> 
+    <div class="p-toolbar-group-right">
+        <button 
+            pButton
+            type="button"   
+            label="Agregar" 
+            class="p-button-registrar"
+            (click)="onAdd()" 
+            icon="pi pi-plus">
+        </button>   
+    </div>
+</p-toolbar>
 
+<p-table  
+responsiveLayout="stack"
+[scrollable]="true"  
+[columns]="cols"   
+[rowHover]="true"
+[paginator]="true" 
+[rows]="10"
+[showCurrentPageReport]="true" 
+[rowsPerPageOptions]="[5,10,50,100]" 
+[value]="listaColecciones">  
 
+    <ng-template pTemplate="header" let-columns >
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{ col.header }} 
+                <p-sortIcon *ngIf="col.field != 'acciones'"
+                    [field]="col.field"
+                    ariaLabel="Activate to sort"
+                    ariaLabelDesc="Activate to sort in descending order"
+                    ariaLabelAsc="Activate to sort in ascending order">
+                </p-sortIcon> 
+            </th>
+        </tr> 
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-coleccion let-columns="columns"  let-rowIndex="rowIndex"> 
+        <tr [pSelectableRow]="coleccion" [pSelectableRowIndex]="rowIndex">
+            <td  *ngFor="let col of columns" >
+                <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+
+                <div [ngSwitch]="col.field">    
+                    <div *ngSwitchCase="'fechaRegistro'">
+                        {{ coleccion[col.field] | date: col.formatoFecha }}
+                    </div>
+                    <div *ngSwitchDefault>
+                        {{ coleccion[col.field]  }}
+                    </div>
+                </div>  
+
+                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                    <div style="display: flex;">
+                        <button 
+                            pButton
+                            type="button" 
+                            tooltipPosition="top" 
+                            pTooltip="Editar" 
+                            (click)="onEdit(coleccion)"
+                            class="p-button-generico-azul"
+                            icon="pi pi-pencil">
+                        </button>     
+                        <button 
+                            pButton
+                            type="button" 
+                            tooltipPosition="top" 
+                            class="p-button-cancelar" 
+                            (click)="onDelete(coleccion)"
+                            pTooltip="Eliminar"  
+                            icon="pi pi-trash">
+                        </button>        
+                    </div>  
+                </ng-template>  
+            </td>
+        </tr>
+    </ng-template> 
+</p-table> 
+    
+  
 <div *ngIf="VistaNuevaColeccion">
-    <p-dialog header="{{ (!dataColeccion) ? 'NUEVA COLECCIÓN' : 'EDITAR COLECCIÓN'}}" [(visible)]="VistaNuevaColeccion" [modal]="true">
+    <p-dialog header="{{ (!dataColeccion) ? 'NUEVA COLECCIÓN' : 'EDITAR COLECCIÓN'}}" [(visible)]="VistaNuevaColeccion" [modal]="true" [style]="{width: '30vw'}">
         <form [formGroup]="Form">
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 
                     <div class="p-field p-col-12"> 
                         <strong *ngIf="mostrarCodigo">Código:</strong>
-                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-clear-grey pd-5 width-100">   
+                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-form">   
                     </div> 
                     <div class="p-field p-col-12"> 
                         <strong>Nombre *:</strong>
-                        <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar un nombre">     
+                        <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm-form" placeholder="ingresar un nombre">     
                     </div> 
                 </div> 
             </div> 

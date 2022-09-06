@@ -2496,7 +2496,7 @@ p:last-child {
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem>div {
-  padding-left: 13px;
+  /* padding-left: 13px;
   margin-bottom: 5px;
   margin-top: 25px;
   width: 200px !important;
@@ -2505,6 +2505,16 @@ p:last-child {
   margin-left: 10px;
   padding: 5px;
   border-radius: 10px;
+  margin-left: 10px;  */
+   
+  /* CAMBIO CRISTIAN MARTINEZ */
+  margin: 15px 10px 0;
+  width: 215px !important;
+  background-color: #4da8de;
+  text-align: center; 
+  padding: 10px;
+  border-radius: 8px;
+  /* CAMBIO CRISTIAN MARTINEZ */
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem>div>.layout-menuitem-text {
@@ -2566,13 +2576,8 @@ p:last-child {
   list-style-type: none;
   padding: 0;
   margin: 0;
-<<<<<<< HEAD
   padding-left: 19px;
   width: 215px;
-=======
-  padding-left: 10px;
-  width: 200px;
->>>>>>> StylesV1.0
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul li ul {

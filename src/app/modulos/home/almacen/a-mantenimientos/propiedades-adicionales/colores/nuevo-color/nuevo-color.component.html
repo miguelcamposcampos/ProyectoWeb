@@ -2,13 +2,13 @@
 <form [formGroup]="Form">
     <div class="p-col-12"> 
         <div class="p-fluid p-formgrid p-grid"> 
-            <div class="p-field p-col-12"> 
-                <strong *ngIf="mostrarCodigo">Código:</strong>
-                <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-clear-grey pd-5 width-100">     
+            <div *ngIf="mostrarCodigo" class="p-field p-col-12"> 
+                <strong>Código:</strong>
+                <input type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-form">     
             </div> 
             <div class="p-field p-col-12">  
                 <strong>Nombre *:</strong>
-                <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar un nombre">     
+                <input  type="text" pInputText minlength="1" maxlength="15" formControlName="nombre" class="p-inputtext-sm-form" placeholder="ingresar un nombre">     
             </div> 
             <!-- <strong>Predeterminado:</strong>
             <p-colorPicker appendTo="body"  formControlName="color"></p-colorPicker> -->
@@ -20,7 +20,6 @@
             class="p-button-registrar"
             pButton
             type="button"
-            style="margin-right: 1%;"
             [disabled]="Form.invalid"
             label="{{ (idColorEdit) ? 'Actualizar' : 'Grabar' }}"
             (click)="onGrabar()"
