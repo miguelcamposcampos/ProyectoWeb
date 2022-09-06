@@ -2468,9 +2468,14 @@ p:last-child {
 
 .menu-wrapper .layout-menu-container .layout-menu {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  /* padding: 0; */
+  /* margin: 0; */
   padding-bottom: 36px;
+
+  /**CAMBIOS CRISTIAN MARTINEz */
+  padding: 1px 10px 10px 15px;
+  width: 230px !important;
+   /**CAMBIOS CRISTIAN MARTINEz */
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li {
@@ -2508,17 +2513,21 @@ p:last-child {
   margin-left: 10px;  */
    
   /* CAMBIO CRISTIAN MARTINEZ */
-  margin: 15px 10px 0;
-  width: 215px !important;
+  margin: 20px 10px 10px 0px;
+  width: 205px !important;
   background-color: #4da8de;
-  text-align: center; 
-  padding: 10px;
+  text-align: center;
+  color: white;
+  padding: 10px; 
   border-radius: 8px;
   /* CAMBIO CRISTIAN MARTINEZ */
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem>div>.layout-menuitem-text {
-  font-size: 12px;
+  /**CAMBIOS CRISTIAN MARTINEZ 
+   /* font-size: 12px; */
+    font-size: 14px;
+  /**CAMBIOS CRISTIAN MARTINEZ **/
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -2528,8 +2537,15 @@ p:last-child {
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>a {
-  margin: 0px;
-  padding: 7px 20px 6px 8px;
+
+  /**CAMBIOS CRISTIAN MARTINEZ **/
+    /* 
+      margin: 0px;
+      padding: 7px 20px 6px 8px;
+    */
+    margin: 0;
+    padding: 0 0 10px 0;
+   /**CAMBIOS CRISTIAN MARTINEZ **/
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -2573,11 +2589,17 @@ p:last-child {
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  padding-left: 19px;
-  width: 215px;
+  list-style-type: none; 
+ /* CAMBIO CRISTIAN MARTINEZ */
+    /*
+      list-style-type: none;
+       margin: 0; 
+        width: 215px;
+    */
+  padding: 5px; 
+  background: #d3edfc;
+  /*margin: 10px 15px 25px 15px;*/
+
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul li ul {
@@ -2586,7 +2608,7 @@ p:last-child {
   background: #A8D4ED; */
   padding: 0 0 4px;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 15px; 
   /*CAMBIO CSS*/
 }
 
@@ -2619,11 +2641,11 @@ p:last-child {
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul>li ul li a {
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul>li ul li ul li a {
-  padding-left: 30px;
+  padding-left: 15px;
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul>li ul li ul li ul li a {
@@ -2899,11 +2921,12 @@ p:last-child {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
 }
 
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>div .layout-menuitem-text {
-  /* color: #CDD2DB; */
+/* .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>div .layout-menuitem-text {
+  color: #CDD2DB; 
   color: white;
   font-weight: bold;
 }
+*/
 
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li a {
   color: #E5E8EC;

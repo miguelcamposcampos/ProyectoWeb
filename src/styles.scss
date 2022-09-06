@@ -163,6 +163,12 @@ $gutter: 1rem; //for primeflex grid system
   }
 
 
- 
+ .TittleMenu{
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: baseline;
+  text-align: left !important;
+  padding-left: 10% !important;
+ }
 
 /***CAMBIO CRISTIAN MARTINEZ**/

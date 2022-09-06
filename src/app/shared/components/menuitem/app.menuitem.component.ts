@@ -12,7 +12,8 @@ import { HomeComponent } from 'src/app/modulos/home/home.component';
     /* tslint:enable:component-selector */
     template: `
          <ng-container>
-            <div *ngIf="root && item.visible !== false">
+            <div *ngIf="root && item.visible !== false" class="TittleMenu">
+                <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
                 <span class="layout-menuitem-text">{{item.label}}</span>
             </div>
             <a [attr.href]="item.url" (click)="itemClick($event)" (click)="onEnviarTitulo(item)" *ngIf="(!item.routerLink || item.items) && item.visible !== false" (keydown.enter)="itemClick($event)"

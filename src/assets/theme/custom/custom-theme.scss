@@ -877,19 +877,22 @@ p-inputmask {
     margin: auto !important;
 }
 
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>div .layout-menuitem-text {
-    color: white !important;
-    font-weight: bold !important;
-    padding: 10px 45px !important;
-    border-radius: 10px !important;
-}
+// .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>div .layout-menuitem-text {
+//     color: white !important;
+//     font-weight: bold !important;
+//     padding: 10px 45px !important;
+//     border-radius: 10px !important;
+// }
 
-.menu-wrapper .layout-menu-container .layout-menu li>ul {
-    background: #d3edfc !important;
-    border-radius: 10px !important;
-    margin-top: 25px !important;
-    margin-left: 12px;
-}
+// .menu-wrapper .layout-menu-container .layout-menu li>ul {
+//     background: #d3edfc !important;
+//     /**Cambios Cristian Martinez */
+//         // border-radius: 10px !important;
+//         // margin-top: 25px !important;
+//         // margin-left: 12px;
+//     /**Cambios Cristian Martinez */
+//     margin: 0 15px 25px 15px;
+// }
 
 .menu-wrapper .layout-menu-container {
     overflow: auto;
