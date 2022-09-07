@@ -56,7 +56,7 @@
 
 .p-button-generico-azul {
     color: #f8fafc;
-    background: #1B74C5;
+    background: #4da8de;
     border: 0px solid #1B74C5;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -103,6 +103,16 @@
     font-weight: 900;
     font-size: 14px;
 }
+
+
+.p-button-generico-agregar-rol {
+    width: 50%;
+    height: 45px;
+    border-radius: 10px;
+    font-weight: 900;
+}
+
+
 
 .p-button-sm-generico-agregar {
     background: #1B74C5;
@@ -447,7 +457,6 @@
 }
 
 .header-buscar-empresas {
-
     width: 990px;
     text-align: center;
     margin: 0 auto;
@@ -459,9 +468,29 @@
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
     display: flex;
     align-items: center;
-
 }
 
+.header-roles {
+    width: 1000px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+    display: flex; 
+}
+
+.botones-tabla{
+    display: flex;
+  }
+
+.botones-plan-empresa{
+justify-content: space-around;
+display: flex;
+}
 
 .header-buscar-planes {
 
@@ -507,34 +536,26 @@
 
 
 .formularioEmpresa {
-    display: grid;
-    grid-gap: 1rem;
-    gap: 1rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 14rem 20rem;
-    justify-content: center;
-    margin-top: 25px;
-    align-items: center;
+    width: 50%; 
+    margin: 0 auto;
 }
 
-
-
-.eligirPlan {
+ 
+.elegirPlan {
     background-color: #efefef;
     padding: 65px;
     border-radius: 25px;
 }
 
-.p-button-elegirplan {
-    width: 290px;
-    height: 45px;
-    background: #4DA8DE;
-    border-radius: 25px;
-}
+// .p-button-elegirplan {
+//     width: 290px;
+//     height: 45px;
+//     background: #4DA8DE;
+//     border-radius: 25px;
+// }
 
 .card-box {
-    background: #ffffff;
-  
+    background: #ffffff; 
     /***CAMBIO CRISTIAN MARTINEZ**/
       // padding: 30px 20px;
       padding: 10px 20px;
@@ -555,8 +576,8 @@
 .row {
     display: flex;
     flex-wrap: nowrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    // margin-right: -15px;
+    // margin-left: -15px;
     flex-direction: row;
     align-items: flex-start;
 }

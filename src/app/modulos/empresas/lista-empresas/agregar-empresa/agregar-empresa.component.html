@@ -1,10 +1,7 @@
-<div>
-
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
         <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
     </ngx-spinner>
-
-
+ 
     <p-toolbar>
         <div class="logotipo">
             <div class="p-toolbar-group-center">
@@ -13,7 +10,7 @@
             </div>
         </div>
 
-        <div class="p-toolbar-group-right">
+        <div class="p-toolbar-group-right p-toolbar-group-center-mobile">
             <button class="p-button-generico-azul" pButton type="button" icon="pi pi-arrow-left" label="Regresar"
                 tooltipPosition="left" pTooltip="Regresar" (click)="onRegresar()">
             </button>
@@ -23,88 +20,89 @@
     <div class="tituloPage">
         <h2> <strong>{{ ( !EmpresaEdit ) ? ' Registrar Empresa' : 'Actualizar Empresa'}}</strong></h2>
     </div>
-
-
+ 
     <div class="margintabla">
-        <div class="contenidoTable card-box card-responsive p-fieldset-form">
-            <form [formGroup]="Form">
-                <p-fieldset>
-                    <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-                    <div class="formularioEmpresa formulario-campo-obligatorio">
-                        <strong>Número de Ruc <span >*</span> </strong>
-                        <input type="text" pInputText required (keydown.enter)="onSearchRuc()"
-                            (keypress)="generalService.onSoloNumeros($event)" formControlName="ruc" class="p-inputtext-generico"
-                            minlength="11" maxlength="11" placeholder="ingresar el RUC">
+      
+        <div class="margintabla"> 
+            <div class="row">
+              <div class="formularioEmpresa">  
+                <div class="contenidoTable card-box p-fieldset-form">
+                    <form [formGroup]="Form">
+                        <p-fieldset>
+                            <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
+                            <div style="line-height: 40px;">
+                                <strong>Número de Ruc <span >*</span> </strong>
+                                <input type="text" pInputText required (keydown.enter)="onSearchRuc()"
+                                    (keypress)="generalService.onSoloNumeros($event)" formControlName="ruc" class="p-inputtext-generico"
+                                    minlength="11" maxlength="11" placeholder="ingresar el RUC">
 
-                        <strong>Razón Social <span>*</span> </strong>
-                        <input type="text" pInputText required formControlName="razonsocial" class="p-inputtext-generico"
-                            placeholder="ingresar razón social">
+                                <strong>Razón Social <span>*</span> </strong>
+                                <input type="text" pInputText required formControlName="razonsocial" class="p-inputtext-generico"
+                                    placeholder="ingresar razón social">
 
-                        <strong>Nombre Comercial </strong>
-                        <input type="text" pInputText formControlName="nombrecomercial" class="p-inputtext-generico"
-                            placeholder="ingresar nombre comercial">
+                                <strong>Nombre Comercial </strong>
+                                <input type="text" pInputText formControlName="nombrecomercial" class="p-inputtext-generico"
+                                    placeholder="ingresar nombre comercial">
 
-                        <strong>Dirección Fiscal <span>*</span> </strong>
-                        <input type="text" pInputText formControlName="direccionfiscal" class="p-inputtext-generico"
-                            minlength="1" placeholder="ingresar dirección fiscal">
+                                <strong>Dirección Fiscal <span>*</span> </strong>
+                                <input type="text" pInputText formControlName="direccionfiscal" class="p-inputtext-generico"
+                                    minlength="1" placeholder="ingresar dirección fiscal">
 
-                        <strong>Email </strong>
-                        <input type="text" pInputText formControlName="email" class="p-inputtext-generico"
-                            placeholder="ingresar el email">
+                                <strong>Email </strong>
+                                <input type="text" pInputText formControlName="email" class="p-inputtext-generico"
+                                    placeholder="ingresar el email">
 
-                        <strong>Web Site </strong>
-                        <input type="url" pInputText formControlName="website" class="p-inputtext-generico"
-                            placeholder="ingresar el sitio web">
+                                <strong>Web Site </strong>
+                                <input type="url" pInputText formControlName="website" class="p-inputtext-generico"
+                                    placeholder="ingresar el sitio web">
 
-                        <strong>Teléfono </strong>
-                        <input type="text" pInputText formControlName="telefonos" class="p-inputtext-generico"
-                            placeholder="ingresar el telefono">
-                    </div>
+                                <strong>Teléfono </strong>
+                                <input type="text" pInputText formControlName="telefonos" class="p-inputtext-generico"
+                                    placeholder="ingresar el telefono">
+                            </div> 
+                        </p-fieldset>
 
-                </p-fieldset>
-
-                <div *ngIf="!EmpresaEdit" class="centrar" style="margin:2%">
-                    <div class="container eligirPlan">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="eligirPlanTitle">
-                                    <h3>Elija el tipo de plan</h3>
+                        <div *ngIf="!EmpresaEdit">
+                            <div class="elegirPlan">
+                                <div class="botones-plan-empresa"> 
+                                    <h3>Elija el tipo de plan</h3>  
+                                    <div>
+                                        <button pButton type="button"
+                                            label="{{ (!mostrarNombrePlanelegido)? 'Detalle de Planes' : mostrarNombrePlanelegido }}"
+                                            (click)="onModalPlan()" icon="pi pi-check-square" class="p-button-generico-azul">  
+                                        </button>
+                                        <button pButton *ngIf="mostrarNombrePlanelegido" pTooltip="quitar plan elegido"
+                                            tooltipPosition="left" type="button"
+                                            (click)="onDeletePlan()" icon="pi pi-trash" class="p-button-cancelar"> 
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <button pButton type="button"
-                                    label="{{ (!mostrarNombrePlanelegido)? 'Detalle de Planes' : mostrarNombrePlanelegido }}"
-                                    (click)="onModalPlan()" icon="pi pi-check-square" class="p-button-elegirplan">
-                                </button>
-                                <button pButton *ngIf="mostrarNombrePlanelegido" pTooltip="quitar plan elegido"
-                                    tooltipPosition="left" style=" background-color: #D72250;" type="button"
-                                    (click)="onDeletePlan()" icon="pi pi-trash" class="p-button-elegirplan"> 
-                                </button>
-                            </div>
+
                         </div>
+
+
+                    </form>
+
+                    <hr>
+
+                    <div class="botones">
+                        <button class="p-button-acceder" pButton style="margin-right: 1%;" type="button"
+                            icon="pi pi-check-circle" label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}"
+                            [disabled]="!Form.valid" (click)="onAdd()">
+                        </button>
+
+
+                        <button class="p-button-cancelar" pButton  type="button"
+                            icon="pi pi-times-circle" label="Cancelar" (click)="onRegresar()">
+                        </button>
                     </div>
 
                 </div>
-
-
-            </form>
-
-            <hr>
-            <div class="botones">
-                <button class="p-button-acceder" pButton style="margin-right: 1%;" type="button"
-                    icon="pi pi-check-circle" label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}"
-                    [disabled]="!Form.valid" (click)="onAdd()">
-                </button>
-
-
-                <button class="p-button-cancelar" pButton  type="button"
-                    icon="pi pi-times-circle" label="Cancelar" (click)="onRegresar()">
-                </button>
             </div>
-
         </div>
+
     </div>
-</div>
 
 
 

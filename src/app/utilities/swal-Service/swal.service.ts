@@ -21,8 +21,8 @@ export class MensajesSwalService {
         { Swal.fire({
             title: 'Su sesión ha caducado, debe iniciar sesión nuevamente, gracias.', 
             color: '#716add', 
-            showCancelButton: false, 
-            cancelButtonColor: '#3085d6',
+            showCancelButton: false,  
+            confirmButtonColor: '#4da8de',
             confirmButtonText: 'Iniciar Sesión', 
           }).then(
               respuesta => {
@@ -62,6 +62,7 @@ export class MensajesSwalService {
             icon: 'warning',
             title: 'Advertencia',
             text: mensaje,
+            confirmButtonColor: '#4da8de',
             showConfirmButton: true,
         });
     }
@@ -72,6 +73,7 @@ export class MensajesSwalService {
             icon: 'error',
             title: 'Error',
             text: mensaje,
+            confirmButtonColor: '#4da8de',
             showConfirmButton: true,
         });
     }
@@ -85,7 +87,7 @@ export class MensajesSwalService {
             text: mensaje,
             icon: 'question',
             showCancelButton: true, 
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#4da8de',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si',
             cancelButtonText: 'No'
@@ -150,6 +152,7 @@ export class MensajesSwalService {
             html:  '<b>'+ correo + '</b>', 
             showCancelButton: true,
             focusConfirm: false,
+            confirmButtonColor: '#4da8de',
             confirmButtonText:'<i class="pi pi-check"></i> Recuperar', 
             cancelButtonText:'Cancelar'
           }).then(
@@ -209,6 +212,7 @@ export class MensajesSwalService {
         { Swal.fire({
             title: 'No hay empresas registradas' , 
             text: 'Porfavor registra una empresa para continuar.' ,  
+            confirmButtonColor: '#4da8de',
             confirmButtonText: 'Registrar empresa',  
             showCancelButton: true,  
           }).then(
@@ -226,6 +230,7 @@ export class MensajesSwalService {
         { Swal.fire({
             title: 'No cuenta con un Plan' , 
             text: 'Debes elegir un plan de empresa para continuar.' ,  
+            confirmButtonColor: '#4da8de',
             confirmButtonText: 'Elegir un Plan',    
           }).then(
               respuesta => {

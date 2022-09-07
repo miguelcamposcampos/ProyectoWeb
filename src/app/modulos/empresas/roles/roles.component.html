@@ -17,75 +17,80 @@
       </button>
     </div>
   </p-toolbar>
-
-
+ 
   <div class="tituloPage">
     <h2> <strong> Roles de empresas</strong></h2>
   </div>
+  
+  <div class="margintabla"> 
+    <div class="row">
+      <div class="header-roles" style="justify-content:center;"> 
+        <button (click)="onModalAgregarRol()" pButton icon="pi pi-plus" pTooltip="Agregar Rol" label="Agregar Nuevo Rol"
+          type="button" tooltipPosition="right" class="p-button-generico-agregar-rol">
+        </button>  
+      </div> 
+    </div> 
+    <br> 
+
+    <div class="row">
+      <div class="header-roles"> 
+        <div class="col-md-4" > 
+          <h3> Roles </h3>
+          <div *ngFor="let rol of ListadeRoles" style="display: flex; ">
+            <button (click)="onVerMenuRol(rol.rolid)"  class="p-button-generico-agregar"
+              label="{{rol.nombre | uppercase}}" type="button" pButton>
+            </button>
+            <button style="margin-left: 1%;" (click)="onModaleliminarRol(rol)" pButton
+              icon="pi pi-trash" pTooltip="Eliminar Rol" type="button" tooltipPosition="right"
+              class="p-button-cancelar">
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-8"> 
+          <div *ngIf="!dataTreeSelect" style="padding-top:4%; text-align: center;">
+            <span> Selecciona un Rol para ver los permisos </span>
+          </div>
+  
+          <div *ngIf="dataTreeSelect">
+            <h3>Permisos</h3>
+            <p-treeTable [value]="dataTreeSelect" [columns]="cols" (onNodeSelect)="onActivePermiso($event)"
+              (onNodeUnselect)="onDesactivePermiso($event)" selectionMode="checkbox"
+              [(selection)]="opcionesSeleccionadas">
+  
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    {{ col.header }}
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                    {{ rowData[col.field] }}
+                  </td>
+                </tr>
+              </ng-template>
+            </p-treeTable>
+          </div>
+        </div> 
+      </div> 
+    </div> 
+  
+   
+       
+  </div>
+     
 
   <hr>
 
-  <div class="margintabla">
-    <div class="contenidoTable card-box">
-      <div class="p-toolbar-group-center">
-        <button (click)="onModalAgregarRol()" pButton icon="pi pi-plus" pTooltip="Agregar Rol" label="Agregar Nuevo Rol"
-          type="button" tooltipPosition="right" class="p-button-sm-generico-agregar">
-        </button>
-      </div>
 
 
-      <hr>
-
-      <div class="row">
-        <div class="contenidoRoles">
-          <div class="centrar">
-            <h3> Roles </h3>
-            <div *ngFor="let rol of ListadeRoles" class="BotonesRoles">
-              <button (click)="onVerMenuRol(rol.rolid)" style="width: 100%; margin: 2%;"  class="p-button-sm-generico"
-                label="{{rol.nombre | uppercase}}" type="button" pButton>
-              </button>
-              <button style="margin: 2%; background-color: #D72250;" (click)="onModaleliminarRol(rol)" pButton
-                icon="pi pi-trash" pTooltip="Elimniar Rol" type="button" tooltipPosition="right"
-                class="p-button-cancelar">
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <div *ngIf="!dataTreeSelect" style="padding-top:4%; text-align: center;">
-              <span> Selecciona un Rol para ver los permisos </span>
-            </div>
-
-            <div *ngIf="dataTreeSelect">
-              <h3>Permisos</h3>
-              <p-treeTable [value]="dataTreeSelect" [columns]="cols" (onNodeSelect)="onActivePermiso($event)"
-                (onNodeUnselect)="onDesactivePermiso($event)" selectionMode="checkbox"
-                [(selection)]="opcionesSeleccionadas">
-
-                <ng-template pTemplate="header" let-columns>
-                  <tr>
-                    <th *ngFor="let col of columns">
-                      {{ col.header }}
-                    </th>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                  <tr>
-                    <td *ngFor="let col of columns; let i = index">
-                      <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                      <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
-                      {{ rowData[col.field] }}
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-treeTable>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+</div>
+ 
 
 
   <!-- modal agregar rol -->
@@ -103,11 +108,11 @@
     </form>
 
     <div class="botones">
-      <button [disabled]="Rolform.invalid" pButton (click)="onGrabarNuevorol()" label="Grabar" style="margin-right: 1%;"
-        class="p-button-sm p-button-rounded m-2" icon="pi pi-plus-circle">
+      <button [disabled]="Rolform.invalid" pButton (click)="onGrabarNuevorol()" label="Grabar"
+        class="p-button-registrar" icon="pi pi-plus-circle">
       </button>
-      <button pButton (click)="modalAgregarRol=false" label="cancelar" style=" background-color: #D72250;"
-        class="p-button-sm p-button-rounded m-2" icon="pi pi-times-circle">
+      <button pButton (click)="modalAgregarRol=false" label="cancelar" 
+        class="p-button-cancelar" icon="pi pi-times-circle">
       </button>
     </div>
   </p-dialog>

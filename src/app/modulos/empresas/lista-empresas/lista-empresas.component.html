@@ -69,6 +69,7 @@
                             [columns]="ColsEmpresa" 
                             responsiveLayout="stack"
                             selectionMode="single"
+                            [scrollable]="true"
                             [rowHover]="true"
                             [value]="empresasAsociadas">  
                 
@@ -91,18 +92,24 @@
                                         <td  *ngFor="let col of columns" >
                                             <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
                                             <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                                <button  
+                                                <div class="botones-tabla">
+                                                    <button  
                                                     pButton (click)="onAcceder(empresa)" 
                                                     tooltipPosition="top" 
                                                     type="button"
                                                     pTooltip="Acceder" 
-                                                    class="p-button-acceder" 
-                                                    label="Acceder"
-                                                    style="margin-right: 1%;"
+                                                    class="p-button-registrar" 
+                                                    label="Acceder" 
                                                     icon="pi pi-play">
                                                 </button>           
                                                 <p-tieredMenu  #menu [model]="itemsEmpresa" appendTo="body" [popup]="true"></p-tieredMenu>
-                                                <button  class="p-button-ajustes"  #btn type="button"  [disabled]="!empresa.esAdmin" pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(empresa)" ></button>
+                                                <button  
+                                                    class="p-button-ajustes"  #btn type="button"  [disabled]="!empresa.esAdmin"
+                                                    pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" 
+                                                    (click)="onSelectItems(empresa)" >
+                                                    </button>
+                                                </div>
+                                                
                                             </ng-template>
                                         </td>
                                     </tr>

@@ -41,8 +41,8 @@ export class InterceptorService implements HttpInterceptor {
             }, error => {  
                 console.log('error',error);  
                 let urlTC  = error.url.includes('TipoCambio')
-                console.log('urlTC',urlTC);  
-                if(urlTC){ 
+                let urlJobs  = error.url.includes('ObtenerConsultaJobs'); 
+                if(error.status === 404 && (urlTC || urlJobs)){ 
                   return;
                 }else{ 
                   this.onValidarOtraSesion(error);
@@ -58,7 +58,7 @@ export class InterceptorService implements HttpInterceptor {
       this.generalService.ApagarSpiiner(false);  
 
         if(error.status === 404){ 
-          this.swal.mensajeError('No se encontraron datos...');
+          this.swal.mensajeError('No se encontraron datos.');
         }else if(error.error.status === 403){ 
           this.swal.mensajeCaducoSesion().then((response) => { 
             if (response.isConfirmed) { 
@@ -66,7 +66,7 @@ export class InterceptorService implements HttpInterceptor {
             }
           });
         }else if(error.error.status === 404){ 
-          this.swal.mensajeError('No se encontraron datos...');
+          this.swal.mensajeError('No se encontraron datos.');
         }else if(error.error.status === 401){ 
           this.swal.mensajeCaducoSesion().then((response) => { 
             if (response.isConfirmed) { 
