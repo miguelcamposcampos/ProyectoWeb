@@ -3,7 +3,7 @@
         <div class="contenidoTable card-box">
             <form [formGroup]="FormBusqueda">
                 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-                    <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+                    <p style="font-size: 20px; color: white">CARGANDO. </p>
                 </ngx-spinner>
 
                 <p-toolbar>
@@ -22,7 +22,7 @@
                             icon="pi pi-plus">
                         </button>
                         <p-tieredMenu #menu [model]="opcioneVentas" appendTo="body" [popup]="true"></p-tieredMenu>
-                        <button #btn class="p-button-opciones" type="button" pButton
+                        <button #btn class="p-button-generico-azul" type="button" pButton
                             label="Opciones" icon="pi pi-cog" (click)="menu.toggle($event)"></button>
                     </div>
                 </p-toolbar>

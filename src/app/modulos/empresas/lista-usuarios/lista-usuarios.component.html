@@ -1,6 +1,6 @@
 <!-- Reempplazo de cabecera -->
 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-  <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+  <p style="font-size: 20px; color: white">CARGANDO. </p>
 </ngx-spinner>
 
 <p-toolbar>
@@ -81,12 +81,12 @@
 
                   <ng-template #botones [ngIf]="col.field === 'acciones'">
                     <div class="d-flex">
-                      <button  class="p-button-ajustes"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
+                      <button  class="p-button-generico-azul"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
                         tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
                       </button>
 
                       <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
-                      <button  class="p-button-ajustes"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
+                      <button  class="p-button-generico-azul"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
                       pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
 
 
@@ -109,20 +109,17 @@
       <div class="p-col-12">
         <div class="p-fluid p-formgrid p-grid">
           <div class="p-field p-col-12">
-            <strong> USUARIO : </strong>
-            <br> <br>
+            <strong> USUARIO : </strong> 
             <input readonly pInputText [value]="selectUsuario.nombreUsuario" class="p-inputtext-sm-form">
           </div>
 
           <div class="p-field p-col-12">
-            <strong> ROL ACTUAL : </strong>
-            <br> <br>
+            <strong> ROL ACTUAL : </strong> 
             <input readonly pInputText [value]="selectUsuario.rol" class="p-inputtext-sm-form">
           </div>
 
           <div class="p-field p-col-12">
-            <strong>CAMBIAR POR:</strong>
-            <br> <br>
+            <strong>CAMBIAR POR:</strong> 
             <p-dropdown [options]="ListadeRoles" placeholder="Selecciona el nuevo rol" optionLabel="nombre"
               appendTo="body"  formControlName="Rol" [showClear]="true">
             </p-dropdown>
@@ -131,7 +128,7 @@
       </div>
     </form>
     <div class="botones">
-      <button pButton label="Cambiar de Rol" style="margin-right: 1%;" (click)="onChangeRol(selectUsuario)"
+      <button pButton label="Cambiar de Rol" (click)="onChangeRol(selectUsuario)"
         class="p-button-registrar" icon="pi pi-refresh">
       </button>
       <button pButton label="cancelar" (click)="modalChangeRol = false"
@@ -148,7 +145,7 @@
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12">
           <strong> Email :</strong>
-          <input type="email" pInputText formControlName="Email" placeholder="ingrese email" class="p-inputtext-sm-form">
+          <input type="email" pInputText formControlName="Email" placeholder="EJEM: demo@gmail.com" class="p-inputtext-sm-form">
         </div>
         <div class="p-field p-col-12">
           <strong> Nuevo Rol :</strong>
@@ -162,9 +159,9 @@
 
   <div class="botones">
     <button pButton label="Enviar invitación" [disabled]="InvitarForm.invalid" (click)="onEnviarInvitacion()"
-      type="button" style="margin-right: 1%;" class="p-button-registrar" icon="pi pi-send">
+      type="button" class="p-button-registrar" icon="pi pi-send">
     </button>
-    <button pButton label="cancelar" type="button" style=" background-color: #D72250;"
+    <button pButton label="cancelar" type="button"
       (click)="modalInvitarUsuario = false" class="p-button-cancelar " icon="pi pi-times-circle">
     </button>
   </div>

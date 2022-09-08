@@ -1,28 +1,7 @@
 /* Styles by miguelcampossv */
-
-.p-button-acceder {
-    color: #f8fafc;
-    background: #3f8748;
-    border: 0px solid #1B74C5;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: 10px;
-}
-
-.p-button-regresar {
-    color: #f8fafc;
-    background: #3f8748;
-    border: 0px solid #1B74C5;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: 10px;
-}
-
-
 .p-button-registrar {
     margin-right: 1%;
+    margin-left: 1%;
     color: #f8fafc;
     background: #3f8748;
     border: 0px solid #1B74C5;
@@ -31,19 +10,8 @@
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 10px;
 }
-
-.p-button-basico{
-    color: #f8fafc;
-    background: #4da8de;
-    border: 0px solid #1B74C5;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: 10px;
-}
-
-
-.p-button-opciones {
+ 
+.p-button-generico-morado {
     color: #f8fafc;
     background: #1B74C5;
     border: 0px solid #1B74C5;
@@ -52,7 +20,6 @@
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 10px;
 }
-
 
 .p-button-generico-azul {
     color: #f8fafc;
@@ -74,25 +41,25 @@
     border-radius: 10px;
 }
 
-.p-button-ajustes {
-    color: #f8fafc;
-    background: #147DBA;
-    border: 0px solid #1B74C5;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: 10px;
-}
+// .p-button-ajustes {
+//     color: #f8fafc;
+//     background: #147DBA;
+//     border: 0px solid #1B74C5;
+//     padding: 0.5rem 1rem;
+//     font-size: 1rem;
+//     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+//     border-radius: 10px;
+// }
 
-.p-button-agregar-blue {
-    background: #1B74C5;
-    color: white;
-    width: 270px;
-    height: 45px;
-    border-radius: 20px;
-    font-weight: 900;
-    font-size: 14px;
-}
+// .p-button-agregar-blue {
+//     background: #1B74C5;
+//     color: white;
+//     width: 270px;
+//     height: 45px;
+//     border-radius: 20px;
+//     font-weight: 900;
+//     font-size: 14px;
+// }
 
 .p-button-generico-agregar {
     background: #1B74C5;
@@ -114,15 +81,15 @@
 
 
 
-.p-button-sm-generico-agregar {
-    background: #1B74C5;
-    color: white;
-    width: 30%;
-    height: 45px;
-    border-radius: 10px;
-    font-weight: 900;
-    font-size: 14px;
-}
+// .p-button-sm-generico-agregar {
+//     background: #1B74C5;
+//     color: white;
+//     width: 30%;
+//     height: 45px;
+//     border-radius: 10px;
+//     font-weight: 900;
+//     font-size: 14px;
+// }
 
 .p-button-sm-generico {
     color: #f8fafc;
@@ -151,12 +118,10 @@
 
 }
 
-.login img {
-
+.login img { 
     padding: 6%;
     width: 70%;
-    margin: 0 auto;
-
+    margin: 0 auto; 
 }
 
 .login {
@@ -479,30 +444,15 @@
     display: flex;
     align-items: center;
 }
-
-.header-roles {
-    width: 1000px;
-    text-align: center;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 25px 25px;
-    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
-    display: flex; 
-}
-
-.botones-tabla{
-    display: flex;
-  }
-
+ 
+  
 .botones-plan-empresa{
-justify-content: space-around;
-display: flex;
+    justify-content: space-around;
+    display: flex;
 }
 
-.header-buscar-planes {
-
+ 
+.header-buscar-planes { 
     text-align: center;
     margin: 0 auto;
     background: white;
@@ -512,8 +462,7 @@ display: flex;
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
     display: flex;
     align-items: center;
-    width: 78%;
-
+    width: 78%; 
 }
 
 
@@ -542,18 +491,8 @@ display: flex;
 }
 
 /********** clear ********/
-
-
-.contenido-form-empresa {
-    width: 50%; 
-    margin: 0 auto 30px;
-}
-
-.contenido-form-table {
-    width: 80%; 
-    margin: 0 auto 30px;
-}
  
+
 .elegirPlan {
     background-color: #efefef;
     padding: 65px;
@@ -577,7 +516,7 @@ display: flex;
     border-radius: 16px;
     width: 100%;
     margin: auto;
-    box-shadow: 0 0 10px 5px rgb(0 0 0 / 29%);
+    box-shadow: 0 0 10px 5px rgb(0 0 0 / 15%);
 }
 
 .elegirOpciones {
@@ -598,6 +537,7 @@ display: flex;
 
 .margintabla {
     margin-top: 50px;
+    padding-bottom: 40px;
 }
 
 
@@ -817,7 +757,6 @@ display: flex;
 }
 
 .charts {
-
     width: 80%;
 }
 
@@ -1076,7 +1015,6 @@ td {
     flex-direction: row;
 }
 
-
 .tabladetalles #sd {
     width: 20px;
     text-align: center !important;
@@ -1090,7 +1028,6 @@ td {
 
 }
 
-
 .tabladetalles #lg {
     width: 600px;
     text-align: center !important;
@@ -1098,8 +1035,6 @@ td {
     justify-content: center;
     flex-direction: row;
 }
-
-
 
 .tabladetalles #lg  .p-dropdown {
     width: 190px;
@@ -1118,97 +1053,99 @@ td {
     width: 140px!important;
 }
 
-.tabladetalles #L-detail {
-    width: 50px;
-    text-align: center !important; 
-    justify-content: center  !important; 
-    flex: none;
-    flex-direction: row;
-}
-.tabladetalles #L-detail input{ 
-    width: 50px !important;
-    flex: none;
-}
-
-.tabladetalles #LX-detail {
-    width: 60px;
-    text-align: center !important; 
-    justify-content: center  !important; 
-    flex: none;
-    flex-direction: row;
-}
-
-.tabladetalles #LX-detail input{ 
-    width: 60px !important;
-    flex: none;
-}
 
 
-.tabladetalles #LXX-detail {
-    width: 70px;
-    text-align: center !important; 
-    justify-content: center  !important; 
-    flex: none;
-    flex-direction: row;
-}
-.tabladetalles #LXX-detail input{ 
-    width: 70px!important;
-    flex: none;
-}
+/******************************************* 
+        CAMBIOS CRISTIAN MARTINEZ
+ *******************************************/
+
+    .tabladetalles #L-detail {
+        width: 50px;
+        text-align: center !important; 
+        justify-content: center  !important; 
+        flex: none;
+        flex-direction: row;
+    }
+    .tabladetalles #L-detail input{ 
+        width: 50px !important;
+        flex: none;
+    }
+
+    .tabladetalles #LX-detail {
+        width: 60px;
+        text-align: center !important; 
+        justify-content: center  !important; 
+        flex: none;
+        flex-direction: row;
+    }
+
+    .tabladetalles #LX-detail input{ 
+        width: 60px !important;
+        flex: none;
+    }
 
 
-.tabladetalles #C-detail {
-    width: 100px;
-    text-align: center !important; 
-    justify-content: center; 
-    flex: none;
-    flex-direction: row;
-}
-
-.tabladetalles #C-detail input{
-    width: 100px;
-    text-align: center !important; 
-    justify-content: center; 
-    flex: none;
-}
-
-.tabladetalles #CXXX-detail {
-    width: 130px;
-    text-align: center !important; 
-    justify-content: center; 
-    flex: none;
-    flex-direction: row;
-}
-
-.tabladetalles #CXXX-detail input{
-    width: 130px;
-    text-align: center !important; 
-    justify-content: center; 
-    flex: none;
-}
+    .tabladetalles #LXX-detail {
+        width: 70px;
+        text-align: center !important; 
+        justify-content: center  !important; 
+        flex: none;
+        flex-direction: row;
+    }
+    .tabladetalles #LXX-detail input{ 
+        width: 70px!important;
+        flex: none;
+    }
 
 
-.tabladetalles #CL-detail {
-    width: 150px;
-    text-align: center !important; 
-    justify-content: center; 
-    flex: none;
-    flex-direction: row;
-}
+    .tabladetalles #C-detail {
+        width: 100px;
+        text-align: center !important; 
+        justify-content: center; 
+        flex: none;
+        flex-direction: row;
+    }
+
+    .tabladetalles #C-detail input{
+        width: 100px;
+        text-align: center !important; 
+        justify-content: center; 
+        flex: none;
+    }
+
+    .tabladetalles #CXXX-detail {
+        width: 130px;
+        text-align: center !important; 
+        justify-content: center; 
+        flex: none;
+        flex-direction: row;
+    }
+
+    .tabladetalles #CXXX-detail input{
+        width: 130px;
+        text-align: center !important; 
+        justify-content: center; 
+        flex: none;
+    }
 
 
-/**COMPONENTNES**/
-.tabladetalles #CL-detail input{
-    width: 150px!important;
-}
-.tabladetalles #CXXX-calendar-detail p-calendar{
-    width: 130px!important;
-}
+    .tabladetalles #CL-detail {
+        width: 150px;
+        text-align: center !important; 
+        justify-content: center; 
+        flex: none;
+        flex-direction: row;
+    }
 
 
-
-//*** CAMBIOS CRISTIAN MARTINEZ ***/
- 
+    /**COMPONENTNES**/
+    .tabladetalles #CL-detail input{
+        width: 150px!important;
+    }
+    .tabladetalles #CXXX-calendar-detail p-calendar{
+        width: 130px!important;
+    }
+    
 
 .p-datatable .p-datatable-tbody>tr>td {
     padding: 0.5rem !important; 
@@ -1308,13 +1245,94 @@ td {
 
 /**ESTILOS CRISTIAN MARTINEZ */
 
-.form-registro-empresa{ 
-    display: grid;
-    grid-template-columns: 150px 1fr;   
-    align-items: center;
-    line-height: 60px;  
-}
+    .form-registro-empresa{ 
+        display: grid;
+        grid-template-columns: 150px 1fr;   
+        align-items: center;
+        line-height: 60px;  
+    }
+    
+    .header-roles {
+        width: 1000px;
+        text-align: center;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 25px 25px;
+        box-shadow: 0 5px 15px 0 rgb(0 0 0 / 15%);
+        display: flex; 
+    }
 
-p-table th .checkTable{
-    width: 10% !important;
-}
+    .centrar {
+        text-align: center;
+    }
+     
+    .contenido-form-table {
+        width: 80%; 
+        margin: 0 auto 30px;
+    }
+
+    .botones-tabla{
+        display: flex;
+    }
+
+    .botones{
+        margin: 2%;
+        text-align: center;
+    }
+    .p-dialog-mask {
+        z-index: 999 !important;
+        min-width: 25%;
+    }
+    .p-dialog .p-dialog-header .p-dialog-header-icon{
+        color: white;
+    }
+    .layout-wrapper .layout-main { 
+        padding-top: 85px;
+    }
+    
+    ::ng-deep .swal2-container.swal2-center>.swal2-popup {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: center;
+        justify-self: center;
+        z-index: 999;
+    }
+   
+    .p-dialog{
+        width: 50%; 
+    }
+
+        
+    ::ng-deep .p-toolbar{
+        padding-top: 0% !important;
+        padding-bottom: 0% !important;
+    } 
+    
+    
+    .menu-wrapper {
+        top: 100px!important; 
+    }
+
+    .CampoSwicth{
+        display: flex;
+        align-items: center;   
+    }
+
+
+    .TittleMenu{
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        align-items: baseline;
+        text-align: left !important;
+        padding-left: 10% !important;
+    }
+
+    .botonEliminarRol{
+        width: 3rem !important;
+        margin-left: 1%;
+        margin-bottom: 1.5%; 
+        background: #f80000; 
+        border-radius: 10px;
+    }

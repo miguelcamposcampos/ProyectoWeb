@@ -1,7 +1,7 @@
 <div  *ngIf="!VistaEditarEmpresa && !VistaRoles && !VistaUsuarios && !VistaListaPlanes">
      
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+        <p style="font-size: 20px; color: white">CARGANDO. </p>
     </ngx-spinner>
  
     <p-toolbar>
@@ -32,7 +32,95 @@
     <h2>  <strong>  Lista de empresas</strong></h2> 
     </div>
 
-    <div class="margintabla">
+    <div class="margintabla">   
+        <div class="contenido-form-table">  
+           <div class="row">
+             <div class="contenidoTable card-box">
+               <div class="p-col-12">
+                <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
+                    <div class="p-field p-col-12 p-md-8 p-sm-12" style="margin: 0;">
+                      <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
+                          (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                      </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+                        <button    
+                            class="p-button-generico-agregar"
+                            pButton
+                            type="button"
+                            icon="pi pi-plus"
+                            label="Agregar"
+                            tooltipPosition="left"
+                            pTooltip="Registrar una empresa"
+                            (click)="onRegistrarEmpresa()">  
+                        </button> 
+                    </div>
+                </div>
+                </div>
+              </div> 
+            </div> 
+            <br> 
+            <div class="row">
+                <div class="contenidoTable card-box"> 
+                    <p-table #dt 
+                        [columns]="ColsEmpresa" 
+                        responsiveLayout="stack"
+                        selectionMode="single"
+                        [scrollable]="true"
+                        [rowHover]="true"
+                        [value]="empresasAsociadas">  
+        
+                        <ng-template pTemplate="header" let-columns >
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                    {{ col.header }} 
+                                    <p-sortIcon *ngIf="col.field != 'acciones'"
+                                        [field]="col.field"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                                    </p-sortIcon> 
+                                </th>
+                            </tr> 
+                        </ng-template>
+                        
+                        <ng-template pTemplate="body" let-empresa let-columns="columns"  let-rowIndex="rowIndex"> 
+                            <tr [pSelectableRow]="empresa" [pSelectableRowIndex]="rowIndex">
+                                <td  *ngFor="let col of columns" >
+                                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
+                                    <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                        <div class="botones-tabla">
+                                            <button  
+                                            pButton (click)="onAcceder(empresa)" 
+                                            tooltipPosition="top" 
+                                            type="button"
+                                            pTooltip="Acceder" 
+                                            class="p-button-registrar" 
+                                            label="Acceder" 
+                                            icon="pi pi-play">
+                                        </button>           
+                                        <p-tieredMenu  #menu [model]="itemsEmpresa" appendTo="body" [popup]="true"></p-tieredMenu>
+                                        <button  
+                                            class="p-button-generico-morado"  #btn type="button"  [disabled]="!empresa.esAdmin"
+                                            pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" 
+                                            (click)="onSelectItems(empresa)" >
+                                            </button>
+                                        </div>
+                                        
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>  
+                </div> 
+            </div> 
+          </div>
+        </div>
+        
+                    
+    <!-- <div class="margintabla">
         <div class="contenidoTable"> 
             <div class="buscar-empresa">
                 <div class="container">
@@ -65,56 +153,7 @@
                     </div>
                     <div class="row">
                         <div class="tablas-empresas">
-                            <p-table #dt 
-                            [columns]="ColsEmpresa" 
-                            responsiveLayout="stack"
-                            selectionMode="single"
-                            [scrollable]="true"
-                            [rowHover]="true"
-                            [value]="empresasAsociadas">  
-                
-                                <ng-template pTemplate="header" let-columns >
-                                    <tr>
-                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                            {{ col.header }} 
-                                            <p-sortIcon *ngIf="col.field != 'acciones'"
-                                                [field]="col.field"
-                                                ariaLabel="Activate to sort"
-                                                ariaLabelDesc="Activate to sort in descending order"
-                                                ariaLabelAsc="Activate to sort in ascending order">
-                                            </p-sortIcon> 
-                                        </th>
-                                    </tr> 
-                                </ng-template>
-                                
-                                <ng-template pTemplate="body" let-empresa let-columns="columns"  let-rowIndex="rowIndex"> 
-                                    <tr [pSelectableRow]="empresa" [pSelectableRowIndex]="rowIndex">
-                                        <td  *ngFor="let col of columns" >
-                                            <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
-                                            <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                                <div class="botones-tabla">
-                                                    <button  
-                                                    pButton (click)="onAcceder(empresa)" 
-                                                    tooltipPosition="top" 
-                                                    type="button"
-                                                    pTooltip="Acceder" 
-                                                    class="p-button-registrar" 
-                                                    label="Acceder" 
-                                                    icon="pi pi-play">
-                                                </button>           
-                                                <p-tieredMenu  #menu [model]="itemsEmpresa" appendTo="body" [popup]="true"></p-tieredMenu>
-                                                <button  
-                                                    class="p-button-ajustes"  #btn type="button"  [disabled]="!empresa.esAdmin"
-                                                    pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" 
-                                                    (click)="onSelectItems(empresa)" >
-                                                    </button>
-                                                </div>
-                                                
-                                            </ng-template>
-                                        </td>
-                                    </tr>
-                                </ng-template>
-                            </p-table>    
+                           
                         </div>
                     </div>
                 </div>
@@ -123,7 +162,7 @@
         
             
         </div>
-    </div>   
+    </div>    -->
     
     <!-- MODAL DE PLANES -->
     <div *ngIf="VistaPlanes" class="card RegistroPlanes">  

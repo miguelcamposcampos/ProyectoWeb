@@ -242,7 +242,7 @@
     width: 100% !important; 
   }
 
-  .contenido-form-empresa {
+  .contenido-form-empresa,  .contenido-form-table {
       width: 90% !important;  
   }
 
@@ -257,5 +257,15 @@
     display: block !important;  
     line-height: 30px !important;  
   }
+  .p-dialog{
+    width: 80% !important;
+  }
+ 
+}
 
+
+@media (max-width: 600px) {  
+  .p-dialog{
+    width: 95% !important;
+  }
 }

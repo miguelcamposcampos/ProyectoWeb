@@ -1,5 +1,5 @@
     <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">Cargando... porfavor espere </p>
+        <p style="font-size: 20px; color: white">CARGANDO. </p>
     </ngx-spinner>
  
     <p-toolbar>
@@ -23,8 +23,8 @@
  
 
     <div class="margintabla"> 
+        <div class="contenido-form-table" style="width: 50%;">  
             <div class="row">
-              <div class="contenido-form-empresa">  
                 <div class="contenidoTable card-box p-fieldset-form">
                     <form [formGroup]="Form">
                         <p-fieldset>
@@ -87,7 +87,7 @@
                     <hr>
 
                     <div class="botones">
-                        <button class="p-button-acceder" pButton style="margin-right: 1%;" type="button"
+                        <button class="p-button-registrar" pButton   type="button"
                             icon="pi pi-check-circle" label="{{ ( !EmpresaEdit  ) ? 'Registrar' : 'Actualizar'}}"
                             [disabled]="!Form.valid" (click)="onAdd()">
                         </button>
