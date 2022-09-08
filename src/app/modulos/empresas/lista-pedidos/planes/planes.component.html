@@ -6,35 +6,33 @@
     <div class="formPlanes2">
         <p-tabView (onChange)="onInfoPlan($event.index)" >
             <p-tabPanel [header]="item.nombreplan" *ngFor="let item of listaPlanes; let i = index" [selected]="i == 0">
-               
-                <div class="m-2">  
-                    <div *ngIf="datosPlanArray">
-                        <div class=" card-box m-2"  *ngFor="let dato of datosPlanArray">  
-                            <div class=" m-4">
-                                <div><strong> Nombre: </strong> {{ dato.nombre }}</div>
-                                <div><strong> Comprobantes: </strong> {{ dato.cantidadcomprobantes }}</div>
-                                <div *ngIf="mostrardatosArray"><strong> Precio Sin IGV: </strong> {{ dato.preciosinigv | currency:'S/.' }}</div> 
-                                <div><strong> Importe Comprobante: </strong> {{ dato.importecomprobanteadicional }}</div> 
-                                <div>
-                                    <strong> Ingresa una cantidad : </strong>
-                                    <input type="number" [formControl]="cantidadIngresada" pInputText class="p-inputtext-sm w-100"
-                                        minlength="0" maxlength="100" placeholder="ingresar una cantidad">
-                                </div> 
-                            </div>      
-                           
-                            <button
-                                style="margin: 2%;"
-                                class="p-button-generico-agregar"
-                                pButton
-                                type="button"
-                                icon="pi pi-check-circle"
-                                label="Elegir Plan"
-                                (click)="onPlanElegido(dato)" >
-                            </button>
-                            
-                        </div>
-                    </div> 
-                </div>
+                
+                <div *ngIf="datosPlanArray">
+                    <div  class="modal-planes"  *ngFor="let dato of datosPlanArray">  
+                        <div class="centrar">
+                            <div><strong> Nombre: </strong> {{ dato.nombre }}</div>
+                            <div><strong> Comprobantes: </strong> {{ dato.cantidadcomprobantes }}</div>
+                            <div *ngIf="mostrardatosArray"><strong> Precio Sin IGV: </strong> {{ dato.preciosinigv | currency:'S/.' }}</div> 
+                            <div><strong> Importe Comprobante: </strong> {{ dato.importecomprobanteadicional }}</div> 
+                            <div>
+                                <strong> Ingresa una cantidad : </strong>
+                                <input type="number" [formControl]="cantidadIngresada" pInputText class="p-inputtext-sm w-100"
+                                    minlength="0" maxlength="100" placeholder="ingresar una cantidad">
+                            </div> 
+                        </div>      
+                        
+                        <button 
+                            class="p-button-generico-agregar"
+                            pButton
+                            type="button"
+                            icon="pi pi-check-circle"
+                            label="Elegir Plan"
+                            (click)="onPlanElegido(dato)" >
+                        </button>
+                        
+                    </div>
+                </div> 
+                 
                 
             </p-tabPanel>
         </p-tabView>

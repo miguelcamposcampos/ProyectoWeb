@@ -87,8 +87,13 @@
             </form>
             
 
-            <p-table [responsive]="true" [columns]="selectedColumns" responsiveLayout="scroll" selectionMode="single"
-                [rowHover]="true" [value]="listadoVentas">
+            <p-table
+                [responsive]="true" 
+                [columns]="selectedColumns" 
+                responsiveLayout="scroll" 
+                selectionMode="single"
+                [rowHover]="true" 
+                [value]="listadoVentas">
 
                 <ng-template pTemplate="caption">
                     <strong> Filtrar columnas</strong> &nbsp;

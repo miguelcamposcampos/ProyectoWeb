@@ -21,90 +21,83 @@
   <h2> <strong> Tabla de Usuarios</strong></h2>
 </div>
 
+<div class="margintabla">   
+  <div class="contenido-form-table">  
+     <div class="row">
+       <div class="contenidoTable card-box">
+         <div class="p-col-12">
+           <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
+           <div class="p-field p-col-12 p-md-8 p-sm-12" style="margin: 0;">
+             <span class="p-input-icon-left">
+               <i class="pi pi-search"></i>
+               <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
+                 (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+             </span>
+           </div>
+           <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+            <button  class="p-button-generico-agregar" pButton icon="pi pi-plus" label="Invitar"
+              tooltipPosition="left" pTooltip="Invitar Usuario" (click)="onModalInvitarUsuario()">
+            </button>
+           </div>
+         </div>
+         </div>
+       </div> 
+     </div> 
+     <br> 
+     <div class="row">
+       <div class="contenidoTable card-box">  
+          <p-table #dt 
+            [columns]="cols" 
+            responsiveLayout="scroll"
+            selectionMode="single" 
+            [rowHover]="true"
+            [value]="usuariosporEmpresa">
 
-<div class="margintabla">
-  <div class="contenidoTable">
-    <div class="buscar-empresa">
-      <div class="container">
-        <div class="row">
-          <div class="header-buscar-empresas">
-            <div class="col-lg-6">
-              <div class="column-empresas-left">
-                <span class="p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
-                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
-                </span>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="column-empresas-right">
-                <button class="p-button-agregar-blue" pButton icon="pi pi-plus" label="Invitar"
-                  tooltipPosition="left" pTooltip="Invitar Usuario" (click)="onModalInvitarUsuario()">
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="tablas-empresas">
-            <p-table #dt 
-              [columns]="cols" 
-              responsiveLayout="stack"
-              selectionMode="single" 
-              [rowHover]="true"
-              [value]="usuariosporEmpresa">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{col.header}}
+                  <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
+                    ariaLabelDesc="Activate to sort in descending order"
+                    ariaLabelAsc="Activate to sort in ascending order">
+                  </p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
 
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{col.header}}
-                    <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
-                      ariaLabelDesc="Activate to sort in descending order"
-                      ariaLabelAsc="Activate to sort in ascending order">
-                    </p-sortIcon>
-                  </th>
-                </tr>
-              </ng-template>
+            <ng-template pTemplate="body" let-usuario let-columns="columns" let-rowIndex="rowIndex">
+              <tr [pSelectableRow]="usuario" [pSelectableRowIndex]="rowIndex">
+                <td *ngFor="let col of columns">
+                  <strong class="p-column-title">{{ col.header | uppercase}}</strong>
 
-              <ng-template pTemplate="body" let-usuario let-columns="columns" let-rowIndex="rowIndex">
-                <tr [pSelectableRow]="usuario" [pSelectableRowIndex]="rowIndex">
-                  <td *ngFor="let col of columns">
-                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>
-
-                    <div [ngSwitch]="col.field">
-                      <div *ngSwitchCase="'ultimaInteraccion'">
-                        {{ usuario[col.field] | date: col.formatoFecha }}
-                      </div>
-                      <div *ngSwitchDefault>
-                        {{ usuario[col.field] }}
-                      </div>
+                  <div [ngSwitch]="col.field">
+                    <div *ngSwitchCase="'ultimaInteraccion'">
+                      {{ usuario[col.field] | date: col.formatoFecha }}
                     </div>
+                    <div *ngSwitchDefault>
+                      {{ usuario[col.field] }}
+                    </div>
+                  </div>
 
-                    <ng-template #botones [ngIf]="col.field === 'acciones'">
-                      <div class="d-flex">
-                        <button  class="p-button-ajustes"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
-                          tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
-                        </button>
+                  <ng-template #botones [ngIf]="col.field === 'acciones'">
+                    <div class="d-flex">
+                      <button  class="p-button-ajustes"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
+                        tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
+                      </button>
 
-                        <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
-                        <button  class="p-button-ajustes"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
-                        pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
- 
-
-                      </div>
-                    </ng-template>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-        </div>
-      </div>
-
-    </div>
+                      <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
+                      <button  class="p-button-ajustes"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
+                      pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
 
 
+                    </div>
+                  </ng-template>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div> 
+    </div> 
   </div>
 </div>
 
@@ -118,20 +111,20 @@
           <div class="p-field p-col-12">
             <strong> USUARIO : </strong>
             <br> <br>
-            <input readonly pInputText [value]="selectUsuario.nombreUsuario" class="p-inputtext-sm  p-inputtext-sm-clear">
+            <input readonly pInputText [value]="selectUsuario.nombreUsuario" class="p-inputtext-sm-form">
           </div>
 
           <div class="p-field p-col-12">
             <strong> ROL ACTUAL : </strong>
             <br> <br>
-            <input readonly pInputText [value]="selectUsuario.rol" class="p-inputtext-sm p-inputtext-sm-clear">
+            <input readonly pInputText [value]="selectUsuario.rol" class="p-inputtext-sm-form">
           </div>
 
           <div class="p-field p-col-12">
             <strong>CAMBIAR POR:</strong>
             <br> <br>
             <p-dropdown [options]="ListadeRoles" placeholder="Selecciona el nuevo rol" optionLabel="nombre"
-              appendTo="body" class="extender" formControlName="Rol" [showClear]="true">
+              appendTo="body"  formControlName="Rol" [showClear]="true">
             </p-dropdown>
           </div>
         </div>
@@ -155,11 +148,11 @@
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12">
           <strong> Email :</strong>
-          <input type="email" pInputText formControlName="Email" placeholder="ingrese email" class="p-inputtext-sm">
+          <input type="email" pInputText formControlName="Email" placeholder="ingrese email" class="p-inputtext-sm-form">
         </div>
         <div class="p-field p-col-12">
           <strong> Nuevo Rol :</strong>
-          <p-dropdown appendTo="body" class="extender" [options]="ListadeRoles" placeholder="Selecciona el nuevo rol"
+          <p-dropdown appendTo="body"  [options]="ListadeRoles" placeholder="Selecciona el nuevo rol"
             optionLabel="nombre" formControlName="Rol" [showClear]="true">
           </p-dropdown>
         </div>

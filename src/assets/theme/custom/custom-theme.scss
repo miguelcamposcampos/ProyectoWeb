@@ -431,6 +431,17 @@
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
 }
 
+
+.modal-planes { 
+    text-align: center;
+    margin: 0 auto 15px; 
+    background: white;
+    padding: 5px;
+    border-radius: 20px;
+    box-shadow: 25px 25px;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 20%);
+}
+
 .column-empresas-right {
     display: flex;
     flex-direction: column;
@@ -538,6 +549,10 @@ display: flex;
     margin: 0 auto 30px;
 }
 
+.contenido-form-table {
+    width: 80%; 
+    margin: 0 auto 30px;
+}
  
 .elegirPlan {
     background-color: #efefef;
@@ -1193,13 +1208,10 @@ td {
 
 
 //*** CAMBIOS CRISTIAN MARTINEZ ***/
-
-
-
+ 
 
 .p-datatable .p-datatable-tbody>tr>td {
-    padding: 0.5rem !important;
-
+    padding: 0.5rem !important; 
 }
 
 .card-desplegable {
@@ -1301,4 +1313,8 @@ td {
     grid-template-columns: 150px 1fr;   
     align-items: center;
     line-height: 60px;  
+}
+
+p-table th .checkTable{
+    width: 10% !important;
 }

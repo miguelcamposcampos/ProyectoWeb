@@ -109,7 +109,7 @@
 
 <div *ngIf="modalPlanes" class="card RegistroPlanes">
     <p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false"
-        [resizable]="false">
+        [resizable]="false" [style]="{width: '35vw'}">
         <app-planes (onChange)="onPlanelegido($event)"></app-planes>
     </p-dialog>
 </div>

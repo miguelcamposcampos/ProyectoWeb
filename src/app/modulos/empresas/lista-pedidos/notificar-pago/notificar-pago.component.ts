@@ -78,6 +78,7 @@ export class NotificarPagoComponent implements OnInit {
     }else{
       this.PedidosSeleccionados = [];
       this.mostrarAdjuntar = false; 
+      this.mostrarEnviarNotificacion = false;
     }
   }
 
@@ -113,18 +114,16 @@ export class NotificarPagoComponent implements OnInit {
  
   handleReaderLoaded(event : any) {
     this.ImgBase64 =   btoa(event.target.result);
+    this.mostrarEnviarNotificacion = true;
   }  
 
 
   onEliminarArchivo(event :any): void{
     if(event){ 
       if(this.PedidosSeleccionados.length > 0){
-        this.mostrarEnviarNotificacion = false; 
-      }else{
-        this.mostrarEnviarNotificacion = false; 
-        this.ImgBase64 = ""; 
-        this.mostrarAdjuntar = false; 
-      }
+        this.onVerificarCasillas();
+      } 
+      this.mostrarEnviarNotificacion = false; 
     } 
   }
 
@@ -150,9 +149,10 @@ export class NotificarPagoComponent implements OnInit {
  
   onVerificarCasillas(){
     if(this.PedidosSeleccionados.length >= 1){
-      this.mostrarAdjuntar = true; 
+      this.mostrarAdjuntar = true;  
     }else{
       this.mostrarAdjuntar = false; 
+      this.ImgBase64 = "";  
     }
   }
 
