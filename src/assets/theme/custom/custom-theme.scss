@@ -41,6 +41,22 @@
     border-radius: 10px;
 }
 
+.p-button-ingresar{
+    font-size: large;
+    background-color: #D72250;
+    border: #D72250;
+    height: 45px;
+    width: 100% !important;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.p-button-ingresar:hover {
+    background-color: #d45373 !important;
+    border: #e00d42;
+}
+
+
 // .p-button-ajustes {
 //     color: #f8fafc;
 //     background: #147DBA;
@@ -148,14 +164,7 @@
     /* Para que no repita la imagen */
 }
 
-.Formlogin {
-
-    .textoRegistrar {
-        text-align: center;
-        color: white !important;
-    }
-
-}
+ 
 
 .card {
     box-shadow: 0 0 2px black !important;
@@ -188,29 +197,7 @@
     }
 }
 
-.boton-ingresar {
-    color: white;
-    background-color: #D72250;
-    height: 45px;
-    text-align: center;
-    width: 100%;
-    border-radius: 50px;
-    opacity: 100;
-    border: 0px;
-    left: 2%;
-}
 
-.boton-ingresar:hover {
-    color: white;
-    background-color: #6e6e6e;
-    height: 45px;
-    text-align: center;
-    width: 100%;
-    border-radius: 50px;
-    opacity: 100;
-    border: 0px;
-    left: 2%;
-}
 
 .background-image {
     -webkit-background-size: cover;
@@ -223,8 +210,16 @@
     background-image: url('/assets/layout/images/fondo-login2.jpg');
 }
 
-.content-right {
-    overflow-y: auto;
+// .content-right {
+//     overflow-y: auto;
+// }
+
+.footerLogin{ 
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px; 
+    text-align: center;
 }
 
 .flex-column {
@@ -340,9 +335,9 @@
     color: #657380;
 }
 
-.copy {
-    text-align: center;
-}
+// .copy {
+//     text-align: center;
+// }
 
 
 /********** clear ********/

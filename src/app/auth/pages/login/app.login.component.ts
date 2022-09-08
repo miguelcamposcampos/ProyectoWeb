@@ -21,7 +21,9 @@ export class AppLoginComponent implements OnInit  {
   emailRecuperar : string = ""; 
   checkRecordarLogin :boolean;
   cambiarIconEye: string = "fa fa-eye";
-   
+  fecha = new Date();
+  AnioActual = this.fecha.getFullYear();
+  
   constructor(  
     private loginService : LoginService,
     private authService : AuthService,
