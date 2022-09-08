@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="p-toolbar-group-right">
+    <div class="p-toolbar-group-right p-toolbar-group-center-mobile">
       <button class="p-button-generico-azul" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
         style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
       </button>
@@ -37,12 +37,11 @@
         <div class="col-md-4" > 
           <h3> Roles </h3>
           <div *ngFor="let rol of ListadeRoles" style="display: flex; ">
-            <button (click)="onVerMenuRol(rol.rolid)"  class="p-button-generico-agregar"
+            <button (click)="onVerMenuRol(rol.rolid)"  class="p-button-generico-agregar" style="margin-bottom: 1.5%;"
               label="{{rol.nombre | uppercase}}" type="button" pButton>
             </button>
-            <button style="margin-left: 1%;" (click)="onModaleliminarRol(rol)" pButton
-              icon="pi pi-trash" pTooltip="Eliminar Rol" type="button" tooltipPosition="right"
-              class="p-button-cancelar">
+            <button class="botonEliminarRol" (click)="onModaleliminarRol(rol)" pButton
+              icon="pi pi-trash" pTooltip="Eliminar Rol" type="button" tooltipPosition="right">
             </button>
           </div>
         </div>

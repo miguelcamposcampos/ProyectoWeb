@@ -459,8 +459,7 @@
 .header-buscar-empresas {
     width: 990px;
     text-align: center;
-    margin: 0 auto;
-    margin-top: 25px;
+    margin: 0 auto; 
     background: white;
     padding: 20px;
     border-radius: 20px;
@@ -474,7 +473,6 @@
     width: 1000px;
     text-align: center;
     margin: 0 auto;
-    margin-top: 25px;
     background: white;
     padding: 20px;
     border-radius: 20px;
@@ -535,9 +533,9 @@ display: flex;
 /********** clear ********/
 
 
-.formularioEmpresa {
+.contenido-form-empresa {
     width: 50%; 
-    margin: 0 auto;
+    margin: 0 auto 30px;
 }
 
  
@@ -1293,4 +1291,14 @@ td {
 
 .center {
     text-align: center;
+}
+
+
+/**ESTILOS CRISTIAN MARTINEZ */
+
+.form-registro-empresa{ 
+    display: grid;
+    grid-template-columns: 150px 1fr;   
+    align-items: center;
+    line-height: 60px;  
 }

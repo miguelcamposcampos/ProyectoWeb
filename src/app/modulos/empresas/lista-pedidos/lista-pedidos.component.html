@@ -11,95 +11,102 @@
       </div>
     </div>
 
-    <div class="p-toolbar-group-right">
+    <div class="p-toolbar-group-right p-toolbar-group-center-mobile">
       <button class="p-button-generico-azul" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
-        style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
+        pTooltip="Regresar" (click)="onRegresar()">
       </button>
     </div>
   </p-toolbar>
-
-
+ 
   <div class="tituloPage">
     <h2> <strong> Tabla de Pedidos</strong></h2>
   </div>
 
-  <div class="margintabla">
-    <div class="contenidoTable">
-      <div class="buscar-empresa">
-        <div class="container">
-          <div class="row">
-            <div class="header-buscar-planes">
-              <div class="col-md-4">
-                <span class="p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
-                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
-                </span>
-              </div>
-              <div class="col-md-4">
-                <button class="p-button-generico-agregar" pButton icon="pi pi-plus" label="Agregar" type="button"
-                  tooltipPosition="left" pTooltip="Registrar Pedido" (click)="onRegistrarPedido()">
-                </button>
-              </div>
-
-              <div class="col-md-4">
-                <button pButton (click)="onInformarPago()" tooltipPosition="top" type="button" pTooltip="Informar Pago"
-                  style="margin-left: 1%;" class="p-button-generico-agregar" label="Notificar" icon="pi pi-dollar">
-                </button>
-              </div>
+  <div class="margintabla">   
+      <div class="row">
+        <div class="header-roles"> 
+          <div class="p-col-12">
+            <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
+            <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
+                  (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+              </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+              <button 
+                class="p-button-generico-agregar"
+                pButton icon="pi pi-plus" label="Agregar" 
+                type="button"
+                tooltipPosition="left" pTooltip="Registrar Pedido" 
+                (click)="onRegistrarPedido()">
+              </button>
+            </div>
+            <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+              <button pButton (click)="onInformarPago()" 
+                tooltipPosition="top" type="button"
+                pTooltip="Informar Pago"  class="p-button-generico-agregar"
+                label="Notificar" 
+                icon="pi pi-dollar">
+              </button>
             </div>
           </div>
-          <div class="row">
-            <div class="tablas-planes">
-              <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single" [rowHover]="true"
-              [value]="listPedidos">
+          </div>
+        </div> 
+      </div> 
+ 
+      <br> 
+      
+      <div class="row">
+        <div class="header-roles">  
+          <p-table #dt 
+            [columns]="cols" 
+            responsiveLayout="stack"
+            selectionMode="single"
+            [scrollable]="true"
+            [rowHover]="true"
+            [value]="listPedidos">
     
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{ col.header }}
-                    <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
-                      ariaLabelDesc="Activate to sort in descending order"
-                      ariaLabelAsc="Activate to sort in ascending order">
-                    </p-sortIcon>
-                  </th>
-                </tr>
-              </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{ col.header }}
+                  <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
+                    ariaLabelDesc="Activate to sort in descending order"
+                    ariaLabelAsc="Activate to sort in ascending order">
+                  </p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
     
-              <ng-template pTemplate="body" let-pedido let-columns="columns" let-rowIndex="sort">
-                <tr [pSelectableRow]="pedido" [pSelectableRowIndex]="rowIndex">
-                  <td *ngFor="let col of columns">
-                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>
+            <ng-template pTemplate="body" let-pedido let-columns="columns" let-rowIndex="sort">
+              <tr [pSelectableRow]="pedido" [pSelectableRowIndex]="rowIndex">
+                <td *ngFor="let col of columns">
+                  <strong class="p-column-title">{{ col.header | uppercase}}</strong>
     
-                    <div [ngSwitch]="col.field">
-                      <div *ngSwitchCase="'fechaRegistro'">
-                        {{ pedido[col.field] | date: col.formatoFecha }}
-                      </div>
-                      <div *ngSwitchCase="'fechaRespuesta'">
-                        {{ pedido[col.field] | date: col.formatoFecha }}
-                      </div>
-                      <div *ngSwitchCase="'fechaExpiracion'">
-                        {{ pedido[col.field] | date: col.formatoFecha }}
-                      </div>
-                      <div *ngSwitchDefault>
-                        {{ pedido[col.field] }}
-                      </div>
+                  <div [ngSwitch]="col.field">
+                    <div *ngSwitchCase="'fechaRegistro'">
+                      {{ pedido[col.field] | date: col.formatoFecha }}
                     </div>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-    </div>
+                    <div *ngSwitchCase="'fechaRespuesta'">
+                      {{ pedido[col.field] | date: col.formatoFecha }}
+                    </div>
+                    <div *ngSwitchCase="'fechaExpiracion'">
+                      {{ pedido[col.field] | date: col.formatoFecha }}
+                    </div>
+                    <div *ngSwitchDefault>
+                      {{ pedido[col.field] }}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>  
+      </div>   
   </div>
 </div>
-
 <!-- PLANES DE EMPRESA -->
 <p-dialog header="Planes de empresa" [(visible)]="modalPlanes" [modal]="true" [draggable]="false"
 [resizable]="false">

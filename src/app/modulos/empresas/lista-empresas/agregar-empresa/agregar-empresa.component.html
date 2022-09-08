@@ -21,20 +21,21 @@
         <h2> <strong>{{ ( !EmpresaEdit ) ? ' Registrar Empresa' : 'Actualizar Empresa'}}</strong></h2>
     </div>
  
-    <div class="margintabla">
-      
-        <div class="margintabla"> 
+
+    <div class="margintabla"> 
             <div class="row">
-              <div class="formularioEmpresa">  
+              <div class="contenido-form-empresa">  
                 <div class="contenidoTable card-box p-fieldset-form">
                     <form [formGroup]="Form">
                         <p-fieldset>
                             <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
-                            <div style="line-height: 40px;">
+                            <div class="form-registro-empresa">
+                                 
                                 <strong>Número de Ruc <span >*</span> </strong>
                                 <input type="text" pInputText required (keydown.enter)="onSearchRuc()"
                                     (keypress)="generalService.onSoloNumeros($event)" formControlName="ruc" class="p-inputtext-generico"
                                     minlength="11" maxlength="11" placeholder="ingresar el RUC">
+                                
 
                                 <strong>Razón Social <span>*</span> </strong>
                                 <input type="text" pInputText required formControlName="razonsocial" class="p-inputtext-generico"
@@ -60,12 +61,12 @@
                                 <input type="text" pInputText formControlName="telefonos" class="p-inputtext-generico"
                                     placeholder="ingresar el telefono">
                             </div> 
-                        </p-fieldset>
-
+                        </p-fieldset> 
+ 
                         <div *ngIf="!EmpresaEdit">
                             <div class="elegirPlan">
                                 <div class="botones-plan-empresa"> 
-                                    <h3>Elija el tipo de plan</h3>  
+                                    <h4>Elija el tipo de plan</h4>  
                                     <div>
                                         <button pButton type="button"
                                             label="{{ (!mostrarNombrePlanelegido)? 'Detalle de Planes' : mostrarNombrePlanelegido }}"
@@ -80,7 +81,6 @@
                             </div>
 
                         </div>
-
 
                     </form>
 

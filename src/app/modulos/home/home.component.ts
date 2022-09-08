@@ -251,7 +251,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log('eventeventevent',event); 
         this.rotateMenuButton = !this.rotateMenuButton;
         this.topbarMenuActive = false;
-        this.menuClick = false;
+        this.menuClick = true;
 
         if (this.app.menuMode === 'overlay' && !this.isMobile()) {
             this.overlayMenuActive = !this.overlayMenuActive;

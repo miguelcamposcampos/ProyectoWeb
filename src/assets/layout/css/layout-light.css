@@ -2473,7 +2473,7 @@ p:last-child {
   padding-bottom: 36px;
 
   /**CAMBIOS CRISTIAN MARTINEz */
-  padding: 1px 10px 10px 15px;
+  padding: 1px 10px 40px 15px;
   width: 230px !important;
    /**CAMBIOS CRISTIAN MARTINEz */
 }
@@ -2719,8 +2719,8 @@ p:last-child {
 
 @media (max-width: 991px) {
   .layout-wrapper .menu-wrapper {
-    top: 104px;
-    height: calc(100% - 104px);
+    top: 140px !important;
+    height: calc(100% - 140px);
     -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     transform: translate3d(-260px, 0px, 0px);
