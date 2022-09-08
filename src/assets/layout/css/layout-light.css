@@ -2463,7 +2463,11 @@ p:last-child {
 .menu-wrapper .layout-menu-container {
   overflow: auto;
   height: 100%;
-  background: #147dba;
+   /**CAMBIOS CRISTIAN MARTINEz */
+  /* background: #147dba;  */
+  background: #ffffff !important;
+   /**CAMBIOS CRISTIAN MARTINEz */
+
 }
 
 .menu-wrapper .layout-menu-container .layout-menu {
@@ -2513,7 +2517,7 @@ p:last-child {
   margin-left: 10px;  */
    
   /* CAMBIO CRISTIAN MARTINEZ */
-  margin: 20px 10px 10px 0px;
+  margin: 15px 10px 10px 0px;
   width: 205px !important;
   background-color: #4da8de;
   text-align: center;
@@ -2526,7 +2530,7 @@ p:last-child {
 .menu-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem>div>.layout-menuitem-text {
   /**CAMBIOS CRISTIAN MARTINEZ 
    /* font-size: 12px; */
-    font-size: 14px;
+    font-size: 15px;
   /**CAMBIOS CRISTIAN MARTINEZ **/
   font-weight: 600;
   text-transform: uppercase;
@@ -2539,13 +2543,23 @@ p:last-child {
 .menu-wrapper .layout-menu-container .layout-menu li>a {
 
   /**CAMBIOS CRISTIAN MARTINEZ **/
-    /* 
-      margin: 0px;
-      padding: 7px 20px 6px 8px;
-    */
-    margin: 0;
-    padding: 0 0 10px 0;
-   /**CAMBIOS CRISTIAN MARTINEZ **/
+  margin: 0;
+  padding: 5px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center; 
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  -moz-border-radius-topleft: 10px; 
+  border-top-left-radius: 10px;
+  -moz-border-radius-bottomleft: 10px; 
+  border-bottom-left-radius: 10px;  
+  /**CAMBIOS CRISTIAN MARTINEZ **/
+  /* margin: 0px;
+  padding: 7px 20px 6px 8px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -2564,12 +2578,18 @@ p:last-child {
   border-top-left-radius: 10px;
   -moz-border-radius-bottomleft: 10px;
   -webkit-border-bottom-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px; */
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>a .layout-menuitem-text {
-  margin: 0 11px;
+  margin: 0 11px; 
+  /**CAMBIOS CRISTIAN MARTINEZ **/
+  color: #585454 !important;
+  font-weight: 600 !important;
+  width: 200px;
+  /**CAMBIOS CRISTIAN MARTINEZ **/ 
 }
+ 
 
 .menu-wrapper .layout-menu-container .layout-menu li>a.rotated-icon .layout-menuitem-icon {
   transform: rotate(90deg);
@@ -2598,6 +2618,7 @@ p:last-child {
     */
   padding: 5px; 
   background: #d3edfc;
+  border-radius: 10px;
   /*margin: 10px 15px 25px 15px;*/
 
 }
@@ -2618,7 +2639,12 @@ p:last-child {
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul>li {
   padding: 0;
-  margin-top: 8px;
+  margin-top: 6px;
+}
+
+
+.menu-wrapper .layout-menu-container .layout-menu li>ul>li :hover {
+  color: white !important;
 }
 
 .menu-wrapper .layout-menu-container .layout-menu li>ul>li.layout-root-menuitem>a {
@@ -2935,10 +2961,7 @@ p:last-child {
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li a i {
   color: #E5E8EC;
 }
-
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li a:hover {
-  background-color: #495771;
-}
+ 
 
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li.active-menuitem>a {
   color: #ffffff;
@@ -2949,22 +2972,22 @@ p:last-child {
 }
 
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a i {
-  color: #E5E8EC;
+  color: #1b74c5; 
 }
-
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a:hover {
-  /* background-color: #59667D; */
-  background-color: #0E5B87;
-  font-weight: bold;
-  color: white;
-  font-size: 16px;
-  /*CAMBIOS CSS*/
-}
+ 
+.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a:hover { 
+  background-color: #aac0cd !important; 
+  color: white !important;
+  font-size: 15.5px;
+} 
 
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li.active-menuitem>a {
-  /* background-color: #59667D; */
-  background-color: #0E5B87;
-  color: #ffffff;
+   /**Cambios Cristian Martinez */
+  /* background-color: #0E5B87; */
+  color: #ffffff!important; 
+  background-color: #a4c4d7 !important; 
+   /**Cambios Cristian Martinez */
+
 }
 
 .layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul>li.layout-root-menuitem.active-menuitem {

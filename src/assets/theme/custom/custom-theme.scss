@@ -862,35 +862,8 @@ p-inputmask {
 //     margin: 0 15px 25px 15px;
 // }
 
-.menu-wrapper .layout-menu-container {
-    overflow: auto;
-    height: 100%;
-    background: #ffffff !important;
-
-}
-
-.menu-wrapper .layout-menu-container .layout-menu li>a .layout-menuitem-text {
-    margin: 0 11px;
-    color: #585454 !important;
-    font-weight: 600 !important;
-}
-
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a i {
-    color: #1b74c5 !important;
-}
-
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li a:hover {
-    background-color: #aac0cd !important;
-    font-weight: bold;
-    color: #f16383 !important;
-    font-size: 16px;
-}
-
-
-.layout-menu-dim .menu-wrapper .layout-menu-container .layout-menu>li>ul li.active-menuitem>a {
-    background-color: #a4c4d7 !important;
-    color: #ffffff !important;
-}
+ 
+ 
 
 body.main-body {
     background: #f7f7f7 !important;

@@ -20,7 +20,7 @@
                             <form [formGroup]="loginForm">
                                 <div class="form-group">
                                     <input type="email" pInputText formControlName="email"
-                                        placeholder="CORREO ELECTRÓNICO" class="p-inputtext-sm-login">
+                                        placeholder="EJEM: demo@gmail.com" class="p-inputtext-sm-login">
 
                                     <span class="p-input-icon-right" style="width: 100%;">
                                         <i toggle="#password-field" [class]="cambiarIconEye"
@@ -39,8 +39,7 @@
                                     <button class="p-button-ingresar" pButton type="button"
                                         icon="pi pi-arrow-right" iconPos="right" label="INGRESAR"
                                         [disabled]="loginForm.invalid" (click)="onLogin()">
-                                    </button>
-                                    
+                                    </button> 
                                 </div>
                             </form>
 
