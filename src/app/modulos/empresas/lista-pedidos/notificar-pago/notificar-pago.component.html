@@ -49,33 +49,27 @@
             <div class="contenidoTable card-box"> 
                 <p-table   
                     class="TableDetalleWhiteSpace" 
-                    #dt [columns]="selectedColumns" 
+                    #dt [columns]="selectedColumn" 
                     [value]="listPedidos"
-                    [rowHover]="true" 
-                    [responsive]="true"
+                    [rowHover]="true"  
                     responsiveLayout="scroll"
                     selectionMode="multiple"  
                     (onHeaderCheckboxToggle)="onSeleccionarTodosLosPedidos($event)" 
                     (onRowSelect)="onSeleccionarPedidos($event)"  
                     (onRowUnselect)="onQuitarSeleccionPedidos($event)"  >
-        
-
+    
                     <ng-template pTemplate="caption">
                         <strong> Filtrar columnas</strong> &nbsp;
-                        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumn" optionLabel="header"
                             selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
                     </ng-template>
 
-                    
-
-                    <ng-template pTemplate="header">
+                    <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-                            <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                                 {{col.header}} 
-                                <p-sortIcon  
-                                [field]="col.field"
-                                ariaLabel="Activate to sort"
+                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" 
                                 ariaLabelDesc="Activate to sort in descending order"
                                 ariaLabelAsc="Activate to sort in ascending order">
                                 </p-sortIcon> 
@@ -83,10 +77,10 @@
                         </tr>
                     </ng-template>
 
-                    <ng-template pTemplate="body" let-rowData let-col let-rowIndex>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
                         <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"> 
                             <td><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
-                            <td *ngFor="let col of cols">
+                            <td *ngFor="let col of columns">
                                 <strong class="p-column-title"> {{ col.header | uppercase}}  </strong> 
                                 {{rowData[col.field]}}
                             <td> 

@@ -31,48 +31,39 @@
             </div>
         </p-toolbar>
 
-        <hr>   
-            <div class="stepsdemo-content nuevoTransportista">
-               
-                <form [formGroup]="Form" class="form" >   
-                    <p-fieldset>
-                        <ng-template pTemplate="header">Datos Personales</ng-template>
-                        <div class="p-col-12">
-                            <div class="p-fluid p-formgrid p-grid">
-                                <div class="p-field p-col-12">
+        <div class="contenido-form-table" style="width: 50%;">  
+            <div class="row">
+                <div class="contenidoTable card-box p-fieldset-form"> 
+                    <form [formGroup]="Form">   
+                        <p-fieldset>
+                            <ng-template pTemplate="header">Datos Personales</ng-template>
+                                <div class="form-registro-twoCols">
+
                                     <strong>Placa*</strong>
                                     <input type="text" pInputText formControlName="placa" class="p-inputtext-sm-form" placeholder="ingresar placa">   
-                                </div>
-                                <div class="p-field p-col-12">
+                                
                                     <strong>Marca*</strong>
                                     <input type="text" pInputText formControlName="marca" class="p-inputtext-sm-form" placeholder="ingresar Marca">   
-                                </div>
-                                <div class="p-field p-col-12">
+                                 
                                     <strong>Modelo</strong>
                                     <input  type="text" pInputText formControlName="modelo" class="p-inputtext-sm-form" placeholder="ingresar modelo">     
-                                </div>
-                                <div class="p-field p-col-12">
+                                 
                                     <strong>Certificado</strong>
                                     <input type="text" pInputText formControlName="certificado" class="p-inputtext-sm-form" placeholder="ingresar certificado">   
-                                </div>
-                                <div class="p-field p-col-12">   
+                                 
                                     <strong>Carreta Placa *</strong>
-                                    <input  type="text" pInputText formControlName="carretaPlaca" class="p-inputtext-sm-form" placeholder="ingresar carretaPlaca">     
-                                </div>
-                                <div class="p-field p-col-12">
+                                    <input  type="text" pInputText formControlName="carretaPlaca" class="p-inputtext-sm-form" placeholder="ingresar carreta placa">     
+                                 
                                     <strong>Carreta Marca</strong>
-                                    <input type="text" pInputText formControlName="carretaMarca" class="p-inputtext-sm-form" placeholder="ingresar tus carretaMarca">   
-                                 </div>
-                                <div class="p-field p-col-12">
+                                    <input type="text" pInputText formControlName="carretaMarca" class="p-inputtext-sm-form" placeholder="ingresar carreta marca">   
+                                
                                     <strong>Carreta Certificado</strong>
-                                    <input  type="text" pInputText formControlName="carretaCertificado" class="p-inputtext-sm-form" placeholder="ingresar tus carretaCertificado">     
-                                </div> 
-                            </div> 
-                        </div> 
-                    </p-fieldset>
-                </form>   
-              
+                                    <input  type="text" pInputText formControlName="carretaCertificado" class="p-inputtext-sm-form" placeholder="ingresar carreta certificado">     
+                                </div>  
+                        </p-fieldset>
+                    </form>   
+                </div> 
             </div> 
+        </div>  
     </div>  
-  
 </div>

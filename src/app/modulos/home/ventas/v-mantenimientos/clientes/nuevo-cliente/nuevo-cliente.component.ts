@@ -210,7 +210,7 @@ ngOnInit(): void {
               nombres : resp.nombres
             }); 
           }else{
-            this.swal.mensajeError('No se encontraron datos.');
+            this.swal.mensajeAdvertencia('No se encontraron datos.');
             this.limpiarForm();
             return;
           }

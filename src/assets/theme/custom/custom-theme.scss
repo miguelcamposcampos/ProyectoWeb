@@ -621,9 +621,9 @@
 
 
 .p-inputtext-sm-form {
-    height: 35px;
-    width: 100% !important;
-    font-size: 14px !important; 
+    // height: 35px;
+    // width: 100% !important;
+    // font-size: 14px !important; 
     border-radius: 5px !important;
     background: #e3e3e3 !important;
 }
@@ -920,18 +920,18 @@ body.main-body {
     background: aliceblue;
 }
 
-.titulorama {
-    margin: 2%;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: baseline;
+// .titulorama {
+//     margin: 2%;
+//     display: flex;
+//     justify-content: space-between;
+//     width: 100%;
+//     align-items: baseline;
 
-    @media (max-width: 700px) {
-        display: grid;
-        justify-content: center;
-    }
-}
+//     @media (max-width: 700px) {
+//         display: grid;
+//         justify-content: center;
+//     }
+// }
 
 .groupform {
     display: grid;
@@ -1201,18 +1201,18 @@ body.main-body {
         align-items: center;
         line-height: 60px;  
     }
-    
-    .header-roles {
-        width: 1000px;
-        text-align: center;
-        margin: 0 auto;
-        background: white;
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 25px 25px;
-        box-shadow: 0 5px 15px 0 rgb(0 0 0 / 15%);
-        display: flex; 
+
+    .form-registro-twoCols{
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        align-items: center;
+        gap: 20px;
+
+        .p-dropdown{ 
+            display: flex;
+        }
     }
+     
 
     .centrar {
         text-align: center;
@@ -1291,3 +1291,5 @@ body.main-body {
         display: flex;
         width: 100%;
     }
+
+   

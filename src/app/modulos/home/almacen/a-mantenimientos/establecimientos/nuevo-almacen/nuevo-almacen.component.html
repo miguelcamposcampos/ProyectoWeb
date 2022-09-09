@@ -4,11 +4,11 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12"> 
                 <strong>Nombre Almacén *</strong>
-                <input type="text" pInputText formControlName="nombreAlmacen"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar el nombre de alamacen">         
+                <input type="text" pInputText formControlName="nombreAlmacen"  class="p-inputtext-sm-form" placeholder="ingresar nombre de almacén">         
             </div> 
             <div class="p-field p-col-12"> 
                 <strong>Tipo Producto *</strong>
-                <p-dropdown class="extender" appendTo="body" placeholder="Selecciona un tipo de Producto"  formControlName="tipoProducto" [options]="listaTipoProducto" optionLabel="valor1"></p-dropdown>                 
+                <p-dropdown class="extender" appendTo="body" placeholder="Seleccionar"  formControlName="tipoProducto" [options]="listaTipoProducto" optionLabel="valor1"></p-dropdown>                 
             </div> 
     
             <div class="p-field p-col-12">
@@ -30,8 +30,7 @@
         <button  
             class="p-button-registrar"
             pButton
-            type="button"
-            style="margin-right: 1%;"
+            type="button" 
             [disabled]="Form.invalid"
             label="{{ (!dataAlmacenEdit.idAlmacenEdit ) ? 'Grabar' : 'Actualizar'}}"
             (click)="onGrabar()"

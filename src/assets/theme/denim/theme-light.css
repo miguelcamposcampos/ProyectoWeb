@@ -897,6 +897,9 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 .p-inputgroup > .p-inputwrapper:last-child > .p-component > .p-inputtext {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+  /*CAMBIOS CRISTIAN MARTINEZ */
+  background: #4da8de;
+  border: 0;
 }
 
 .p-inputgroup .p-float-label:last-child input {
@@ -1671,7 +1674,11 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-color: transparent;
 }
 .p-button.p-button-text.p-button-plain {
-  color: #657380;
+  /* CAMBISO CRISTIAN MARTINES
+   color: #657380; **/ 
+  color: white;
+  background: #4da8de;
+
 }
 .p-button.p-button-text.p-button-plain:enabled:hover {
   background: rgba(232, 241, 248, 0.7);
@@ -2195,7 +2202,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-radius: 0;
 }
 .p-datatable .p-datatable-header {
-  background: #F6F9FE;
+  /* background: #F6F9FE; */
   color: #515C66;
   border: 1px solid rgba(232, 241, 248, 0.7);
   border-width: 1px 0 1px 0;

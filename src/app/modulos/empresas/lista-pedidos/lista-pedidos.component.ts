@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { forkJoin, Subject } from 'rxjs';
-import { IAuth } from 'src/app/auth/interface/auth.interface';
+import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces'; 
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { DataEmpresa, IPedidoPorEmpresa, IPedioCrate } from '../interface/empresa.interface';
+import { IPedidoPorEmpresa, IPedioCrate } from '../interface/empresa.interface';
 import { PlanesService } from '../services/planes.services';
 
 @Component({

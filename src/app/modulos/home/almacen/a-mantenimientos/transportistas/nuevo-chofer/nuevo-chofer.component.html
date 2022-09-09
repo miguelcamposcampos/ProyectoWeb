@@ -32,70 +32,63 @@
             </div>
         </p-toolbar>
 
-        
-        <hr>   
-            <div class="stepsdemo-content nuevoTransportista  formulario-campo-obligatorio">
-                <div>
-                    <form [formGroup]="Form" class="form" >   
+        <div class="contenido-form-table" style="width: 50%;">  
+            <div class="row">
+                <div class="contenidoTable card-box p-fieldset-form"> 
+                    <form [formGroup]="Form">   
                         <p-fieldset>
                             <ng-template pTemplate="header">Datos Personales</ng-template>
-                            <div class="p-col-12">
-                                <div class="p-fluid p-formgrid p-grid">
-                                    <div class="p-field p-col-12">
-                                        <strong>Brevete</strong>
-                                        <input type="text" pInputText formControlName="brevete" class="p-inputtext-sm-form" placeholder="ingresar tu brevete">   
+                                <div class="form-registro-twoCols">
+
+                                    <strong>Brevete</strong>
+                                    <input type="text" pInputText formControlName="brevete" class="p-inputtext-sm-form" placeholder="ingresar tu brevete">   
+                                
+                                    <strong>Tipo Persona <span> *</span></strong>
+                                    <p-dropdown placeholder="Seleccionar"  formControlName="tipoPersona" 
+                                    [options]="listTipoPersona" optionLabel="valor1"></p-dropdown>
+                            
+                                    <strong>Tipo Documento <span> *</span></strong>
+                                    <p-dropdown (onChange)="onObtenerTipoDocumento($event.value)" placeholder="Seleccionar" 
+                                    formControlName="tipoDocumento" [options]="listTipoDocumento" optionLabel="valor1"></p-dropdown>
+                                    
+                                    <strong>Nro Documento <span> *</span></strong>  
+                                    <div class="p-inputgroup">  
+                                        <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" 
+                                            (keypress)="generalService.onSoloNumeros($event)" (keydown.enter)="onBuscarPorNumeroDocumento()"  
+                                            class="p-inputtext-sm-form" placeholder="00000000">   
+                                        <button type="button" pTooltip="Buscar" tooltipPosition="left" pButton pRipple icon="pi pi-search" 
+                                            (click)="onBuscarPorNumeroDocumento()" class="p-button-sm-generico-azul"  >
+                                        </button>      
                                     </div>
-                                    <div class="p-field p-col-12">
-                                        <strong>Tipo Persona <span> *</span></strong>
-                                        <p-dropdown class="extender" placeholder="Selecciona un tipo de persona"  formControlName="tipoPersona" [options]="listTipoPersona" optionLabel="valor1"></p-dropdown>
+                                
+                                    <strong *ngIf="!mostrarRazonSocial">Apellidos<span> *</span></strong>
+                                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="apellidos" 
+                                    class="p-inputtext-sm-form" placeholder="ingresar apellidos">   
+                                        
+                                    <strong *ngIf="!mostrarRazonSocial">Nombres<span> *</span></strong>
+                                    <input *ngIf="!mostrarRazonSocial" type="text" pInputText formControlName="nombres" 
+                                    class="p-inputtext-sm-form" placeholder="ingresar nombres">     
+                                
+                                    <strong *ngIf="mostrarRazonSocial">Razón Social <span> *</span></strong>
+                                    <input *ngIf="mostrarRazonSocial" type="text" pInputText  formControlName="razonSocial"
+                                     class="p-inputtext-sm-form" placeholder="ingresar razon social">     
+                                
+                                    <strong>Ubigeo:</strong>  
+                                    <div class="p-inputgroup">  
+                                        <input type="text" pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm-form" placeholder="Busca un anexo">   
+                                        <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm-generico-azul"  icon="pi pi-search" ></button>      
                                     </div>
-                                    <div class="p-field p-col-12">
-                                        <strong>Tipo Documento <span> *</span></strong>
-                                        <p-dropdown class="extender" (onChange)="onObtenerTipoDocumento($event.value)" placeholder="Selecciona un tipo de documento" formControlName="tipoDocumento" [options]="listTipoDocumento" optionLabel="valor1"></p-dropdown>
-                                    </div>
-                                    <div class="p-field p-col-12">
-                                        <strong>Nro Documento <span> *</span></strong>  
-                                        <div class="p-inputgroup">  
-                                            <input type="text" pInputText formControlName="nroDocumento"  minlength="8" maxlength="15" 
-                                                (keypress)="generalService.onSoloNumeros($event)" (keydown.enter)="onBuscarPorNumeroDocumento()"  
-                                                class="p-inputtext-sm-form" placeholder="ingresar el numero de documento">   
-                                            <button type="button" pTooltip="Buscar" tooltipPosition="left" pButton pRipple icon="pi pi-search" 
-                                                (click)="onBuscarPorNumeroDocumento()" class="p-button-sm-generico-azul"  >
-                                            </button>      
-                                        </div>
-                                    </div>
-                                    <div class="p-field p-col-12" *ngIf="!mostrarRazonSocial">
-                                        <strong>Apellidos<span> *</span></strong>
-                                        <input type="text" pInputText formControlName="apellidos" class="p-inputtext-sm-form" placeholder="ingresar tus apellidos">   
-                                    </div>
-                                    <div class="p-field p-col-12" *ngIf="!mostrarRazonSocial">
-                                        <strong>Nombres<span> *</span></strong>
-                                        <input type="text" pInputText formControlName="nombres" class="p-inputtext-sm-form" placeholder="ingresar tus nombres">     
-                                    </div>
-                                    <div class="p-field p-col-12" *ngIf="mostrarRazonSocial">
-                                        <strong>Razón Social <span> *</span></strong>
-                                        <input  type="text" pInputText  formControlName="razonSocial" class="p-inputtext-sm-form" placeholder="ingresar la razon social">     
-                                    </div>
-                                    <div class="p-field p-col-12"> 
-                                        <strong>Ubigeo:</strong>  
-                                        <div class="p-inputgroup">  
-                                            <input type="text" pInputText [value]="ubigeoParaMostrar" class="p-inputtext-sm-form" placeholder="Busca un anexo">   
-                                            <button type="button" pTooltip="Buscar" (click)="onBuscarUbigeo()" tooltipPosition="left" pButton class="p-button-sm-generico-azul"  icon="pi pi-search" ></button>      
-                                        </div>
-                                    </div>
-                                    <div class="p-field p-col-12">
-                                        <strong>Dirección Principal:</strong>
-                                        <input type="text" pInputText formControlName="direccionprincipal" class="p-inputtext-sm-form">  
-                                    </div>
+                            
+                                    <strong>Dirección Principal:</strong>
+                                    <input type="text" pInputText formControlName="direccionprincipal"   placeholder="ingresar dirección" class="p-inputtext-sm-form">  
+                                    
                                 </div> 
-                            </div> 
                         </p-fieldset>
-                    </form>   
-                  
+                    </form>  
                 </div> 
             </div> 
+        </div>  
     </div>  
-  
 </div>
 
 

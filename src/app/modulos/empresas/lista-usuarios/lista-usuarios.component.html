@@ -95,10 +95,9 @@
                       <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
                       <button  class="p-button-generico-azul"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
                       pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
-
-
                     </div>
                   </ng-template>
+                  
                 </td>
               </tr>
             </ng-template>

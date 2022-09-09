@@ -211,7 +211,7 @@ export class NuevoTransportistaComponent implements OnInit {
             }); 
           }else{
             this.IngresoManual = true;
-            this.swal.mensajeError('No se encontraron datos.');
+            this.swal.mensajeAdvertencia('No se encontraron datos.');
             this.limpiarForm(); 
           }
           this.spinner.hide();

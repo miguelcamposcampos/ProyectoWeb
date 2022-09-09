@@ -56,9 +56,9 @@ export class InterceptorService implements HttpInterceptor {
     onValidarOtraSesion(error : any){ 
       console.log('que erroe se validara',error);
       this.generalService.ApagarSpiiner(false);  
-
+      
         if(error.status === 404){ 
-          this.swal.mensajeError('No se encontraron datos.');
+          this.swal.mensajeAdvertencia('No se encontraron datos.');
         }else if(error.error.status === 403){ 
           this.swal.mensajeCaducoSesion().then((response) => { 
             if (response.isConfirmed) { 
@@ -66,7 +66,7 @@ export class InterceptorService implements HttpInterceptor {
             }
           });
         }else if(error.error.status === 404){ 
-          this.swal.mensajeError('No se encontraron datos.');
+          this.swal.mensajeAdvertencia('No se encontraron datos.');
         }else if(error.error.status === 401){ 
           this.swal.mensajeCaducoSesion().then((response) => { 
             if (response.isConfirmed) { 

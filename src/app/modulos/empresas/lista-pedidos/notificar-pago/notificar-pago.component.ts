@@ -6,6 +6,7 @@ import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
 import { IPedidoPorEmpresa, IEnviarNotificarPago, IModalConfirmar } from '../../interface/empresa.interface';
 import { PlanesService } from '../../services/planes.services';
+
 @Component({
   selector: 'app-notificar-pago',
   templateUrl: './notificar-pago.component.html',
@@ -47,21 +48,23 @@ export class NotificarPagoComponent implements OnInit {
     let guidEmpresaLS = localStorage.getItem('guidEmpresa');
     this.guidDesencriptado = this.authService.desCifrarData(guidEmpresaLS) 
     this.onLoadPedidos();
+
     this.cols = [ 
       { field: 'plan', header: 'Plan', visibility: true  }, 
       { field: 'planServicio', header: 'Servicio', visibility: true}, 
       { field: 'importe', header: 'Importe', visibility: true},  
       { field: 'cantidad', header: 'Cantidad', visibility: true},   
     ];  
+
     this.filterCols = this.cols;
   }
   
   /** FILTRAR COLUMNAS EN LA TABLA */
-  @Input() get selectedColumns(): any[] {
+  @Input() get selectedColumn(): any[] {
     return this.filterCols;
   }
 
-  set selectedColumns(val: any[]) { 
+  set selectedColumn(val: any[]) { 
     this.filterCols = this.cols.filter(col => val.includes(col));
   }
 
@@ -165,6 +168,7 @@ export class NotificarPagoComponent implements OnInit {
     if(this.PedidosSeleccionados.length >= 1){
       this.mostrarAdjuntar = true;  
     }else{
+      this.mostrarEnviarNotificacion = false; 
       this.mostrarAdjuntar = false; 
       this.ImgBase64 = "";  
     }
