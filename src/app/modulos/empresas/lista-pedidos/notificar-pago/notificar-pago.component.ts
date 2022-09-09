@@ -1,4 +1,4 @@
-import { Component, EventEmitter,OnInit, Output } from '@angular/core'; 
+import { Component, EventEmitter,Input,OnInit, Output } from '@angular/core'; 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
@@ -29,6 +29,7 @@ export class NotificarPagoComponent implements OnInit {
   ImgBase64 : string = "";
 
   guidDesencriptado : any;
+  filterCols : any[];
   
   constructor(
     private swal : MensajesSwalService,
@@ -52,7 +53,20 @@ export class NotificarPagoComponent implements OnInit {
       { field: 'importe', header: 'Importe', visibility: true},  
       { field: 'cantidad', header: 'Cantidad', visibility: true},   
     ];  
+    this.filterCols = this.cols;
   }
+  
+  /** FILTRAR COLUMNAS EN LA TABLA */
+  @Input() get selectedColumns(): any[] {
+    return this.filterCols;
+  }
+
+  set selectedColumns(val: any[]) { 
+    this.filterCols = this.cols.filter(col => val.includes(col));
+  }
+
+  /** FILTRAR COLUMNAS EN LA TABLA */
+
 
   
   onLoadPedidos(){  

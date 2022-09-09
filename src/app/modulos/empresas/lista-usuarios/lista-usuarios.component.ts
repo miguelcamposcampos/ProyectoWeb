@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
@@ -34,6 +34,8 @@ export class ListaUsuariosComponent implements OnInit {
 
   iconPorEstadoUsuario : string = "";
   labelPorEstdoUsuario : string = "";
+
+  filterCols : any[];
 
   constructor(
     private usuarioService: UsuariosService,  
@@ -71,6 +73,16 @@ export class ListaUsuariosComponent implements OnInit {
       { field: 'ultimaInteraccion', header: 'Fecha Interaccion', visibility: true, formatoFecha: ConstantesGenerales._FORMATO_FECHA_VISTA }, 
       { field: 'acciones', header: 'Ajustes', visibility: true  },
     ]; 
+    this.filterCols = this.cols;
+  }
+  
+  /** FILTRAR COLUMNAS EN LA TABLA */
+  @Input() get selectedColumns(): any[] {
+    return this.filterCols;
+  }
+
+  set selectedColumns(val: any[]) { 
+    this.filterCols = this.cols.filter(col => val.includes(col));
   }
 
 
@@ -80,7 +92,7 @@ export class ListaUsuariosComponent implements OnInit {
         label:'Cambiar Rol',
         icon:'pi pi-fw pi-key', 
         command:()=>{
-           this.onOpenModalChangeRol();
+           this.onModalChangeRol(null);
         }
       },
       {
@@ -109,14 +121,9 @@ export class ListaUsuariosComponent implements OnInit {
     this.usuarioService.usuariosPorEmpresa().subscribe((resp) => { 
       if(resp){ 
         this.usuariosporEmpresa = resp;     
-        this.usuariosporEmpresa.forEach(x => {
-          if(x.estado === 'Denegado' ){
-            this.iconPorEstadoUsuario = 'pi pi-fw pi-check-circle',
-            this.labelPorEstdoUsuario = 'Activar Invitación'
-          }else{
-            this.iconPorEstadoUsuario = 'pi pi-fw pi-ban',
-            this.labelPorEstdoUsuario = 'Suspender Invitación'
-          }
+        this.usuariosporEmpresa.forEach(x => { 
+          this.iconPorEstadoUsuario = x.estado === 'Denegado'  ?  'pi pi-fw pi-check-circle' : 'pi pi-fw pi-ban';
+          this.labelPorEstdoUsuario = x.estado === 'Denegado'  ?  'Activar Invitación' : 'Suspender Invitación';   
         }) 
         this.onItemsOperario();
         this.spinner.hide();
@@ -130,17 +137,10 @@ export class ListaUsuariosComponent implements OnInit {
     });
   }
 
-  /* cambio desde el split */
-  onOpenModalChangeRol(){
-    this.InvitarForm.controls['Rol'].setValue(null)
-    this.selectUsuario = this.selectUsuarioSplit; 
-    this.modalChangeRol = true; 
-  }
-
   /* cambio Directo del boton */
   onModalChangeRol(usuario : any){  
     this.InvitarForm.controls['Rol'].setValue(null)
-    this.selectUsuario = usuario; 
+    this.selectUsuario = usuario ?? this.selectUsuarioSplit; 
     this.modalChangeRol = true; 
   }
 
@@ -179,7 +179,7 @@ export class ListaUsuariosComponent implements OnInit {
     this.usuarioService.registrarUsuarioInvitado(newUserInvitado).subscribe((resp) => {
       if(resp){
         this.spinner.hide();
-        this.swal.mensajeExito('Se realizó el registro corerctamente!,')
+        this.swal.mensajeExito('Se realizó la invitación corerctamente!,')
       }else{
         this.spinner.hide();
         this.swal.mensajeError('No se envio la invitación!,') 
@@ -188,10 +188,9 @@ export class ListaUsuariosComponent implements OnInit {
   }
  
  
-  onModalSuspenderActivarInvitacion(){
-    let condicion  = this.selectUsuarioSplit.estado === 'Denegado';
-    let texto = condicion ? 'ACTIVAR' : 'SUSPENDER';
-    let textoExito = condicion ? 'activada' : 'suspendida'; 
+  onModalSuspenderActivarInvitacion(){ 
+    let texto = this.selectUsuarioSplit.estado === 'Denegado' ? 'ACTIVAR' : 'SUSPENDER';
+    let textoExito = this.selectUsuarioSplit.estado === 'Denegado' ? 'activada' : 'suspendida'; 
     this.swal.mensajePregunta('Seguro de ' +texto+ ' la invitación?.').then((response) => {
       if (response.isConfirmed) {
         this.usuarioService.suspenderActivarUsuarioEmpresa(this.selectUsuarioSplit.usuarioEmpresaId).subscribe((resp) => { 

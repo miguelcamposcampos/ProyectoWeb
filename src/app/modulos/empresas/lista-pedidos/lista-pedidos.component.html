@@ -61,14 +61,20 @@
         <div class="row">
           <div class="contenidoTable card-box"> 
             <p-table #dt 
-              [columns]="cols" 
-              responsiveLayout="stack"
+              [columns]="selectedColumns" 
+              responsiveLayout="scroll"
               selectionMode="single"
               [scrollable]="true"
               [rowHover]="true"
               [value]="listPedidos">
       
-              <ng-template pTemplate="header" let-columns>
+              <ng-template pTemplate="caption">
+                <strong> Filtrar columnas</strong> &nbsp;
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                    selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+            </ng-template>
+
+              <ng-template pTemplate="header"  let-columns>
                 <tr>
                   <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{ col.header }}
@@ -80,7 +86,7 @@
                 </tr>
               </ng-template>
       
-              <ng-template pTemplate="body" let-pedido let-columns="columns" let-rowIndex="sort">
+              <ng-template pTemplate="body" let-pedido let-columns="columns" let-rowIndex="rowIndex">
                 <tr [pSelectableRow]="pedido" [pSelectableRowIndex]="rowIndex">
                   <td *ngFor="let col of columns">
                     <strong class="p-column-title">{{ col.header | uppercase}}</strong>

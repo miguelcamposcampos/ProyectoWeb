@@ -99,6 +99,7 @@
 
   .card-box {
     width: 100% !important;
+    padding: 10px 10px!important;
   }
 
   .p-toolbar-group-center-mobile {
@@ -243,7 +244,7 @@
   }
 
   .contenido-form-empresa,  .contenido-form-table {
-      width: 90% !important;  
+      width: 92% !important;  
   }
 
   .elegirPlan{
@@ -260,8 +261,12 @@
   .p-dialog{
     width: 80% !important;
   }
- 
+  
 }
+
+
+
+
 
 
 @media (max-width: 600px) {  
@@ -269,3 +274,6 @@
     width: 95% !important;
   }
 }
+
+
+

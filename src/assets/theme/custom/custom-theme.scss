@@ -50,12 +50,7 @@
     border-radius: 50px;
     font-weight: bold;
 }
-
-.p-button-ingresar:hover {
-    background-color: #d45373 !important;
-    border: #e00d42;
-}
-
+ 
 
 // .p-button-ajustes {
 //     color: #f8fafc;
@@ -166,36 +161,36 @@
 
  
 
-.card {
-    box-shadow: 0 0 2px black !important;
-    border-radius: 5%;
-    text-align: center;
+// .card {
+//     box-shadow: 0 0 2px black !important;
+//     border-radius: 5%;
+//     text-align: center;
 
-    span {
-        color: #ffffff;
-    }
+//     span {
+//         color: #ffffff;
+//     }
 
-    img {
-        padding: 6%;
-        width: 25%;
-    }
-}
+//     img {
+//         padding: 6%;
+//         width: 25%;
+//     }
+// }
 
-.tituloLogin {
-    padding-top: 4%;
-    padding-bottom: 40%;
-    text-align: center;
-    display: block;
-    margin-left: 5%;
-    margin-right: 5%;
+// .tituloLogin {
+//     padding-top: 4%;
+//     padding-bottom: 40%;
+//     text-align: center;
+//     display: block;
+//     margin-left: 5%;
+//     margin-right: 5%;
 
-    h2 {
-        font-weight: bold;
-        font-family: inherit;
-        font-size: 1.5em;
-        color: #D72250;
-    }
-}
+//     h2 {
+//         font-weight: bold;
+//         font-family: inherit;
+//         font-size: 1.5em;
+//         color: #D72250;
+//     }
+// }
 
 
 
@@ -416,16 +411,16 @@
 
 }
 
-::ng-deep .p-datatable .p-datatable-thead>tr>th {
-    text-align: center;
-    padding: 1rem 1rem 1rem;
-    border: 1px solid rgba(232, 241, 248, 0.7);
-    border-width: 0 0 1px 0;
-    font-weight: 600;
-    color: #0b476a;
-    background: #e8f0fe;
-    transition: box-shadow 0.2s;
-}
+// ::ng-deep .p-datatable .p-datatable-thead>tr>th {
+//     text-align: center;
+//     padding: 1rem 1rem 1rem;
+//     border: 1px solid rgba(232, 241, 248, 0.7);
+//     border-width: 0 0 1px 0;
+//     font-weight: 600;
+//     color: #0b476a;
+//     background: #e8f0fe;
+//     transition: box-shadow 0.2s;
+// }
 
 .header-buscar-empresas {
     width: 990px;
@@ -511,7 +506,7 @@
     border-radius: 16px;
     width: 100%;
     margin: auto;
-    box-shadow: 0 0 10px 5px rgb(0 0 0 / 15%);
+    box-shadow: 0 0 10px 5px rgb(0 0 0 / 10%);
 }
 
 .elegirOpciones {
@@ -790,10 +785,7 @@ p-inputmask {
     }
 }
 
-.BotonesRoles {
-    display: flex;
-    width: 100%;
-}
+
 
 
 .p-toolbar-group-center {
@@ -964,16 +956,16 @@ body.main-body {
 /* Termina Importados desde los SCSS */
 
 
-.tabladetalles th,
-td {
-    padding: 20px 30px !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /*white-space: nowrap;/*/
-    text-align: center !important;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
+// .tabladetalles th,
+// td {
+//     padding: 20px 30px !important;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: nowrap;
+//     text-align: center !important;
+//     flex-direction: column;
+//     flex-wrap: nowrap;
+// }
  
 .tabladetalles #md {
     width: 250px;
@@ -1114,10 +1106,7 @@ td {
         width: 130px!important;
     }
     
-
-.p-datatable .p-datatable-tbody>tr>td {
-    padding: 0.5rem !important; 
-}
+ 
 
 .card-desplegable {
     //*** CAMBIO CRISTIAN MARTINEZ ***/
@@ -1180,14 +1169,7 @@ td {
 .importes button{
     margin-left: 25px;
 }
-
-.p-datatable-scrollable .p-datatable-thead>tr, .p-datatable-scrollable .p-datatable-tbody>tr, .p-datatable-scrollable .p-datatable-tfoot>tr {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    //background: #f3f3f3;
-}
-
+ 
 .encabezados-grid {
     background-color: #f3f3f3!important;
 }
@@ -1238,7 +1220,7 @@ td {
      
     .contenido-form-table {
         width: 80%; 
-        margin: 0 auto 30px;
+        margin: 0 auto 20px;
     }
 
     .botones-tabla{
@@ -1303,4 +1285,9 @@ td {
         margin-bottom: 1.5%; 
         background: #f80000; 
         border-radius: 10px;
+    }
+
+    .BotonesRoles {
+        display: flex;
+        width: 100%;
     }

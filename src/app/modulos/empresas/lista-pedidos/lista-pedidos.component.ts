@@ -26,6 +26,7 @@ export class ListaPedidosComponent implements OnInit {
   VistaNotificarPago : boolean = false;
   guidDesencriptado :any; 
   dataDesencryptada :any;
+  filterCols : any[];
 
   constructor(
     private planesService : PlanesService,
@@ -54,11 +55,21 @@ export class ListaPedidosComponent implements OnInit {
       { field: 'fechaRespuesta', header: 'Fec.Respuesta', visibility: true , formatoFecha: ConstantesGenerales._FORMATO_FECHA_VISTA },
       { field: 'fechaExpiracion', header: 'Fec.Expiracion', visibility: true  , formatoFecha: ConstantesGenerales._FORMATO_FECHA_VISTA }, 
       { field: 'cantidad', header: 'Cantidad', visibility: true },  
-      // { field: 'acciones', header: 'Ajustes', visibility: true  }, 
- 
+      // { field: 'acciones', header: 'Ajustes', visibility: true  },  
     ]; 
+    this.filterCols = this.cols;
   }
 
+  /** FILTRAR COLUMNAS EN LA TABLA */
+  @Input() get selectedColumns(): any[] {
+    return this.filterCols;
+  }
+
+  set selectedColumns(val: any[]) { 
+    this.filterCols = this.cols.filter(col => val.includes(col));
+  }
+
+  /** FILTRAR COLUMNAS EN LA TABLA */
 
   onLoadPedidos(){  
     this.spinner.show();

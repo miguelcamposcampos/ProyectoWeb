@@ -1615,16 +1615,19 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: 3px;
 }
-.p-button:enabled:hover {
+/* 
+
+  QUITANDO EL HOVER D ELOS BOTONES PARA EVITAR EL COLOR MORADO AL POSICIONAR EL MOUSE SOBRE EL BOTON
+  .p-button:enabled:hover {
   background: #135AA9;
   color: #f8fafc;
   border-color: #135AA9;
-}
-.p-button:enabled:active {
+} */
+/* .p-button:enabled:active {
   background: #0D438D;
   color: #f8fafc;
   border-color: #0D438D;
-}
+} */
 .p-button.p-button-outlined {
   background-color: transparent;
   color: #1B74C5;
@@ -1681,7 +1684,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-button:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2rem #4D9FDC;
+  /* CAMBIO CRISTIAN MARTINEZ 
+  box-shadow: 0 0 0 0.2rem #4D9FDC; */
 }
 .p-button .p-button-icon-left {
   margin-right: 0.5rem;
@@ -2209,7 +2213,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-datatable .p-datatable-thead > tr > th {
  
   padding: 1rem 1rem;
-  border: 1px solid rgba(232, 241, 248, 0.7);
+  /* border: 1px solid rgba(232, 241, 248, 0.7); */
   border-width: 0 0 1px 0;
   font-weight: 600;
   color: #515C66;
@@ -2222,11 +2226,22 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 /*RESIZE DE LA TABLA EN  700*/
 @media (max-width: 700px) {
-  .p-datatable .p-datatable-tbody > tr > td{
-    border: 0 none;
+  .TableDetalleWhiteSpace .p-datatable .p-datatable-tbody > tr > td{
+    border: 0px !important;
+    white-space: nowrap !important;
   }
+
+  .TableDetalleWhiteSpace .p-datatable .p-datatable-thead > tr > th { 
+    white-space: nowrap !important;
+    border: none !important;
+  }
+ 
 }
 
+
+.p-datatable .p-datatable-thead > tr > th { 
+  white-space: nowrap !important;
+}
 .p-datatable .p-datatable-tfoot > tr > td {
   text-align: left;
   padding: 1rem 1rem;
@@ -2281,10 +2296,16 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   outline-color: #4D9FDC;
 }
 .p-datatable .p-datatable-tbody > tr > td {
-  text-align: left;
+ 
   border: 1px solid rgba(232, 241, 248, 0.7);
-  border-width: 0 0 1px 0;
-  padding: 1rem 1rem;
+  border-width: 0 0 1px 0; 
+  /*CAMBIOS CRISTIAN MARTINEZ **/
+  /* padding: 1rem 1rem; 
+   text-align: left;*/
+  text-align: center;
+  padding: 0.5rem !important;
+  justify-content: center;
+    /*CAMBIOS CRISTIAN MARTINEZ **/
 }
 .p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,
@@ -3776,6 +3797,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #4da8de;
   border-color: white;
   color: white;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 .p-tabview .p-tabview-left-icon {
   margin-right: 0.5rem;
@@ -5031,12 +5054,16 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
   background: rgba(232, 241, 248, 0.7);
+  color: #4da8de;
+  font-weight: bold;
 }
 .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
   color: #515C66;
 }
 .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-icon, .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link .p-submenu-icon {
-  color: #657380;
+  /* CRISTIAN MARTINEZ color: #657380; */
+  color: #4da8de;
+  font-weight: bold;
 }
 .p-tieredmenu .p-menu-separator {
   border-top: 1px solid #E4E5E5;

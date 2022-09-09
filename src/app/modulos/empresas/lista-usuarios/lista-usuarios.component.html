@@ -46,12 +46,19 @@
      <br> 
      <div class="row">
        <div class="contenidoTable card-box">  
-          <p-table #dt 
-            [columns]="cols" 
+          <p-table #dt  
+            class="TableDetalleWhiteSpace" 
+            [columns]="selectedColumns" 
             responsiveLayout="scroll"
             selectionMode="single" 
             [rowHover]="true"
             [value]="usuariosporEmpresa">
+
+            <ng-template pTemplate="caption">
+              <strong> Filtrar columnas</strong> &nbsp;
+              <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                  selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+            </ng-template>
 
             <ng-template pTemplate="header" let-columns>
               <tr>
@@ -102,30 +109,28 @@
 </div>
 
 <!-- MODALES -->
-<div class="modal-cambioDeRol">
   <p-dialog header="CAMBIO DE ROL" *ngIf="selectUsuario" [(visible)]="modalChangeRol" [modal]="true" [draggable]="false"
     [resizable]="false">
     <form [formGroup]="InvitarForm">
       <div class="p-col-12">
         <div class="p-fluid p-formgrid p-grid">
-          <div class="p-field p-col-12">
+          <div class="p-field p-col-12 p-md-6 p-sm-12">
             <strong> USUARIO : </strong> 
             <input readonly pInputText [value]="selectUsuario.nombreUsuario" class="p-inputtext-sm-form">
           </div>
-
-          <div class="p-field p-col-12">
+          <div class="p-field p-col-12 p-md-6 p-sm-12">
             <strong> ROL ACTUAL : </strong> 
             <input readonly pInputText [value]="selectUsuario.rol" class="p-inputtext-sm-form">
           </div>
-
-          <div class="p-field p-col-12">
+        
+          <div class="p-field p-col-12 p-md-12 p-sm-12">
             <strong>CAMBIAR POR:</strong> 
             <p-dropdown [options]="ListadeRoles" placeholder="Selecciona el nuevo rol" optionLabel="nombre"
               appendTo="body"  formControlName="Rol" [showClear]="true">
-            </p-dropdown>
+            </p-dropdown> 
           </div>
-        </div>
       </div>
+    </div>
     </form>
     <div class="botones">
       <button pButton label="Cambiar de Rol" (click)="onChangeRol(selectUsuario)"
@@ -136,7 +141,7 @@
       </button>
     </div>
   </p-dialog>
-</div>
+ 
 
 <p-dialog header="INVITAR A UN USUARIO" [(visible)]="modalInvitarUsuario" [modal]="true" [draggable]="false"
   [resizable]="false">
@@ -148,7 +153,7 @@
           <input type="email" pInputText formControlName="Email" placeholder="EJEM: demo@gmail.com" class="p-inputtext-sm-form">
         </div>
         <div class="p-field p-col-12">
-          <strong> Nuevo Rol :</strong>
+          <strong> Asignar Rol :</strong>
           <p-dropdown appendTo="body"  [options]="ListadeRoles" placeholder="Selecciona el nuevo rol"
             optionLabel="nombre" formControlName="Rol" [showClear]="true">
           </p-dropdown>

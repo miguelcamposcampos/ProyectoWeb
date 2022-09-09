@@ -8,8 +8,9 @@
         <div class="exception-wrapper">
             <span class="exception-summary">No se encontró la página</span>
             <span class="exception-detail">Porfavor dirigase a un modulo existente.</span> 
-            <a [routerLink]="['/modulos/home/']" class="logo">
-                <img src="assets/layout/images/logo_color.png" alt="poseidon-layout" class="logo-icon"  />
+            <button pButton pRipple [routerLink]="['/modulos/home/landing']" label="Regresar a la pantalla principal  " icon="pi pi-home" class="p-button-generico-azul"></button>
+            <a [routerLink]="['/modulos/home/landing']" class="logo">
+                <img src="assets/layout/images/logo-gestisol.png" alt="logo" />
             </a> 
         </div>
     </div>

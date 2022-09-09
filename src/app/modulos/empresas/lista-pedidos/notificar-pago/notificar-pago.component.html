@@ -1,5 +1,3 @@
-<!-- <app-titulos  (cerrar)="onRegresar()"> </app-titulos> 
-   --> 
 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
     <p style="font-size: 20px; color: white">CARGANDO. </p>
 </ngx-spinner>
@@ -11,7 +9,6 @@
         </div>
     </div>
 </p-toolbar>
-
 
 <div class="tituloPage">
     <h2> <strong> Pedidos a notificar </strong></h2> 
@@ -47,12 +44,12 @@
             </div>  
         </div> 
        
-        <br> 
-     
+        <br>     
         <div class="row">
             <div class="contenidoTable card-box"> 
                 <p-table   
-                    #dt [columns]="cols" 
+                    class="TableDetalleWhiteSpace" 
+                    #dt [columns]="selectedColumns" 
                     [value]="listPedidos"
                     [rowHover]="true" 
                     [responsive]="true"
@@ -62,6 +59,15 @@
                     (onRowSelect)="onSeleccionarPedidos($event)"  
                     (onRowUnselect)="onQuitarSeleccionPedidos($event)"  >
         
+
+                    <ng-template pTemplate="caption">
+                        <strong> Filtrar columnas</strong> &nbsp;
+                        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                            selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+                    </ng-template>
+
+                    
+
                     <ng-template pTemplate="header">
                         <tr>
                             <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>

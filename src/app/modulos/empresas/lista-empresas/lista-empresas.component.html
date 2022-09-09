@@ -66,7 +66,7 @@
                 <div class="contenidoTable card-box"> 
                     <p-table #dt 
                         [columns]="ColsEmpresa" 
-                        responsiveLayout="stack"
+                        responsiveLayout="scroll"
                         selectionMode="single"
                         [scrollable]="true"
                         [rowHover]="true"
@@ -118,52 +118,7 @@
             </div> 
           </div>
         </div>
-        
-                    
-    <!-- <div class="margintabla">
-        <div class="contenidoTable"> 
-            <div class="buscar-empresa">
-                <div class="container">
-                    <div class="row">
-                        <div class="header-buscar-empresas">
-                        <div class="col-lg-6">
-                            <div class="column-empresas-left">
-                                <span class="p-input-icon-left">
-                                  <i class="pi pi-search"></i>
-                                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar empresa" size="25"
-                                  (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>
-                                </span> 
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="column-empresas-right">
-                                <button    
-                                    class="p-button-generico-agregar"
-                                    pButton
-                                    type="button"
-                                    icon="pi pi-plus"
-                                    label="Agregar"
-                                    tooltipPosition="left"
-                                    pTooltip="Registrar una empresa"
-                                    (click)="onRegistrarEmpresa()">  
-                                </button> 
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                        <div class="tablas-empresas">
-                           
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        
-            
-        </div>
-    </div>    -->
-    
+         
     <!-- MODAL DE PLANES -->
     <div *ngIf="VistaPlanes" class="card RegistroPlanes">  
         <p-dialog header="Planes de empresa" [(visible)]="VistaPlanes" [modal]="true" [draggable]="false" [resizable]="false"> 
