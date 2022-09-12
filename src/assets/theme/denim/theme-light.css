@@ -952,7 +952,9 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   background: #c1c2c4;
 }
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-  background: #1B74C5;
+ /* CAMBIO CRISTIAN MARTINEZ 
+  background: #1B74C5; */
+  background: #4da8de
 }
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
   background: #FDFEFF;
@@ -1313,7 +1315,9 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   height: 20px;
 }
 .p-radiobutton .p-radiobutton-box {
-  border: 2px solid #D7D8D9;
+ /* CAMBMIO CRISTIAN MARTINEz
+  border: 2px solid #D7D8D9; */
+  border: 2px solid #d76565;
   background: #FDFEFF;
   width: 20px;
   height: 20px;
@@ -1337,8 +1341,11 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   background-color: #f8fafc;
 }
 .p-radiobutton .p-radiobutton-box.p-highlight {
+   /* CAMBIO CRISTIAN MARTINEZ 
+  background: #1B74C5; */
+  background: #4da8de;
   border-color: #1B74C5;
-  background: #1B74C5;
+ 
 }
 .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
   border-color: #0D438D;
@@ -1758,6 +1765,9 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-fluid .p-button-icon-only {
   width: 2.357rem;
+  /* CAMBIO CRISTIAN MARTINEZ */
+  background: #4da8de;
+  border: 0px solid #1B74C5;
 }
 .p-fluid .p-buttonset {
   display: flex;
@@ -3075,8 +3085,12 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-radius: 3px;
 }
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  /*
+  CAMBIOS CRISTIAN MARTINEZ
   background: #1B74C5;
-  border-color: #1B74C5;
+  border-color: #1B74C5; */
+  background: #4da8de;
+  border-color: #4da8de;
   color: #f8fafc;
 }
 .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {

@@ -1,9 +1,9 @@
-<div class="margintabla">
+<div class="margintabla-home">
     <div class="contenidoTable card-box">  
         
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">CARGANDO. </p>
-           </ngx-spinner>
+        </ngx-spinner>
 
         <p-toolbar>
             <div class="p-toolbar-group-left">
@@ -12,8 +12,7 @@
             
             <div class="p-toolbar-group-right">
                 <button 
-                    class="p-button-registrar" 
-                    style="margin-right: 1%;"
+                    class="p-button-registrar"  
                     pTooltip="Agregar Tipo de Cambio" 
                     tooltipPosition="top"  
                     type="button" 
@@ -23,7 +22,7 @@
                     icon="pi pi-plus">
                 </button> 
                 <button 
-                    class="p-button-cancelar" 
+                    class="p-button-registrar" 
                     pTooltip="Obtener Tasa de Cambio Por Mes"
                     tooltipPosition="top"  
                     type="button"
@@ -81,80 +80,82 @@
                 </form>
             </section>  
         </p-panel> 
-  
-        <br>
+    </div>
 
-            <p-table   
-            class="TablaDetalleCondicionPago"
-            responsiveLayout="stack"
-            [scrollable]="true" 
-            [paginator]="true" 
-            [rows]="10" 
-            [columns]="cols" 
-            [rowHover]="true"
-            [value]="listaTipoCambio">  
+    <br>
+    
+    <div class="contenidoTable card-box">  
+        <p-table   
+        class="TablaDetalleCondicionPago"
+        responsiveLayout="stack"
+        [scrollable]="true" 
+        [paginator]="true" 
+        [rows]="10" 
+        [columns]="cols" 
+        [rowHover]="true"
+        [value]="listaTipoCambio">  
 
-                <ng-template pTemplate="header" let-columns >
-                    <tr>
-                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                            {{ col.header }} 
-                            <p-sortIcon *ngIf="col.field != 'acciones'"
-                                [field]="col.field"
-                                ariaLabel="Activate to sort"
-                                ariaLabelDesc="Activate to sort in descending order"
-                                ariaLabelAsc="Activate to sort in ascending order">
-                            </p-sortIcon> 
-                        </th>
-                    </tr> 
-                </ng-template>
-                
-                <ng-template pTemplate="body" let-tipoCambio let-columns="columns"  let-rowIndex="rowIndex"> 
-                    <tr [pSelectableRow]="tipoCambio" [pSelectableRowIndex]="rowIndex">
-                        <td  *ngFor="let col of columns" >
-                            <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+            <ng-template pTemplate="header" let-columns >
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{ col.header }} 
+                        <p-sortIcon *ngIf="col.field != 'acciones'"
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon> 
+                    </th>
+                </tr> 
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-tipoCambio let-columns="columns"  let-rowIndex="rowIndex"> 
+                <tr [pSelectableRow]="tipoCambio" [pSelectableRowIndex]="rowIndex">
+                    <td  *ngFor="let col of columns" >
+                        <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
 
-                            <div [ngSwitch]="col.field">  
-                                <div *ngSwitchCase="'fecha'">
-                                  {{ tipoCambio[col.field] | date: col.formatoFecha }}
-                                </div>
-                                <div *ngSwitchCase="'fechaRegistro'">
-                                  {{ tipoCambio[col.field] | date: col.formatoFecha }}
-                                </div>
-                                <div *ngSwitchCase="'fechaEdicion'">
-                                  {{ tipoCambio[col.field] | date: col.formatoFecha }}
-                                </div> 
-                                <div *ngSwitchDefault>
-                                  {{ tipoCambio[col.field]  }}
-                                </div>
-                              </div>
+                        <div [ngSwitch]="col.field">  
+                            <div *ngSwitchCase="'fecha'">
+                                {{ tipoCambio[col.field] | date: col.formatoFecha }}
+                            </div>
+                            <div *ngSwitchCase="'fechaRegistro'">
+                                {{ tipoCambio[col.field] | date: col.formatoFecha }}
+                            </div>
+                            <div *ngSwitchCase="'fechaEdicion'">
+                                {{ tipoCambio[col.field] | date: col.formatoFecha }}
+                            </div> 
+                            <div *ngSwitchDefault>
+                                {{ tipoCambio[col.field]  }}
+                            </div>
+                            </div>
 
-                            <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                <div style="display: flex;">
-                                  <button  
-                                    pButton
-                                    type="button" 
-                                    class="p-button-generico-azul"
-                                    (click)="onEditar(tipoCambio.id)"
-                                    tooltipPosition="top" 
-                                    pTooltip="Editar Und Medida"  
-                                    icon="pi pi-pencil">
-                                  </button> 
-                                  <button  
-                                    pButton
-                                    type="button" 
-                                    class="p-button-cancelar" 
-                                    (click)="onModalEliminar(tipoCambio)"
-                                    tooltipPosition="top" 
-                                    pTooltip="Eliminar Und. Medida"  
-                                    icon="pi pi-trash">
-                                  </button>    
-                                </div>
-                                
-                            </ng-template>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+                        <ng-template #botones [ngIf]="col.field === 'acciones'">
+                            <div style="display: flex;">
+                                <button  
+                                pButton
+                                type="button" 
+                                class="p-button-generico-azul"
+                                (click)="onEditar(tipoCambio.id)"
+                                tooltipPosition="top" 
+                                pTooltip="Editar Und Medida"  
+                                icon="pi pi-pencil">
+                                </button> 
+                                <button  
+                                pButton
+                                type="button" 
+                                class="p-button-cancelar" 
+                                (click)="onModalEliminar(tipoCambio)"
+                                tooltipPosition="top" 
+                                pTooltip="Eliminar Und. Medida"  
+                                icon="pi pi-trash">
+                                </button>    
+                            </div>
+                            
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 
     <div *ngIf="modalNuevoTipoCambio">

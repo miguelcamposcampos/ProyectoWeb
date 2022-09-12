@@ -10,10 +10,9 @@
     margin: auto;
     text-align: center;
     display: flex;
-  }
+  } 
 }
-
-
+ 
 @media (min-width:2042px) and (max-width:2162px) {
 
   .card-desplegable {
@@ -25,8 +24,7 @@
     margin: auto;
     text-align: center;
     display: flex;
-  }
-    
+  } 
 }
 
 @media (min-width:1921px) and (max-width:2041px) {
@@ -40,9 +38,7 @@
     margin: auto;
     text-align: center;
     display: flex;
-  }
-
-    
+  } 
 }
 
 @media (min-width:1800px) and (max-width:1920px) {
@@ -56,9 +52,7 @@
     margin: auto;
     text-align: center;
     display: flex;
-  }
-
-    
+  } 
 }
 
 @media (min-width:1600px) and (max-width:1799px) {
@@ -74,6 +68,9 @@
     display: flex;
   }
     
+  .switchProductos{ 
+    grid-template-columns: 100px 40px 100px 40px 120px 40px !important;
+  }
 }
 
 /* Large Devices */
@@ -83,11 +80,7 @@
     height: auto;
     padding: 95px 30px 60px 30px;
   }
-
-  /* .boton-ingresar {
-    width: 80% !important;
-  } */
-
+  
   .p-input-icon-right>i:last-of-type {
     right: 60px !important;
     color: #657380 !important;
@@ -123,7 +116,7 @@
 
   .layout-wrapper .layout-main .layout-content {
     padding-top: 50px!important;
-  }
+  } 
 }
 
 @media (max-width: 767px) {
@@ -186,7 +179,7 @@
     margin: 10px !important;
   }
 
-  .formularioColum12_1 {
+  /* .formularioColum12_1 {
     display: flex !important;
     grid-gap: 1rem !important;
     align-content: center !important;
@@ -194,7 +187,7 @@
     flex-direction: column !important;
     width: 290px !important;
 
-  }
+  } */
 
   .card-responsive {
     width: 350px !important;
@@ -207,13 +200,12 @@
     border-radius: 25px;
   }
 
-  .only-responsive {
-    display: flex!important;
-    flex-direction: column!important;
-  }
+   .filasResponsive {
+    display: grid!important; 
+  }  
 
 
-  .margintabla {
+  .margintabla-empresa {
     margin-top: 20px  !important;
   }
 
@@ -250,14 +242,13 @@
   .p-dialog{
     width: 80% !important;
   }
+
+  .switchProductos{ 
+    grid-template-columns: 50px 35px 60px 35px 65px 35px !important; 
+  }
   
 }
-
-
-
-
-
-
+ 
 @media (max-width: 600px) {  
   .p-dialog{
     width: 95% !important;

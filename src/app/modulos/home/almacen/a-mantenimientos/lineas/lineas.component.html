@@ -1,4 +1,4 @@
-<div class="margintabla">
+<div class="margintabla-home">
     <div class="contenidoTable card-box">
 
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
@@ -11,13 +11,25 @@
             </div>
 
             <div class="p-toolbar-group-right">
-                <button pButton type="button" label="Agregar" pTooltip="Agregar Nueva Linea" tooltipPosition="top"
-                    class="p-button-registrar" (click)="onNuevoLinea()" icon="pi pi-plus">
+                <button 
+                    pButton type="button" 
+                    label="Agregar" 
+                    pTooltip="Agregar Nueva Linea" tooltipPosition="top"
+                    class="p-button-registrar" 
+                    (click)="onNuevoLinea()" icon="pi pi-plus">
                 </button>
             </div>
         </p-toolbar>
+    </div>
 
-        <p-table [responsive]="true" dataKey="id" [columns]="cols" responsiveLayout="stack" selectionMode="single"
+    <br>
+
+    <div class="contenidoTable card-box">
+    <p-table
+            [responsive]="true" 
+            dataKey="id" [columns]="cols"
+            responsiveLayout="scroll" 
+            selectionMode="single"
             [rowHover]="true" [value]="listaLineas">
 
             <ng-template pTemplate="header" let-columns>
@@ -41,8 +53,7 @@
                         <button type="button" pButton pRipple [pRowToggler]="lineas"
                             class="p-button-text p-button-rounded p-button-plain"
                             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                    </td>
-
+                    </td> 
                     <td *ngFor="let col of columns">
                         <strong class="p-column-title">{{ col.header | uppercase}}</strong>
                         <div [ngSwitch]="col.field">
@@ -56,11 +67,17 @@
 
                         <ng-template #botones [ngIf]="col.field === 'acciones'">
                             <div style="display: flex;">
-                                <button pButton type="button" class="p-button-generico-azul" tooltipPosition="top" pTooltip="Editar"
-                                    (click)="onEditar(lineas.id)" style="margin-right :1%;" icon="pi pi-pencil">
+                                <button
+                                    pButton type="button"
+                                    class="p-button-generico-azul"
+                                    tooltipPosition="top" pTooltip="Editar"
+                                    (click)="onEditar(lineas.id)" icon="pi pi-pencil">
                                 </button>
-                                <button pButton type="button" class="p-button-cancelar" tooltipPosition="top"
-                                    (click)="onModalEliminar(lineas)" pTooltip="Eliminar" icon="pi pi-trash">
+                                <button pButton type="button" 
+                                    class="p-button-cancelar" 
+                                    tooltipPosition="top"
+                                    (click)="onModalEliminar(lineas)"
+                                     pTooltip="Eliminar" icon="pi pi-trash">
                                 </button>
                             </div>
                         </ng-template>
@@ -72,36 +89,45 @@
                 <tr>
                     <td colspan="6">No existen registros</td>
                 </tr>
-            </ng-template>
-
-            <div style="margin-top: 2%;"></div>
-            <hr style="width: 2%;">
+            </ng-template> 
 
             <ng-template pTemplate="rowexpansion" let-lineas>
                 <tr>
                     <td colspan="7">
-                        <div class="MargenTabla">
-                            <div class="ramasTable">
-                                <div class="titulorama">
+                        <div class="p-3" > 
+                            <p-toolbar>
+                                <div class="p-toolbar-group-left">
                                     <h3> SUB LINEAS</h3>
-                                    <button pButton type="button" (click)="onNuevaSubLinea(lineas.id)"
-                                        class="p-button-generico-azul" style="margin-right: 2%;" label="Agregar"
-                                        tooltipPosition="top" pTooltip="Agregar SubLinea" icon="pi pi-plus">
+                                </div>
+                                
+                                <div class="p-toolbar-group-right">
+                                    <button 
+                                        pButton type="button" 
+                                        (click)="onNuevaSubLinea(lineas.id)"
+                                        class="p-button-sm-generico"
+                                        label="Agregar"
+                                        tooltipPosition="top" pTooltip="Agregar SubLinea"
+                                        icon="pi pi-plus">
                                     </button>
                                 </div>
-                            </div>
+                            </p-toolbar> 
+ 
 
-                            <p-table [value]="lineas.subLineas" dataKey="id" [columns]="colSubLinea"
-                                selectionMode="single" [responsive]="true" responsiveLayout="stack">
+                            <p-table 
+                                [value]="lineas.subLineas"
+                                dataKey="id" [columns]="colSubLinea"
+                                selectionMode="single"
+                                [responsive]="true"
+                                responsiveLayout="scroll">
                                 <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                        {{ col.header }}
-                        <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order">
-                        </p-sortIcon>
-                </tr>
+                                    <tr>
+                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                            {{ col.header }}
+                                            <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descending order"
+                                                ariaLabelAsc="Activate to sort in ascending order">
+                                            </p-sortIcon>
+                                    </tr>
             </ng-template>
             <ng-template pTemplate="body" let-subLineas let-columns="columns" let-rowIndex="rowIndex">
                 <tr [pSelectableRow]="subLineas" [pSelectableRowIndex]="rowIndex">
@@ -128,14 +154,13 @@
 
                         <ng-template #botones [ngIf]="col.field === 'acciones'">
                             <div style="display: flex;">
-                                <button style="margin-right: 2% ;" pButton type="button"
+                                <button pButton type="button"
                                     (click)="onEditarSubLinea(subLineas.idLinea, subLineas.idLineaPadre )"
                                     class="p-button-generico-azul" tooltipPosition="top" pTooltip="Editar SubLinea"
                                     icon="pi pi-pencil">
                                 </button>
                                 <button pButton type="button" (click)="onEliminarSubLinea(subLineas)"
-                                    class="p-button-generico-azul" tooltipPosition="top" style=" background-color: #D72250;"
-                                    pTooltip="Eliminar SubLinea" icon="pi pi-trash">
+                                    class="p-button-cancelar" tooltipPosition="top" pTooltip="Eliminar SubLinea" icon="pi pi-trash">
                                 </button>
                             </div>
 
@@ -149,9 +174,7 @@
                 </tr>
             </ng-template>
         </p-table>
-    </div>
-    <div style="margin-top: 2%;"></div>
-    <br>
+    </div> 
     </td>
     </tr>
     </ng-template>

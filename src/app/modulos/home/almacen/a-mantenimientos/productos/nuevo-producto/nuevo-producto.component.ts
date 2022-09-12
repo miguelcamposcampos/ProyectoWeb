@@ -22,8 +22,7 @@ export class NuevoProductoComponent implements OnInit {
 
   CheckIncluyeIgv : boolean = false;
   CheckCondicionCantidad : boolean = false;
-    
-  mostrarcomboUnesco: boolean = false;
+     
   esServicio : string;  
 
   Form : FormGroup;  
@@ -132,8 +131,7 @@ export class NuevoProductoComponent implements OnInit {
     this.stringBuscarenUnesco = this.Form.controls['codigoParaBuscarUnesco'].value;
     this.spinner.show();
     this.productoService.listadoUnesco(this.stringBuscarenUnesco).subscribe((resp)=>{ 
-      if(resp.Data.length > 0){ 
-        this.mostrarcomboUnesco = true;
+      if(resp.Data.length > 0){  
         this.arrayUnescoData = resp.Data
       }else{
         this.swal.mensajeInformacion('No se encontraron registros, intenta con otro producto');

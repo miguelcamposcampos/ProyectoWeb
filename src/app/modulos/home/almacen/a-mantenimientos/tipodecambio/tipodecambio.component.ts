@@ -66,7 +66,7 @@ export class TipodecambioComponent implements OnInit {
     this.onLoadTipoCambio();
     this.onOpcionesTipoCambio();
     this.cols = [
-      { field: 'fecha', header: 'Fecha TipoCambio', visibility: true, formatoFecha : ConstantesGenerales._FORMATO_FECHA_VISTA },
+      { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha : ConstantesGenerales._FORMATO_FECHA_VISTA },
       { field: 'valorCompra', header: 'Compra', visibility: true },
       { field: 'valorVenta', header: 'Venta', visibility: true },
       { field: 'fechaRegistro', header: 'Fec. Registro', visibility: true, formatoFecha : ConstantesGenerales._FORMATO_FECHA_VISTA },

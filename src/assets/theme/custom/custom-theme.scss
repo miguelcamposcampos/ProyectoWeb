@@ -31,6 +31,26 @@
     border-radius: 10px;
 }
 
+.p-button.p-fileupload-choose {
+    box-sizing: border-box;
+    color: #f8fafc;
+    background: #4da8de;
+    border: 0px solid #1B74C5; 
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
+.p-button-generico-azul,  .p-fileUpload  {
+    color: #f8fafc;
+    background: #4da8de;
+    border: 0px solid #1B74C5;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+}
+
 .p-button-cancelar {
     color: #f8fafc;
     background: #f80000;
@@ -305,24 +325,24 @@
     width: 100%;
     margin: 2%;
     height: 45px;
-    padding: 25px;
+    padding: 25px;  
 }
 
-.p-inputtext-sm-registro-empresa {
-    background-color: #e3e3e3;
-    border-radius: 50px;
-    width: 100%;
-    margin: 2%;
-    height: 45px;
-    padding: 25px;
-}
+// .p-inputtext-sm-registro-empresa {
+//     background-color: #e3e3e3;
+//     border-radius: 50px;
+//     width: 100%;
+//     margin: 2%;
+//     height: 45px;
+//     padding: 25px;
+// }
 
-.formulario-registro-empresa {
-    display: grid;
-    justify-items: start;
-    align-content: center;
-    justify-content: center;
-}
+// .formulario-registro-empresa {
+//     display: grid;
+//     justify-items: start;
+//     align-content: center;
+//     justify-content: center;
+// }
 
 
 .p-input-icon-right>i:last-of-type {
@@ -361,30 +381,30 @@
 
 
 
-.tablas-empresas {
-    width: 990px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 25px;
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 25px 25px;
-    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
-}
+// .tablas-empresas {
+//     width: 990px;
+//     text-align: center;
+//     margin: 0 auto;
+//     margin-top: 25px;
+//     background: white;
+//     padding: 20px;
+//     border-radius: 20px;
+//     box-shadow: 25px 25px;
+//     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+// }
 
 
-.tablas-planes {
-    width: 78%;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 25px;
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 25px 25px;
-    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
-}
+// .tablas-planes {
+//     width: 78%;
+//     text-align: center;
+//     margin: 0 auto;
+//     margin-top: 25px;
+//     background: white;
+//     padding: 20px;
+//     border-radius: 20px;
+//     box-shadow: 25px 25px;
+//     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 29%);
+// }
 
 
 .modal-planes { 
@@ -397,19 +417,18 @@
     box-shadow: 0 5px 15px 0 rgb(0 0 0 / 20%);
 }
 
-.column-empresas-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+// .column-empresas-right {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+// }
 
-}
+// .column-empresas-left {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
 
-.column-empresas-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
+// }
 
 // ::ng-deep .p-datatable .p-datatable-thead>tr>th {
 //     text-align: center;
@@ -509,7 +528,7 @@
     box-shadow: 0 0 10px 5px rgb(0 0 0 / 10%);
 }
 
-.elegirOpciones {
+.radios-form {
     display: flex;
     justify-content: space-evenly;
 }
@@ -525,19 +544,22 @@
 }
 
 
-.margintabla {
+.margintabla-empresa {
     margin-top: 50px;
     padding-bottom: 40px;
 }
 
+.margintabla-home {
+    margin-top: 30px;
+    padding-bottom: 40px;
+}
 
-.formulario-campo-obligatorio strong span {
+
+strong span {
     color: red;
 }
 
-.formulario-campo-obligatorio {
-    margin-top: 25px;
-}
+ 
 
 ::ng-deep .p-fieldset .p-fieldset-legend {
     padding: 1rem;
@@ -550,13 +572,13 @@
 }
 
 
-.p-inputtext.p-inputtext-sm-registro-empresa {
-    font-size: 14px;
-    padding: 5px 50px;
-    width: 500px;
-    border-radius: 10px;
-    background: #e8f0fe;
-}
+// .p-inputtext.p-inputtext-sm-registro-empresa {
+//     font-size: 14px;
+//     padding: 5px 50px;
+//     width: 500px;
+//     border-radius: 10px;
+//     background: #e8f0fe;
+// }
 
 
 
@@ -647,9 +669,9 @@
     color: #147dba;
 }
 
-.p-fluid .p-inputtext {
-    width: 98%;
-}
+// .p-fluid .p-inputtext {
+//     width: 98%;
+// }
 
 .InputCombinadoBuscar {
     display: grid;
@@ -681,18 +703,18 @@
 }
 
 
-.formImprimir {
-    display: grid;
-    grid-gap: 1rem;
-    gap: 1rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 12rem 1fr;
-    align-items: center;
+// .formImprimir {
+//     display: grid;
+//     grid-gap: 1rem;
+//     gap: 1rem;
+//     grid-auto-rows: auto;
+//     grid-template-columns: 12rem 1fr;
+//     align-items: center;
 
-    @media (max-width: 800px) {
-        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    }
-}
+//     @media (max-width: 800px) {
+//         grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+//     }
+// }
 
 
 
@@ -701,29 +723,29 @@
     text-align: center;
 }
 
-.precioForm {
-    display: grid;
-    grid-gap: 1rem;
-    gap: 1rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 10rem 2fr 0.5fr;
-    align-items: center;
+// .precioForm {
+//     display: grid;
+//     grid-gap: 1rem;
+//     gap: 1rem;
+//     grid-auto-rows: auto;
+//     grid-template-columns: 10rem 2fr 0.5fr;
+//     align-items: center;
 
-    @media (max-width: 700px) {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-}
+//     @media (max-width: 700px) {
+//         display: grid;
+//         grid-template-columns: 1fr;
+//     }
+// }
 
-.number-clear {
-    height: 34px;
-    margin-top: 18px;
-}
+// .number-clear {
+//     height: 34px;
+//     margin-top: 18px;
+// }
 
 
-.p-inputtext-sm-simple {
-    height: 35px;
-}
+// .p-inputtext-sm-simple {
+//     height: 35px;
+// }
 
 .mt-18 {
     margin-top: 18px;
@@ -773,17 +795,17 @@ p-inputmask {
 
 }
 
-.contenidoRoles {
-    display: grid;
-    grid-gap: 1rem;
-    gap: 1rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 1fr 3fr;
+// .contenidoRoles {
+//     display: grid;
+//     grid-gap: 1rem;
+//     gap: 1rem;
+//     grid-auto-rows: auto;
+//     grid-template-columns: 1fr 3fr;
 
-    @media (max-width: 800px) {
-        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    }
-}
+//     @media (max-width: 800px) {
+//         grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+//     }
+// }
 
 
 
@@ -807,13 +829,13 @@ p-inputmask {
 
 }
 
-.p-placeholder {
-    background-color: #0b476a;
-}
+// .p-placeholder {
+//     background-color: #0b476a;
+// }
 
-.fondo-gris {
-    background: #dedfe1;
-}
+// .fondo-gris {
+//     background: #dedfe1;
+// }
 
 .width-100 {
     width: 100% !important;
@@ -870,7 +892,7 @@ body.main-body {
     display: none;
 }
 
-.formPlanes2 .p-tabview .p-tabview-panels {
+.tabviewVisible .p-tabview .p-tabview-panels {
     display: grid;
 }
 
@@ -886,10 +908,10 @@ body.main-body {
 // }
 
 
-.contenidotable-2 {
-    min-height: 125vh;
-    margin-top: 0px;
-}
+// .contenidotable-2 {
+//     min-height: 125vh;
+//     margin-top: 0px;
+// }
 
 .BotonesConfig {
     width: 50px;
@@ -913,12 +935,12 @@ body.main-body {
 
 /* Comienza Importados desde los SCSS */
 
-.ramasTable {
-    /*box-shadow: 0 0 5px black !important; */
-    margin: 1%;
-    display: flex;
-    background: aliceblue;
-}
+// .ramasTable {
+//     /*box-shadow: 0 0 5px black !important; */
+//     margin: 1%;
+//     display: flex;
+//     background: aliceblue;
+// }
 
 // .titulorama {
 //     margin: 2%;
@@ -942,14 +964,7 @@ body.main-body {
     display: grid;
     grid-gap: 1rem;
     gap: 3rem;
-    grid-template-columns: 1fr 1fr;
-
-    @media (max-width: 500px) {
-        display: grid;
-        row-gap: 15%;
-        grid-template-columns: auto;
-        //  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    }
+    grid-template-columns: 1fr 1fr; 
 }
 
 
@@ -996,19 +1011,40 @@ body.main-body {
     flex-direction: row;
 }
 
+ 
 .tabladetalles #lg  .p-dropdown {
     width: 190px;
 }
+
+
+.tabladetalles #lg-50 {
+    width: 50px;
+    text-align: center !important;
+    margin: 0px 25px;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.tabladetalles #lg-120  .p-dropdown {
+    width: 120px !important;
+}
+ 
+.tabladetalles #lg-140  .p-dropdown {
+    width: 140px !important;
+}
+
 .tabladetalles #md input{
     width: 140px!important;
 }
+
 .tabladetalles #lg input{
-    width: 170px!important;
+    width: 170px !important;
 }
 
 .tabladetalles #lg  .p-dropdown {
     width: 190px;
 }
+
 .tabladetalles #md input{
     width: 140px!important;
 }
@@ -1019,92 +1055,92 @@ body.main-body {
         CAMBIOS CRISTIAN MARTINEZ
  *******************************************/
 
-    .tabladetalles #L-detail {
-        width: 50px;
-        text-align: center !important; 
-        justify-content: center  !important; 
-        flex: none;
-        flex-direction: row;
-    }
-    .tabladetalles #L-detail input{ 
-        width: 50px !important;
-        flex: none;
-    }
+    // .tabladetalles #L-detail {
+    //     width: 50px;
+    //     text-align: center !important; 
+    //     justify-content: center  !important; 
+    //     flex: none;
+    //     flex-direction: row;
+    // }
+    // .tabladetalles #L-detail input{ 
+    //     width: 50px !important;
+    //     flex: none;
+    // }
 
-    .tabladetalles #LX-detail {
-        width: 60px;
-        text-align: center !important; 
-        justify-content: center  !important; 
-        flex: none;
-        flex-direction: row;
-    }
+    // .tabladetalles #LX-detail {
+    //     width: 60px;
+    //     text-align: center !important; 
+    //     justify-content: center  !important; 
+    //     flex: none;
+    //     flex-direction: row;
+    // }
 
-    .tabladetalles #LX-detail input{ 
-        width: 60px !important;
-        flex: none;
-    }
-
-
-    .tabladetalles #LXX-detail {
-        width: 70px;
-        text-align: center !important; 
-        justify-content: center  !important; 
-        flex: none;
-        flex-direction: row;
-    }
-    .tabladetalles #LXX-detail input{ 
-        width: 70px!important;
-        flex: none;
-    }
+    // .tabladetalles #LX-detail input{ 
+    //     width: 60px !important;
+    //     flex: none;
+    // }
 
 
-    .tabladetalles #C-detail {
-        width: 100px;
-        text-align: center !important; 
-        justify-content: center; 
-        flex: none;
-        flex-direction: row;
-    }
-
-    .tabladetalles #C-detail input{
-        width: 100px;
-        text-align: center !important; 
-        justify-content: center; 
-        flex: none;
-    }
-
-    .tabladetalles #CXXX-detail {
-        width: 130px;
-        text-align: center !important; 
-        justify-content: center; 
-        flex: none;
-        flex-direction: row;
-    }
-
-    .tabladetalles #CXXX-detail input{
-        width: 130px;
-        text-align: center !important; 
-        justify-content: center; 
-        flex: none;
-    }
+    // .tabladetalles #LXX-detail {
+    //     width: 70px;
+    //     text-align: center !important; 
+    //     justify-content: center  !important; 
+    //     flex: none;
+    //     flex-direction: row;
+    // }
+    // .tabladetalles #LXX-detail input{ 
+    //     width: 70px!important;
+    //     flex: none;
+    // }
 
 
-    .tabladetalles #CL-detail {
-        width: 150px;
-        text-align: center !important; 
-        justify-content: center; 
-        flex: none;
-        flex-direction: row;
-    }
+    // .tabladetalles #C-detail {
+    //     width: 100px;
+    //     text-align: center !important; 
+    //     justify-content: center; 
+    //     flex: none;
+    //     flex-direction: row;
+    // }
+
+    // .tabladetalles #C-detail input{
+    //     width: 100px;
+    //     text-align: center !important; 
+    //     justify-content: center; 
+    //     flex: none;
+    // }
+
+    // .tabladetalles #CXXX-detail {
+    //     width: 130px;
+    //     text-align: center !important; 
+    //     justify-content: center; 
+    //     flex: none;
+    //     flex-direction: row;
+    // }
+
+    // .tabladetalles #CXXX-detail input{
+    //     width: 130px;
+    //     text-align: center !important; 
+    //     justify-content: center; 
+    //     flex: none;
+    // }
 
 
-    /**COMPONENTNES**/
-    .tabladetalles #CL-detail input{
-        width: 150px!important;
-    }
-    .tabladetalles #CXXX-calendar-detail p-calendar{
-        width: 130px!important;
-    }
+    // .tabladetalles #CL-detail {
+    //     width: 150px;
+    //     text-align: center !important; 
+    //     justify-content: center; 
+    //     flex: none;
+    //     flex-direction: row;
+    // }
+
+
+    // /**COMPONENTNES**/
+    // .tabladetalles #CL-detail input{
+    //     width: 150px!important;
+    // }
+    // .tabladetalles #CXXX-calendar-detail p-calendar{
+    //     width: 130px!important;
+    // }
     
  
 
@@ -1170,18 +1206,17 @@ body.main-body {
     margin-left: 25px;
 }
  
-.encabezados-grid {
-    background-color: #f3f3f3!important;
-}
+// .encabezados-grid {
+//     background-color: #f3f3f3!important;
+// }
 
-.body-grid {
-    background-color: #ffffff!important;
-}
+// .body-grid {
+//     background-color: #ffffff!important;
+// }
 
 .formulario {
     display:block!important;
-    grid-gap: 1rem;
-    grid-gap: 1rem;
+    grid-gap: 1rem; 
     gap: 2rem;
     grid-auto-rows: auto;
     grid-template-columns: 11rem 1fr;
@@ -1292,4 +1327,56 @@ body.main-body {
         width: 100%;
     }
 
-   
+   .content-Menu-Scroll{
+        justify-content: space-between;
+        display: flex;
+   }
+
+   .switchProductos{
+        display: grid;
+        gap: 3%;
+        text-align: center; 
+        grid-template-columns: 160px 50px 160px 50px 160px 50px;
+        align-items: center;
+        justify-content: center;
+   }
+
+   .boton-buscar-cabecera{
+        display: flex;
+        align-items: end;
+   }
+
+   .contenido-report{
+        height: 80vh;
+   }
+
+   /*  ESPACIADOS DE CONTENIDOS*/ 
+   .w-50{
+    width: 50%;
+   }
+   .w-60{
+    width: 60%;
+   }
+   .w-70{
+    width: 70%;
+   }
+ 
+   .w-100{
+    width: 100%;
+   }
+
+
+
+
+   .wpx-50{
+    width: 50px;
+   }
+   .wpx-60{
+    width: 60px;
+   }
+   .wpx-70{
+    width: 70px;
+   } 
+   .wpx-100{
+    width: 100px;
+   }

@@ -48,10 +48,10 @@
                             </div>
 
                             <div class="p-col-12">
-                                <div class="p-fluid p-formgrid p-grid formulario-campo-obligatorio">
+                                <div class="p-fluid p-formgrid p-grid  ">
                                     <div class="p-field p-col-12 p-md-3 p-sm-4">
                                         <strong>Establecimiento <span>*</span></strong>
-                                        <p-dropdown class="DropExtenso fondo-gris"
+                                        <p-dropdown class="DropExtenso"
                                             (onChange)="onObtenerEstablecimiento($event)" [options]="arrayEstablecimiento"
                                             formControlName="establecimientoid" placeholder="Selecciona " [showClear]="true"
                                             optionLabel="valor1">
@@ -60,7 +60,7 @@
 
                                     <div class="p-field p-col-12 p-md-3 p-sm-8">
                                         <strong>Tipo Documento <span>*</span></strong>
-                                        <p-dropdown class="DropExtenso fondo-gris"
+                                        <p-dropdown class="DropExtenso"
                                             [disabled]="!existeEstablecimientoSeleccionado"
                                             (onChange)="onObtenerTipoDocumento($event.value)" [options]="arrayTipoDocumento"
                                             formControlName="documentoid" placeholder="Selecciona" [showClear]="true"
@@ -77,7 +77,7 @@
 
                                     <div class="p-field p-col-12 p-md-1 p-sm-2 botonBuscar">
                                         <input type="number" disabled pInputText
-                                            class="p-inputtext-sm-clear-grey number-clear" formControlName="secuencialventa"
+                                            class="p-inputtext-sm-form" formControlName="secuencialventa"
                                             placeholder="ingresar">
                                     </div> 
 
@@ -112,7 +112,7 @@
                                     <div class="p-field p-col-12 p-md-8 ">
                                         <strong>Glosa</strong>
                                         <input type="text" pInputText formControlName="glosa"
-                                            class="p-inputtext-sm-clear-grey p-inputtext-sm-simple pd-5 width-100"
+                                            class="p-inputtext-sm-form"
                                             placeholder="ingresar una glosa">
                                     </div>
 
@@ -233,8 +233,7 @@
                                             formArrayName="arrayDetalleVenta">
                                             <tr [formGroupName]="rowIndex" class="body-grid">
                                                 <td id="sd">
-                                                    <button class="p-button-sm p-button-rounded" pButton type="button"
-                                                        style=" background-color: #D72250;"
+                                                    <button class="p-button-cancelar" pButton type="button"
                                                         (click)="onEliminarDetalleVenta(rowIndex)" icon="pi pi-trash">
                                                     </button>
                                                 </td>
@@ -673,7 +672,7 @@
 
                 <div [ngClass]="{'col-md-1': changeCols, 'col-md-5': !changeCols }">
                     <div class="row">
-                        <div class="p-fluid p-formgrid p-grid formulario-campo-obligatorio">
+                        <div class="p-fluid p-formgrid p-grid  ">
                             <div class="container-fluid">
                                 <div class="card-box card-desplegable">
     
@@ -744,7 +743,7 @@
                                                                 <div class="p-field p-col-6">
                                                                     <strong>Tipo Cambio</strong>
                                                                     <input type="number" pInputText formControlName="tipocambio"
-                                                                        class="p-inputtext-sm-clear-grey p-inputtext-sm-simple" placeholder="0.00">
+                                                                        class="p-inputtext-sm-form" placeholder="0.00">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -881,7 +880,7 @@
                                         <div class="p-field p-col-6">
                                             <strong>Tipo Cambio</strong>
                                             <input type="number" pInputText formControlName="tipocambio"
-                                                class="p-inputtext-sm-clear-grey p-inputtext-sm-simple" placeholder="0.00">
+                                                class="p-inputtext-sm-form" placeholder="0.00">
                                         </div>
                                     </div>
                                     <div class="row">

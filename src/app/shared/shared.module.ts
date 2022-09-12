@@ -6,13 +6,15 @@ import { AppMenuComponent } from './components/menu/app.menu.component';
 import { AppMenuitemComponent } from './components/menuitem/app.menuitem.component';
 import { AppTopBarComponent } from './components/topbar/app.topbar.component';  
 import { MenuScrollComponent } from './components/menu-scroll/menu-scroll.component';
+import { AppFooterComponent } from './components/footer/app.footer.component';
  
 @NgModule({
   declarations: [   
     AppMenuComponent,
     AppMenuitemComponent,
     AppTopBarComponent, 
-    MenuScrollComponent
+    MenuScrollComponent,
+    AppFooterComponent
   ],
   imports: [
     CommonModule, 
@@ -22,7 +24,8 @@ import { MenuScrollComponent } from './components/menu-scroll/menu-scroll.compon
     AppMenuComponent,
     AppMenuitemComponent,
     AppTopBarComponent, 
-    MenuScrollComponent
+    MenuScrollComponent,
+    AppFooterComponent
   ]
 })
 export class SharedModule { }

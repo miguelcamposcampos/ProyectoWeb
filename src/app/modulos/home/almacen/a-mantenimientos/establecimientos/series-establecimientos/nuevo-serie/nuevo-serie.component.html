@@ -10,9 +10,11 @@
                 <strong>Serie:</strong>
                 <input  type="text" pInputText [minLength]="1" [maxlength]="4" formControlName="serie"  class="p-inputtext-sm-clear-grey pd-5 width-100"  placeholder="ingresar una serie">     
             </div>    
-            <div class="p-field p-col-12"> 
-                <strong>Predeterminado:</strong>
-                <p-inputSwitch  formControlName="predeterminado"  ></p-inputSwitch>  
+            <div class="p-field p-col-12 radios-form"> 
+                <div>
+                    <strong style="margin: 15px;">Predeterminado:</strong>
+                    <p-inputSwitch  formControlName="predeterminado"  ></p-inputSwitch>  
+                </div>
             </div> 
         </div> 
     </div>
@@ -23,8 +25,7 @@
             pButton
             type="button"
             [disabled]="Form.invalid"
-            label="Grabar"
-            style="margin-right: 1%;"
+            label="Grabar" 
             (click)="onGrabar()"
             icon="pi pi-check-circle">  
         </button>  

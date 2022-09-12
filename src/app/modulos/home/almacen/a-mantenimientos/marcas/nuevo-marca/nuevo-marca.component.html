@@ -4,7 +4,8 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12">  
                 <strong>Nombre *:</strong>
-                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombreMarca" class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar una marca">     
+                <input  type="text" pInputText minlength="1" maxlength="20" formControlName="nombreMarca"
+                 class="p-inputtext-sm-form" placeholder="ingresar una marca">     
             </div> 
         </div> 
     </div> 
@@ -13,8 +14,7 @@
         <button  
             class="p-button-registrar"
             pButton
-            type="button"
-            style="margin-right: 1%;"
+            type="button" 
             [disabled]="Form.invalid"
             label="{{ (idMarcaEdit) ? 'Actualizar' : 'Grabar' }}"
             (click)="onGrabar()"

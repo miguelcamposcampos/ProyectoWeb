@@ -11,17 +11,15 @@
                 <p-dropdown class="extender" appendTo="body" placeholder="Seleccionar"  formControlName="tipoProducto" [options]="listaTipoProducto" optionLabel="valor1"></p-dropdown>                 
             </div> 
     
-            <div class="p-field p-col-12">
-                <div class="elegirOpciones">
-                    <div>
-                        <strong style="margin: 15px;">Validar Stock *</strong>
-                        <p-inputSwitch formControlName="validarStock" ></p-inputSwitch>
-                    </div>
-                    <div>
-                        <strong style="margin: 15px;">Activo *</strong>
-                        <p-inputSwitch formControlName="activo" ></p-inputSwitch>
-                    </div>
-                </div>  
+            <div class="p-field p-col-12 radios-form"> 
+                <div>
+                    <strong style="margin: 15px;">Validar Stock *</strong>
+                    <p-inputSwitch formControlName="validarStock" ></p-inputSwitch>
+                </div>
+                <div>
+                    <strong style="margin: 15px;">Activo *</strong>
+                    <p-inputSwitch formControlName="activo" ></p-inputSwitch>
+                </div> 
             </div> 
         </div> 
     </div> 

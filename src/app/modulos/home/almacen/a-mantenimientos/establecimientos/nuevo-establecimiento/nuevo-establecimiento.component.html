@@ -1,9 +1,10 @@
-<div class="margintabla"> 
-    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">CARGANDO. </p>
-    </ngx-spinner>
- 
+<div class="margintabla-home"> 
     <div class="contenidoTable card-box"> 
+
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <p style="font-size: 20px; color: white">CARGANDO. </p>
+        </ngx-spinner>
+    
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3>  <i class="fas fa-city"></i>  {{tituloEstablecimiento}}</h3> 
@@ -12,8 +13,7 @@
             <div class="p-toolbar-group-right">
                 <button  
                     class="p-button-registrar"
-                    pButton 
-                    style="margin-right: 1%;"
+                    pButton  
                     type="button"
                     [disabled]="Form.invalid"
                     label="{{(!idEstablecimientoEdit) ? 'Grabar' : 'Actualizar'}}"
@@ -23,70 +23,76 @@
                 <button   
                     class="p-button-cancelar"
                     pButton
-                    type="button"
-                    style=" background-color: #D72250;"
+                    type="button" 
                     icon="pi pi-times-circle"
                     label="Cancelar" 
                     (click)="onRegresar()">  
                 </button>  
             </div>
         </p-toolbar>
- 
-        <hr>   
-        <form [formGroup]="Form">
-            <div class="stepsdemo-content formulario-campo-obligatorio">  
-               
-                <div class="formulario"> 
-                    <strong>Cod. Sunat <span> *</span></strong>
-                    <input type="text" pInputText  maxlength="4" formControlName="codigosunat"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar codigo de sunat">   
-                        
-                    <strong>Razón Social <span> *</span></strong>   
-                    <input type="text"  pInputText minlength="2"  formControlName="nombreestablecimiento"  class="p-inputtext-sm-clear-grey pd-5 width-100"   placeholder="ingresar la razon social"> 
 
-                    <strong>Nombre Comercial <span> *</span></strong>
-                    <input  type="text" pInputText formControlName="nombrecomercial"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar nombre comercial">     
-<!-- COMENTAR HASTA DEFINIR YA QUE EN ESCRITORIO NO TIENE INTERVENCION EN EL PROCESO -->
-                    <!-- <strong>Departamento</strong>    
-                    <p-dropdown class="extender" placeholder="Selecciona un departamento" formControlName="departamento" [options]="arrayDepartamentos" optionLabel="nombre"></p-dropdown>
-                        
-                    <strong>Provincia</strong>  
-                    <p-dropdown class="extender" [disabled]="bloqueardropdownProvincias" [placeholder]="(bloqueardropdownProvincias)  ? 'Cargando Provincias ...' : 'Selecciona una provincia'"  formControlName="provincia" [options]="arrayProvincias" optionLabel="nombre"></p-dropdown>
-                        
-                    <strong>Distrito</strong>
-                    <p-dropdown class="extender" [disabled]="bloqueardropdownDistritos" [placeholder]="(bloqueardropdownDistritos) ? 'Cargando Distritos ...' : 'Selecciona un distrito'" formControlName="distrito" [options]="arrayDistritos" optionLabel="nombre"></p-dropdown>
-                     -->
-                    <strong>Dirección <span> *</span></strong>
-                    <input type="text" pInputText formControlName="direccion"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar una dirección">   
-                        
-                    <strong *ngIf="!imgParaEditar" >Logo</strong>
-                    <p-fileUpload  
-                        *ngIf="!imgParaEditar" 
-                        name="myfiles[]"
-                        chooseLabel="Adjuntar" 
-                        chooseIcon="pi pi-paperclip" 
-                        accept="image/*" 
-                        [auto]="true"
-                        (onRemove)="onEliminarArchivo($event)"
-                        [customUpload]="true"
-                        (uploadHandler)="onUpload($event)"> 
-                    </p-fileUpload>
-          
-                    <button  
-                        *ngIf="imgParaEditar"
-                        class="p-button-registrar"
-                        pButton 
-                        type="button"
-                        label="Cambiar Logo"  
-                        (click)="onCambiarLogo()"
-                        icon="pi pi-check-circle">  
-                    </button>  
-                    <div  *ngIf="imgParaEditar">  
-                        <img width="50%" [src]="imgParaEditar" />
-                    </div> 
+        <div class="contenido-form-table w-60">  
+            <div class="row">
+                <div class="contenidoTable card-box  p-fieldset-form">  
+                    <form [formGroup]="Form">   
+                        <p-fieldset>
+                            <ng-template pTemplate="header">Datos del Establecimiento</ng-template>
+
+                            <div class="form-registro-twoCols">
+                                <strong>Cod. Sunat <span> *</span></strong>
+                                <input type="text" pInputText  maxlength="4" formControlName="codigosunat"  class="p-inputtext-sm-form" placeholder="ingresa codigo de sunat">   
+                                    
+                                <strong>Razón Social <span> *</span></strong>   
+                                <input type="text"  pInputText minlength="2"  formControlName="nombreestablecimiento"  class="p-inputtext-sm-form"   placeholder="ingresa razón social"> 
+
+                                <strong>Nombre Comercial <span> *</span></strong>
+                                <input  type="text" pInputText formControlName="nombrecomercial"  class="p-inputtext-sm-form" placeholder="ingresar nombre comercial">     
+        <!-- COMENTAR HASTA DEFINIR YA QUE EN ESCRITORIO NO TIENE INTERVENCION EN EL PROCESO -->
+                            <!-- <strong>Departamento</strong>    
+                            <p-dropdown class="extender" placeholder="Selecciona un departamento" formControlName="departamento" [options]="arrayDepartamentos" optionLabel="nombre"></p-dropdown>
+                                
+                            <strong>Provincia</strong>  
+                            <p-dropdown class="extender" [disabled]="bloqueardropdownProvincias" [placeholder]="(bloqueardropdownProvincias)  ? 'Cargando Provincias ...' : 'Selecciona una provincia'"  formControlName="provincia" [options]="arrayProvincias" optionLabel="nombre"></p-dropdown>
+                                
+                            <strong>Distrito</strong>
+                            <p-dropdown class="extender" [disabled]="bloqueardropdownDistritos" [placeholder]="(bloqueardropdownDistritos) ? 'Cargando Distritos ...' : 'Selecciona un distrito'" formControlName="distrito" [options]="arrayDistritos" optionLabel="nombre"></p-dropdown>
+                            -->
+                                <strong>Dirección <span> *</span></strong>
+                                <input type="text" pInputText formControlName="direccion"  class="p-inputtext-sm-form" placeholder="ingresar dirección">   
+                                    
+                                <strong *ngIf="!imgParaEditar" >Logo</strong>
+                                <p-fileUpload  
+                                    *ngIf="!imgParaEditar" 
+                                    name="myfiles[]"
+                                    chooseLabel="Adjuntar" 
+                                    chooseIcon="pi pi-paperclip" 
+                                    accept="image/*" 
+                                    [auto]="true"
+                                    (onRemove)="onEliminarArchivo($event)"
+                                    [customUpload]="true"
+                                    (uploadHandler)="onUpload($event)"> 
+                                </p-fileUpload>
+                
+                                <button  
+                                    *ngIf="imgParaEditar"
+                                    class="p-button-registrar"
+                                    pButton 
+                                    type="button"
+                                    label="Cambiar Logo"  
+                                    (click)="onCambiarLogo()"
+                                    icon="pi pi-check-circle">  
+                                </button>  
+                                
+                                <div  *ngIf="imgParaEditar">  
+                                    <img width="50%" [src]="imgParaEditar" />
+                                </div> 
+                            </div> 
+                        </p-fieldset>
+                    </form> 
                 </div> 
             </div> 
-        </form> 
-    </div>  
+        </div>  
+    </div> 
   
 </div>
 

@@ -1,6 +1,5 @@
 <div class="margintabla">
-    <div class="contenidoTable card-box">  
-
+    <div class="contenidoTable card-box">   
         <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">CARGANDO. </p>
         </ngx-spinner>
@@ -13,8 +12,7 @@
             <div class="p-toolbar-group-right">
                 <button   
                     class="p-button-registrar"
-                    pButton
-                    style="margin-right: 1%;"
+                    pButton 
                     type="button"
                     tooltipPosition="left"
                     pTooltip="Agregar nueva Serie"
@@ -31,11 +29,15 @@
                 </button>       
             </div>
         </p-toolbar>
- 
+    </div>
+
+    <br>
+
+    <div class="contenidoTable card-box">  
         <p-table  
             [responsive]="true"
             [columns]="cols" 
-            responsiveLayout="stack"
+            responsiveLayout="scroll"
             selectionMode="single"
             [rowHover]="true" 
             [value]="listaSeries">  
@@ -73,23 +75,21 @@
                                     {{ series[col.field]  }}
                                 </div>
                             </div>  
-
-
+ 
                             <ng-template #botones [ngIf]="col.field === 'acciones'">
                                 <div style="display: flex;">
                                     <button 
                                         pButton 
-                                        class="p-button-sm-generico"
+                                        class="p-button-generico-azul"
                                         type="button"
                                         tooltipPosition="top" 
                                         pTooltip="Editar" 
-                                        (click)="onEdit(series.id)"
-                                        style="margin-right :1%;" 
+                                        (click)="onEdit(series.id)" 
                                         icon="pi pi-pencil">
                                     </button>     
                                     <button 
                                         pButton 
-                                        class="p-button-sm-cancelar"
+                                        class="p-button-cancelar"
                                         type="button"
                                         tooltipPosition="top"  
                                         (click)="onDelete(series)"

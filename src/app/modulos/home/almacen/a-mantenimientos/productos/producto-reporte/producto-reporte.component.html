@@ -1,38 +1,38 @@
  
-<div class="contenidoTable card-box">  
-    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">CARGANDO. </p>
-    </ngx-spinner>
-
-    <p-toolbar>
-        <div class="p-toolbar-group-left">
-            <h3> <i class="fas fa-file-pdf"></i> REPORTE </h3> 
-        </div>
-        <div class="p-toolbar-group-right">
-            <button   
-                class="p-button-registrar"
-                pButton
-                type="button"
-                icon="pi pi-file"
-                label="Generar"  
-                (click)="onGenerarReporte()">  
-            </button>  
-            <button   
-                class="p-button-generico-azul"
-                pButton
-                type="button"
-                icon="pi pi-arrow-circle-left"
-                label="Regresar" 
-                (click)="onRegresar()">  
-            </button>  
-        </div>
-    </p-toolbar>
-
-
-    <div *ngIf="contenidoReporte" style="height: 80vh;"> 
-            <br> 
-            <iframe  [src]="Pdf" height="95%" width="100%"></iframe> 
+<div class="margintabla-home">
+    <div class="contenidoTable card-box">  
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <p style="font-size: 20px; color: white">CARGANDO. </p>
+        </ngx-spinner>
+    
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-file-pdf"></i> REPORTE </h3> 
+            </div>
+            <div class="p-toolbar-group-right">
+                <button   
+                    class="p-button-registrar"
+                    pButton
+                    type="button"
+                    icon="pi pi-file"
+                    label="Generar"  
+                    (click)="onGenerarReporte()">  
+                </button>  
+                <button   
+                    class="p-button-generico-azul"
+                    pButton
+                    type="button"
+                    icon="pi pi-arrow-circle-left"
+                    label="Regresar" 
+                    (click)="onRegresar()">  
+                </button>  
+            </div>
+        </p-toolbar> 
     </div>
-
+     <br>
+    <div *ngIf="contenidoReporte" class="card-box contenido-reporte">   
+        <iframe  [src]="Pdf" height="95%" width="100%"></iframe>  
+    </div>
 </div>
+
  

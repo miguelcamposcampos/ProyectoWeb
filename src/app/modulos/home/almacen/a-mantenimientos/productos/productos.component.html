@@ -1,6 +1,6 @@
  
  <div *ngIf="!VistaNuevoProducto && !VistaReporte && !VistaSubirProductos">
-    <div class="margintabla">
+    <div class="margintabla-home">
         <div class="contenidoTable card-box"> 
             <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">CARGANDO. </p>
@@ -40,57 +40,21 @@
                 <section>
                     <div class="p-col-12"> 
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-6">
-                                <strong for="firstname6">Descripción</strong>
-                                <input id="firstname6" formControlName="criterio" type="text" pInputText  class="p-inputtext-sm-clear-grey width-100" placeholder="ingresa el nombre de un producto para buscar..."> 
-                                <br><br>  
-                                <button pButton 
-                                type="button"type="button" label="Buscar"  class="p-button-generico-azul"  icon="pi pi-search" (click)="onLoadProductos(null)"></button>
+                            <div class="p-field p-col-12 p-md-8">
+                                <strong>Descripción</strong>
+                                <input formControlName="criterio" type="text" pInputText  class="p-inputtext-sm-form" 
+                                placeholder="EJEM: Camisa / Lejia"> 
                             </div>
-                            <div class="p-field p-col-12 p-md-6">
-                                <div class="filtoformCheck">
-                                    <div class="groupform">
-                                        <div class="formCheck">
-                                            <strong>Sólo Activos</strong>
-                                            <p-inputSwitch formControlName="soloActivo" ></p-inputSwitch> 
-                                        </div>
-                                        
-                                        <div class="formCheck">
-                                            <strong>Usado ventas</strong>
-                                            <p-inputSwitch  formControlName="usadoVentas"  ></p-inputSwitch> 
-                                        </div>
-                                        
-                                        <div class="formCheck">
-                                            <strong>Usado Compras</strong>
-                                            <p-inputSwitch  formControlName="usadoCompras"  ></p-inputSwitch> 
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="groupform">
-                                        <div class="formCheck2">
-                                            <strong>Solo servicios</strong>
-                                            <p-radioButton value="SoloServicio" formControlName="soloServicioArticulo" ></p-radioButton> 
-                                        </div>
-                                        
-                                        <div class="formCheck2">
-                                            <strong>Solo articulos </strong>
-                                            <p-radioButton value="SoloArticulo" formControlName="soloServicioArticulo"  ></p-radioButton> 
-                                        </div>
-                                        
-                                        <div class="formCheck2">
-                                            <strong>Todo</strong>
-                                            <p-radioButton value="Todos" formControlName="soloServicioArticulo" ></p-radioButton> 
-                                        </div>
-                                        
-                                    </div>
-                                </div> 
+                            <div class="p-field p-col-12 p-md-4 boton-buscar-cabecera" >
+                                <button pButton type="button"type="button" label="Buscar"  class="p-button-generico-azul" 
+                                 icon="pi pi-search" (click)="onLoadProductos(null)"></button>
                             </div> 
                         </div>
-                    </div>
+                    </div>  
                 </section>
             
                 <p-panel 
-                    header="Filtros Adicionales"
+                    header="Filtros (Linea / Color / T.Producto)"
                     [toggleable]="true"
                     [collapsed]="true" 
                     class="panel" >
@@ -126,101 +90,115 @@
                                     placeholder="Seleccione" 
                                     [showClear]="true" >
                                     </p-dropdown>
-                                </div>
+                                </div> 
+                                <div class="p-field p-col-12 p-md-12 switchProductos"> 
+                                    <strong>Sólo Activos</strong>
+                                    <p-inputSwitch formControlName="soloActivo" ></p-inputSwitch>  
+                                    <strong>Usado ventas</strong>
+                                    <p-inputSwitch  formControlName="usadoVentas"  ></p-inputSwitch>  
+                                    <strong>Usado Compras</strong>
+                                    <p-inputSwitch  formControlName="usadoCompras"  ></p-inputSwitch>   
+                                </div> 
+                                <div class="p-field p-col-12 p-md1-12 switchProductos">                    
+                                    <strong>Solo servicios</strong>
+                                    <p-radioButton value="SoloServicio" formControlName="soloServicioArticulo" ></p-radioButton> 
+                                    <strong>Solo articulos </strong>
+                                    <p-radioButton value="SoloArticulo" formControlName="soloServicioArticulo"  ></p-radioButton>                         
+                                    <strong>Todo</strong>
+                                    <p-radioButton value="Todos" formControlName="soloServicioArticulo" ></p-radioButton> 
+                                </div>   
                             </div> 
                         </div> 
                     </section>  
                 </p-panel> 
             </form>
-            <br>
+        </div>
 
-            <div [responsive]="true"> 
-                <p-table #dt 
-                    [responsive]="true"
-                    [columns]="cols" 
-                    responsiveLayout="stack"
-                    selectionMode="single"
-                    [rowHover]="true"  
-                    [value]="listaProductos">  
-    
-                        <ng-template pTemplate="header" let-columns >
-                            <tr>
-                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                    {{ col.header }} 
-                                    <p-sortIcon *ngIf="col.field != 'acciones'"
-                                        [field]="col.field"
-                                        ariaLabel="Activate to sort"
-                                        ariaLabelDesc="Activate to sort in descending order"
-                                        ariaLabelAsc="Activate to sort in ascending order">
-                                    </p-sortIcon> 
-                                </th>
-                            </tr> 
-                        </ng-template>
-                        
-                        <ng-template pTemplate="body" let-productos let-columns="columns"  let-rowIndex="rowIndex"> 
-                            <tr [pSelectableRow]="productos" [pSelectableRowIndex]="rowIndex">
-                                <td  *ngFor="let col of columns" >
-                                    <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
-                                    <div [ngSwitch]="col.field">    
-                                        <div *ngSwitchCase="'fechaRegistro'">
-                                            {{ productos[col.field] | date: col.formatoFecha }}
+        <br>
+
+        <div class="contenidoTable card-box">  
+            <p-table #dt  
+                [columns]="cols" 
+                responsiveLayout="scroll"
+                selectionMode="single"
+                [rowHover]="true"  
+                [value]="listaProductos">  
+
+                    <ng-template pTemplate="header" let-columns >
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{ col.header }} 
+                                <p-sortIcon *ngIf="col.field != 'acciones'"
+                                    [field]="col.field"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order">
+                                </p-sortIcon> 
+                            </th>
+                        </tr> 
+                    </ng-template>
+                    
+                    <ng-template pTemplate="body" let-productos let-columns="columns"  let-rowIndex="rowIndex"> 
+                        <tr [pSelectableRow]="productos" [pSelectableRowIndex]="rowIndex">
+                            <td  *ngFor="let col of columns" >
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+                                <div [ngSwitch]="col.field">    
+                                    <div *ngSwitchCase="'fechaRegistro'">
+                                        {{ productos[col.field] | date: col.formatoFecha }}
+                                    </div>
+                                    <div class="centrar" *ngSwitchCase="'estado'">
+                                        <div *ngIf="productos[col.estado] === false">
+                                            <i class="fas fa-square"></i>  
                                         </div>
-                                        <div class="centrar" *ngSwitchCase="'estado'">
-                                            <div *ngIf="productos[col.estado] === false">
-                                                <i class="fas fa-square"></i>  
-                                            </div>
-                            
-                                            <div *ngIf="productos[col.estado] != false">
-                                                <i class="fas fa-check-square"></i>  
-                                            </div>
-                                        </div>  
-                                        <div *ngSwitchDefault>
-                                            {{ productos[col.field]  }}
+                        
+                                        <div *ngIf="productos[col.estado] != false">
+                                            <i class="fas fa-check-square"></i>  
                                         </div>
                                     </div>  
-        
-        
-                                    <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                        <div style="display: flex;">
-                                            <button 
-                                                pButton 
-                                                class="p-button-generico-azul" 
-                                                type="button"
-                                                tooltipPosition="top" 
-                                                pTooltip="Editar" 
-                                                (click)="onEdit(productos.id)"
-                                                style="margin-right :2%;" 
-                                                icon="pi pi-pencil">
-                                            </button>     
-                                            <button 
-                                                class="p-button-cancelar" 
-                                                pButton 
-                                                type="button"
-                                                tooltipPosition="top"  
-                                                (click)="onDelete(productos)"
-                                                pTooltip="Eliminar"  
-                                                icon="pi pi-trash">
-                                            </button>        
-                                        </div>  
-                                    </ng-template>
-        
-                                
-        
-                                </td>
-                            </tr>
-                        </ng-template>
-        
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                            <td colspan="6">No existen registros</td>
-                            </tr>
-                        </ng-template> 
-
-                </p-table> 
-                <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadProductos($event)"></p-paginator>
-
-            </div>
+                                    <div *ngSwitchDefault>
+                                        {{ productos[col.field]  }}
+                                    </div>
+                                </div>  
     
+    
+                                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                    <div style="display: flex;">
+                                        <button 
+                                            pButton 
+                                            class="p-button-generico-azul" 
+                                            type="button"
+                                            tooltipPosition="top" 
+                                            pTooltip="Editar" 
+                                            (click)="onEdit(productos.id)"
+                                            style="margin-right :2%;" 
+                                            icon="pi pi-pencil">
+                                        </button>     
+                                        <button 
+                                            class="p-button-cancelar" 
+                                            pButton 
+                                            type="button"
+                                            tooltipPosition="top"  
+                                            (click)="onDelete(productos)"
+                                            pTooltip="Eliminar"  
+                                            icon="pi pi-trash">
+                                        </button>        
+                                    </div>  
+                                </ng-template>
+    
+                            
+    
+                            </td>
+                        </tr>
+                    </ng-template>
+    
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                        <td colspan="6">No existen registros</td>
+                        </tr>
+                    </ng-template> 
+
+            </p-table> 
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadProductos($event)"></p-paginator>
         </div> 
     </div>  
      

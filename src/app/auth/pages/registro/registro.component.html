@@ -22,49 +22,52 @@
     <h2> <strong> Completa el formulario </strong></h2>
 </div>
 
-<div class="margintabla"> 
-    <div class="contenido-form-table" style="width: 50%;">  
+<div class="margintabla-empresa"> 
+    <div class="contenido-form-table w-50">  
         <div class="row">
-            <div class="contenidoTable card-box "> 
-                <form [formGroup]="Form"  class="p-fieldset-form">   
+            <div class="contenidoTable card-box p-fieldset-form"> 
+                <form [formGroup]="Form">   
                     <p-fieldset>
                         <ng-template pTemplate="header">Datos requeridos marcados con (*)</ng-template>
                             <div class="form-registro-empresa"> 
                                 <strong>Nombre Completo <span>*</span></strong>
                                 <input type="text" pInputText formControlName="nombreapellidos"
-                                    class="p-inputtext-sm-registro-empresa" placeholder="Ingrese su nombre completo">
+                                    class="p-inputtext-generico" placeholder="Ingrese su nombre completo">
 
                                 <strong>Correo electrónico<span>*</span></strong>
-                                <input type="email" pInputText formControlName="email" class="p-inputtext-sm-registro-empresa"
+                                <input type="email" pInputText formControlName="email" class="p-inputtext-generico"
                                     placeholder="Ingrese un e-mail">
 
                                 <strong>Alias <span>*</span> </strong>
                                 <input type="text" pInputText formControlName="nombreusuario"
-                                    class="p-inputtext-sm-registro-empresa" placeholder="Ingrese un alias">
+                                    class="p-inputtext-generico" placeholder="Ingrese un alias">
 
                                 <strong>Contraseña<span>*</span></strong>
-                                <span class="p-input-icon-right">
+                                <span class="p-input-icon-right w-100">
                                     <i toggle="#password-field" [class]="cambiarIconEye" (click)="viewPassword(clave)"> </i>
                                     <input type="password" #passwordField pInputText placeholder="Contraseña"
-                                        formControlName="contrasena" #clave class="p-inputtext-sm-registro-empresa">
+                                        formControlName="contrasena" #clave class="p-inputtext-generico">
                                 </span>
 
                                 <strong>Confirmar<span>*</span> </strong>
-                                <span class="p-input-icon-right">
+                                <span class="p-input-icon-right w-100">
                                     <i toggle="#password-field" [class]="cambiarIconEye2" (click)="viewPassword2(clave2)"> </i>
                                     <input type="password" #passwordField2 pInputText placeholder="Confirmar contraseña"
-                                        formControlName="RepetirPassword" #clave2 class="p-inputtext-sm-registro-empresa">
+                                        formControlName="RepetirPassword" #clave2 class="p-inputtext-generico">
                                 </span>
                             </div>
-                            <div class="botones">
-                                <button class="p-button-registrar" pButton style="margin-right: 1%;" icon="pi pi-check-circle"
-                                    label="Registrarme" type="button" [disabled]="Form.invalid" (click)="onRegistrar()">
-                                </button>
-                                <button class="p-button-cancelar" pButton style="background-color: #D72250;"
-                                    icon="pi pi-arrow-circle-left" label="Cancelar" type="button" routerLink="/auth/login">
-                                </button>
-                            </div>
+                           
                     </p-fieldset>
+
+                    <div class="botones">
+                        <button class="p-button-registrar" pButton icon="pi pi-check-circle"
+                            label="Registrarme" type="button" [disabled]="Form.invalid" (click)="onRegistrar()">
+                        </button>
+                        <button class="p-button-cancelar" pButton icon="pi pi-arrow-circle-left" 
+                                label="Cancelar" type="button" routerLink="/auth/login">
+                        </button>
+                    </div>
+
                 </form>
             </div>
         </div>
