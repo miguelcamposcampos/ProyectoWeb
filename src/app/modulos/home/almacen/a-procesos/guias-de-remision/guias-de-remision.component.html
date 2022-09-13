@@ -1,8 +1,8 @@
 <div *ngIf="!VistaNuevaGuiaRemision">
-    <div class="margintabla">
-        <div class="contenidoTable card-box"> 
+    <div class="margintabla-home">
+        <div class="card-box"> 
             
-            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">CARGANDO. </p>
             </ngx-spinner>
 
@@ -53,7 +53,7 @@
                             <input type="text"  formControlName="secuencial" placeholder="ingresa una secuencia..." class="p-inputtext-sm p-inputtext-gris" pInputText>  
                         </div>
 
-                        <div   class="p-field p-col-12 p-sm-6 p-md-2 botonBuscar">
+                        <div   class="p-field p-col-12 p-sm-6 p-md-2 boton-buscar-cabecera">
                             <button pButton   type="button" label="Buscar"  class="p-button-sm p-button-generico-azul "  icon="pi pi-search" (click)="onLoadGuiasRemision(null)"></button>
                         </div>
 

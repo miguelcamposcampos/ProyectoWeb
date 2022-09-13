@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
@@ -38,6 +38,8 @@ export class ProductosComponent implements OnInit {
   totalItems : number  = 0;
   idProductoEdit : number = 0; 
  
+  filterCols : any[];
+
   constructor(
     private swal : MensajesSwalService,
     private productoService : ProductosService,
@@ -78,10 +80,23 @@ export class ProductosComponent implements OnInit {
       { field: 'estado', header: 'Estado', visibility: true , tipoFlag: 'estado', }, 
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
     ]; 
+    this.filterCols = this.cols;
+
     this.onOpcionesProducto();  
     this.onCargarDropDown();  
+
+  }
+  
+  /** FILTRAR COLUMNAS EN LA TABLA */
+  @Input() get selectedColumns(): any[] {
+    return this.filterCols;
   }
 
+  set selectedColumns(val: any[]) { 
+    this.filterCols = this.cols.filter(col => val.includes(col));
+  }
+
+  /** FILTRAR COLUMNAS EN LA TABLA */
   onCargarDropDown(){ 
     const obsDatos = forkJoin( 
       this.generalService.listadoColores(), 

@@ -1,7 +1,7 @@
 <div *ngIf="!VistaReporte && !VistaCobrar ">
-    <div class="margintabla">
+    <div class="margintabla-home">
 
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">CARGANDO. </p>
         </ngx-spinner>
         
@@ -75,7 +75,7 @@
                                             optionLabel="valor1"></p-dropdown>
                                     </div>
 
-                                    <div class="p-field p-col-12 p-md-1 p-sm-2 botonBuscar">
+                                    <div class="p-field p-col-12 p-md-1 p-sm-2 boton-buscar-cabecera">
                                         <input type="number" disabled pInputText
                                             class="p-inputtext-sm-form" formControlName="secuencialventa"
                                             placeholder="ingresar">
@@ -131,7 +131,7 @@
                                 <p-dialog header="DETALLE FORMA DE PAGO" [(visible)]="modalDetallesCondicionPago"
                                     [modal]="true" [style]="{width: '400px'}">
                                     <div class="tabladetalles" > 
-                                        <p-table  [value]="detallesCondicionPago" [scrollable]="true" responsiveLayout="stack">
+                                        <p-table  [value]="detallesCondicionPago" [scrollable]="true" responsiveLayout="scroll">
                                             <ng-template pTemplate="header">
                                                 <tr>
                                                     <th id="LXX-detail">Cuota</th>
@@ -200,7 +200,7 @@
                                     <p-table 
                                         class="TablaDetalleCondicionPago                                     tabladetalles" 
                                         [value]="detallesVentaForm"
-                                        [scrollable]="true" responsiveLayout="stack">
+                                        [scrollable]="true" responsiveLayout="scroll">
                                         <ng-template pTemplate="header">
                                             <tr class="centrar encabezados-grid">
                                                 <th>Acción</th>
@@ -382,7 +382,7 @@
                             <div *ngIf="GuiaRemisionForm">
                                 <div class="tabladetalles">  
                                     <p-table   [value]="detallesGuiaRemision"
-                                        [scrollable]="true" responsiveLayout="stack">
+                                        [scrollable]="true" responsiveLayout="scroll">
                                         <ng-template pTemplate="header">
                                             <tr>
                                                 <th id="C-detail">Serie Guía</th>
@@ -445,7 +445,7 @@
                                         </div> 
                                         <br> 
                                         <p-table class="tabladetalles" [value]="detallesDocumentoRef"
-                                            [scrollable]="true" responsiveLayout="stack">
+                                            [scrollable]="true" responsiveLayout="scroll">
                                             <ng-template pTemplate="header">
                                                 <tr>
                                                     <th>Acción</th>

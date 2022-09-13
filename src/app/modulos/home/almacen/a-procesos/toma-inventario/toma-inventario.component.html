@@ -1,71 +1,70 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
 
-<div class="margintabla">
-    <div class="contenidoTable card-box"> 
-    
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">CARGANDO. </p>
-        </ngx-spinner>
+<p-toast key="ToastExitoso"  position="top-right"></p-toast>
 
-        <p-toast key="ToastExitoso"  position="top-right"></p-toast>
-
+<div class="margintabla-home">
+    <div class="card-box"> 
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3> <i class="fas fa-truck-ramp-box"></i> TOMA DE INVENTARIO </h3>   
             </div>
         </p-toolbar>
+ 
+        <form [formGroup]="Form"> 
+            <div class="p-fluid p-formgrid p-grid">  
+                <div class="p-field p-col-12 p-md-6">  
+                    <strong>Establecimiento</strong>  
+                    <p-dropdown class="extender"  [options]="arrayEstablecimiento" (onChange)="onObtenerEstablecimiento($event)" formControlName="establecimientoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                </div> 
 
+                <div class="p-field p-col-12 p-md-6">  
+                    <strong>Almacén:</strong>  
+                    <p-dropdown class="extender"  [options]="arrayAlmacenes"   formControlName="almacenid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
+                </div> 
 
-        <form [formGroup]="Form">
-            <div class="p-col-12"> 
-                <div class="p-fluid p-formgrid p-grid">  
-                    <div class="p-field p-col-12 p-md-6">  
-                        <strong>Establecimiento</strong>  
-                        <p-dropdown class="extender"  [options]="arrayEstablecimiento" (onChange)="onObtenerEstablecimiento($event)" formControlName="establecimientoid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
-                    </div> 
-
-                    <div class="p-field p-col-12 p-md-6">  
-                        <strong>Almacén:</strong>  
-                        <p-dropdown class="extender"  [options]="arrayAlmacenes"   formControlName="almacenid"  placeholder="Selecciona"  [showClear]="true"  optionLabel="valor1"></p-dropdown>
-                    </div> 
-
-                    <div class="p-field p-col-12 p-sm-6 p-md-3">
-                        <strong>Fecha Inicio:</strong>
-                        <p-calendar  
-                            readonlyInput="true"
-                            [showIcon]="true"
-                            dateFormat="dd/mm/yy"
-                            formControlName="fechaInicio"
-                        ></p-calendar> 
-                    </div>
-                    
-                    <div class="p-field p-col-12 p-sm-6 p-md-3">
-                        <strong>Fecha Fin:</strong>
-                        <p-calendar
-                            readonlyInput="true"
-                            [showIcon]="true"
-                            dateFormat="dd/mm/yy"
-                            formControlName="fechaFin"
-                        ></p-calendar> 
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-2 p-sm-6">
-                        <strong >Código:</strong>
-                        <input type="text" formControlName="codigo" (keydown.enter)="onRegistrarProducto()" placeholder="ingresa un codigo." class="p-inputtext-sm-clear-grey pd-5 width-100" pInputText>  
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-2 p-sm-3">
-                        <strong >Cantidad:</strong>
-                        <input type="number"  formControlName="cantidad" (keydown.enter)="onRegistrarProducto()"  class="p-inputtext-sm-clear-grey pd-5 width-100" pInputText>  
-                    </div>
-
-                    <div   class="p-field p-col-12 p-md-2 p-sm-3 botonBuscar">
-                        <button pButton label="Registrar"  (click)="onRegistrarProducto()" type="button"  class="p-button-generico-azul"  icon="fas fa-circle-check" ></button>
-                    </div>
-
+                <div class="p-field p-col-12 p-sm-6 p-md-3">
+                    <strong>Fecha Inicio:</strong>
+                    <p-calendar  
+                        readonlyInput="true"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        formControlName="fechaInicio"
+                    ></p-calendar> 
                 </div>
-            </div> 
-        </form>
+                
+                <div class="p-field p-col-12 p-sm-6 p-md-3">
+                    <strong>Fecha Fin:</strong>
+                    <p-calendar
+                        readonlyInput="true"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        formControlName="fechaFin"
+                    ></p-calendar> 
+                </div>
 
+                <div class="p-field p-col-12 p-md-2 p-sm-6">
+                    <strong >Código:</strong>
+                    <input type="text" formControlName="codProducto" (keydown.enter)="onRegistrarProducto()" placeholder="ingresa un codigo." class="p-inputtext-sm-clear-grey pd-5 width-form" pInputText>  
+                </div>
+
+                <div class="p-field p-col-12 p-md-2 p-sm-3">
+                    <strong >Cantidad:</strong>
+                    <input type="number"  formControlName="cantidad" (keydown.enter)="onRegistrarProducto()"  class="p-inputtext-sm-form" pInputText>  
+                </div>
+
+                <div   class="p-field p-col-12 p-md-2 p-sm-3 boton-buscar-cabecera">
+                    <button pButton label="Registrar"  (click)="onRegistrarProducto()" type="button"  class="p-button-generico-azul"  icon="fas fa-circle-check" ></button>
+                </div>
+
+            </div>  
+        </form>
+    </div>
+
+    <br>
+
+    <div class="card-box">
         <p-table 
             [responsive]="true"
             [columns]="cols" 
@@ -75,7 +74,7 @@
             [paginator]="true" 
             [rows]="10"
             [showCurrentPageReport]="true" 
-            [rowsPerPageOptions]="[5,10,50,100]" 
+            [rowsPerPageOptions]="[10,50,100]" 
             [value]="listadoTomaInventario">  
 
             <ng-template pTemplate="header" let-columns >

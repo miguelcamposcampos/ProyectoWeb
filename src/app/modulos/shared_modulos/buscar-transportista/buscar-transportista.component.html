@@ -19,7 +19,7 @@
       [columns]="cols"
       selectionMode="single"  
       [responsive]="true" 
-      responsiveLayout="stack" 
+      responsiveLayout="scroll" 
       (onRowSelect)="onSeleccionarTransportista($event)"
         >
           <ng-template pTemplate="header"  let-columns >
@@ -74,7 +74,7 @@
                     </div> 
                   </div>
             
-                  <p-table   [value]="transportistas.choferes" dataKey="id"  [columns]="colschoferes" selectionMode="single" [responsive]="true" responsiveLayout="stack">
+                  <p-table   [value]="transportistas.choferes" dataKey="id"  [columns]="colschoferes" selectionMode="single" [responsive]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="header"  let-columns>
                       <tr>
                         <th *ngFor="let col of columns" [pSortableColumn]="col.field">

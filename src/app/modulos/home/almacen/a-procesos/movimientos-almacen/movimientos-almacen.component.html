@@ -1,18 +1,17 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
+
 <div *ngIf="!VistaNuevoMovimientos">
-    <div class="margintabla">
-        <div class="contenidoTable card-box"> 
-
-            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-                <p style="font-size: 20px; color: white">CARGANDO. </p>
-            </ngx-spinner>
-
+    <div class="margintabla-home">
+        <div class="card-box">  
             <p-toolbar>
                 <div class="p-toolbar-group-left">
                     <h3> <i class="fas fa-box"></i> MOVIMIENTOS DE ALMACÉN </h3>  
                 </div>
                 
                 <div class="p-toolbar-group-right">
-                    <button class="BorrarLabel p-button-sm" 
+                    <button
                         type="button" (click)="onNuevoIngreso()" 
                         pTooltip="Nuevo Ingreso" tooltipPosition="top" 
                         label="Ingreso" 
@@ -20,15 +19,14 @@
                         class="p-button-generico-azul"
                         icon="fas fa-arrow-alt-circle-down">
                     </button> 
-                    <button class="BorrarLabel p-button-sm" 
+                    <button 
                         type="button" (click)="onNuevaSalida()" 
                         pTooltip="Nueva Salida" tooltipPosition="top" 
-                        style="margin-right: 1%;margin-left: 1%;"
                         class="p-button-generico-azul"
                         pButton
                         label="Salida" icon="fas fa-arrow-alt-circle-up">
                     </button> 
-                    <button class="BorrarLabel p-button-sm" 
+                    <button 
                         type="button" (click)="onNuevaTransferencia()" 
                         pButton
                         class="p-button-generico-azul"
@@ -37,57 +35,57 @@
                     </button> 
                 </div>
             </p-toolbar>
-
-
  
-            <form [formGroup]="FormBusqueda">
-                <div class="p-col-12"> 
-                    <div class="p-fluid p-formgrid p-grid">  
-                        <div class="p-field p-col-12 p-sm-6 p-md-3">
-                            <strong>Fecha Inicio:</strong>
-                            <p-calendar  
-                                readonlyInput="true"
-                                [showIcon]="true"
-                                dateFormat="dd/mm/yy"
-                                formControlName="fechaInicioBusqueda"
-                            ></p-calendar> 
-                        </div>
-                        
-                        <div class="p-field p-col-12 p-sm-6 p-md-3">
-                            <strong>Fecha Fin:</strong>
-                            <p-calendar
-                                readonlyInput="true"
-                                [showIcon]="true"
-                                dateFormat="dd/mm/yy"
-                                formControlName="fechaFinBusqueda"
-                            ></p-calendar> 
-                        </div>
-
-                        <div class="p-field p-col-12 p-sm-6 p-md-4 ">
-                            <strong >Anexo:</strong>
-                            <input type="text" placeholder="ingresa un anexo... "  class="p-inputtext-sm-clear-grey pd-5 width-100" formControlName="anexo" pInputText>  
-                        </div>
-
-                        <div class="p-field p-col-12 p-sm-6 p-md-2 botonBuscar">
-                            <button pButton label="Buscar"   type="button" icon="pi pi-search"   class="p-button-generico-azul" (click)="onLoadMovimientos()"></button>
-                        </div>
-
+            <form [formGroup]="FormBusqueda"> 
+                <div class="p-fluid p-formgrid p-grid">  
+                    <div class="p-field p-col-12 p-sm-6 p-md-3">
+                        <strong>Fecha Inicio:</strong>
+                        <p-calendar  
+                            readonlyInput="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaInicioBusqueda"
+                        ></p-calendar> 
                     </div>
-                </div> 
-            </form>
+                    
+                    <div class="p-field p-col-12 p-sm-6 p-md-3">
+                        <strong>Fecha Fin:</strong>
+                        <p-calendar
+                            readonlyInput="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaFinBusqueda"
+                        ></p-calendar> 
+                    </div>
 
+                    <div class="p-field p-col-12 p-sm-6 p-md-4 ">
+                        <strong >Anexo:</strong>
+                        <input type="text" placeholder="ingresa un anexo"  class="p-inputtext-sm-form" formControlName="anexo" pInputText>  
+                    </div>
+
+                    <div class="p-field p-col-12 p-sm-6 p-md-2 boton-buscar-cabecera">
+                        <button pButton label="Buscar" type="button" icon="pi pi-search"   class="p-button-generico-azul" (click)="onLoadMovimientos()"></button>
+                    </div>
+
+                </div> 
+            </form> 
+        </div>
+
+        <br>
+        <div class="card-box">    
             <p-table 
-            [responsive]="true"
-            [columns]="cols" 
-            responsiveLayout="stack"
-            selectionMode="single"
-            [rowHover]="true"
-            [paginator]="true" 
-            [rows]="size"
-            [showCurrentPageReport]="true"
-            [currentPageReportTemplate]="textoPaginado" 
-            [rowsPerPageOptions]="[5,10,50,100]" 
-            [value]="listaMovimientos">  
+                class="TableDetalleWhiteSpace" 
+                [responsive]="true"
+                [columns]="cols" 
+                responsiveLayout="scroll"
+                selectionMode="single"
+                [rowHover]="true"
+                [paginator]="true" 
+                [rows]="size"
+                [showCurrentPageReport]="true"
+                [currentPageReportTemplate]="textoPaginado" 
+                [rowsPerPageOptions]="[5,10,50,100]" 
+                [value]="listaMovimientos">  
 
                 <ng-template pTemplate="header" let-columns >
                     <tr>
@@ -115,6 +113,14 @@
                                 <div *ngSwitchCase="'fecha'">
                                     {{ movAlmacen[col.field] | date: col.formatoFecha }}
                                 </div>
+                                <div *ngSwitchCase="'glosa'" class="alingNombreTable">
+                                   <p> {{ movAlmacen[col.field]}}</p>  
+                                </div>
+
+                                <div *ngSwitchCase="'anexo'" class="alingNombreTable">
+                                    <p> {{ movAlmacen[col.field]}}</p>  
+                                 </div>
+
                                 <div *ngSwitchCase="'tipoMovimientoId'">
                                     <div *ngIf="movAlmacen.tipoMovimientoId === 1">
                                         <span>INGR.</span>
@@ -171,5 +177,6 @@
     </div>  
 </div>
  
-  
 <app-nuevo-ingreso *ngIf="VistaNuevoMovimientos" [dataMovimientoEdit]="dataMovimientoEdit" (cerrar)="onRetornar($event)"  ></app-nuevo-ingreso> 
+
+

@@ -1,11 +1,11 @@
  
  <div *ngIf="!VistaNuevaOrdenCompra">
 
-    <div class="margintabla"> 
-        <div class="contenidoTable card-box">  
+    <div class="margintabla-home"> 
+        <div class="card-box">  
             <form [formGroup]="Form">
           
-                <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+                <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
                     <p style="font-size: 20px; color: white">CARGANDO. </p>
                 </ngx-spinner>
 
@@ -55,7 +55,7 @@
                             <p-dropdown class="DropExtenso" [options]="arrayDocumentos" formControlName="documento"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor2"></p-dropdown>     
                         </div>
 
-                        <div class="p-field p-col-12 p-md-2 p-sm-4 botonBuscar"> 
+                        <div class="p-field p-col-12 p-md-2 p-sm-4 boton-buscar-cabecera"> 
                             <button pButton label="Buscar" type="button" class="p-button-generico-azul"  icon="pi pi-search" (click)="onLoadOrdenCompra(null)"></button>
                         </div> 
 

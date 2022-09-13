@@ -4,19 +4,19 @@
         <div class="p-fluid p-formgrid p-grid"> 
             <div class="p-field p-col-12 col-md-4"> 
                 <strong>Código Sunat</strong>
-                <input type="text" pInputText formControlName="codigosunat"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar código Sunat">   
+                <input type="text" pInputText formControlName="codigosunat"  class="p-inputtext-sm-form" placeholder="ingresar código Sunat">   
             </div> 
             <div class="p-field p-col-12 col-md-4"> 
                 <strong>Siglas</strong>
-                <input type="text" pInputText formControlName="siglasum"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar una sigla">   
+                <input type="text" pInputText formControlName="siglasum"  class="p-inputtext-sm-form" placeholder="ingresar una sigla">   
             </div> 
             <div class="p-field p-col-12 col-md-4"> 
                 <strong>Valor</strong>
-                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)" pInputText formControlName="valorconversion"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar un valor">     
+                <input  type="text" minlength="1" (keypress)="generalService.onSoloNumeros($event)" pInputText formControlName="valorconversion"  class="p-inputtext-sm-form" placeholder="ingresar un valor">     
             </div>  
             <div class="p-field p-col-12"> 
                 <strong>Nombre</strong>
-                <input  type="text" pInputText formControlName="nombreunidadmedida"  class="p-inputtext-sm-clear-grey pd-5 width-100" placeholder="ingresar un nombre">     
+                <input  type="text" pInputText formControlName="nombreunidadmedida"  class="p-inputtext-sm-form" placeholder="ingresar un nombre">     
             </div> 
            
         </div> 
@@ -26,7 +26,6 @@
             class="p-button-registrar"
             pButton
             type="button"
-            style="margin-right: 1%;"
             [disabled]="Form.invalid"
             label="{{ (!idUnidadMedida) ? 'Grabar' : 'Actualizar'}}"
             (click)="onGrabar()"

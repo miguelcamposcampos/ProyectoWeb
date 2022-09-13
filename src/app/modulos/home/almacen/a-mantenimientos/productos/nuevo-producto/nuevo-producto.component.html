@@ -1,10 +1,9 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
+
 <div class="margintabla-home">
     <div class="card-box">
-
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">CARGANDO. </p>
-        </ngx-spinner>
-
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3><i class="fas fa-box"></i> {{tituloVistaNuevoProdcuto}}</h3>
@@ -161,28 +160,31 @@
             <br> 
 
 
-            <div class="p-col-12"> 
-                <p-fieldset [toggleable]="true">
-                    <ng-template pTemplate="header">Precios</ng-template>  
+           
+            <p-fieldset [toggleable]="true">
+                <ng-template pTemplate="header">Precios</ng-template>  
 
-                    <div class="p-fluid p-formgrid p-grid">
-                        <div class="p-field p-col-12 p-md-8"> 
-                            <strong>Tipo afectación <span>*</span> </strong>
-                            <p-dropdown formControlName="afectacionid"
-                                [options]="arrayAfectaciones" placeholder="Seleccionar" optionLabel="valor1"
-                                [showClear]="true"></p-dropdown>   
-                        </div>
-                        <div class="p-field p-col-12 p-md-4 boton-buscar-cabecera">
-                            <button class="p-button-generico-azul" pButton type="button" label="Agregar"
-                                (click)="onAgregarNuevoPrecio()" icon="pi pi-plus-circle">
-                            </button>   
-                        </div>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-8"> 
+                        <strong>Tipo afectación <span>*</span> </strong>
+                        <p-dropdown formControlName="afectacionid"
+                            [options]="arrayAfectaciones" placeholder="Seleccionar" optionLabel="valor1"
+                            [showClear]="true"></p-dropdown>   
                     </div>
-                </p-fieldset>  
-            </div>
+                    <div class="p-field p-col-12 p-md-4 boton-buscar-cabecera">
+                        <button class="p-button-generico-azul" pButton type="button" label="Agregar"
+                            (click)="onAgregarNuevoPrecio()" icon="pi pi-plus-circle">
+                        </button>   
+                    </div>
+                </div>
+            </p-fieldset>  
+        
             
 
-            <p-table [value]="preciosForm"  responsiveLayout="scroll"  class="tabladetalles"> 
+            <p-table 
+            [value]="preciosForm"
+            responsiveLayout="scroll"
+            class="tabladetalles"> 
                 <ng-template pTemplate="header">
                     <tr>
                         <th id="sd">Acción</th>

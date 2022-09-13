@@ -12,6 +12,8 @@
 }
  
 .p-button-generico-morado {
+    margin-right: 1%;
+    margin-left: 1%;
     color: #f8fafc;
     background: #1B74C5;
     border: 0px solid #1B74C5;
@@ -22,6 +24,8 @@
 }
 
 .p-button-generico-azul {
+    margin-right: 1%;
+    margin-left: 1%;
     color: #f8fafc;
     background: #4da8de;
     border: 0px solid #1B74C5;
@@ -41,17 +45,19 @@
     border-radius: 10px;
 }
 
-.p-button-generico-azul,  .p-fileUpload  {
-    color: #f8fafc;
-    background: #4da8de;
-    border: 0px solid #1B74C5;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: 10px;
-}
+// .p-button-generico-azul,  .p-fileUpload  {
+//     color: #f8fafc;
+//     background: #4da8de;
+//     border: 0px solid #1B74C5;
+//     padding: 0.5rem 1rem;
+//     font-size: 1rem;
+//     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+//     border-radius: 10px;
+// }
 
 .p-button-cancelar {
+    margin-right: 1%;
+    margin-left: 1%;
     color: #f8fafc;
     background: #f80000;
     border: 0px solid #1B74C5;
@@ -968,6 +974,25 @@ body.main-body {
 }
 
 
+.formCheck{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 120px 1fr;
+  }
+ 
+  .formCheck2{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 100px 1fr; 
+    @media (max-width: 500px) {  
+       display: grid;
+       grid-template-columns: 120px 1fr; 
+    } 
+  }
+ 
+    
+
+
 /* Termina Importados desde los SCSS */
 
 
@@ -998,11 +1023,6 @@ body.main-body {
     flex-direction: row;
 }
 
-.tabladetalles #sd  input{
-    width: 72px!important;
-
-}
-
 .tabladetalles #lg {
     width: 600px;
     text-align: center !important;
@@ -1010,12 +1030,6 @@ body.main-body {
     justify-content: center;
     flex-direction: row;
 }
-
- 
-.tabladetalles #lg  .p-dropdown {
-    width: 190px;
-}
-
 
 .tabladetalles #lg-50 {
     width: 50px;
@@ -1025,29 +1039,35 @@ body.main-body {
     flex-direction: row;
 }
 
-.tabladetalles #lg-120  .p-dropdown {
-    width: 120px !important;
+.tabladetalles #sd  input{
+    width: 72px!important;
 }
- 
-.tabladetalles #lg-140  .p-dropdown {
-    width: 140px !important;
-}
-
 .tabladetalles #md input{
     width: 140px!important;
 }
-
 .tabladetalles #lg input{
     width: 170px !important;
 }
+.tabladetalles #lg-120 input{
+    width: 120px!important;
+}
+.tabladetalles #lg-200 input{
+    width: 200px !important;
+}
+
+
 
 .tabladetalles #lg  .p-dropdown {
     width: 190px;
 }
-
-.tabladetalles #md input{
-    width: 140px!important;
+.tabladetalles #lg-120  .p-dropdown {
+    width: 120px !important;
 }
+
+.tabladetalles #lg-140  .p-dropdown {
+    width: 140px !important;
+}
+
 
 
 
@@ -1138,11 +1158,12 @@ body.main-body {
     // .tabladetalles #CL-detail input{
     //     width: 150px!important;
     // }
-    // .tabladetalles #CXXX-calendar-detail p-calendar{
-    //     width: 130px!important;
-    // }
+
+
+.tabladetalles .p-calendar-w-btn .p-inputtext{ 
+    background-color: #e3e3e3 !important;
+}
     
- 
 
 .card-desplegable {
     //*** CAMBIO CRISTIAN MARTINEZ ***/
@@ -1334,14 +1355,14 @@ body.main-body {
         display: flex;
    }
 
-   .switchProductos{
-        display: grid;
-        gap: 3%;
-        text-align: center; 
-        grid-template-columns: 160px 50px 160px 50px 160px 50px;
-        align-items: center;
-        justify-content: center;
-   }
+//    .switchProductos{
+//         display: grid;
+//         gap: 3%;
+//         text-align: center; 
+//         grid-template-columns: 160px 50px 160px 50px 160px 50px;
+//         align-items: center;
+//         justify-content: center;
+//    }
 
    .boton-buscar-cabecera{
         display: flex;
@@ -1352,20 +1373,22 @@ body.main-body {
         height: 80vh;
    }
 
-    .alingNombreTable {
-        text-align: left !important;
-        justify-content: left !important;
-    }
-
-    .alingCenterNombreTable {
-        text-align: center !important;
-        justify-content: center !important;
-    }
-
-    .alingMontoTable {
-        text-align: right !important;
-        justify-content: right !important;
-    }
+   .TableDetalleWhiteSpace{
+       .alingNombreTable {
+           text-align: left !important;
+           justify-content: left !important;
+       }
+   
+       .alingCenterNombreTable {
+           text-align: center !important;
+           justify-content: center !important;
+       }
+   
+       .alingMontoTable {
+           text-align: right !important;
+           justify-content: right !important;
+       }
+   }
 
    /*  ESPACIADOS DE CONTENIDOS*/ 
    .w-50{

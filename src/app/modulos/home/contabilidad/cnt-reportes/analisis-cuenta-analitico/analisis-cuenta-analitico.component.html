@@ -1,78 +1,75 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
  
-<div class="margintabla">
-    <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">CARGANDO. </p>
-    </ngx-spinner>
-   
-    <div class="container-fluid">  
-        <div class="contenidoTable card-box">  
-            <p-toolbar>
-                <div class="p-toolbar-group-left">
-                    <h3> <i class="fas fa-file-pdf"></i> REPORTE  ANÁLISIS CUENTA - ANALITICO </h3>  
-                </div>
-                <div class="p-toolbar-group-right">
-                    <button 
-                        pButton class="p-button-generico-azul"
-                        label="Generar" type="button" pTooltip="PDF" 
-                        icon="pi pi-file-pdf"
-                        (click)="onGenerarReporte()">
-                    </button>
-                </div>
-            </p-toolbar>
-  
-            <form [formGroup]="Form">
-                <div class="p-col-12"> 
-                    <div class="p-fluid p-formgrid p-grid"> 
-                    
-                        <div class="p-field p-col-12 p-md-2 p-sm-6">
-                            <strong>Fec Hasta: </strong> 
-                            <p-calendar
-                                readonlyInput="true"
-                                [showIcon]="true"
-                                dateFormat="dd/mm/yy"
-                                formControlName="fechaHasta"
-                            ></p-calendar> 
-                        </div>
+<div class="margintabla-home"> 
+    <div class="card-box">  
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3> <i class="fas fa-file-pdf"></i> REPORTE  ANÁLISIS CUENTA - ANALITICO </h3>  
+            </div>
+            <div class="p-toolbar-group-right">
+                <button 
+                    pButton class="p-button-generico-azul"
+                    label="Generar" type="button" pTooltip="PDF" 
+                    icon="pi pi-file-pdf"
+                    (click)="onGenerarReporte()">
+                </button>
+            </div>
+        </p-toolbar>
 
-                        <div class="p-field p-col-12 p-md-2 p-sm-6">
-                            <strong> Nivel :</strong>
-                            <p-dropdown
-                                [options]="ArrayNivel" 
-                                formControlName="agrupamiento" 
-                                placeholder="selecciona"
-                                optionLabel="nombre"
-                                [showClear]="true"
-                            ></p-dropdown>
-                        </div>
-
-                        <div class="p-field p-col-12 p-md-4 p-sm-6">
-                            <strong class="p-column-title">Anexo:</strong> 
-                            <div class="p-inputgroup">  
-                                <input type="text" readonly  formControlName="nrodocanexo" pInputText  class="p-inputtext-sm-form" placeholder="busca un anexo">   
-                                <button type="button" pTooltip="Buscar"  class="p-button-generico-azul" 
-                                tooltipPosition="left" (click)="onModalBuscarAnexo();" 
-                                pButton icon="pi pi-search"></button>      
-                                <button *ngIf="existeAnexoSeleccionado" type="button" pTooltip="Borrar"  
-                                class="p-button-cancelar" 
-                                tooltipPosition="left" (click)="onBorrarAnexo();" pButton icon="pi pi-trash"></button>    
-                            </div> 
-                        </div>
-
-                        <div class="p-field p-col-12 p-md-2 p-sm-3">
-                            <strong>Sólo con Detalle</strong> &nbsp; <br>
-                            <p-inputSwitch formControlName="solocondetalle"></p-inputSwitch> 
-                        </div>
-
+        <form [formGroup]="Form">
+            <div class="p-col-12"> 
+                <div class="p-fluid p-formgrid p-grid"> 
+                
+                    <div class="p-field p-col-12 p-md-2 p-sm-6">
+                        <strong>Fec Hasta: </strong> 
+                        <p-calendar
+                            readonlyInput="true"
+                            [showIcon]="true"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaHasta"
+                        ></p-calendar> 
                     </div>
+
+                    <div class="p-field p-col-12 p-md-2 p-sm-6">
+                        <strong> Nivel :</strong>
+                        <p-dropdown
+                            [options]="ArrayNivel" 
+                            formControlName="agrupamiento" 
+                            placeholder="selecciona"
+                            optionLabel="nombre"
+                            [showClear]="true"
+                        ></p-dropdown>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-4 p-sm-6">
+                        <strong class="p-column-title">Anexo:</strong> 
+                        <div class="p-inputgroup">  
+                            <input type="text" readonly  formControlName="nrodocanexo" pInputText  class="p-inputtext-sm-form" placeholder="busca un anexo">   
+                            <button type="button" pTooltip="Buscar"  class="p-button-generico-azul" 
+                            tooltipPosition="left" (click)="onModalBuscarAnexo();" 
+                            pButton icon="pi pi-search"></button>      
+                            <button *ngIf="existeAnexoSeleccionado" type="button" pTooltip="Borrar"  
+                            class="p-button-cancelar" 
+                            tooltipPosition="left" (click)="onBorrarAnexo();" pButton icon="pi pi-trash"></button>    
+                        </div> 
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-2 p-sm-3">
+                        <strong>Sólo con Detalle</strong> &nbsp; <br>
+                        <p-inputSwitch formControlName="solocondetalle"></p-inputSwitch> 
+                    </div>
+
                 </div>
-            </form>
-        </div> 
+            </div>
+        </form>
     </div> 
+   
     <br>
-    <div *ngIf="contenidoReporte" class="contenidoTable container-fluid">  
-        <div  class="card-box">  
-            <iframe  [src]="Pdf" height="95%" width="100%"></iframe>  
-        </div>
+
+    <div *ngIf="contenidoReporte" class="card-box contenido-report">  
+        <iframe  [src]="Pdf" height="95%" width="100%"></iframe>   
     </div> 
 </div>  
 

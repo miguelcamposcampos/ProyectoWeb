@@ -7,7 +7,7 @@
                 <input type="text" placeholder="ingresa un nombre de producto" (keydown.enter)="onBuscarProductos()" class="p-inputtext-sm" [formControl]="criterio" pInputText>  
             </div>
 
-            <div class="p-field p-col-12 p-md-3 botonBuscar">
+            <div class="p-field p-col-12 p-md-3 boton-buscar-cabecera">
                 <button pButton label="Buscar" icon="pi pi-search" class="p-button-generico-azul" (click)="onBuscarProductos()"></button>
             </div> 
         </div>
@@ -34,7 +34,7 @@
         <p-table 
         [value]="listaProductos" 
         [scrollable]="true" 
-        responsiveLayout="stack" 
+        responsiveLayout="scroll" 
         selectionMode="single"
         [rowHover]="true"
         [paginator]="true" 

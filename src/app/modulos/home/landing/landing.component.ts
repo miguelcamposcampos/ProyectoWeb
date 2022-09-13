@@ -42,13 +42,11 @@ export class LandingComponent  implements OnInit {
 
  
   DataEnviadosASunat : any; 
-  colorAleatorio : any[] =[];
-  simboloAleatorio =  "0123456789ABCDEF";
+  colorAleatorio : any[] =[]; 
   
 constructor(
   private apiService : GeneralService,
-  private spinner : NgxSpinnerService,
-  private spinner2 : NgxSpinnerService
+  private spinner : NgxSpinnerService, 
 ){}
  
 

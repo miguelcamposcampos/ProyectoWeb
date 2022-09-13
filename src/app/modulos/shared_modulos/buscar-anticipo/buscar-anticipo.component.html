@@ -1,4 +1,4 @@
-<div class="margintabla">
+<div class="margintabla-home">
     <div class="card">  
         <div class="p-col-12"> 
             <div class="p-fluid p-formgrid p-grid">  
@@ -11,7 +11,7 @@
                         [formControl]="fecha"
                     ></p-calendar> 
                 </div> 
-                <div class="p-field p-col-12 p-md-3 botonBuscar">
+                <div class="p-field p-col-12 p-md-3 boton-buscar-cabecera">
                     <button pButton label="Buscar" icon="pi pi-search" class="p-button-sm" (click)="onLoadAnticipos()"></button>
                 </div>
 
@@ -21,7 +21,7 @@
         <p-table  
         [responsive]="true"
         [columns]="cols" 
-        responsiveLayout="stack"
+        responsiveLayout="scroll"
         selectionMode="single"
         [rowHover]="true"
         [paginator]="true" 

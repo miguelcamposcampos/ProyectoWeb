@@ -8,7 +8,7 @@ import { ICombo } from 'src/app/shared/interfaces/generales.interfaces';
 import { ConstantesGenerales, InterfaceColumnasGrilla } from 'src/app/shared/interfaces/shared.interfaces';
 import { GeneralService } from 'src/app/shared/services/generales.services';
 import { MensajesSwalService } from 'src/app/utilities/swal-Service/swal.service';
-import { ITomaInventario } from './interface/tomainventario.interface';
+import { ICrearTomaInventario, ITomaInventario } from './interface/tomainventario.interface';
 import { TomaInventarioService } from './service/tomainventario.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class TomaInventarioComponent implements OnInit {
       almacenid : new FormControl(null, Validators.required),
       fechaInicio : new FormControl(this.fechaActual),
       fechaFin : new FormControl(this.fechaActual),
-      codigo: new FormControl(null),
+      codProducto: new FormControl(null),
       cantidad: new FormControl(1), 
      })
    }
@@ -90,10 +90,7 @@ export class TomaInventarioComponent implements OnInit {
       }
     });
   }
- 
-
   
-
   onObtenerEstablecimiento(event : any){ 
     if(event){ 
       this.onAlmacenesPorId(event.value.id)
@@ -113,14 +110,12 @@ export class TomaInventarioComponent implements OnInit {
     });
   }
 
- 
-
   onLoadTomaInventarios(){ 
     const dataform = this.Form.value; 
     const data = {
       finicio : this.dataFormat.transform(dataform.fechaInicio, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
       ffin : this.dataFormat.transform(dataform.fechaFin, ConstantesGenerales._FORMATO_FECHA_BUSQUEDA),
-      idAlmacen :  dataform.almacenid ? dataform.almacenid.id : 0
+      idAlmacen :  dataform.almacenid
     }
     this.spinner.show();
     this.tomainventarioService.listadoTomaInventario(data).subscribe((resp) => {
@@ -131,15 +126,14 @@ export class TomaInventarioComponent implements OnInit {
     });
   }
 
-
   onRegistrarProducto(){  
       const dataform = this.Form.value; 
-      if(!dataform.establecimientoid|| !dataform.almacenid){
+      if(!dataform.establecimientoid || !dataform.almacenid){
         this.swal.mensajeAdvertencia('Debe seleccionar un Establecimiento y un Almacen!.');
         return;
       }
   
-      if(!dataform.codigo){
+      if(!dataform.codProducto){
         this.swal.mensajeAdvertencia('Debes ingresar el codigo del producto.');
         return;
       }
@@ -149,11 +143,12 @@ export class TomaInventarioComponent implements OnInit {
         return;
       }
     
-      const newTomaInventario = {
-        almacenid : dataform.almacenid.id,
-        codProducto : dataform.codigo,
-        cantidad : dataform.cantidad
-      } 
+      const newTomaInventario : ICrearTomaInventario = this.Form.getRawValue();
+      newTomaInventario.almacenid = dataform.almacenid.id;
+      //   almacenid : dataform.almacenid.id,
+      //   codProducto : dataform.codProducto,
+      //   cantidad : dataform.cantidad
+      // } 
       this.tomainventarioService.createTomaInventario(newTomaInventario).subscribe((resp) => {
        if(resp){
         this.onLoadTomaInventarios();

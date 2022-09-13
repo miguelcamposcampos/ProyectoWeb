@@ -1,7 +1,7 @@
 <div *ngIf="!VistaReporte && !VistaBuscarPendiente"> 
 
-<div class="margintabla"> 
-    <div class="contenidoTable card-box">  
+<div class="margintabla-home"> 
+    <div class="card-box">  
         <form [formGroup]="Form">  
             <p-toolbar>
                 <div class="p-toolbar-group-left">
@@ -96,7 +96,7 @@
                         class="TablaDetalle tabladetalles"
                         [value]="detallesForm"
                         [scrollable]="true" 
-                        responsiveLayout="stack" >  
+                        responsiveLayout="scroll" >  
                         <ng-template pTemplate="header">
                             <tr> 
                                 <th>Acción</th>

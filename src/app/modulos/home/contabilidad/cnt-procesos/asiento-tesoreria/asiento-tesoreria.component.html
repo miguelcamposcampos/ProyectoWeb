@@ -1,7 +1,7 @@
  <div *ngIf="!vNuevo">
-    <div class="margintabla"> 
-        <div class="contenidoTable card-box">
-            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+    <div class="margintabla-home"> 
+        <div class="card-box">
+            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">CARGANDO. </p>
             </ngx-spinner>
     
@@ -40,14 +40,14 @@
                             ></p-calendar> 
                         </div> 
 
-                        <div class="p-field p-col-12 p-md-2 botonBuscar"> 
+                        <div class="p-field p-col-12 p-md-2 boton-buscar-cabecera"> 
                             <button pButton label="Buscar" type="button"  class="p-button-sm"  icon="pi pi-search" (click)="onLoad(null)"></button>
                         </div> 
                     </div> 
                 </div> 
             </form>
 
-            <p-table #dt [columns]="cols" responsiveLayout="stack" selectionMode="single"
+            <p-table #dt [columns]="cols" responsiveLayout="scroll" selectionMode="single"
                 [rowHover]="true" [value]="list">
 
                 <ng-template pTemplate="header" let-columns>

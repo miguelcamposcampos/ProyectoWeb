@@ -87,17 +87,7 @@
                     <ng-template pTemplate="body" let-empresa let-columns="columns"  let-rowIndex="rowIndex"> 
                         <tr [pSelectableRow]="empresa" [pSelectableRowIndex]="rowIndex">
                             <td  *ngFor="let col of columns" >
-                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>  
-
-                                <div [ngSwitch]="col.field">  
-                                    <div *ngSwitchCase="'razonSocial'" class="alingNombreTable">
-                                      {{ empresa[col.field] }}
-                                    </div>
-                                    <div *ngSwitchDefault class="alingCenterNombreTable">
-                                        {{empresa[col.field]}}   
-                                    </div>
-                                </div>  
-
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>   {{empresa[col.field]}}  
                                 <ng-template #botones [ngIf]="col.field === 'acciones'">
                                     <div class="botones-tabla-empresa">
                                         <button  

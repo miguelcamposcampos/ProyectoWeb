@@ -1,9 +1,9 @@
-<div class="margintabla-home">
-    <div class="contenidoTable card-box"> 
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">CARGANDO. </p>
-        </ngx-spinner> 
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner> 
 
+<div class="margintabla-home">
+    <div class="card-box">  
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3>  <i class="fas fa-thermometer-half"></i>UNIDADES DE MEDIDA</h3>
@@ -22,27 +22,23 @@
                 </button>
             </div>
         </p-toolbar>
-    
-        <div class="p-col-12"> 
-            <div style="align-items: flex-end;" class="p-fluid p-formgrid p-grid">
-                <div class="p-field p-col-12 p-md-8">
-                    <strong >Buscar:</strong>
-                    <input   
-                    pInputText
-                    type="text"
-                    class="p-inputtext-sm-clear-grey pd-5 width-100"
-                    placeholder="Buscar unidad Medida"
-                    size="25"
-                    (input)="dt.filterGlobal($any($event.target).value, 'contains')"/>             
-                </div>
-                
-            </div>
+     
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-8">
+                <strong >Buscar:</strong>
+                <span class="p-input-icon-right w-100">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" style="background: #b5e2fc!important" class="p-inputtext-sm-form" placeholder="Buscar" size="25"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                </span>         
+            </div> 
         </div>
+         
     </div> 
 
     <br>
 
-    <div class="contenidoTable card-box">
+    <div class="card-box">
         <p-table #dt
             [paginator]="true"
             [rows]="10"

@@ -1,8 +1,8 @@
  
-<div class="margintabla">
-    <div class="contenidoTable card-box"> 
+<div class="margintabla-home">
+    <div class="card-box"> 
 
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
             <p style="font-size: 20px; color: white">CARGANDO. </p>
         </ngx-spinner>
             
@@ -50,7 +50,7 @@
         </form> 
     </div> 
 
-    <div *ngIf="contenidoReporte" class="contenidoTable card-box">  
+    <div *ngIf="contenidoReporte" class="card-box">  
         <iframe  [src]="Pdf" height="95%" width="100%"></iframe>  
     </div> 
 </div>  

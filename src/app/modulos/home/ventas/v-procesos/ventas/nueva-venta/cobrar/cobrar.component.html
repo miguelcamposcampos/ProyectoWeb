@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card-box">
-        <div [ngClass]="{'contenidoTable': !esModal, 'card-box': esModal }"> 
+        <div [ngClass]="{' ': !esModal, 'card-box': esModal }"> 
           
             <p-toolbar>
                 <div class="p-toolbar-group-left">
@@ -27,7 +27,7 @@
                 </div>
             </p-toolbar>
 
-            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer" [fullScreen]="true">
                 <p style="font-size: 20px; color: white">CARGANDO. </p>
             </ngx-spinner>
 
@@ -73,7 +73,7 @@
                             class="p-inputtext-sm-form" placeholder="0.00">     
                         </div>
     
-                        <div class="p-field p-col-12 p-md-4 p-sm-4 botonBuscar"> 
+                        <div class="p-field p-col-12 p-md-4 p-sm-4 boton-buscar-cabecera"> 
                             <button type="button" pTooltip="Agregar" label="Agregar Cobranza"  
                             [disabled]="bloquearBotonAgregarCobro" class="p-button-generico-azul" tooltipPosition="left" 
                             (click)="onAgregarCobro()" pButton icon="fas fa-circle-dollar-to-slot"></button>      
@@ -89,7 +89,7 @@
                         class="tabladetalles"
                         [value]="arrayCobro"
                         [scrollable]="true" 
-                        responsiveLayout="stack" >  
+                        responsiveLayout="scroll" >  
                         <ng-template pTemplate="header">
                             <tr> 
                                 <th id="sm-detail">N°</th>

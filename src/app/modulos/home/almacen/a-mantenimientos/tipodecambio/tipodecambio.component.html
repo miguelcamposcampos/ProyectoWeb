@@ -1,10 +1,9 @@
-<div class="margintabla-home">
-    <div class="contenidoTable card-box">  
-        
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">CARGANDO. </p>
-        </ngx-spinner>
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
 
+<div class="margintabla-home"> 
+    <div class="card-box">  
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3>  <i class="far fa-money-bill-alt"></i> LISTA DE TIPO DE CAMBIO </h3>
@@ -84,10 +83,10 @@
 
     <br>
     
-    <div class="contenidoTable card-box">  
+    <div class="card-box">  
         <p-table   
-        class="TablaDetalleCondicionPago"
-        responsiveLayout="stack"
+        class="TableDetalleWhiteSpace" 
+        responsiveLayout="scroll"
         [scrollable]="true" 
         [paginator]="true" 
         [rows]="10" 

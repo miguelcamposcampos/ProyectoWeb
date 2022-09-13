@@ -17,7 +17,7 @@
 </p-toolbar>
 
 <p-table  
-responsiveLayout="stack"
+responsiveLayout="scroll"
 [scrollable]="true"  
 [columns]="cols"   
 [rowHover]="true"
@@ -88,9 +88,9 @@ responsiveLayout="stack"
         <form [formGroup]="Form">
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 
-                    <div class="p-field p-col-12"> 
-                        <strong *ngIf="mostrarCodigo">Código:</strong>
-                        <input *ngIf="mostrarCodigo" type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-form">   
+                    <div class="p-field p-col-12"  *ngIf="mostrarCodigo"> 
+                        <strong>Código:</strong>
+                        <input type="text" pInputText disabled formControlName="codigo" class="p-inputtext-sm-form">   
                     </div> 
                     <div class="p-field p-col-12"> 
                         <strong>Nombre *:</strong>

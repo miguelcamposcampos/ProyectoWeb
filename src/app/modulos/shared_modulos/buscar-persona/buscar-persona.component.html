@@ -19,7 +19,7 @@
                 <input type="text" placeholder="ingresa un nombre"  class="p-inputtext-sm" [formControl]="criterio" pInputText>  
             </div>
 
-            <div class="p-field p-col-12 p-md-3 botonBuscar">
+            <div class="p-field p-col-12 p-md-3 boton-buscar-cabecera">
                 <button pButton label="Buscar" icon="pi pi-search" class="p-button-generico-azul" 
                 (click)="onLoadPersonas(null)"></button>
             </div> 
@@ -29,7 +29,7 @@
     <p-table  
     [responsive]="true"
     [columns]="cols" 
-    responsiveLayout="stack"
+    responsiveLayout="scroll"
     selectionMode="single"
     [rowHover]="true" 
     (onRowSelect)="onSeleccionarPersona($event)" 

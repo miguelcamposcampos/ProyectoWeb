@@ -1,10 +1,10 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
  
  <div *ngIf="!VistaNuevoProducto && !VistaReporte && !VistaSubirProductos">
     <div class="margintabla-home">
-        <div class="contenidoTable card-box"> 
-            <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-                <p style="font-size: 20px; color: white">CARGANDO. </p>
-            </ngx-spinner>
+        <div class="card-box"> 
  
             <form [formGroup]="FormBusqueda"> 
                 <p-toolbar>
@@ -37,20 +37,56 @@
                     </div>
                 </p-toolbar>
  
-                <section>
-                    <div class="p-col-12"> 
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-8">
-                                <strong>Descripción</strong>
-                                <input formControlName="criterio" type="text" pInputText  class="p-inputtext-sm-form" 
-                                placeholder="EJEM: Camisa / Lejia"> 
-                            </div>
-                            <div class="p-field p-col-12 p-md-4 boton-buscar-cabecera" >
-                                <button pButton type="button"type="button" label="Buscar"  class="p-button-generico-azul" 
-                                 icon="pi pi-search" (click)="onLoadProductos(null)"></button>
+                <section> 
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-6">
+                            <strong>Descripción</strong>
+                            <input formControlName="criterio" type="text" pInputText  class="p-inputtext-sm-form" 
+                            placeholder="EJEM: Camisa / Lejia">   <br>
+                            <button pButton type="button"type="button" label="Buscar"  class="p-button-generico-azul" style="margin: 0;" 
+                                icon="pi pi-search" (click)="onLoadProductos(null)"></button>
+                        </div> 
+
+                        <div class="p-field p-col-12 p-md-6 "  style="justify-content: center; display: flex;" >
+                            <div class="filtoformCheck">
+                                <div class="groupform">
+                                    <div class="formCheck">
+                                        <strong>Sólo Activos</strong>
+                                        <p-inputSwitch formControlName="soloActivo" ></p-inputSwitch> 
+                                    </div>
+                                    
+                                    <div class="formCheck">
+                                        <strong>Usado ventas</strong>
+                                        <p-inputSwitch  formControlName="usadoVentas"  ></p-inputSwitch> 
+                                    </div>
+                                    
+                                    <div class="formCheck">
+                                        <strong>Usado Compras</strong>
+                                        <p-inputSwitch  formControlName="usadoCompras"  ></p-inputSwitch> 
+                                    </div>
+                                </div>
+                                    
+                                <div class="groupform">
+                                    <div class="formCheck2">
+                                        <strong>Solo servicios</strong>
+                                        <p-radioButton value="SoloServicio" formControlName="soloServicioArticulo" ></p-radioButton> 
+                                    </div>
+                                    
+                                    <div class="formCheck2">
+                                        <strong>Solo articulos </strong>
+                                        <p-radioButton value="SoloArticulo" formControlName="soloServicioArticulo"  ></p-radioButton> 
+                                    </div>
+                                    
+                                    <div class="formCheck2">
+                                        <strong>Todo</strong>
+                                        <p-radioButton value="Todos" formControlName="soloServicioArticulo" ></p-radioButton> 
+                                    </div>
+                                    
+                                </div>
                             </div> 
-                        </div>
-                    </div>  
+                        </div> 
+
+                    </div> 
                 </section>
             
                 <p-panel 
@@ -58,6 +94,7 @@
                     [toggleable]="true"
                     [collapsed]="true" 
                     class="panel" >
+ 
                     <section>
                         <div class="p-col-12"> 
                             <div class="p-fluid p-formgrid p-grid">  
@@ -91,22 +128,7 @@
                                     [showClear]="true" >
                                     </p-dropdown>
                                 </div> 
-                                <div class="p-field p-col-12 p-md-12 switchProductos"> 
-                                    <strong>Sólo Activos</strong>
-                                    <p-inputSwitch formControlName="soloActivo" ></p-inputSwitch>  
-                                    <strong>Usado ventas</strong>
-                                    <p-inputSwitch  formControlName="usadoVentas"  ></p-inputSwitch>  
-                                    <strong>Usado Compras</strong>
-                                    <p-inputSwitch  formControlName="usadoCompras"  ></p-inputSwitch>   
-                                </div> 
-                                <div class="p-field p-col-12 p-md1-12 switchProductos">                    
-                                    <strong>Solo servicios</strong>
-                                    <p-radioButton value="SoloServicio" formControlName="soloServicioArticulo" ></p-radioButton> 
-                                    <strong>Solo articulos </strong>
-                                    <p-radioButton value="SoloArticulo" formControlName="soloServicioArticulo"  ></p-radioButton>                         
-                                    <strong>Todo</strong>
-                                    <p-radioButton value="Todos" formControlName="soloServicioArticulo" ></p-radioButton> 
-                                </div>   
+                              
                             </div> 
                         </div> 
                     </section>  
@@ -116,13 +138,21 @@
 
         <br>
 
-        <div class="contenidoTable card-box">  
+        <div class="card-box">  
             <p-table #dt  
-                [columns]="cols" 
+                class="TableDetalleWhiteSpace" 
+                [columns]="selectedColumns" 
                 responsiveLayout="scroll"
                 selectionMode="single"
                 [rowHover]="true"  
                 [value]="listaProductos">  
+
+                <ng-template pTemplate="caption">
+                    <strong> Filtrar columnas</strong> &nbsp;
+                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+                </ng-template>
+
 
                     <ng-template pTemplate="header" let-columns >
                         <tr>
@@ -198,7 +228,7 @@
                     </ng-template> 
 
             </p-table> 
-            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onLoadProductos($event)"></p-paginator>
+            <p-paginator [rows]="10"  [showCurrentPageReport]="true" [currentPageReportTemplate]="textoPaginado"  [rowsPerPageOptions]="[5,10,20,30]" (onPageChange)="onLoadProductos($event)"></p-paginator>
         </div> 
     </div>  
      

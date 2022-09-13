@@ -2246,8 +2246,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 /*RESIZE DE LA TABLA EN  700*/
 @media (max-width: 700px) {
   .TableDetalleWhiteSpace .p-datatable .p-datatable-tbody > tr > td{
-    border: 0px !important;
     white-space: nowrap !important;
+    border: none !important;
   }
 
   .TableDetalleWhiteSpace .p-datatable .p-datatable-thead > tr > th { 
@@ -2257,6 +2257,15 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
  
 }
 
+.TableDetalleWhiteSpace .p-datatable .p-datatable-tbody > tr > td{
+  white-space: nowrap !important;
+  border: none !important;
+}
+
+.TableDetalleWhiteSpace .p-datatable .p-datatable-thead > tr > th { 
+  white-space: nowrap !important;
+  border: none !important;
+}
 
 .p-datatable .p-datatable-thead > tr > th { 
   white-space: nowrap !important;

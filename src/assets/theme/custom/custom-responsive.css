@@ -68,9 +68,9 @@
     display: flex;
   }
     
-  .switchProductos{ 
+  /* .switchProductos{ 
     grid-template-columns: 100px 40px 100px 40px 120px 40px !important;
-  }
+  } */
 }
 
 /* Large Devices */
@@ -243,9 +243,9 @@
     width: 80% !important;
   }
 
-  .switchProductos{ 
+  /* .switchProductos{ 
     grid-template-columns: 50px 35px 60px 35px 65px 35px !important; 
-  }
+  } */
   
 }
  

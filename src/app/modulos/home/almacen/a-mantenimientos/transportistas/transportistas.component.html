@@ -1,11 +1,11 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" [zIndex]="997"  color="#fff" type="timer">
+  <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
  
 <div *ngIf="!VistaNuevoTransportista && !VistaNuevoChofer && !VistaNuevoUnidadTransporte">
-  <div class="margintabla">
-    <div class="contenidoTable card-box"> 
+  <div class="margintabla-home">
+    <div class="card-box"> 
          
-      <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-        <p style="font-size: 20px; color: white">CARGANDO. </p>
-      </ngx-spinner>
  
       <p-toolbar>
           <div class="p-toolbar-group-left">
@@ -29,7 +29,7 @@
     
     <br>
 
-    <div class="contenidoTable card-box"> 
+    <div class="card-box"> 
       <p-table 
         class="TableDetalleWhiteSpace" 
         [value]="listTransportistas" 

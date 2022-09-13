@@ -22,7 +22,7 @@ export class TomaInventarioService{
         params = params.append('f1', data.finicio);
         params = params.append('f2', data.ffin);
         if(data.idAlmacen){
-            params = params.append('idAlmacen', data.idAlmacen);
+            params = params.append('idAlmacen', data.idAlmacen.id);
         } 
         return this.http.get<ITomaInventario>(`${this.api987}/v1/Producto/ObtenerProductoInventarioConsulta`, { params }); 
     }
