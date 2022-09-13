@@ -7,7 +7,7 @@
   <p-toolbar>
     <div class="logotipo">
       <div class="p-toolbar-group-center">
-        <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logo-gestisol.png" alt="poseidon-layout">
+        <img id="app-logo" src="assets/layout/images/logo-gestisol.png" alt="poseidon-layout">
       </div>
     </div>
 
@@ -24,42 +24,39 @@
 
   <div class="margintabla-empresa">   
      <div class="contenido-form-table">  
-        <div class="row">
-          <div class="contenidoTable card-box">
-            <div class="p-col-12">
-              <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
-              <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
-                <span class="p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
-                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
-                </span>
-              </div>
-              <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
-                <button 
-                  class="p-button-generico-agregar"
-                  pButton icon="pi pi-plus" label="Agregar" 
-                  type="button"
-                  tooltipPosition="left" pTooltip="Registrar Pedido" 
-                  (click)="onRegistrarPedido()">
-                </button>
-              </div>
-              <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
-                <button pButton (click)="onInformarPago()" 
-                  tooltipPosition="top" type="button"
-                  pTooltip="Informar Pago"  class="p-button-generico-agregar"
-                  label="Notificar" 
-                  icon="pi pi-dollar">
-                </button>
-              </div>
+      
+        <div class="card-box">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-6"> 
+              <span class="p-input-icon-right w-100">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"  style="background: #b5e2fc!important" class="p-inputtext-sm-form" placeholder="Buscar" size="25"
+                  (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+              </span>
             </div>
+            <div class="p-field p-col-12 p-md-3">
+              <button 
+                class="p-button-registrar"
+                pButton icon="pi pi-plus" label="Agregar" 
+                type="button"
+                tooltipPosition="left" pTooltip="Registrar Pedido" 
+                (click)="onRegistrarPedido()">
+              </button>
             </div>
-          </div> 
-        </div> 
-  
+            <div class="p-field p-col-12 p-md-3">
+              <button pButton (click)="onInformarPago()" 
+                tooltipPosition="top" type="button"
+                pTooltip="Informar Pago"  class="p-button-generico-azul"
+                label="Notificar" 
+                icon="pi pi-dollar">
+              </button>
+            </div>
+          </div>
+        </div>
+           
         <br> 
-        <div class="row">
-          <div class="contenidoTable card-box"> 
+        
+          <div class="card-box"> 
             <p-table #dt 
               [columns]="selectedColumns" 
               responsiveLayout="scroll"
@@ -110,7 +107,7 @@
               </ng-template>
             </p-table>
           </div>  
-        </div> 
+        
       </div>  
   </div>
 </div>

@@ -27,7 +27,7 @@
       <div class="row">
         <div class="contenidoTable card-box" style="text-align: center;">
           <button (click)="onModalAgregarRol()" pButton icon="pi pi-plus" pTooltip="Agregar Rol" label="Agregar Nuevo Rol"
-            type="button" tooltipPosition="right" class="p-button-generico-agregar-rol">
+            type="button" tooltipPosition="right" class="p-button-registrar">
           </button>  
         </div> 
       </div> 
@@ -42,10 +42,10 @@
               <div class="col-md-4" > 
                 <h3> Roles </h3>
                 <div *ngFor="let rol of ListadeRoles" style="display: flex; ">
-                  <button (click)="onVerMenuRol(rol.rolid)"  class="p-button-generico-agregar" style="margin-bottom: 1.5%;"
+                  <button (click)="onVerMenuRol(rol.rolid)"  class="p-button-registrar" style="margin-bottom: 1.5%;"
                     label="{{rol.nombre | uppercase}}" type="button" pButton>
                   </button>
-                  <button class="botonEliminarRol" (click)="onModaleliminarRol(rol)" pButton
+                  <button class="p-button-cancelar" (click)="onModaleliminarRol(rol)" pButton  style="margin-bottom: 1.5%;"
                     icon="pi pi-trash" pTooltip="Eliminar Rol" type="button" tooltipPosition="right">
                   </button>
                 </div>

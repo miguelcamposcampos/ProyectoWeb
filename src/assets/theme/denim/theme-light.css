@@ -521,8 +521,8 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   font-size: 14px;
 }
 .p-checkbox .p-checkbox-box.p-highlight {
-  border-color: #1B74C5;
-  background: #1B74C5;
+  border-color: #4da8de;
+  background: #4da8de;
 }
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   border-color: #1B74C5;
@@ -535,7 +535,7 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
 }
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
   border-color: #0D438D;
-  background: #0D438D;
+  background: #4da8de;
   color: #f8fafc;
 }
 
@@ -1023,7 +1023,9 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 .p-input-icon-right > i:last-of-type {
-  right: 0.5rem;
+  /* CAMBIOS CRISTIAN MARTINEZ 
+  right: 0.5rem;*/
+  right: 1rem;
   color: #657380;
 }
 
@@ -1618,7 +1620,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 
 .p-button {
   color: #f8fafc;
-  background: #1B74C5;
+  background: #4da8de;
   border: 1px solid #1B74C5;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -1729,7 +1731,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-button.p-button-icon-only {
   width: 2.357rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0; 
 }
 .p-button.p-button-icon-only .p-button-icon-left,
 .p-button.p-button-icon-only .p-button-icon-right {
@@ -1766,8 +1768,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-fluid .p-button-icon-only {
   width: 2.357rem;
   /* CAMBIO CRISTIAN MARTINEZ */
-  background: #4da8de;
-  border: 0px solid #1B74C5;
+  /* background: #4da8de;
+  border: 0px solid #1B74C5; */
 }
 .p-fluid .p-buttonset {
   display: flex;
@@ -3818,7 +3820,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #4da8de;
   border-color: white;
   color: white;
-  border-bottom-left-radius: 20px;
+  /* border-bottom-left-radius: 20px; */
   border-top-right-radius: 20px;
 }
 .p-tabview .p-tabview-left-icon {

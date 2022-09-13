@@ -6,13 +6,13 @@
 <p-toolbar>
   <div class="logotipo">
     <div class="p-toolbar-group-center">
-      <img id="app-logo" style="padding-right: 2%;" src="assets/layout/images/logo-gestisol.png" alt="poseidon-layout">
+      <img id="app-logo"  src="assets/layout/images/logo-gestisol.png" alt="poseidon-layout">
     </div>
   </div>
 
   <div class="p-toolbar-group-right p-toolbar-group-center-mobile">
     <button class="p-button-generico-azul" pButton icon="pi pi-arrow-left" label="Regresar" tooltipPosition="left"
-      style="margin-right: 1%;" pTooltip="Regresar" (click)="onRegresar()">
+      pTooltip="Regresar" (click)="onRegresar()">
     </button>
   </div>
 </p-toolbar>
@@ -23,87 +23,90 @@
 
 <div class="margintabla-empresa">   
   <div class="contenido-form-table">  
-     <div class="row">
-       <div class="contenidoTable card-box">
-         <div class="p-col-12">
-           <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
-           <div class="p-field p-col-12 p-md-8 p-sm-12" style="margin: 0;">
-             <span class="p-input-icon-left">
+ 
+       <div class="card-box">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-8"> 
+            <span class="p-input-icon-right w-100">
                <i class="pi pi-search"></i>
-               <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
+               <input pInputText type="text" style="background: #b5e2fc!important" class="p-inputtext-sm-form" placeholder="Buscar" size="25"
                  (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
              </span>
            </div>
-           <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
-            <button  class="p-button-generico-agregar" pButton icon="pi pi-plus" label="Invitar"
+           <div class="p-field p-col-12 p-md-4">
+            <button  class="p-button-registrar" type="button" pButton icon="pi pi-plus" label="Invitar"
               tooltipPosition="left" pTooltip="Invitar Usuario" (click)="onModalInvitarUsuario()">
             </button>
-           </div>
-         </div>
+           </div>  
          </div>
        </div> 
-     </div> 
+      
+
      <br> 
-     <div class="row">
-       <div class="contenidoTable card-box">  
-          <p-table #dt  
-            class="TableDetalleWhiteSpace" 
-            [columns]="selectedColumns" 
-            responsiveLayout="scroll"
-            selectionMode="single" 
-            [rowHover]="true"
-            [value]="usuariosporEmpresa">
 
-            <ng-template pTemplate="caption">
-              <strong> Filtrar columnas</strong> &nbsp;
-              <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                  selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
-            </ng-template>
+     
+      <div class="card-box">  
+        <p-table #dt  
+          class="TableDetalleWhiteSpace" 
+          [columns]="selectedColumns" 
+          responsiveLayout="scroll"
+          selectionMode="single" 
+          [rowHover]="true"
+          [value]="usuariosporEmpresa">
 
-            <ng-template pTemplate="header" let-columns>
-              <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                  {{col.header}}
-                  <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
-                    ariaLabelDesc="Activate to sort in descending order"
-                    ariaLabelAsc="Activate to sort in ascending order">
-                  </p-sortIcon>
-                </th>
-              </tr>
-            </ng-template>
+          <ng-template pTemplate="caption">
+            <strong> Filtrar columnas</strong> &nbsp;
+            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+          </ng-template>
 
-            <ng-template pTemplate="body" let-usuario let-columns="columns" let-rowIndex="rowIndex">
-              <tr [pSelectableRow]="usuario" [pSelectableRowIndex]="rowIndex">
-                <td *ngFor="let col of columns">
-                  <strong class="p-column-title">{{ col.header | uppercase}}</strong>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon *ngIf="col.field != 'acciones'" [field]="col.field" ariaLabel="Activate to sort"
+                  ariaLabelDesc="Activate to sort in descending order"
+                  ariaLabelAsc="Activate to sort in ascending order">
+                </p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
 
-                  <div [ngSwitch]="col.field">
-                    <div *ngSwitchCase="'ultimaInteraccion'">
-                      {{ usuario[col.field] | date: col.formatoFecha }}
-                    </div>
-                    <div *ngSwitchDefault>
-                      {{ usuario[col.field] }}
-                    </div>
+          <ng-template pTemplate="body" let-usuario let-columns="columns" let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="usuario" [pSelectableRowIndex]="rowIndex">
+              <td *ngFor="let col of columns">
+                <strong class="p-column-title">{{ col.header | uppercase}}</strong>
+
+                <div [ngSwitch]="col.field">
+                  <div *ngSwitchCase="'ultimaInteraccion'">
+                    {{ usuario[col.field] | date: col.formatoFecha }}
                   </div>
+                  <div *ngSwitchCase="'emailUsuario'" class="alingNombreTable">
+                    {{ usuario[col.field] }}
+                  </div>
+                  <div *ngSwitchDefault>
+                    {{ usuario[col.field] }}
+                  </div>
+                </div>
+ 
+                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                  <div class="botones">
+                    <button  class="p-button-generico-azul"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
+                      tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
+                    </button>
 
-                  <ng-template #botones [ngIf]="col.field === 'acciones'">
-                    <div class="botones">
-                      <button  class="p-button-generico-azul"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
-                        tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
-                      </button>
-
-                      <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
-                      <button  class="p-button-generico-azul"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
-                      pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
-                    </div>
-                  </ng-template>
-                  
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div> 
-    </div> 
+                    <p-tieredMenu  #menu [model]="itemsOperario" appendTo="body" [popup]="true"></p-tieredMenu>
+                    <button  class="p-button-generico-azul"  #btn type="button"  *ngIf="!usuario.esAdmin"  [disabled]="usuario.esAdmin" 
+                    pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" (click)="onSelectItems(usuario)" ></button>
+                  </div>
+                </ng-template>
+                
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+     
   </div>
 </div>
 

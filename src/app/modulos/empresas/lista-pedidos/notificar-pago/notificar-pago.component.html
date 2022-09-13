@@ -17,20 +17,19 @@
 
 <div class="margintabla-empresa"> 
     <div class="contenido-form-table">
-        <div class="row"> 
-            <div class="contenidoTable card-box">
-                <div class="p-col-12">
-                    <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
-                    <div class="p-field p-col-12 p-md-8 p-sm-12" style="margin: 0;">
-                    <span class="p-input-icon-left">
+         
+        <div class="card-box">
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-8"> 
+                    <span class="p-input-icon-right w-100">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
-                        (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
-                    </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+                        <input pInputText type="text"  style="background: #b5e2fc!important" class="p-inputtext-sm-form" placeholder="Buscar" size="25"
+                          (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                      </span>
+                </div>
+                <div class="p-field p-col-12 p-md-4 p-sm-12">
                     <button    
-                        class="p-button-generico-agregar"
+                        class="p-button-generico-azul"
                         pButton
                         icon="pi pi-arrow-left"
                         label="Regresar"
@@ -38,84 +37,83 @@
                         pTooltip="Regresar"
                         (click)="onRegresar()">  
                     </button> 
-                    </div>
                 </div>
-                </div> 
-            </div>  
-        </div> 
+            </div> 
+        </div>  
+        
        
         <br>     
-        <div class="row">
-            <div class="contenidoTable card-box"> 
-                <p-table   
-                    class="TableDetalleWhiteSpace" 
-                    #dt [columns]="selectedColumn" 
-                    [value]="listPedidos"
-                    [rowHover]="true"  
-                    responsiveLayout="scroll"
-                    selectionMode="multiple"  
-                    (onHeaderCheckboxToggle)="onSeleccionarTodosLosPedidos($event)" 
-                    (onRowSelect)="onSeleccionarPedidos($event)"  
-                    (onRowUnselect)="onQuitarSeleccionPedidos($event)"  >
-    
-                    <ng-template pTemplate="caption">
-                        <strong> Filtrar columnas</strong> &nbsp;
-                        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumn" optionLabel="header"
-                            selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
-                    </ng-template>
-
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                {{col.header}} 
-                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" 
-                                ariaLabelDesc="Activate to sort in descending order"
-                                ariaLabelAsc="Activate to sort in ascending order">
-                                </p-sortIcon> 
-                            </th>
-                        </tr>
-                    </ng-template>
-
-                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-                        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"> 
-                            <td><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
-                            <td *ngFor="let col of columns">
-                                <strong class="p-column-title"> {{ col.header | uppercase}}  </strong> 
-                                {{rowData[col.field]}}
-                            <td> 
-                        </tr>
-                    </ng-template>      
-                </p-table>
-    
-                <div *ngIf="mostrarAdjuntar">   
-                    <p-fileUpload
-                        name="myfiles[]"
-                        chooseLabel="Adjuntar" 
-                        chooseIcon="pi pi-paperclip" 
-                        accept="image/*" 
-                        [auto]="true" 
-                        (onRemove)="onEliminarArchivo($event)"
-                        [customUpload]="true"
-                        (uploadHandler)="onUpload($event)"> 
-                    </p-fileUpload>
         
-                </div> 
+        <div class="card-box"> 
+            <p-table   
+                class="TableDetalleWhiteSpace" 
+                #dt [columns]="selectedColumn" 
+                [value]="listPedidos"
+                [rowHover]="true"  
+                responsiveLayout="scroll"
+                selectionMode="multiple"  
+                (onHeaderCheckboxToggle)="onSeleccionarTodosLosPedidos($event)" 
+                (onRowSelect)="onSeleccionarPedidos($event)"  
+                (onRowUnselect)="onQuitarSeleccionPedidos($event)"  >
 
-                <div class="botones">
-                    <button
-                        pButton
-                        type="button"
-                        *ngIf="mostrarEnviarNotificacion"  
-                        class="p-button-registrar"
-                        label="Enviar Notificación" 
-                        icon="pi pi-check-circle" 
-                        (click)="onModalEnviarNotificacion()">
-                    </button>
-                </div>
+                <ng-template pTemplate="caption">
+                    <strong> Filtrar columnas</strong> &nbsp;
+                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumn" optionLabel="header"
+                        selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}" placeholder="Filtrar Columnas"></p-multiSelect>
+                </ng-template>
 
-            </div>  
-        </div> 
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}} 
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" 
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon> 
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"> 
+                        <td><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                        <td *ngFor="let col of columns">
+                            <strong class="p-column-title"> {{ col.header | uppercase}}  </strong> 
+                            {{rowData[col.field]}}
+                        <td> 
+                    </tr>
+                </ng-template>      
+            </p-table>
+
+            <div *ngIf="mostrarAdjuntar">   
+                <p-fileUpload
+                    name="myfiles[]"
+                    chooseLabel="Adjuntar" 
+                    chooseIcon="pi pi-paperclip" 
+                    accept="image/*" 
+                    [auto]="true" 
+                    (onRemove)="onEliminarArchivo($event)"
+                    [customUpload]="true"
+                    (uploadHandler)="onUpload($event)"> 
+                </p-fileUpload>
+    
+            </div> 
+
+            <div class="botones">
+                <button
+                    pButton
+                    type="button"
+                    *ngIf="mostrarEnviarNotificacion"  
+                    class="p-button-registrar"
+                    label="Enviar Notificación" 
+                    icon="pi pi-check-circle" 
+                    (click)="onModalEnviarNotificacion()">
+                </button>
+            </div>
+
+        </div>  
+        
     </div>
 </div> 
 

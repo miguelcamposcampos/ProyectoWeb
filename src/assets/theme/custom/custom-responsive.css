@@ -81,10 +81,10 @@
     padding: 95px 30px 60px 30px;
   }
   
-  .p-input-icon-right>i:last-of-type {
+  /* .p-input-icon-right>i:last-of-type {
     right: 60px !important;
     color: #657380 !important;
-  }
+  } */
 
   .p-inputtext.p-inputtext-sm-registro-empresa {
     width: 100% !important;

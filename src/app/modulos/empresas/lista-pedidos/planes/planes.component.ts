@@ -27,7 +27,7 @@ export class PlanesComponent implements OnInit {
     private planesService: PlanesService,  
     private swal : MensajesSwalService,
     private authService : AuthService,
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private spinner: NgxSpinnerService
   ) {  
 

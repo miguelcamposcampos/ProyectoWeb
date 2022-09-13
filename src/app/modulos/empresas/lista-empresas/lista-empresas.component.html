@@ -33,21 +33,20 @@
     </div>
 
     <div class="margintabla-empresa">   
-        <div class="contenido-form-table">  
+        <div class="contenido-form-table w-70">  
              
-            <div class="card-box">
-               <div class="p-col-12">
-                <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
-                    <div class="p-field p-col-12 p-md-8 p-sm-12" style="margin: 0;">
-                      <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" class="p-inputtext-generico" placeholder="Buscar" size="25"
-                          (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
-                      </span>
+            <div class="card-box"> 
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-8"> 
+                        <span class="p-input-icon-right w-100">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"  style="background: #b5e2fc!important" class="p-inputtext-sm-form" placeholder="Buscar" size="25"
+                              (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                          </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-4 p-sm-12" style="margin: 0;">
+                    <div class="p-field p-col-12 p-md-4 boton-buscar-cabecera">
                         <button    
-                            class="p-button-generico-agregar"
+                            class="p-button-registrar"
                             pButton
                             type="button"
                             icon="pi pi-plus"
@@ -57,11 +56,9 @@
                             (click)="onRegistrarEmpresa()">  
                         </button> 
                     </div>
-                </div>
-                </div>
+                </div> 
             </div> 
-            
-
+             
             <br> 
            
             <div class="card-box"> 
@@ -90,7 +87,17 @@
                     <ng-template pTemplate="body" let-empresa let-columns="columns"  let-rowIndex="rowIndex"> 
                         <tr [pSelectableRow]="empresa" [pSelectableRowIndex]="rowIndex">
                             <td  *ngFor="let col of columns" >
-                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>  
+
+                                <div [ngSwitch]="col.field">  
+                                    <div *ngSwitchCase="'razonSocial'" class="alingNombreTable">
+                                      {{ empresa[col.field] }}
+                                    </div>
+                                    <div *ngSwitchDefault class="alingCenterNombreTable">
+                                        {{empresa[col.field]}}   
+                                    </div>
+                                </div>  
+
                                 <ng-template #botones [ngIf]="col.field === 'acciones'">
                                     <div class="botones-tabla-empresa">
                                         <button  

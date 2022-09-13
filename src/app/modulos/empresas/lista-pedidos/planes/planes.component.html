@@ -16,12 +16,12 @@
                             <div><strong> Importe Comprobante: </strong> {{ dato.importecomprobanteadicional }}</div> 
                             <div>
                                 <strong> Ingresa una cantidad : </strong>
-                                <input type="number" [formControl]="cantidadIngresada" pInputText class="p-inputtext-sm w-100"
-                                    minlength="0" maxlength="100" placeholder="ingresar una cantidad">
+                                <input type="text" [formControl]="cantidadIngresada" (keypress)="generalService.onSoloNumeros($event)" pInputText class="p-inputtext-sm-form wpx-90"
+                                    minlength="0" maxlength="100" placeholder="0">
                             </div> 
                         </div>   
                         <button 
-                            class="p-button-generico-agregar"
+                            class="p-button-registrar botones wpx-250"
                             pButton
                             type="button"
                             icon="pi pi-check-circle"
