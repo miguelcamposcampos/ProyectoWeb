@@ -69,7 +69,7 @@ export class CondicionDePagoComponent implements OnInit {
     });
   }
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadCondicionPago();
     } 
     this.modalNuevaCondicionPago = false; 

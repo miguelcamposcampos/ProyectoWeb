@@ -122,7 +122,7 @@ export class MaterialesComponent implements OnInit {
 
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadMaterial();
     }
     

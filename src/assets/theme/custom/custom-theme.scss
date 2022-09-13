@@ -1258,14 +1258,16 @@ body.main-body {
         margin: 0 auto 20px;
     }
 
-    .botones-tabla{
+    .botones-tabla-empresa{
         display: flex;
+        text-align: center;
     }
 
     .botones{
         margin: 2%;
         text-align: center;
     }
+
     .p-dialog-mask {
         z-index: 999 !important;
         min-width: 25%;
@@ -1297,7 +1299,7 @@ body.main-body {
     
     
     .menu-wrapper {
-        top: 100px!important; 
+        top: 99px!important; 
     }
 
     .CampoSwicth{
@@ -1350,6 +1352,13 @@ body.main-body {
         height: 80vh;
    }
 
+    .alingNombreTable{
+        text-align: left;
+    }
+    .alinMontoeTable{
+        text-align: right;  
+    }
+
    /*  ESPACIADOS DE CONTENIDOS*/ 
    .w-50{
     width: 50%;
@@ -1364,6 +1373,7 @@ body.main-body {
    .w-100{
     width: 100%;
    }
+   
 
 
 
@@ -1379,4 +1389,7 @@ body.main-body {
    } 
    .wpx-100{
     width: 100px;
+   }  
+   .wpx-180{
+    width: 180px;
    }

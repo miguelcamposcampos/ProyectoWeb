@@ -85,7 +85,7 @@ export class ProveedoresComponent implements OnInit {
   
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadProveedores(null);
     } 
     this.VistaNuevoProveedor = false; 

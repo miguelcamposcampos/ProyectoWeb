@@ -174,7 +174,7 @@ onModalEliminarUnidadTransporte(data:any){
  
 
   onRetornar(event : any){  
-    if(event === 'exito'){
+    if(event ){
       this.onLoadTransportistas()
      }
      

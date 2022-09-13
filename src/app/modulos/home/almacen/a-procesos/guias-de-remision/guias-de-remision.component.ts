@@ -116,7 +116,7 @@ export class GuiasDeRemisionComponent implements OnInit {
  
 
   onRetornar(event : any){
-    if(event === 'exito'){
+    if(event ){
       this.onLoadGuiasRemision(null);
     }
     this.VistaNuevaGuiaRemision = false;

@@ -156,7 +156,7 @@ export class MovimientosAlmacenComponent implements OnInit {
   } 
 
   onRetornar(event : any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadMovimientos(); 
     } 
     this.VistaNuevoMovimientos = false;  

@@ -161,7 +161,7 @@ export class TipodecambioComponent implements OnInit {
 
 
   onRetornar(event: any){
-    if(event === 'exito'){
+    if(event ){
       this.onLoadTipoCambio();
     }
     this.modalNuevoTipoCambio = false;

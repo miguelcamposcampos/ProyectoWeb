@@ -31,6 +31,7 @@
 
     <div class="contenidoTable card-box"> 
       <p-table 
+        class="TableDetalleWhiteSpace" 
         [value]="listTransportistas" 
         dataKey="id" 
         [paginator]="true" 
@@ -68,13 +69,16 @@
                     <div *ngSwitchCase="'fechaRegistro'">
                       {{ transportistas[col.field] | date: col.formatoFecha }}
                     </div>
+                    <div *ngSwitchCase="'nombre'" class="alingNombreTable">
+                      {{ transportistas[col.field] }}
+                    </div>
                     <div *ngSwitchDefault>
                       {{ transportistas[col.field]  }}
                     </div>
                 </div>  
       
                <ng-template #botones [ngIf]="col.field === 'acciones'">
-                  <div style="display: flex;">
+                  <div class="botones">
                     <button 
                       pButton
                       type="button" 
@@ -106,15 +110,15 @@
                 <div class="p-3" > 
                   <p-toolbar>
                       <div class="p-toolbar-group-left">
-                        <h3> LISTA DE CHOFERES</h3> 
+                        <h3> LISTA CHOFERES</h3> 
                       </div>
                       
                       <div class="p-toolbar-group-right">
                         <button 
                           pButton 
                           type="button"
-                          (click)="onNuevoChofer(transportistas.id)"  
-                          class="p-button-sm-generico" 
+                          (click)="onNuevoChofer(transportistas.id)"   
+                          class="p-button-registrar wpx-180"
                           label="Agregar Chofer"
                           tooltipPosition="top" 
                           pTooltip="Agregar Nuevo Chofer"  
@@ -124,6 +128,7 @@
                   </p-toolbar> 
                   
                   <p-table   
+                    class="TableDetalleWhiteSpace" 
                     [value]="transportistas.choferes"
                     dataKey="id" 
                     [columns]="colschoferes"
@@ -144,9 +149,20 @@
                     <ng-template pTemplate="body" let-choferes let-columns="columns"  let-rowIndex="rowIndex">
                       <tr [pSelectableRow]="choferes" [pSelectableRowIndex]="rowIndex">
                         <td  *ngFor="let col of columns" >
-                          <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{choferes[col.field]}}  
+                          <strong class="p-column-title">{{ col.header | uppercase}}</strong> 
+
+
+                          <div [ngSwitch]="col.field">     
+                            <div *ngSwitchCase="'nombre'" class="alingNombreTable">
+                              {{ choferes[col.field] }}
+                            </div>
+                            <div *ngSwitchDefault>
+                              {{ choferes[col.field]}}  
+                            </div>
+                        </div>  
+
                           <ng-template #botones [ngIf]="col.field === 'acciones'">
-                            <div style="display: flex;">
+                            <div class="botones">
                               <button  
                                 pButton
                                 type="button" 
@@ -179,7 +195,7 @@
                 
                   <p-toolbar>
                     <div class="p-toolbar-group-left">
-                      <h3> LISTA DE UNIDADES DE TRANSPORTE</h3> 
+                      <h3> LISTA UNIDADES DE TRANSPORTE</h3> 
                     </div>
                     
                     <div class="p-toolbar-group-right">
@@ -187,7 +203,7 @@
                         pButton
                         type="button" 
                         label="Agregar Transporte" 
-                        class="p-button-sm-generico"
+                        class="p-button-registrar wpx-180"
                         (click)="onNuevoUnidadTransportista(transportistas.id)"  
                         tooltipPosition="top" 
                         pTooltip="Agregar Unidad de Transporte"  
@@ -197,6 +213,7 @@
                   </p-toolbar>
 
                   <p-table 
+                    class="TableDetalleWhiteSpace" 
                     [value]="transportistas.unidades"
                     dataKey="id"
                     [columns]="colsunidades" 
@@ -221,7 +238,7 @@
                         <td  *ngFor="let col of columns" >
                           <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{unidades[col.field]}}  
                           <ng-template #botones [ngIf]="col.field === 'acciones'">
-                            <div style="display: flex;">
+                            <div class="botones">
                               <button  
                                 pButton
                                 type="button" 

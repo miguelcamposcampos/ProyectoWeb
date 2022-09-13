@@ -119,7 +119,7 @@ export class CentroCostoComponent implements OnInit {
  
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadCentroCosto();
     } 
     this.VistaNuevoCentroCosto = false; 

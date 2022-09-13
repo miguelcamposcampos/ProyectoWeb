@@ -114,7 +114,7 @@ export class CajaChicaComponent implements OnInit {
   }
 
   onRetornar(event : any){
-    if(event === 'exito'){
+    if(event ){
       this.onLoadCajachica(null);
     }
     this.VistaNuevoCajaChica = false;

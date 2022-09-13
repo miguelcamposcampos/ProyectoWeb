@@ -1,12 +1,11 @@
  
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">CARGANDO. </p>
+</ngx-spinner>
 
 <div class="margintabla-home"> 
-    <div class="contenidoTable card-box"> 
-
-        <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="meidum" color="#fff" type="timer" [fullScreen]="true">
-            <p style="font-size: 20px; color: white">CARGANDO. </p>
-        </ngx-spinner>
-
+    <div class="card-box"> 
+ 
         <p-toolbar>
             <div class="p-toolbar-group-left">
                 <h3>  <i class="fas fa-tags"></i> LISTA DE MARCAS</h3> 
@@ -36,10 +35,11 @@
             </div>
         </div>
     </div>
+
     <br>
-    <div class="contenidoTable card-box"> 
+
+    <div class="card-box"> 
         <p-table 
-            [responsive]="true"
             [columns]="cols" 
             responsiveLayout="scroll"
             selectionMode="single"
@@ -77,7 +77,7 @@
                         </div>  
 
                         <ng-template #botones [ngIf]="col.field === 'acciones'">
-                            <div style="display: flex;">
+                            <div class="botones" >
                                 <button 
                                     pButton 
                                     type="button"
@@ -113,7 +113,7 @@
 </div>   
  
 <div *ngIf="VistaNuevoMarca">
-    <p-dialog header="{{ (!idMarcaEdit) ? 'NUEVA MARCA' : 'EDITAR MARCA'}}" [(visible)]="VistaNuevoMarca" [modal]="true">
+    <p-dialog header="{{ (!idMarcaEdit) ? 'NUEVA MARCA' : 'EDITAR MARCA'}}" [(visible)]="VistaNuevoMarca" [modal]="true" [style]="{width: '30vw'}">
         <app-nuevo-marca [idMarcaEdit]="idMarcaEdit" (cerrar)="onRetornar($event)"> </app-nuevo-marca>
     </p-dialog> 
 </div>  

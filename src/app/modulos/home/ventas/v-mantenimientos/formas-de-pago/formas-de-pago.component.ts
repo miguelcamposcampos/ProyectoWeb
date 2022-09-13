@@ -74,7 +74,7 @@ export class FormasDePagoComponent implements OnInit {
     });
   }
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadFormasPago();
     } 
     this.modalNuevaFormaPago = false; 

@@ -26,11 +26,11 @@ export class ListaEmpresasComponent implements OnInit {
   VistaListaPlanes: boolean = false;
  
   empresasAsociadas : IEmpresa[] = [];
-  ColsEmpresa: InterfaceColumnasGrilla[] = [];
+  cols: InterfaceColumnasGrilla[] = [];
   itemsEmpresa! : MenuItem[];   
   newEmpresa : boolean; 
   empresasAcceder! : DataEmpresa; 
-  mostrarHeader : boolean = true;
+ // mostrarHeader : boolean = true;
   dataDesencryptada = JSON.parse(localStorage.getItem('loginEncryptado')) 
   
   constructor(
@@ -49,7 +49,7 @@ export class ListaEmpresasComponent implements OnInit {
    }
    
   ngOnInit(): void {    
-    this.ColsEmpresa = [ 
+    this.cols = [ 
       { field: 'ruc', header: 'Ruc', visibility: true }, 
       { field: 'razonSocial', header: 'Razón Social', visibility: true },  
       { field: 'acciones', header: 'Ajustes', visibility: true  }, 
@@ -189,8 +189,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
   //Vistas
-  onVistaPlanes(){
-    this.mostrarHeader =  this.mostrarHeader
+  onVistaPlanes(){ 
     this.VistaPlanes = true;
   }
 

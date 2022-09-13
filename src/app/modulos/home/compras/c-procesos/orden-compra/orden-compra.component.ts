@@ -173,7 +173,7 @@ export class OrdenCompraComponent implements OnInit {
 
 
   onRetornar(event : any){
-    if(event === 'exito'){
+    if(event ){
       this.onLoadOrdenCompra(null);
     }
     this.VistaNuevaOrdenCompra = false;

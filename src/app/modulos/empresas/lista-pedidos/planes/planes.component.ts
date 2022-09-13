@@ -13,8 +13,7 @@ import { PlanesService } from '../../services/planes.services';
   styleUrls: ['./planes.component.scss']
 })
 export class PlanesComponent implements OnInit {
-  
-  @Input() mostrarHeader!: boolean; //datos de la empresa que queremos asociar a un plan 
+ 
   @Output() onChange : any  = new EventEmitter();
   @Output() cerrar : any  = new EventEmitter<boolean>();
  

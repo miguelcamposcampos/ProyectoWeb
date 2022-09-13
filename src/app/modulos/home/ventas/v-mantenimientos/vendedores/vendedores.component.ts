@@ -84,7 +84,7 @@ export class VendedoresComponent implements OnInit {
 
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadVendedores(null);
     } 
     this.VistaNuevoVendedor = false; 

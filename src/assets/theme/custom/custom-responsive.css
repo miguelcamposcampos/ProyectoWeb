@@ -209,7 +209,7 @@
     margin-top: 20px  !important;
   }
 
-  .botones-tabla, .botones-plan-empresa{ 
+  .botones-tabla-empresa, .botones-plan-empresa{ 
     display: grid !important;
   }
 

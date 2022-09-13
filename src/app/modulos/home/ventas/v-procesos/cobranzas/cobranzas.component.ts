@@ -131,7 +131,7 @@ export class CobranzasComponent implements OnInit , OnDestroy{
   } 
 
   onRetornar(event : any){
-    if(event === 'exito'){
+    if(event ){
       this.onLoadCobranzas(null);
     }
     this.VistaNuevoCobranza = false;

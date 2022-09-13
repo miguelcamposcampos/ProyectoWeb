@@ -34,8 +34,8 @@
 
     <div class="margintabla-empresa">   
         <div class="contenido-form-table">  
-           <div class="row">
-             <div class="contenidoTable card-box">
+             
+            <div class="card-box">
                <div class="p-col-12">
                 <div class="p-fluid p-formgrid p-grid" style="margin: 0;">
                     <div class="p-field p-col-12 p-md-8 p-sm-12" style="margin: 0;">
@@ -59,40 +59,41 @@
                     </div>
                 </div>
                 </div>
-              </div> 
             </div> 
+            
+
             <br> 
-            <div class="row">
-                <div class="contenidoTable card-box"> 
-                    <p-table #dt 
-                        [columns]="ColsEmpresa" 
-                        responsiveLayout="scroll"
-                        selectionMode="single"
-                        [scrollable]="true"
-                        [rowHover]="true"
-                        [value]="empresasAsociadas">  
-        
-                        <ng-template pTemplate="header" let-columns >
-                            <tr>
-                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                    {{ col.header }} 
-                                    <p-sortIcon *ngIf="col.field != 'acciones'"
-                                        [field]="col.field"
-                                        ariaLabel="Activate to sort"
-                                        ariaLabelDesc="Activate to sort in descending order"
-                                        ariaLabelAsc="Activate to sort in ascending order">
-                                    </p-sortIcon> 
-                                </th>
-                            </tr> 
-                        </ng-template>
-                        
-                        <ng-template pTemplate="body" let-empresa let-columns="columns"  let-rowIndex="rowIndex"> 
-                            <tr [pSelectableRow]="empresa" [pSelectableRowIndex]="rowIndex">
-                                <td  *ngFor="let col of columns" >
-                                    <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
-                                    <ng-template #botones [ngIf]="col.field === 'acciones'">
-                                        <div class="botones-tabla">
-                                            <button  
+           
+            <div class="card-box"> 
+                <p-table #dt 
+                    [columns]="cols" 
+                    responsiveLayout="scroll"
+                    selectionMode="single"
+                    [scrollable]="true"
+                    [rowHover]="true"
+                    [value]="empresasAsociadas">  
+    
+                    <ng-template pTemplate="header" let-columns >
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{ col.header }} 
+                                <p-sortIcon *ngIf="col.field != 'acciones'"
+                                    [field]="col.field"
+                                    ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order">
+                                </p-sortIcon> 
+                            </th>
+                        </tr> 
+                    </ng-template>
+                    
+                    <ng-template pTemplate="body" let-empresa let-columns="columns"  let-rowIndex="rowIndex"> 
+                        <tr [pSelectableRow]="empresa" [pSelectableRowIndex]="rowIndex">
+                            <td  *ngFor="let col of columns" >
+                                <strong class="p-column-title">{{ col.header | uppercase}}</strong>  {{empresa[col.field]}}  
+                                <ng-template #botones [ngIf]="col.field === 'acciones'">
+                                    <div class="botones-tabla-empresa">
+                                        <button  
                                             pButton (click)="onAcceder(empresa)" 
                                             tooltipPosition="top" 
                                             type="button"
@@ -106,16 +107,16 @@
                                             class="p-button-generico-morado"  #btn type="button"  [disabled]="!empresa.esAdmin"
                                             pButton label="Ajustes" icon="pi pi-cog" (click)="menu.show($event)" 
                                             (click)="onSelectItems(empresa)" >
-                                            </button>
-                                        </div>
-                                        
-                                    </ng-template>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>  
-                </div> 
+                                        </button>
+                                    </div>
+                                    
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>  
             </div> 
+            
           </div>
         </div>
          

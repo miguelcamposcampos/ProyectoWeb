@@ -35,36 +35,37 @@
 </div>
 
 <div *ngIf="modalUbicacion">
-    <p-dialog header="ESTABLECIMIENTO - ALMACÉN PREDETERMINADO" [(visible)]="modalUbicacion" [modal]="true">
+    <p-dialog header="ESTABLECIMIENTO - ALMACÉN PREDETERMINADO" [(visible)]="modalUbicacion" [modal]="true" [style]="{width: '40vw'}">
         <form [formGroup]="Form"> 
             <div class="p-col-12"> 
                 <div class="p-fluid p-formgrid p-grid"> 
                     <div class="p-field p-col-12 md-6">  
                         <strong>Establecimiento:</strong>
-                        <p-dropdown class="extender" appendTo="body" (onChange)="onObtenerEstablecimiento($event)" [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        <p-dropdown appendTo="body" (onChange)="onObtenerEstablecimiento($event)" 
+                        [options]="arrayEstablecimiento" formControlName="establecimientoid"  placeholder="Seleccionar" 
+                         [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div>
                     <div class="p-field p-col-12 md-6">  
                         <strong>Almacén:</strong>
-                        <p-dropdown class="extender" appendTo="body" [options]="arrayAlmacen" formControlName="almacenid"  placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
+                        <p-dropdown appendTo="body" [options]="arrayAlmacen" formControlName="almacenid"  
+                        placeholder="Selecciona "  [showClear]="true"  optionLabel="valor1"></p-dropdown>     
                     </div> 
                 </div> 
             </div> 
              
             <div class="botones">
                 <button  
-                    class="p-button-sm"
+                    class="p-button-registrar"
                     pButton
                     [disabled]="Form.invalid"
-                    label="Grabar"
-                    style="margin-right: 1%;"
+                    label="Grabar" 
                     (click)="onGrabarPredeterminados()"
                     icon="pi pi-check-circle">  
                 </button>  
     
                 <button   
-                    class="p-button-sm"
-                    pButton
-                    style=" background-color: #D72250;"
+                    class="p-button-cancelar"
+                    pButton 
                     icon="pi pi-times-circle"
                     label="Cancelar" 
                     (click)="modalUbicacion = false">  
@@ -76,24 +77,26 @@
 </div>  
 
 <div *ngIf="modalTiketera">
-    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalTiketera" [modal]="true">
+    <p-dialog header="CONFIGURAR IMPRESORA TIKETERA" [(visible)]="modalTiketera" [modal]="true" [style]="{width: '40vw'}">
     <form [formGroup]="FormImpresion">
         <div class="p-col-12"> 
             <div class="p-fluid p-formgrid p-grid"> 
                 <div class="p-field p-col-12 md-6"> 
                     <strong>Host de Impresión:</strong>
                     <div class="p-inputgroup">  
-                        <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm p-inputtext-gris">     
+                        <input  type="text"  pInputText formControlName="hostImpresion" class="p-inputtext-sm-form">     
                         <button class="p-button-sm" type="button" pButton label="Aplicar Host" (click)="onLoadImpresoras()"> </button>    
                     </div> 
                 </div>
                 <div class="p-field p-col-12 md-6"> 
                     <strong>Impresora:</strong>
-                    <p-dropdown class="extender" [disabled]="bloquearComboImpresoras"  appendTo="body" [options]="arrayImpresoras"  formControlName="nombreImpresora"  placeholder="Selecciona"  [showClear]="true"  optionLabel="nombre"></p-dropdown> 
+                    <p-dropdown class="extender" [disabled]="bloquearComboImpresoras"  appendTo="body" 
+                    [options]="arrayImpresoras"  formControlName="nombreImpresora"  placeholder="Selecciona"  
+                    [showClear]="true"  optionLabel="nombre"></p-dropdown> 
                 </div>
                 <div class="p-field p-col-12 md-6"> 
                     <strong>Ancho Papel(puntos)):</strong>
-                    <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm p-inputtext-gris">     
+                    <input  type="text" pInputText [minLength]="1"  formControlName="anchoPapel"  class="p-inputtext-sm-form">     
                 </div>
             </div>
         </div>
@@ -103,21 +106,21 @@
             class="p-button-registrar"
             pButton
             [disabled]="FormImpresion.invalid"
-            label="Grabar"
-            style="margin-right: 1%;"
+            label="Grabar" 
             (click)="onGrabarImpresionPredeterminados()"
             icon="pi pi-check-circle">  
         </button>  
 
         <button   
             class="p-button-cancelar"
-            pButton
-            style=" background-color: #D72250;"
+            pButton 
             icon="pi pi-times-circle"
             label="Cancelar" 
             (click)="modalTiketera = false">  
         </button>  
     </div> 
-    <div class="center"><span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span></div>
+    <div class="center">
+        <span><strong> NOTA:</strong> La impresora debe soportar comandos POS/ESC </span>
+    </div>
     </p-dialog> 
 </div> 

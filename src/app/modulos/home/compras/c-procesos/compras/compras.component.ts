@@ -172,7 +172,7 @@ export class ComprasComponent implements OnInit , OnDestroy{
   }
    
   onRetornar(event : any){
-    if(event === 'exito'){
+    if(event ){
       this.onLoadCompras(null);
     }
     this.VistaNuevaCompra = false;

@@ -87,7 +87,7 @@
                   </div>
 
                   <ng-template #botones [ngIf]="col.field === 'acciones'">
-                    <div class="d-flex">
+                    <div class="botones">
                       <button  class="p-button-generico-azul"  *ngIf="usuario.esAdmin" pButton (click)="onModalChangeRol(usuario)"
                         tooltipPosition="top" pTooltip="Cambiar de Rol" type="button" icon="pi pi-cog">
                       </button>

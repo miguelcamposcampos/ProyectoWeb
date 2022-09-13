@@ -124,7 +124,7 @@ export class TallasComponent implements OnInit {
 
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadTallas();
     }
     

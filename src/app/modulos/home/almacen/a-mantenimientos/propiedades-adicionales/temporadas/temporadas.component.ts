@@ -126,7 +126,7 @@ export class TemporadasComponent implements OnInit {
 
 
   onRetornar(event: any){ 
-    if(event === 'exito'){
+    if(event ){
       this.onLoadTemporada();
     }
     
